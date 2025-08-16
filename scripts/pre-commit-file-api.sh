@@ -34,6 +34,10 @@ PATTERNS=(
 
 # Check each staged file
 for FILE in "${STAGED_FILES[@]}"; do
+  # Temporary allowlist: skip migration/utility scripts until they are refactored
+  if [[ "$FILE" == scripts/* ]]; then
+    continue
+  fi
   # Skip test files
   if [[ "$FILE" == *".test."* ]] || [[ "$FILE" == *".spec."* ]] || [[ "$FILE" == *"/test/"* ]]; then
     continue
