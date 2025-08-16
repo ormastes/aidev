@@ -46,7 +46,8 @@
     "test:all:system:virtual": "./scripts/run-all-tests-with-virtual-environment.sh --type system",
     "test:all:coverage": "./scripts/run-all-tests.sh --coverage",
     "test:all:parallel": "./scripts/run-all-tests.sh --parallel",
-    "test:all:ci": "./scripts/run-all-tests-with-virtual-environment.sh --coverage --fail-fast"
+    "test:all:ci": "./scripts/run-all-tests-with-virtual-environment.sh --coverage --fail-fast",
+    "test:help": "./scripts/test-runner-help.sh"
   },
   "keywords": [],
   "author": "",

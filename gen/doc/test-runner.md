@@ -180,8 +180,8 @@ Test reports are generated in: `gen/doc/test-reports/`
 ### GitHub Actions Example
 
 ```yaml
-- name: Run Theme Tests
-  run: bun run test:themes:ci
+- name: Run All Tests
+  run: bun run test:all:ci
 ```
 
 ### GitLab CI Example
@@ -189,7 +189,7 @@ Test reports are generated in: `gen/doc/test-reports/`
 ```yaml
 test:
   script:
-    - bun run test:themes:safe
+    - bun run test:all:safe
   coverage: '/Lines\s*:\s*(\d+\.\d+)%/'
 ```
 

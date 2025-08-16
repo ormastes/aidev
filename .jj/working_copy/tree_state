@@ -1024,11 +1024,11 @@ Agen/doc/retrospect/envgenerator-tokenservice-integration-tests.md
 &gen/doc/test-reorganization-summary.md
 •òºŒ‹3´3>
 0gen/doc/test-reports/test-run-20250816_063532.md
-®âÜŒ‹3ë/
+®âÜŒ‹3ë$
+gen/doc/test-runner.md
+Ç»ñŒ‹3á+/
 !gen/doc/theme-migration-report.md
-‘¶İŠ3°*
-gen/doc/theme-test-runner.md
-œøğŒ‹3é+M
+‘¶İŠ3°M
 ?gen/history/retrospect/setup-folder-container-implementation.md
 ¹£–Š3İ=H
 :gen/history/retrospect/story-reporter-update-retrospect.md
@@ -29887,7 +29887,7 @@ Inode_modules/yup/node_modules/type-fest/source/union-to-intersection.d.ts
  
 package-lock.jsonéÂ‡òŠ3´±
 package.json
-™ªïŒ‹3÷"
+•ÁôŒ‹3©#
 pyproject.toml
 œ™Å¶‰3Ù.
  scripts/FRAUD_CHECK_MIGRATION.md
@@ -30724,6 +30724,7 @@ $scripts/restore-and-refactor-docs.jsÁƒ¿ŞŠ3ö‚,
 Å÷ø‰‹3¶60
 "scripts/test-fraud-checker-skip.js
 ‡¦ò‰‹3È8+
+scripts/test-runner-help.shåçóŒ‹3Í+
 scripts/test-scripts/simple.py	ìÈãˆ‹3[+
 scripts/test-scripts/simple.sh	ìÈãˆ‹3G+
 scripts/test-scripts/simple.ts	ìÈãˆ‹3u5
@@ -30734,4 +30735,4 @@ $scripts/restore-and-refactor-docs.jsÁƒ¿ŞŠ3ö‚,
 ¡ï¼ıƒ3•F
 tsconfig.json
 £‹îŒ‹3¦
- *¡d™aÒ£3gã”Ã2Â“c"Š[0
+ *¦S	×—¹ÕÄ}øö”Î,¥ªÙ0
