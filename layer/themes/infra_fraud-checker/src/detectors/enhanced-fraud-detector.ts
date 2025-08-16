@@ -9,6 +9,7 @@
  */
 
 import * as crypto from 'crypto';
+import { JavaScriptSkipChecker } from '../utils/js-skip-patterns';
 
 // Enhanced Types
 export interface ViolationContext {
@@ -135,6 +136,7 @@ export class EnhancedFraudChecker {
   private mlModels: Map<string, any> = new Map();
   private threatIntelligence: Map<string, any> = new Map();
   private cache: Map<string, { result: any; expiry: number }> = new Map();
+  private jsSkipChecker: JavaScriptSkipChecker = new JavaScriptSkipChecker();
 
   constructor(private config?: {
     enableML?: boolean;
@@ -942,5 +944,100 @@ export class EnhancedFraudChecker {
       </body>
       </html>
     `;
+  }
+
+  /**
+   * Check if a JavaScript file should be skipped based on legitimate patterns
+   * @param filePath Path to the JavaScript file
+   * @returns Object with skip decision and reason
+   */
+  public checkJavaScriptFile(filePath: string): {
+    shouldCheck: boolean;
+    reason?: string;
+    category?: string;
+    isLegitimate: boolean;
+  } {
+    // First check if it's a TypeScript file (always check these)
+    if (filePath.endsWith('.ts') || filePath.endsWith('.tsx')) {
+      return {
+        shouldCheck: true,
+        isLegitimate: false,
+        reason: 'TypeScript file should be checked'
+      };
+    }
+
+    // Check against skip patterns
+    const skipResult = this.jsSkipChecker.shouldSkip(filePath);
+    
+    if (skipResult.skip) {
+      return {
+        shouldCheck: false,
+        isLegitimate: true,
+        reason: skipResult.reason || 'Legitimate JavaScript file (see TS_CHECK_SKIP_LIST.md)',
+        category: skipResult.category
+      };
+    }
+
+    // JavaScript file that doesn't match skip patterns should be checked
+    return {
+      shouldCheck: true,
+      isLegitimate: false,
+      reason: 'JavaScript file requires TypeScript migration check'
+    };
+  }
+
+  /**
+   * Analyze a file for fraud patterns with skip list support
+   * @param filePath Path to the file
+   * @param content File content (optional)
+   * @returns Fraud check result or skip notification
+   */
+  public async analyzeFileWithSkipCheck(
+    filePath: string,
+    content?: string
+  ): Promise<EnhancedFraudCheckResult | { skipped: true; reason: string; category?: string }> {
+    // Check if file should be skipped
+    const skipCheck = this.checkJavaScriptFile(filePath);
+    
+    if (!skipCheck.shouldCheck && skipCheck.isLegitimate) {
+      return {
+        skipped: true,
+        reason: skipCheck.reason!,
+        category: skipCheck.category
+      };
+    }
+
+    // If it's a JS file that should be checked, add a warning
+    const context: any = { filePath, content };
+    
+    if (filePath.endsWith('.js') && skipCheck.shouldCheck) {
+      // Add migration warning for non-skipped JS files
+      context.migrationWarning = true;
+      context.warningMessage = 'JavaScript file should be migrated to TypeScript';
+    }
+
+    // Perform regular fraud check
+    return this.performCheck(context);
+  }
+
+  /**
+   * Get skip pattern statistics
+   */
+  public getSkipPatternStats(): Record<string, number> {
+    return this.jsSkipChecker.getStatistics();
+  }
+
+  /**
+   * Add custom skip pattern
+   */
+  public addCustomSkipPattern(pattern: string, reason: string, category: string = 'custom'): void {
+    this.jsSkipChecker.addPattern(pattern, reason, category);
+  }
+
+  /**
+   * Export skip patterns for documentation
+   */
+  public exportSkipPatterns(): string {
+    return this.jsSkipChecker.exportPatterns();
   }
 }

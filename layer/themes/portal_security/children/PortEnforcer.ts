@@ -149,7 +149,7 @@ export class PortEnforcer {
    * Write to security log file
    */
   private async writeSecurityLog(message: string): void {
-    const logDir = path.join(__dirname, '../../logs');
+    const logDir = path.join(process.cwd(), 'gen', 'logs');
     const logFile = path.join(logDir, 'port-security.log');
     
     if (!fs.existsSync(logDir)) {

@@ -2,8 +2,8 @@
   "name": "@aidev/code-enhancer",
   "version": "1.0.0",
   "description": "Code enhancement theme for AI Development Platform",
-  "main": "dist/pipe/index.js",
-  "types": "dist/pipe/index.d.ts",
+  "main": "gen/dist/pipe/index.js",
+  "types": "gen/dist/pipe/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest",

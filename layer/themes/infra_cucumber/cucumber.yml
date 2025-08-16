@@ -1,0 +1,45 @@
+default:
+  require:
+    - --require-module ts-node/register
+    - --require 'layer/themes/**/step_definitions/**/*.steps.ts'
+    - --require 'layer/epics/**/step_definitions/**/*.steps.ts'
+    - --require 'common/step_definitions/**/*.steps.ts'
+  paths:
+    - 'layer/themes/**/features/**/*.feature'
+    - 'layer/epics/**/features/**/*.feature'
+    - 'common/features/**/*.feature'
+  format:
+    - pretty
+    - json:reports/cucumber-report.json
+    - html:reports/cucumber-report.html
+  
+automated:
+  extends: default
+  tags: '@automated and not @manual'
+  
+manual:
+  extends: default
+  tags: '@manual and not @automated'
+  
+system:
+  extends: default
+  tags: '@system'
+  
+all:
+  extends: default
+  tags: ''
+  
+dry-run:
+  extends: default
+  dry-run: true
+  
+parallel:
+  extends: default
+  parallel: 4
+  
+ci:
+  extends: automated
+  format:
+    - json:reports/cucumber-ci-report.json
+    - junit:reports/cucumber-junit.xml
+  quiet: true

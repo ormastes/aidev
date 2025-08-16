@@ -2,14 +2,14 @@
   "name": "@aidev/shared-utils",
   "version": "1.0.0",
   "description": "Shared utilities for AI Development Platform themes",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "gen/dist/index.js",
+  "types": "gen/dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "eslint . --ext .ts",
-    "clean": "rm -rf dist coverage"
+    "clean": "rm -rf gen/dist dist coverage"
   },
   "keywords": [
     "aidev",

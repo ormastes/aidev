@@ -2,7 +2,7 @@
   "name": "@aidev/portal-aiide",
   "version": "1.0.0",
   "description": "AI Integrated Development Environment - Web-based AI-powered development environment",
-  "main": "dist/index.js",
+  "main": "gen/dist/index.js",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -22,7 +22,7 @@
     "type-check": "tsc --noEmit",
     "docker:build": "docker build -t aiide:latest .",
     "docker:run": "docker run -p 3457:3457 -p 5173:5173 --env-file .env aiide:latest",
-    "clean": "rm -rf dist node_modules .parcel-cache",
+    "clean": "rm -rf gen/dist dist node_modules .parcel-cache",
     "analyze": "vite build --mode analyze"
   },
   "dependencies": {

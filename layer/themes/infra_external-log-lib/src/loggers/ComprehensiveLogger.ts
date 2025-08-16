@@ -12,6 +12,7 @@ import { EventLogger, LogEventType, LogEntry, EventLoggerConfig } from './EventL
 import { VfJsonWatcher, VfJsonChange, VfJsonWatcherConfig } from './VfJsonWatcher';
 import { RejectionTracker, Rejection, RejectionType, RejectionTrackerConfig } from './RejectionTracker';
 import { FileViolationPreventer, FileViolationError } from '../validators/FileViolationPreventer';
+import { getDefaultLogDirectory } from '../config/log-config';
 
 export interface ComprehensiveLoggerConfig {
   enabled?: boolean;
@@ -52,7 +53,7 @@ export class ComprehensiveLogger extends EventEmitter {
     this.startTime = new Date();
     
     // Set default configuration
-    const baseLogDir = path.join(os.tmpdir(), 'external-log-lib');
+    const baseLogDir = config?.logDir || getDefaultLogDirectory();
     this.config = {
       enabled: true,
       logDir: baseLogDir,

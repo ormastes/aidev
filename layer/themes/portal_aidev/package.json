@@ -12,7 +12,7 @@
     "test:system": "jest tests/system",
     "build": "tsc",
     "lint": "eslint pipe/**/*.ts children/**/*.ts tests/**/*.ts --ext .ts",
-    "start": "node dist/server.js",
+    "start": "node gen/dist/server.js",
     "dev": "ts-node-dev --respawn src/server.ts"
   },
   "dependencies": {

@@ -1,1 +1,0 @@
-export { useDatabase } from '../providers/DatabaseProvider';

@@ -149,5 +149,18 @@ export function getTestCredentials(role: 'admin' | 'user' | 'moderator' | 'devel
   return provider.getCredentialsByRole(role);
 }
 
+// ============== EMBEDDED APP TESTING ==============
+// Support for testing web applications embedded within other web applications
+export {
+  EmbeddedAppManager,
+  EmbeddedAppConfig,
+  MessageProtocol
+} from '../children/EmbeddedAppManager';
+
+export {
+  EmbeddedAppTester,
+  ManualTestProcedures
+} from '../children/EmbeddedAppTester';
+
 // Default export - Enhanced with web test support
 export default TestAsManualService;

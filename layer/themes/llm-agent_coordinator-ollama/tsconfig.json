@@ -7,7 +7,7 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "outDir": "./dist",
+    "outDir": "./gen/dist",
     "rootDir": "./",
     "strict": false,
     "noImplicitAny": false,

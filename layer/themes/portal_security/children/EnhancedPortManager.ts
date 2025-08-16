@@ -375,7 +375,7 @@ export class EnhancedPortManager {
    * Log security violation
    */
   private async logViolation(port: number, appId: string): void {
-    const logDir = path.join(__dirname, '../../logs');
+    const logDir = path.join(process.cwd(), 'gen', 'logs');
     const logFile = path.join(logDir, 'port-violations.log');
     
     if (!fs.existsSync(logDir)) {

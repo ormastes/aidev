@@ -2,8 +2,8 @@
   "name": "@aidev/mcp_lsp",
   "version": "1.1.1",
   "description": "Multi-instance Language Server Protocol to MCP bridge for TypeScript/JavaScript",
-  "main": "dist/pipe/index.js",
-  "types": "dist/pipe/index.d.ts",
+  "main": "gen/dist/pipe/index.js",
+  "types": "gen/dist/pipe/index.d.ts",
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
@@ -12,7 +12,7 @@
     "test:coverage": "jest --coverage",
     "lint": "eslint . --ext .ts,.tsx",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist coverage",
+    "clean": "rm -rf gen/dist dist coverage",
     "prepublishOnly": "npm run clean && npm run build",
     "setup": "./scripts/setup.sh",
     "verify": "ts-node examples/verify-multi-instance.ts"

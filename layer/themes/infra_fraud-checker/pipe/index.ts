@@ -25,6 +25,16 @@ export { FraudReportGenerator as FraudReportGeneratorNew } from '../src/reporter
 export { ExternalLibraryDetector } from '../children/ExternalLibraryDetector';
 export type { ExternalLibraryViolation } from '../children/ExternalLibraryDetector';
 
+// Export test compliance and security auditing
+export { 
+  TestComplianceChecker,
+  fraudChecker,
+  ComplianceViolation,
+  ComplianceReport
+} from '../children/TestComplianceChecker';
+export { PortSecurityAuditor, PortAuditResult } from '../children/PortSecurityAuditor';
+export { EnvironmentValidator, EnvironmentValidation } from '../children/EnvironmentValidator';
+
 // Export unauthorized file detector
 export { UnauthorizedFileDetector } from '../src/detectors/unauthorized-file-detector';
 export type { UnauthorizedFileViolation, ValidationResult } from '../src/detectors/unauthorized-file-detector';
@@ -50,6 +60,14 @@ export type {
   FraudScore,
   ViolationContext
 } from '../src/detectors/enhanced-fraud-detector';
+
+// Export circular dependency detection
+export { CircularDependencyDetector } from '../src/detectors/circular-dependency-detector';
+export type { CircularDependencyFraudIssue } from '../src/detectors/circular-dependency-detector';
+
+// Export comprehensive fraud analyzer
+export { ComprehensiveFraudAnalyzer } from '../src/services/comprehensive-fraud-analyzer';
+export type { ComprehensiveFraudReport } from '../src/services/comprehensive-fraud-analyzer';
 
 // Re-export wrapper classes for convenience
 import { FraudChecker } from '../children/FraudChecker';

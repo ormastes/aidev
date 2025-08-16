@@ -2,8 +2,8 @@
   "name": "@aidev/init-setup-folder",
   "version": "3.0.0",
   "description": "Comprehensive project setup automation and initialization theme",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "gen/dist/index.js",
+  "types": "gen/dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
@@ -13,13 +13,13 @@
     "setup:qemu": "ts-node src/cli/setup-env.ts qemu",
     "setup:docker": "ts-node src/cli/setup-env.ts docker",
     "setup:uv": "ts-node src/cli/setup-env.ts uv",
-    "setup:theme": "node dist/cli.js theme",
-    "setup:demo": "node dist/cli.js demo",
-    "setup:test": "node dist/cli.js test",
+    "setup:theme": "node gen/dist/cli.js theme",
+    "setup:demo": "node gen/dist/cli.js demo",
+    "setup:test": "node gen/dist/cli.js test",
     "init": "ts-node src/cli/setup-env.ts init",
-    "init:project": "node dist/init.js project",
-    "init:config": "node dist/init.js config",
-    "init:env": "node dist/init.js env"
+    "init:project": "node gen/dist/init.js project",
+    "init:config": "node gen/dist/init.js config",
+    "init:env": "node gen/dist/init.js env"
   },
   "dependencies": {
     "chalk": "^4.1.2",

@@ -4,7 +4,7 @@
     "description": "Registry of all task queues and their parent-child relationships",
     "created_at": "2025-08-15T08:15:00.000Z",
     "updated_at": "2025-08-15T08:14:20.587Z",
-    "total_queues": 43
+    "total_queues": 42
   },
   "root_queue": {
     "path": "/TASK_QUEUE.vf.json",
@@ -21,7 +21,6 @@
       "infra_fraud-checker",
       "infra_python-coverage",
       "infra_python-support",
-      "infra_scripts",
       "infra_story-reporter",
       "infra_test-as-manual",
       "init_build-environment",
@@ -62,7 +61,6 @@
       "/layer/themes/infra_fraud-checker/TASK_QUEUE.vf.json",
       "/layer/themes/infra_python-coverage/TASK_QUEUE.vf.json",
       "/layer/themes/infra_python-support/TASK_QUEUE.vf.json",
-      "/layer/themes/infra_scripts/TASK_QUEUE.vf.json",
       "/layer/themes/infra_story-reporter/TASK_QUEUE.vf.json",
       "/layer/themes/infra_test-as-manual/TASK_QUEUE.vf.json",
       "/layer/themes/init_build-environment/TASK_QUEUE.vf.json",
@@ -233,19 +231,6 @@
         "path": "/layer/themes/infra_python-support/TASK_QUEUE.vf.json",
         "name": "infra_python-support",
         "theme": "infra_python-support",
-        "parentPath": "/TASK_QUEUE.vf.json",
-        "children": [],
-        "childrenPaths": [],
-        "level": 1,
-        "itemCount": 0,
-        "parent": "aidev"
-      }
-    ],
-    "infra_scripts": [
-      {
-        "path": "/layer/themes/infra_scripts/TASK_QUEUE.vf.json",
-        "name": "infra_scripts",
-        "theme": "infra_scripts",
         "parentPath": "/TASK_QUEUE.vf.json",
         "children": [],
         "childrenPaths": [],
@@ -729,13 +714,6 @@
         "path": "/layer/themes/infra_python-support/TASK_QUEUE.vf.json",
         "name": "infra_python-support",
         "theme": "infra_python-support",
-        "items": 0,
-        "children": {}
-      },
-      "infra_scripts": {
-        "path": "/layer/themes/infra_scripts/TASK_QUEUE.vf.json",
-        "name": "infra_scripts",
-        "theme": "infra_scripts",
         "items": 0,
         "children": {}
       },

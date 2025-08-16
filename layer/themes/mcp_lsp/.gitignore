@@ -36,3 +36,5 @@ logs/
 *.tmp
 *.temp
 .cache/
+# Build outputs
+gen/

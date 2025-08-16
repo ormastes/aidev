@@ -90,7 +90,7 @@ export class FileCreationAPI {
     });
     
     this.logger = new ComprehensiveLogger({
-      logDir: path.join(basePath, 'logs'),
+      logDir: path.join(process.cwd(), 'gen', 'logs'),
       appName: 'FileCreationAPI',
       enableConsole: true,
       enableFile: true
@@ -132,7 +132,7 @@ export class FileCreationAPI {
     });
 
     configs.set(FileType.LOG, {
-      baseDir: TYPE_ROUTING_MAP['log'] || 'logs',
+      baseDir: TYPE_ROUTING_MAP['log'] || 'gen/logs',
       allowedExtensions: ['.log', '.txt', '.json'],
       maxSize: 50 * 1024 * 1024 // 50MB
     });
@@ -722,7 +722,7 @@ export class FileCreationAPI {
    * Export audit log to file
    */
   async exportAuditLog(outputPath?: string): Promise<string> {
-    const exportPath = outputPath || path.join(this.basePath, 'logs', `audit-${Date.now()}.json`);
+    const exportPath = outputPath || path.join(this.basePath, 'gen', 'logs', `audit-${Date.now()}.json`);
     const content = JSON.stringify(this.auditLog, null, 2);
     
     await this.createFile(exportPath, content, {

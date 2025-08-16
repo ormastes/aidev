@@ -2,8 +2,8 @@
   "name": "@aidev/infra_fraud-checker",
   "version": "1.0.0",
   "description": "Mock detection for test suites - ensures true Mock-Free Test Oriented Development",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "gen/dist/src/index.js",
+  "types": "gen/dist/src/index.d.ts",
   "bin": {
     "fraud-checker": "dist/src/cli/fraud-checker-cli.js"
   },
@@ -14,7 +14,7 @@
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "lint": "eslint src --ext .ts",
-    "clean": "rm -rf dist fraud-reports",
+    "clean": "rm -rf gen/dist dist fraud-reports",
     "example": "ts-node examples/example.ts",
     "check-unauthorized": "ts-node scripts/check-unauthorized-files.ts",
     "check-unauthorized:report": "ts-node scripts/check-unauthorized-files.ts report",
@@ -32,10 +32,12 @@
   "author": "AI Development Platform",
   "license": "MIT",
   "dependencies": {
+    "@types/minimatch": "^6.0.0",
     "chalk": "^4.1.2",
     "commander": "^9.4.1",
     "glob": "^8.1.0",
-    "inquirer": "^8.2.5"
+    "inquirer": "^8.2.5",
+    "minimatch": "^10.0.3"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",

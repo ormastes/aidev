@@ -25,11 +25,20 @@
         { "name": "NAME_ID.vf.json", "type": "file", "comment": "Name-based entity storage system" },
         { "name": "CLAUDE.md", "type": "file", "comment": "Claude Code configuration and rules" },
         { "name": "config", "type": "directory", "comment": "Configuration files for the project" },
+        { "name": "doc", "type": "directory", "comment": "Documentation root", "children": [
+          { "name": "manual", "type": "directory", "comment": "User manuals and guides" },
+          { "name": "research", "type": "directory", "comment": "Research documents and explorations" }
+        ]},
         { "name": "gen", "type": "directory", "comment": "Code generation outputs", "children": [
-          { "name": "doc", "type": "directory", "required": false, "comment": "Generated documentation" }
+          { "name": "doc", "type": "directory", "required": false, "comment": "Generated documentation" },
+          { "name": "release", "type": "directory", "required": false, "comment": "Release artifacts and deployments" }
         ]},
         { "name": "common", "type": "directory", "comment": "Root-level shared utilities, types, UI components", "children": [
-          { "name": "xlib", "type": "directory", "comment": "External library wrappers (xlib_fs, xlib_http, etc.)" }
+          { "name": "xlib", "type": "directory", "comment": "External library wrappers (xlib_fs, xlib_http, etc.)" },
+          { "name": "utils", "type": "directory", "comment": "Shared utility functions" },
+          { "name": "templates", "type": "directory", "comment": "Template files for code generation" },
+          { "name": "tests", "type": "directory", "comment": "Shared test fixtures and helpers" },
+          { "name": "tests-system", "type": "directory", "comment": "System-wide test suites" }
         ]},
         { "name": "layer", "type": "directory", "comment": "Contains themes and epics for feature organization" },
         { "name": "llm_rules", "type": "directory", "freeze": true, "freeze_message": "LLM rules are generated from templates. Edit templates/llm_rules/ instead", "comment": "Generated LLM rule definitions" },

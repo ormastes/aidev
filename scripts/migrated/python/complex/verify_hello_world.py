@@ -1,0 +1,433 @@
+#!/usr/bin/env python3
+"""
+Migrated from: verify_hello_world.sh
+Auto-generated Python - 2025-08-16T04:57:27.661Z
+"""
+
+import os
+import sys
+import subprocess
+import shutil
+import glob
+from pathlib import Path
+
+def main():
+    # Hello World Verification Script
+    # Tests all hello world implementations with success and failure cases
+    subprocess.run("set -e", shell=True)
+    # Colors
+    subprocess.run("RED='\033[0;31m'", shell=True)
+    subprocess.run("GREEN='\033[0;32m'", shell=True)
+    subprocess.run("YELLOW='\033[1;33m'", shell=True)
+    subprocess.run("BLUE='\033[0;34m'", shell=True)
+    subprocess.run("MAGENTA='\033[0;35m'", shell=True)
+    subprocess.run("NC='\033[0m'", shell=True)
+    # Test tracking
+    subprocess.run("TOTAL_TESTS=0", shell=True)
+    subprocess.run("PASSED_TESTS=0", shell=True)
+    subprocess.run("FAILED_TESTS=0", shell=True)
+    subprocess.run("TEST_DIR="hello_world_tests"", shell=True)
+    subprocess.run("REPORT_FILE="hello_world_test_report.md"", shell=True)
+    # Create test directory
+    Path(""$TEST_DIR"").mkdir(parents=True, exist_ok=True)
+    # Log functions
+    subprocess.run("log() {", shell=True)
+    subprocess.run("case $1 in", shell=True)
+    subprocess.run("INFO) echo -e "${BLUE}[INFO]${NC} $2" ;;", shell=True)
+    subprocess.run("SUCCESS) echo -e "${GREEN}[✓]${NC} $2" ;;", shell=True)
+    subprocess.run("FAIL) echo -e "${RED}[✗]${NC} $2" ;;", shell=True)
+    subprocess.run("WARNING) echo -e "${YELLOW}[!]${NC} $2" ;;", shell=True)
+    subprocess.run("TEST) echo -e "${MAGENTA}[TEST]${NC} $2" ;;", shell=True)
+    subprocess.run("esac", shell=True)
+    subprocess.run("}", shell=True)
+    # Initialize report
+    subprocess.run("init_report() {", shell=True)
+    subprocess.run("cat > "$REPORT_FILE" << EOF", shell=True)
+    # Hello World Test Verification Report
+    subprocess.run("Generated: $(date)", shell=True)
+    # # Test Methodology
+    subprocess.run("Each hello world implementation is tested with:", shell=True)
+    subprocess.run("1. **Success Case**: Verify correct "Hello World" output", shell=True)
+    subprocess.run("2. **Failure Case**: Intentionally break output and verify test catches it", shell=True)
+    subprocess.run("3. **Fix Case**: Restore correct output and verify test passes again", shell=True)
+    # # Test Results
+    subprocess.run("| Configuration | Language | Success Test | Failure Detection | Fix Verification | Status |", shell=True)
+    subprocess.run("|--------------|----------|--------------|-------------------|------------------|--------|", shell=True)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("}", shell=True)
+    # Test function with success/failure verification
+    subprocess.run("test_with_verification() {", shell=True)
+    subprocess.run("local name=$1", shell=True)
+    subprocess.run("local test_cmd=$2", shell=True)
+    subprocess.run("local expected=$3", shell=True)
+    subprocess.run("local file_to_modify=$4", shell=True)
+    subprocess.run("local original_text=$5", shell=True)
+    subprocess.run("local broken_text=$6", shell=True)
+    subprocess.run("((TOTAL_TESTS++))", shell=True)
+    subprocess.run("log TEST "Testing $name"", shell=True)
+    subprocess.run("local success_result="❌"", shell=True)
+    subprocess.run("local failure_result="❌"", shell=True)
+    subprocess.run("local fix_result="❌"", shell=True)
+    subprocess.run("local overall_status="FAIL"", shell=True)
+    # Test 1: Success case
+    subprocess.run("log INFO "Step 1: Testing original hello world (should pass)"", shell=True)
+    subprocess.run("if eval "$test_cmd" 2>/dev/null | grep -q "$expected"; then", shell=True)
+    subprocess.run("log SUCCESS "Original test passes correctly"", shell=True)
+    subprocess.run("success_result="✅"", shell=True)
+    else:
+    subprocess.run("log FAIL "Original test failed"", shell=True)
+    # Test 2: Break it and verify test catches failure
+    if -f "$file_to_modify" :; then
+    subprocess.run("log INFO "Step 2: Breaking hello world (test should fail)"", shell=True)
+    # Backup original
+    shutil.copy2(""$file_to_modify"", ""$file_to_modify.bak"")
+    # Break the output
+    subprocess.run("sed -i "s/$original_text/$broken_text/g" "$file_to_modify" 2>/dev/null || \", shell=True)
+    subprocess.run("sed -i '' "s/$original_text/$broken_text/g" "$file_to_modify" 2>/dev/null", shell=True)
+    subprocess.run("if eval "$test_cmd" 2>/dev/null | grep -q "$expected"; then", shell=True)
+    subprocess.run("log FAIL "Test didn't catch the broken output!"", shell=True)
+    else:
+    subprocess.run("log SUCCESS "Test correctly detected broken output"", shell=True)
+    subprocess.run("failure_result="✅"", shell=True)
+    # Test 3: Fix it and verify test passes again
+    subprocess.run("log INFO "Step 3: Fixing hello world (test should pass again)"", shell=True)
+    # Restore original
+    shutil.move(""$file_to_modify.bak"", ""$file_to_modify"")
+    subprocess.run("if eval "$test_cmd" 2>/dev/null | grep -q "$expected"; then", shell=True)
+    subprocess.run("log SUCCESS "Test passes after fix"", shell=True)
+    subprocess.run("fix_result="✅"", shell=True)
+    else:
+    subprocess.run("log FAIL "Test still fails after fix"", shell=True)
+    else:
+    subprocess.run("log WARNING "File not found for modification: $file_to_modify"", shell=True)
+    # Determine overall status
+    if "$success_result" = "✅" ] && [ "$failure_result" = "✅" ] && [ "$fix_result" = "✅" :; then
+    subprocess.run("overall_status="PASS"", shell=True)
+    subprocess.run("((PASSED_TESTS++))", shell=True)
+    else:
+    subprocess.run("((FAILED_TESTS++))", shell=True)
+    # Add to report
+    print("| $name | ${name##*-} | $success_result | $failure_result | $fix_result | $overall_status |") >> "$REPORT_FILE"
+    subprocess.run("echo", shell=True)
+    subprocess.run("}", shell=True)
+    # Create TypeScript/Node.js hello world
+    subprocess.run("create_typescript_hello() {", shell=True)
+    subprocess.run("local dir="$TEST_DIR/typescript-cli"", shell=True)
+    Path(""$dir"").mkdir(parents=True, exist_ok=True)
+    subprocess.run("cat > "$dir/hello.js" << 'EOF'", shell=True)
+    subprocess.run("console.log("Hello from TypeScript!");", shell=True)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("cat > "$dir/hello.test.js" << 'EOF'", shell=True)
+    subprocess.run("const { execSync } = require('child_process');", shell=True)
+    subprocess.run("test('should output hello message', () => {", shell=True)
+    subprocess.run("const output = execSync('node hello.js', { encoding: 'utf8' });", shell=True)
+    subprocess.run("expect(output).toContain('Hello from TypeScript!');", shell=True)
+    subprocess.run("});", shell=True)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("cat > "$dir/package.json" << 'EOF'", shell=True)
+    subprocess.run("{", shell=True)
+    subprocess.run(""name": "hello-test",", shell=True)
+    subprocess.run(""version": "1.0.0",", shell=True)
+    subprocess.run(""scripts": {", shell=True)
+    subprocess.run(""test": "node hello.js"", shell=True)
+    subprocess.run("}", shell=True)
+    subprocess.run("}", shell=True)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("}", shell=True)
+    # Create Python hello world
+    subprocess.run("create_python_hello() {", shell=True)
+    subprocess.run("local dir="$TEST_DIR/python-cli"", shell=True)
+    Path(""$dir"").mkdir(parents=True, exist_ok=True)
+    subprocess.run("cat > "$dir/hello.py" << 'EOF'", shell=True)
+    subprocess.run("print("Hello from Python!")", shell=True)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("chmod +x "$dir/hello.py"", shell=True)
+    subprocess.run("cat > "$dir/test_hello.py" << 'EOF'", shell=True)
+    subprocess.run("import subprocess", shell=True)
+    subprocess.run("import sys", shell=True)
+    subprocess.run("def test_hello():", shell=True)
+    subprocess.run("result = subprocess.run([sys.executable, 'hello.py'], capture_output=True, text=True)", shell=True)
+    subprocess.run("assert "Hello from Python!" in result.stdout", shell=True)
+    subprocess.run("if __name__ == "__main__":", shell=True)
+    subprocess.run("test_hello()", shell=True)
+    subprocess.run("print("Test passed!")", shell=True)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("}", shell=True)
+    # Create C++ hello world
+    subprocess.run("create_cpp_hello() {", shell=True)
+    subprocess.run("local dir="$TEST_DIR/cpp-cli"", shell=True)
+    Path(""$dir"").mkdir(parents=True, exist_ok=True)
+    subprocess.run("cat > "$dir/hello.cpp" << 'EOF'", shell=True)
+    # include <iostream>
+    subprocess.run("int main() {", shell=True)
+    subprocess.run("std::cout << "Hello from C++!" << std::endl;", shell=True)
+    subprocess.run("return 0;", shell=True)
+    subprocess.run("}", shell=True)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("cat > "$dir/Makefile" << 'EOF'", shell=True)
+    subprocess.run("all:", shell=True)
+    subprocess.run("g++ -o hello hello.cpp", shell=True)
+    subprocess.run("test: all", shell=True)
+    subprocess.run("./hello | grep "Hello from C++"", shell=True)
+    subprocess.run("clean:", shell=True)
+    subprocess.run("rm -f hello", shell=True)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("cat > "$dir/test.sh" << 'EOF'", shell=True)
+    subprocess.run("make clean && make", shell=True)
+    subprocess.run("output=$(./hello)", shell=True)
+    subprocess.run("if echo "$output" | grep -q "Hello from C++"; then", shell=True)
+    print("Test passed!")
+    sys.exit(0)
+    else:
+    print("Test failed!")
+    sys.exit(1)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("chmod +x "$dir/test.sh"", shell=True)
+    subprocess.run("}", shell=True)
+    # Create Express/TypeScript server hello world
+    subprocess.run("create_express_hello() {", shell=True)
+    subprocess.run("local dir="$TEST_DIR/express-server"", shell=True)
+    Path(""$dir"").mkdir(parents=True, exist_ok=True)
+    subprocess.run("cat > "$dir/server.js" << 'EOF'", shell=True)
+    subprocess.run("const http = require('http');", shell=True)
+    subprocess.run("const server = http.createServer((req, res) => {", shell=True)
+    subprocess.run("res.writeHead(200, {'Content-Type': 'text/plain'});", shell=True)
+    subprocess.run("res.end('Hello from Express Server!\n');", shell=True)
+    subprocess.run("});", shell=True)
+    subprocess.run("const port = process.env.PORT || 3000;", shell=True)
+    subprocess.run("server.listen(port, () => {", shell=True)
+    subprocess.run("console.log(`Server running on port ${port}`);", shell=True)
+    subprocess.run("});", shell=True)
+    subprocess.run("// For testing", shell=True)
+    subprocess.run("if (require.main === module) {", shell=True)
+    subprocess.run("setTimeout(() => {", shell=True)
+    subprocess.run("server.close();", shell=True)
+    subprocess.run("process.exit(0);", shell=True)
+    subprocess.run("}, 1000);", shell=True)
+    subprocess.run("}", shell=True)
+    subprocess.run("module.exports = server;", shell=True)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("cat > "$dir/test.js" << 'EOF'", shell=True)
+    subprocess.run("const http = require('http');", shell=True)
+    subprocess.run("http.get('http://localhost:3000', (res) => {", shell=True)
+    subprocess.run("let data = '';", shell=True)
+    subprocess.run("res.on('data', chunk => { data += chunk; });", shell=True)
+    subprocess.run("res.on('end', () => {", shell=True)
+    subprocess.run("if (data.includes('Hello from Express Server!')) {", shell=True)
+    subprocess.run("console.log('Test passed!');", shell=True)
+    subprocess.run("process.exit(0);", shell=True)
+    subprocess.run("} else {", shell=True)
+    subprocess.run("console.log('Test failed!');", shell=True)
+    subprocess.run("process.exit(1);", shell=True)
+    subprocess.run("}", shell=True)
+    subprocess.run("});", shell=True)
+    subprocess.run("});", shell=True)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("}", shell=True)
+    # Create Flask/Python server hello world
+    subprocess.run("create_flask_hello() {", shell=True)
+    subprocess.run("local dir="$TEST_DIR/flask-server"", shell=True)
+    Path(""$dir"").mkdir(parents=True, exist_ok=True)
+    subprocess.run("cat > "$dir/app.py" << 'EOF'", shell=True)
+    subprocess.run("from flask import Flask", shell=True)
+    subprocess.run("app = Flask(__name__)", shell=True)
+    subprocess.run("@app.route('/')", shell=True)
+    subprocess.run("def hello():", shell=True)
+    subprocess.run("return "Hello from Flask Server!\n"", shell=True)
+    subprocess.run("if __name__ == '__main__':", shell=True)
+    subprocess.run("app.run(port=5000, debug=False)", shell=True)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("cat > "$dir/test.py" << 'EOF'", shell=True)
+    subprocess.run("import requests", shell=True)
+    subprocess.run("import subprocess", shell=True)
+    subprocess.run("import time", shell=True)
+    subprocess.run("import sys", shell=True)
+    # Start server
+    subprocess.run("server = subprocess.Popen([sys.executable, 'app.py'])", shell=True)
+    subprocess.run("time.sleep(2)", shell=True)
+    subprocess.run("try:", shell=True)
+    subprocess.run("response = requests.get('http://localhost:5000')", shell=True)
+    subprocess.run("if "Hello from Flask Server!" in response.text:", shell=True)
+    subprocess.run("print("Test passed!")", shell=True)
+    subprocess.run("else:", shell=True)
+    subprocess.run("print("Test failed!")", shell=True)
+    subprocess.run("finally:", shell=True)
+    subprocess.run("server.terminate()", shell=True)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("}", shell=True)
+    # Create React component hello world
+    subprocess.run("create_react_hello() {", shell=True)
+    subprocess.run("local dir="$TEST_DIR/react-component"", shell=True)
+    Path(""$dir"").mkdir(parents=True, exist_ok=True)
+    subprocess.run("cat > "$dir/Hello.jsx" << 'EOF'", shell=True)
+    subprocess.run("import React from 'react';", shell=True)
+    subprocess.run("const Hello = () => {", shell=True)
+    subprocess.run("return <div>Hello from React!</div>;", shell=True)
+    subprocess.run("};", shell=True)
+    subprocess.run("export default Hello;", shell=True)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("cat > "$dir/Hello.test.jsx" << 'EOF'", shell=True)
+    subprocess.run("import React from 'react';", shell=True)
+    subprocess.run("import { render, screen } from '@testing-library/react';", shell=True)
+    subprocess.run("import Hello from './Hello';", shell=True)
+    subprocess.run("test('renders hello message', () => {", shell=True)
+    subprocess.run("render(<Hello />);", shell=True)
+    subprocess.run("const element = screen.getByText(/Hello from React!/i);", shell=True)
+    subprocess.run("expect(element).toBeInTheDocument();", shell=True)
+    subprocess.run("});", shell=True)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("}", shell=True)
+    # Create Docker hello world
+    subprocess.run("create_docker_hello() {", shell=True)
+    subprocess.run("local dir="$TEST_DIR/docker-app"", shell=True)
+    Path(""$dir"").mkdir(parents=True, exist_ok=True)
+    subprocess.run("cat > "$dir/app.js" << 'EOF'", shell=True)
+    subprocess.run("console.log("Hello from Docker!");", shell=True)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("cat > "$dir/Dockerfile" << 'EOF'", shell=True)
+    subprocess.run("FROM node:18-alpine", shell=True)
+    subprocess.run("WORKDIR /app", shell=True)
+    subprocess.run("COPY app.js .", shell=True)
+    subprocess.run("CMD ["node", "app.js"]", shell=True)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("cat > "$dir/test.sh" << 'EOF'", shell=True)
+    subprocess.run("docker build -t hello-docker . 2>/dev/null", shell=True)
+    subprocess.run("output=$(docker run --rm hello-docker 2>/dev/null)", shell=True)
+    subprocess.run("if echo "$output" | grep -q "Hello from Docker!"; then", shell=True)
+    print("Test passed!")
+    sys.exit(0)
+    else:
+    print("Test failed!")
+    sys.exit(1)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("chmod +x "$dir/test.sh"", shell=True)
+    subprocess.run("}", shell=True)
+    # Create Bash CLI hello world
+    subprocess.run("create_bash_hello() {", shell=True)
+    subprocess.run("local dir="$TEST_DIR/bash-cli"", shell=True)
+    Path(""$dir"").mkdir(parents=True, exist_ok=True)
+    subprocess.run("cat > "$dir/hello.sh" << 'EOF'", shell=True)
+    print("Hello from Bash!")
+    subprocess.run("EOF", shell=True)
+    subprocess.run("chmod +x "$dir/hello.sh"", shell=True)
+    subprocess.run("cat > "$dir/test.sh" << 'EOF'", shell=True)
+    subprocess.run("output=$(./hello.sh)", shell=True)
+    subprocess.run("if echo "$output" | grep -q "Hello from Bash!"; then", shell=True)
+    print("Test passed!")
+    sys.exit(0)
+    else:
+    print("Test failed!")
+    sys.exit(1)
+    subprocess.run("EOF", shell=True)
+    subprocess.run("chmod +x "$dir/test.sh"", shell=True)
+    subprocess.run("}", shell=True)
+    # Main test execution
+    subprocess.run("main() {", shell=True)
+    subprocess.run("log INFO "Starting Hello World Verification Tests"", shell=True)
+    subprocess.run("log INFO "======================================="", shell=True)
+    subprocess.run("init_report", shell=True)
+    # Create all hello world samples
+    subprocess.run("log INFO "Creating hello world samples..."", shell=True)
+    subprocess.run("create_typescript_hello", shell=True)
+    subprocess.run("create_python_hello", shell=True)
+    subprocess.run("create_cpp_hello", shell=True)
+    subprocess.run("create_express_hello", shell=True)
+    subprocess.run("create_flask_hello", shell=True)
+    subprocess.run("create_react_hello", shell=True)
+    subprocess.run("create_docker_hello", shell=True)
+    subprocess.run("create_bash_hello", shell=True)
+    # Test each implementation with verification
+    subprocess.run("log INFO "Running verification tests..."", shell=True)
+    subprocess.run("echo", shell=True)
+    # TypeScript CLI
+    subprocess.run("test_with_verification \", shell=True)
+    subprocess.run(""TypeScript-CLI" \", shell=True)
+    subprocess.run(""cd $TEST_DIR/typescript-cli && node hello.js" \", shell=True)
+    subprocess.run(""Hello from TypeScript" \", shell=True)
+    subprocess.run(""$TEST_DIR/typescript-cli/hello.js" \", shell=True)
+    subprocess.run(""Hello from TypeScript!" \", shell=True)
+    subprocess.run(""Goodbye from TypeScript!"", shell=True)
+    # Python CLI
+    subprocess.run("test_with_verification \", shell=True)
+    subprocess.run(""Python-CLI" \", shell=True)
+    subprocess.run(""cd $TEST_DIR/python-cli && python3 hello.py" \", shell=True)
+    subprocess.run(""Hello from Python" \", shell=True)
+    subprocess.run(""$TEST_DIR/python-cli/hello.py" \", shell=True)
+    subprocess.run(""Hello from Python!" \", shell=True)
+    subprocess.run(""Goodbye from Python!"", shell=True)
+    # C++ CLI
+    subprocess.run("test_with_verification \", shell=True)
+    subprocess.run(""C++-CLI" \", shell=True)
+    subprocess.run(""cd $TEST_DIR/cpp-cli && make clean >/dev/null 2>&1 && make >/dev/null 2>&1 && ./hello" \", shell=True)
+    subprocess.run(""Hello from C++" \", shell=True)
+    subprocess.run(""$TEST_DIR/cpp-cli/hello.cpp" \", shell=True)
+    subprocess.run(""Hello from C++!" \", shell=True)
+    subprocess.run(""Goodbye from C++!"", shell=True)
+    # Bash CLI
+    subprocess.run("test_with_verification \", shell=True)
+    subprocess.run(""Bash-CLI" \", shell=True)
+    subprocess.run(""cd $TEST_DIR/bash-cli && ./hello.sh" \", shell=True)
+    subprocess.run(""Hello from Bash" \", shell=True)
+    subprocess.run(""$TEST_DIR/bash-cli/hello.sh" \", shell=True)
+    subprocess.run(""Hello from Bash!" \", shell=True)
+    subprocess.run(""Goodbye from Bash!"", shell=True)
+    # Docker (if available)
+    subprocess.run("if command -v docker &> /dev/null; then", shell=True)
+    subprocess.run("test_with_verification \", shell=True)
+    subprocess.run(""Docker-App" \", shell=True)
+    subprocess.run(""cd $TEST_DIR/docker-app && ./test.sh" \", shell=True)
+    subprocess.run(""Test passed" \", shell=True)
+    subprocess.run(""$TEST_DIR/docker-app/app.js" \", shell=True)
+    subprocess.run(""Hello from Docker!" \", shell=True)
+    subprocess.run(""Goodbye from Docker!"", shell=True)
+    else:
+    subprocess.run("log WARNING "Docker not available, skipping Docker tests"", shell=True)
+    # Generate summary
+    print(">> ")$REPORT_FILE"
+    print("## Summary") >> "$REPORT_FILE"
+    print(">> ")$REPORT_FILE"
+    print("- **Total Tests**: $TOTAL_TESTS") >> "$REPORT_FILE"
+    print("- **Passed**: $PASSED_TESTS") >> "$REPORT_FILE"
+    print("- **Failed**: $FAILED_TESTS") >> "$REPORT_FILE"
+    print("- **Success Rate**: $(( PASSED_TESTS * 100 / TOTAL_TESTS ))%") >> "$REPORT_FILE"
+    print(">> ")$REPORT_FILE"
+    # Add test methodology details
+    subprocess.run("cat >> "$REPORT_FILE" << 'EOF'", shell=True)
+    # # Test Verification Details
+    # ## What Each Test Verifies
+    subprocess.run("1. **Success Test** (✅): The original hello world outputs the correct message", shell=True)
+    subprocess.run("2. **Failure Detection** (✅): When we break the output, the test correctly fails", shell=True)
+    subprocess.run("3. **Fix Verification** (✅): After restoring the correct output, the test passes again", shell=True)
+    # ## Why This Matters
+    subprocess.run("This three-step verification ensures that:", shell=True)
+    subprocess.run("- The hello world implementation actually works", shell=True)
+    subprocess.run("- The test suite can detect when it's broken", shell=True)
+    subprocess.run("- The test suite confirms when it's fixed", shell=True)
+    subprocess.run("A configuration only gets a PASS status if all three checks succeed.", shell=True)
+    # # Detailed Test Logs
+    subprocess.run("The full test execution details are available in the console output above.", shell=True)
+    subprocess.run("Each test shows the three steps:", shell=True)
+    subprocess.run("1. Original test (should pass)", shell=True)
+    subprocess.run("2. Broken test (should fail)", shell=True)
+    subprocess.run("3. Fixed test (should pass)", shell=True)
+    subprocess.run("EOF", shell=True)
+    # Display results
+    subprocess.run("echo", shell=True)
+    subprocess.run("log INFO "==============================================="", shell=True)
+    subprocess.run("log INFO "Test Results Summary"", shell=True)
+    subprocess.run("log INFO "==============================================="", shell=True)
+    print("-e ")${BLUE}Total Tests:${NC} $TOTAL_TESTS"
+    print("-e ")${GREEN}Passed:${NC} $PASSED_TESTS"
+    print("-e ")${RED}Failed:${NC} $FAILED_TESTS"
+    print("-e ")${YELLOW}Success Rate:${NC} $(( PASSED_TESTS * 100 / TOTAL_TESTS ))%"
+    subprocess.run("echo", shell=True)
+    subprocess.run("log INFO "Detailed report saved to: $REPORT_FILE"", shell=True)
+    subprocess.run("log INFO "Test samples created in: $TEST_DIR/"", shell=True)
+    # Exit with appropriate code
+    subprocess.run("[ $FAILED_TESTS -eq 0 ] && exit 0 || exit 1", shell=True)
+    subprocess.run("}", shell=True)
+    # Run main function
+    subprocess.run("main "$@"", shell=True)
+
+if __name__ == "__main__":
+    main()

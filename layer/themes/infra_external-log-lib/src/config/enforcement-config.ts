@@ -99,7 +99,7 @@ export const TYPE_ROUTING_MAP: Record<string, string> = {
   'report': 'gen/reports',
   'temp': 'temp',
   'temporary': 'temp',
-  'log': 'logs',
+  'log': 'gen/logs',
   'data': 'data',
   'cache': 'data/cache',
   'config': 'config',

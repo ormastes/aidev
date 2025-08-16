@@ -263,7 +263,7 @@ export class MCPIntegratedFileManager {
       [FileType.DOCUMENT]: ['gen/doc', 'docs', 'layer/themes/*/docs'],
       [FileType.REPORT]: ['gen/doc', 'gen/history/retrospect'],
       [FileType.TEMPORARY]: ['temp', '*/temp'],
-      [FileType.LOG]: ['logs', '*/logs'],
+      [FileType.LOG]: ['gen/logs', '*/logs'],
       [FileType.DATA]: ['data', '*/data'],
       [FileType.CONFIG]: ['config', '*/config'],
       [FileType.TEST]: ['test', 'tests', '*/tests', '*/test'],

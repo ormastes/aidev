@@ -73,3 +73,19 @@ export {
 export {
   TestSuiteManager
 } from '../user-stories/007-story-reporter/src/external/test-suite-manager';
+
+// Export circular dependency detection functionality
+export {
+  CircularDependencyService,
+  CircularDependencyReport
+} from '../src/services/circular-dependency';
+
+export {
+  DependencyGraph,
+  TypeScriptAnalyzer,
+  DependencyNode,
+  DependencyEdge,
+  CircularDependency,
+  AnalysisResult,
+  AnalysisOptions
+} from '../src/services/circular-dependency';

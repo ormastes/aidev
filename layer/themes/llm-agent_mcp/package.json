@@ -2,8 +2,8 @@
   "name": "@llm-agent/mcp",
   "version": "1.0.0",
   "description": "Unified Model Context Protocol for LLM agents",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "gen/dist/index.js",
+  "types": "gen/dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
@@ -11,8 +11,8 @@
     "test:unit": "jest --testPathPattern=unit",
     "test:integration": "jest --testPathPattern=integration",
     "test:system": "jest --testPathPattern=system",
-    "start": "node dist/index.js",
-    "clean": "rm -rf dist"
+    "start": "node gen/dist/index.js",
+    "clean": "rm -rf gen/dist dist"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^0.6.2",

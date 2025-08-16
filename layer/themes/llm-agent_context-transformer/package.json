@@ -2,15 +2,15 @@
   "name": "@aidev/llm-agent-context-transformer",
   "version": "1.0.0",
   "description": "Context optimization and transformation for LLM agents",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "gen/dist/index.js",
+  "types": "gen/dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "lint": "eslint src/**/*.ts",
-    "clean": "rm -rf dist coverage"
+    "clean": "rm -rf gen/dist dist coverage"
   },
   "keywords": [
     "llm",

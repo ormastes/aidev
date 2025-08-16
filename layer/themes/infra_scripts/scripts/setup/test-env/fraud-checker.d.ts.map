@@ -1,1 +1,0 @@
-{"version":3,"file":"fraud-checker.d.ts","sourceRoot":"","sources":["fraud-checker.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,iBAAiB,EAAkB,MAAM,SAAS,CAAC;AAI5D,qBAAa,YAAY;IACvB,OAAO,CAAC,QAAQ,CAWd;IAEI,KAAK,CAAC,WAAW,EAAE,GAAG,GAAG,OAAO,CAAC,iBAAiB,CAAC;YAkB3C,gBAAgB;YAgChB,WAAW;IAkGzB,OAAO,CAAC,aAAa;IAMrB,OAAO,CAAC,cAAc;CAiBvB"}

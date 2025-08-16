@@ -9,7 +9,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
-    "clean": "rm -rf dist coverage *.js *.d.ts *.js.map *.d.ts.map children/*.js children/*.d.ts pipe/*.js pipe/*.d.ts",
+    "clean": "rm -rf gen/dist dist coverage *.js *.d.ts *.js.map *.d.ts.map children/*.js children/*.d.ts pipe/*.js pipe/*.d.ts",
     "prepare": "npm run build"
   },
   "keywords": [

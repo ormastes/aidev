@@ -14,6 +14,7 @@ import * as path from 'path';
 import * as os from 'os';
 import { EventEmitter } from 'events';
 import { getFileAPI, FileType } from '../../pipe';
+import { getDefaultLogDirectory } from '../config/log-config';
 import {
   extractTaskEssentials,
   extractFeatureEssentials,
@@ -110,7 +111,7 @@ export class EventLogger extends EventEmitter {
     
     // Set default configuration
     this.config = {
-      logDir: path.join(os.tmpdir(), 'external-log-lib', 'logs'),
+      logDir: config?.logDir || getDefaultLogDirectory(),
       maxFileSize: 10 * 1024 * 1024, // 10MB
       maxFiles: 10,
       rotationInterval: 'daily',
