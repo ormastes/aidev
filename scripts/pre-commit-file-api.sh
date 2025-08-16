@@ -5,10 +5,13 @@
 
 echo "🔍 Checking for direct file system access violations..."
 
-# Get list of staged TypeScript/JavaScript files
-STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx|js|jsx)$')
+# Fail fast on script errors (but allow pattern greps to fail silently via || echo 0 paths below)
+set -o errexit -o nounset -o pipefail
 
-if [ -z "$STAGED_FILES" ]; then
+# Get list of staged TypeScript/JavaScript files (ACM = Added, Copied, Modified)
+mapfile -t STAGED_FILES < <(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx|js|jsx)$' || true)
+
+if [ ${#STAGED_FILES[@]} -eq 0 ]; then
   echo "✅ No JavaScript/TypeScript files to check"
   exit 0
 fi
@@ -30,7 +33,7 @@ PATTERNS=(
 )
 
 # Check each staged file
-for FILE in $STAGED_FILES; do
+for FILE in "${STAGED_FILES[@]}"; do
   # Skip test files
   if [[ "$FILE" == *".test."* ]] || [[ "$FILE" == *".spec."* ]] || [[ "$FILE" == *"/test/"* ]]; then
     continue
@@ -46,8 +49,11 @@ for FILE in $STAGED_FILES; do
   # Check for violations
   FILE_VIOLATIONS=0
   for PATTERN in "${PATTERNS[@]}"; do
-    COUNT=$(grep -c "$PATTERN" "$FILE" 2>/dev/null || echo 0)
-    if [ "$COUNT" -gt 0 ]; then
+    # Use grep -E -c (extended regex) explicitly; ensure only digits kept
+    COUNT=$(grep -E -c -- "$PATTERN" "$FILE" 2>/dev/null || echo 0)
+    # Strip any non-digit chars defensively (avoids [ int errors)
+    COUNT=${COUNT//[^0-9]/}
+    if [[ -n "$COUNT" && "$COUNT" -gt 0 ]]; then
       FILE_VIOLATIONS=$((FILE_VIOLATIONS + COUNT))
     fi
   done
