@@ -30065,11 +30065,9 @@ $scripts/convert-stest-to-cucumber.ts²ìİˆ‹3©d1
 scripts/init-file-api.js
 «ã»ÜŠ3«,
 scripts/install-git-hooks.shŒÔîŠ3õ
-6
-(scripts/jj-commit-with-file-api-check.sh
-ˆû­‹‹3•+
-scripts/lib/file_api_check.sh
-Û×§‹‹3²2
+8
+(scripts/jj-commit-with-file-api-check.shâ¯‹‹3•-
+scripts/lib/file_api_check.shÎ•¯‹‹3²2
 "scripts/merge-security-to-theme.shÓš…‹3Ÿ,+
 scripts/migrate-all-themes.js
 êÁÚİŠ3„V*
@@ -30812,7 +30810,7 @@ Ascripts/migrated/typescript/complex/test-hello-add-integration.ts
 scripts/ollama/ollama_clean.py…úîŠ3‹E0
  scripts/ollama/ollama_manager.py‚úîŠ3õE0
  scripts/ollama/ollama_wrapper.pyƒúîŠ3«H.
-scripts/pre-commit-file-api.shµù«‹‹3Ä5
+scripts/pre-commit-file-api.shÏ©¯‹‹3Ä5
 %scripts/pre-commit-test-validation.shä¹„‹3ë5
 $scripts/restore-and-refactor-docs.jsÁƒ¿ŞŠ3ö‚,
 scripts/rollback-violations.js
@@ -30856,4 +30854,4 @@ $scripts/restore-and-refactor-docs.jsÁƒ¿ŞŠ3ö‚,
 &scripts/validate-test-effectiveness.jsıã¹„‹3ÍX
 tsconfig.json
 åšŠ†‹3ô
- *ÿXÆØ	Ú”Ç}Åš©»÷0
+ *ÑrV<¤yêR½[®MŞQrîù0
