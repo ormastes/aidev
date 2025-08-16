@@ -4,7 +4,7 @@
  */
 
 import { TokenService, TokenPayload } from '../../children/TokenService';
-import { UserRole } from '../../common/types/User';
+import { UserRole } from '.././User';
 import * as jwt from 'jsonwebtoken';
 
 describe('TokenService', () => {

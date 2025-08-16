@@ -4,7 +4,7 @@ import { TestSuiteManager } from '../../src/external/test-suite-manager';
 import { TestConfiguration, validateTestConfiguration } from '../../src/domain/test-configuration';
 import { ReportConfig, validateReportConfig } from '../../src/domain/report-config';
 import { MockExternalLogger } from '../../src/internal/mock-external-logger';
-import { ErrorHandler } from '../../src/common/error-handler';
+import { ErrorHandler } from '../../s../utils/error-handler';
 import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
 import { join } from 'path';
 

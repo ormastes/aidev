@@ -8,7 +8,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { CredentialStore, StoredCredential, CredentialType } from './CredentialStore';
 import { AuthService } from './AuthService';
 import { AuditLogger } from './AuditLogger';
-import { UserRole } from '../common/types/User';
+import { UserRole } from './User';
 
 export interface CredentialRequest {
   type: CredentialType;

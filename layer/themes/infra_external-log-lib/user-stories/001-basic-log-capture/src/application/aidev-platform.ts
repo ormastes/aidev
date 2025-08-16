@@ -85,7 +85,7 @@ export class AIDevPlatform implements IAIDevPlatform {
     this.processManager = new ProcessManager();
   }
 
-  startLogCapture(config: ProcessConfig): LogCaptureSession {
+  async startLogCapture(config: ProcessConfig): Promise<LogCaptureSession> {
     const session = new LogCaptureSession(config, this.processManager);
     
     // Create a ProcessHandle that wraps the existing process from the session

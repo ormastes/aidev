@@ -5,8 +5,8 @@
  */
 
 import * as bcrypt from 'bcrypt';
-import { User, UserRole } from '../common/types/User';
-import { SecurityConstants } from '../common/constants/security';
+import { User, UserRole } from './User';
+import { SecurityConstants } from './security';
 import { CredentialStore } from './CredentialStore';
 import { TokenService } from './TokenService';
 import { SessionManager } from './SessionManager';

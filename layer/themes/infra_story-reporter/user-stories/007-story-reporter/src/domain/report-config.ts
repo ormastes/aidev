@@ -4,7 +4,7 @@ import {
   validateBoolean,
   validateNestedObject,
   ErrorPrefixes
-} from '../common/validation-utils';
+} from '../utils/validation-utils';
 
 /**
  * Report Configuration interface

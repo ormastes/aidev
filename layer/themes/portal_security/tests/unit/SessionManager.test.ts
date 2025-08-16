@@ -4,7 +4,7 @@
  */
 
 import { SessionManager, Session, SessionStore } from '../../children/SessionManager';
-import { UserRole } from '../../common/types/User';
+import { UserRole } from '.././User';
 
 describe('SessionManager', () => {
   let sessionManager: SessionManager;

@@ -1,5 +1,5 @@
 import { validateTestResult, createDefaultTestResult, TestResult } from '../../src/domain/test-result';
-import { ErrorPrefixes } from '../../src/common/validation-utils';
+import { ErrorPrefixes } from '../../s../utils/validation-utils';
 
 describe('Test Result Validation Edge Cases Unit Tests', () => {
   describe('validateTestResult - Input Type Edge Cases', () => {

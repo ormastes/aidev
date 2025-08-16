@@ -7,7 +7,7 @@ import {
   validateArray,
   validateNestedObject,
   ErrorPrefixes
-} from '../common/validation-utils';
+} from '../utils/validation-utils';
 
 /**
  * Test Result interface for Mock Free Test Oriented Development Test Runner

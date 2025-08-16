@@ -7,7 +7,7 @@ import { SecurityMiddlewareSuite } from '../../children/SecurityMiddlewareSuite'
 import { AuthService } from '../../children/AuthService';
 import { SessionManager } from '../../children/SessionManager';
 import { AuditLogger } from '../../children/AuditLogger';
-import { UserRole } from '../../common/types/User';
+import { UserRole } from '.././User';
 import * as express from 'express';
 import * as request from 'supertest';
 import { path } from '../../../infra_external-log-lib/src';

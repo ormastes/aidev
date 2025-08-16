@@ -1,5 +1,5 @@
 import { validateTestConfiguration, createDefaultTestConfiguration } from '../../src/domain/test-configuration';
-import { ErrorPrefixes } from '../../src/common/validation-utils';
+import { ErrorPrefixes } from '../../s../utils/validation-utils';
 
 describe('Test Configuration Validation Unit Tests', () => {
   describe('validateTestConfiguration - Error Paths', () => {

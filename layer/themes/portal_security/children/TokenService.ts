@@ -5,7 +5,7 @@
  */
 
 import * as jwt from 'jsonwebtoken';
-import { SecurityConstants } from '../common/constants/security';
+import { SecurityConstants } from './security';
 
 export interface TokenPayload {
   userId: string;

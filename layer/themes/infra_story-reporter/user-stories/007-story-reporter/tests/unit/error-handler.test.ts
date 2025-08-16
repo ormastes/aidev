@@ -1,5 +1,5 @@
 import { EventEmitter } from '../../../../../infra_external-log-lib/src';
-import { ErrorHandler } from '../../src/common/error-handler';
+import { ErrorHandler } from '../../s../utils/error-handler';
 import { TestConfiguration } from '../../src/domain/test-configuration';
 
 describe('ErrorHandler', () => {

@@ -10,7 +10,7 @@ import {
   SessionSyncMessage 
 } from '../../children/CrossDomainSessionManager';
 import { TokenService } from '../../children/TokenService';
-import { UserRole } from '../../common/types/User';
+import { UserRole } from '.././User';
 
 describe('CrossDomainSessionManager', () => {
   let manager: CrossDomainSessionManager;

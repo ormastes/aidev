@@ -7,7 +7,7 @@ import {
   validateArray,
   validateNestedObject,
   ErrorPrefixes
-} from '../common/validation-utils';
+} from '../utils/validation-utils';
 
 /**
  * Story interface for Agile BDD Process Management

@@ -8,7 +8,7 @@ import {
   validateDate,
   validateNestedObject,
   ErrorPrefixes
-} from '../../src/common/validation-utils';
+} from '../../s../utils/validation-utils';
 
 describe('Validation Utils', () => {
   describe('validateObject', () => {

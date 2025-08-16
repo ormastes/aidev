@@ -8,7 +8,7 @@ import { TokenService } from '../../children/TokenService';
 import { SessionManager } from '../../children/SessionManager';
 import { CredentialStore } from '../../children/CredentialStore';
 import { SecurityMiddleware } from '../../children/SecurityMiddleware';
-import { UserRole } from '../../common/types/User';
+import { UserRole } from '.././User';
 import * as express from 'express';
 import * as request from 'supertest';
 import * as session from 'express-session';

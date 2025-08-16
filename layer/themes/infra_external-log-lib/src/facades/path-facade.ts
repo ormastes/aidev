@@ -11,6 +11,7 @@ interface CallRecord {
   args: any[];
   result: any;
   timestamp: Date;
+  duration: number;
 }
 
 class PathFacade {
@@ -23,7 +24,8 @@ class PathFacade {
       method,
       args: [...args],
       result,
-      timestamp: new Date()
+      timestamp: new Date(),
+      duration: 0 // Path operations are synchronous, so duration is effectively 0
     };
 
     this.callHistory.push(record);

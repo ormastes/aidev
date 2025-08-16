@@ -33,13 +33,6 @@
           { "name": "doc", "type": "directory", "required": false, "comment": "Generated documentation" },
           { "name": "release", "type": "directory", "required": false, "comment": "Release artifacts and deployments" }
         ]},
-        { "name": "common", "type": "directory", "comment": "Root-level shared utilities, types, UI components", "children": [
-          { "name": "xlib", "type": "directory", "comment": "External library wrappers (xlib_fs, xlib_http, etc.)" },
-          { "name": "utils", "type": "directory", "comment": "Shared utility functions" },
-          { "name": "templates", "type": "directory", "comment": "Template files for code generation" },
-          { "name": "tests", "type": "directory", "comment": "Shared test fixtures and helpers" },
-          { "name": "tests-system", "type": "directory", "comment": "System-wide test suites" }
-        ]},
         { "name": "layer", "type": "directory", "comment": "Contains themes and epics for feature organization" },
         { "name": "llm_rules", "type": "directory", "freeze": true, "freeze_message": "LLM rules are generated from templates. Edit templates/llm_rules/ instead", "comment": "Generated LLM rule definitions" },
         { "name": "scripts", "type": "directory", "comment": "Automation scripts", "children": [
@@ -172,10 +165,7 @@
         { "name": "pipe", "type": "directory", "comment": "Theme-level cross-layer communication gateway", "children": [
           { "name": "index.ts", "type": "file", "comment": "Gateway for cross-layer imports at theme level" }
         ]},
-        { "name": "children", "type": "directory", "comment": "Theme-level implementation files" },
-        { "name": "common", "type": "directory", "comment": "Theme-wide shared utilities", "children": [
-          { "name": "README.md", "type": "file", "comment": "Common utilities documentation" }
-        ]},
+        { "name": "children", "type": "directory", "comment": "Theme-level implementation files including types, utils, constants" },
         { "name": "research", "type": "directory", "comment": "Domain and external library research", "children": [
           { "name": "domain", "type": "directory", "comment": "Domain research and analysis" },
           { "name": "external", "type": "directory", "comment": "External library research" }
@@ -191,6 +181,8 @@
         { "name": "demo", "type": "directory", "comment": "Demo artifacts for this theme" },
         { "name": "release", "type": "directory", "comment": "Release artifacts and deployments for this theme" },
         { "name": "xlib", "type": "directory", "comment": "External library wrappers for this theme" },
+        { "name": "features", "type": "directory", "comment": "Cucumber BDD feature files for theme-level system tests", "required": false },
+        { "name": "step_definitions", "type": "directory", "comment": "Cucumber step definitions for BDD tests", "required": false },
         { 
           "name": "user-stories", 
           "type": "directory",
@@ -211,7 +203,7 @@
       "id": "epic",
       "type": "directory",
       "freeze": true,
-      "freeze_message": "Epic root is frozen. Create files in appropriate subdirectories: common/, orchestrator/, research/, tests/, etc.",
+      "freeze_message": "Epic root is frozen. Create files in appropriate subdirectories: orchestrator/, research/, tests/, etc.",
       "description": "Epic folder template",
       "comment": "Big-theme orchestration containing multiple themes",
       "allowed_patterns": ["^[a-z][a-z0-9-]*$"],
@@ -222,11 +214,9 @@
         { "name": "TASK_QUEUE.md", "type": "file", "comment": "Development task queue for epic" },
         { "name": "TASK_QUEUE.vf.json", "type": "file", "comment": "Virtual filesystem task queue for epic" },
         { "name": "NAME_ID.vf.json", "type": "file", "comment": "Name-based entity storage for epic" },
-        { "name": "common", "type": "directory", "comment": "Code shared across themes", "children": [
-          { "name": "fixtures", "type": "directory", "comment": "Test fixtures for epic" },
-          { "name": "test-helpers", "type": "directory", "comment": "Test helper utilities" }
-        ]},
         { "name": "orchestrator", "type": "directory", "comment": "Stitches theme orchestrators together" },
+        { "name": "fixtures", "type": "directory", "comment": "Test fixtures shared across epic themes" },
+        { "name": "test-helpers", "type": "directory", "comment": "Test helper utilities for epic" },
         { "name": "research", "type": "directory", "comment": "Epic-level research and analysis", "children": [
           { "name": "domain", "type": "directory", "comment": "Domain research for epic scope" },
           { "name": "integration", "type": "directory", "comment": "Cross-theme integration research" }
@@ -369,7 +359,22 @@
       "unit": "**/user-stories/*/tests/unit/**/*.test.*",
       "integration": "**/user-stories/*/tests/integration/**/*.itest.*",
       "system": "**/user-stories/*/tests/system/**/*.stest.*",
-      "comment": "CI patterns for different test levels"
+      "cucumber_features": "**/features/**/*.feature",
+      "cucumber_steps": "**/step_definitions/**/*.steps.ts",
+      "comment": "CI patterns for different test levels including Cucumber BDD"
+    },
+    "forbidden_patterns": {
+      "common_tests": {
+        "pattern": "^common/(tests|tests-.*)/.*$",
+        "message": "Tests must not be placed in common directory. Move to appropriate theme under layer/themes/{theme_name}/features/",
+        "severity": "error"
+      },
+      "centralized_system_tests": {
+        "pattern": "^common/tests-system/.*$",
+        "message": "System tests must be in theme-specific features/ directories, not in common/tests-system/",
+        "severity": "error"
+      },
+      "comment": "Patterns that are explicitly forbidden in the codebase"
     },
     "naming_conventions": {
       "theme": "^[a-z][a-z0-9-]*$",

@@ -7,8 +7,8 @@ import { AuthService, LoginCredentials, AuthResult, UserRepository } from '../..
 import { CredentialStore } from '../../children/CredentialStore';
 import { TokenService } from '../../children/TokenService';
 import { SessionManager } from '../../children/SessionManager';
-import { User, UserRole } from '../../common/types/User';
-import { SecurityConstants } from '../../common/constants/security';
+import { User, UserRole } from '.././User';
+import { SecurityConstants } from '.././security';
 import * as bcrypt from 'bcrypt';
 
 describe('AuthService', () => {

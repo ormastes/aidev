@@ -6,7 +6,7 @@ import {
   validateEnum,
   validateBoolean,
   validateObject
-} from '../../src/common/validation-utils';
+} from '../../s../utils/validation-utils';
 
 describe('ValidationUtils Edge Cases Coverage Tests', () => {
   describe('validateConfiguration Function Coverage (Lines 244-245)', () => {

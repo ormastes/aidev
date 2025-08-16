@@ -7,8 +7,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { AuthService } from './AuthService';
 import { SessionManager } from './SessionManager';
-import { SecurityConstants } from '../common/constants/security';
-import { User, UserRole } from '../common/types/User';
+import { SecurityConstants } from './security';
+import { User, UserRole } from './User';
 
 export interface AuthMiddlewareOptions {
   authService: AuthService;

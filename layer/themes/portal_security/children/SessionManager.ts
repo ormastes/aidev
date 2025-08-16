@@ -4,7 +4,7 @@
  * Provides session storage, retrieval, and synchronization
  */
 
-import { SecurityConstants } from '../common/constants/security';
+import { SecurityConstants } from './security';
 
 export interface Session {
   id: string;

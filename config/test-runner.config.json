@@ -1,0 +1,48 @@
+{
+  "testRunner": {
+    "virtual": {
+      "enabled": true,
+      "provider": "docker",
+      "image": "node:18-alpine",
+      "fallback": "subprocess",
+      "dangerousPatterns": [
+        "sudo",
+        "rm -rf /",
+        "systemctl",
+        "docker",
+        "qemu",
+        "mkfs",
+        "fdisk",
+        "mount",
+        "chroot"
+      ]
+    },
+    "themes": {
+      "skipList": [],
+      "priorityList": [
+        "portal_security",
+        "infra_story-reporter",
+        "infra_fraud-checker"
+      ]
+    },
+    "coverage": {
+      "enabled": false,
+      "threshold": {
+        "global": {
+          "branches": 80,
+          "functions": 80,
+          "lines": 80,
+          "statements": 80
+        }
+      }
+    },
+    "parallel": {
+      "enabled": false,
+      "maxWorkers": 4
+    },
+    "reporting": {
+      "outputDir": "gen/doc/test-reports",
+      "formats": ["markdown", "json", "html"]
+    }
+  }
+}

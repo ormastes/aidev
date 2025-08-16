@@ -1,7 +1,7 @@
 import { describe, test, expect, beforeEach, afterEach } from '@jest/globals';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
+import { fsPromises as fs } from '../../../../infra_external-log-lib/dist';
 import { join } from 'path';
-import { os } from '../../../../../infra_external-log-lib/src';
+import * as os from 'os';
 import { execSync } from 'child_process';
 
 /**
@@ -15,7 +15,7 @@ import { execSync } from 'child_process';
 
 // Interface definitions for workspace integration testing
 interface TestResult {
-  In Progress: boolean;
+  success: boolean;
   output: string;
   error?: string;
 }
@@ -38,7 +38,7 @@ interface ThemeData {
 }
 
 interface CommandResult {
-  In Progress: boolean;
+  success: boolean;
   message: string;
   data?: any;
   error?: string;
@@ -771,7 +771,7 @@ describe('Sample Test', () => {
     const roomFiles = await fs.readdir(roomsDir);
     const rooms: any[] = [];
 
-    for (const file of roomFiles.filter(f => f.endsWith('.json'))) {
+    for (const file of roomFiles.filter((f: string) => f.endsWith('.json'))) {
       const content = await fs.readFile(join(roomsDir, file), 'utf8');
       rooms.push(JSON.parse(content));
     }
@@ -788,7 +788,7 @@ describe('Sample Test', () => {
     const messageFiles = await fs.readdir(messagesDir);
     const messages: any[] = [];
 
-    for (const file of messageFiles.filter(f => f.endsWith('.json'))) {
+    for (const file of messageFiles.filter((f: string) => f.endsWith('.json'))) {
       const content = await fs.readFile(join(messagesDir, file), 'utf8');
       messages.push(JSON.parse(content));
     }

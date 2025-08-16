@@ -5,7 +5,7 @@ import {
   validateEnum,
   validateNumber,
   ErrorPrefixes
-} from '../common/validation-utils';
+} from '../utils/validation-utils';
 
 /**
  * Test Configuration interface for Mock Free Test Oriented Development Test Runner

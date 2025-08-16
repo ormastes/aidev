@@ -8,7 +8,7 @@ import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { AuthService } from './AuthService';
 import { SessionManager } from './SessionManager';
 import { AuditLogger } from './AuditLogger';
-import { UserRole } from '../common/types/User';
+import { UserRole } from './User';
 import * as helmet from 'helmet';
 import { crypto } from '../../infra_external-log-lib/src';
 

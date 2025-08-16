@@ -13,6 +13,7 @@ interface CallRecord {
   timestamp: Date;
   pid?: number;
   error?: any;
+  duration: number;
 }
 
 class ChildProcessFacade {
@@ -35,7 +36,8 @@ class ChildProcessFacade {
       args,
       timestamp: new Date(),
       pid,
-      error
+      error,
+      duration: 0 // Child process spawning is async, duration tracked separately
     };
 
     this.callHistory.push(record);
