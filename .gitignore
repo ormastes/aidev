@@ -127,6 +127,9 @@ cache/
 # Release directory (contains MCP instances)
 release/
 
+# Demo directory (contains example demos)
+demo/
+
 # Moved log files and test results
 gen/logs/
 gen/temp/
