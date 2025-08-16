@@ -1,0 +1,326 @@
+{
+  "testCreator": [
+    {
+      "id": "tc-001",
+      "name": "Automated C++ Test Creator with Ollama",
+      "data": {
+        "title": "Intelligent Test Generation System",
+        "description": "Automatically generates and implements GTest/GMock test cases using Ollama DeepSeek 7B model with incremental building and retry mechanism",
+        "status": "active",
+        "priority": "high",
+        "components": [
+          "Code Analyzer - Analyzes C++ files to identify testable functions",
+          "Test Generator - Uses Ollama DeepSeek 7B for intelligent test creation",
+          "Incremental Builder - Implements tests one-by-one with build verification",
+          "Retry Mechanism - Up to 10 attempts per test with automatic reversion",
+          "MCP Integration - Updates TASK_QUEUE.vf.json with progress"
+        ],
+        "features": [
+          "Automatic test skeleton generation from C++ headers",
+          "LLM-powered test implementation with context awareness",
+          "Per-test compilation with custom CMake parameters",
+          "Build failure detection and automatic retry",
+          "Progress tracking via filesystem MCP",
+          "GTest/GMock best practices built-in"
+        ],
+        "technical_stack": {
+          "language": "Python 3",
+          "llm_model": "deepseek:7b",
+          "llm_provider": "Ollama",
+          "test_framework": "GoogleTest/GoogleMock",
+          "build_system": "CMake",
+          "retry_limit": 10
+        },
+        "usage": {
+          "command": "python3 src/test_creator.py <cpp_file> <header_file> <test_file> --build-command '<cmd>'",
+          "example": "python3 src/test_creator.py src/calculator.cpp src/calculator.h tests/calculator_test.cpp --build-command 'cmake --build build'",
+          "workflow": [
+            "1. Analyze C++ code structure",
+            "2. Generate test skeleton with all test cases",
+            "3. For each test case:",
+            "   a. Generate implementation using LLM",
+            "   b. Attempt to build (up to 10 times)",
+            "   c. If success, move to next test",
+            "   d. If all attempts fail, revert and skip",
+            "4. Update TASK_QUEUE.vf.json with results"
+          ]
+        },
+        "demo_application": {
+          "name": "Calculator",
+          "files": [
+            "src/calculator.h - Header with function declarations",
+            "src/calculator.cpp - Implementation",
+            "tests/calculator_test.cpp - Test file (initially empty)",
+            "CMakeLists.txt - Build configuration"
+          ],
+          "test_scenarios": [
+            "Basic arithmetic operations (add, subtract, multiply, divide)",
+            "Edge cases (division by zero)",
+            "Advanced operations (factorial, power, isPrime)",
+            "Memory operations (store, recall, clear)"
+          ]
+        }
+      },
+      "createdAt": "2025-07-28T10:00:00.000Z",
+      "updatedAt": "2025-07-28T10:00:00.000Z"
+    },
+    {
+      "id": "tc-002",
+      "name": "C++ Test Case Generator",
+      "data": {
+        "title": "Single-File C++ Test Case Generator with Mock Discovery",
+        "description": "A powerful Python CLI tool that automatically generates comprehensive C++ test cases by discovering mock files, analyzing source code, and creating ready-to-compile Google Test files",
+        "status": "implemented",
+        "priority": "high",
+        "components": [
+          "Mock Discovery Engine - Recursively searches mock folders and builds location dictionary",
+          "Clang AST Analyzer - Uses libclang C-Index to extract parameter types and dependencies",
+          "Type Resolution System - Maps mock targets to full namespace paths and source locations",
+          "Cache Generator - Creates structured info cache with test/mock/source relationships",
+          "LLM Helper Generator - Produces context files for AI-assisted test generation"
+        ],
+        "features": [
+          "Recursive mock folder scanning with lowercase name tagging",
+          "Full namespace and class path extraction for mock targets",
+          "Duplicate typename handling with multiple target mapping",
+          "Clang C-Index integration for parameter type analysis",
+          "Structured cache generation maintaining source folder hierarchy",
+          "Include path generation for mock headers (#include \"relative_path/<target>Mock.h\")",
+          "Test file naming convention support (<target>Test.cpp)",
+          "LLM-ready context file generation with all dependencies"
+        ],
+        "technical_requirements": {
+          "inputs": {
+            "target_header_source_base": "Base folder containing target headers and sources",
+            "mock_base_folder": "Base folder containing mock implementations",
+            "test_case_base_folder": "Base folder for test cases",
+            "info_cache_base_folder": "Base folder for generated cache files"
+          },
+          "processing": {
+            "mock_discovery": "Search mock folders and create lowercase name -> location dictionary",
+            "clang_analysis": "Use clang cindex CLI to find parameter types and dependencies",
+            "type_resolution": "Map mocks to targets with full namespace/class paths",
+            "cache_generation": "Generate info cache with same relative paths as targets"
+          },
+          "outputs": {
+            "mock_mapping": "Dictionary of lowercase mock names to multiple full target paths",
+            "type_info": "Parameter types and dependencies for each target",
+            "cache_files": "Info files containing mock paths, test names, and source references",
+            "llm_context": "Combined context files for LLM test generation"
+          }
+        },
+        "implementation_details": {
+          "mock_discovery_algorithm": [
+            "1. Recursively scan mock_base_folder",
+            "2. Extract mock class names from files",
+            "3. Create lowercase_name -> file_path mapping",
+            "4. Handle duplicates by maintaining lists of paths"
+          ],
+          "clang_analysis_process": [
+            "1. Parse target headers with clang.cindex",
+            "2. Extract function/method signatures",
+            "3. Identify parameter types and return types",
+            "4. Resolve type dependencies and includes"
+          ],
+          "cache_structure": {
+            "location": "info_cache_base/<relative_path_from_source>",
+            "content": {
+              "target_info": "Full namespace path, class enclosure, file paths",
+              "mock_info": "Mock header paths with include directives",
+              "test_info": "Test file naming and location",
+              "type_dependencies": "Required types and their sources"
+            }
+          }
+        },
+        "usage_example": {
+          "command": "python mock_discovery.py --target-base /src --mock-base /mocks --test-base /tests --cache-base /cache",
+          "workflow": [
+            "1. Scan /mocks for all mock files",
+            "2. Build mock name -> location dictionary",
+            "3. For each target in /src:",
+            "   a. Analyze with clang cindex",
+            "   b. Find corresponding mocks",
+            "   c. Generate cache file in /cache",
+            "4. Create LLM context files with all info"
+          ]
+        },
+        "llm_integration": {
+          "context_files": [
+            "target.h - Original header file",
+            "target.cpp - Original source file",
+            "targetMock.h - Mock header with include path",
+            "targetTest.cpp - Test file template",
+            "type_info.json - Parameter types and dependencies"
+          ],
+          "benefits": [
+            "Complete context for test generation",
+            "Proper include paths for compilation",
+            "Type safety information",
+            "Mock availability awareness"
+          ]
+        },
+        "implementation": {
+          "main_file": "test_case_generator.py",
+          "test_file": "test_generator.py", 
+          "documentation": "README_testgen.md",
+          "lines_of_code": 950,
+          "features_implemented": [
+            "Single-file Python CLI application",
+            "Automatic mock discovery with lowercase mapping",
+            "Dual parsing: Clang C-Index with regex fallback",
+            "Complete test file generation with Google Test",
+            "Edge case test generation",
+            "LLM context file generation",
+            "Comprehensive test suite included"
+          ]
+        }
+      },
+      "createdAt": "2025-07-28T13:00:00.000Z",
+      "updatedAt": "2025-07-28T16:00:00.000Z"
+    },
+    {
+      "id": "tc-003",
+      "name": "Enhanced Test Creator with CMake Integration",
+      "data": {
+        "title": "CMake-Integrated C++ Test Creator with Directory-Based Processing",
+        "description": "Enhanced test creator that uses compile_commands.json from CMake, processes source and test directories, and automatically discovers test files with Test.cpp suffix",
+        "status": "implemented",
+        "priority": "high",
+        "components": [
+          "CompileCommandsParser - Extracts compilation information from CMake-generated compile_commands.json",
+          "TestDiscovery - Recursively searches test directories for *Test.cpp files and maps to source files",
+          "TestGenerator - Creates or enhances test files with proper includes and structure", 
+          "BuildVerification - Optionally verifies generated tests compile successfully"
+        ],
+        "features": [
+          "Uses compile_commands.json from CMake for accurate compilation flags",
+          "Takes src_dir and test_dir as arguments instead of individual files",
+          "Recursively searches test directory for files ending with Test.cpp",
+          "Automatically finds corresponding source files by removing 'Test' suffix",
+          "Maintains directory structure between test and source directories",
+          "Generates GTest/GMock compatible test templates",
+          "Optional build verification with custom build commands",
+          "Supports multiple test files and subdirectories"
+        ],
+        "technical_requirements": {
+          "inputs": {
+            "src_dir": "Source directory containing C++ source files (.h/.cpp)",
+            "test_dir": "Test directory containing *Test.cpp files",
+            "build_dir": "Build directory with compile_commands.json (default: build)",
+            "build_command": "Optional command to build and verify tests"
+          },
+          "processing": {
+            "compile_analysis": "Parse compile_commands.json for compilation flags and include paths",
+            "test_discovery": "Recursively find *Test.cpp files in test directory",
+            "source_mapping": "Find corresponding source files by removing Test suffix",
+            "template_generation": "Create GTest/GMock test templates with proper includes"
+          },
+          "outputs": {
+            "test_files": "Generated or enhanced *Test.cpp files with GTest structure",
+            "build_verification": "Optional compilation verification results"
+          }
+        },
+        "usage": {
+          "command": "python3 test_creator_enhanced.py src_dir test_dir [options]",
+          "examples": [
+            "python3 test_creator_enhanced.py src/ tests/ --build-dir build --build-command 'cmake --build build'",
+            "python3 test_creator_enhanced.py ./source ./test_cases -b ./build -c 'make -j4' --verbose"
+          ],
+          "workflow": [
+            "1. Parse compile_commands.json from build directory",
+            "2. Recursively scan test directory for *Test.cpp files", 
+            "3. For each test file, find corresponding source by removing 'Test' suffix",
+            "4. Generate or enhance test file with GTest/GMock template",
+            "5. Optionally verify test compiles with build command"
+          ]
+        },
+        "file_mapping_logic": {
+          "test_to_source": [
+            "tests/CalculatorTest.cpp -> src/Calculator.h + src/Calculator.cpp",
+            "tests/math/CalculatorTest.cpp -> src/math/Calculator.h + src/math/Calculator.cpp",
+            "tests/LoggerTest.cpp -> src/Logger.h (header only)"
+          ],
+          "search_strategy": [
+            "1. Remove 'Test' suffix from test filename",
+            "2. Search in src_dir with same relative path as test file",
+            "3. Fallback to src_dir root if not found in relative path",
+            "4. Look for both .h/.hpp and .cpp files"
+          ]
+        },
+        "implementation": {
+          "main_file": "test_creator_enhanced.py",
+          "classes": [
+            "CompileCommandsParser - Handles compile_commands.json parsing",
+            "TestDiscovery - Discovers and maps test files to sources", 
+            "TestGenerator - Generates test file content",
+            "TestCreator - Main orchestration class"
+          ],
+          "dependencies": {
+            "required": ["Python 3", "pathlib", "json"],
+            "optional": ["CMake (for compile_commands.json generation)"]
+          },
+          "demo_integration": {
+            "demo_script": "demo.sh - Updated to use enhanced test creator",
+            "example_setup": "Creates Calculator and Logger examples with proper directory structure"
+          }
+        }
+      },
+      "createdAt": "2025-07-29T23:00:00.000Z",
+      "updatedAt": "2025-07-29T23:20:00.000Z"
+    }
+  ],
+  "aiDevPlatform": [
+    {
+      "id": "aidev-001",
+      "name": "Virtual File System with MCP Integration",
+      "data": {
+        "title": "Virtual File System with MCP Integration",
+        "description": "Virtual file system using filesystem_mcp as default MCP server",
+        "status": "active",
+        "priority": "high"
+      }
+    },
+    {
+      "id": "aidev-002",
+      "name": "Environment Configuration Management System",
+      "data": {
+        "title": "Automated Environment Configuration with Token Security",
+        "description": "Comprehensive environment configuration system with secure token generation for multi-environment deployments",
+        "status": "implemented",
+        "priority": "high",
+        "components": [
+          "EnvGenerator - Manages environment configuration and .env file generation",
+          "TokenService - Secure token generation with environment-specific keys",
+          "Integration Layer - HEA-compliant service integration"
+        ],
+        "features": [
+          "Environment-specific .env file generation",
+          "Secure token generation using crypto module",
+          "Token caching for performance optimization",
+          "Support for multiple environments (dev, test, staging, production)",
+          "Integration with existing services via pipe gateway",
+          "Comprehensive test coverage (84.78%)"
+        ],
+        "technical_details": {
+          "architecture": "Hierarchical Encapsulation Architecture (HEA)",
+          "layer": "external_interface",
+          "test_framework": "Jest with ts-jest",
+          "test_coverage": {
+            "overall": "84.78%",
+            "env_generator": "92.3%",
+            "token_service": "75%"
+          }
+        },
+        "implementation_date": "2025-07-28",
+        "files": [
+          "src/external_interface/services/env-generator/env-generator.ts",
+          "src/external_interface/services/token-service/token-service.ts",
+          "src/external_interface/pipe/index.ts",
+          "tests/feature/env-generator-token-service.itest.ts"
+        ]
+      },
+      "createdAt": "2025-07-28T12:00:00.000Z",
+      "updatedAt": "2025-07-28T12:00:00.000Z"
+    }
+  ]
+}

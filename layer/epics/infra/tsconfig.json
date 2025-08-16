@@ -1,0 +1,27 @@
+{
+  "extends": "../../../config/typescript/tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "./dist",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true
+  },
+  "include": [
+    "pipe/**/*",
+    "common/**/*",
+    "tests/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage"
+  ],
+  "references": [
+    { "path": "../../themes/infra_filesystem-mcp" },
+    { "path": "../../themes/infra_external-log-lib" },
+    { "path": "../../themes/infra_fraud-checker" },
+    { "path": "../../themes/infra_story-reporter" },
+    { "path": "../../themes/infra_test-as-manual" }
+  ]
+}

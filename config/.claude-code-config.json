@@ -1,0 +1,37 @@
+{
+  "mcp": {
+    "enabled": true,
+    "servers": {
+      "filesystem_mcp": {
+        "command": "node",
+        "args": ["release/filesystem_mcp/mcp-server.js"],
+        "env": {
+          "NODE_PATH": "release/filesystem_mcp/",
+          "VF_BASE_PATH": "."
+        }
+      }
+    }
+  },
+  "project": {
+    "name": "AI Development Platform",
+    "description": "Main AI development platform using filesystem_mcp as default MCP server",
+    "type": "development-platform"
+  },
+  "virtual_files": {
+    "features": "FEATURE.vf.json",
+    "structure": "FILE_STRUCTURE.vf.json",
+    "tasks": "TASK_QUEUE.vf.json"
+  },
+  "filesystem_mcp": {
+    "version": "1.0.0",
+    "deployment": "release/filesystem_mcp",
+    "schemas": "release/filesystem_mcp/schemas",
+    "enabled_features": [
+      "virtual_file_operations",
+      "name_id_entity_management", 
+      "task_queue_processing",
+      "query_parameter_filtering",
+      "schema_validation"
+    ]
+  }
+}

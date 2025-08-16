@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} - Infrastructure Test Manual</title>
+    <style>
+        :root {
+            --infra-primary: #2c3e50;
+            --infra-secondary: #34495e;
+            --infra-success: #27ae60;
+            --infra-warning: #f39c12;
+            --infra-danger: #e74c3c;
+            --infra-info: #3498db;
+            --terminal-bg: #1e1e1e;
+            --terminal-text: #00ff00;
+            --grid-color: #ecf0f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .infra-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        /* Infrastructure Header */
+        .infra-header {
+            background: var(--infra-primary);
+            color: white;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .infra-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 2px,
+                rgba(255,255,255,0.05) 2px,
+                rgba(255,255,255,0.05) 4px
+            );
+        }
+
+        .infra-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .system-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .system-stat {
+            background: rgba(255,255,255,0.1);
+            padding: 0.75rem;
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Terminal Style Navigation */
+        .terminal-nav {
+            background: var(--terminal-bg);
+            padding: 1rem;
+            border-top: 3px solid var(--terminal-text);
+        }
+
+        .terminal-prompt {
+            color: var(--terminal-text);
+            font-family: 'Courier New', monospace;
+        }
+
+        .terminal-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        .terminal-nav a {
+            color: var(--terminal-text);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .terminal-nav a::before {
+            content: '$ ';
+            color: #999;
+        }
+
+        .terminal-nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Infrastructure Main */
+        .infra-main {
+            padding: 2rem;
+        }
+
+        /* Architecture Diagram */
+        .architecture-diagram {
+            background: var(--grid-color);
+            border: 2px solid var(--infra-secondary);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .architecture-diagram::before {
+            content: 'SYSTEM ARCHITECTURE';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: white;
+            padding: 0 10px;
+            color: var(--infra-secondary);
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .architecture-layers {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .arch-layer {
+            background: white;
+            border: 2px solid var(--infra-primary);
+            padding: 1rem;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .arch-layer h4 {
+            color: var(--infra-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Test Environment */
+        .test-environment {
+            background: #f8f9fa;
+            border-left: 4px solid var(--infra-info);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 4px;
+        }
+
+        .env-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .env-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .env-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+
+        .env-value {
+            font-weight: bold;
+            color: var(--infra-primary);
+        }
+
+        /* Infrastructure Test Cases */
+        .infra-test {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .infra-test-header {
+            background: var(--infra-secondary);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .test-type {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .infra-test-body {
+            padding: 1.5rem;
+        }
+
+        /* Command Examples */
+        .command-box {
+            background: var(--terminal-bg);
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .command-box .prompt {
+            color: var(--terminal-text);
+            user-select: none;
+        }
+
+        .command-box .command {
+            color: #f8f8f2;
+        }
+
+        .command-box .output {
+            color: #999;
+            display: block;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #333;
+        }
+
+        /* Metrics Dashboard */
+        .metrics-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, var(--infra-primary), var(--infra-secondary));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Status Indicators */
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-online { background: var(--infra-success); }
+        .status-offline { background: var(--infra-danger); }
+        .status-pending { background: var(--infra-warning); }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Configuration Section */
+        .config-section {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .config-table th,
+        .config-table td {
+            text-align: left;
+            padding: 0.75rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .config-table th {
+            background: var(--infra-secondary);
+            color: white;
+        }
+
+        .config-value {
+            font-family: 'Courier New', monospace;
+            background: #fff;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+        }
+
+        /* Footer */
+        .infra-footer {
+            background: var(--infra-primary);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="infra-container">
+        <header class="infra-header">
+            <h1>🔧 {{title}}</h1>
+            <p>{{description}}</p>
+            <div class="system-info">
+                <div class="system-stat">
+                    <div>Platform: {{platform}}</div>
+                </div>
+                <div class="system-stat">
+                    <div>Environment: {{environment}}</div>
+                </div>
+                <div class="system-stat">
+                    <div>Version: {{version}}</div>
+                </div>
+                <div class="system-stat">
+                    <div>Tests: {{totalTests}}</div>
+                </div>
+            </div>
+        </header>
+
+        <nav class="terminal-nav">
+            <div class="terminal-prompt">root@infrastructure:~#</div>
+            <ul>
+                {{#each sections}}
+                <li><a href="#{{id}}">{{title}}</a></li>
+                {{/each}}
+            </ul>
+        </nav>
+
+        <main class="infra-main">
+            {{#if architecture}}
+            <div class="architecture-diagram">
+                <div class="architecture-layers">
+                    {{#each architecture.layers}}
+                    <div class="arch-layer">
+                        <h4>{{name}}</h4>
+                        <p>{{description}}</p>
+                        {{#if components}}
+                        <div style="margin-top: 0.5rem;">
+                            {{#each components}}
+                            <span style="display: inline-block; background: #f0f0f0; padding: 0.25rem 0.5rem; margin: 0.25rem; border-radius: 3px; font-size: 0.85rem;">{{this}}</span>
+                            {{/each}}
+                        </div>
+                        {{/if}}
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+            {{/if}}
+
+            {{#if environment}}
+            <div class="test-environment">
+                <h3>Test Environment Configuration</h3>
+                <div class="env-grid">
+                    {{#each environment}}
+                    <div class="env-item">
+                        <div class="env-label">{{label}}</div>
+                        <div class="env-value">{{value}}</div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+            {{/if}}
+
+            {{#if metrics}}
+            <div class="metrics-dashboard">
+                {{#each metrics}}
+                <div class="metric-card">
+                    <div class="metric-label">{{label}}</div>
+                    <div class="metric-value">{{value}}</div>
+                </div>
+                {{/each}}
+            </div>
+            {{/if}}
+
+            {{#each sections}}
+            <section id="{{id}}">
+                <h2>{{title}}</h2>
+                
+                {{#if status}}
+                <div class="status-grid">
+                    {{#each status}}
+                    <div class="status-item">
+                        <span class="status-dot status-{{state}}"></span>
+                        <span>{{name}}</span>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/if}}
+
+                {{#each testCases}}
+                <div class="infra-test">
+                    <div class="infra-test-header">
+                        <div>
+                            <strong>{{id}}</strong> - {{title}}
+                        </div>
+                        <span class="test-type">{{type}}</span>
+                    </div>
+                    <div class="infra-test-body">
+                        <p>{{description}}</p>
+
+                        {{#if setup}}
+                        <h4>Setup Commands:</h4>
+                        <div class="command-box">
+                            {{#each setup}}
+                            <div>
+                                <span class="prompt">$ </span>
+                                <span class="command">{{command}}</span>
+                                {{#if output}}
+                                <span class="output">{{output}}</span>
+                                {{/if}}
+                            </div>
+                            {{/each}}
+                        </div>
+                        {{/if}}
+
+                        {{#if configuration}}
+                        <div class="config-section">
+                            <h4>Configuration</h4>
+                            <table class="config-table">
+                                <thead>
+                                    <tr>
+                                        <th>Parameter</th>
+                                        <th>Value</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each configuration}}
+                                    <tr>
+                                        <td>{{parameter}}</td>
+                                        <td><span class="config-value">{{value}}</span></td>
+                                        <td>{{description}}</td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                        {{/if}}
+
+                        <h4>Test Steps:</h4>
+                        <ol>
+                            {{#each steps}}
+                            <li>
+                                {{action}}
+                                {{#if command}}
+                                <div class="command-box">
+                                    <span class="prompt">$ </span>
+                                    <span class="command">{{command}}</span>
+                                </div>
+                                {{/if}}
+                                {{#if expected}}
+                                <div style="margin-top: 0.5rem; padding: 0.5rem; background: #e8f5e9; border-left: 3px solid var(--infra-success);">
+                                    <strong>Expected:</strong> {{expected}}
+                                </div>
+                                {{/if}}
+                            </li>
+                            {{/each}}
+                        </ol>
+
+                        {{#if validation}}
+                        <h4>Validation:</h4>
+                        <ul>
+                            {{#each validation}}
+                            <li>{{this}}</li>
+                            {{/each}}
+                        </ul>
+                        {{/if}}
+                    </div>
+                </div>
+                {{/each}}
+            </section>
+            {{/each}}
+        </main>
+
+        <footer class="infra-footer">
+            <p>Infrastructure Test Manual - {{generatedDate}}</p>
+            <p>System Architecture & DevOps Testing Framework</p>
+        </footer>
+    </div>
+</body>
+</html>

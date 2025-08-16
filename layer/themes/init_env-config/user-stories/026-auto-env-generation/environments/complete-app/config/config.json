@@ -1,0 +1,24 @@
+{
+  "name": "complete-app",
+  "type": "epic",
+  "port": {
+    "base": 3500,
+    "range": [
+      3501,
+      3599
+    ]
+  },
+  "database": {
+    "type": "sqlite",
+    "connection": "./data/complete-app.db"
+  },
+  "paths": {
+    "root": "environments/complete-app",
+    "data": "environments/complete-app/data",
+    "logs": "environments/complete-app/logs",
+    "temp": "environments/complete-app/temp"
+  },
+  "services": [],
+  "created": "2025-08-11T02:04:17.057Z",
+  "updated": "2025-08-11T02:04:17.057Z"
+}

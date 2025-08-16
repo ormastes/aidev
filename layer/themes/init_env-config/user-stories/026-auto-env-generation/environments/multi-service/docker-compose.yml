@@ -1,0 +1,12 @@
+version: 3.8
+services:
+  portal:
+    image: aidev/multi-service:latest
+    ports:
+      - 3300:3300
+    environment:
+      - NODE_ENV=demo
+      - PORT=3300
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs

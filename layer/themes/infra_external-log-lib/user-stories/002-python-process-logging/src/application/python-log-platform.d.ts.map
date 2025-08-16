@@ -1,0 +1,1 @@
+{"version":3,"file":"python-log-platform.d.ts","sourceRoot":"","sources":["python-log-platform.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,aAAa,EAAE,kBAAkB,EAAkB,MAAM,+CAA+C,CAAC;AAKlH,qBAAa,iBAAiB;IAC5B,OAAO,CAAC,cAAc,CAAiB;;IAMjC,qBAAqB,CAAC,MAAM,EAAE,aAAa,GAAG,OAAO,CAAC,kBAAkB,CAAC;CAShF;AA2ED,OAAO,EAAE,aAAa,EAAE,MAAM,+CAA+C,CAAC"}

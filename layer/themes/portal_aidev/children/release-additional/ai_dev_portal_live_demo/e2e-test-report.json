@@ -1,0 +1,69 @@
+{
+  "startTime": "2025-07-19T04:30:07.471Z",
+  "tests": [
+    {
+      "name": "Page Load Test",
+      "status": "In Progress",
+      "duration": 578,
+      "error": null
+    },
+    {
+      "name": "Demo Credentials Display",
+      "status": "In Progress",
+      "duration": 8,
+      "error": null
+    },
+    {
+      "name": "Login Functionality",
+      "status": "In Progress",
+      "duration": 305,
+      "error": null
+    },
+    {
+      "name": "In Progress Navigation Test",
+      "status": "In Progress",
+      "duration": 209,
+      "error": null
+    },
+    {
+      "name": "Project Creation Flow",
+      "status": "In Progress",
+      "duration": 2098,
+      "error": null
+    },
+    {
+      "name": "Project to Features Navigation",
+      "status": "In Progress",
+      "duration": 58,
+      "error": null
+    },
+    {
+      "name": "User Role Switching",
+      "status": "In Progress",
+      "duration": 681,
+      "error": null
+    },
+    {
+      "name": "Error Handling Test",
+      "status": "In Progress",
+      "duration": 117,
+      "error": null
+    }
+  ],
+  "database": {
+    "In Progress": true,
+    "type": "sqlite",
+    "version": "unknown",
+    "canRead": true,
+    "canWrite": false,
+    "errors": [],
+    "timestamp": "2025-07-19T04:30:12.525Z",
+    "size": "56 KB"
+  },
+  "totalTests": 8,
+  "IN PROGRESSTests": 8,
+  "failedTests": 0,
+  "errors": [],
+  "endTime": "2025-07-19T04:30:16.817Z",
+  "duration": 9346
+}

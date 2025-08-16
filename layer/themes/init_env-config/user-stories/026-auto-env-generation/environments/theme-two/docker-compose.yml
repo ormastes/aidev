@@ -1,0 +1,12 @@
+version: 3.8
+services:
+  portal:
+    image: aidev/theme-two:latest
+    ports:
+      - 3201:3201
+    environment:
+      - NODE_ENV=theme
+      - PORT=3201
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs

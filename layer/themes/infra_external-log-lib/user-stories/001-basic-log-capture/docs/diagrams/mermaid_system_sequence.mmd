@@ -1,0 +1,58 @@
+# System Sequence Diagram: External Log Library - Basic Log Capture
+
+## Scenario: Developer captures simple text logs from a Node.js child process
+
+```mermaid
+sequenceDiagram
+    participant Developer
+    participant AIDevPlatform
+    participant ExternalLogLib
+    participant ChildProcess
+    participant FileSystem
+
+    Developer->>AIDevPlatform: Initialize log capture for child process
+    AIDevPlatform->>ExternalLogLib: Create log capturer with process config
+    ExternalLogLib->>ExternalLogLib: Initialize log buffer and parsers
+    
+    Developer->>AIDevPlatform: Execute child process command
+    AIDevPlatform->>ChildProcess: Spawn Node.js process
+    ChildProcess-->>ExternalLogLib: stdout: "Starting application..."
+    ExternalLogLib->>ExternalLogLib: Parse and buffer log entry
+    
+    ChildProcess-->>ExternalLogLib: stdout: "Processing data..."
+    ExternalLogLib->>ExternalLogLib: Parse and buffer log entry
+    
+    ChildProcess-->>ExternalLogLib: stderr: "Warning: deprecated API"
+    ExternalLogLib->>ExternalLogLib: Parse and buffer error entry
+    
+    Developer->>AIDevPlatform: Request captured logs
+    AIDevPlatform->>ExternalLogLib: Get buffered logs
+    ExternalLogLib-->>AIDevPlatform: Return parsed log entries
+    AIDevPlatform-->>Developer: Display formatted logs
+    
+    Developer->>AIDevPlatform: Save logs to file
+    AIDevPlatform->>FileSystem: Write log entries
+    FileSystem-->>Developer: Confirm save complete
+    
+    ChildProcess-->>ExternalLogLib: Process exit (code 0)
+    ExternalLogLib->>AIDevPlatform: Notify process completion
+    AIDevPlatform-->>Developer: Show completion status
+```
+
+## Test Items to Create
+
+### Environment Tests
+1. **Node.js Child Process Spawn Test** - Verify Node.js child_process.spawn works as expected
+2. **Stream Capture Test** - Verify stdout/stderr streams can be captured
+
+### External Tests  
+1. **External Log Library API Test** - Test the external_log_lib interface for capturing logs
+2. **Log Parser Test** - Test parsing different log formats from external process
+
+### Integration Tests
+1. **Log Capture Integration** - Test AIDevPlatform integrating with ExternalLogLib
+2. **Process Management Integration** - Test spawning and managing child processes
+3. **File Save Integration** - Test saving captured logs to filesystem
+
+### System Test
+1. **End-to-End Log Capture** - Full workflow from process spawn to log display and save

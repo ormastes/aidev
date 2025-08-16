@@ -1,0 +1,73 @@
+{
+  "apps": [
+    {
+      "appId": "gui-selector",
+      "name": "GUI Selector",
+      "localDevPath": "/home/ormastes/dev/aidev/layer/themes/portal_gui-selector/user-stories/023-gui-selector-server",
+      "releasePath": "/home/ormastes/dev/aidev/release/gui-selector-portal",
+      "buildCommand": "npm run build",
+      "startCommand": "npm start",
+      "testCommand": "npm test",
+      "ports": {
+        "dev": 3457,
+        "release": 3457
+      },
+      "healthEndpoints": {
+        "dev": "/health",
+        "release": "/api/health"
+      },
+      "dependencies": [
+        "http://localhost:3456/api/health"
+      ],
+      "envVariables": {
+        "NODE_ENV": "development",
+        "JWT_SECRET": "test-secret"
+      }
+    },
+    {
+      "appId": "ai-dev-portal",
+      "name": "AI Dev Portal",
+      "localDevPath": "/home/ormastes/dev/aidev/layer/themes/portal_aidev",
+      "releasePath": "/home/ormastes/dev/aidev/layer/themes/portal_aidev/release/ai_dev_portal",
+      "buildCommand": "npm run build",
+      "startCommand": "npm start",
+      "testCommand": "npm test",
+      "ports": {
+        "dev": 3456,
+        "release": 3456
+      },
+      "healthEndpoints": {
+        "dev": "/api/health",
+        "release": "/api/health"
+      },
+      "dependencies": [],
+      "envVariables": {
+        "NODE_ENV": "development",
+        "PORT": "3456"
+      }
+    },
+    {
+      "appId": "story-reporter",
+      "name": "Story Reporter",
+      "localDevPath": "/home/ormastes/dev/aidev/layer/themes/story-reporter",
+      "releasePath": "/home/ormastes/dev/aidev/release/story-reporter",
+      "buildCommand": "npm run build",
+      "startCommand": "npm start",
+      "ports": {
+        "dev": 3458,
+        "release": 3458
+      },
+      "healthEndpoints": {
+        "dev": "/health",
+        "release": "/health"
+      },
+      "dependencies": [
+        "http://localhost:3456/api/health"
+      ],
+      "envVariables": {
+        "NODE_ENV": "development"
+      }
+    }
+  ],
+  "timestamp": "2025-01-01T10:00:00Z"
+}

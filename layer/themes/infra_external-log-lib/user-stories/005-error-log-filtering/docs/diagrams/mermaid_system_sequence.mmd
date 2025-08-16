@@ -1,0 +1,56 @@
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant ELL as External Log Library
+    participant LogMon as Log Monitor
+    participant LogStream as Log Stream
+    participant LogFilter as Log Level Filter
+    participant Process as External Process
+
+    Note over Dev, Process: Error Log Filtering Scenario
+
+    Dev->>ELL: initializeErrorCapture(command, errorLevelsOnly: ['error', 'fatal'])
+    ELL->>LogMon: startRealTimeMonitoring(command, {logLevelFilter: ['error', 'fatal']})
+    LogMon->>Process: spawn(command)
+    LogMon->>LogStream: create(stdout, stderr)
+    LogMon->>LogFilter: setLogLevelFilter(['error', 'fatal'])
+    
+    Note over Process: Process generates mixed log levels
+    Process->>LogStream: stdout: "INFO: Application started"
+    LogStream->>LogFilter: parseLogEntry({level: 'info', message: 'Application started'})
+    LogFilter-->>LogStream: filtered out (not error level)
+    
+    Process->>LogStream: stderr: "ERROR: Database connection failed"
+    LogStream->>LogFilter: parseLogEntry({level: 'error', message: 'Database connection failed'})
+    LogFilter->>LogStream: passes filter
+    LogStream->>LogMon: emit('log-entry', {level: 'error', message: 'Database connection failed'})
+    LogMon->>ELL: emit('log-entry', errorLogEntry)
+    ELL->>Dev: onErrorLog(errorLogEntry)
+    
+    Process->>LogStream: stdout: "DEBUG: Processing user request"
+    LogStream->>LogFilter: parseLogEntry({level: 'debug', message: 'Processing user request'})
+    LogFilter-->>LogStream: filtered out (not error level)
+    
+    Process->>LogStream: stderr: "FATAL: System out of memory"
+    LogStream->>LogFilter: parseLogEntry({level: 'fatal', message: 'System out of memory'})
+    LogFilter->>LogStream: passes filter
+    LogStream->>LogMon: emit('log-entry', {level: 'fatal', message: 'System out of memory'})
+    LogMon->>ELL: emit('log-entry', fatalLogEntry)
+    ELL->>Dev: onErrorLog(fatalLogEntry)
+    
+    Dev->>ELL: updateErrorFilter(['error', 'fatal', 'warn'])
+    ELL->>LogMon: setLogLevelFilter(processId, ['error', 'fatal', 'warn'])
+    LogMon->>LogFilter: setLogLevelFilter(['error', 'fatal', 'warn'])
+    
+    Process->>LogStream: stdout: "WARN: Deprecated API usage detected"
+    LogStream->>LogFilter: parseLogEntry({level: 'warn', message: 'Deprecated API usage detected'})
+    LogFilter->>LogStream: passes filter (now included)
+    LogStream->>LogMon: emit('log-entry', {level: 'warn', message: 'Deprecated API usage detected'})
+    LogMon->>ELL: emit('log-entry', warnLogEntry)
+    ELL->>Dev: onErrorLog(warnLogEntry)
+    
+    Dev->>ELL: stopErrorCapture()
+    ELL->>LogMon: stopMonitoring(processId)
+    LogMon->>Process: terminate()
+    LogMon->>LogStream: cleanup()
+```

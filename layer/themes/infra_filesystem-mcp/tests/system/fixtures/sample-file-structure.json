@@ -1,0 +1,125 @@
+{
+  "backend": [
+    {
+      "id": "backend-structure-001",
+      "name": "backend",
+      "data": {
+        "title": "Backend Application Structure",
+        "description": "Node.js/Express backend structure with microservices",
+        "type": "directory_structure",
+        "category": "backend",
+        "framework": "express",
+        "language": "typescript",
+        "structure": {
+          "src/": {
+            "controllers/": {
+              "userController.ts": "User management endpoints",
+              "authController.ts": "Authentication endpoints",
+              "analyticsController.ts": "Analytics endpoints"
+            },
+            "services/": {
+              "userService.ts": "User business logic",
+              "authService.ts": "Authentication service",
+              "emailService.ts": "Email notification service"
+            },
+            "models/": {
+              "User.ts": "User data model",
+              "Session.ts": "Session data model"
+            },
+            "middleware/": {
+              "auth.ts": "Authentication middleware",
+              "rateLimiter.ts": "Rate limiting middleware",
+              "validator.ts": "Request validation middleware"
+            },
+            "utils/": {
+              "logger.ts": "Logging utilities",
+              "crypto.ts": "Cryptographic utilities"
+            }
+          },
+          "tests/": {
+            "unit/": "Unit tests for services and models",
+            "integration/": "Integration tests for APIs",
+            "e2e/": "End-to-end tests"
+          }
+        },
+        "active": true
+      },
+      "createdAt": "2025-01-19T10:00:00.000Z",
+      "updatedAt": "2025-01-19T10:00:00.000Z"
+    }
+  ],
+  "frontend": [
+    {
+      "id": "frontend-structure-001", 
+      "name": "frontend",
+      "data": {
+        "title": "React Frontend Structure",
+        "description": "React application with component-based architecture",
+        "type": "directory_structure",
+        "category": "frontend",
+        "framework": "react",
+        "language": "typescript",
+        "structure": {
+          "src/": {
+            "components/": {
+              "common/": "Reusable UI components",
+              "user/": "User-related components",
+              "analytics/": "Analytics dashboard components"
+            },
+            "pages/": {
+              "Login.tsx": "Login page component",
+              "Dashboard.tsx": "Main dashboard page",
+              "Profile.tsx": "User profile page"
+            },
+            "hooks/": {
+              "useAuth.ts": "Authentication hook",
+              "useApi.ts": "API client hook"
+            },
+            "services/": {
+              "api.ts": "API client service",
+              "auth.ts": "Authentication service"
+            },
+            "types/": {
+              "User.ts": "User type definitions",
+              "API.ts": "API response types"
+            }
+          }
+        },
+        "active": true
+      },
+      "createdAt": "2025-01-19T10:00:00.000Z",
+      "updatedAt": "2025-01-19T10:00:00.000Z"
+    }
+  ],
+  "database": [
+    {
+      "id": "database-structure-001",
+      "name": "database",
+      "data": {
+        "title": "Database Schema Structure",
+        "description": "PostgreSQL database schema with migrations",
+        "type": "database_structure",
+        "category": "database",
+        "database": "postgresql",
+        "structure": {
+          "migrations/": {
+            "001_create_users.sql": "Create users table",
+            "002_create_sessions.sql": "Create sessions table",
+            "003_add_user_indexes.sql": "Add database indexes"
+          },
+          "seeds/": {
+            "development.sql": "Development seed data",
+            "test.sql": "Test seed data"
+          },
+          "schemas/": {
+            "users.sql": "User table schema",
+            "sessions.sql": "Session table schema"
+          }
+        },
+        "active": true
+      },
+      "createdAt": "2025-01-19T10:00:00.000Z",
+      "updatedAt": "2025-01-19T10:00:00.000Z"
+    }
+  ]
+}

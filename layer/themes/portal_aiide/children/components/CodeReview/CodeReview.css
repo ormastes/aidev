@@ -1,0 +1,221 @@
+/**
+ * Code Review Component Styles
+ */
+
+.code-review-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+}
+
+.code-review-header {
+  margin-bottom: 16px;
+  border-radius: 8px;
+}
+
+.review-actions {
+  margin-bottom: 16px;
+}
+
+.review-summary {
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.score-display {
+  text-align: center;
+}
+
+.score-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.score-value {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.score-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.issue-stats {
+  display: flex;
+  align-items: center;
+}
+
+.review-tabs {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.review-tabs .ant-tabs-content {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.issues-list {
+  padding: 16px;
+}
+
+.review-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.issue-card {
+  margin-bottom: 12px;
+  border-left: 4px solid transparent;
+  transition: all 0.3s;
+}
+
+.issue-card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.issue-card.severity-critical {
+  border-left-color: #ff4d4f;
+}
+
+.issue-card.severity-high {
+  border-left-color: #ff7a45;
+}
+
+.issue-card.severity-medium {
+  border-left-color: #ffa940;
+}
+
+.issue-card.severity-low {
+  border-left-color: #52c41a;
+}
+
+.issue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.issue-location {
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.issue-message {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.issue-code {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+  padding: 12px;
+  background: var(--bg-secondary);
+  border-radius: 4px;
+}
+
+.code-before,
+.code-after {
+  flex: 1;
+  overflow-x: auto;
+}
+
+.code-before pre,
+.code-after pre {
+  margin: 0;
+  padding: 8px;
+  background: var(--bg-code);
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.code-before pre {
+  background: rgba(255, 77, 79, 0.1);
+  border: 1px solid rgba(255, 77, 79, 0.3);
+}
+
+.code-after pre {
+  background: rgba(82, 196, 26, 0.1);
+  border: 1px solid rgba(82, 196, 26, 0.3);
+}
+
+.code-arrow {
+  font-size: 20px;
+  color: var(--text-secondary);
+}
+
+.history-card {
+  width: 100%;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.history-summary {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Dark theme variables */
+.code-review-container {
+  --bg-primary: #1e1e1e;
+  --bg-secondary: #252526;
+  --bg-code: #2d2d30;
+  --border-color: #3e3e42;
+  --text-primary: #cccccc;
+  --text-secondary: #999999;
+}
+
+/* Light theme variables */
+.aiide-app.light .code-review-container {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f6f8fa;
+  --bg-code: #f3f4f6;
+  --border-color: #e1e4e8;
+  --text-primary: #24292e;
+  --text-secondary: #586069;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .review-summary {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .issue-stats {
+    margin-top: 16px;
+    width: 100%;
+  }
+  
+  .issue-code {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .code-arrow {
+    transform: rotate(90deg);
+    align-self: center;
+  }
+}

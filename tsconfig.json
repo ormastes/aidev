@@ -1,0 +1,82 @@
+{
+  "compilerOptions": {
+    // Bun-specific settings
+    "types": ["bun-types"],
+    
+    // Module and target
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    
+    // Type checking
+    "strict": true,
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    
+    // Emit settings
+    "noEmit": true,
+    "declaration": false,
+    "removeComments": true,
+    
+    // Path mappings
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@layer/*": ["layer/*"],
+      "@themes/*": ["layer/themes/*"],
+      "@epics/*": ["layer/epics/*"],
+      "@common/*": ["common/*"],
+      "@scripts/*": ["scripts/*"],
+      "@gen/*": ["gen/*"],
+      "@llm_rules/*": ["llm_rules/*"]
+    },
+    
+    // JavaScript support
+    "allowJs": true,
+    "checkJs": false,
+    
+    // Experimental
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    
+    // Other
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"]
+  },
+  
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "layer/**/*.ts",
+    "layer/**/*.tsx",
+    "common/**/*.ts",
+    "common/**/*.tsx",
+    "scripts/**/*.ts",
+    "llm_rules/**/*.ts",
+    "gen/**/*.ts",
+    "release/**/*.ts"
+  ],
+  
+  "exclude": [
+    "node_modules",
+    "**/node_modules",
+    "dist",
+    "build",
+    "coverage",
+    "*.config.js",
+    "*.config.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
+}

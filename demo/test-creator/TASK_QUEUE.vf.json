@@ -1,0 +1,430 @@
+{
+  "taskQueues": {
+    "critical": [],
+    "high": [],
+    "medium": [],
+    "low": [
+      {
+        "id": "task-coverage-check-for-automatic-env-generation-implem-mda2ggic",
+        "type": "cucumber_step",
+        "priority": "low",
+        "content": {
+          "title": "Coverage check for automatic .env generation implementation",
+          "description": "Task from Coverage and Duplication Queue",
+          "cucumber_step": "When Coverage check for automatic .env generation implementation",
+          "queue_section": "Coverage and Duplication Queue",
+          "original_text": "Coverage check for automatic .env generation implementation"
+        },
+        "status": "pending",
+        "createdAt": "2025-07-19T09:49:29.365Z",
+        "updatedAt": "2025-07-19T09:49:29.365Z"
+      },
+      {
+        "id": "task-scenario-service-discovery-urls-are-automatically--mda2ggid",
+        "type": "cucumber_step",
+        "priority": "low",
+        "content": {
+          "title": "Scenario: Service discovery URLs are automatically included when themes depend on each other",
+          "description": "Task from Scenarios Queue",
+          "cucumber_step": "Scenario: Service discovery URLs are automatically included when themes depend on each other",
+          "queue_section": "Scenarios Queue",
+          "original_text": "Scenario: Service discovery URLs are automatically included when themes depend on each other"
+        },
+        "status": "pending",
+        "createdAt": "2025-07-19T09:49:29.365Z",
+        "updatedAt": "2025-07-19T09:49:29.365Z"
+      },
+      {
+        "id": "task-scenario-security-tokens-are-generated-uniquely-pe-mda2ggid",
+        "type": "cucumber_step",
+        "priority": "low",
+        "content": {
+          "title": "Scenario: Security tokens are generated uniquely per environment",
+          "description": "Task from Scenarios Queue",
+          "cucumber_step": "Scenario: Security tokens are generated uniquely per environment",
+          "queue_section": "Scenarios Queue",
+          "original_text": "Scenario: Security tokens are generated uniquely per environment"
+        },
+        "status": "pending",
+        "createdAt": "2025-07-19T09:49:29.365Z",
+        "updatedAt": "2025-07-19T09:49:29.365Z"
+      },
+      {
+        "id": "task-scenario-database-configuration-differs-correctly--mda2ggid",
+        "type": "cucumber_step",
+        "priority": "low",
+        "content": {
+          "title": "Scenario: Database configuration differs correctly between release (PostgreSQL) and other environments (SQLite)",
+          "description": "Task from Scenarios Queue",
+          "cucumber_step": "Scenario: Database configuration differs correctly between release (PostgreSQL) and other environments (SQLite)",
+          "queue_section": "Scenarios Queue",
+          "original_text": "Scenario: Database configuration differs correctly between release (PostgreSQL) and other environments (SQLite)"
+        },
+        "status": "pending",
+        "createdAt": "2025-07-19T09:49:29.365Z",
+        "updatedAt": "2025-07-19T09:49:29.365Z"
+      },
+      {
+        "id": "task-scenario-adding-new-service-updates-env-file-with--mda2ggid",
+        "type": "cucumber_step",
+        "priority": "low",
+        "content": {
+          "title": "Scenario: Adding new service updates .env file with service-specific variables",
+          "description": "Task from Scenarios Queue",
+          "cucumber_step": "Scenario: Adding new service updates .env file with service-specific variables",
+          "queue_section": "Scenarios Queue",
+          "original_text": "Scenario: Adding new service updates .env file with service-specific variables"
+        },
+        "status": "pending",
+        "createdAt": "2025-07-19T09:49:29.365Z",
+        "updatedAt": "2025-07-19T09:49:29.365Z"
+      },
+      {
+        "id": "task-scenario-env-files-include-all-port-allocations-fr-mda2ggid",
+        "type": "cucumber_step",
+        "priority": "low",
+        "content": {
+          "title": "Scenario: .env files include all port allocations from ConfigManager",
+          "description": "Task from Scenarios Queue",
+          "cucumber_step": "Scenario: .env files include all port allocations from ConfigManager",
+          "queue_section": "Scenarios Queue",
+          "original_text": "Scenario: .env files include all port allocations from ConfigManager"
+        },
+        "status": "pending",
+        "createdAt": "2025-07-19T09:49:29.365Z",
+        "updatedAt": "2025-07-19T09:49:29.365Z"
+      },
+      {
+        "id": "task-scenario-developer-configures-new-theme-with-autom-mda2ggid",
+        "type": "cucumber_step",
+        "priority": "low",
+        "content": {
+          "title": "Scenario: Developer configures new theme with automatic port allocation",
+          "description": "Task from Scenarios Queue",
+          "cucumber_step": "Scenario: Developer configures new theme with automatic port allocation",
+          "queue_section": "Scenarios Queue",
+          "original_text": "Scenario: Developer configures new theme with automatic port allocation"
+        },
+        "status": "pending",
+        "createdAt": "2025-07-19T09:49:29.365Z",
+        "updatedAt": "2025-07-19T09:49:29.365Z"
+      },
+      {
+        "id": "task-scenario-system-manages-different-database-configs-mda2ggid",
+        "type": "cucumber_step",
+        "priority": "low",
+        "content": {
+          "title": "Scenario: System manages different database configs for release vs development",
+          "description": "Task from Scenarios Queue",
+          "cucumber_step": "Scenario: System manages different database configs for release vs development",
+          "queue_section": "Scenarios Queue",
+          "original_text": "Scenario: System manages different database configs for release vs development"
+        },
+        "status": "pending",
+        "createdAt": "2025-07-19T09:49:29.365Z",
+        "updatedAt": "2025-07-19T09:49:29.365Z"
+      },
+      {
+        "id": "task-scenario-multiple-themes-discover-and-connect-to-e-mda2ggid",
+        "type": "cucumber_step",
+        "priority": "low",
+        "content": {
+          "title": "Scenario: Multiple themes discover and connect to each other",
+          "description": "Task from Scenarios Queue",
+          "cucumber_step": "Scenario: Multiple themes discover and connect to each other",
+          "queue_section": "Scenarios Queue",
+          "original_text": "Scenario: Multiple themes discover and connect to each other"
+        },
+        "status": "pending",
+        "createdAt": "2025-07-19T09:49:29.365Z",
+        "updatedAt": "2025-07-19T09:49:29.365Z"
+      },
+      {
+        "id": "task-scenario-environment-specific-env-files-are-genera-mda2ggid",
+        "type": "cucumber_step",
+        "priority": "low",
+        "content": {
+          "title": "Scenario: Environment-specific .env files are generated automatically",
+          "description": "Task from Scenarios Queue",
+          "cucumber_step": "Scenario: Environment-specific .env files are generated automatically",
+          "queue_section": "Scenarios Queue",
+          "original_text": "Scenario: Environment-specific .env files are generated automatically"
+        },
+        "status": "pending",
+        "createdAt": "2025-07-19T09:49:29.365Z",
+        "updatedAt": "2025-07-19T09:49:29.365Z"
+      },
+      {
+        "id": "task-scenario-configuration-changes-propagate-across-de-mda2ggid",
+        "type": "cucumber_step",
+        "priority": "low",
+        "content": {
+          "title": "Scenario: Configuration changes propagate across dependent services",
+          "description": "Task from Scenarios Queue",
+          "cucumber_step": "Scenario: Configuration changes propagate across dependent services",
+          "queue_section": "Scenarios Queue",
+          "original_text": "Scenario: Configuration changes propagate across dependent services"
+        },
+        "status": "pending",
+        "createdAt": "2025-07-19T09:49:29.365Z",
+        "updatedAt": "2025-07-19T09:49:29.365Z"
+      }
+    ]
+  },
+  "working": [],
+  "allTasks": [
+    {
+      "id": "task-coverage-check-for-automatic-env-generation-implem-mda2ggic",
+      "type": "cucumber_step",
+      "priority": "low",
+      "content": {
+        "title": "Coverage check for automatic .env generation implementation",
+        "description": "Task from Coverage and Duplication Queue",
+        "cucumber_step": "When Coverage check for automatic .env generation implementation",
+        "queue_section": "Coverage and Duplication Queue",
+        "original_text": "Coverage check for automatic .env generation implementation"
+      },
+      "status": "pending",
+      "createdAt": "2025-07-19T09:49:29.365Z",
+      "updatedAt": "2025-07-19T09:49:29.365Z"
+    },
+    {
+      "id": "task-scenario-service-discovery-urls-are-automatically--mda2ggid",
+      "type": "cucumber_step",
+      "priority": "low",
+      "content": {
+        "title": "Scenario: Service discovery URLs are automatically included when themes depend on each other",
+        "description": "Task from Scenarios Queue",
+        "cucumber_step": "Scenario: Service discovery URLs are automatically included when themes depend on each other",
+        "queue_section": "Scenarios Queue",
+        "original_text": "Scenario: Service discovery URLs are automatically included when themes depend on each other"
+      },
+      "status": "pending",
+      "createdAt": "2025-07-19T09:49:29.365Z",
+      "updatedAt": "2025-07-19T09:49:29.365Z"
+    },
+    {
+      "id": "task-scenario-security-tokens-are-generated-uniquely-pe-mda2ggid",
+      "type": "cucumber_step",
+      "priority": "low",
+      "content": {
+        "title": "Scenario: Security tokens are generated uniquely per environment",
+        "description": "Task from Scenarios Queue",
+        "cucumber_step": "Scenario: Security tokens are generated uniquely per environment",
+        "queue_section": "Scenarios Queue",
+        "original_text": "Scenario: Security tokens are generated uniquely per environment"
+      },
+      "status": "pending",
+      "createdAt": "2025-07-19T09:49:29.365Z",
+      "updatedAt": "2025-07-19T09:49:29.365Z"
+    },
+    {
+      "id": "task-scenario-database-configuration-differs-correctly--mda2ggid",
+      "type": "cucumber_step",
+      "priority": "low",
+      "content": {
+        "title": "Scenario: Database configuration differs correctly between release (PostgreSQL) and other environments (SQLite)",
+        "description": "Task from Scenarios Queue",
+        "cucumber_step": "Scenario: Database configuration differs correctly between release (PostgreSQL) and other environments (SQLite)",
+        "queue_section": "Scenarios Queue",
+        "original_text": "Scenario: Database configuration differs correctly between release (PostgreSQL) and other environments (SQLite)"
+      },
+      "status": "pending",
+      "createdAt": "2025-07-19T09:49:29.365Z",
+      "updatedAt": "2025-07-19T09:49:29.365Z"
+    },
+    {
+      "id": "task-scenario-adding-new-service-updates-env-file-with--mda2ggid",
+      "type": "cucumber_step",
+      "priority": "low",
+      "content": {
+        "title": "Scenario: Adding new service updates .env file with service-specific variables",
+        "description": "Task from Scenarios Queue",
+        "cucumber_step": "Scenario: Adding new service updates .env file with service-specific variables",
+        "queue_section": "Scenarios Queue",
+        "original_text": "Scenario: Adding new service updates .env file with service-specific variables"
+      },
+      "status": "pending",
+      "createdAt": "2025-07-19T09:49:29.365Z",
+      "updatedAt": "2025-07-19T09:49:29.365Z"
+    },
+    {
+      "id": "task-scenario-env-files-include-all-port-allocations-fr-mda2ggid",
+      "type": "cucumber_step",
+      "priority": "low",
+      "content": {
+        "title": "Scenario: .env files include all port allocations from ConfigManager",
+        "description": "Task from Scenarios Queue",
+        "cucumber_step": "Scenario: .env files include all port allocations from ConfigManager",
+        "queue_section": "Scenarios Queue",
+        "original_text": "Scenario: .env files include all port allocations from ConfigManager"
+      },
+      "status": "pending",
+      "createdAt": "2025-07-19T09:49:29.365Z",
+      "updatedAt": "2025-07-19T09:49:29.365Z"
+    },
+    {
+      "id": "task-scenario-developer-configures-new-theme-with-autom-mda2ggid",
+      "type": "cucumber_step",
+      "priority": "low",
+      "content": {
+        "title": "Scenario: Developer configures new theme with automatic port allocation",
+        "description": "Task from Scenarios Queue",
+        "cucumber_step": "Scenario: Developer configures new theme with automatic port allocation",
+        "queue_section": "Scenarios Queue",
+        "original_text": "Scenario: Developer configures new theme with automatic port allocation"
+      },
+      "status": "pending",
+      "createdAt": "2025-07-19T09:49:29.365Z",
+      "updatedAt": "2025-07-19T09:49:29.365Z"
+    },
+    {
+      "id": "task-scenario-system-manages-different-database-configs-mda2ggid",
+      "type": "cucumber_step",
+      "priority": "low",
+      "content": {
+        "title": "Scenario: System manages different database configs for release vs development",
+        "description": "Task from Scenarios Queue",
+        "cucumber_step": "Scenario: System manages different database configs for release vs development",
+        "queue_section": "Scenarios Queue",
+        "original_text": "Scenario: System manages different database configs for release vs development"
+      },
+      "status": "pending",
+      "createdAt": "2025-07-19T09:49:29.365Z",
+      "updatedAt": "2025-07-19T09:49:29.365Z"
+    },
+    {
+      "id": "task-scenario-multiple-themes-discover-and-connect-to-e-mda2ggid",
+      "type": "cucumber_step",
+      "priority": "low",
+      "content": {
+        "title": "Scenario: Multiple themes discover and connect to each other",
+        "description": "Task from Scenarios Queue",
+        "cucumber_step": "Scenario: Multiple themes discover and connect to each other",
+        "queue_section": "Scenarios Queue",
+        "original_text": "Scenario: Multiple themes discover and connect to each other"
+      },
+      "status": "pending",
+      "createdAt": "2025-07-19T09:49:29.365Z",
+      "updatedAt": "2025-07-19T09:49:29.365Z"
+    },
+    {
+      "id": "task-scenario-environment-specific-env-files-are-genera-mda2ggid",
+      "type": "cucumber_step",
+      "priority": "low",
+      "content": {
+        "title": "Scenario: Environment-specific .env files are generated automatically",
+        "description": "Task from Scenarios Queue",
+        "cucumber_step": "Scenario: Environment-specific .env files are generated automatically",
+        "queue_section": "Scenarios Queue",
+        "original_text": "Scenario: Environment-specific .env files are generated automatically"
+      },
+      "status": "pending",
+      "createdAt": "2025-07-19T09:49:29.365Z",
+      "updatedAt": "2025-07-19T09:49:29.365Z"
+    },
+    {
+      "id": "task-scenario-configuration-changes-propagate-across-de-mda2ggid",
+      "type": "cucumber_step",
+      "priority": "low",
+      "content": {
+        "title": "Scenario: Configuration changes propagate across dependent services",
+        "description": "Task from Scenarios Queue",
+        "cucumber_step": "Scenario: Configuration changes propagate across dependent services",
+        "queue_section": "Scenarios Queue",
+        "original_text": "Scenario: Configuration changes propagate across dependent services"
+      },
+      "status": "pending",
+      "createdAt": "2025-07-19T09:49:29.365Z",
+      "updatedAt": "2025-07-19T09:49:29.365Z"
+    }
+  ],
+  "cucumberSteps": [
+    "When Coverage check for automatic .env generation implementation",
+    "Scenario: Service discovery URLs are automatically included when themes depend on each other",
+    "Scenario: Security tokens are generated uniquely per environment",
+    "Scenario: Database configuration differs correctly between release (PostgreSQL) and other environments (SQLite)",
+    "Scenario: Adding new service updates .env file with service-specific variables",
+    "Scenario: .env files include all port allocations from ConfigManager",
+    "Scenario: Developer configures new theme with automatic port allocation",
+    "Scenario: System manages different database configs for release vs development",
+    "Scenario: Multiple themes discover and connect to each other",
+    "Scenario: Environment-specific .env files are generated automatically",
+    "Scenario: Configuration changes propagate across dependent services"
+  ],
+  "sections": [
+    {
+      "name": "Working Item Queue (Only One Item, Currently working on, Delete when In Progress)",
+      "priority": "critical",
+      "itemCount": 0
+    },
+    {
+      "name": "Adhoc Temp User Request Queue",
+      "priority": "critical",
+      "itemCount": 0
+    },
+    {
+      "name": "Environment Tests Queue",
+      "priority": "high",
+      "itemCount": 0
+    },
+    {
+      "name": "External Tests Queue",
+      "priority": "high",
+      "itemCount": 0
+    },
+    {
+      "name": "System Tests Implement Queue",
+      "priority": "low",
+      "itemCount": 0
+    },
+    {
+      "name": "Integration Tests Impement Queue",
+      "priority": "medium",
+      "itemCount": 0
+    },
+    {
+      "name": "Unit Tests Queue",
+      "priority": "medium",
+      "itemCount": 0
+    },
+    {
+      "name": "Integration Tests Verify Queue",
+      "priority": "medium",
+      "itemCount": 0
+    },
+    {
+      "name": "System Tests Verify Queue",
+      "priority": "low",
+      "itemCount": 0
+    },
+    {
+      "name": "Coverage and Duplication Queue",
+      "priority": "low",
+      "itemCount": 1
+    },
+    {
+      "name": "Retrospective Queue",
+      "priority": "low",
+      "itemCount": 0
+    },
+    {
+      "name": "Scenarios Queue",
+      "priority": "low",
+      "itemCount": 10
+    },
+    {
+      "name": "User Story Queue(Only One Item on Queue, Lowest priority)",
+      "priority": "low",
+      "itemCount": 0
+    }
+  ],
+  "metadata": {
+    "totalTasks": 11,
+    "workingTasks": 0,
+    "pendingTasks": 11,
+    "cucumberStepCount": 11,
+    "lastUpdated": "2025-07-29T14:00:00.000Z",
+    "conversionSource": "TASK_QUEUE.md"
+  }
+}

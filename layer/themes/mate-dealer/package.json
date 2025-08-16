@@ -1,0 +1,21 @@
+{
+  "name": "@aidev/mate-dealer",
+  "version": "1.0.0",
+  "description": "Mate Dealer theme for AI Development Platform",
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "build": "tsc",
+    "clean": "rm -rf dist coverage"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.5",
+    "@types/node": "^20.8.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {}
+}

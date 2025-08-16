@@ -1,0 +1,24 @@
+{
+  "name": "demo-app",
+  "type": "demo",
+  "port": {
+    "base": 3300,
+    "range": [
+      3301,
+      3399
+    ]
+  },
+  "database": {
+    "type": "sqlite",
+    "connection": "./data/demo-app.db"
+  },
+  "paths": {
+    "root": "environments/demo-app",
+    "data": "environments/demo-app/data",
+    "logs": "environments/demo-app/logs",
+    "temp": "environments/demo-app/temp"
+  },
+  "services": [],
+  "created": "2025-08-11T02:04:30.011Z",
+  "updated": "2025-08-11T02:04:30.011Z"
+}

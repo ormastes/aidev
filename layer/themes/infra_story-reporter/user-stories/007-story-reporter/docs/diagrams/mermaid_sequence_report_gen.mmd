@@ -1,0 +1,87 @@
+sequenceDiagram
+    participant TC as Test Controller
+    participant RG as ReportGenerator
+    participant Logger as External Log Library
+    participant FS as File System
+    participant Events as Event Emitter
+
+    Note over TC, Events: Report Generator and Logger Integration Flow
+
+    TC->>RG: configure(testConfig)
+    RG-->>TC: configuration set
+    
+    TC->>Logger: initializeReportLogger(testSuiteId)
+    Logger-->>TC: logger initialized
+    
+    TC->>RG: generateHTMLReport(testResult)
+    activate RG
+    
+    RG->>Logger: logReportGeneration('html', 'started')
+    Logger-->>RG: logged
+    
+    RG->>Events: emit('reportStart', {format: 'html'})
+    
+    RG->>RG: buildHTMLReport(testResult)
+    
+    loop for each scenario
+        RG->>Logger: logScenarioProcessing(scenario)
+        Logger-->>RG: scenario logged
+    end
+    
+    RG->>Events: emit('progress', {type: 'html-generation'})
+    
+    RG->>Logger: logReportGeneration('html', 'completed', size)
+    Logger-->>RG: completion logged
+    
+    RG->>Events: emit('reportComplete', {format: 'html'})
+    
+    deactivate RG
+    RG-->>TC: htmlContent
+    
+    TC->>RG: generateJSONReport(testResult)
+    activate RG
+    
+    RG->>Logger: logReportGeneration('json', 'started')
+    Logger-->>RG: logged
+    
+    RG->>Events: emit('reportStart', {format: 'json'})
+    
+    RG->>RG: buildJSONReport(testResult)
+    
+    RG->>Logger: logReportGeneration('json', 'completed', size)
+    Logger-->>RG: completion logged
+    
+    RG->>Events: emit('reportComplete', {format: 'json'})
+    
+    deactivate RG
+    RG-->>TC: jsonContent
+    
+    TC->>RG: saveReports(testResult)
+    activate RG
+    
+    RG->>Logger: logFileOperation('save', 'started')
+    Logger-->>RG: logged
+    
+    RG->>FS: mkdir(outputDirectory)
+    FS-->>RG: directory created
+    
+    loop for each format
+        RG->>FS: writeFile(filePath, content)
+        FS-->>RG: file written
+        
+        RG->>Logger: logFileOperation('save', filePath, 'success')
+        Logger-->>RG: logged
+        
+        RG->>Events: emit('reportGenerated', {format, filePath})
+    end
+    
+    RG->>Logger: logReportSummary(reportPaths)
+    Logger-->>RG: summary logged
+    
+    deactivate RG
+    RG-->>TC: reportPaths[]
+    
+    TC->>Logger: getReportGenerationLogs(testSuiteId)
+    Logger-->>TC: aggregated logs
+    
+    Note over TC: Report generation logs are aggregated

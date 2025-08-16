@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "flow-validator-epic-001",
+    "path": "/layer/themes/llm-agent_flow-validator/user-stories/009-flow-validation/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.585Z",
+    "updated_at": "2025-08-02T11:10:54.585Z"
+  },
+  "features": {
+    "009_flow_validation": [
+      {
+        "id": "flow-validator-009-flow-validation",
+        "name": "flow validation",
+        "data": {
+          "title": "Flow validation",
+          "description": "Implementation of flow validation",
+          "level": "user_story",
+          "parent_feature_id": "flow-validator-epic-001",
+          "epic_id": "flow-validator-epic-001",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "flow-validator",
+            "flow-validation"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/llm-agent_flow-validator/user-stories/009-flow-validation/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.585Z",
+        "updatedAt": "2025-08-02T11:10:54.585Z"
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "pdf-formatter",
+  "version": "1.0.0",
+  "description": "Generate professional PDF test documentation",
+  "main": "index.ts",
+  "className": "PDFFormatterPlugin",
+  "type": "formatter",
+  "author": "Test-as-Manual Team",
+  "supportedFormats": ["pdf"],
+  "dependencies": {
+    "puppeteer": "^21.0.0",
+    "pdfkit": "^0.13.0"
+  }
+}

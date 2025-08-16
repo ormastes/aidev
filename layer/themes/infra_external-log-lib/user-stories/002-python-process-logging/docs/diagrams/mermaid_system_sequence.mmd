@@ -1,0 +1,77 @@
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant ADP as AIDevPlatform
+    participant LC as LogCapturer
+    participant PyProc as Python Process
+    participant FS as FileSystem
+
+    Dev->>ADP: startLogCapture({command: "python", args: ["script.py"]})
+    ADP->>PyProc: spawn python script.py
+    ADP->>LC: createCapturer(process)
+    LC-->>ADP: logCapturer instance
+    
+    ADP->>LC: start()
+    LC->>PyProc: attach stdout/stderr listeners
+    
+    loop Python Script Execution
+        PyProc->>LC: stdout: "INFO: Starting application"
+        LC->>LC: parseLogLine("INFO: Starting application", "stdout")
+        LC-->>Dev: onLog({level: "info", message: "Starting application"})
+        
+        PyProc->>LC: stderr: "ERROR: Connection failed"
+        LC->>LC: parseLogLine("ERROR: Connection failed", "stderr")
+        LC-->>Dev: onLog({level: "error", message: "Connection failed"})
+        
+        PyProc->>LC: stdout: "DEBUG: Processing item 1 of 100"
+        LC->>LC: parseLogLine("DEBUG: Processing item 1 of 100", "stdout")
+        LC-->>Dev: onLog({level: "debug", message: "Processing item 1 of 100"})
+    end
+    
+    PyProc->>PyProc: exit(0)
+    PyProc-->>ADP: process exit event
+    
+    Dev->>ADP: getLogs()
+    ADP-->>Dev: LogEntry[] (all captured logs)
+    
+    Dev->>ADP: saveLogsToFile("python-logs.json", {format: "json"})
+    ADP->>FS: writeFile("python-logs.json", JSON logs)
+    FS-->>ADP: success
+    ADP-->>Dev: logs saved
+```
+
+## Scenario: Python Process Logging
+
+### Description
+A developer wants to capture and parse logs from a Python subprocess. Python applications commonly use different logging formats including standard print statements, the logging module output, and custom formats.
+
+### Key Requirements
+1. Support for Python's standard logging format: `LEVEL:logger_name:message`
+2. Support for simple Python print statements
+3. Handle both stdout and stderr from Python processes
+4. Parse Python datetime formats (e.g., `2025-01-15 10:30:45,123`)
+5. Support for multiline Python tracebacks
+
+### Test Scenarios
+1. **Basic Python Logging** - Capture logs from Python's logging module
+2. **Print Statements** - Handle simple print() output as info logs  
+3. **Error Tracebacks** - Capture and parse Python exception tracebacks
+4. **Mixed Output** - Handle combination of logging and print statements
+5. **Custom Formats** - Support for custom Python log formatters
+
+### Expected Log Formats
+```python
+# Python logging module format
+"2025-01-15 10:30:45,123 - INFO - app.module - Starting application"
+"2025-01-15 10:30:45,456 - ERROR - app.db - Connection failed: timeout"
+
+# Simple print statements
+"Processing item 1 of 100"
+"Result: Success"
+
+# Traceback format
+"""Traceback (most recent call last):
+  File "script.py", line 10, in <module>
+    raise ValueError("Invalid input")
+ValueError: Invalid input"""
+```

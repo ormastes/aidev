@@ -1,0 +1,62 @@
+<div class="test-case priority-{{test.priority}}">
+    <h4>{{test.name}}</h4>
+    
+    {{#if test.description}}
+    <p class="test-description">{{test.description}}</p>
+    {{/if}}
+    
+    {{#if test.preconditions}}
+    <div class="preconditions">
+        <strong>Prerequisites:</strong>
+        <ul>
+        {{#each test.preconditions}}
+            <li>{{this}}</li>
+        {{/each}}
+        </ul>
+    </div>
+    {{/if}}
+    
+    <div class="test-steps">
+        <strong>Steps:</strong>
+        <ol>
+        {{#each test.steps}}
+            <li>
+                <span class="step-action">{{action}}</span>
+                {{#if expected}}
+                <div class="expected-result">
+                    <em>Expected:</em> {{expected}}
+                </div>
+                {{/if}}
+                {{#if screenshot}}
+                <div class="screenshot">
+                    <img src="{{screenshot.filePath}}" alt="{{screenshot.caption}}" />
+                    {{#if screenshot.caption}}
+                    <p class="caption">{{screenshot.caption}}</p>
+                    {{/if}}
+                </div>
+                {{/if}}
+            </li>
+        {{/each}}
+        </ol>
+    </div>
+    
+    {{#if test.postconditions}}
+    <div class="postconditions">
+        <strong>Cleanup:</strong>
+        <ul>
+        {{#each test.postconditions}}
+            <li>{{this}}</li>
+        {{/each}}
+        </ul>
+    </div>
+    {{/if}}
+    
+    {{#if test.tags}}
+    <div class="tags">
+        <strong>Tags:</strong>
+        {{#each test.tags}}
+        <span class="tag">{{this}}</span>
+        {{/each}}
+    </div>
+    {{/if}}
+</div>

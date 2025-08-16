@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    /* Production Build Settings */
+    "sourceMap": false,
+    "removeComments": true,
+    "declaration": true,
+    "declarationMap": false,
+    
+    /* Optimizations */
+    "alwaysStrict": true,
+    "noEmitOnError": true,
+    
+    /* Output */
+    "outDir": "../dist",
+    "rootDir": "../src",
+    
+    /* Debugging */
+    "diagnostics": false,
+    "extendedDiagnostics": false,
+    "generateCpuProfile": "",
+    "listEmittedFiles": false,
+    "listFiles": false,
+    "traceResolution": false
+  },
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/*.test.tsx",
+    "**/*.spec.tsx",
+    "**/__tests__/**",
+    "**/tests/**",
+    "**/test/**",
+    "**/*.stories.ts",
+    "**/*.stories.tsx",
+    "**/mocks/**",
+    "**/fixtures/**"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "gui-generator-epic-001",
+    "path": "/layer/themes/gui-generator/user-stories/008-gui-generation/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.586Z",
+    "updated_at": "2025-08-02T11:10:54.586Z"
+  },
+  "features": {
+    "008_gui_generation": [
+      {
+        "id": "gui-generator-008-gui-generation",
+        "name": "gui generation",
+        "data": {
+          "title": "Gui generation",
+          "description": "Implementation of gui generation",
+          "level": "user_story",
+          "parent_feature_id": "gui-generator-epic-001",
+          "epic_id": "gui-generator-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "gui-generator",
+            "gui-generation"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/gui-generator/user-stories/008-gui-generation/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.586Z",
+        "updatedAt": "2025-08-02T11:10:54.586Z"
+      }
+    ]
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created": "{{TIMESTAMP}}",
+    "lastModified": "{{TIMESTAMP}}",
+    "queueState": "active",
+    "description": "Task queue for {{NAME}}",
+    "epic": "{{EPIC_NAME}}",
+    "epicId": "{{EPIC_ID}}",
+    "subagentDelegation": {
+      "enabled": true,
+      "comment": "Subagent delegation configuration for different chat environments",
+      "environments": {
+        "claude": {
+          "comment": "When in Claude Code chat space, explicitly invoke Claude subagents",
+          "provider": "claude",
+          "mode": "explicit",
+          "agents": [
+            "test-runner",
+            "code-reviewer",
+            "debugger",
+            "documentation-writer"
+          ]
+        },
+        "ollama": {
+          "comment": "When in Ollama chat space, enable Ollama role-based agents",
+          "provider": "ollama",
+          "mode": "role-based",
+          "roles": [
+            "ROLE_TESTER",
+            "ROLE_FEATURE_MANAGER",
+            "ROLE_GUI_COORDINATOR",
+            "ROLE_REVIEWER"
+          ],
+          "modelSelection": "auto"
+        },
+        "mixed": {
+          "comment": "Mixed environment supporting both Claude and Ollama agents",
+          "providers": ["claude", "ollama"],
+          "mode": "auto-select",
+          "selectionCriteria": {
+            "taskComplexity": "high -> claude",
+            "localProcessing": "required -> ollama",
+            "default": "ollama"
+          }
+        }
+      },
+      "delegationRules": {
+        "comment": "Rules for automatic task delegation to subagents",
+        "autoDelegate": [
+          {
+            "taskType": "system_tests_implement",
+            "agent": "test-runner",
+            "condition": "always"
+          },
+          {
+            "taskType": "code_review",
+            "agent": "code-reviewer",
+            "condition": "on_completion"
+          },
+          {
+            "taskType": "debug",
+            "agent": "debugger",
+            "condition": "on_failure"
+          }
+        ]
+      }
+    }
+  },
+  "queue": {
+    "epic": [],
+    "systemTest": [],
+    "scenario": [],
+    "userStory": [],
+    "unit": []
+  },
+  "completed": [],
+  "backlog": [],
+  "config": {
+    "autoAdvance": true,
+    "requireRetrospect": true,
+    "maxItemsPerType": 10,
+    "priorities": {
+      "epic": 0,
+      "systemTest": 1,
+      "scenario": 2,
+      "userStory": 3,
+      "unit": 4
+    },
+    "epicTracking": {
+      "enabled": true,
+      "requireEpicForTasks": false,
+      "defaultEpic": "{{DEFAULT_EPIC}}"
+    },
+    "agentIntegration": {
+      "comment": "Integration settings for MCP and subagent systems",
+      "mcpEnabled": true,
+      "subagentEnabled": true,
+      "agentDirectory": ".claude/agents",
+      "userAgentDirectory": "~/.claude/agents",
+      "agentCommands": {
+        "list": "/agents",
+        "create": "/agents create",
+        "invoke": "Use the {agent-name} subagent"
+      },
+      "implicitDelegation": {
+        "comment": "Enable Claude to auto-select agents based on task context",
+        "enabled": true,
+        "triggerPhrases": [
+          "use proactively",
+          "MUST BE USED",
+          "auto-delegate"
+        ]
+      },
+      "explicitDelegation": {
+        "comment": "Allow explicit agent invocation by name",
+        "enabled": true,
+        "format": "Use the {agent-name} subagent to {task}"
+      }
+    }
+  }
+}

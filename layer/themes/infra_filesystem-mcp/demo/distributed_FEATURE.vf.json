@@ -1,0 +1,180 @@
+{
+  "metadata": {
+    "level": "epic",
+    "parent_id": "root-001",
+    "path": "/layer/themes/filesystem_mcp/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-01-24T10:00:00Z",
+    "updated_at": "2025-01-24T10:00:00Z"
+  },
+  "features": {
+    "filesystem": [
+      {
+        "id": "epic-filesystem-001",
+        "name": "Virtual File System",
+        "data": {
+          "title": "Virtual File System with MCP Integration",
+          "description": "Complete virtual file system implementation using filesystem_mcp as the default MCP server",
+          "level": "epic",
+          "parent_feature_id": "root-001",
+          "status": "completed",
+          "priority": "high",
+          "tags": ["filesystem", "mcp", "integration", "virtual-files"],
+          "assignee": "filesystem-team",
+          "components": [
+            "VFFileWrapper - Basic file operations",
+            "VFNameIdWrapper - Entity management with name-based storage",
+            "VFTaskQueueWrapper - Priority-based task queue processing",
+            "VFDistributedFeatureWrapper - Hierarchical feature management"
+          ],
+          "acceptanceCriteria": [
+            "All wrapper classes implement async operations",
+            "Schema validation works for all file types",
+            "Query parameter parsing works correctly",
+            "Error handling provides meaningful messages",
+            "Distributed features support parent-child relationships",
+            "Common epics are auto-created for orphaned features"
+          ],
+          "child_features": ["theme-vf-wrapper-001", "theme-name-id-001", "theme-task-queue-001"],
+          "virtual_path": "/layer/themes/filesystem_mcp/FEATURE.vf.json"
+        },
+        "createdAt": "2025-01-24T10:00:00Z",
+        "updatedAt": "2025-01-24T10:00:00Z"
+      }
+    ]
+  },
+  "children": [
+    "/layer/themes/filesystem_mcp/user-stories/001-vf-file-wrapper/FEATURE.vf.json",
+    "/layer/themes/filesystem_mcp/user-stories/002-vf-name-id-wrapper/FEATURE.vf.json",
+    "/layer/themes/filesystem_mcp/user-stories/003-vf-task-queue-wrapper/FEATURE.vf.json",
+    "/layer/themes/filesystem_mcp/user-stories/004-distributed-features/FEATURE.vf.json"
+  ],
+  "aggregated_view": {
+    "filesystem": [
+      {
+        "id": "epic-filesystem-001",
+        "name": "Virtual File System",
+        "data": {
+          "title": "Virtual File System with MCP Integration",
+          "description": "Complete virtual file system implementation using filesystem_mcp as the default MCP server",
+          "level": "epic",
+          "parent_feature_id": "root-001",
+          "status": "completed",
+          "priority": "high",
+          "virtual_path": "/layer/themes/filesystem_mcp/FEATURE.vf.json"
+        },
+        "createdAt": "2025-01-24T10:00:00Z",
+        "updatedAt": "2025-01-24T10:00:00Z"
+      }
+    ],
+    "vf-wrapper": [
+      {
+        "id": "theme-vf-wrapper-001",
+        "name": "VF File Wrapper Implementation",
+        "data": {
+          "title": "VFFileWrapper - Basic Virtual File Operations",
+          "description": "Base class for virtual file operations with query parameter support",
+          "level": "user_story",
+          "parent_feature_id": "epic-filesystem-001",
+          "epic_id": "epic-filesystem-001",
+          "status": "completed",
+          "priority": "high",
+          "tags": ["wrapper", "file-operations", "query-params"],
+          "components": ["VFFileWrapper.ts"],
+          "acceptanceCriteria": [
+            "read() method handles query parameter parsing",
+            "write() method handles file write operations",
+            "full_read() reads actual files from filesystem",
+            "full_write() writes actual files to filesystem",
+            "parseQueryParams() correctly parses URL-style parameters"
+          ],
+          "virtual_path": "/layer/themes/filesystem_mcp/user-stories/001-vf-file-wrapper/FEATURE.vf.json"
+        },
+        "createdAt": "2025-01-24T10:00:00Z",
+        "updatedAt": "2025-01-24T10:00:00Z"
+      }
+    ],
+    "name-id": [
+      {
+        "id": "theme-name-id-001",
+        "name": "VF Name ID Wrapper Implementation",
+        "data": {
+          "title": "VFNameIdWrapper - Entity Management",
+          "description": "Extends VFFileWrapper to provide name-based entity storage with schema validation",
+          "level": "user_story",
+          "parent_feature_id": "epic-filesystem-001",
+          "epic_id": "epic-filesystem-001",
+          "status": "completed",
+          "priority": "high",
+          "tags": ["wrapper", "entity-management", "schema-validation"],
+          "components": ["VFNameIdWrapper.ts"],
+          "acceptanceCriteria": [
+            "Store entities in key-value structure by name",
+            "Support multiple entities with same name as lists",
+            "Filter entities based on search query parameters",
+            "Validate against schema.json when writing entities",
+            "Inherit all VFFileWrapper capabilities"
+          ],
+          "virtual_path": "/layer/themes/filesystem_mcp/user-stories/002-vf-name-id-wrapper/FEATURE.vf.json"
+        },
+        "createdAt": "2025-01-24T10:00:00Z",
+        "updatedAt": "2025-01-24T10:00:00Z"
+      }
+    ],
+    "task-queue": [
+      {
+        "id": "theme-task-queue-001",
+        "name": "VF Task Queue Wrapper Implementation",
+        "data": {
+          "title": "VFTaskQueueWrapper - Priority-based Task Management",
+          "description": "Manages prioritized task queues with automatic execution capabilities",
+          "level": "user_story",
+          "parent_feature_id": "epic-filesystem-001",
+          "epic_id": "epic-filesystem-001",
+          "status": "completed",
+          "priority": "medium",
+          "tags": ["wrapper", "task-queue", "priority", "execution"],
+          "components": ["VFTaskQueueWrapper.ts"],
+          "acceptanceCriteria": [
+            "Manage multiple priority-based queues",
+            "On pop (read): Append queue messages and execute if runnable",
+            "On push (write): Execute if the message is runnable",
+            "Support queue persistence and restart functionality",
+            "Priority order management works correctly"
+          ],
+          "virtual_path": "/layer/themes/filesystem_mcp/user-stories/003-vf-task-queue-wrapper/FEATURE.vf.json"
+        },
+        "createdAt": "2025-01-24T10:00:00Z",
+        "updatedAt": "2025-01-24T10:00:00Z"
+      }
+    ],
+    "distributed": [
+      {
+        "id": "theme-distributed-001",
+        "name": "Distributed Feature System",
+        "data": {
+          "title": "VFDistributedFeatureWrapper - Hierarchical Features",
+          "description": "Distributed virtual file system for hierarchical FEATURE.vf.json files with automatic epic creation",
+          "level": "user_story",
+          "parent_feature_id": "epic-filesystem-001",
+          "epic_id": "epic-filesystem-001",
+          "status": "completed",
+          "priority": "high",
+          "tags": ["distributed", "hierarchical", "features", "epic-creation"],
+          "components": ["VFDistributedFeatureWrapper.ts"],
+          "acceptanceCriteria": [
+            "Support root/epic/theme/user_story hierarchy levels",
+            "Automatically create common epics for orphaned features",
+            "Parent-child relationships are managed correctly",
+            "Aggregated views show all child features",
+            "Each FEATURE.vf.json shows its level and parent info",
+            "Virtual file paths are properly managed"
+          ],
+          "virtual_path": "/layer/themes/filesystem_mcp/user-stories/004-distributed-features/FEATURE.vf.json"
+        },
+        "createdAt": "2025-01-24T10:00:00Z",
+        "updatedAt": "2025-01-24T10:00:00Z"
+      }
+    ]
+  }
+}

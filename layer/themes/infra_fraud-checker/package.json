@@ -1,0 +1,63 @@
+{
+  "name": "@aidev/infra_fraud-checker",
+  "version": "1.0.0",
+  "description": "Mock detection for test suites - ensures true Mock-Free Test Oriented Development",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "bin": {
+    "fraud-checker": "dist/src/cli/fraud-checker-cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/cli/fraud-checker-cli.ts",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "lint": "eslint src --ext .ts",
+    "clean": "rm -rf dist fraud-reports",
+    "example": "ts-node examples/example.ts",
+    "check-unauthorized": "ts-node scripts/check-unauthorized-files.ts",
+    "check-unauthorized:report": "ts-node scripts/check-unauthorized-files.ts report",
+    "check-unauthorized:watch": "ts-node scripts/check-unauthorized-files.ts watch"
+  },
+  "keywords": [
+    "testing",
+    "mocks",
+    "fraud-detection",
+    "quality",
+    "test-quality",
+    "mock-free",
+    "bdd"
+  ],
+  "author": "AI Development Platform",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^9.4.1",
+    "glob": "^8.1.0",
+    "inquirer": "^8.2.5"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/inquirer": "^8.2.6",
+    "@types/jest": "^29.5.5",
+    "@types/node": "^18.18.6",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "eslint": "^8.51.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ]
+}

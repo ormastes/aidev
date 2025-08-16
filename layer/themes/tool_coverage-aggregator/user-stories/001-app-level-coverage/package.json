@@ -1,0 +1,22 @@
+{
+  "name": "@aidev/coverage-aggregator-001",
+  "version": "1.0.0",
+  "description": "App-level coverage aggregation and reporting",
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "build": "tsc -p tsconfig.json",
+    "clean": "rm -rf dist coverage",
+    "generate-report": "ts-node scripts/generate-coverage-report.ts"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.20",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.3.3"
+  }
+}

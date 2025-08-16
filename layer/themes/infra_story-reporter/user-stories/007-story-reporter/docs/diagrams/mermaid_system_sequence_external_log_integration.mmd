@@ -1,0 +1,113 @@
+sequenceDiagram
+    participant TSM as Test Suite Manager
+    participant MFT as Mock Free Test Runner
+    participant ELL as External Log Library
+    participant MEL as Mock External Logger
+    participant TS as Test Scenarios
+    participant RG as Report Generator
+
+    Note over TSM, RG: External Log Library Integration for Test Logging
+
+    %% Test Suite Manager initiates external log library
+    TSM->>ELL: initializeLogLibrary()
+    ELL->>MEL: createLogger(testSuiteId)
+    MEL-->>ELL: logger instance created
+    ELL-->>TSM: log library initialized
+
+    %% Configure components with logging integration
+    TSM->>MFT: configure(testConfig)
+    TSM->>RG: configure(testConfig)
+    
+    %% Start test execution with logging
+    TSM->>MFT: executeTests()
+    activate MFT
+    
+    %% Mock Free Test Runner starts and logs initialization
+    MFT->>ELL: log('INFO', 'Starting Mock Free Test execution')
+    ELL->>MEL: log(testSuiteId, 'info', 'Starting Mock Free Test execution')
+    MEL-->>ELL: log entry stored
+    ELL-->>MFT: log recorded
+    
+    %% Execute test scenarios with detailed logging
+    loop for each test scenario
+        MFT->>TS: executeScenario(scenario)
+        
+        %% Log scenario start
+        MFT->>ELL: log('INFO', 'Scenario started: ' + scenarioName)
+        ELL->>MEL: log(testSuiteId, 'info', scenarioData)
+        
+        TS->>MFT: stepStart(stepName)
+        MFT->>ELL: log('DEBUG', 'Step started: ' + stepName)
+        ELL->>MEL: log(testSuiteId, 'debug', stepData)
+        
+        TS->>MFT: stepComplete(stepName, status, duration)
+        
+        alt step passes
+            MFT->>ELL: log('INFO', 'Step passed: ' + stepName)
+            ELL->>MEL: log(testSuiteId, 'info', stepResult)
+        else step fails
+            MFT->>ELL: log('ERROR', 'Step failed: ' + stepName + ' - ' + errorMessage)
+            ELL->>MEL: log(testSuiteId, 'error', stepFailure)
+        else step skipped
+            MFT->>ELL: log('WARN', 'Step skipped: ' + stepName)
+            ELL->>MEL: log(testSuiteId, 'warn', stepSkipped)
+        else step pending
+            MFT->>ELL: log('WARN', 'Step pending: ' + stepName)
+            ELL->>MEL: log(testSuiteId, 'warn', stepPending)
+        end
+        
+        TS-->>MFT: scenario completed
+        MFT->>ELL: log('INFO', 'Scenario completed: ' + scenarioName + ' - ' + finalStatus)
+        ELL->>MEL: log(testSuiteId, 'info', scenarioResult)
+    end
+    
+    %% Test execution completion logging
+    MFT->>ELL: log('INFO', 'Mock Free Test execution completed')
+    ELL->>MEL: log(testSuiteId, 'info', 'Test execution completed')
+    
+    deactivate MFT
+    MFT-->>TSM: testResults
+    
+    %% Generate reports with integrated log data
+    TSM->>RG: generateReports(testResults)
+    activate RG
+    
+    %% Report Generator retrieves log data for integration
+    RG->>ELL: getLogHistory(testSuiteId)
+    ELL->>MEL: getLogHistory(testSuiteId)
+    MEL-->>ELL: logHistory[]
+    ELL-->>RG: aggregatedLogs[]
+    
+    %% Generate reports with log integration
+    RG->>RG: integrateLogsIntoReport(testResults, aggregatedLogs)
+    
+    loop for each report format
+        alt HTML Report
+            RG->>RG: generateHTMLWithLogs(testResults, logs)
+            Note over RG: HTML report includes log timeline
+        else JSON Report
+            RG->>RG: generateJSONWithLogs(testResults, logs)
+            Note over RG: JSON includes structured log data
+        else XML Report
+            RG->>RG: generateXMLWithLogs(testResults, logs)
+            Note over RG: XML includes log entries as metadata
+        end
+    end
+    
+    deactivate RG
+    RG-->>TSM: reports with integrated logs
+    
+    %% Cleanup external log library
+    TSM->>ELL: getAggregatedLogEntries()
+    ELL->>MEL: getAllLogs(testSuiteId)
+    MEL-->>ELL: allLogEntries[]
+    ELL-->>TSM: aggregatedLogEntries[]
+    
+    TSM->>ELL: cleanup()
+    ELL->>MEL: clearLogger(testSuiteId)
+    MEL-->>ELL: logger cleared
+    ELL-->>TSM: cleanup complete
+
+    Note over TSM: Test execution complete with comprehensive logging
+    Note over RG: Generated reports include detailed test execution logs
+    Note over ELL: External log library provided full test lifecycle logging

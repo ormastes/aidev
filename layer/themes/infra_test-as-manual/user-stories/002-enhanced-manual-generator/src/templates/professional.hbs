@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{document.title}} - Test Manual</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.6; 
+            color: #333;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            margin: -20px -20px 30px -20px;
+        }
+        h1 { 
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        h2 { 
+            color: #667eea;
+            margin: 30px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        h3 { 
+            color: #764ba2;
+            margin: 20px 0 10px 0;
+        }
+        h4 {
+            color: #666;
+            margin: 15px 0 10px 0;
+        }
+        .metadata {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+        .metadata p {
+            margin: 5px 0;
+        }
+        .test-case {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            transition: box-shadow 0.3s;
+        }
+        .test-case:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .test-step {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 3px solid #667eea;
+            border-radius: 4px;
+        }
+        .test-step strong {
+            color: #667eea;
+        }
+        .priority-critical { border-left-color: #e74c3c !important; }
+        .priority-high { border-left-color: #f39c12 !important; }
+        .priority-medium { border-left-color: #f1c40f !important; }
+        .priority-low { border-left-color: #2ecc71 !important; }
+        .toc {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .toc ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        .toc li {
+            margin: 8px 0;
+        }
+        .toc a {
+            text-decoration: none;
+            color: #667eea;
+            transition: color 0.3s;
+        }
+        .toc a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        .tags {
+            margin-top: 10px;
+        }
+        .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            margin-right: 5px;
+        }
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+        }
+        @media print {
+            .no-print { display: none; }
+            body { font-size: 11pt; }
+            .container { box-shadow: none; }
+            header { 
+                background: none; 
+                color: #333;
+                border-bottom: 2px solid #333;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{document.title}}</h1>
+            {{#if document.metadata.description}}
+            <p>{{document.metadata.description}}</p>
+            {{/if}}
+        </header>
+        
+        <div class="metadata">
+            {{#if document.version}}<p><strong>Version:</strong> {{document.version}}</p>{{/if}}
+            <p><strong>Generated:</strong> {{formatDateTime document.generatedAt}}</p>
+            {{#if document.metadata.author}}<p><strong>Author:</strong> {{document.metadata.author}}</p>{{/if}}
+            {{#if document.metadata.estimatedDuration}}<p><strong>Estimated Duration:</strong> {{document.metadata.estimatedDuration}} minutes</p>{{/if}}
+        </div>
+        
+        {{#if document.tableOfContents}}
+        <div class="toc">
+            <h2>Table of Contents</h2>
+            {{> toc items=document.tableOfContents}}
+        </div>
+        {{/if}}
+        
+        {{#each document.sections}}
+        <section id="{{id}}">
+            <h2>{{title}}</h2>
+            {{{content}}}
+            
+            {{#if testCases}}
+            <div class="test-cases">
+                <h3>Test Cases</h3>
+                {{#each testCases}}
+                {{> testCase test=this}}
+                {{/each}}
+            </div>
+            {{/if}}
+            
+            {{#if subsections}}
+            {{#each subsections}}
+            {{> section}}
+            {{/each}}
+            {{/if}}
+        </section>
+        {{/each}}
+        
+        {{#if document.glossary}}
+        <section id="glossary">
+            <h2>Glossary</h2>
+            <dl>
+            {{#each document.glossary}}
+                <dt><strong>{{term}}</strong></dt>
+                <dd>{{definition}}</dd>
+            {{/each}}
+            </dl>
+        </section>
+        {{/if}}
+        
+        {{#if document.index}}
+        <section id="index">
+            <h2>Index</h2>
+            <ul>
+            {{#each document.index}}
+                <li>{{term}}: {{join references ", "}}</li>
+            {{/each}}
+            </ul>
+        </section>
+        {{/if}}
+        
+        <footer>
+            <p>Generated by Enhanced Manual Generator</p>
+            <p>{{formatDateTime document.generatedAt}}</p>
+        </footer>
+    </div>
+</body>
+</html>

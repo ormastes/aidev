@@ -1,0 +1,68 @@
+{
+  "metadata": {
+    "level": "demo",
+    "version": "2.1.0",
+    "description": "Filesystem MCP demo structure with demo and release deployment support",
+    "supports_distributed_features": true,
+    "supports_freeze": false
+  },
+  "structure": {
+    "name": ".",
+    "type": "directory",
+    "description": "Filesystem MCP demo root directory",
+    "children": [
+      {
+        "name": "src",
+        "type": "directory",
+        "description": "Source code for demo application",
+        "children": [
+          { "name": "index.js", "type": "file", "description": "Main application entry point" },
+          { "name": "commands", "type": "directory", "description": "CLI command implementations" },
+          { "name": "lib", "type": "directory", "description": "Core library modules" },
+          { "name": "utils", "type": "directory", "description": "Utility functions and helpers" }
+        ]
+      },
+      {
+        "name": "test",
+        "type": "directory",
+        "description": "Test files for demo application",
+        "children": [
+          { "name": "unit", "type": "directory", "description": "Unit tests" },
+          { "name": "integration", "type": "directory", "description": "Integration tests" },
+          { "name": "fixtures", "type": "directory", "description": "Test data and fixtures" }
+        ]
+      },
+      {
+        "name": "config",
+        "type": "directory",
+        "description": "Configuration files for demo",
+        "children": [
+          { "name": "demo.json", "type": "file", "description": "Demo configuration" },
+          { "name": "mcp.json", "type": "file", "description": "MCP server configuration" }
+        ]
+      },
+      {
+        "name": "docs",
+        "type": "directory",
+        "description": "Demo documentation",
+        "children": [
+          { "name": "README.md", "type": "file", "description": "Demo overview and usage" },
+          { "name": "API.md", "type": "file", "description": "API documentation" }
+        ]
+      },
+      {
+        "name": "demo",
+        "type": "directory",
+        "description": "Demo artifacts and examples"
+      },
+      {
+        "name": "release",
+        "type": "directory",
+        "description": "Release artifacts and deployments"
+      },
+      { "name": "package.json", "type": "file", "description": "NPM package configuration" },
+      { "name": "README.md", "type": "file", "description": "Project documentation" },
+      { "name": ".gitignore", "type": "file", "description": "Git ignore patterns" }
+    ]
+  }
+}

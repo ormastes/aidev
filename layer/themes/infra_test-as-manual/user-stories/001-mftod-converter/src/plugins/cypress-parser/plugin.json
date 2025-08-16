@@ -1,0 +1,14 @@
+{
+  "name": "cypress-parser",
+  "version": "1.0.0",
+  "description": "Parse Cypress test files",
+  "main": "index.ts",
+  "className": "CypressParserPlugin",
+  "type": "parser",
+  "author": "Test-as-Manual Team",
+  "supportedExtensions": [".cy.js", ".cy.ts", ".cy.jsx", ".cy.tsx"],
+  "dependencies": {
+    "@babel/parser": "^7.23.0",
+    "@babel/traverse": "^7.23.0"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@pipe/*": ["pipe/*"],
+      "@children/*": ["children/*"],
+      "@tests/*": ["tests/*"]
+    }
+  },
+  "include": [
+    "pipe/**/*.ts",
+    "children/**/*.ts",
+    "tests/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage"
+  ]
+}

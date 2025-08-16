@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    /* Test Environment Settings */
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    
+    /* Test-Specific Relaxations */
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitAny": false,
+    
+    /* Test Framework Support */
+    "types": ["jest", "node", "@types/jest"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    
+    /* Source Maps for Coverage */
+    "sourceMap": true,
+    "inlineSourceMap": false,
+    "declarationMap": true,
+    
+    /* Output */
+    "outDir": "../dist-test",
+    "rootDir": "../",
+    
+    /* Include Test Helpers */
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    
+    /* JSX for React Testing */
+    "jsx": "react",
+    "jsxImportSource": "react"
+  },
+  "include": [
+    "../src/**/*",
+    "../test/**/*",
+    "../tests/**/*",
+    "../**/*.test.ts",
+    "../**/*.test.tsx",
+    "../**/*.spec.ts",
+    "../**/*.spec.tsx",
+    "../**/__tests__/**/*",
+    "../jest.setup.ts",
+    "../jest.config.ts"
+  ],
+  "exclude": [
+    "../node_modules",
+    "../dist",
+    "../build",
+    "../coverage"
+  ],
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true,
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "ES2022",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true
+    }
+  }
+}

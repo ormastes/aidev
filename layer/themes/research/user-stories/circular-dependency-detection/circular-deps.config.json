@@ -1,0 +1,71 @@
+{
+  "version": "1.0.0",
+  "languages": {
+    "typescript": {
+      "include_patterns": [
+        "src/**/*.ts",
+        "src/**/*.tsx"
+      ],
+      "exclude_patterns": [
+        "node_modules/**",
+        "dist/**",
+        "**/*.test.ts",
+        "**/*.spec.ts"
+      ],
+      "max_depth": 10,
+      "follow_external": false,
+      "include_dev_dependencies": false,
+      "ignore_dynamic_imports": false,
+      "cache_enabled": true
+    },
+    "cpp": {
+      "include_patterns": [
+        "src/**/*.cpp",
+        "src/**/*.hpp",
+        "include/**/*.h"
+      ],
+      "exclude_patterns": [
+        "build/**",
+        "third_party/**",
+        "external/**"
+      ],
+      "max_depth": 15,
+      "follow_external": false,
+      "cache_enabled": true
+    },
+    "python": {
+      "include_patterns": [
+        "src/**/*.py",
+        "**/*.py"
+      ],
+      "exclude_patterns": [
+        "venv/**",
+        "env/**",
+        "__pycache__/**",
+        "**/*.pyc",
+        "site-packages/**"
+      ],
+      "max_depth": 10,
+      "follow_external": false,
+      "cache_enabled": true
+    }
+  },
+  "global": {
+    "max_depth": 10,
+    "follow_external": false,
+    "cache_enabled": true,
+    "output_format": "json"
+  },
+  "output": {
+    "directory": "./circular-deps-report",
+    "formats": [
+      "json",
+      "html"
+    ]
+  },
+  "ci": {
+    "fail_on_cycles": true,
+    "max_allowed_cycles": 0,
+    "severity_threshold": "warning"
+  }
+}

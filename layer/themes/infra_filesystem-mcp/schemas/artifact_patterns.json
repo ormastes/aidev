@@ -1,0 +1,267 @@
+{
+  "artifact_types": {
+    "source_code": {
+      "id": "source_code",
+      "name": "Source Code",
+      "description": "Production source code files",
+      "extensions": ["ts", "js", "tsx", "jsx", "py", "cpp", "c", "h", "hpp", "java", "go", "rs"],
+      "patterns": {
+        "theme": "layer/themes/{epic}_{theme}/children/*.{ext}",
+        "user_story": "layer/themes/{epic}_{theme}/user-stories/{story}/src/**/*.{ext}",
+        "pipe": "layer/themes/{epic}_{theme}/pipe/index.{ext}",
+        "common": "layer/themes/{epic}_{theme}/common/*.{ext}"
+      },
+      "validation": {
+        "must_have_tests": true,
+        "must_have_docs": true,
+        "naming": "^[a-zA-Z][a-zA-Z0-9]*\\.(ts|js|py|cpp|c|h|hpp|java|go|rs)$"
+      }
+    },
+    "test_code": {
+      "id": "test_code",
+      "name": "Test Code",
+      "description": "Test files at different levels",
+      "extensions": ["test.ts", "test.js", "spec.ts", "spec.js", "test.py", "test.cpp"],
+      "patterns": {
+        "unit": "layer/themes/{epic}_{theme}/tests/unit/**/*.(test|spec).{ext}",
+        "integration": "layer/themes/{epic}_{theme}/tests/integration/**/*.(itest|spec).{ext}",
+        "system": "layer/themes/{epic}_{theme}/tests/system/**/*.(systest|spec).{ext}",
+        "external": "layer/themes/{epic}_{theme}/tests/external/**/*.(etest|spec).{ext}",
+        "environment": "layer/themes/{epic}_{theme}/tests/environment/**/*.(envtest|spec).{ext}",
+        "user_story_test": "layer/themes/{epic}_{theme}/user-stories/{story}/tests/**/*.{level}.{ext}"
+      },
+      "validation": {
+        "naming_patterns": {
+          "unit": "^.*\\.(test|spec)\\.(ts|js|py|cpp)$",
+          "integration": "^.*\\.(itest|spec)\\.(ts|js|py|cpp)$",
+          "system": "^.*\\.(systest|stest)\\.(ts|js|py|cpp)$",
+          "external": "^.*\\.(etest)\\.(ts|js|py|cpp)$",
+          "environment": "^.*\\.(envtest)\\.(ts|js|py|cpp)$"
+        },
+        "required_imports": ["@jest", "@testing-library", "vitest", "pytest", "catch2"],
+        "coverage_threshold": 80
+      }
+    },
+    "documentation": {
+      "id": "documentation",
+      "name": "Documentation",
+      "description": "Documentation files",
+      "extensions": ["md", "mdx", "rst", "txt"],
+      "patterns": {
+        "readme": "**/README.md",
+        "feature": "**/FEATURE.md",
+        "retrospect": "gen/history/retrospect/{user_story}*.md",
+        "research": "layer/themes/{epic}_{theme}/research/{user_story}*.(R|research).md",
+        "api_docs": "gen/doc/api/*.md",
+        "user_guide": "gen/doc/guides/*.md"
+      },
+      "validation": {
+        "required_sections": {
+          "readme": ["Overview", "Installation", "Usage"],
+          "feature": ["Description", "Requirements", "Status"],
+          "retrospect": ["Summary", "Lessons Learned", "Improvements"],
+          "research": ["Problem", "Analysis", "Conclusion"]
+        }
+      }
+    },
+    "sequence_diagram": {
+      "id": "sequence_diagram",
+      "name": "Sequence Diagram",
+      "description": "UML sequence diagrams",
+      "extensions": ["mmd", "puml", "plantuml"],
+      "patterns": {
+        "system": "layer/themes/{epic}_{theme}/docs/diagrams/system_{user_story}_sequence.mmd",
+        "user_story": "layer/themes/{epic}_{theme}/user-stories/{story}/docs/diagrams/{story}_sequence.mmd",
+        "integration": "layer/themes/{epic}_{theme}/docs/diagrams/integration_{feature}_sequence.mmd"
+      },
+      "validation": {
+        "required_elements": ["actor", "participant", "message"],
+        "format": "mermaid"
+      }
+    },
+    "configuration": {
+      "id": "configuration",
+      "name": "Configuration",
+      "description": "Configuration files",
+      "extensions": ["json", "yaml", "yml", "toml", "ini", "env"],
+      "patterns": {
+        "package": "**/package.json",
+        "tsconfig": "**/tsconfig.json",
+        "jest": "**/jest.config.js",
+        "docker": "**/Dockerfile",
+        "compose": "**/docker-compose.yml",
+        "env": "**/.env.{environment}"
+      },
+      "validation": {
+        "json_schema": true,
+        "environment_specific": ["dev", "test", "staging", "prod"]
+      }
+    },
+    "schema": {
+      "id": "schema",
+      "name": "Schema Definition",
+      "description": "Data schema and type definitions",
+      "extensions": ["schema.json", "d.ts", "proto", "graphql", "sql"],
+      "patterns": {
+        "json_schema": "layer/themes/{epic}_{theme}/schemas/*.schema.json",
+        "typescript": "layer/themes/{epic}_{theme}/types/*.d.ts",
+        "protobuf": "layer/themes/{epic}_{theme}/proto/*.proto",
+        "database": "layer/themes/{epic}_{theme}/migrations/*.sql"
+      },
+      "validation": {
+        "must_validate": true,
+        "versioned": true
+      }
+    },
+    "build_artifact": {
+      "id": "build_artifact",
+      "name": "Build Artifact",
+      "description": "Compiled or built files",
+      "extensions": ["js", "d.ts", "map", "wasm", "so", "dll", "exe"],
+      "patterns": {
+        "dist": "**/dist/**/*",
+        "build": "**/build/**/*",
+        "lib": "**/lib/**/*",
+        "bin": "**/bin/**/*"
+      },
+      "validation": {
+        "git_ignored": true,
+        "source_maps": true
+      }
+    },
+    "adhoc": {
+      "id": "adhoc",
+      "name": "Ad-hoc Artifact",
+      "description": "Temporary or experimental files that don't fit standard patterns",
+      "extensions": ["*"],
+      "patterns": {
+        "temp": "temp/**/*",
+        "experimental": "layer/themes/{epic}_{theme}/experimental/**/*",
+        "poc": "layer/themes/{epic}_{theme}/poc/**/*"
+      },
+      "validation": {
+        "requires_justification": true,
+        "max_lifetime_days": 30,
+        "must_document_purpose": true
+      }
+    }
+  },
+  "pattern_variables": {
+    "epic": {
+      "description": "Epic name prefix",
+      "pattern": "^[a-z][a-z0-9]*$",
+      "examples": ["init", "check", "infra", "portal", "tool", "llm-agent"]
+    },
+    "theme": {
+      "description": "Theme name",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "examples": ["filesystem-mcp", "test-as-manual", "coverage-aggregator"]
+    },
+    "story": {
+      "description": "User story identifier",
+      "pattern": "^\\d{3}-[a-z][a-z0-9-]*$",
+      "examples": ["001-login", "002-authentication", "003-dashboard"]
+    },
+    "user_story": {
+      "description": "User story name without number",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "examples": ["login", "authentication", "dashboard"]
+    },
+    "ext": {
+      "description": "File extension",
+      "pattern": "^[a-z]+$",
+      "examples": ["ts", "js", "py", "cpp", "md"]
+    },
+    "level": {
+      "description": "Test level",
+      "pattern": "^(test|itest|systest|etest|envtest)$",
+      "examples": ["test", "itest", "systest"]
+    },
+    "environment": {
+      "description": "Deployment environment",
+      "pattern": "^(dev|test|staging|prod)$",
+      "examples": ["dev", "test", "staging", "prod"]
+    }
+  },
+  "artifact_tracking": {
+    "storage": {
+      "manifest_file": "ARTIFACTS.vf.json",
+      "location": "{project_root}",
+      "backup": "gen/artifacts/backup/"
+    },
+    "metadata": {
+      "required_fields": [
+        "id",
+        "type",
+        "path",
+        "created_at",
+        "created_by",
+        "purpose"
+      ],
+      "optional_fields": [
+        "expires_at",
+        "tags",
+        "dependencies",
+        "related_artifacts",
+        "test_coverage",
+        "documentation_link"
+      ]
+    },
+    "lifecycle": {
+      "states": ["draft", "review", "approved", "deployed", "deprecated", "archived"],
+      "transitions": {
+        "draft": ["review", "archived"],
+        "review": ["approved", "draft", "archived"],
+        "approved": ["deployed", "review", "archived"],
+        "deployed": ["deprecated", "archived"],
+        "deprecated": ["archived"],
+        "archived": []
+      }
+    }
+  },
+  "validation_rules": {
+    "file_naming": {
+      "enforce_case": "kebab-case",
+      "max_length": 255,
+      "forbidden_chars": ["\\", "/", ":", "*", "?", "\"", "<", ">", "|"],
+      "reserved_names": ["CON", "PRN", "AUX", "NUL", "COM1", "LPT1"]
+    },
+    "path_validation": {
+      "max_depth": 10,
+      "max_path_length": 4096,
+      "must_start_with": ["layer/", "gen/", "temp/", "common/"],
+      "forbidden_paths": ["/etc", "/usr", "/bin", "/sbin", "C:\\Windows", "C:\\Program Files"]
+    },
+    "content_validation": {
+      "encoding": "UTF-8",
+      "line_endings": "LF",
+      "max_file_size_mb": 100,
+      "forbidden_content": ["password=", "api_key=", "secret=", "private_key="]
+    }
+  },
+  "auto_organization": {
+    "enabled": true,
+    "rules": [
+      {
+        "condition": "file.extension === 'test.ts'",
+        "action": "move_to",
+        "target": "tests/unit/"
+      },
+      {
+        "condition": "file.name.includes('.retrospect.')",
+        "action": "move_to",
+        "target": "gen/history/retrospect/"
+      },
+      {
+        "condition": "file.name.includes('.research.')",
+        "action": "move_to",
+        "target": "research/"
+      },
+      {
+        "condition": "file.type === 'sequence_diagram'",
+        "action": "move_to",
+        "target": "docs/diagrams/"
+      }
+    ]
+  }
+}

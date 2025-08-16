@@ -1,0 +1,16 @@
+{
+  "environments": {
+    "qemu": {
+      "name": "dev-vm",
+      "platform": "x86_64",
+      "memory": "4G",
+      "cores": 2,
+      "debugging": true
+    },
+    "docker": {
+      "name": "dev-container",
+      "image": "ubuntu:22.04",
+      "debugging": true
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-08-15T08:03:06.412Z",
+    "updated_at": "2025-08-15T08:03:06.412Z",
+    "total_items": 0,
+    "description": "Migrated from priority-based format"
+  },
+  "working_item": null,
+  "queues": {
+    "adhoc_temp_user_request": {
+      "items": []
+    },
+    "user_story": {
+      "items": []
+    },
+    "scenarios": {
+      "items": []
+    },
+    "environment_tests": {
+      "items": []
+    },
+    "external_tests": {
+      "items": []
+    },
+    "system_tests_implement": {
+      "items": []
+    },
+    "integration_tests_implement": {
+      "items": []
+    },
+    "unit_tests": {
+      "items": []
+    },
+    "integration_tests_verify": {
+      "items": []
+    },
+    "system_tests_verify": {
+      "items": []
+    },
+    "coverage_duplication": {
+      "items": []
+    },
+    "retrospective": {
+      "items": []
+    }
+  },
+  "global_config": {
+    "seldom_display_default": 5,
+    "operation_counters": {}
+  },
+  "priority_order": [
+    "adhoc_temp_user_request",
+    "environment_tests",
+    "external_tests",
+    "system_tests_implement",
+    "integration_tests_implement",
+    "unit_tests",
+    "integration_tests_verify",
+    "system_tests_verify",
+    "scenarios",
+    "user_story",
+    "coverage_duplication",
+    "retrospective"
+  ],
+  "parentQueue": "/layer/themes/portal_security/TASK_QUEUE.vf.json",
+  "theme": "portal_security"
+}

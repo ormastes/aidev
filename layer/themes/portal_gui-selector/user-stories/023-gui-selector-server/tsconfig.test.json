@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["jest", "node", "express", "express-session"],
+    "typeRoots": ["./node_modules/@types", "./tests/types"]
+  },
+  "include": [
+    "tests/**/*",
+    "src/**/*",
+    "tests/types/**/*.d.ts"
+  ]
+}

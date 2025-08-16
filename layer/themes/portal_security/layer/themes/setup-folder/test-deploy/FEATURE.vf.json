@@ -1,0 +1,12 @@
+{
+  "project": {
+    "name": "test-app",
+    "description": "test-app demo deployment",
+    "type": "demo"
+  },
+  "features": {},
+  "metadata": {
+    "created": "2025-07-25T10:03:34.824Z",
+    "version": "1.0.0"
+  }
+}

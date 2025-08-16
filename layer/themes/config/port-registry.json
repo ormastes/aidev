@@ -1,0 +1,42 @@
+{
+  "registrations": [
+    [
+      "portal-release",
+      {
+        "appId": "portal",
+        "appName": "AI Dev Portal",
+        "type": "predefined",
+        "deployType": "release",
+        "assignedPort": 3456,
+        "status": "registered",
+        "startTime": "2025-08-14T05:48:10.102Z"
+      }
+    ],
+    [
+      "gui-selector-release",
+      {
+        "appId": "gui-selector",
+        "appName": "GUI Selector",
+        "type": "predefined",
+        "deployType": "release",
+        "assignedPort": 3457,
+        "status": "registered",
+        "startTime": "2025-08-14T09:10:44.678Z"
+      }
+    ],
+    [
+      "chat-space-release",
+      {
+        "appId": "chat-space",
+        "appName": "Chat Space",
+        "type": "predefined",
+        "deployType": "release",
+        "assignedPort": 3410,
+        "status": "registered",
+        "startTime": "2025-08-14T05:48:10.790Z"
+      }
+    ]
+  ],
+  "activePorts": [],
+  "timestamp": "2025-08-14T09:10:44.678Z"
+}

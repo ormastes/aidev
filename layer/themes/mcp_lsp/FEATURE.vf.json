@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/themes/lsp-mcp/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.590Z",
+    "updated_at": "2025-08-02T11:10:54.590Z"
+  },
+  "features": {
+    "lsp_mcp": [
+      {
+        "id": "lsp-mcp-epic-001",
+        "name": "Lsp Mcp",
+        "data": {
+          "title": "Lsp Mcp Theme",
+          "description": "Core functionality for Lsp Mcp",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "lsp-mcp",
+            "theme"
+          ],
+          "virtual_path": "/layer/themes/lsp-mcp/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.590Z",
+        "updatedAt": "2025-08-02T11:10:54.590Z"
+      }
+    ]
+  },
+  "children": []
+}

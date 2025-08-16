@@ -1,0 +1,138 @@
+{
+  "queues": {
+    "high": [
+      {
+        "id": "task-001",
+        "type": "runnable",
+        "priority": "high",
+        "content": {
+          "command": "setup",
+          "title": "Initialize Project Structure",
+          "description": "Create the basic project structure with package.json and initial directories",
+          "steps": [
+            "Create package.json with dependencies",
+            "Set up src/ directory structure", 
+            "Create tests/ directory",
+            "Add .gitignore file",
+            "Initialize README.md"
+          ],
+          "estimated_time": "30 minutes"
+        },
+        "status": "pending",
+        "createdAt": "2025-01-19T10:00:00.000Z"
+      },
+      {
+        "id": "task-002", 
+        "type": "runnable",
+        "priority": "high",
+        "content": {
+          "command": "implement",
+          "title": "Core Task Manager Implementation",
+          "description": "Implement the core task management functionality",
+          "steps": [
+            "Create TaskManager class",
+            "Implement add task method",
+            "Implement list tasks method",
+            "Implement In Progress task method", 
+            "Implement delete task method",
+            "Add file persistence"
+          ],
+          "estimated_time": "2 hours"
+        },
+        "status": "pending",
+        "createdAt": "2025-01-19T10:00:00.000Z"
+      }
+    ],
+    "medium": [
+      {
+        "id": "task-003",
+        "type": "runnable", 
+        "priority": "medium",
+        "content": {
+          "command": "implement",
+          "title": "CLI Command Interface",
+          "description": "Create the command-line interface using commander.js",
+          "steps": [
+            "Set up commander.js",
+            "Create 'add' command",
+            "Create 'list' command",
+            "Create 'In Progress' command",
+            "Create 'delete' command",
+            "Add help documentation"
+          ],
+          "estimated_time": "1.5 hours"
+        },
+        "status": "pending",
+        "createdAt": "2025-01-19T10:00:00.000Z"
+      },
+      {
+        "id": "task-004",
+        "type": "runnable",
+        "priority": "medium", 
+        "content": {
+          "command": "test",
+          "title": "Write Unit Tests",
+          "description": "Create comprehensive unit tests for core functionality",
+          "steps": [
+            "Set up Jest testing framework",
+            "Write tests for TaskManager class",
+            "Write tests for file operations",
+            "Write tests for input validation",
+            "Add test coverage reporting"
+          ],
+          "estimated_time": "1 hour"
+        },
+        "status": "pending",
+        "createdAt": "2025-01-19T10:00:00.000Z"
+      }
+    ],
+    "low": [
+      {
+        "id": "task-005",
+        "type": "runnable",
+        "priority": "low",
+        "content": {
+          "command": "enhance",
+          "title": "Add Color-Coded Output",
+          "description": "Implement colored output for better user experience",
+          "steps": [
+            "Install chalk dependency", 
+            "Create color constants",
+            "Apply colors to priority levels",
+            "Add In Progress/error message colors",
+            "Test color output in different terminals"
+          ],
+          "estimated_time": "45 minutes"
+        },
+        "status": "pending",
+        "createdAt": "2025-01-19T10:00:00.000Z"
+      },
+      {
+        "id": "task-006",
+        "type": "runnable",
+        "priority": "low",
+        "content": {
+          "command": "document",
+          "title": "Create Documentation",
+          "description": "Write comprehensive documentation for the project",
+          "steps": [
+            "Update README with usage examples",
+            "Create USAGE.md with detailed examples",
+            "Document API in API.md",
+            "Add CONTRIBUTING.md guidelines",
+            "Create CHANGELOG.md"
+          ],
+          "estimated_time": "1 hour"
+        },
+        "status": "pending",
+        "createdAt": "2025-01-19T10:00:00.000Z"
+      }
+    ]
+  },
+  "working": null,
+  "metadata": {
+    "lastPop": null,
+    "totalProcessed": 0,
+    "totalFailed": 0
+  }
+}

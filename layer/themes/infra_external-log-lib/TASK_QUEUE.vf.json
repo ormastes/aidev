@@ -1,0 +1,171 @@
+{
+  "tasks": [
+    {
+      "id": "SFVP-001",
+      "title": "Create FileViolationPreventer class",
+      "description": "Implement core class that checks file operations against FILE_STRUCTURE.vf.json",
+      "status": "completed",
+      "priority": "high",
+      "tags": [
+        "implementation",
+        "core"
+      ]
+    },
+    {
+      "id": "SFVP-002",
+      "title": "Implement strict mode configuration",
+      "description": "Add configuration system for strict/non-strict modes with inheritance to children",
+      "status": "completed",
+      "priority": "high",
+      "tags": [
+        "configuration"
+      ]
+    },
+    {
+      "id": "SFVP-003",
+      "title": "Create file operation wrappers",
+      "description": "Wrap fs operations to check violations before execution",
+      "status": "completed",
+      "priority": "high",
+      "tags": [
+        "implementation",
+        "wrapper"
+      ]
+    },
+    {
+      "id": "SFVP-004",
+      "title": "Add filesystem-mcp validation logic",
+      "description": "Integrate filesystem-mcp pattern matching and freeze rules",
+      "status": "completed",
+      "priority": "high",
+      "tags": [
+        "validation",
+        "filesystem-mcp"
+      ]
+    },
+    {
+      "id": "SFVP-005",
+      "title": "Create unit tests",
+      "description": "Add comprehensive tests for violation prevention",
+      "status": "completed",
+      "priority": "medium",
+      "tags": [
+        "testing"
+      ]
+    },
+    {
+      "id": "SFVP-006",
+      "title": "Update pipe exports",
+      "description": "Export FileViolationPreventer through pipe/index.ts",
+      "status": "completed",
+      "priority": "medium",
+      "tags": [
+        "integration"
+      ]
+    },
+    {
+      "id": "SFVP-007",
+      "title": "Create usage documentation",
+      "description": "Document how to use strict file checking",
+      "status": "completed",
+      "priority": "low",
+      "tags": [
+        "documentation"
+      ]
+    },
+    {
+      "id": "CEL-001",
+      "title": "Create EventLogger class",
+      "description": "Main logger class for tracking all events and changes",
+      "status": "completed",
+      "priority": "high",
+      "tags": [
+        "implementation",
+        "logging"
+      ]
+    },
+    {
+      "id": "CEL-002",
+      "title": "Implement VfJsonWatcher",
+      "description": "Watch and log changes to TASK_QUEUE, FEATURE, and NAME_ID vf.json files",
+      "status": "completed",
+      "priority": "high",
+      "tags": [
+        "monitoring",
+        "vf-json"
+      ]
+    },
+    {
+      "id": "CEL-003",
+      "title": "Create RejectionTracker",
+      "description": "Track and log file operation rejections and violations",
+      "status": "completed",
+      "priority": "high",
+      "tags": [
+        "rejection",
+        "tracking"
+      ]
+    },
+    {
+      "id": "CEL-004",
+      "title": "Implement log rotation",
+      "description": "Daily log rotation with configurable retention",
+      "status": "completed",
+      "priority": "medium",
+      "tags": [
+        "rotation",
+        "management"
+      ]
+    },
+    {
+      "id": "CEL-005",
+      "title": "Create structured log format",
+      "description": "JSON-based structured logging with queryable fields",
+      "status": "completed",
+      "priority": "high",
+      "tags": [
+        "format",
+        "structure"
+      ]
+    },
+    {
+      "id": "CEL-006",
+      "title": "Add log query system",
+      "description": "Search and filter logs by type, date, and content",
+      "status": "completed",
+      "priority": "medium",
+      "tags": [
+        "query",
+        "search"
+      ]
+    },
+    {
+      "id": "CEL-007",
+      "title": "Create tests",
+      "description": "Unit tests for logging system",
+      "status": "completed",
+      "priority": "medium",
+      "tags": [
+        "testing"
+      ]
+    },
+    {
+      "id": "CEL-008",
+      "title": "Update exports and docs",
+      "description": "Export through pipe and document usage",
+      "status": "completed",
+      "priority": "low",
+      "tags": [
+        "integration",
+        "documentation"
+      ]
+    }
+  ],
+  "metadata": {
+    "created": "2025-08-13T09:49:22.907Z",
+    "updated": "2025-08-13T10:10:00.000Z",
+    "auto_generated": false
+  },
+  "parentQueue": "/TASK_QUEUE.vf.json",
+  "theme": "infra_external-log-lib"
+}

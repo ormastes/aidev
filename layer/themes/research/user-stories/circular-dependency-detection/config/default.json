@@ -1,0 +1,82 @@
+{
+  "version": "1.0.0",
+  "languages": {
+    "typescript": {
+      "include_patterns": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "lib/**/*.ts"
+      ],
+      "exclude_patterns": [
+        "node_modules/**",
+        "dist/**",
+        "build/**",
+        "**/*.test.ts",
+        "**/*.spec.ts",
+        "**/*.d.ts"
+      ],
+      "max_depth": 10,
+      "follow_external": false,
+      "include_dev_dependencies": false,
+      "ignore_dynamic_imports": false,
+      "cache_enabled": true
+    },
+    "cpp": {
+      "include_patterns": [
+        "src/**/*.cpp",
+        "src/**/*.cc",
+        "src/**/*.cxx",
+        "include/**/*.h",
+        "include/**/*.hpp"
+      ],
+      "exclude_patterns": [
+        "build/**",
+        "cmake-build-*/**",
+        "third_party/**",
+        "external/**",
+        "vendor/**"
+      ],
+      "max_depth": 15,
+      "follow_external": false,
+      "cache_enabled": true
+    },
+    "python": {
+      "include_patterns": [
+        "src/**/*.py",
+        "lib/**/*.py",
+        "**/*.py"
+      ],
+      "exclude_patterns": [
+        "venv/**",
+        "env/**",
+        ".venv/**",
+        "__pycache__/**",
+        "**/*.pyc",
+        "site-packages/**",
+        "**/*_test.py",
+        "**/*_spec.py"
+      ],
+      "max_depth": 10,
+      "follow_external": false,
+      "cache_enabled": true
+    }
+  },
+  "global": {
+    "max_depth": 10,
+    "follow_external": false,
+    "cache_enabled": true,
+    "output_format": "json"
+  },
+  "output": {
+    "directory": "./circular-deps-report",
+    "formats": [
+      "json",
+      "html"
+    ]
+  },
+  "ci": {
+    "fail_on_cycles": true,
+    "max_allowed_cycles": 0,
+    "severity_threshold": "warning"
+  }
+}

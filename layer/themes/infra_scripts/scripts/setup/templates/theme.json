@@ -1,0 +1,84 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "{timestamp}",
+    "updated_at": "{timestamp}",
+    "description": "{project_name} theme structure",
+    "project_type": "theme"
+  },
+  "templates": {
+    "theme": {
+      "id": "theme",
+      "type": "directory",
+      "description": "Theme implementation with HEA architecture",
+      "required_children": [
+        { 
+          "name": "children", 
+          "type": "directory", 
+          "description": "Implementation modules",
+          "template": "children_container"
+        },
+        { 
+          "name": "pipe", 
+          "type": "directory", 
+          "description": "Interface layer",
+          "template": "pipe_container"
+        },
+        { "name": "index.ts", "type": "file", "description": "Main theme export" },
+        { "name": "README.md", "type": "file", "description": "Theme documentation" },
+        { "name": "FEATURE.vf.json", "type": "file", "description": "Theme features" }
+      ],
+      "optional_children": [
+        { "name": "user-stories", "type": "directory", "description": "User stories" },
+        { "name": "tests", "type": "directory", "description": "Theme tests" },
+        { "name": "docs", "type": "directory", "description": "Documentation" },
+        { "name": "config", "type": "directory", "description": "Configuration" }
+      ],
+      "constraints": {
+        "max_depth": 5,
+        "file_extensions": [".ts", ".js", ".json", ".md"]
+      }
+    },
+    "children_container": {
+      "id": "children_container",
+      "type": "directory",
+      "description": "Implementation modules container",
+      "allowed_patterns": ["^[A-Z][a-zA-Z0-9]*\\.(ts|js)$", "^[a-z][a-z0-9-]*$"],
+      "constraints": {
+        "file_extensions": [".ts", ".js"]
+      }
+    },
+    "pipe_container": {
+      "id": "pipe_container", 
+      "type": "directory",
+      "description": "Interface layer container",
+      "required_children": [
+        { "name": "index.ts", "type": "file", "description": "Pipe interface" }
+      ],
+      "constraints": {
+        "file_extensions": [".ts", ".js"],
+        "max_children": 10
+      }
+    },
+    "user_story": {
+      "id": "user_story",
+      "type": "directory",
+      "description": "User story implementation",
+      "required_children": [
+        { "name": "src", "type": "directory" },
+        { "name": "tests", "type": "directory" },
+        { "name": "TASK_QUEUE.vf.json", "type": "file" },
+        { "name": "README.md", "type": "file" }
+      ],
+      "optional_children": [
+        { "name": "docs", "type": "directory" },
+        { "name": "config", "type": "directory" }
+      ]
+    }
+  },
+  "structure": {
+    "name": ".",
+    "type": "directory",
+    "template": "theme"
+  }
+}

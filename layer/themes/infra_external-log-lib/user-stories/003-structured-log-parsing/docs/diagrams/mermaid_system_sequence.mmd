@@ -1,0 +1,155 @@
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant Platform as AIDevPlatform
+    participant Parser as StructuredLogParser
+    participant Process as External Process
+    participant FileSystem as File System
+
+    Note over Dev, FileSystem: Scenario 1: Parse JSON logs from Node.js application
+    
+    Dev->>Platform: startLogCapture({<br/>command: 'node',<br/>args: ['app.js'],<br/>captureOutput: true,<br/>logFormat: 'json'<br/>})
+    Platform->>Process: spawn('node', ['app.js'])
+    Platform->>Parser: createStructuredParser('json')
+    Platform-->>Dev: LogCaptureSession
+    
+    loop JSON Log Processing
+        Process->>Parser: {"timestamp":"2025-01-15T10:00:00.000Z",<br/>"level":"info",<br/>"message":"Server started",<br/>"meta":{"port":3000}}
+        Parser->>Parser: validateJSONSchema()
+        Parser->>Parser: extractFields()
+        Parser-->>Platform: LogEntry{timestamp, level, message, metadata}
+    end
+    
+    Dev->>Platform: session.getLogs()
+    Platform-->>Dev: LogEntry[] with parsed metadata
+    
+    Dev->>Platform: session.getMetadata('port')
+    Platform-->>Dev: 3000
+
+    Note over Dev, FileSystem: Scenario 2: Parse custom structured format (key=value)
+    
+    Dev->>Platform: startLogCapture({<br/>command: 'custom-app',<br/>args: [],<br/>captureOutput: true,<br/>logFormat: 'key-value'<br/>})
+    Platform->>Process: spawn('custom-app', [])
+    Platform->>Parser: createStructuredParser('key-value')
+    Platform-->>Dev: LogCaptureSession
+    
+    Process->>Parser: timestamp=2025-01-15T10:00:00Z level=ERROR message="Database connection failed" error_code=1234 retry_count=3
+    Parser->>Parser: parseKeyValuePairs()
+    Parser->>Parser: normalizeTypes()
+    Parser-->>Platform: LogEntry with structured data
+    
+    Dev->>Platform: session.filterByMetadata('error_code', 1234)
+    Platform-->>Dev: Filtered LogEntry[]
+
+    Note over Dev, FileSystem: Scenario 3: Parse XML/YAML logs
+    
+    Dev->>Platform: startLogCapture({<br/>command: 'java',<br/>args: ['-jar', 'app.jar'],<br/>captureOutput: true,<br/>logFormat: 'xml'<br/>})
+    Platform->>Process: spawn('java', ['-jar', 'app.jar'])
+    Platform->>Parser: createStructuredParser('xml')
+    Platform-->>Dev: LogCaptureSession
+    
+    Process->>Parser: <log><timestamp>2025-01-15T10:00:00Z</timestamp><br/><level>WARN</level><br/><message>Memory usage high</message><br/><memory>1.2GB</memory></log>
+    Parser->>Parser: parseXML()
+    Parser->>Parser: mapToLogEntry()
+    Parser-->>Platform: LogEntry with structured fields
+    
+    Dev->>Platform: session.exportAsJSON()
+    Platform-->>Dev: JSON representation of all logs
+
+    Note over Dev, FileSystem: Scenario 4: Mixed format handling
+    
+    Dev->>Platform: startLogCapture({<br/>command: 'mixed-app',<br/>args: [],<br/>captureOutput: true,<br/>logFormat: 'auto'<br/>})
+    Platform->>Parser: createStructuredParser('auto')
+    
+    Process->>Parser: {"level":"info","msg":"JSON log"}
+    Parser->>Parser: detectFormat() → JSON
+    Parser-->>Platform: Parsed JSON LogEntry
+    
+    Process->>Parser: 2025-01-15 ERROR: Plain text log
+    Parser->>Parser: detectFormat() → Plain text
+    Parser-->>Platform: Basic LogEntry
+    
+    Process->>Parser: level=debug msg="Key-value log" 
+    Parser->>Parser: detectFormat() → Key-Value
+    Parser-->>Platform: Parsed KV LogEntry
+
+    Note over Dev, FileSystem: Scenario 5: Schema validation and error handling
+    
+    Dev->>Platform: defineLogSchema({<br/>required: ['timestamp', 'level'],<br/>properties: {level: {enum: ['debug','info','warn','error']}}<br/>})
+    
+    Process->>Parser: {"message":"Missing required fields"}
+    Parser->>Parser: validateSchema() → Invalid
+    Parser-->>Platform: LogEntry{level: 'error', message: 'Invalid log format: Missing required field: timestamp'}
+    
+    Dev->>Platform: session.getInvalidLogs()
+    Platform-->>Dev: LogEntry[] of validation failures
+
+    Note over Dev, FileSystem: Scenario 6: Save structured logs
+    
+    Dev->>Platform: session.saveStructuredLogs('logs.json', {<br/>format: 'json',<br/>includeMetadata: true<br/>})
+    Platform->>FileSystem: Write structured JSON file
+    FileSystem-->>Platform: Success
+    Platform-->>Dev: File saved
+```
+
+## Structured Log Parsing System Scenarios
+
+### Key Features Required
+
+1. **Multiple Format Support**
+   - JSON parsing with nested objects
+   - Key-value pair parsing (logfmt style)
+   - XML log parsing
+   - YAML log parsing
+   - Auto-detection of format
+
+2. **Schema Validation**
+   - Define expected log schemas
+   - Validate incoming logs against schema
+   - Handle validation errors gracefully
+
+3. **Metadata Extraction**
+   - Extract structured fields beyond basic log entry
+   - Support nested metadata
+   - Type normalization (strings to numbers, dates, etc.)
+
+4. **Query and Filter**
+   - Filter logs by metadata values
+   - Query nested fields
+   - Export in different formats
+
+5. **Error Handling**
+   - Graceful fallback for unparseable logs
+   - Track validation failures
+   - Mixed format support in single stream
+
+### Test Requirements
+
+Based on these scenarios, we need:
+
+1. **Environment Tests**
+   - JSON output from Node.js process
+   - Key-value format from custom applications
+   - XML output from Java applications
+   - Mixed format streams
+
+2. **External Tests**
+   - StructuredLogParser with different formats
+   - Schema validation
+   - Format auto-detection
+
+3. **Integration Tests**
+   - Parser integration with log capturer
+   - Metadata extraction and querying
+   - Mixed format handling
+
+4. **System Tests**
+   - End-to-end structured log parsing
+   - Schema validation in real scenarios
+   - Export functionality
+
+5. **Unit Tests**
+   - Individual parser implementations
+   - Schema validator
+   - Metadata extractor
+   - Format detector

@@ -1,0 +1,147 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/themes/filesystem_mcp/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.584Z",
+    "updated_at": "2025-08-12T14:30:00.000Z"
+  },
+  "features": {
+    "filesystem_mcp": [
+      {
+        "id": "filesystem-mcp-001",
+        "name": "Virtual Filesystem MCP Server",
+        "data": {
+          "title": "Model Context Protocol Filesystem Server",
+          "description": "Comprehensive virtual filesystem implementation with MCP protocol support for AI agents to interact with file systems",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "critical",
+          "tags": [
+            "mcp",
+            "filesystem",
+            "virtual-fs",
+            "infrastructure"
+          ],
+          "virtual_path": "/layer/themes/filesystem_mcp/FEATURE.vf.json",
+          "components": {
+            "VFFileWrapper": "Base virtual file operations with query parameter support",
+            "VFNameIdWrapper": "Name-based entity storage with schema validation",
+            "VFTaskQueueWrapper": "Priority-based task queue management with execution",
+            "VFFileStructureWrapper": "File structure definition and validation",
+            "VFValidatedFileWrapper": "Schema-validated file operations",
+            "VFSetupFolderWrapper": "Project setup and folder initialization",
+            "MCPServer": "MCP protocol server implementation",
+            "CommentTaskExecutor": "Task execution with runnable comment support"
+          },
+          "capabilities": [
+            "Virtual filesystem operations (read/write/list)",
+            "Query parameter support for filtering and searching",
+            "Schema validation for structured data",
+            "Task queue management with priorities",
+            "Runnable comment execution",
+            "MCP protocol compliance",
+            "File structure validation",
+            "Setup folder initialization"
+          ]
+        },
+        "createdAt": "2025-08-02T11:10:54.584Z",
+        "updatedAt": "2025-08-12T14:30:00.000Z"
+      },
+      {
+        "id": "filesystem-mcp-002",
+        "name": "Distributed Feature Management",
+        "data": {
+          "title": "Distributed Virtual Feature System",
+          "description": "Distributed feature management across multiple virtual files with hierarchical organization",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "distributed",
+            "features",
+            "virtual-fs"
+          ],
+          "virtual_path": "/layer/themes/filesystem_mcp/FEATURE.vf.json",
+          "components": {
+            "VFDistributedFeatureWrapper": "Distributed feature file management",
+            "VFSearchWrapper": "Advanced search capabilities across virtual files",
+            "VFScenarioEntityManager": "Scenario-based entity management"
+          },
+          "capabilities": [
+            "Distributed feature definitions",
+            "Hierarchical feature organization",
+            "Cross-file feature searching",
+            "Scenario entity management"
+          ]
+        },
+        "createdAt": "2025-08-12T14:30:00.000Z",
+        "updatedAt": "2025-08-12T14:30:00.000Z"
+      },
+      {
+        "id": "filesystem-mcp-003",
+        "name": "Task Queue Automation",
+        "data": {
+          "title": "Automated Task Queue Processing",
+          "description": "Advanced task queue system with automatic execution, priority management, and runnable comment support",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "task-queue",
+            "automation",
+            "execution"
+          ],
+          "virtual_path": "/layer/themes/filesystem_mcp/FEATURE.vf.json",
+          "components": {
+            "TaskQueueRunnableExtension": "Runnable task queue extensions",
+            "StepFileExecutor": "Step-by-step file execution",
+            "RunnableCommentProcessor": "Process and execute runnable comments",
+            "StoryReportValidator": "Story and report validation"
+          },
+          "capabilities": [
+            "Automatic task execution on queue operations",
+            "Priority-based task processing",
+            "Runnable comment detection and execution",
+            "Step file processing",
+            "Story report validation"
+          ]
+        },
+        "createdAt": "2025-08-12T14:30:00.000Z",
+        "updatedAt": "2025-08-12T14:30:00.000Z"
+      },
+      {
+        "id": "filesystem-mcp-004",
+        "name": "MCP Protocol Integration",
+        "data": {
+          "title": "Full MCP Protocol Support",
+          "description": "Complete Model Context Protocol implementation with tool discovery, execution, and response handling",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "critical",
+          "tags": [
+            "mcp",
+            "protocol",
+            "integration"
+          ],
+          "virtual_path": "/layer/themes/filesystem_mcp/FEATURE.vf.json",
+          "capabilities": [
+            "MCP tool registration and discovery",
+            "Request/response protocol handling",
+            "Error handling and recovery",
+            "Session management",
+            "Tool parameter validation",
+            "Async operation support"
+          ]
+        },
+        "createdAt": "2025-08-12T14:30:00.000Z",
+        "updatedAt": "2025-08-12T14:30:00.000Z"
+      }
+    ]
+  },
+  "children": [
+    "/layer/themes/filesystem_mcp/user-stories/vf-file-operations/FEATURE.vf.json",
+    "/layer/themes/filesystem_mcp/user-stories/task-queue-management/FEATURE.vf.json",
+    "/layer/themes/filesystem_mcp/user-stories/mcp-protocol/FEATURE.vf.json"
+  ]
+}

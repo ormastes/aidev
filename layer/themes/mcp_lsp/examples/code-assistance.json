@@ -1,0 +1,143 @@
+{
+  "description": "Examples of code assistance features",
+  "examples": [
+    {
+      "name": "Get code completions",
+      "request": {
+        "method": "getCompletions",
+        "params": {
+          "file": "/src/app.ts",
+          "line": 10,
+          "character": 8
+        }
+      },
+      "response": [
+        {
+          "label": "console",
+          "kind": "variable",
+          "detail": "const console: Console",
+          "documentation": "The console object provides access to the browser's debugging console",
+          "insertText": "console"
+        },
+        {
+          "label": "log",
+          "kind": "method",
+          "detail": "(method) Console.log(...data: any[]): void",
+          "insertText": "log($1)",
+          "sortText": "0"
+        },
+        {
+          "label": "error",
+          "kind": "method",
+          "detail": "(method) Console.error(...data: any[]): void",
+          "insertText": "error($1)",
+          "sortText": "1"
+        }
+      ]
+    },
+    {
+      "name": "Get hover information",
+      "request": {
+        "method": "getHover",
+        "params": {
+          "file": "/src/utils.ts",
+          "line": 15,
+          "character": 10
+        }
+      },
+      "response": {
+        "contents": "```typescript\nfunction calculateSum(numbers: number[]): number\n```\n\nCalculates the sum of an array of numbers.\n\n@param numbers - Array of numbers to sum\n@returns The sum of all numbers"
+      }
+    },
+    {
+      "name": "Get code actions",
+      "request": {
+        "method": "getCodeActions",
+        "params": {
+          "file": "/src/broken.ts",
+          "range": {
+            "start": { "line": 5, "character": 0 },
+            "end": { "line": 5, "character": 20 }
+          }
+        }
+      },
+      "response": [
+        {
+          "title": "Add missing import for 'User'",
+          "kind": "quickfix",
+          "edit": {
+            "changes": {
+              "/src/broken.ts": [
+                {
+                  "range": {
+                    "start": { "line": 0, "character": 0 },
+                    "end": { "line": 0, "character": 0 }
+                  },
+                  "newText": "import { User } from './models/User';\n"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "Convert to async function",
+          "kind": "refactor",
+          "edit": {
+            "changes": {
+              "/src/broken.ts": [
+                {
+                  "range": {
+                    "start": { "line": 10, "character": 0 },
+                    "end": { "line": 10, "character": 8 }
+                  },
+                  "newText": "async function"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rename symbol",
+      "request": {
+        "method": "rename",
+        "params": {
+          "file": "/src/oldName.ts",
+          "line": 5,
+          "character": 10,
+          "newName": "newVariableName"
+        }
+      },
+      "response": {
+        "changes": {
+          "/src/oldName.ts": [
+            {
+              "range": {
+                "start": { "line": 5, "character": 6 },
+                "end": { "line": 5, "character": 17 }
+              },
+              "newText": "newVariableName"
+            },
+            {
+              "range": {
+                "start": { "line": 10, "character": 15 },
+                "end": { "line": 10, "character": 26 }
+              },
+              "newText": "newVariableName"
+            }
+          ],
+          "/src/consumer.ts": [
+            {
+              "range": {
+                "start": { "line": 3, "character": 20 },
+                "end": { "line": 3, "character": 31 }
+              },
+              "newText": "newVariableName"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

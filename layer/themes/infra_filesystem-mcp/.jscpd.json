@@ -1,0 +1,21 @@
+{
+  "threshold": 0,
+  "reporters": ["html", "console", "json"],
+  "ignore": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/coverage/**",
+    "**/temp/**",
+    "**/gen/**",
+    "**/*.test.ts",
+    "**/*.itest.ts",
+    "**/*.systest.ts",
+    "**/*.etest.ts",
+    "**/*.envtest.ts"
+  ],
+  "format": ["typescript", "javascript"],
+  "absolute": true,
+  "minLines": 5,
+  "minTokens": 50,
+  "output": "./gen/reports/duplication"
+}

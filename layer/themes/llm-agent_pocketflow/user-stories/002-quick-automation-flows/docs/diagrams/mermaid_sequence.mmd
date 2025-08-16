@@ -1,0 +1,177 @@
+sequenceDiagram
+    participant Client
+    participant FlowManager
+    participant FlowValidator
+    participant FlowStorage
+    participant FileSystem
+    participant Logger
+
+    %% Flow Creation Sequence
+    Client->>FlowManager: defineFlow(name, description, trigger, actions)
+    FlowManager->>FlowValidator: validate(flowConfig)
+    FlowValidator-->>FlowManager: {isValid: true}
+    FlowManager->>Logger: log("Creating flow: {name}")
+    FlowManager->>FlowManager: createFlowDefinition()
+    FlowManager->>FlowStorage: save(flowDefinition)
+    FlowStorage->>FlowStorage: loadFlows()
+    FlowStorage->>FileSystem: readFileSync(flows.json)
+    FileSystem-->>FlowStorage: content
+    FlowStorage->>FlowStorage: generateFlowId()
+    FlowStorage->>FlowStorage: addFlowToList()
+    FlowStorage->>FlowStorage: saveFlows(flows)
+    FlowStorage->>FileSystem: writeFileSync(flows.json.tmp)
+    FlowStorage->>FileSystem: renameSync(flows.json.tmp, flows.json)
+    FlowStorage-->>FlowManager: flowId
+    FlowManager->>Logger: log("Flow created: {flowId}")
+    FlowManager-->>Client: {success: true, flowId}
+
+    %% Flow Update Sequence
+    Client->>FlowManager: updateFlow(flowId, updates)
+    FlowManager->>FlowStorage: findById(flowId)
+    FlowStorage->>FlowStorage: loadFlows()
+    FlowStorage->>FileSystem: readFileSync(flows.json)
+    FlowStorage-->>FlowManager: existingFlow
+    FlowManager->>FlowManager: mergeUpdates(existingFlow, updates)
+    FlowManager->>FlowValidator: validate(updatedFlow)
+    FlowValidator-->>FlowManager: {isValid: true}
+    FlowManager->>Logger: log("Updating flow: {flowId}")
+    FlowManager->>FlowStorage: update(flowId, updates)
+    FlowStorage->>FlowStorage: loadFlows()
+    FlowStorage->>FlowStorage: findFlowIndex(flowId)
+    FlowStorage->>FlowStorage: updateFlowData()
+    FlowStorage->>FlowStorage: saveFlows(flows)
+    FlowStorage->>FileSystem: writeFileSync(flows.json.tmp)
+    FlowStorage->>FileSystem: renameSync(flows.json.tmp, flows.json)
+    FlowStorage-->>FlowManager: updatedFlow
+    FlowManager-->>Client: {success: true, flow}
+
+    %% Flow Deletion with Active Execution Check
+    Client->>FlowManager: deleteFlow(flowId)
+    FlowManager->>FlowStorage: findById(flowId)
+    FlowStorage-->>FlowManager: flow
+    FlowManager->>FlowStorage: hasActiveExecutions(flowId)
+    FlowStorage->>FlowStorage: loadExecutions()
+    FlowStorage->>FileSystem: readFileSync(executions.json)
+    FlowStorage->>FlowStorage: checkActiveExecutions(flowId)
+    FlowStorage-->>FlowManager: false
+    FlowManager->>Logger: log("Deleting flow: {flowId}")
+    FlowManager->>FlowStorage: delete(flowId)
+    FlowStorage->>FlowStorage: loadFlows()
+    FlowStorage->>FlowStorage: removeFlow(flowId)
+    FlowStorage->>FlowStorage: saveFlows(flows)
+    FlowStorage->>FileSystem: writeFileSync(flows.json.tmp)
+    FlowStorage->>FileSystem: renameSync(flows.json.tmp, flows.json)
+    FlowStorage-->>FlowManager: void
+    FlowManager-->>Client: {success: true}
+
+    %% Execution Save and History
+    Client->>FlowManager: saveExecution(flowId, execution)
+    FlowManager->>FlowStorage: findById(flowId)
+    FlowStorage-->>FlowManager: flow
+    FlowManager->>FlowManager: createExecutionRecord(execution, flow)
+    FlowManager->>FlowStorage: saveExecution(executionRecord)
+    FlowStorage->>FlowStorage: loadExecutions()
+    FlowStorage->>FileSystem: readFileSync(executions.json)
+    FlowStorage->>FlowStorage: generateExecutionId()
+    FlowStorage->>FlowStorage: addExecutionToList()
+    FlowStorage->>FlowStorage: saveExecutions(executions)
+    FlowStorage->>FileSystem: writeFileSync(executions.json.tmp)
+    FlowStorage->>FileSystem: renameSync(executions.json.tmp, executions.json)
+    FlowStorage-->>FlowManager: executionId
+    FlowManager-->>Client: {success: true, executionId}
+
+    %% List Flows with Filter
+    Client->>FlowManager: listFlows(filter)
+    FlowManager->>Logger: log("Listing flows")
+    FlowManager->>FlowStorage: findAll(filter)
+    FlowStorage->>FlowStorage: loadFlows()
+    FlowStorage->>FileSystem: readFileSync(flows.json)
+    FlowStorage->>FlowStorage: applyFilter(flows, filter)
+    FlowStorage-->>FlowManager: filteredFlows
+    FlowManager-->>Client: {success: true, flows}
+
+    %% FlowManager-FlowValidator Integration Sequences
+    
+    %% Flow Definition with Validation
+    Client->>FlowManager: defineFlow(name, description, trigger, actions)
+    FlowManager->>FlowManager: createFlowConfig(name, description, trigger, actions)
+    FlowManager->>FlowValidator: validate(flowConfig)
+    FlowValidator->>FlowValidator: validateName(name)
+    FlowValidator->>FlowValidator: validateDescription(description)
+    FlowValidator->>FlowValidator: validateTrigger(trigger)
+    alt trigger type is file_change
+        FlowValidator->>FlowValidator: validateFileChangeTrigger(trigger)
+    else trigger type is time
+        FlowValidator->>FlowValidator: validateTimeTrigger(trigger)
+        FlowValidator->>FlowValidator: isValidCronExpression(schedule)
+    else trigger type is webhook
+        FlowValidator->>FlowValidator: validateWebhookTrigger(trigger)
+    end
+    FlowValidator->>FlowValidator: validateActions(actions)
+    loop for each action
+        FlowValidator->>FlowValidator: validateAction(action, index)
+        alt action type is command
+            FlowValidator->>FlowValidator: validateCommandAction(action)
+        else action type is script
+            FlowValidator->>FlowValidator: validateScriptAction(action)
+        else action type is http
+            FlowValidator->>FlowValidator: validateHttpAction(action)
+        else action type is delay
+            FlowValidator->>FlowValidator: validateDelayAction(action)
+        end
+    end
+    FlowValidator-->>FlowManager: {isValid, errors}
+    alt validation failed
+        FlowManager->>Logger: log("Flow validation failed: {errors}")
+        FlowManager-->>Client: {success: false, error}
+    else validation passed
+        FlowManager->>FlowValidator: isDuplicateName(name)
+        FlowValidator-->>FlowManager: isDuplicate
+        alt name is duplicate
+            FlowManager-->>Client: {success: false, error: "Flow name already exists"}
+        else name is unique
+            FlowManager->>Logger: log("Flow validation passed for: {name}")
+            FlowManager-->>Client: {success: true, flowId}
+        end
+    end
+
+    %% Flow Update with Validation
+    Client->>FlowManager: updateFlow(flowId, updates, existingFlow)
+    FlowManager->>FlowManager: mergeFlows(existingFlow, updates)
+    FlowManager->>FlowValidator: validate(updatedFlow)
+    FlowValidator-->>FlowManager: {isValid, errors}
+    alt validation failed
+        FlowManager->>Logger: log("Flow update validation failed: {errors}")
+        FlowManager-->>Client: {success: false, error}
+    else validation passed
+        alt trigger type changed
+            FlowManager->>FlowValidator: validateTriggerChange(oldTrigger, newTrigger)
+            FlowValidator-->>FlowManager: {isValid, error}
+            alt trigger change invalid
+                FlowManager-->>Client: {success: false, error}
+            else trigger change valid
+                FlowManager->>Logger: log("Flow update validation passed for: {flowId}")
+                FlowManager-->>Client: {success: true, flow}
+            end
+        else no trigger change
+            FlowManager->>Logger: log("Flow update validation passed for: {flowId}")
+            FlowManager-->>Client: {success: true, flow}
+        end
+    end
+
+    %% Pre-execution Validation
+    Client->>FlowManager: validateBeforeExecution(flow)
+    FlowManager->>FlowValidator: validateEnabled(flow)
+    FlowValidator-->>FlowManager: {isValid, error}
+    alt flow disabled
+        FlowManager-->>Client: {success: false, error: "Flow is disabled"}
+    else flow enabled
+        loop for each action
+            FlowManager->>FlowValidator: validateAction(action, index)
+            FlowValidator-->>FlowManager: {isValid, errors}
+            alt action invalid
+                FlowManager-->>Client: {success: false, error: "Action {index}: {errors}"}
+            end
+        end
+        FlowManager-->>Client: {success: true}
+    end

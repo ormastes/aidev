@@ -1,0 +1,73 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/epics/init/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-03T04:00:00.000Z",
+    "updated_at": "2025-08-03T04:00:00.000Z"
+  },
+  "features": {
+    "llm_agent_init": [
+      {
+        "id": "llm-agent-init-001",
+        "name": "LLM Agent Initialization Epic",
+        "data": {
+          "title": "Initialization & Configuration Epic",
+          "description": "Provides centralized setup scripts, environment configuration, TypeScript types, and build orchestration for the entire LLM Agent Epic ecosystem",
+          "level": "epic",
+          "status": "completed",
+          "priority": "critical",
+          "tags": [
+            "llm-agent-init",
+            "setup",
+            "configuration",
+            "types",
+            "build"
+          ],
+          "virtual_path": "/layer/epics/init/FEATURE.vf.json",
+          "provides": [
+            "setup-scripts",
+            "env-configuration", 
+            "typescript-config",
+            "shared-types",
+            "jest-config",
+            "container-environment"
+          ],
+          "components": {
+            "setup": {
+              "install-all.sh": "Complete epic installation",
+              "install-ollama.sh": "Ollama platform setup",
+              "install-vllm.sh": "vLLM platform setup",
+              "build-all.sh": "Build all TypeScript projects",
+              "generate-env.sh": "Generate environment templates"
+            },
+            "config": {
+              ".env.template": "Environment variable template",
+              "tsconfig.base.json": "Base TypeScript configuration",
+              "jest.config.base.js": "Base Jest configuration"
+            },
+            "types": {
+              "package": "@llm-agent/types",
+              "exports": [
+                "common.types",
+                "coordinator.types",
+                "mcp.types",
+                "agent.types",
+                "session.types",
+                "platform.types"
+              ]
+            }
+          }
+        },
+        "createdAt": "2025-08-03T04:00:00.000Z",
+        "updatedAt": "2025-08-03T04:00:00.000Z"
+      }
+    ]
+  },
+  "children": [
+    "/layer/themes/init_setup-folder/FEATURE.vf.json",
+    "/layer/themes/init_env-config/FEATURE.vf.json",
+    "/layer/themes/init_typescript-config/FEATURE.vf.json",
+    "/layer/themes/init_container-environment/FEATURE.vf.json"
+  ]
+}

@@ -1,0 +1,89 @@
+sequenceDiagram
+    participant LM as LogMonitor
+    participant PM1 as ProcessManager1
+    participant PM2 as ProcessManager2
+    participant PM3 as ProcessManager3
+    participant LS1 as LogStream1
+    participant LS2 as LogStream2
+    participant LS3 as LogStream3
+    participant P1 as Process1
+    participant P2 as Process2
+    participant P3 as Process3
+    participant LA as LogAggregator
+
+    Note over LM,LA: Multiple Process Initialization
+    
+    LM->>PM1: new ProcessManager()
+    PM1->>P1: spawnProcess(cmd1)
+    P1-->>PM1: childProcess1
+    PM1-->>LM: processManager1
+    
+    LM->>LS1: new LogStream(stdout1, stderr1)
+    LS1-->>LM: logStream1
+    LM->>LS1: setLogLevelFilter(filter1)
+    
+    LM->>PM2: new ProcessManager()
+    PM2->>P2: spawnProcess(cmd2)
+    P2-->>PM2: childProcess2
+    PM2-->>LM: processManager2
+    
+    LM->>LS2: new LogStream(stdout2, stderr2)
+    LS2-->>LM: logStream2
+    LM->>LS2: setLogLevelFilter(filter2)
+    
+    LM->>PM3: new ProcessManager()
+    PM3->>P3: spawnProcess(cmd3)
+    P3-->>PM3: childProcess3
+    PM3-->>LM: processManager3
+    
+    LM->>LS3: new LogStream(stdout3, stderr3)
+    LS3-->>LM: logStream3
+    LM->>LS3: setLogLevelFilter(filter3)
+    
+    Note over P1,P3: Concurrent Log Generation
+    
+    P1->>LS1: stdout/stderr data
+    LS1->>LM: log-entry event
+    LM->>LA: aggregate(processId1, logEntry)
+    
+    P2->>LS2: stdout/stderr data
+    LS2->>LM: log-entry event
+    LM->>LA: aggregate(processId2, logEntry)
+    
+    P3->>LS3: stdout/stderr data
+    LS3->>LM: log-entry event
+    LM->>LA: aggregate(processId3, logEntry)
+    
+    Note over P1,PM1: Process1 Completes
+    
+    P1->>PM1: exit(0)
+    PM1->>LM: process-exited event
+    LM->>LS1: cleanup()
+    LM->>LA: markProcessComplete(processId1)
+    LM->>LM: processes.delete(processId1)
+    
+    Note over P2,PM2: Process2 Crashes
+    
+    P2->>PM2: exit(1)
+    PM2->>LM: process-crashed event
+    LM->>LS2: cleanup()
+    LM->>LA: markProcessCrashed(processId2)
+    LM->>LM: processes.delete(processId2)
+    
+    Note over LM,PM3: Manual Stop Process3
+    
+    LM->>PM3: terminate()
+    PM3->>P3: SIGTERM
+    P3->>PM3: exit
+    PM3->>LM: process-exited event
+    LM->>LS3: cleanup()
+    LM->>LA: markProcessStopped(processId3)
+    LM->>LM: processes.delete(processId3)
+    
+    Note over LM,LA: Query Aggregated Logs
+    
+    LM->>LA: getAggregatedLogs(filters)
+    LA-->>LM: aggregatedLogs[]
+    
+    LM->>LA: getProcessLogs(processId)
+    LA-->>LM: processSpecificLogs[]

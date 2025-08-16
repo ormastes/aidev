@@ -1,0 +1,188 @@
+# Explorer Testing Invariants
+# Define rules that should always hold true across the application
+
+global:
+  # Universal invariants applied to all flows
+  - name: no_5xx_errors
+    description: No server errors (5xx status codes)
+    check: response.status < 500
+    severity: critical
+    
+  - name: no_console_errors
+    description: No JavaScript errors in console
+    check: console.errors.length == 0
+    severity: high
+    
+  - name: no_stack_traces
+    description: No stack traces exposed in responses
+    check: not contains(response.body, ["traceback", "stack trace", "at line"])
+    severity: critical
+    
+  - name: no_pii_in_errors
+    description: No PII leaked in error messages
+    check: not contains(response.body, ["email", "password", "token", "ssn"])
+    severity: critical
+    
+  - name: response_time_limit
+    description: Responses complete within 3 seconds
+    check: response.time < 3000
+    severity: medium
+    
+  - name: valid_content_type
+    description: Content-Type header is present and valid
+    check: response.headers["content-type"] != null
+    severity: low
+
+authentication:
+  # Auth-specific invariants
+  - name: secure_password_handling
+    description: Passwords never in GET requests or logs
+    check: method != "GET" or not contains(url, "password")
+    severity: critical
+    
+  - name: session_consistency
+    description: Session tokens remain valid after login
+    check: response.cookies["session"] != null
+    severity: high
+    
+  - name: auth_redirect
+    description: Successful login redirects to dashboard
+    check: status == 302 and location.contains("/dashboard")
+    severity: medium
+    
+  - name: failed_auth_status
+    description: Failed auth returns 401 or 403
+    check: failed_auth implies status in [401, 403]
+    severity: high
+
+search:
+  # Search-specific invariants
+  - name: results_present
+    description: Search with valid query returns results
+    check: response.body.results != null
+    severity: high
+    
+  - name: query_escaping
+    description: Special characters properly escaped
+    check: query_param properly_escaped
+    severity: high
+    
+  - name: result_relevance
+    description: Results contain search terms
+    check: any(result.contains(query) for result in results)
+    severity: medium
+    
+  - name: empty_query_handling
+    description: Empty query handled gracefully
+    check: empty_query implies (status == 200 or status == 400)
+    severity: low
+
+pagination:
+  # Pagination invariants
+  - name: monotonic_ordering
+    description: Results maintain consistent ordering
+    check: is_sorted(results.id) or is_sorted(results.timestamp)
+    severity: high
+    
+  - name: no_duplicates
+    description: No duplicate items across pages
+    check: unique(all_results.id)
+    severity: high
+    
+  - name: page_size_respected
+    description: Page size matches requested limit
+    check: results.length <= requested_limit
+    severity: medium
+    
+  - name: total_count_consistency
+    description: Total count remains stable during pagination
+    check: total_count_stable_across_requests
+    severity: medium
+
+crud:
+  # CRUD operation invariants
+  - name: create_idempotency_key
+    description: Create with idempotency key prevents duplicates
+    check: duplicate_create_with_same_key returns existing
+    severity: high
+    
+  - name: update_version_check
+    description: Updates check version to prevent conflicts
+    check: update_with_old_version returns 409
+    severity: high
+    
+  - name: delete_idempotent
+    description: Multiple deletes are safe
+    check: second_delete returns 404 or 204
+    severity: medium
+    
+  - name: read_after_write
+    description: Created items immediately readable
+    check: get(created.id) returns created_item
+    severity: high
+
+api:
+  # API-specific invariants
+  - name: schema_compliance
+    description: Responses match OpenAPI schema
+    check: validate_against_schema(response, openapi_spec)
+    severity: high
+    
+  - name: required_headers
+    description: Required headers present
+    check: all(header in response.headers for header in ["x-request-id", "x-version"])
+    severity: medium
+    
+  - name: rate_limit_headers
+    description: Rate limit headers present when applicable
+    check: status == 429 implies "retry-after" in headers
+    severity: medium
+    
+  - name: cors_headers
+    description: CORS headers properly configured
+    check: options_request returns proper_cors_headers
+    severity: medium
+
+security:
+  # Security invariants
+  - name: auth_required
+    description: Protected endpoints require authentication
+    check: no_auth implies status in [401, 403]
+    severity: critical
+    
+  - name: csrf_protection
+    description: State-changing operations have CSRF protection
+    check: mutating_request implies csrf_token_valid
+    severity: critical
+    
+  - name: secure_headers
+    description: Security headers present
+    check: all(header in response for header in ["x-frame-options", "x-content-type-options"])
+    severity: high
+    
+  - name: no_sensitive_data_in_logs
+    description: No sensitive data in application logs
+    check: not contains(logs, ["password", "token", "api_key"])
+    severity: critical
+
+performance:
+  # Performance invariants
+  - name: database_query_limit
+    description: No N+1 query problems
+    check: db_queries_per_request < 10
+    severity: medium
+    
+  - name: payload_size_limit
+    description: Response payloads under 1MB
+    check: response.size < 1048576
+    severity: low
+    
+  - name: connection_pool_health
+    description: Connection pool not exhausted
+    check: active_connections < max_connections * 0.8
+    severity: high
+    
+  - name: memory_usage
+    description: Memory usage stable
+    check: memory_delta < 100MB per 1000 requests
+    severity: medium

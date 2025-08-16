@@ -1,0 +1,57 @@
+{
+  "description": "Example of querying type information",
+  "examples": [
+    {
+      "name": "Get type at position",
+      "request": {
+        "method": "getTypeAtPosition",
+        "params": {
+          "file": "/src/example.ts",
+          "line": 10,
+          "character": 15
+        }
+      },
+      "response": {
+        "name": "myVariable",
+        "kind": "const",
+        "type": "string",
+        "documentation": "A variable that stores user input"
+      }
+    },
+    {
+      "name": "Get function signature",
+      "request": {
+        "method": "getTypeAtPosition",
+        "params": {
+          "file": "/src/utils.ts",
+          "line": 25,
+          "character": 10
+        }
+      },
+      "response": {
+        "name": "processData",
+        "kind": "function",
+        "type": "function",
+        "signature": "processData(data: any[], options?: ProcessOptions): Promise<Result>",
+        "documentation": "Processes an array of data with optional configuration"
+      }
+    },
+    {
+      "name": "Get class information",
+      "request": {
+        "method": "getTypeAtPosition",
+        "params": {
+          "file": "/src/models/User.ts",
+          "line": 5,
+          "character": 6
+        }
+      },
+      "response": {
+        "name": "User",
+        "kind": "class",
+        "type": "class",
+        "documentation": "Represents a user in the system with authentication capabilities"
+      }
+    }
+  ]
+}

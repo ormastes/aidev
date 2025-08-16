@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "cli-framework-epic-001",
+    "path": "/layer/themes/cli-framework/user-stories/002-cli-base-structure/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.568Z",
+    "updated_at": "2025-08-02T11:10:54.568Z"
+  },
+  "features": {
+    "002_cli_base_structure": [
+      {
+        "id": "cli-framework-002-cli-base-structure",
+        "name": "cli base structure",
+        "data": {
+          "title": "Cli base structure",
+          "description": "Implementation of cli base structure",
+          "level": "user_story",
+          "parent_feature_id": "cli-framework-epic-001",
+          "epic_id": "cli-framework-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "cli-framework",
+            "cli-base-structure"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/cli-framework/user-stories/002-cli-base-structure/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.568Z",
+        "updatedAt": "2025-08-02T11:10:54.568Z"
+      }
+    ]
+  }
+}

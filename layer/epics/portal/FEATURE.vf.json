@@ -1,0 +1,60 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/epics/portal/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-03T16:00:00.000Z",
+    "updated_at": "2025-08-03T16:00:00.000Z"
+  },
+  "features": {
+    "portal": [
+      {
+        "id": "portal-001",
+        "name": "Portal and User Interface Epic",
+        "data": {
+          "title": "Portal and User Interface Epic",
+          "description": "Provides comprehensive portal functionality, GUI selection capabilities, and security features for web-based user interfaces across the platform",
+          "level": "epic",
+          "status": "active",
+          "priority": "high",
+          "tags": [
+            "portal",
+            "ui",
+            "security",
+            "web",
+            "authentication"
+          ],
+          "virtual_path": "/layer/epics/portal/FEATURE.vf.json",
+          "provides": [
+            "web-portal",
+            "gui-selection",
+            "authentication",
+            "session-management",
+            "security-middleware"
+          ],
+          "components": {
+            "portal_aidev": {
+              "description": "Main AI Development Portal with user authentication and project management",
+              "features": ["user-authentication", "project-dashboard", "api-integration"]
+            },
+            "portal_gui-selector": {
+              "description": "GUI design selection and preview system for development workflows",
+              "features": ["design-candidates", "preview-server", "selection-interface"]
+            },
+            "portal_security": {
+              "description": "Web security layer with authentication, authorization, and session management",
+              "features": ["auth-service", "session-management", "security-middleware", "token-service"]
+            }
+          }
+        },
+        "createdAt": "2025-08-03T16:00:00.000Z",
+        "updatedAt": "2025-08-03T16:00:00.000Z"
+      }
+    ]
+  },
+  "children": [
+    "/layer/themes/portal_aidev/FEATURE.vf.json",
+    "/layer/themes/portal_gui-selector/FEATURE.vf.json",
+    "/layer/themes/portal_security/FEATURE.vf.json"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "extends": "./init/config/tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "./",
+    "outDir": "./dist",
+    "composite": true,
+    "paths": {
+      "@llm-agent/types": ["./init/types/src/index"],
+      "@llm-agent/core": ["./src/index"],
+      "@llm-agent/*": ["../../themes/llm-agent_*/src/index"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "xlib/**/*",
+    "tests/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "init"
+  ],
+  "references": [
+    { "path": "./init/types" }
+  ]
+}

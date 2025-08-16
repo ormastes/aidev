@@ -1,0 +1,107 @@
+{
+  "webSecurity": [
+    {
+      "id": "websec-001",
+      "name": "Unified Authentication System",
+      "data": {
+        "title": "Single Sign-On (SSO) for All Web Apps",
+        "description": "Centralized authentication service providing single sign-on capability for AI Dev Portal, GUI Selector, and other web applications",
+        "status": "implemented",
+        "priority": "high",
+        "components": [
+          "AuthService - Core authentication logic",
+          "LoginUI - Reusable login components",
+          "SessionManager - Cross-app session handling",
+          "TokenService - JWT token generation and validation"
+        ],
+        "features": [
+          "Single login for all apps",
+          "Remember me functionality",
+          "Session timeout handling",
+          "Secure password hashing (bcrypt)",
+          "CSRF protection"
+        ]
+      },
+      "createdAt": "2025-08-01T12:00:00.000Z",
+      "updatedAt": "2025-08-01T12:00:00.000Z"
+    },
+    {
+      "id": "websec-002",
+      "name": "Credential Management System",
+      "data": {
+        "title": "Secure Credential Storage and Sharing",
+        "description": "Encrypted credential storage system for managing and sharing credentials across web applications",
+        "status": "implemented",
+        "priority": "high",
+        "components": [
+          "CredentialStore - Encrypted storage backend",
+          "CredentialAPI - REST API for credential access",
+          "EnvironmentConfig - Environment-based configuration"
+        ],
+        "security_features": [
+          "AES-256 encryption for stored credentials",
+          "Environment variable support",
+          "Role-based access control",
+          "Audit logging for credential access",
+          "Automatic credential rotation"
+        ],
+        "default_credentials": {
+          "development": {
+            "username": "admin",
+            "password": "aidev2024"
+          }
+        }
+      },
+      "createdAt": "2025-08-01T12:00:00.000Z",
+      "updatedAt": "2025-08-01T12:00:00.000Z"
+    },
+    {
+      "id": "websec-003",
+      "name": "Security Middleware Suite",
+      "data": {
+        "title": "Reusable Security Components",
+        "description": "Collection of Express/HTTP middleware for common security needs",
+        "status": "implemented",
+        "priority": "medium",
+        "middleware_components": [
+          "Authentication middleware - Verify user sessions",
+          "Authorization middleware - Role-based access control",
+          "Rate limiting - Prevent brute force attacks",
+          "CORS configuration - Cross-origin resource sharing",
+          "Security headers - XSS, clickjacking protection"
+        ],
+        "integration_examples": [
+          "AI Dev Portal integration",
+          "GUI Selector integration",
+          "Chat Space integration"
+        ]
+      },
+      "createdAt": "2025-08-01T12:00:00.000Z",
+      "updatedAt": "2025-08-01T12:00:00.000Z"
+    },
+    {
+      "id": "websec-004",
+      "name": "Cross-Domain Session Sharing",
+      "data": {
+        "title": "Session Management Across Multiple Domains",
+        "description": "Enable session sharing between apps running on different ports/domains",
+        "status": "implemented",
+        "priority": "medium",
+        "technical_approach": [
+          "Redis-based session storage",
+          "Shared session cookies with proper domain settings",
+          "Token-based authentication fallback",
+          "Session synchronization service"
+        ],
+        "supported_apps": [
+          "portal_aidev (port 3400)",
+          "portal_gui-selector (port 3456)",
+          "chat-space (port 3300)",
+          "pocketflow (port 3500)"
+        ]
+      },
+      "createdAt": "2025-08-01T12:00:00.000Z",
+      "updatedAt": "2025-08-01T12:00:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"version":3,"file":"auth.d.ts","sourceRoot":"","sources":["auth.ts"],"names":[],"mappings":"AAIA,eAAO,MAAM,UAAU,4CAAW,CAAC;AAMnC,OAAO,QAAQ,iBAAiB,CAAC;IAC/B,UAAU,WAAW;QACnB,MAAM,CAAC,EAAE,MAAM,CAAC;QAChB,QAAQ,CAAC,EAAE,MAAM,CAAC;KACnB;CACF"}

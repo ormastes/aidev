@@ -1,0 +1,105 @@
+sequenceDiagram
+    participant Client as Test Client
+    participant TSM as TestSuiteManager
+    participant MFTR as MockFreeTestRunner
+    participant SA as StatisticsAnalyzer
+    participant RG as ReportGenerator
+    participant TR as TestResult
+
+    Note over Client, TR: Test Result Aggregation Integration Sequence
+
+    %% Test Execution Phase
+    Client->>TSM: executeTestSuite()
+    TSM->>MFTR: executeTests()
+    activate MFTR
+    
+    MFTR->>TR: createTestResult(testSuiteId)
+    TR-->>MFTR: testResult instance
+    
+    loop for each scenario
+        MFTR->>TR: addScenario(scenarioResult)
+        TR->>TR: Update scenario counts
+        TR->>TR: Update step counts
+        TR->>TR: Calculate durations
+    end
+    
+    deactivate MFTR
+    MFTR-->>TSM: rawTestResults
+
+    %% Statistics Calculation Phase
+    TSM->>SA: calculateBasicStatistics(rawTestResults)
+    activate SA
+    
+    SA->>SA: Count total scenarios
+    SA->>SA: Count passed/failed/skipped
+    SA->>SA: Calculate pass rate
+    SA->>SA: Calculate average duration
+    
+    SA-->>TSM: basicStatistics
+    
+    TSM->>SA: calculateAdvancedMetrics(rawTestResults)
+    
+    SA->>SA: calculateStepStatistics()
+    SA->>SA: calculatePerformanceMetrics()
+    SA->>SA: analyzeFailurePatterns()
+    
+    SA-->>TSM: advancedMetrics
+    deactivate SA
+
+    %% Enrichment Phase
+    TSM->>TSM: Enrich test results with statistics
+    TSM->>TR: addMetadata(statistics)
+    TR->>TR: Store statistics in metadata
+
+    %% Report Generation Phase
+    TSM->>RG: generateAllReports(enrichedTestResults)
+    activate RG
+    
+    RG->>RG: Extract statistics from metadata
+    RG->>RG: Format statistics for reports
+    
+    alt HTML Report
+        RG->>RG: generateHTMLReport()
+        RG->>RG: Include statistics charts
+        RG->>RG: Include failure analysis
+    else JSON Report
+        RG->>RG: generateJSONReport()
+        RG->>RG: Include full statistics data
+    else CSV Report
+        RG->>RG: generateCSVReport()
+        RG->>RG: Export tabular statistics
+    end
+    
+    deactivate RG
+    RG-->>TSM: reportPaths[]
+    
+    TSM-->>Client: {testResults, reportPaths}
+
+    %% Multi-Suite Aggregation (Optional)
+    opt Multiple Test Suites
+        Client->>SA: aggregateMultipleRuns([results])
+        activate SA
+        
+        SA->>SA: Combine test results
+        SA->>SA: Calculate overall statistics
+        SA->>SA: Create suite breakdown
+        
+        SA-->>Client: aggregatedStatistics
+        deactivate SA
+    end
+
+    %% Trend Analysis (Optional)
+    opt Historical Data Available
+        Client->>SA: generateTrendAnalysis(current, historical)
+        activate SA
+        
+        SA->>SA: Compare with historical data
+        SA->>SA: identifyRegressions()
+        SA->>SA: identifyImprovements()
+        SA->>SA: Calculate trends
+        
+        SA-->>Client: trendAnalysis
+        deactivate SA
+    end
+
+    Note over Client, TR: Complete aggregation and analysis workflow

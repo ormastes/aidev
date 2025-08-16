@@ -1,0 +1,61 @@
+sequenceDiagram
+    participant User
+    participant TaskManager
+    participant TaskStorage
+    participant Logger
+
+    Note over User, Logger: Pocket Task Manager System Sequence
+
+    %% Create Task Scenario
+    User->>TaskManager: createTask(title, description)
+    TaskManager->>TaskManager: validateTaskData(title, description)
+    alt valid data
+        TaskManager->>TaskStorage: save(task)
+        TaskStorage-->>TaskManager: taskId
+        TaskManager->>Logger: log("Task created: " + taskId)
+        TaskManager-->>User: success(taskId)
+    else invalid data
+        TaskManager->>Logger: log("Invalid task data")
+        TaskManager-->>User: error("Invalid task data")
+    end
+
+    %% Update Task Status Scenario
+    User->>TaskManager: updateTaskStatus(taskId, newStatus)
+    TaskManager->>TaskStorage: findById(taskId)
+    alt task exists
+        TaskStorage-->>TaskManager: task
+        TaskManager->>TaskManager: validateStatusTransition(currentStatus, newStatus)
+        alt valid transition
+            TaskManager->>TaskStorage: update(taskId, status)
+            TaskStorage-->>TaskManager: updatedTask
+            TaskManager->>Logger: log("Task status updated: " + taskId)
+            TaskManager-->>User: success(updatedTask)
+        else invalid transition
+            TaskManager->>Logger: log("Invalid status transition")
+            TaskManager-->>User: error("Invalid status transition")
+        end
+    else task not found
+        TaskManager->>Logger: log("Task not found: " + taskId)
+        TaskManager-->>User: error("Task not found")
+    end
+
+    %% List Tasks Scenario
+    User->>TaskManager: listTasks(statusFilter?)
+    TaskManager->>TaskStorage: findAll(statusFilter)
+    TaskStorage-->>TaskManager: tasks[]
+    TaskManager->>Logger: log("Listed " + tasks.length + " tasks")
+    TaskManager-->>User: tasks[]
+
+    %% Delete Task Scenario
+    User->>TaskManager: deleteTask(taskId)
+    TaskManager->>TaskStorage: findById(taskId)
+    alt task exists and completed
+        TaskStorage-->>TaskManager: task
+        TaskManager->>TaskStorage: delete(taskId)
+        TaskStorage-->>TaskManager: success
+        TaskManager->>Logger: log("Task deleted: " + taskId)
+        TaskManager-->>User: success()
+    else task not found or not completed
+        TaskManager->>Logger: log("Cannot delete task: " + taskId)
+        TaskManager-->>User: error("Cannot delete task")
+    end

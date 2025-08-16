@@ -1,0 +1,72 @@
+{
+  "metadata": {
+    "level": "theme",
+    "version": "2.1.0",
+    "description": "Setup Folder test deployment structure with demo and release deployment support",
+    "supports_distributed_features": true,
+    "supports_freeze": false
+  },
+  "structure": {
+    "name": ".",
+    "type": "directory",
+    "description": "Setup Folder test deployment project root",
+    "children": [
+      {
+        "name": "src",
+        "type": "directory",
+        "description": "Source code for setup folder deployment",
+        "children": [
+          { "name": "index.ts", "type": "file", "description": "Main deployment entry point" },
+          { "name": "setup-manager.ts", "type": "file", "description": "Setup management logic" },
+          { "name": "deployment-handler.ts", "type": "file", "description": "Deployment handling" }
+        ]
+      },
+      {
+        "name": "test",
+        "type": "directory",
+        "description": "Test files for deployment",
+        "children": [
+          { "name": "unit", "type": "directory", "description": "Unit tests" },
+          { "name": "integration", "type": "directory", "description": "Integration tests" },
+          { "name": "deployment", "type": "directory", "description": "Deployment tests" }
+        ]
+      },
+      {
+        "name": "config",
+        "type": "directory",
+        "description": "Configuration files for deployment",
+        "children": [
+          { "name": "deploy.json", "type": "file", "description": "Deployment configuration" },
+          { "name": "setup.json", "type": "file", "description": "Setup configuration" }
+        ]
+      },
+      {
+        "name": "data",
+        "type": "directory",
+        "description": "Data storage for deployment"
+      },
+      {
+        "name": "logs",
+        "type": "directory",
+        "description": "Log files for deployment"
+      },
+      {
+        "name": "public",
+        "type": "directory",
+        "description": "Public assets for deployment"
+      },
+      {
+        "name": "demo",
+        "type": "directory",
+        "description": "Demo artifacts and examples"
+      },
+      {
+        "name": "release",
+        "type": "directory",
+        "description": "Release artifacts and deployments"
+      },
+      { "name": "package.json", "type": "file", "description": "NPM package configuration" },
+      { "name": "README.md", "type": "file", "description": "Deployment documentation" }
+    ]
+  }
+}

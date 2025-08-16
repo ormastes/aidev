@@ -1,0 +1,149 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Feature Item Schema",
+  "description": "JSON Schema for VF feature items with type, content, and parent tracking for FILE_STRUCTURE.md",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for the feature item"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "epic",
+        "user_story",
+        "theme",
+        "none_story",
+        "them_none_story",
+        "epic_none_story",
+        "app_none_story"
+      ],
+      "description": "Feature item type - determines the category and level of the feature"
+    },
+    "content": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Feature content/description - must not be empty"
+    },
+    "parent": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Parent output id that was used to create this feature item - required for tracking lineage"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["planning", "in_progress", "testing", "In Progress", "blocked", "deprecated"],
+      "description": "Current status of the feature item"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low"],
+      "description": "Priority level of the feature item"
+    },
+    "complexity": {
+      "type": "string",
+      "enum": ["simple", "medium", "complex", "epic"],
+      "description": "Complexity level of the feature implementation"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "List of feature IDs that this item depends on"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Tags for categorization and filtering"
+    },
+    "estimated_hours": {
+      "type": "number",
+      "minimum": 0.5,
+      "description": "Estimated development time in hours"
+    }
+  },
+  "required": ["type", "content", "parent"],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "type": "epic",
+      "content": "Theme Management System - In Progress theme creation, configuration, and deployment pipeline",
+      "parent": "business_requirement_001_theme_system",
+      "status": "in_progress",
+      "priority": "high",
+      "complexity": "epic",
+      "tags": ["theme", "configuration", "deployment"],
+      "estimated_hours": 120
+    },
+    {
+      "type": "user_story",
+      "content": "As a developer, I want to configure theme environments automatically so that I can focus on business logic",
+      "parent": "epic_001_theme_management",
+      "status": "planning",
+      "priority": "high",
+      "complexity": "medium",
+      "dependencies": ["feature_002_config_system"],
+      "tags": ["automation", "developer_experience"],
+      "estimated_hours": 16
+    },
+    {
+      "type": "feature",
+      "content": "Environment Configuration API - REST endpoints for managing theme environment settings",
+      "parent": "user_story_003_auto_config",
+      "status": "in_progress",
+      "priority": "medium",
+      "complexity": "medium",
+      "tags": ["api", "configuration", "rest"],
+      "estimated_hours": 24
+    },
+    {
+      "type": "component",
+      "content": "ConfigManager - Core component for reading, validating, and applying configuration settings",
+      "parent": "feature_005_config_api",
+      "status": "In Progress",
+      "priority": "high",
+      "complexity": "complex",
+      "dependencies": ["module_007_validation"],
+      "tags": ["core", "configuration", "validation"],
+      "estimated_hours": 32
+    },
+    {
+      "type": "service",
+      "content": "ThemeDeploymentService - Service for deploying themes to different environments",
+      "parent": "epic_001_theme_management",
+      "status": "testing",
+      "priority": "critical",
+      "complexity": "complex",
+      "dependencies": ["component_004_config_manager", "service_006_docker"],
+      "tags": ["deployment", "service", "docker"],
+      "estimated_hours": 40
+    },
+    {
+      "type": "api_endpoint",
+      "content": "POST /api/themes/{id}/deploy - Deploy theme to specified environment",
+      "parent": "service_008_deployment",
+      "status": "In Progress",
+      "priority": "high",
+      "complexity": "simple",
+      "tags": ["api", "deployment", "rest"],
+      "estimated_hours": 8
+    },
+    {
+      "type": "documentation",
+      "content": "Theme Configuration Guide - Comprehensive guide for configuring themes across environments",
+      "parent": "epic_001_theme_management",
+      "status": "in_progress",
+      "priority": "medium",
+      "complexity": "simple",
+      "tags": ["documentation", "guide", "configuration"],
+      "estimated_hours": 12
+    }
+  ]
+}

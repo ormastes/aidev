@@ -1,0 +1,140 @@
+{
+  "totalFiles": 13,
+  "totalViolations": 11,
+  "violationTypes": {
+    "multiple_navigations": 11
+  },
+  "files": [
+    {
+      "name": "debug-login-detailed-fixed.spec.ts",
+      "violations": 1,
+      "details": [
+        {
+          "line": 1,
+          "pattern": "multiple_navigations",
+          "description": "Multiple URL navigations detected (2). Only login page navigation is allowed"
+        }
+      ]
+    },
+    {
+      "name": "debug-login-detailed.spec.ts",
+      "violations": 1,
+      "details": [
+        {
+          "line": 1,
+          "pattern": "multiple_navigations",
+          "description": "Multiple URL navigations detected (2). Only login page navigation is allowed"
+        }
+      ]
+    },
+    {
+      "name": "debug-login.spec.ts",
+      "violations": 1,
+      "details": [
+        {
+          "line": 1,
+          "pattern": "multiple_navigations",
+          "description": "Multiple URL navigations detected (2). Only login page navigation is allowed"
+        }
+      ]
+    },
+    {
+      "name": "diagnose-real-issue-fixed.spec.ts",
+      "violations": 1,
+      "details": [
+        {
+          "line": 1,
+          "pattern": "multiple_navigations",
+          "description": "Multiple URL navigations detected (2). Only login page navigation is allowed"
+        }
+      ]
+    },
+    {
+      "name": "diagnose-real-issue.spec.ts",
+      "violations": 1,
+      "details": [
+        {
+          "line": 1,
+          "pattern": "multiple_navigations",
+          "description": "Multiple URL navigations detected (2). Only login page navigation is allowed"
+        }
+      ]
+    },
+    {
+      "name": "login.spec.ts",
+      "violations": 0,
+      "details": []
+    },
+    {
+      "name": "manual-login-test.spec.ts",
+      "violations": 1,
+      "details": [
+        {
+          "line": 1,
+          "pattern": "multiple_navigations",
+          "description": "Multiple URL navigations detected (2). Only login page navigation is allowed"
+        }
+      ]
+    },
+    {
+      "name": "navigation.spec.ts",
+      "violations": 0,
+      "details": []
+    },
+    {
+      "name": "record-video-fixed.spec.ts",
+      "violations": 1,
+      "details": [
+        {
+          "line": 1,
+          "pattern": "multiple_navigations",
+          "description": "Multiple URL navigations detected (3). Only login page navigation is allowed"
+        }
+      ]
+    },
+    {
+      "name": "record-video.spec.ts",
+      "violations": 1,
+      "details": [
+        {
+          "line": 1,
+          "pattern": "multiple_navigations",
+          "description": "Multiple URL navigations detected (3). Only login page navigation is allowed"
+        }
+      ]
+    },
+    {
+      "name": "simple-login-proof.spec.ts",
+      "violations": 1,
+      "details": [
+        {
+          "line": 1,
+          "pattern": "multiple_navigations",
+          "description": "Multiple URL navigations detected (2). Only login page navigation is allowed"
+        }
+      ]
+    },
+    {
+      "name": "verify-login.spec.ts",
+      "violations": 1,
+      "details": [
+        {
+          "line": 1,
+          "pattern": "multiple_navigations",
+          "description": "Multiple URL navigations detected (2). Only login page navigation is allowed"
+        }
+      ]
+    },
+    {
+      "name": "visual-demo.spec.ts",
+      "violations": 1,
+      "details": [
+        {
+          "line": 1,
+          "pattern": "multiple_navigations",
+          "description": "Multiple URL navigations detected (2). Only login page navigation is allowed"
+        }
+      ]
+    }
+  ]
+}

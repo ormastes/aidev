@@ -1,0 +1,41 @@
+{
+  "profile-selection.html": {
+    "fileName": "profile-selection.html",
+    "filePath": "/home/ormastes/dev/_aidev/98.friend_project/mate_dealer_app/gui/profile-selection.html",
+    "relativePath": "profile-selection.html",
+    "title": "Profile View Customization",
+    "description": "Large photo gallery with minimal text information.",
+    "parentPage": null,
+    "hasCommentForm": true,
+    "pageType": "selection",
+    "navLinks": [
+      {
+        "href": "screen-selection.html",
+        "text": "← Back to Screen Selection",
+        "type": "parent"
+      },
+      {
+        "href": "index.html",
+        "text": "🏠 Home",
+        "type": "child"
+      }
+    ],
+    "lastModified": "2025-07-16T04:20:04.510Z",
+    "registeredAt": "2025-07-16T06:01:49.026Z",
+    "lastUpdated": "2025-07-16T06:01:49.026Z"
+  },
+  "style-selection.html": {
+    "fileName": "style-selection.html",
+    "filePath": "/home/ormastes/dev/_aidev/98.friend_project/mate_dealer_app/gui/style-selection.html",
+    "relativePath": "style-selection.html",
+    "title": "Style Selection",
+    "description": "Inspired by Apple's latest design language with translucent elements, \n                        dynamic blur effects, and adaptive visual components.",
+    "parentPage": null,
+    "hasCommentForm": true,
+    "pageType": "selection",
+    "navLinks": [],
+    "lastModified": "2025-07-10T02:47:22.429Z",
+    "registeredAt": "2025-07-16T06:57:18.598Z",
+    "lastUpdated": "2025-07-16T06:57:18.598Z"
+  }
+}

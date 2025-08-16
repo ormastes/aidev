@@ -1,0 +1,6 @@
+AI Dev Portal - Embedded Apps Test Summary
+==========================================
+Date: Thu Aug 14 08:56:00 AM UTC 2025
+Status: FAILED ❌
+
+Check the test output and screenshots for details.

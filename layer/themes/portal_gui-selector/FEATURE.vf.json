@@ -1,0 +1,111 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/themes/portal_gui-selector/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.587Z",
+    "updated_at": "2025-08-02T11:10:54.587Z"
+  },
+  "features": {
+    "gui_selector": [
+      {
+        "id": "portal_gui-selector-epic-001",
+        "name": "Gui Selector",
+        "data": {
+          "title": "Gui Selector Theme",
+          "description": "Core functionality for Gui Selector",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "portal_gui-selector",
+            "theme"
+          ],
+          "virtual_path": "/layer/themes/portal_gui-selector/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.587Z",
+        "updatedAt": "2025-08-02T11:10:54.587Z"
+      },
+      {
+        "id": "portal_gui-selector-epic-002",
+        "name": "Multi-User Authentication System",
+        "data": {
+          "title": "Multi-User Authentication and Session Management",
+          "description": "Complete authentication system with role-based access control, session persistence, and user management",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "authentication",
+            "security",
+            "multi-user"
+          ],
+          "virtual_path": "/layer/themes/portal_gui-selector/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-03T12:00:00.000Z",
+        "updatedAt": "2025-08-11T12:00:00.000Z"
+      },
+      {
+        "id": "portal_gui-selector-epic-003",
+        "name": "Health Monitoring and Logging",
+        "data": {
+          "title": "Server Health Monitoring and Request Logging",
+          "description": "Comprehensive health check endpoints, request logging, error handling, and external log integration",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "monitoring",
+            "logging",
+            "health-check"
+          ],
+          "virtual_path": "/layer/themes/portal_gui-selector/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-03T12:00:00.000Z",
+        "updatedAt": "2025-08-11T14:00:00.000Z"
+      },
+      {
+        "id": "portal_gui-selector-epic-004",
+        "name": "GUI Selection Pages",
+        "data": {
+          "title": "Comprehensive GUI Selection Interface",
+          "description": "40+ HTML pages for various GUI selections including dashboard, profile, style variants, and animations",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "gui-design",
+            "selection",
+            "ui"
+          ],
+          "virtual_path": "/layer/themes/portal_gui-selector/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-03T12:00:00.000Z",
+        "updatedAt": "2025-08-11T15:00:00.000Z"
+      },
+      {
+        "id": "portal_gui-selector-epic-005",
+        "name": "Browser Compatibility",
+        "data": {
+          "title": "Cross-Browser Compatibility Testing",
+          "description": "Ensure compatibility with Chrome, Firefox, Safari/WebKit, and Edge browsers with proper testing suite",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "compatibility",
+            "testing",
+            "browser"
+          ],
+          "virtual_path": "/layer/themes/portal_gui-selector/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-03T12:00:00.000Z",
+        "updatedAt": "2025-08-12T16:00:00.000Z"
+      }
+    ]
+  },
+  "children": [
+    "/layer/themes/portal_gui-selector/user-stories/001-basic-server/FEATURE.vf.json",
+    "/layer/themes/portal_gui-selector/user-stories/023-portal_gui-selector-server/FEATURE.vf.json"
+  ]
+}

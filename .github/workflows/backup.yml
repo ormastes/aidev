@@ -1,0 +1,202 @@
+name: Backup and Disaster Recovery
+
+on:
+  schedule:
+    - cron: '0 2 * * *' # Daily at 2 AM UTC
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to backup'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+          - development
+
+jobs:
+  backup-databases:
+    name: Backup Databases
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Configure kubectl
+      run: |
+        if [ "${{ github.event.inputs.environment || 'production' }}" = "production" ]; then
+          echo "${{ secrets.PROD_KUBECONFIG }}" | base64 -d > /tmp/kubeconfig
+        else
+          echo "${{ secrets.STAGING_KUBECONFIG }}" | base64 -d > /tmp/kubeconfig
+        fi
+        echo "KUBECONFIG=/tmp/kubeconfig" >> $GITHUB_ENV
+
+    - name: Backup PostgreSQL
+      run: |
+        NAMESPACE="aidev-platform"
+        TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+        
+        # Create backup job
+        kubectl apply -f - <<EOF
+        apiVersion: batch/v1
+        kind: Job
+        metadata:
+          name: postgres-backup-$TIMESTAMP
+          namespace: $NAMESPACE
+        spec:
+          template:
+            spec:
+              containers:
+              - name: postgres-backup
+                image: postgres:14-alpine
+                command:
+                - sh
+                - -c
+                - |
+                  PGPASSWORD=\$POSTGRES_PASSWORD pg_dump \
+                    -h postgresql-service \
+                    -U postgres \
+                    -d aidev_platform \
+                    --verbose \
+                    --no-owner \
+                    --no-acl \
+                    -f /backup/aidev_platform_$TIMESTAMP.sql
+                env:
+                - name: POSTGRES_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: database-secrets
+                      key: postgres-password
+                volumeMounts:
+                - name: backup
+                  mountPath: /backup
+              volumes:
+              - name: backup
+                persistentVolumeClaim:
+                  claimName: backup-pvc
+              restartPolicy: Never
+        EOF
+        
+        # Wait for backup to complete
+        kubectl wait --for=condition=complete job/postgres-backup-$TIMESTAMP -n $NAMESPACE --timeout=600s
+
+    - name: Backup Redis
+      run: |
+        NAMESPACE="aidev-platform"
+        TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+        
+        # Execute Redis backup
+        kubectl exec -n $NAMESPACE redis-0 -- redis-cli BGSAVE
+        sleep 10
+        
+        # Copy dump file
+        kubectl cp $NAMESPACE/redis-0:/data/dump.rdb ./redis-backup-$TIMESTAMP.rdb
+
+    - name: Backup Kubernetes resources
+      run: |
+        NAMESPACE="aidev-platform"
+        TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+        
+        # Export all resources
+        kubectl get all,cm,secret,pvc,pv -n $NAMESPACE -o yaml > k8s-backup-$TIMESTAMP.yaml
+        
+        # Export Helm releases
+        helm list -n $NAMESPACE -o json > helm-releases-$TIMESTAMP.json
+
+    - name: Upload to S3
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: us-east-1
+      run: |
+        TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+        ENVIRONMENT="${{ github.event.inputs.environment || 'production' }}"
+        
+        # Install AWS CLI
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        source $HOME/.cargo/env
+        uv pip install --system awscli
+        
+        # Upload backups
+        aws s3 cp ./redis-backup-*.rdb s3://aidev-backups/$ENVIRONMENT/redis/$TIMESTAMP/
+        aws s3 cp ./k8s-backup-*.yaml s3://aidev-backups/$ENVIRONMENT/k8s/$TIMESTAMP/
+        aws s3 cp ./helm-releases-*.json s3://aidev-backups/$ENVIRONMENT/helm/$TIMESTAMP/
+        
+        # Set lifecycle policy (30 days retention)
+        aws s3api put-bucket-lifecycle-configuration \
+          --bucket aidev-backups \
+          --lifecycle-configuration file://./scripts/s3-lifecycle-policy.json
+
+    - name: Verify backups
+      run: |
+        # List recent backups
+        aws s3 ls s3://aidev-backups/ --recursive --human-readable | tail -20
+        
+        # Check backup sizes
+        BACKUP_SIZE=$(aws s3 ls s3://aidev-backups/ --recursive --summarize | grep "Total Size")
+        echo "Total backup size: $BACKUP_SIZE"
+
+    - name: Test restore procedure
+      if: github.event.inputs.environment == 'development'
+      run: |
+        echo "Testing restore procedure in development environment..."
+        ./scripts/test-restore.sh
+
+    - name: Notify backup status
+      if: always()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        text: |
+          Backup Job: ${{ job.status }}
+          Environment: ${{ github.event.inputs.environment || 'production' }}
+          Time: ${{ github.event.head_commit.timestamp }}
+        webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+
+  cleanup-old-backups:
+    name: Cleanup Old Backups
+    runs-on: ubuntu-latest
+    needs: backup-databases
+    
+    steps:
+    - name: Configure AWS
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: us-east-1
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        source $HOME/.cargo/env
+        uv pip install --system awscli
+
+    - name: Remove backups older than 30 days
+      run: |
+        # Calculate date 30 days ago
+        CUTOFF_DATE=$(date -d "30 days ago" +%Y%m%d)
+        
+        # List and delete old backups
+        aws s3 ls s3://aidev-backups/ --recursive | while read -r line; do
+          CREATE_DATE=$(echo $line | awk '{print $1}' | tr -d '-')
+          KEY=$(echo $line | awk '{print $4}')
+          
+          if [[ $CREATE_DATE < $CUTOFF_DATE ]]; then
+            echo "Deleting old backup: $KEY"
+            aws s3 rm s3://aidev-backups/$KEY
+          fi
+        done
+
+    - name: Generate backup report
+      run: |
+        echo "# Backup Report" > backup-report.md
+        echo "Date: $(date)" >> backup-report.md
+        echo "" >> backup-report.md
+        echo "## Current Backups" >> backup-report.md
+        aws s3 ls s3://aidev-backups/ --recursive --human-readable >> backup-report.md
+
+    - name: Upload report
+      uses: actions/upload-artifact@v3
+      with:
+        name: backup-report
+        path: backup-report.md

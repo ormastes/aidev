@@ -1,0 +1,241 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/themes/chat-space/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.566Z",
+    "updated_at": "2025-08-02T11:10:54.566Z"
+  },
+  "features": {
+    "chat-room-cli": [
+      {
+        "id": "chat-space-story-007",
+        "name": "chat-room-cli",
+        "data": {
+          "title": "chat-room-cli",
+          "description": "**As a developer**, I want a chat-room CLI feature referencing ../_aidev so that I can collaborate through a command-line chat interface. ",
+          "level": "user_story",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "chat-space",
+            "migrated"
+          ],
+          "acceptanceCriteria": [
+            "Create and join chat rooms from CLI",
+            "Send and receive messages in real-time",
+            "Reference parent aidev directory for context",
+            "Support chat history and persistence",
+            "Handle multiple concurrent users",
+            "Integrate with PocketFlow task/flow notifications",
+            "Support Claude AI for mathematical operations and chat assistance",
+            "Support local LLM models (DeepSeek R1) for addition queries"
+          ],
+          "virtual_path": "/layer/themes/chat-space/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.566Z",
+        "updatedAt": "2025-08-02T11:10:54.566Z"
+      }
+    ],
+    "chat-hosting": [
+      {
+        "id": "chat-space-story-008",
+        "name": "chat-hosting",
+        "data": {
+          "title": "chat-hosting",
+          "description": "**As a developer**, I want chat room hosting infrastructure so that I can create persistent chat spaces for project collaboration. ",
+          "level": "user_story",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "chat-space",
+            "migrated"
+          ],
+          "acceptanceCriteria": [
+            "Host multiple chat rooms simultaneously",
+            "Manage room permissions and access control",
+            "Support room creation and deletion",
+            "Handle user presence and status",
+            "Provide room discovery and listing",
+            "Integration with PocketFlow spaces"
+          ],
+          "virtual_path": "/layer/themes/chat-space/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.566Z",
+        "updatedAt": "2025-08-02T11:10:54.566Z"
+      }
+    ],
+    "multi-user-support": [
+      {
+        "id": "chat-space-story-009",
+        "name": "multi-user-support",
+        "data": {
+          "title": "multi-user-support",
+          "description": "**As a developer**, I want multi-user chat coordination so that multiple developers can collaborate effectively in shared spaces. ",
+          "level": "user_story",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "chat-space",
+            "migrated"
+          ],
+          "acceptanceCriteria": [
+            "Support concurrent users per room",
+            "Handle user authentication and identification",
+            "Manage user presence (online/offline/typing)",
+            "Support @mentions and direct messages",
+            "Provide user list and activity indicators",
+            "Coordinate with PocketFlow user contexts"
+          ],
+          "virtual_path": "/layer/themes/chat-space/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.566Z",
+        "updatedAt": "2025-08-02T11:10:54.566Z"
+      }
+    ],
+    "coordinator-agent": [
+      {
+        "id": "chat-space-story-010",
+        "name": "coordinator-agent",
+        "data": {
+          "title": "coordinator-agent",
+          "description": "**As a developer**, I want a coordinator agent Claude with advanced capabilities so that I have automated development workflow management through chat. ",
+          "level": "user_story",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "chat-space",
+            "migrated"
+          ],
+          "acceptanceCriteria": [
+            "AI agent responds to chat commands",
+            "Integrates with PocketFlow for workflow automation",
+            "Supports natural language task/flow creation",
+            "Provides intelligent development assistance",
+            "Manages session context across chat interactions",
+            "Coordinates between multiple users and workflows"
+          ],
+          "virtual_path": "/layer/themes/chat-space/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.566Z",
+        "updatedAt": "2025-08-02T11:10:54.566Z"
+      }
+    ],
+    "session-management": [
+      {
+        "id": "chat-space-story-011",
+        "name": "session-management",
+        "data": {
+          "title": "session-management",
+          "description": "**As a developer**, I want session persistence and restart capabilities so that chat context and workflow state are maintained across interruptions. ",
+          "level": "user_story",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "chat-space",
+            "migrated"
+          ],
+          "acceptanceCriteria": [
+            "Save and restore chat session state",
+            "Persist coordinator agent context",
+            "Maintain PocketFlow integration state",
+            "Handle graceful restart and recovery",
+            "Support session sharing between users",
+            "Preserve workflow execution context"
+          ],
+          "virtual_path": "/layer/themes/chat-space/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.566Z",
+        "updatedAt": "2025-08-02T11:10:54.566Z"
+      }
+    ],
+    "permission-override": [
+      {
+        "id": "chat-space-story-012",
+        "name": "permission-override",
+        "data": {
+          "title": "permission-override",
+          "description": "**As a developer**, I want dangerous permission skip functionality so that the coordinator agent can perform automated operations without constant confirmation. ",
+          "level": "user_story",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "chat-space",
+            "migrated"
+          ],
+          "acceptanceCriteria": [
+            "Toggle permission override mode",
+            "Bypass confirmation prompts for trusted operations",
+            "Audit log all override actions",
+            "Scope permissions to specific operations",
+            "Integration with PocketFlow automation permissions",
+            "Safety mechanisms and rollback capabilities"
+          ],
+          "virtual_path": "/layer/themes/chat-space/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.566Z",
+        "updatedAt": "2025-08-02T11:10:54.566Z"
+      }
+    ],
+    "task-queue-auto": [
+      {
+        "id": "chat-space-story-013",
+        "name": "task-queue-auto",
+        "data": {
+          "title": "task-queue-auto",
+          "description": "**As a developer**, I want automatic task queue continuation so that development workflows proceed autonomously through the coordinator agent. ",
+          "level": "user_story",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "chat-space",
+            "migrated"
+          ],
+          "acceptanceCriteria": [
+            "Auto-continue PocketFlow task queues",
+            "Monitor and report queue progress in chat",
+            "Handle queue errors and recovery",
+            "Support queue prioritization through chat",
+            "Allow manual intervention and control",
+            "Coordinate multiple concurrent queues"
+          ],
+          "virtual_path": "/layer/themes/chat-space/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.566Z",
+        "updatedAt": "2025-08-02T11:10:54.566Z"
+      }
+    ],
+    "interrupt-handling": [
+      {
+        "id": "chat-space-story-014",
+        "name": "interrupt-handling",
+        "data": {
+          "title": "interrupt-handling",
+          "description": "**As a developer**, I want user prompt interrupt and recovery so that I can take control of automated processes when needed. ",
+          "level": "user_story",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "chat-space",
+            "migrated"
+          ],
+          "acceptanceCriteria": [
+            "Interrupt coordinator agent operations via chat",
+            "Save execution state before interruption",
+            "Support manual execution continuation",
+            "Handle multiple user interruptions gracefully",
+            "Maintain PocketFlow execution consistency",
+            "Provide clear interrupt/resume controls"
+          ],
+          "virtual_path": "/layer/themes/chat-space/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.566Z",
+        "updatedAt": "2025-08-02T11:10:54.566Z"
+      }
+    ]
+  },
+  "children": [
+    "/layer/themes/chat-space/user-stories/001-basic-server/FEATURE.vf.json",
+    "/layer/themes/chat-space/user-stories/007-chat-room-cli/FEATURE.vf.json"
+  ]
+}

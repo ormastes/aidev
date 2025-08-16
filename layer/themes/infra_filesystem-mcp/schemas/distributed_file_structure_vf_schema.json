@@ -1,0 +1,348 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Distributed File Structure VF Schema",
+  "description": "JSON Schema for distributed FILE_STRUCTURE.vf.json - hierarchical file structure with distributed FEATURE.vf.json support",
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": ["root", "epic", "theme", "user_story"],
+          "description": "Hierarchical level of this structure file"
+        },
+        "version": {
+          "type": "string",
+          "description": "Schema version"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        },
+        "supports_distributed_features": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether this structure supports distributed FEATURE.vf.json files"
+        }
+      },
+      "required": ["level", "version", "created_at", "updated_at"]
+    },
+    "templates": {
+      "type": "object",
+      "description": "Template definitions for different folder types with feature support",
+      "additionalProperties": {
+        "$ref": "#/definitions/distributed_template"
+      }
+    },
+    "structure": {
+      "type": "object",
+      "description": "The root structure definition with distributed features",
+      "$ref": "#/definitions/distributed_node"
+    },
+    "feature_distribution": {
+      "type": "object",
+      "properties": {
+        "auto_create_epics": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically create common epics for orphaned features"
+        },
+        "common_epic_prefix": {
+          "type": "string",
+          "default": "common-",
+          "description": "Prefix for auto-generated common epic IDs"
+        },
+        "feature_file_locations": {
+          "type": "object",
+          "properties": {
+            "root": {
+              "type": "string",
+              "default": "/FEATURE.vf.json"
+            },
+            "epic": {
+              "type": "string",
+              "default": "/layer/themes/{theme_name}/FEATURE.vf.json"
+            },
+            "theme": {
+              "type": "string",
+              "default": "/layer/themes/{theme_name}/FEATURE.vf.json"
+            },
+            "user_story": {
+              "type": "string",
+              "default": "/layer/themes/{theme_name}/user-stories/{story_name}/FEATURE.vf.json"
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["metadata", "templates", "structure"],
+  "definitions": {
+    "distributed_template": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Template identifier"
+        },
+        "inherits": {
+          "type": "string",
+          "description": "Parent template to inherit from"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["directory", "file"],
+          "default": "directory"
+        },
+        "feature_level": {
+          "type": "string",
+          "enum": ["root", "epic", "theme", "user_story"],
+          "description": "What feature level this template represents"
+        },
+        "has_feature_file": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether this template should have its own FEATURE.vf.json"
+        },
+        "required_children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/distributed_node"
+          },
+          "description": "Required child nodes for this template"
+        },
+        "optional_children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/distributed_node"
+          },
+          "description": "Optional child nodes for this template"
+        },
+        "allowed_patterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Regex patterns for allowed child names"
+        },
+        "forbidden_patterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Regex patterns for forbidden child names"
+        },
+        "constraints": {
+          "type": "object",
+          "properties": {
+            "max_depth": {
+              "type": "integer",
+              "description": "Maximum depth for this template"
+            },
+            "max_children": {
+              "type": "integer",
+              "description": "Maximum number of children"
+            },
+            "file_extensions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Allowed file extensions for children"
+            },
+            "requires_parent_epic": {
+              "type": "boolean",
+              "default": false,
+              "description": "Whether features in this template require a parent epic"
+            }
+          }
+        }
+      },
+      "required": ["id", "type"]
+    },
+    "distributed_node": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Node name or pattern"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["directory", "file", "template_ref", "feature_file"],
+          "description": "Node type, feature_file for FEATURE.vf.json"
+        },
+        "template": {
+          "type": "string",
+          "description": "Template ID to use for this node"
+        },
+        "required": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether this node is required"
+        },
+        "pattern": {
+          "type": "string",
+          "description": "Regex pattern for dynamic names"
+        },
+        "feature_level": {
+          "type": "string",
+          "enum": ["root", "epic", "theme", "user_story"],
+          "description": "Feature level for feature_file types"
+        },
+        "aggregates_children": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether this node aggregates child features in its view"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/distributed_node"
+          },
+          "description": "Child nodes"
+        },
+        "description": {
+          "type": "string"
+        },
+        "constraints": {
+          "$ref": "#/definitions/distributed_template/properties/constraints"
+        }
+      },
+      "required": ["name", "type"]
+    }
+  },
+  "examples": [
+    {
+      "metadata": {
+        "level": "root",
+        "version": "2.0.0",
+        "created_at": "2025-01-20T10:00:00Z",
+        "updated_at": "2025-01-20T10:00:00Z",
+        "description": "AI Development Platform file structure with distributed features",
+        "supports_distributed_features": true
+      },
+      "templates": {
+        "workspace": {
+          "id": "workspace",
+          "type": "directory",
+          "feature_level": "root",
+          "has_feature_file": true,
+          "description": "Root workspace template with distributed features",
+          "required_children": [
+            { "name": "FEATURE.vf.json", "type": "feature_file", "feature_level": "root" },
+            { "name": "FILE_STRUCTURE.vf.json", "type": "file" },
+            { "name": "config", "type": "directory" },
+            { "name": "gen", "type": "directory" },
+            { "name": "layer", "type": "directory" }
+          ]
+        },
+        "theme": {
+          "id": "theme",
+          "type": "directory",
+          "feature_level": "epic",
+          "has_feature_file": true,
+          "description": "Theme folder template (represents epic level)",
+          "required_children": [
+            { "name": "FEATURE.vf.json", "type": "feature_file", "feature_level": "epic", "aggregates_children": true },
+            { "name": "DESIGN.md", "type": "file" },
+            { "name": "pipe", "type": "directory" },
+            { "name": "children", "type": "directory" },
+            { "name": "user-stories", "type": "directory" }
+          ],
+          "constraints": {
+            "requires_parent_epic": false
+          }
+        },
+        "user_story": {
+          "id": "user_story",
+          "type": "directory",
+          "feature_level": "user_story",
+          "has_feature_file": true,
+          "description": "User story folder template",
+          "required_children": [
+            { "name": "FEATURE.vf.json", "type": "feature_file", "feature_level": "user_story" },
+            { "name": "TASK_QUEUE.md", "type": "file" },
+            { "name": "docs", "type": "directory" },
+            { "name": "src", "type": "directory" },
+            { "name": "tests", "type": "directory" }
+          ],
+          "constraints": {
+            "requires_parent_epic": true
+          }
+        }
+      },
+      "structure": {
+        "name": ".",
+        "type": "directory",
+        "template": "workspace",
+        "feature_level": "root",
+        "aggregates_children": true,
+        "children": [
+          {
+            "name": "FEATURE.vf.json",
+            "type": "feature_file",
+            "feature_level": "root",
+            "aggregates_children": true,
+            "description": "Root level features with aggregated view of all children"
+          },
+          {
+            "name": "layer",
+            "type": "directory",
+            "children": [
+              {
+                "name": "themes",
+                "type": "directory",
+                "children": [
+                  {
+                    "name": "*",
+                    "type": "template_ref",
+                    "template": "theme",
+                    "pattern": "^[a-z][a-z0-9_]*$",
+                    "feature_level": "epic",
+                    "children": [
+                      {
+                        "name": "user-stories",
+                        "type": "directory",
+                        "children": [
+                          {
+                            "name": "*",
+                            "type": "template_ref",
+                            "template": "user_story",
+                            "pattern": "^[a-z][a-z0-9-]*$",
+                            "feature_level": "user_story"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "feature_distribution": {
+        "auto_create_epics": true,
+        "common_epic_prefix": "common-",
+        "feature_file_locations": {
+          "root": "/FEATURE.vf.json",
+          "epic": "/layer/themes/{theme_name}/FEATURE.vf.json",
+          "theme": "/layer/themes/{theme_name}/FEATURE.vf.json",
+          "user_story": "/layer/themes/{theme_name}/user-stories/{story_name}/FEATURE.vf.json"
+        }
+      }
+    }
+  ]
+}

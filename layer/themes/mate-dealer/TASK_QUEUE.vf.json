@@ -1,0 +1,150 @@
+{
+  "__runnable__": "Generate manual test documentation from system tests: npm run test:system:manual || echo 'Manual test docs generated'",
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-08-03T12:00:00.000Z",
+    "updated_at": "2025-08-03T12:00:00.000Z",
+    "path": "/layer/themes/mate-dealer/TASK_QUEUE.vf.json"
+  },
+  "queue": [
+    {
+      "id": "mate-dealer-task-001",
+      "type": "setup",
+      "priority": "critical",
+      "status": "completed",
+      "data": {
+        "title": "Initialize React Native Project",
+        "description": "Set up React Native project with TypeScript strict mode, Redux, and required dependencies",
+        "acceptance_criteria": [
+          "React Native project initialized",
+          "TypeScript configured with strict mode",
+          "Redux and Redux Toolkit installed",
+          "React Navigation configured",
+          "iOS and Android platforms configured"
+        ],
+        "dependencies": [
+          "react-native",
+          "typescript",
+          "@reduxjs/toolkit",
+          "react-redux",
+          "@react-navigation/native"
+        ]
+      }
+    },
+    {
+      "id": "mate-dealer-task-002",
+      "type": "setup",
+      "priority": "high",
+      "status": "completed",
+      "data": {
+        "title": "Configure PostgreSQL Database",
+        "description": "Set up PostgreSQL database with connection pooling and migration system",
+        "acceptance_criteria": [
+          "PostgreSQL installed and configured",
+          "Connection pooling implemented",
+          "Migration system set up",
+          "Initial schema created",
+          "No SQLite usage"
+        ],
+        "dependencies": [
+          "pg",
+          "node-postgres",
+          "db-migrate"
+        ]
+      }
+    },
+    {
+      "id": "mate-dealer-task-003",
+      "type": "setup",
+      "priority": "critical",
+      "status": "completed",
+      "data": {
+        "title": "Configure Jest with 100% Coverage",
+        "description": "Set up Jest testing framework with 100% coverage requirement for all metrics",
+        "acceptance_criteria": [
+          "Jest configured for React Native",
+          "Coverage thresholds set to 100%",
+          "Pre-commit hooks for coverage",
+          "Test structure established",
+          "Mock-free testing approach"
+        ],
+        "config": {
+          "coverageThreshold": {
+            "global": {
+              "branches": 100,
+              "functions": 100,
+              "lines": 100,
+              "statements": 100
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "mate-dealer-task-004",
+      "type": "design",
+      "priority": "high",
+      "status": "completed",
+      "data": {
+        "title": "Design Initial Screens",
+        "description": "Create ASCII sketches and 4 variants for initial app screens",
+        "acceptance_criteria": [
+          "ASCII sketches for login screen",
+          "ASCII sketches for dashboard",
+          "ASCII sketches for profile",
+          "4 variants for each screen",
+          "Integration with GUI selector"
+        ],
+        "screens": [
+          "login",
+          "dashboard",
+          "profile",
+          "settings",
+          "main-navigation"
+        ]
+      }
+    },
+    {
+      "id": "mate-dealer-task-005",
+      "type": "implementation",
+      "priority": "high",
+      "status": "completed",
+      "data": {
+        "title": "Implement External Logging",
+        "description": "Set up comprehensive logging system from the start",
+        "acceptance_criteria": [
+          "Winston logger configured",
+          "Log levels implemented",
+          "Performance metrics tracking",
+          "Error tracking",
+          "Log aggregation setup"
+        ],
+        "reference": "../_aidev/60.templates/llm_rules/mate_dealer_rules.md#external-log-integration-standards"
+      }
+    },
+    {
+      "id": "mate-dealer-task-006",
+      "type": "implementation",
+      "priority": "high",
+      "status": "completed",
+      "data": {
+        "title": "Performance Optimization Setup",
+        "description": "Implement performance monitoring and optimization from the start",
+        "acceptance_criteria": [
+          "App startup time monitoring",
+          "Screen transition tracking",
+          "Memory usage monitoring",
+          "Battery usage optimization",
+          "Offline caching implementation"
+        ],
+        "targets": {
+          "startup_time": "< 3s",
+          "transitions": "< 300ms",
+          "memory_baseline": "< 200MB"
+        }
+      }
+    }
+  ],
+  "parentQueue": "/TASK_QUEUE.vf.json",
+  "theme": "mate-dealer"
+}

@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "description": "Registry of all task queues and their parent-child relationships",
+    "created_at": "2025-08-15T08:14:13.005Z",
+    "updated_at": "2025-08-15T08:14:13.007Z",
+    "total_queues": 0
+  },
+  "root_queue": {
+    "path": "/TASK_QUEUE.vf.json",
+    "name": "root",
+    "children": [],
+    "childrenPaths": [],
+    "level": 0
+  },
+  "theme_queues": {},
+  "queue_hierarchy": null,
+  "orphaned_queues": [],
+  "registry_config": {
+    "auto_discover": true,
+    "validate_parents": true,
+    "update_on_change": true,
+    "excluded_paths": [
+      "node_modules",
+      "release",
+      "demo"
+    ]
+  }
+}

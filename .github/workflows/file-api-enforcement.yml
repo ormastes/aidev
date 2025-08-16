@@ -1,0 +1,134 @@
+name: File API Enforcement
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+
+jobs:
+  enforce-file-api:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Check File API Compliance
+      run: |
+        echo "🔍 Checking File API compliance..."
+        npm run file-api:scan:prod
+        
+        # Get violation count
+        VIOLATIONS=$(npm run file-api:scan:prod 2>/dev/null | grep "Total violations:" | awk '{print $3}')
+        
+        if [ "$VIOLATIONS" -gt "10" ]; then
+          echo "❌ Too many violations detected: $VIOLATIONS"
+          echo "Maximum allowed: 10"
+          exit 1
+        else
+          echo "✅ Violations within acceptable range: $VIOLATIONS"
+        fi
+    
+    - name: Check Exemption Rules
+      run: |
+        echo "🔒 Verifying exemption rules..."
+        npm run file-api:enforce
+        
+        if [ $? -ne 0 ]; then
+          echo "❌ Non-exempt themes using direct fs detected!"
+          exit 1
+        fi
+        
+        echo "✅ All non-exempt themes compliant"
+    
+    - name: Run Fraud Detection
+      run: |
+        echo "🕵️ Running fraud detection..."
+        npm run fraud-check
+        
+        if [ $? -ne 0 ]; then
+          echo "❌ Fraud patterns detected!"
+          exit 1
+        fi
+        
+        echo "✅ No fraud patterns found"
+    
+    - name: Generate Compliance Report
+      if: always()
+      run: |
+        echo "📊 Generating compliance report..."
+        npm run file-api:compliance > compliance-report.txt
+        
+        # Upload as artifact
+        echo "Report generated: compliance-report.txt"
+    
+    - name: Upload Compliance Report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: compliance-report
+        path: compliance-report.txt
+    
+    - name: Comment PR with Results
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const report = fs.readFileSync('compliance-report.txt', 'utf8');
+          
+          // Extract key metrics
+          const violations = report.match(/Total violations: (\d+)/)?.[1] || '0';
+          const compliance = report.match(/Compliance rate: ([\d.]+)%/)?.[1] || '0';
+          
+          const comment = `## 📊 File API Compliance Report
+          
+          - **Total Violations**: ${violations}
+          - **Compliance Rate**: ${compliance}%
+          - **Status**: ${violations <= 10 ? '✅ PASS' : '❌ FAIL'}
+          
+          ### Requirements
+          - All non-exempt themes must use FileCreationAPI
+          - Only sample/demo themes can use direct fs
+          - Maximum allowed violations: 10
+          
+          <details>
+          <summary>View Full Report</summary>
+          
+          \`\`\`
+          ${report.substring(0, 3000)}
+          \`\`\`
+          </details>`;
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });
+    
+    - name: Enforce Strict Mode
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      run: |
+        echo "🔒 Enforcing strict mode for production..."
+        
+        # Fail if any violations in non-exempt themes
+        VIOLATIONS=$(npm run file-api:scan:prod 2>/dev/null | grep "Total violations:" | awk '{print $3}')
+        
+        if [ "$VIOLATIONS" -gt "0" ]; then
+          echo "❌ Production requires 0 violations!"
+          echo "Found: $VIOLATIONS violations"
+          echo "Run 'npm run file-api:fix' locally to fix"
+          exit 1
+        fi
+        
+        echo "✅ Production compliance: 100%"

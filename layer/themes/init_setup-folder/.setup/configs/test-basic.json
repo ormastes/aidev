@@ -1,0 +1,71 @@
+{
+  "type": "docker",
+  "config": {
+    "type": "docker",
+    "name": "test-basic",
+    "platform": "linux/amd64",
+    "memory": "2G",
+    "cores": 2
+  },
+  "setup": {
+    "image": "ubuntu:22.04",
+    "args": [
+      "--name",
+      "test-basic",
+      "--hostname",
+      "test-basic",
+      "--platform",
+      "linux/amd64",
+      "-m",
+      "2G",
+      "--cpus",
+      "2",
+      "-p",
+      "2222:22",
+      "-p",
+      "8080:8080",
+      "-p",
+      "1234:1234",
+      "-p",
+      "3000:3000",
+      "-p",
+      "5000:5000",
+      "-p",
+      "8000:8000",
+      "-p",
+      "9229:9229",
+      "-e",
+      "ENABLE_SSH=true",
+      "-e",
+      "ENABLE_VSCODE=true",
+      "-v",
+      "/home/ormastes/dev/aidev/layer/themes/init_setup-folder/.setup/workspace:/workspace",
+      "-v",
+      "/home/ormastes/.ssh:/root/.ssh:ro",
+      "-v",
+      "/home/ormastes/.gitconfig:/root/.gitconfig:ro",
+      "-it"
+    ],
+    "ports": {
+      "ssh": 2222,
+      "vscode": 8080,
+      "gdb": 1234,
+      "node": 3000,
+      "flask": 5000,
+      "django": 8000,
+      "node-debug": 9229
+    },
+    "scripts": [
+      "/home/ormastes/dev/aidev/layer/themes/init_setup-folder/.setup/scripts/run-docker-test-basic.sh",
+      "/home/ormastes/dev/aidev/layer/themes/init_setup-folder/.setup/scripts/build-docker-test-basic.sh",
+      "/home/ormastes/dev/aidev/layer/themes/init_setup-folder/.setup/scripts/debug-docker-test-basic.sh",
+      "/home/ormastes/dev/aidev/layer/themes/init_setup-folder/.setup/scripts/vscode-test-basic.sh"
+    ],
+    "features": {
+      "ssh": true,
+      "vscode": true,
+      "debugging": false
+    }
+  },
+  "created": "2025-08-13T05:43:38.297Z"
+}

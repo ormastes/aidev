@@ -1,0 +1,54 @@
+{
+  "testSuite": [
+    {
+      "id": "TC_20250810_003432_Add_two_positive_numbers",
+      "name": "Add two positive numbers",
+      "description": "",
+      "tags": ["@smoke", "@addition", "@unit", "@math"],
+      "preconditions": ["the calculator is initialized", "the display shows [0]"],
+      "steps": ["User have entered 50 into the calculator", "User press add", "User have entered 70 into the calculator", "User press equals", "the result should be 120 on the screen"],
+      "expectedResults": ["the result should be 120 on the screen"],
+      "metadata": {}
+    },
+    {
+      "id": "TC_20250810_003432_Subtract_numbers",
+      "name": "Subtract numbers",
+      "description": "",
+      "tags": ["@subtraction", "@unit", "@math"],
+      "preconditions": ["the calculator is initialized", "the display shows [0]"],
+      "steps": ["User have entered 100 into the calculator", "User press subtract", "User have entered 25 into the calculator", "User press equals", "the result should be 75 on the screen"],
+      "expectedResults": ["the result should be 75 on the screen"],
+      "metadata": {}
+    },
+    {
+      "id": "TC_20250810_003432_Multiply_numbers",
+      "name": "Multiply numbers",
+      "description": "",
+      "tags": ["@multiplication", "@unit", "@math"],
+      "preconditions": ["the calculator is initialized", "the display shows [0]"],
+      "steps": ["User have entered 6 into the calculator", "User press multiply", "User have entered 7 into the calculator", "User press equals", "the result should be 42 on the screen"],
+      "expectedResults": ["the result should be 42 on the screen"],
+      "metadata": {}
+    },
+    {
+      "id": "TC_20250810_003432_Divide_numbers",
+      "name": "Divide numbers",
+      "description": "",
+      "tags": ["@division", "@unit", "@math"],
+      "preconditions": ["the calculator is initialized", "the display shows [0]"],
+      "steps": ["User have entered 84 into the calculator", "User press divide", "User have entered 2 into the calculator", "User press equals", "the result should be 42 on the screen"],
+      "expectedResults": ["the result should be 42 on the screen"],
+      "metadata": {}
+    },
+    {
+      "id": "TC_20250810_003432_Outline_Perform_various_calculations",
+      "name": "Outline: Perform various calculations",
+      "description": "",
+      "tags": ["@data-driven", "@unit", "@math"],
+      "preconditions": ["the calculator is initialized", "the display shows [0]"],
+      "steps": ["User have entered <first> into the calculator", "User press <operation>", "User have entered <second> into the calculator", "User press equals", "the result should be <result> on the screen"],
+      "expectedResults": ["the result should be <result> on the screen"],
+      "metadata": {}
+    }
+  ]
+}

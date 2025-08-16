@@ -1,0 +1,36 @@
+{
+  "name": "@aidev/manual-embedded-apps-theme",
+  "version": "1.0.0",
+  "description": "Manual theme for testing web applications embedded within other web applications",
+  "main": "index.ts",
+  "scripts": {
+    "test": "playwright test embedded-apps.test.ts",
+    "test:headed": "playwright test embedded-apps.test.ts --headed",
+    "test:debug": "playwright test embedded-apps.test.ts --debug",
+    "generate:report": "playwright show-report",
+    "lint": "eslint . --ext .ts",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "embedded-apps",
+    "iframe",
+    "cross-origin",
+    "testing",
+    "manual-theme",
+    "web-apps"
+  ],
+  "author": "AI Dev Team",
+  "license": "MIT",
+  "dependencies": {
+    "@playwright/test": "^1.40.0",
+    "typescript": "^5.3.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.50.0"
+  },
+  "peerDependencies": {
+    "@aidev/core": "*"
+  }
+}

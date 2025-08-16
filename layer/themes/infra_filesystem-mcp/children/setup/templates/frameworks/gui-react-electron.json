@@ -1,0 +1,35 @@
+{
+  "name": "gui-react-electron",
+  "description": "Desktop GUI application using React with Electron",
+  "type": "gui-desktop",
+  "language": "typescript",
+  "framework": "react-electron",
+  "test_framework": "playwright",
+  "supported_platforms": ["linux", "windows", "macos"],
+  "supported_architectures": ["x86_64", "arm64"],
+  "dependencies": {
+    "node": ">=18.0.0",
+    "bun": ">=9.0.0"
+  },
+  "npm_packages": {
+    "electron": "^27.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0",
+    "@playwright/test": "^1.40.0",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^5.0.0",
+    "ts-loader": "^9.0.0",
+    "html-webpack-plugin": "^5.0.0"
+  },
+  "files": {
+    "src/main.ts": "import { app, BrowserWindow } from 'electron';\nimport * as path from 'path';\n\nfunction createWindow() {\n  const mainWindow = new BrowserWindow({\n    width: 800,\n    height: 600,\n    webPreferences: {\n      preload: path.join(__dirname, 'preload.js')\n    }\n  });\n  mainWindow.loadFile('index.html');\n}\n\napp.whenReady().then(createWindow);",
+    "src/renderer/App.tsx": "import React from 'react';\n\nexport const App: React.FC = () => {\n  return (\n    <div>\n      <h1>Hello from React Electron!</h1>\n      <p>Platform: {process.platform}</p>\n    </div>\n  );\n};",
+    "src/renderer/index.tsx": "import React from 'react';\nimport { createRoot } from 'react-dom/client';\nimport { App } from './App';\n\nconst container = document.getElementById('root');\nconst root = createRoot(container!);\nroot.render(<App />);",
+    "public/index.html": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <title>${PROJECT_NAME}</title>\n</head>\n<body>\n  <div id=\"root\"></div>\n</body>\n</html>",
+    "tests/app.spec.ts": "import { test, expect } from '@playwright/test';\nimport { _electron as electron } from 'playwright';\n\ntest('app launches', async () => {\n  const app = await electron.launch({ args: ['.'] });\n  const window = await app.firstWindow();\n  await expect(window).toHaveTitle(/${PROJECT_NAME}/);\n  await app.close();\n});",
+    "webpack.config.js": "module.exports = {\n  entry: './src/renderer/index.tsx',\n  module: {\n    rules: [{\n      test: /\\.tsx?$/,\n      use: 'ts-loader',\n      exclude: /node_modules/\n    }]\n  },\n  resolve: {\n    extensions: ['.tsx', '.ts', '.js']\n  }\n};"
+  }
+}

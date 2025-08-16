@@ -1,0 +1,36 @@
+{
+  "name": "@aidev/lib_cli-framework",
+  "version": "1.0.0",
+  "description": "CLI Framework Theme for AI Development Platform",
+  "main": "pipe/index.ts",
+  "bin": {
+    "aidev-cli": "./user-stories/002-cli-base-structure/src/bin/index.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:unit": "jest tests/unit",
+    "test:integration": "jest tests/integration",
+    "test:system": "jest user-stories/**/tests/system",
+    "build": "tsc",
+    "lint": "eslint pipe/**/*.ts user-stories/**/*.ts tests/**/*.ts --ext .ts"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.0.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "chalk": "^4.1.2",
+    "commander": "^11.0.0",
+    "inquirer": "^8.2.6",
+    "ora": "^5.4.1"
+  },
+  "keywords": ["cli", "framework", "command", "parser", "theme"],
+  "author": "AI Development Platform",
+  "license": "MIT"
+}

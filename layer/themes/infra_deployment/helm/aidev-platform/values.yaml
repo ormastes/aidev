@@ -1,0 +1,270 @@
+# Default values for aidev-platform
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  environment: production
+  domain: aidev-platform.com
+  imageRegistry: ""
+  imagePullSecrets: []
+  storageClass: standard
+
+# API Gateway Configuration
+apiGateway:
+  enabled: true
+  replicaCount: 3
+  image:
+    repository: aidev/api-gateway
+    pullPolicy: IfNotPresent
+    tag: "latest"
+  
+  service:
+    type: LoadBalancer
+    port: 80
+    targetPort: 8080
+    annotations: {}
+  
+  ingress:
+    enabled: true
+    className: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    hosts:
+      - host: api.aidev-platform.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: api-gateway-tls
+        hosts:
+          - api.aidev-platform.com
+  
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+  
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 70
+    targetMemoryUtilizationPercentage: 80
+  
+  config:
+    rateLimiting:
+      windowMs: 60000
+      maxRequests: 100
+    jwt:
+      expiresIn: "24h"
+      refreshExpiresIn: "7d"
+    cors:
+      origins:
+        - http://localhost:3000
+        - https://portal.aidev-platform.com
+
+# Portal Configuration
+portal:
+  enabled: true
+  replicaCount: 2
+  image:
+    repository: aidev/portal
+    pullPolicy: IfNotPresent
+    tag: "latest"
+  
+  service:
+    type: ClusterIP
+    port: 3000
+    targetPort: 3000
+  
+  ingress:
+    enabled: true
+    className: nginx
+    hosts:
+      - host: portal.aidev-platform.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: portal-tls
+        hosts:
+          - portal.aidev-platform.com
+  
+  resources:
+    limits:
+      cpu: 400m
+      memory: 512Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 6
+    targetCPUUtilizationPercentage: 75
+
+# Monitoring Dashboard Configuration
+monitoring:
+  enabled: true
+  replicaCount: 2
+  image:
+    repository: aidev/monitoring-dashboard
+    pullPolicy: IfNotPresent
+    tag: "latest"
+  
+  service:
+    type: ClusterIP
+    port: 3999
+    targetPort: 3999
+  
+  ingress:
+    enabled: true
+    className: nginx
+    hosts:
+      - host: monitoring.aidev-platform.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: monitoring-tls
+        hosts:
+          - monitoring.aidev-platform.com
+  
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1Gi
+    requests:
+      cpu: 250m
+      memory: 512Mi
+  
+  persistence:
+    enabled: true
+    size: 10Gi
+    storageClass: standard
+
+# Redis Configuration
+redis:
+  enabled: true
+  architecture: standalone
+  auth:
+    enabled: true
+    password: "change-in-production"
+  master:
+    persistence:
+      enabled: true
+      size: 8Gi
+    resources:
+      limits:
+        cpu: 200m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+
+# PostgreSQL Configuration
+postgresql:
+  enabled: true
+  auth:
+    postgresPassword: "change-in-production"
+    database: aidev_platform
+  primary:
+    persistence:
+      enabled: true
+      size: 20Gi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1Gi
+      requests:
+        cpu: 250m
+        memory: 512Mi
+
+# Prometheus Configuration
+prometheus:
+  enabled: true
+  alertmanager:
+    enabled: true
+    persistentVolume:
+      enabled: true
+      size: 2Gi
+  server:
+    persistentVolume:
+      enabled: true
+      size: 8Gi
+    retention: "15d"
+  nodeExporter:
+    enabled: true
+
+# Grafana Configuration
+grafana:
+  enabled: true
+  adminPassword: "change-in-production"
+  persistence:
+    enabled: true
+    size: 5Gi
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          url: http://prometheus-server
+          access: proxy
+          isDefault: true
+
+# Secrets Configuration
+secrets:
+  jwt:
+    secret: "your-jwt-secret-change-in-production"
+  session:
+    secret: "your-session-secret-change-in-production"
+  oauth:
+    google:
+      clientId: ""
+      clientSecret: ""
+    github:
+      clientId: ""
+      clientSecret: ""
+
+# Service Mesh Configuration (optional)
+serviceMesh:
+  enabled: false
+  provider: istio # or linkerd
+
+# Backup Configuration
+backup:
+  enabled: true
+  schedule: "0 2 * * *" # Daily at 2 AM
+  retention: 30 # days
+  storageLocation: s3://aidev-backups
+
+# Security Policies
+securityPolicies:
+  networkPolicies:
+    enabled: true
+  podSecurityPolicies:
+    enabled: true
+  rbac:
+    create: true
+
+# Observability
+observability:
+  tracing:
+    enabled: true
+    provider: jaeger
+    samplingRate: 0.1
+  logging:
+    enabled: true
+    provider: elasticsearch
+    retention: 7 # days
+
+# Node Affinity
+nodeSelector: {}
+tolerations: []
+affinity: {}

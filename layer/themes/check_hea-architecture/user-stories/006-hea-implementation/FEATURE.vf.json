@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "hea-architecture-epic-001",
+    "path": "/layer/themes/check_hea-architecture/user-stories/006-hea-implementation/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.588Z",
+    "updated_at": "2025-08-02T11:10:54.588Z"
+  },
+  "features": {
+    "006_hea_implementation": [
+      {
+        "id": "hea-architecture-006-hea-implementation",
+        "name": "hea implementation",
+        "data": {
+          "title": "Hea implementation",
+          "description": "Implementation of hea implementation",
+          "level": "user_story",
+          "parent_feature_id": "hea-architecture-epic-001",
+          "epic_id": "hea-architecture-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "hea-architecture",
+            "hea-implementation"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/check_hea-architecture/user-stories/006-hea-implementation/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.588Z",
+        "updatedAt": "2025-08-02T11:10:54.588Z"
+      }
+    ]
+  }
+}

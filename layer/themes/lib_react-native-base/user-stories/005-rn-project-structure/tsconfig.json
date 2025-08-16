@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "ESNext",
+    "lib": ["ES2022"],
+    "jsx": "react-native",
+    
+    /* Modules */
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/layers/presentation/components/*"],
+      "@screens/*": ["src/layers/presentation/screens/*"],
+      "@navigation/*": ["src/layers/presentation/navigation/*"],
+      "@services/*": ["src/layers/application/services/*"],
+      "@hooks/*": ["src/layers/application/hooks/*"],
+      "@state/*": ["src/layers/application/state/*"],
+      "@models/*": ["src/layers/domain/models/*"],
+      "@repositories/*": ["src/layers/domain/repositories/*"],
+      "@use-cases/*": ["src/layers/domain/use-cases/*"],
+      "@api/*": ["src/layers/infrastructure/api/*"],
+      "@storage/*": ["src/layers/infrastructure/storage/*"],
+      "@native/*": ["src/layers/infrastructure/native/*"],
+      "@utils/*": ["src/shared/utils/*"],
+      "@constants/*": ["src/shared/constants/*"],
+      "@types/*": ["src/shared/types/*"],
+      "@assets/*": ["src/assets/*"]
+    },
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    
+    /* Type Checking - STRICT MODE */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    
+    /* Emit */
+    "noEmit": true,
+    "declaration": false,
+    
+    /* Interop Constraints */
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    
+    /* Skip Type Checking for Libraries */
+    "skipLibCheck": true,
+    
+    /* React Native Specific */
+    "allowJs": true,
+    "checkJs": false,
+    "maxNodeModuleJsDepth": 0,
+    
+    /* Advanced */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "resolvePackageJsonExports": true,
+    "resolvePackageJsonImports": true
+  },
+  "include": [
+    "src/**/*",
+    "index.js",
+    "app.json",
+    "jest.setup.ts",
+    "global.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js",
+    "android",
+    "ios",
+    "e2e",
+    "coverage",
+    ".expo"
+  ]
+}

@@ -1,0 +1,28 @@
+# Bun configuration file
+
+[test]
+# Test runner configuration
+coverage = true
+coverageThreshold = { line = 0.8, function = 0.8, statement = 0.8 }
+coverageSkipTestFiles = true
+
+[install]
+# Package installation configuration
+auto = "fallback"
+globalDir = "~/.bun/install/global"
+registry = "https://registry.npmjs.org"
+
+[install.cache]
+dir = "~/.bun/install/cache"
+disable = false
+
+[install.lockfile]
+save = true
+
+[run]
+# Script runner configuration
+silent = false
+
+[debug]
+# Debug configuration
+htpasswd = false

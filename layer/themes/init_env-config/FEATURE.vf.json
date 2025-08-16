@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/themes/init_env-config/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.579Z",
+    "updated_at": "2025-08-02T11:10:54.579Z"
+  },
+  "features": {
+    "env_config": [
+      {
+        "id": "env-config-epic-001",
+        "name": "Env Config",
+        "data": {
+          "title": "Env Config Theme",
+          "description": "Core functionality for Env Config",
+          "level": "epic",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "env-config",
+            "theme"
+          ],
+          "virtual_path": "/layer/themes/env-config/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.578Z",
+        "updatedAt": "2025-08-02T11:10:54.578Z"
+      }
+    ]
+  },
+  "children": [
+    "/layer/themes/env-config/user-stories/025-env-config-system/FEATURE.vf.json",
+    "/layer/themes/env-config/user-stories/026-auto-env-generation/FEATURE.vf.json"
+  ]
+}

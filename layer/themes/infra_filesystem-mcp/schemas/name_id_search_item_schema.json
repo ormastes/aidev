@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Name ID Search Item Schema",
+  "description": "JSON Schema for VF name-id search queries - only name is required, all other fields are optional filters",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional unique identifier filter"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "file", "directory", "function", "class", "method", "variable", 
+        "constant", "interface", "type", "enum", "module", "namespace",
+        "component", "hook", "service", "controller", "model", "view",
+        "test", "config", "script", "documentation", "resource",
+        "endpoint", "route", "middleware", "utility", "helper",
+        "theme", "style", "template", "layout", "page", "widget"
+      ],
+      "description": "Optional type filter"
+    },
+    "namespace": {
+      "type": "string", 
+      "minLength": 1,
+      "description": "Optional namespace filter (e.g., 'src/components', 'api/v1')"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Required: The name to search for (supports case-insensitive and partial matching)"
+    },
+    "full_path": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional full path filter"
+    },
+    "extension": {
+      "type": "string",
+      "description": "Optional file extension filter (e.g., '.js', '.py', '.md')"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional description filter/search"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Optional tags filter (all specified tags must match)"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Optional created date filter"
+    },
+    "updated_at": {
+      "type": "string", 
+      "format": "date-time",
+      "description": "Optional updated date filter"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Optional metadata filters"
+    }
+  },
+  "required": ["name"],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "name": "UserProfile",
+      "description": "Search for items with 'UserProfile' in the name"
+    },
+    {
+      "name": "login", 
+      "type": "function",
+      "description": "Search for functions with 'login' in the name"
+    },
+    {
+      "name": "config",
+      "namespace": "src/config",
+      "description": "Search for 'config' items in the 'src/config' namespace"
+    },
+    {
+      "name": "test",
+      "tags": ["unit-test"],
+      "description": "Search for 'test' items tagged with 'unit-test'"
+    },
+    {
+      "name": "Component",
+      "type": "class", 
+      "extension": ".tsx",
+      "description": "Search for React component classes in .tsx files"
+    },
+    {
+      "name": "api",
+      "type": "endpoint",
+      "namespace": "api/v1",
+      "description": "Search for API endpoints in v1 namespace"
+    }
+  ]
+}

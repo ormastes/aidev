@@ -1,0 +1,106 @@
+```mermaid
+sequenceDiagram
+    participant Test as Integration Test
+    participant Platform as PythonLogPlatform
+    participant Session as PythonLogCaptureSession
+    participant ExtLib as PythonExternalLogLib
+    participant Parser as PythonLogParser
+    participant Capturer as LogCapturer
+    participant Process as Python Process
+
+    Test->>Platform: startPythonLogCapture(config)
+    Platform->>Session: new PythonLogCaptureSession(config)
+    Session->>Process: spawn('python3', args)
+    Session->>ExtLib: createCapturer(process)
+    ExtLib->>Capturer: new LogCapturerImpl(process, parseLogLine)
+    ExtLib-->>Session: capturer
+    
+    Session->>Capturer: onLog(callback)
+    Session->>Capturer: start()
+    
+    loop Log Processing
+        Process->>Capturer: stderr data
+        Capturer->>Capturer: split into lines
+        loop For each line
+            Capturer->>ExtLib: parseLogLine(line, 'stderr')
+            ExtLib->>Parser: parsePythonLogLine(line, 'stderr')
+            
+            alt Python logging format
+                Parser->>Parser: parse timestamp, logger, level, message
+                Parser-->>ExtLib: LogEntry{parsed values}
+            else Simple format (INFO:, ERROR -)
+                Parser->>Parser: parse level and message
+                Parser-->>ExtLib: LogEntry{level, message}
+            else JSON format
+                Parser->>Parser: JSON.parse(line)
+                Parser-->>ExtLib: LogEntry{from JSON}
+            else Traceback line
+                Parser->>Parser: detect traceback pattern
+                Parser-->>ExtLib: LogEntry{level: 'error'}
+            else Plain text
+                Parser->>Parser: default based on source
+                Parser-->>ExtLib: LogEntry{default level}
+            end
+            
+            ExtLib->>ExtLib: check if needs parent parser
+            alt Needs parent parser ([DEBUG] format)
+                ExtLib->>ExtLib: super.parseLogLine(line, source)
+            end
+            
+            ExtLib-->>Capturer: final LogEntry
+            Capturer->>Session: callback(entry)
+            Session->>Session: logs.push(entry)
+        end
+    end
+    
+    Process->>Process: exit
+    Process-->>Session: close event
+    Session->>Capturer: stop()
+    Session-->>Test: completion
+    
+    Test->>Session: getLogs()
+    Session-->>Test: LogEntry[]
+```
+
+## Python Log Parser Integration Sequence
+
+### Key Components
+
+1. **PythonLogPlatform**: Entry point that creates Python-specific log capture sessions
+2. **PythonLogCaptureSession**: Manages the Python process lifecycle and log collection
+3. **PythonExternalLogLib**: Extends base ExternalLogLib with Python-specific parsing
+4. **PythonLogParser**: Handles Python-specific log formats
+5. **LogCapturer**: Base capturer that handles stream reading and line splitting
+
+### Integration Flow
+
+1. Platform creates a session with Python-specific configuration
+2. Session spawns Python process and creates capturer via PythonExternalLogLib
+3. Capturer reads stdout/stderr streams and splits into lines
+4. Each line is parsed by PythonLogParser for Python formats
+5. If no Python format matches, falls back to parent parser for bracket formats
+6. Parsed LogEntry objects are collected in the session
+7. When process exits, capturer stops and logs can be retrieved
+
+### Unit Test Requirements
+
+Based on this sequence, we need unit tests for:
+
+1. **PythonLogParser**
+   - parsePythonLogLine with various formats
+   - mapPythonLevel for level conversion
+   - Edge cases (empty lines, special characters)
+
+2. **PythonExternalLogLib**
+   - parseLogLine with fallback logic
+   - Integration with parent parser
+
+3. **PythonLogPlatform**
+   - startPythonLogCapture command override
+   - Session creation
+
+4. **PythonLogCaptureSession**
+   - Process lifecycle management
+   - Log collection
+   - Callbacks
+   - File saving

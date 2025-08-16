@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{document.title}} - Detailed Test Manual</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Arial', sans-serif; 
+            line-height: 1.8; 
+            color: #2c3e50;
+            background: #fff;
+            counter-reset: section;
+        }
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+        }
+        .sidebar {
+            width: 300px;
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        .sidebar h3 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+        }
+        .sidebar a {
+            color: #ecf0f1;
+            text-decoration: none;
+            display: block;
+            padding: 5px 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        .sidebar a:hover {
+            background: #34495e;
+        }
+        .content {
+            margin-left: 300px;
+            padding: 40px;
+            flex: 1;
+        }
+        .header {
+            background: white;
+            padding: 30px;
+            border-bottom: 3px solid #3498db;
+            margin-bottom: 30px;
+        }
+        h1 { 
+            font-size: 2.8em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        h2 { 
+            font-size: 2em;
+            color: #3498db;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+            counter-increment: section;
+        }
+        h2:before {
+            content: counter(section) ". ";
+        }
+        h3 { 
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin: 30px 0 15px 0;
+        }
+        h4 {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            margin: 20px 0 10px 0;
+        }
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .metadata-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        .metadata-card h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        .test-case {
+            background: white;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+            position: relative;
+        }
+        .test-case:before {
+            content: attr(data-priority);
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: white;
+            padding: 0 10px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        .test-step {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            border-radius: 4px;
+            position: relative;
+        }
+        .step-number {
+            position: absolute;
+            left: -15px;
+            top: 15px;
+            background: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .preconditions, .postconditions {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        .preconditions h5, .postconditions h5 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        .statistics {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 10px;
+            min-width: 150px;
+        }
+        .stat-card h3 {
+            color: white;
+            font-size: 2em;
+            margin: 10px 0;
+        }
+        .coverage-bar {
+            background: #ecf0f1;
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .coverage-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2ecc71, #3498db);
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            color: white;
+            font-weight: bold;
+        }
+        .glossary-term {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border-left: 3px solid #3498db;
+        }
+        .glossary-term dt {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+        }
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .content { margin-left: 0; }
+            .metadata-grid { grid-template-columns: 1fr; }
+        }
+        @media print {
+            .sidebar { display: none; }
+            .content { margin-left: 0; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <nav class="sidebar no-print">
+            <h3>Navigation</h3>
+            {{#if document.tableOfContents}}
+            <ul>
+            {{#each document.tableOfContents}}
+                <li>
+                    <a href="#{{id}}">{{title}}</a>
+                    {{#if children}}
+                    <ul style="margin-left: 20px;">
+                    {{#each children}}
+                        <li><a href="#{{id}}">{{title}}</a></li>
+                    {{/each}}
+                    </ul>
+                    {{/if}}
+                </li>
+            {{/each}}
+            </ul>
+            {{/if}}
+        </nav>
+        
+        <div class="content">
+            <div class="header">
+                <h1>{{document.title}}</h1>
+                {{#if document.metadata.description}}
+                <p style="font-size: 1.2em; color: #7f8c8d;">{{document.metadata.description}}</p>
+                {{/if}}
+            </div>
+            
+            <div class="metadata-grid">
+                {{#if document.version}}
+                <div class="metadata-card">
+                    <h4>Version</h4>
+                    <p>{{document.version}}</p>
+                </div>
+                {{/if}}
+                
+                <div class="metadata-card">
+                    <h4>Generated</h4>
+                    <p>{{formatDateTime document.generatedAt}}</p>
+                </div>
+                
+                {{#if document.metadata.author}}
+                <div class="metadata-card">
+                    <h4>Author</h4>
+                    <p>{{document.metadata.author}}</p>
+                </div>
+                {{/if}}
+                
+                {{#if document.metadata.estimatedDuration}}
+                <div class="metadata-card">
+                    <h4>Estimated Duration</h4>
+                    <p>{{document.metadata.estimatedDuration}} minutes</p>
+                </div>
+                {{/if}}
+            </div>
+            
+            {{#if document.metadata.coverage}}
+            <section>
+                <h2>Coverage Metrics</h2>
+                <div class="coverage-metrics">
+                    <div class="coverage-item">
+                        <p>Statements</p>
+                        <div class="coverage-bar">
+                            <div class="coverage-fill" style="width: {{document.metadata.coverage.statements}}%">
+                                {{document.metadata.coverage.statements}}%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="coverage-item">
+                        <p>Branches</p>
+                        <div class="coverage-bar">
+                            <div class="coverage-fill" style="width: {{document.metadata.coverage.branches}}%">
+                                {{document.metadata.coverage.branches}}%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="coverage-item">
+                        <p>Functions</p>
+                        <div class="coverage-bar">
+                            <div class="coverage-fill" style="width: {{document.metadata.coverage.functions}}%">
+                                {{document.metadata.coverage.functions}}%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="coverage-item">
+                        <p>Lines</p>
+                        <div class="coverage-bar">
+                            <div class="coverage-fill" style="width: {{document.metadata.coverage.lines}}%">
+                                {{document.metadata.coverage.lines}}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {{/if}}
+            
+            <div class="statistics">
+                <div class="stat-card">
+                    <p>Test Suites</p>
+                    <h3>{{length document.test.suites}}</h3>
+                </div>
+                <div class="stat-card">
+                    <p>Test Cases</p>
+                    <h3>{{document.metadata.totalTests}}</h3>
+                </div>
+                <div class="stat-card">
+                    <p>Total Steps</p>
+                    <h3>{{document.metadata.totalSteps}}</h3>
+                </div>
+            </div>
+            
+            {{#each document.sections}}
+            <section id="{{id}}">
+                <h2>{{title}}</h2>
+                {{{content}}}
+                
+                {{#if testCases}}
+                <div class="test-cases">
+                    <h3>Test Cases</h3>
+                    {{#each testCases}}
+                    <div class="test-case" data-priority="{{uppercase priority}}">
+                        <h4>{{name}}</h4>
+                        
+                        {{#if description}}
+                        <p>{{description}}</p>
+                        {{/if}}
+                        
+                        {{#if preconditions}}
+                        <div class="preconditions">
+                            <h5>Prerequisites</h5>
+                            <ul>
+                            {{#each preconditions}}
+                                <li>{{this}}</li>
+                            {{/each}}
+                            </ul>
+                        </div>
+                        {{/if}}
+                        
+                        <h5>Test Steps</h5>
+                        {{#each steps}}
+                        <div class="test-step">
+                            <div class="step-number">{{order}}</div>
+                            <div style="margin-left: 30px;">
+                                <strong>{{stepType type}} Action:</strong> {{action}}
+                                {{#if expected}}
+                                <br><em>Expected Result:</em> {{expected}}
+                                {{/if}}
+                                {{#if screenshot}}
+                                <br><img src="{{screenshot.filePath}}" alt="{{screenshot.caption}}" style="max-width: 100%; margin-top: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                                {{/if}}
+                            </div>
+                        </div>
+                        {{/each}}
+                        
+                        {{#if postconditions}}
+                        <div class="postconditions">
+                            <h5>Cleanup</h5>
+                            <ul>
+                            {{#each postconditions}}
+                                <li>{{this}}</li>
+                            {{/each}}
+                            </ul>
+                        </div>
+                        {{/if}}
+                        
+                        {{#if tags}}
+                        <div style="margin-top: 20px;">
+                            {{#each tags}}
+                            <span style="background: #3498db; color: white; padding: 4px 12px; border-radius: 20px; margin-right: 5px; font-size: 0.9em;">{{this}}</span>
+                            {{/each}}
+                        </div>
+                        {{/if}}
+                    </div>
+                    {{/each}}
+                </div>
+                {{/if}}
+                
+                {{#if subsections}}
+                {{#each subsections}}
+                {{> section}}
+                {{/each}}
+                {{/if}}
+            </section>
+            {{/each}}
+            
+            {{#if document.glossary}}
+            <section id="glossary">
+                <h2>Glossary</h2>
+                {{#each document.glossary}}
+                <dl class="glossary-term">
+                    <dt>{{term}}</dt>
+                    <dd>{{definition}}</dd>
+                </dl>
+                {{/each}}
+            </section>
+            {{/if}}
+            
+            {{#if document.index}}
+            <section id="index">
+                <h2>Index</h2>
+                <div style="columns: 2; column-gap: 40px;">
+                {{#each document.index}}
+                    <p style="break-inside: avoid;">
+                        <strong>{{term}}:</strong> {{join references ", "}}
+                    </p>
+                {{/each}}
+                </div>
+            </section>
+            {{/if}}
+            
+            <footer>
+                <p>Generated by Enhanced Manual Generator v2.0</p>
+                <p>{{formatDateTime document.generatedAt}}</p>
+                <p>Total Pages: {{document.metadata.pageCount}}</p>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

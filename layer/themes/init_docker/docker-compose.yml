@@ -1,0 +1,152 @@
+version: '3.8'
+
+services:
+  # Main development container
+  dev-environment:
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile.development
+      args:
+        BASE_IMAGE: ubuntu:22.04
+        PLATFORM: linux/amd64
+    image: aidev/development:latest
+    container_name: aidev-main
+    hostname: aidev-main
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 8G
+        reservations:
+          cpus: '2'
+          memory: 4G
+    
+    # Environment variables
+    environment:
+      - ENABLE_SSH=true
+      - ENABLE_VSCODE=true
+      - ENABLE_GDB_SERVER=false
+      - DISPLAY=${DISPLAY}
+      - TZ=UTC
+    
+    # Port mappings
+    ports:
+      - "2222:22"      # SSH
+      - "8080:8080"    # VS Code Server
+      - "1234:1234"    # GDB Server
+      - "3000:3000"    # Node.js app
+      - "5000:5000"    # Python Flask
+      - "8000:8000"    # Python Django
+      - "9229:9229"    # Node.js debug
+      - "9000-9010:9000-9010"  # Additional debug ports
+    
+    # Volume mounts
+    volumes:
+      - ./workspace:/workspace
+      - ./config:/config
+      - ~/.ssh:/root/.ssh:ro
+      - ~/.gitconfig:/root/.gitconfig:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    
+    # Network configuration
+    networks:
+      - dev-network
+    
+    # Security options
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    cap_add:
+      - SYS_PTRACE
+      - NET_ADMIN
+    
+    # Keep container running
+    stdin_open: true
+    tty: true
+    
+    # Restart policy
+    restart: unless-stopped
+
+  # Database service (PostgreSQL)
+  database:
+    image: postgres:15-alpine
+    container_name: aidev-db
+    hostname: aidev-db
+    environment:
+      - POSTGRES_USER=developer
+      - POSTGRES_PASSWORD=devpass123
+      - POSTGRES_DB=aidev
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - dev-network
+    restart: unless-stopped
+
+  # Redis cache service
+  cache:
+    image: redis:7-alpine
+    container_name: aidev-cache
+    hostname: aidev-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - cache-data:/data
+    networks:
+      - dev-network
+    restart: unless-stopped
+
+  # MinIO object storage
+  storage:
+    image: minio/minio:latest
+    container_name: aidev-storage
+    hostname: aidev-storage
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin123
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - storage-data:/data
+    networks:
+      - dev-network
+    command: server /data --console-address ":9001"
+    restart: unless-stopped
+
+  # Nginx reverse proxy
+  proxy:
+    image: nginx:alpine
+    container_name: aidev-proxy
+    hostname: aidev-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./workspace/public:/usr/share/nginx/html
+    networks:
+      - dev-network
+    depends_on:
+      - dev-environment
+    restart: unless-stopped
+
+# Networks
+networks:
+  dev-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+# Volumes
+volumes:
+  db-data:
+    driver: local
+  cache-data:
+    driver: local
+  storage-data:
+    driver: local

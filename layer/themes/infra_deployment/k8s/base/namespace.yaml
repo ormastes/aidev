@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aidev-platform
+  labels:
+    name: aidev-platform
+    environment: production

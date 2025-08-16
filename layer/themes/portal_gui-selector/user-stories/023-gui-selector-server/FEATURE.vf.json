@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "gui-selector-epic-001",
+    "path": "/layer/themes/gui-selector/user-stories/023-gui-selector-server/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.588Z",
+    "updated_at": "2025-08-02T11:10:54.588Z"
+  },
+  "features": {
+    "023_gui_selector_server": [
+      {
+        "id": "gui-selector-023-gui-selector-server",
+        "name": "gui selector server",
+        "data": {
+          "title": "Gui selector server",
+          "description": "Implementation of gui selector server",
+          "level": "user_story",
+          "parent_feature_id": "gui-selector-epic-001",
+          "epic_id": "gui-selector-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "gui-selector",
+            "gui-selector-server"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/gui-selector/user-stories/023-gui-selector-server/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.588Z",
+        "updatedAt": "2025-08-02T11:10:54.588Z"
+      }
+    ]
+  }
+}

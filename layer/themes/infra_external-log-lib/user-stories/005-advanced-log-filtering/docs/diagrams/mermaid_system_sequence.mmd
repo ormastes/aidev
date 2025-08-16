@@ -1,0 +1,59 @@
+sequenceDiagram
+    participant Dev as Developer
+    participant ELL as External Log Library
+    participant LM as LogMonitor
+    participant LS as LogStream
+    participant LF as LogFilter
+    participant Process as External Process
+
+    Note over Dev, Process: Real-time Log Level Filtering During Streaming
+
+    Dev->>ELL: startRealTimeMonitoring(command, {logLevelFilter: ['error', 'warn']})
+    ELL->>LM: startRealTimeMonitoring(command, options)
+    
+    LM->>Process: spawn(command)
+    Process-->>LM: process started
+    
+    LM->>LS: new LogStream(stdout, stderr)
+    LM->>LS: setLogLevelFilter(['error', 'warn'])
+    LS->>LF: configure(['error', 'warn'])
+    
+    activate Process
+    Note over Process: Process generates logs of different levels
+    
+    Process->>LS: INFO: Application started
+    LS->>LF: filterLog(INFO, "Application started")
+    LF-->>LS: FILTERED (not in ['error', 'warn'])
+    Note over LS: Log discarded, not emitted
+    
+    Process->>LS: WARN: Configuration missing
+    LS->>LF: filterLog(WARN, "Configuration missing") 
+    LF-->>LS: PASSED (in filter list)
+    LS->>LM: emit('log-entry', {level: 'warn', message: '...'})
+    LM->>ELL: emit('log-entry', logEntry)
+    ELL->>Dev: onLogEntry(logEntry)
+    
+    Process->>LS: DEBUG: Loading modules
+    LS->>LF: filterLog(DEBUG, "Loading modules")
+    LF-->>LS: FILTERED (not in ['error', 'warn'])
+    Note over LS: Log discarded, not emitted
+    
+    Process->>LS: ERROR: Database connection failed
+    LS->>LF: filterLog(ERROR, "Database connection failed")
+    LF-->>LS: PASSED (in filter list)
+    LS->>LM: emit('log-entry', {level: 'error', message: '...'})
+    LM->>ELL: emit('log-entry', logEntry)
+    ELL->>Dev: onLogEntry(logEntry)
+    
+    Process->>LS: INFO: Retrying connection
+    LS->>LF: filterLog(INFO, "Retrying connection")
+    LF-->>LS: FILTERED (not in ['error', 'warn'])
+    Note over LS: Log discarded, not emitted
+    
+    deactivate Process
+    Process-->>LM: process ended
+    LM->>ELL: emit('process-exited', {processId, code})
+    ELL->>Dev: onProcessExited(event)
+
+    Note over Dev: Developer receives only ERROR and WARN logs in real-time
+    Note over Dev: INFO and DEBUG logs are filtered out at the stream level

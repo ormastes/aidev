@@ -1,0 +1,14 @@
+{
+  "name": "@aidev/setup-manager",
+  "version": "1.0.0",
+  "description": "Setup and configuration management integrated with filesystem-mcp theme",
+  "main": "SetupManager.ts",
+  "scripts": {
+    "test": "bun test",
+    "setup": "bash setup.sh",
+    "verify": "bash verify_hello_world.sh"
+  },
+  "dependencies": {
+    "@types/node": "^20.0.0"
+  }
+}

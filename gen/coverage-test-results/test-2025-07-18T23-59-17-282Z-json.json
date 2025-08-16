@@ -1,0 +1,33 @@
+{
+  "testSuiteId": "test",
+  "startTime": "2025-07-18T23:59:17.268Z",
+  "endTime": "2025-07-18T23:59:17.268Z",
+  "status": "In Progress",
+  "totalScenarios": 0,
+  "IN PROGRESSScenarios": 0,
+  "failedScenarios": 0,
+  "pendingScenarios": 0,
+  "skippedScenarios": 0,
+  "scenarios": [],
+  "statistics": {
+    "totalSteps": 0,
+    "IN PROGRESSSteps": 0,
+    "failedSteps": 0,
+    "pendingSteps": 0,
+    "skippedSteps": 0,
+    "executionTime": 0,
+    "averageStepTime": 0,
+    "IN PROGRESSRate": 0,
+    "performance": {
+      "memoryUsage": 0,
+      "cpuUsage": 0,
+      "peakMemory": 0
+    }
+  },
+  "configuration": {},
+  "metadata": {
+    "reportGenerated": "2025-07-18T23:59:17.278Z",
+    "reportGenerator": "Mock Free Test Oriented Development Story Reporter"
+  },
+  "logs": []
+}

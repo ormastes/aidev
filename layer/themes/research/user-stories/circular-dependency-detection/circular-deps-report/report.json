@@ -1,0 +1,30 @@
+{
+  "generated_at": "2025-08-14T13:21:50.534Z",
+  "summary": {
+    "languages_analyzed": 1,
+    "total_files": 1,
+    "total_dependencies": 0,
+    "total_circular_dependencies": 0,
+    "total_analysis_time_ms": 64,
+    "successful_analyses": 1,
+    "failed_analyses": 0
+  },
+  "results": [
+    {
+      "success": true,
+      "language": "typescript",
+      "total_files": 1,
+      "total_dependencies": 0,
+      "circular_dependencies": [],
+      "analysis_time_ms": 64,
+      "errors": [],
+      "warnings": [
+        "dependency-cruiser not found, skipping advanced analysis",
+        "ds tool not found, installing via npm..."
+      ]
+    }
+  ],
+  "recommendations": [
+    "Excellent! No circular dependencies found. Continue following good architectural practices."
+  ]
+}

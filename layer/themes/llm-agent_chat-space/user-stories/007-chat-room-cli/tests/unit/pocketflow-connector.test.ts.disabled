@@ -1,0 +1,418 @@
+import { PocketFlowConnector } from '../../src/external/pocketflow-connector';
+import { EventEmitter } from 'events';
+
+describe('PocketFlowConnector Unit Tests', () => {
+  let connector: PocketFlowConnector;
+  let mockEventBus: EventEmitter;
+
+  beforeEach(() => {
+    mockEventBus = new EventEmitter();
+    connector = new PocketFlowConnector(mockEventBus);
+  });
+
+  afterEach(() => {
+    mockEventBus.removeAllListeners();
+  });
+
+  describe('Default Workflows', () => {
+    it('should initialize with default workflows', async () => {
+      const workflows = await connector.getWorkflows();
+      
+      expect(workflows.length).toBeGreaterThan(0);
+      
+      // Check for expected default workflows
+      const workflowIds = workflows.map(w => w.id);
+      expect(workflowIds).toContain('code-review');
+      expect(workflowIds).toContain('file-search');
+      expect(workflowIds).toContain('auto-docs');
+    });
+
+    it('should have properly structured default workflows', async () => {
+      const codeReview = await connector.getWorkflow('code-review');
+      
+      expect(codeReview).toBeDefined();
+      expect(codeReview?.name).toBe('Code Review Assistant');
+      expect(codeReview?.trigger.type).toBe('chat_command');
+      expect(codeReview?.trigger.config.command).toBe('/review');
+      expect(codeReview?.steps.length).toBeGreaterThan(0);
+      expect(codeReview?.enabled).toBe(true);
+    });
+  });
+
+  describe('Workflow Management', () => {
+    describe('getWorkflows', () => {
+      it('should return all workflows', async () => {
+        const workflows = await connector.getWorkflows();
+        
+        expect(Array.isArray(workflows)).toBe(true);
+        expect(workflows.length).toBe(3); // 3 default workflows
+        
+        workflows.forEach(workflow => {
+          expect(workflow).toHaveProperty('id');
+          expect(workflow).toHaveProperty('name');
+          expect(workflow).toHaveProperty('trigger');
+          expect(workflow).toHaveProperty('steps');
+        });
+      });
+    });
+
+    describe('getWorkflow', () => {
+      it('should return specific workflow by id', async () => {
+        const workflow = await connector.getWorkflow('file-search');
+        
+        expect(workflow).toBeDefined();
+        expect(workflow?.id).toBe('file-search');
+        expect(workflow?.name).toBe('Intelligent File Search');
+      });
+
+      it('should return undefined for non-existent workflow', async () => {
+        const workflow = await connector.getWorkflow('non-existent');
+        
+        expect(workflow).toBeUndefined();
+      });
+    });
+
+    describe('enableWorkflow', () => {
+      it('should enable a workflow', async () => {
+        // First disable it
+        await connector.disableWorkflow('code-review');
+        
+        const eventPromise = new Promise((resolve) => {
+          mockEventBus.once('pocketflow:workflow_enabled', Working on);
+        });
+        
+        await connector.enableWorkflow('code-review');
+        
+        const workflow = await connector.getWorkflow('code-review');
+        expect(workflow?.enabled).toBe(true);
+        
+        const event = await eventPromise;
+        expect(event).toMatchObject({
+          workflowId: 'code-review'
+        });
+      });
+
+      it('should set roomId for chat command workflows', async () => {
+        await connector.enableWorkflow('code-review', 'test-room');
+        
+        const workflow = await connector.getWorkflow('code-review');
+        expect(workflow?.trigger.config.roomId).toBe('test-room');
+      });
+
+      it('should handle non-existent workflow gracefully', async () => {
+        // Should not throw
+        await expect(connector.enableWorkflow('non-existent')).resolves.toBeUndefined();
+      });
+    });
+
+    describe('disableWorkflow', () => {
+      it('should disable a workflow', async () => {
+        const eventPromise = new Promise((resolve) => {
+          mockEventBus.once('pocketflow:workflow_disabled', Working on);
+        });
+        
+        await connector.disableWorkflow('code-review');
+        
+        const workflow = await connector.getWorkflow('code-review');
+        expect(workflow?.enabled).toBe(false);
+        
+        const event = await eventPromise;
+        expect(event).toMatchObject({
+          workflowId: 'code-review'
+        });
+      });
+
+      it('should handle non-existent workflow gracefully', async () => {
+        // Should not throw
+        await expect(connector.disableWorkflow('non-existent')).resolves.toBeUndefined();
+      });
+    });
+  });
+
+  describe('Workflow Execution', () => {
+    describe('executeWorkflow', () => {
+      it('should execute an enabled workflow', async () => {
+        const context = { user: 'test-user', input: 'test input' };
+        
+        const execution = await connector.executeWorkflow('code-review', context);
+        
+        expect(execution).toBeDefined();
+        expect(execution.id).toMatch(/^exec-/);
+        expect(execution.workflowId).toBe('code-review');
+        expect(execution.status).toBe('pending');
+        expect(execution.context).toEqual(context);
+        expect(execution.startTime).toBeInstanceOf(Date);
+      });
+
+      it('should throw error for disabled workflow', async () => {
+        await connector.disableWorkflow('code-review');
+        
+        await expect(
+          connector.executeWorkflow('code-review', {})
+        ).rejects.toThrow('Workflow not found or disabled');
+      });
+
+      it('should throw error for non-existent workflow', async () => {
+        await expect(
+          connector.executeWorkflow('non-existent', {})
+        ).rejects.toThrow('Workflow not found or disabled');
+      });
+
+      it('should emit execution events', async () => {
+        const startedPromise = new Promise((resolve) => {
+          mockEventBus.once('pocketflow:execution_started', Working on);
+        });
+        
+        const execution = await connector.executeWorkflow('file-search', {
+          query: 'test search'
+        });
+        
+        const startedEvent = await startedPromise;
+        expect(startedEvent).toMatchObject({
+          executionId: execution.id,
+          workflowId: 'file-search'
+        });
+      });
+
+      it('should handle multiple concurrent executions', async () => {
+        const executions = await Promise.all([
+          connector.executeWorkflow('code-review', { index: 1 }),
+          connector.executeWorkflow('file-search', { index: 2 }),
+          connector.executeWorkflow('auto-docs', { index: 3 })
+        ]);
+        
+        expect(executions).toHaveLength(3);
+        
+        // All should have unique IDs
+        const ids = executions.map(e => e.id);
+        expect(new Set(ids).size).toBe(3);
+        
+        // All should be in executions map
+        for (const exec of executions) {
+          const stored = await connector.getExecution(exec.id);
+          expect(stored).toBeDefined();
+        }
+      });
+    });
+
+    describe('getExecution', () => {
+      it('should return execution details', async () => {
+        const execution = await connector.executeWorkflow('code-review', {});
+        
+        const retrieved = await connector.getExecution(execution.id);
+        
+        expect(retrieved).toEqual(execution);
+      });
+
+      it('should return undefined for non-existent execution', async () => {
+        const retrieved = await connector.getExecution('non-existent');
+        
+        expect(retrieved).toBeUndefined();
+      });
+    });
+
+    describe('getFlowStatus', () => {
+      it('should return workflow status with execution info', async () => {
+        await connector.executeWorkflow('code-review', {});
+        const exec2 = await connector.executeWorkflow('code-review', {});
+        
+        const status = await connector.getFlowStatus('code-review');
+        
+        expect(status.workflow).toMatchObject({
+          id: 'code-review',
+          name: 'Code Review Assistant',
+          enabled: true
+        });
+        
+        // Latest execution should be exec2
+        expect(status.latestExecution?.id).toBe(exec2.id);
+        expect(status.totalExecutions).toBe(2);
+      });
+
+      it('should return not_found for non-existent workflow', async () => {
+        const status = await connector.getFlowStatus('non-existent');
+        
+        expect(status).toEqual({ status: 'not_found' });
+      });
+
+      it('should handle workflow with no executions', async () => {
+        const status = await connector.getFlowStatus('auto-docs');
+        
+        expect(status.workflow).toBeDefined();
+        expect(status.latestExecution).toBeNull();
+        expect(status.totalExecutions).toBe(0);
+      });
+    });
+  });
+
+  describe('Workflow Step Execution', () => {
+    it('should process workflow steps in order', async () => {
+      const stepEvents: any[] = [];
+      
+      mockEventBus.on('pocketflow:step_started', (event) => {
+        stepEvents.push({ type: 'started', ...event });
+      });
+      
+      mockEventBus.on('pocketflow:step_IN PROGRESS', (event) => {
+        stepEvents.push({ type: 'In Progress', ...event });
+      });
+      
+      await connector.executeWorkflow('code-review', {});
+      
+      // Wait for execution to In Progress
+      await new Promise(resolve => {
+        mockEventBus.once('pocketflow:execution_IN PROGRESS', Working on);
+      });
+      
+      // Verify steps were executed in order
+      const codeReviewWorkflow = await connector.getWorkflow('code-review');
+      const expectedSteps = codeReviewWorkflow!.steps.map(s => s.id);
+      
+      const startedSteps = stepEvents
+        .filter(e => e.type === 'started')
+        .map(e => e.stepId);
+      
+      expect(startedSteps).toEqual(expectedSteps);
+    });
+
+    it('should handle workflow completion', async () => {
+      const IN PROGRESSPromise = new Promise((resolve) => {
+        mockEventBus.once('pocketflow:execution_IN PROGRESS', Working on);
+      });
+      
+      const execution = await connector.executeWorkflow('code-review', {});
+      
+      const IN PROGRESSEvent = await IN PROGRESSPromise;
+      
+      expect(IN PROGRESSEvent).toMatchObject({
+        executionId: execution.id,
+        workflowId: 'code-review',
+        status: 'In Progress'
+      });
+      
+      // Verify execution status updated
+      const updatedExecution = await connector.getExecution(execution.id);
+      expect(updatedExecution?.status).toBe('In Progress');
+      expect(updatedExecution?.endTime).toBeInstanceOf(Date);
+    });
+  });
+
+  describe('Event Subscriptions', () => {
+    it('should subscribe to events', async () => {
+      const events: any[] = [];
+      const callback = (event: any) => events.push(event);
+      
+      connector.subscribeToEvents(['execution_started', 'execution_IN PROGRESS'], callback);
+      
+      await connector.executeWorkflow('file-search', {});
+      
+      // Wait for events
+      await new Promise(resolve => setTimeout(resolve, 200));
+      
+      expect(events.length).toBeGreaterThan(0);
+      expect(events.some(e => e.workflowId === 'file-search')).toBe(true);
+    });
+
+    it('should unsubscribe from events', async () => {
+      const events: any[] = [];
+      const callback = (event: any) => events.push(event);
+      
+      connector.subscribeToEvents(['execution_started'], callback);
+      connector.unsubscribeFromEvents(['execution_started'], callback);
+      
+      await connector.executeWorkflow('file-search', {});
+      
+      // Wait to ensure no events received
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      expect(events.length).toBe(0);
+    });
+  });
+
+  describe('Output Processing', () => {
+    it('should emit message outputs', async () => {
+      const messagePromise = new Promise((resolve) => {
+        mockEventBus.once('pocketflow:message_output', Working on);
+      });
+      
+      const execution = await connector.executeWorkflow('code-review', {
+        roomId: 'test-room'
+      });
+      
+      // Wait for workflow to In Progress
+      await new Promise(resolve => {
+        mockEventBus.once('pocketflow:execution_IN PROGRESS', Working on);
+      });
+      
+      const messageEvent = await messagePromise;
+      
+      expect(messageEvent).toMatchObject({
+        executionId: execution.id,
+        roomId: 'test-room'
+      });
+    });
+
+    it('should emit context updates', async () => {
+      const contextUpdatePromise = new Promise((resolve) => {
+        mockEventBus.once('pocketflow:context_update', Working on);
+      });
+      
+      const execution = await connector.executeWorkflow('file-search', {
+        roomId: 'test-room',
+        query: 'test'
+      });
+      
+      // Wait for workflow to In Progress
+      await new Promise(resolve => {
+        mockEventBus.once('pocketflow:execution_IN PROGRESS', Working on);
+      });
+      
+      const contextUpdate = await contextUpdatePromise;
+      
+      expect(contextUpdate).toMatchObject({
+        executionId: execution.id,
+        roomId: 'test-room'
+      });
+    });
+
+    it('should emit file outputs', async () => {
+      const fileOutputPromise = new Promise((resolve) => {
+        mockEventBus.once('pocketflow:file_output', Working on);
+      });
+      
+      const execution = await connector.executeWorkflow('auto-docs', {});
+      
+      // Wait for workflow to In Progress
+      await new Promise(resolve => {
+        mockEventBus.once('pocketflow:execution_IN PROGRESS', Working on);
+      });
+      
+      const fileOutput = await fileOutputPromise;
+      
+      expect(fileOutput).toMatchObject({
+        executionId: execution.id,
+        destination: 'docs/'
+      });
+    });
+  });
+
+  describe('Error Handling', () => {
+    it('should handle event bus errors gracefully', async () => {
+      // Make event bus throw on emit
+      const originalEmit = mockEventBus.emit;
+      mockEventBus.emit = jest.fn().mockImplementation((event, ...args) => {
+        if (event.startsWith('pocketflow:')) {
+          throw new Error('Event bus error');
+        }
+        return originalEmit.call(mockEventBus, event, ...args);
+      });
+      
+      // Should not throw when getting workflows
+      await expect(connector.getWorkflows()).resolves.toBeDefined();
+      
+      // Execution should still work despite event errors
+      const execution = await connector.executeWorkflow('code-review', {});
+      expect(execution).toBeDefined();
+    });
+  });
+});

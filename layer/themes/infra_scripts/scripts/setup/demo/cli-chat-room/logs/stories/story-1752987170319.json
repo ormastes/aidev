@@ -1,0 +1,180 @@
+{
+  "reportId": "story-1",
+  "timestamp": "2025-07-20T04:52:50.319Z",
+  "roomId": "calc-demo-1752987139226",
+  "duration": 30000,
+  "events": [
+    {
+      "timestamp": "2025-07-20T04:52:20.258Z",
+      "type": "user_joined",
+      "sender": "System",
+      "content": "Calculator joined the room as coordinator agent",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:21.259Z",
+      "type": "agent_message",
+      "sender": "Calculator",
+      "content": "🧮 Calculator ready! Try: \"calculate 5 + 3\" or \"what is 10 * 2?\"",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:21.263Z",
+      "type": "user_joined",
+      "sender": "System",
+      "content": "Alice joined the room",
+      "theme": "system"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:21.765Z",
+      "type": "user_message",
+      "sender": "Alice",
+      "content": "Hello everyone!",
+      "theme": "social"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:24.271Z",
+      "type": "user_joined",
+      "sender": "System",
+      "content": "Alice joined the room",
+      "theme": "system"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:24.773Z",
+      "type": "user_message",
+      "sender": "Alice",
+      "content": "Can you calculate 25 + 17 for me?",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:24.774Z",
+      "type": "agent_message",
+      "sender": "Calculator",
+      "content": "🧮 Can you calculate 25 + 17 for me? = 42",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:27.280Z",
+      "type": "user_joined",
+      "sender": "System",
+      "content": "Bob joined the room",
+      "theme": "system"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:27.780Z",
+      "type": "user_message",
+      "sender": "Bob",
+      "content": "Hi Alice!",
+      "theme": "social"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:30.287Z",
+      "type": "user_joined",
+      "sender": "System",
+      "content": "Bob joined the room",
+      "theme": "system"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:30.788Z",
+      "type": "user_message",
+      "sender": "Bob",
+      "content": "I need help with 100 * 3",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:30.789Z",
+      "type": "agent_message",
+      "sender": "Calculator",
+      "content": "🧮 I need help with 100 * 3 = 300",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:33.294Z",
+      "type": "user_joined",
+      "sender": "System",
+      "content": "Charlie joined the room",
+      "theme": "system"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:33.795Z",
+      "type": "user_message",
+      "sender": "Charlie",
+      "content": "What is 1000 / 25?",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:33.796Z",
+      "type": "agent_message",
+      "sender": "Calculator",
+      "content": "🧮 What is 1000 / 25? = 40.00",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:36.300Z",
+      "type": "user_joined",
+      "sender": "System",
+      "content": "Alice joined the room",
+      "theme": "system"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:36.801Z",
+      "type": "user_message",
+      "sender": "Alice",
+      "content": "Thanks Calculator!",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:39.307Z",
+      "type": "user_joined",
+      "sender": "System",
+      "content": "Bob joined the room",
+      "theme": "system"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:39.807Z",
+      "type": "user_message",
+      "sender": "Bob",
+      "content": "One more: calculate 99 - 33",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:39.808Z",
+      "type": "agent_message",
+      "sender": "Calculator",
+      "content": "🧮 One more: calculate 99 - 33 = 66",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:42.313Z",
+      "type": "user_joined",
+      "sender": "System",
+      "content": "Charlie joined the room",
+      "theme": "system"
+    },
+    {
+      "timestamp": "2025-07-20T04:52:42.814Z",
+      "type": "user_message",
+      "sender": "Charlie",
+      "content": "Story report please!",
+      "theme": "social"
+    }
+  ],
+  "analysis": {
+    "totalEvents": 22,
+    "themes": {
+      "technical": 11,
+      "system": 8,
+      "social": 3
+    },
+    "activeUsers": 4,
+    "userActivity": {
+      "Calculator": 5,
+      "Alice": 3,
+      "Bob": 3,
+      "Charlie": 2
+    },
+    "keyEvents": 22,
+    "averageEventsPerMinute": "44.00"
+  },
+  "narrative": "A technical session with 11 calculations performed. Calculator was the most active participant with 5 messages. The Calculator assisted with 11 mathematical operations."
+}

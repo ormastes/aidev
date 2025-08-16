@@ -1,0 +1,84 @@
+sequenceDiagram
+    participant Client
+    participant ConfigManager
+    participant PortAllocator
+    participant PortRegistry
+    participant FileGenerator
+    participant FileSystem
+
+    %% Creating new environment with automatic port allocation
+    Client->>ConfigManager: createEnvironment(name, type, rootPath)
+    ConfigManager->>PortAllocator: allocatePortsForEnvironment(name, type)
+    PortAllocator->>PortRegistry: getUsedPorts()
+    PortRegistry->>FileSystem: readFile(port-registry.json)
+    FileSystem-->>PortRegistry: registry data
+    PortRegistry-->>PortAllocator: used ports list
+    PortAllocator->>PortAllocator: findNextAvailablePort(type)
+    PortAllocator->>PortRegistry: registerAllocation(name, port)
+    PortRegistry->>FileSystem: writeFile(port-registry.json)
+    PortAllocator-->>ConfigManager: {portal: 3205, services: {start: 3206, end: 3299}}
+    ConfigManager->>ConfigManager: createConfigObject()
+    ConfigManager->>FileGenerator: generateEnvironmentFiles(config, path)
+    FileGenerator->>FileSystem: mkdir(config, data, logs, temp, services)
+    FileGenerator->>FileSystem: writeFile(.env)
+    FileGenerator->>FileSystem: writeFile(docker-compose.yml)
+    FileGenerator->>FileSystem: writeFile(config/config.json)
+    FileGenerator-->>ConfigManager: success
+    ConfigManager-->>Client: EnvironmentConfig
+
+    %% Adding service to existing environment
+    Client->>ConfigManager: addService(environmentName, serviceName)
+    ConfigManager->>ConfigManager: getEnvironment(environmentName)
+    ConfigManager->>FileSystem: readFile(config/config.json)
+    ConfigManager->>PortAllocator: allocateServicePort(environmentName, serviceName)
+    PortAllocator->>PortRegistry: getEnvironmentPorts(environmentName)
+    PortRegistry-->>PortAllocator: existing allocations
+    PortAllocator->>PortAllocator: findNextServicePort()
+    PortAllocator->>PortRegistry: registerServiceAllocation(environmentName, serviceName, port)
+    PortRegistry->>FileSystem: writeFile(port-registry.json)
+    PortAllocator-->>ConfigManager: servicePort
+    ConfigManager->>ConfigManager: updateConfig()
+    ConfigManager->>FileGenerator: generateServiceFile(path, serviceName, port)
+    FileGenerator->>FileSystem: writeFile(services/serviceName.json)
+    FileGenerator->>FileGenerator: updateDockerCompose()
+    FileGenerator->>FileSystem: updateFile(docker-compose.yml)
+    FileGenerator->>FileSystem: appendFile(.env)
+    ConfigManager->>FileSystem: writeFile(config/config.json)
+    ConfigManager-->>Client: success
+
+    %% Deleting environment and releasing ports
+    Client->>ConfigManager: deleteEnvironment(environmentName)
+    ConfigManager->>ConfigManager: getEnvironment(environmentName)
+    ConfigManager->>PortAllocator: releaseEnvironmentPorts(environmentName)
+    PortAllocator->>PortRegistry: removeEnvironmentAllocations(environmentName)
+    PortRegistry->>FileSystem: updateFile(port-registry.json)
+    PortRegistry-->>PortAllocator: success
+    PortAllocator-->>ConfigManager: released
+    ConfigManager->>FileSystem: removeDirectory(environmentPath)
+    ConfigManager-->>Client: success
+
+    %% Port conflict prevention across multiple environments
+    Client->>ConfigManager: createEnvironment("theme-1", "theme")
+    activate ConfigManager
+    ConfigManager->>PortAllocator: allocatePortsForEnvironment("theme-1", "theme")
+    activate PortAllocator
+    PortAllocator->>PortRegistry: lock()
+    activate PortRegistry
+    Note over PortRegistry: Exclusive lock acquired
+    PortAllocator->>PortRegistry: getUsedPorts()
+    PortRegistry-->>PortAllocator: []
+    PortAllocator-->>ConfigManager: {portal: 3200}
+    deactivate PortAllocator
+    
+    Client->>ConfigManager: createEnvironment("theme-2", "theme")
+    ConfigManager->>PortAllocator: allocatePortsForEnvironment("theme-2", "theme")
+    activate PortAllocator
+    Note over PortAllocator: Waiting for lock...
+    PortRegistry-->>PortAllocator: lock acquired
+    PortAllocator->>PortRegistry: getUsedPorts()
+    PortRegistry-->>PortAllocator: [{port: 3200, env: "theme-1"}]
+    PortAllocator-->>ConfigManager: {portal: 3201}
+    deactivate PortAllocator
+    PortRegistry->>PortRegistry: unlock()
+    deactivate PortRegistry
+    deactivate ConfigManager

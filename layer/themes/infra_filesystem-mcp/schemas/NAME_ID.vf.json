@@ -1,0 +1,117 @@
+{
+  "metadata": {
+    "version": "2.0.0",
+    "created_at": "2025-08-15T03:01:58.567Z",
+    "updated_at": "2025-08-15T03:01:58.603Z"
+  },
+  "purposes": {
+    "tests": [
+      {
+        "id": "test-001",
+        "name": "test-4.js",
+        "data": {
+          "filePath": "race/test-4.js",
+          "purpose": "Race condition test 4",
+          "theme": "platform",
+          "directory": "race",
+          "metadata": {
+            "createdAt": "2025-08-15T03:01:58.567Z",
+            "updatedAt": "2025-08-15T03:01:58.567Z"
+          },
+          "tags": [
+            "race",
+            "test"
+          ],
+          "status": "active"
+        },
+        "createdAt": "2025-08-15T03:01:58.567Z",
+        "updatedAt": "2025-08-15T03:01:58.567Z"
+      },
+      {
+        "id": "test-002",
+        "name": "test-7.js",
+        "data": {
+          "filePath": "race/test-7.js",
+          "purpose": "Race condition test 7",
+          "theme": "platform",
+          "directory": "race",
+          "metadata": {
+            "createdAt": "2025-08-15T03:01:58.572Z",
+            "updatedAt": "2025-08-15T03:01:58.572Z"
+          },
+          "tags": [
+            "race",
+            "test"
+          ],
+          "status": "active"
+        },
+        "createdAt": "2025-08-15T03:01:58.572Z",
+        "updatedAt": "2025-08-15T03:01:58.572Z"
+      },
+      {
+        "id": "test-003",
+        "name": "test-6.js",
+        "data": {
+          "filePath": "race/test-6.js",
+          "purpose": "Race condition test 6",
+          "theme": "platform",
+          "directory": "race",
+          "metadata": {
+            "createdAt": "2025-08-15T03:01:58.578Z",
+            "updatedAt": "2025-08-15T03:01:58.578Z"
+          },
+          "tags": [
+            "race",
+            "test"
+          ],
+          "status": "active"
+        },
+        "createdAt": "2025-08-15T03:01:58.578Z",
+        "updatedAt": "2025-08-15T03:01:58.578Z"
+      },
+      {
+        "id": "test-004",
+        "name": "test-9.js",
+        "data": {
+          "filePath": "race/test-9.js",
+          "purpose": "Race condition test 9",
+          "theme": "platform",
+          "directory": "race",
+          "metadata": {
+            "createdAt": "2025-08-15T03:01:58.587Z",
+            "updatedAt": "2025-08-15T03:01:58.587Z"
+          },
+          "tags": [
+            "race",
+            "test"
+          ],
+          "status": "active"
+        },
+        "createdAt": "2025-08-15T03:01:58.587Z",
+        "updatedAt": "2025-08-15T03:01:58.587Z"
+      },
+      {
+        "id": "test-005",
+        "name": "test-8.js",
+        "data": {
+          "filePath": "race/test-8.js",
+          "purpose": "Race condition test 8",
+          "theme": "platform",
+          "directory": "race",
+          "metadata": {
+            "createdAt": "2025-08-15T03:01:58.603Z",
+            "updatedAt": "2025-08-15T03:01:58.603Z"
+          },
+          "tags": [
+            "race",
+            "test"
+          ],
+          "status": "active"
+        },
+        "createdAt": "2025-08-15T03:01:58.603Z",
+        "updatedAt": "2025-08-15T03:01:58.603Z"
+      }
+    ]
+  },
+  "rules": {}
+}

@@ -1,0 +1,23 @@
+#cloud-config
+{
+  "version": 1,
+  "config": [
+    {
+      "type": "user",
+      "name": "ubuntu",
+      "gecos": "Ubuntu User",
+      "groups": "sudo",
+      "sudo": "ALL=(ALL) NOPASSWD:ALL",
+      "shell": "/bin/bash",
+      "ssh_authorized_keys": []
+    }
+  ],
+  "packages": [
+    "openssh-server",
+    "cloud-init"
+  ],
+  "runcmd": [
+    "apt-get update",
+    "apt-get upgrade -y"
+  ]
+}

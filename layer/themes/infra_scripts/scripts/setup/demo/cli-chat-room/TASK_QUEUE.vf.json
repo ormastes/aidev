@@ -1,0 +1,13 @@
+{
+  "workingItem": null,
+  "queues": {
+    "high": [],
+    "medium": [],
+    "low": []
+  },
+  "metadata": {
+    "processedCount": 0,
+    "failedCount": 0,
+    "lastUpdated": "$(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")"
+  }
+}

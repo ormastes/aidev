@@ -1,0 +1,217 @@
+# Dependencies
+node_modules/
+**/node_modules/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Build outputs
+dist/
+**/dist/
+build/
+**/build/
+*.egg-info/
+.next/
+**/.next/
+out/
+**/out/
+target/
+**/coverage/
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+
+# IDE and tools
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+.vscode-test/
+
+# Binary files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico
+*.svg
+*.pdf
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+*.dmg
+*.iso
+*.jar
+*.war
+*.ear
+*.class
+*.node
+*.wasm
+
+# Media files
+*.mp3
+*.mp4
+*.avi
+*.mov
+*.wmv
+*.flv
+*.webm
+*.wav
+*.ogg
+*.m4a
+
+# Fonts
+*.woff
+*.woff2
+*.ttf
+*.eot
+*.otf
+
+# Database files
+*.sqlite
+*.sqlite3
+*.db
+*.mdb
+
+# Coverage and test outputs
+coverage/
+.coverage
+htmlcov/
+lcov-report/
+*.lcov
+coverage-*.json
+coverage-*.xml
+test-results/
+playwright-report/
+playwright-screenshots/
+e2e-screenshots/
+e2e-link-screenshots/
+*.screenshot.png
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+tmp/
+**/tmp/
+temp/
+**/temp/
+!gen/temp/
+cache/
+**/cache/
+*.tmp
+*.temp
+*.cache
+.duplicate-backups/
+
+# Release directory (contains MCP instances)
+release/
+
+# Moved log files and test results
+gen/logs/
+gen/temp/
+gen/test/
+gen/test-results/
+
+# Generated documentation
+gen/doc/*.json
+gen/doc/*.html
+gen/reports/*.json
+
+# Large generated files
+_aidev/.vscode-test/
+_aidev/coverage/
+_aidev/95.child_project/*/node_modules/
+_aidev/80.gen/app/
+_aidev/80.gen/8200.app/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Python
+*.pyc
+__pycache__/
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.pytest_cache/
+.tox/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Package files
+*.deb
+*.rpm
+*.msi
+*.pkg
+*.gem
+
+# Archives
+*.bz2
+*.xz
+*.lz
+*.lzma
+*.cab
+*.xar
+
+# Virtual machine files
+*.vmdk
+*.vdi
+*.vhd
+*.vhdx
+*.qcow2
+*.vagrant
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+*~
+
+# Lock files (keep package-lock.json and yarn.lock)
+.lock
+!package-lock.json
+!yarn.lock
+!Gemfile.lock
+!Cargo.lock
+
+# JJ/Git large file tracking
+*.json.gz
+*.log.gzgen/doc/direct-file-access-scan.md
+fraud-check-report.json
+gen/doc/direct-file-access-scan.md

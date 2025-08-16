@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-08-15T11:59:50.412Z",
+  "tests": [
+    {
+      "name": "CLAUDE.md",
+      "protected": false
+    },
+    {
+      "name": "README.md",
+      "protected": false
+    },
+    {
+      "name": "TASK_QUEUE.vf.json",
+      "protected": false
+    },
+    {
+      "name": "FEATURE.vf.json",
+      "protected": false
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "protected": 0,
+    "unprotected": 4,
+    "protectionRate": 0
+  },
+  "failures": [
+    "CLAUDE.md",
+    "README.md",
+    "TASK_QUEUE.vf.json",
+    "FEATURE.vf.json"
+  ]
+}

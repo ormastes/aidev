@@ -1,0 +1,36 @@
+{
+  "name": "qemu-environment",
+  "description": "QEMU emulation for cross-platform development and testing",
+  "supported_architectures": ["x86", "x86_64", "arm", "arm64", "riscv", "mips", "ppc"],
+  "files": {
+    "qemu-run.sh": "#!/bin/bash\n# QEMU runner script for ${ARCHITECTURE} emulation\n\nARCH=\"${ARCHITECTURE}\"\nIMAGE=\"${IMAGE_PATH}\"\nKERNEL=\"${KERNEL_PATH}\"\nMEMORY=\"${MEMORY:-512M}\"\n\ncase \"$ARCH\" in\n  x86_64)\n    QEMU_CMD=\"qemu-system-x86_64\"\n    QEMU_ARGS=\"-cpu host -enable-kvm\"\n    ;;\n  arm)\n    QEMU_CMD=\"qemu-system-arm\"\n    QEMU_ARGS=\"-M virt -cpu cortex-a15\"\n    ;;\n  arm64)\n    QEMU_CMD=\"qemu-system-aarch64\"\n    QEMU_ARGS=\"-M virt -cpu cortex-a72\"\n    ;;\n  riscv)\n    QEMU_CMD=\"qemu-system-riscv64\"\n    QEMU_ARGS=\"-M virt\"\n    ;;\n  *)\n    echo \"Unsupported architecture: $ARCH\"\n    exit 1\n    ;;\nesac\n\n# Run QEMU\n$QEMU_CMD \\\n  $QEMU_ARGS \\\n  -m $MEMORY \\\n  -kernel \"$KERNEL\" \\\n  -drive file=\"$IMAGE\",format=raw \\\n  -nographic \\\n  -serial mon:stdio \\\n  -append \"console=ttyS0 root=/dev/vda rw\"",
+    "Makefile.qemu": "# QEMU Makefile for cross-compilation\nARCH ?= ${ARCHITECTURE}\nCROSS_COMPILE ?= ${CROSS_PREFIX}\n\nCC = $(CROSS_COMPILE)gcc\nLD = $(CROSS_COMPILE)ld\nAS = $(CROSS_COMPILE)as\nOBJCOPY = $(CROSS_COMPILE)objcopy\n\nCFLAGS = -Wall -O2 -ffreestanding -nostdlib\nLDFLAGS = -T linker.ld\n\nSRCS = $(wildcard src/*.c)\nOBJS = $(SRCS:.c=.o)\n\nTARGET = kernel.elf\nBINARY = kernel.bin\n\nall: $(BINARY)\n\n$(BINARY): $(TARGET)\n\t$(OBJCOPY) -O binary $< $@\n\n$(TARGET): $(OBJS)\n\t$(LD) $(LDFLAGS) -o $@ $^\n\n%.o: %.c\n\t$(CC) $(CFLAGS) -c $< -o $@\n\nrun: $(BINARY)\n\t./qemu-run.sh\n\nclean:\n\trm -f $(OBJS) $(TARGET) $(BINARY)",
+    "qemu-debug.sh": "#!/bin/bash\n# QEMU debugging script\n\nQEMU_CMD=\"${QEMU_COMMAND}\"\nGDB_PORT=\"1234\"\n\n# Start QEMU with GDB server\n$QEMU_CMD -s -S &\nQEMU_PID=$!\n\n# Start GDB\ngdb-multiarch \\\n  -ex \"target remote localhost:$GDB_PORT\" \\\n  -ex \"file ${BINARY}\" \\\n  -ex \"break main\" \\\n  -ex \"continue\"\n\n# Clean up\nkill $QEMU_PID 2>/dev/null"
+  },
+  "architecture_configs": {
+    "x86_64": {
+      "CROSS_PREFIX": "",
+      "QEMU_COMMAND": "qemu-system-x86_64",
+      "KERNEL_PATH": "kernel/bzImage",
+      "IMAGE_PATH": "rootfs.img"
+    },
+    "arm": {
+      "CROSS_PREFIX": "arm-linux-gnueabi-",
+      "QEMU_COMMAND": "qemu-system-arm",
+      "KERNEL_PATH": "kernel/zImage",
+      "IMAGE_PATH": "rootfs.img"
+    },
+    "arm64": {
+      "CROSS_PREFIX": "aarch64-linux-gnu-",
+      "QEMU_COMMAND": "qemu-system-aarch64",
+      "KERNEL_PATH": "kernel/Image",
+      "IMAGE_PATH": "rootfs.img"
+    },
+    "riscv": {
+      "CROSS_PREFIX": "riscv64-linux-gnu-",
+      "QEMU_COMMAND": "qemu-system-riscv64",
+      "KERNEL_PATH": "kernel/Image",
+      "IMAGE_PATH": "rootfs.img"
+    }
+  }
+}

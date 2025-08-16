@@ -1,0 +1,45 @@
+{
+  "metadata": {
+    "level": "theme",
+    "path": "/layer/themes/llm-agent_mcp/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-03T03:00:00.000Z",
+    "updated_at": "2025-08-03T03:00:00.000Z"
+  },
+  "features": {
+    "llm_agent_mcp": [
+      {
+        "id": "llm-agent-mcp-001",
+        "name": "Unified LLM Agent MCP",
+        "data": {
+          "title": "Unified Model Context Protocol Theme",
+          "description": "Provides MCP protocol support for all LLM platforms (Claude, Ollama, vLLM) with unified tool management and streaming capabilities",
+          "level": "theme",
+          "status": "in_progress",
+          "priority": "high",
+          "tags": [
+            "llm-agent-mcp",
+            "mcp-protocol",
+            "unified",
+            "claude",
+            "ollama",
+            "vllm"
+          ],
+          "virtual_path": "/layer/themes/llm-agent_mcp/FEATURE.vf.json",
+          "replaces": [
+            "llm-agent_ollama-mcp",
+            "llm-agent_vllm-mcp"
+          ],
+          "integrates_with": [
+            "llm-agent_coordinator-claude",
+            "llm-agent_coordinator-ollama",
+            "llm-agent_coordinator-vllm"
+          ]
+        },
+        "createdAt": "2025-08-03T03:00:00.000Z",
+        "updatedAt": "2025-08-03T03:00:00.000Z"
+      }
+    ]
+  },
+  "children": []
+}

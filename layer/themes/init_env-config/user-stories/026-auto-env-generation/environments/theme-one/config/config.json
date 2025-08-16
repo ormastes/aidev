@@ -1,0 +1,24 @@
+{
+  "name": "theme-one",
+  "type": "theme",
+  "port": {
+    "base": 3200,
+    "range": [
+      3201,
+      3299
+    ]
+  },
+  "database": {
+    "type": "sqlite",
+    "connection": "./data/theme-one.db"
+  },
+  "paths": {
+    "root": "environments/theme-one",
+    "data": "environments/theme-one/data",
+    "logs": "environments/theme-one/logs",
+    "temp": "environments/theme-one/temp"
+  },
+  "services": [],
+  "created": "2025-08-11T02:04:30.022Z",
+  "updated": "2025-08-11T02:04:30.022Z"
+}

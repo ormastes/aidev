@@ -1,0 +1,24 @@
+{
+  "name": "epic-app",
+  "type": "epic",
+  "port": {
+    "base": 3500,
+    "range": [
+      3501,
+      3599
+    ]
+  },
+  "database": {
+    "type": "sqlite",
+    "connection": "./data/epic-app.db"
+  },
+  "paths": {
+    "root": "environments/epic-app",
+    "data": "environments/epic-app/data",
+    "logs": "environments/epic-app/logs",
+    "temp": "environments/epic-app/temp"
+  },
+  "services": [],
+  "created": "2025-08-11T02:04:30.014Z",
+  "updated": "2025-08-11T02:04:30.014Z"
+}

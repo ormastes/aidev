@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} - LLM Agent Test Manual</title>
+    <style>
+        :root {
+            --ai-primary: #8b5cf6;
+            --ai-secondary: #ec4899;
+            --ai-accent: #06b6d4;
+            --ai-dark: #1e293b;
+            --ai-light: #f1f5f9;
+            --ai-success: #10b981;
+            --ai-warning: #f59e0b;
+            --ai-danger: #ef4444;
+            --neural-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        /* Neural Network Background */
+        .neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, #0f172a, #1e293b);
+            z-index: -1;
+        }
+
+        .neural-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+        }
+
+        .llm-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* LLM Header */
+        .llm-header {
+            background: var(--neural-gradient);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .llm-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.03) 10px,
+                rgba(255,255,255,0.03) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .llm-header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .llm-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .ai-icon {
+            font-size: 3rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .llm-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        /* Agent Cards Grid */
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .agent-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .agent-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--ai-primary);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+        }
+
+        .agent-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: blink 2s infinite;
+        }
+
+        .status-active { background: var(--ai-success); }
+        .status-training { background: var(--ai-warning); }
+        .status-idle { background: var(--ai-secondary); }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Conversation Interface */
+        .conversation-test {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .message-user {
+            background: rgba(139, 92, 246, 0.2);
+            margin-left: 20%;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .message-agent {
+            background: rgba(6, 182, 212, 0.2);
+            margin-right: 20%;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .message-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Prompt Template */
+        .prompt-template {
+            background: #1e293b;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .prompt-variable {
+            color: var(--ai-accent);
+            background: rgba(6, 182, 212, 0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        /* Model Metrics */
+        .metrics-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: var(--neural-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 0.5rem;
+        }
+
+        /* Test Scenarios */
+        .scenario-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .scenario-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .scenario-badge {
+            background: var(--ai-primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .scenario-type {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+        }
+
+        .type-reasoning { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
+        .type-generation { background: rgba(236, 72, 153, 0.2); color: #f9a8d4; }
+        .type-classification { background: rgba(6, 182, 212, 0.2); color: #67e8f9; }
+        .type-embedding { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+
+        /* Chain of Thought */
+        .chain-of-thought {
+            background: rgba(139, 92, 246, 0.1);
+            border-left: 3px solid var(--ai-primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+
+        .thought-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .thought-number {
+            background: var(--ai-primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* Parameters Panel */
+        .parameters-panel {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .parameter-row {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+        }
+
+        .parameter-label {
+            color: var(--ai-accent);
+            font-weight: 500;
+        }
+
+        .parameter-value {
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Token Usage */
+        .token-usage {
+            display: flex;
+            gap: 2rem;
+            padding: 1rem;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 12px;
+            margin: 1rem 0;
+        }
+
+        .token-stat {
+            flex: 1;
+            text-align: center;
+        }
+
+        .token-bar {
+            height: 8px;
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .token-fill {
+            height: 100%;
+            background: var(--neural-gradient);
+            transition: width 0.3s;
+        }
+
+        /* Navigation */
+        .llm-nav {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+        }
+
+        .nav-item {
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-item:hover {
+            background: rgba(139, 92, 246, 0.2);
+            color: white;
+        }
+
+        .nav-item.active {
+            background: var(--ai-primary);
+            color: white;
+        }
+
+        /* Footer */
+        .llm-footer {
+            text-align: center;
+            padding: 3rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="neural-bg"></div>
+    
+    <div class="llm-container">
+        <header class="llm-header">
+            <div class="llm-header-content">
+                <div class="llm-title">
+                    <span class="ai-icon">🤖</span>
+                    <div>
+                        <h1>{{title}}</h1>
+                        <p style="opacity: 0.9;">{{description}}</p>
+                    </div>
+                </div>
+                <div style="margin-top: 1.5rem; display: flex; gap: 2rem; flex-wrap: wrap;">
+                    <span>🧠 Model: {{model}}</span>
+                    <span>📊 Tests: {{totalTests}}</span>
+                    <span>⚡ Version: {{version}}</span>
+                    <span>🎯 Accuracy: {{accuracy}}%</span>
+                </div>
+            </div>
+        </header>
+
+        <nav class="llm-nav">
+            {{#each sections}}
+            <a href="#{{id}}" class="nav-item">{{title}}</a>
+            {{/each}}
+        </nav>
+
+        {{#if agents}}
+        <div class="agents-grid">
+            {{#each agents}}
+            <div class="agent-card">
+                <div class="agent-status">
+                    <span class="status-dot status-{{status}}"></span>
+                    <span>{{name}}</span>
+                </div>
+                <p style="opacity: 0.7; margin-bottom: 1rem;">{{description}}</p>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    {{#each capabilities}}
+                    <span style="background: rgba(139, 92, 246, 0.2); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem;">{{this}}</span>
+                    {{/each}}
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+
+        {{#if metrics}}
+        <div class="metrics-container">
+            {{#each metrics}}
+            <div class="metric-card">
+                <div class="metric-value">{{value}}</div>
+                <div class="metric-label">{{label}}</div>
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+
+        {{#each sections}}
+        <section id="{{id}}" style="margin-bottom: 3rem;">
+            <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--ai-primary);">{{title}}</h2>
+            
+            {{#each testCases}}
+            <div class="scenario-card">
+                <div class="scenario-header">
+                    <div>
+                        <span class="scenario-badge">{{id}}</span>
+                        <h3 style="margin-top: 0.5rem; font-size: 1.3rem;">{{title}}</h3>
+                    </div>
+                    <span class="scenario-type type-{{type}}">{{type}}</span>
+                </div>
+
+                <p style="opacity: 0.8; margin-bottom: 1.5rem;">{{description}}</p>
+
+                {{#if prompt}}
+                <div class="prompt-template">
+                    <div style="color: var(--ai-accent); margin-bottom: 0.5rem;">PROMPT:</div>
+                    <pre style="white-space: pre-wrap;">{{prompt}}</pre>
+                </div>
+                {{/if}}
+
+                {{#if conversation}}
+                <div class="conversation-test">
+                    <h4 style="margin-bottom: 1rem;">Test Conversation:</h4>
+                    {{#each conversation}}
+                    <div class="message message-{{role}}">
+                        <div class="message-label">{{role}}</div>
+                        <div>{{content}}</div>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/if}}
+
+                {{#if chainOfThought}}
+                <div class="chain-of-thought">
+                    <h4 style="margin-bottom: 1rem;">Chain of Thought:</h4>
+                    {{#each chainOfThought}}
+                    <div class="thought-step">
+                        <span class="thought-number">{{@index}}</span>
+                        <div>{{this}}</div>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/if}}
+
+                {{#if parameters}}
+                <div class="parameters-panel">
+                    <h4 style="margin-bottom: 1rem;">Model Parameters:</h4>
+                    {{#each parameters}}
+                    <div class="parameter-row">
+                        <div class="parameter-label">{{name}}</div>
+                        <div class="parameter-value">{{value}}</div>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/if}}
+
+                {{#if tokenUsage}}
+                <div class="token-usage">
+                    <div class="token-stat">
+                        <div>Input Tokens</div>
+                        <div style="font-size: 1.5rem; font-weight: bold;">{{tokenUsage.input}}</div>
+                        <div class="token-bar">
+                            <div class="token-fill" style="width: {{tokenUsage.inputPercent}}%"></div>
+                        </div>
+                    </div>
+                    <div class="token-stat">
+                        <div>Output Tokens</div>
+                        <div style="font-size: 1.5rem; font-weight: bold;">{{tokenUsage.output}}</div>
+                        <div class="token-bar">
+                            <div class="token-fill" style="width: {{tokenUsage.outputPercent}}%"></div>
+                        </div>
+                    </div>
+                    <div class="token-stat">
+                        <div>Total Cost</div>
+                        <div style="font-size: 1.5rem; font-weight: bold;">${{tokenUsage.cost}}</div>
+                    </div>
+                </div>
+                {{/if}}
+
+                <h4 style="margin-top: 1.5rem;">Test Steps:</h4>
+                <ol style="opacity: 0.9;">
+                    {{#each steps}}
+                    <li style="margin-bottom: 0.75rem;">
+                        {{action}}
+                        {{#if validation}}
+                        <div style="margin-top: 0.5rem; padding: 0.75rem; background: rgba(16, 185, 129, 0.1); border-left: 3px solid var(--ai-success); border-radius: 4px;">
+                            ✓ {{validation}}
+                        </div>
+                        {{/if}}
+                    </li>
+                    {{/each}}
+                </ol>
+
+                {{#if expectedOutput}}
+                <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: 8px;">
+                    <h4 style="margin-bottom: 0.5rem;">Expected Output:</h4>
+                    <pre style="white-space: pre-wrap; opacity: 0.9;">{{expectedOutput}}</pre>
+                </div>
+                {{/if}}
+            </div>
+            {{/each}}
+        </section>
+        {{/each}}
+
+        <footer class="llm-footer">
+            <p style="opacity: 0.7;">LLM Agent Test Manual - Generated {{generatedDate}}</p>
+            <p style="opacity: 0.5;">AI Development Platform - Advanced Language Model Testing</p>
+        </footer>
+    </div>
+</body>
+</html>

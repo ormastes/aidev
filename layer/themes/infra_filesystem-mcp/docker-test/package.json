@@ -1,0 +1,33 @@
+{
+  "name": "mcp-docker-test",
+  "version": "1.0.0",
+  "description": "Docker-based testing system for MCP servers",
+  "main": "src/mcp-test-runner.js",
+  "scripts": {
+    "test": "node src/mcp-test-runner.js",
+    "test:strict": "node src/mcp-test-runner.js --mode strict",
+    "test:enhanced": "node src/mcp-test-runner.js --mode enhanced",
+    "test:basic": "node src/mcp-test-runner.js --mode basic",
+    "test:all": "npm run test:strict && npm run test:enhanced && npm run test:basic",
+    "docker:build": "docker-compose build",
+    "docker:test": "docker-compose up",
+    "docker:test:strict": "docker-compose run mcp-test-strict",
+    "docker:test:enhanced": "docker-compose run mcp-test-enhanced",
+    "docker:test:basic": "docker-compose run mcp-test-basic",
+    "docker:down": "docker-compose down",
+    "report": "node scripts/generate-report.sh"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.5.0",
+    "ws": "^8.14.0"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "@types/node": "^20.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "",
+  "license": "MIT"
+}

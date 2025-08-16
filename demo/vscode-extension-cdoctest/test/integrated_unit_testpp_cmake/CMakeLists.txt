@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.10)
+project(HelloWorldTest)
+
+# Download and configure UnitTest++
+include(FetchContent)
+FetchContent_Declare(
+    unittest-cpp
+    GIT_REPOSITORY https://github.com/unittest-cpp/unittest-cpp.git
+    GIT_TAG master
+)
+FetchContent_MakeAvailable(unittest-cpp)
+
+#set(CMAKE_CXX_FLAGS_RELEASE "/MD")
+#set(CMAKE_CXX_FLAGS_DEBUG "/MDd")
+# Create test executable
+add_executable(hello_test test_main.cpp)
+target_link_libraries(hello_test UnitTest++)

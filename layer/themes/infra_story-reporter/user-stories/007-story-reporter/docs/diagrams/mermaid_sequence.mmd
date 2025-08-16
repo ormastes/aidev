@@ -1,0 +1,75 @@
+sequenceDiagram
+    participant TC as Test Controller
+    participant BDD as BDDTestRunner
+    participant Logger as External Log Library
+    participant Process as Cucumber Process
+    participant Parser as Result Parser
+    participant Events as Event Emitter
+
+    Note over TC, Events: BDD Runner and Logger Integration Flow
+
+    TC->>BDD: configure(testConfig)
+    BDD-->>TC: configuration set
+    
+    TC->>BDD: executeTests()
+    activate BDD
+    
+    BDD->>Logger: initializeLogging(testSuiteId)
+    Logger-->>BDD: logger initialized
+    
+    BDD->>Events: emit('testStart', {testSuiteId})
+    
+    BDD->>Process: spawn('npx cucumber-js', args)
+    activate Process
+    
+    Process->>Logger: logProcessStart(processId, command)
+    Logger-->>Process: logged
+    
+    loop for each output line
+        Process->>BDD: stdout.on('data', chunk)
+        BDD->>Logger: logTestOutput(level, message)
+        Logger-->>BDD: output logged
+        BDD->>Events: emit('progress', {message})
+    end
+    
+    loop for each error line
+        Process->>BDD: stderr.on('data', chunk)
+        BDD->>Logger: logTestError(level, message)
+        Logger-->>BDD: error logged
+        BDD->>Events: emit('log', '[ERROR] message')
+    end
+    
+    Process->>BDD: on('close', exitCode)
+    deactivate Process
+    
+    BDD->>Logger: logProcessEnd(processId, exitCode)
+    Logger-->>BDD: process end logged
+    
+    alt exitCode === 0
+        BDD->>Parser: parseTestResults(reportPath)
+        Parser-->>BDD: testResult object
+        
+        loop for each scenario
+            BDD->>Logger: logScenario(scenario)
+            Logger-->>BDD: scenario logged
+            BDD->>Events: emit('scenarioComplete', scenario)
+        end
+        
+        BDD->>Logger: logTestSummary(statistics)
+        Logger-->>BDD: summary logged
+    else exitCode !== 0
+        BDD->>Logger: logTestFailure(errorDetails)
+        Logger-->>BDD: failure logged
+        BDD->>Events: emit('log', '[ERROR] Test execution failed')
+    end
+    
+    BDD->>Events: emit('testComplete', testResult)
+    
+    BDD->>Logger: finalizeLogging(testSuiteId)
+    Logger-->>BDD: logging finalized
+    
+    deactivate BDD
+    
+    BDD-->>TC: testResult with logs
+    
+    Note over TC: Test result includes aggregated logs

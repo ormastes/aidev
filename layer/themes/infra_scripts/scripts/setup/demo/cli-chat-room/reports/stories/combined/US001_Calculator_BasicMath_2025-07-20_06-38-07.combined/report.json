@@ -1,0 +1,63 @@
+{
+  "reportId": "story-report-1752993487754",
+  "timestamp": "2025-07-20T06:38:07.755Z",
+  "roomId": "calculator-direct-test",
+  "storyId": "US001_Calculator_BasicMath",
+  "storyStatus": "FAILURE",
+  "narrative": "Story US001_Calculator_BasicMath: ❌ FAILURE - 0 In Progress, 4 failed out of 4 tests.",
+  "systemTests": [
+    {
+      "name": "test_US001_SD001_addition",
+      "status": "failed",
+      "error": "Expected 42 but got 43",
+      "storyId": "US001",
+      "diagramId": "SD001",
+      "coverage": 60,
+      "duration": 72
+    },
+    {
+      "name": "test_US001_SD001_subtraction",
+      "status": "failed",
+      "error": "Expected 66 but got 65",
+      "storyId": "US001",
+      "diagramId": "SD001",
+      "coverage": 60,
+      "duration": 34
+    },
+    {
+      "name": "test_US001_SD001_multiplication",
+      "status": "failed",
+      "error": "Expected 300 but got 103",
+      "storyId": "US001",
+      "diagramId": "SD001",
+      "coverage": 60,
+      "duration": 32
+    },
+    {
+      "name": "test_US001_SD001_division_by_zero",
+      "status": "failed",
+      "error": "Expected Division by zero error but none was thrown",
+      "storyId": "US001",
+      "diagramId": "SD001",
+      "coverage": 60,
+      "duration": 2
+    }
+  ],
+  "coverage": {
+    "overall": {
+      "statements": 75,
+      "branches": 70,
+      "functions": 65,
+      "lines": 75
+    }
+  },
+  "failureReasons": [
+    "4 out of 4 tests failed",
+    "test_US001_SD001_addition: Expected 42 but got 43",
+    "test_US001_SD001_subtraction: Expected 66 but got 65",
+    "test_US001_SD001_multiplication: Expected 300 but got 103",
+    "test_US001_SD001_division_by_zero: Expected Division by zero error but none was thrown"
+  ],
+  "events": 12,
+  "generatedAt": "2025-07-20T06:38:07.755Z"
+}

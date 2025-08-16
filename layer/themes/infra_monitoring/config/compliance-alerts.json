@@ -1,0 +1,69 @@
+{
+  "enabled": true,
+  "checkInterval": 3600000,
+  "thresholds": {
+    "critical": 90,
+    "warning": 95,
+    "info": 99
+  },
+  "channels": {
+    "console": {
+      "enabled": true,
+      "minSeverity": "info"
+    },
+    "file": {
+      "enabled": true,
+      "path": "/home/ormastes/dev/aidev/gen/doc/compliance-alerts.log",
+      "minSeverity": "info"
+    },
+    "webhook": {
+      "enabled": false,
+      "url": "",
+      "minSeverity": "warning"
+    },
+    "email": {
+      "enabled": false,
+      "recipients": "",
+      "minSeverity": "critical"
+    },
+    "slack": {
+      "enabled": false,
+      "webhookUrl": "",
+      "channel": "#compliance-alerts",
+      "minSeverity": "warning"
+    }
+  },
+  "rules": [
+    {
+      "name": "Compliance Rate Drop",
+      "condition": "complianceRate < threshold",
+      "action": "alert",
+      "severity": "dynamic"
+    },
+    {
+      "name": "Violation Spike",
+      "condition": "violations > previousViolations * 1.5",
+      "action": "alert",
+      "severity": "warning"
+    },
+    {
+      "name": "Non-Exempt Violation",
+      "condition": "nonExemptViolations > 0",
+      "action": "alert",
+      "severity": "error"
+    },
+    {
+      "name": "Zero Compliance Component",
+      "condition": "componentCompliance === 0",
+      "action": "alert",
+      "severity": "critical"
+    }
+  ],
+  "autoFix": {
+    "enabled": true,
+    "maxAttempts": 3,
+    "conditions": [
+      "complianceRate < 95"
+    ]
+  }
+}

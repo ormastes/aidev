@@ -1,0 +1,72 @@
+# Docker ignore file template
+# Prevents unnecessary files from being included in Docker build context
+
+# Dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Test coverage
+coverage
+.nyc_output
+
+# IDE files
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Documentation
+README.md
+docs
+*.md
+
+# Test files (for production)
+*.test.ts
+*.test.js
+*.spec.ts
+*.spec.js
+__tests__
+tests
+
+# Development files
+.eslintrc*
+.prettierrc*
+jest.config.*
+tsconfig.json
+tslint.json
+
+# Docker files
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+tmp
+temp
+logs
+
+# Build artifacts (if building inside container)
+dist
+build
+*.map

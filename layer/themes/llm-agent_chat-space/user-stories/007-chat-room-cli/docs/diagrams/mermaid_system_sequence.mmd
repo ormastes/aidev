@@ -1,0 +1,103 @@
+```mermaid
+sequenceDiagram
+    participant User as User
+    participant CLI as CLI Interface
+    participant Platform as ChatRoomPlatform
+    participant Context as ContextProvider
+    participant Storage as FileStorage
+    participant PocketFlow as PocketFlowConnector
+    
+    Note over User, PocketFlow: Scenario 1: Start CLI and create first room
+    
+    User->>CLI: chatspace start
+    CLI->>Platform: initialize()
+    Platform->>Context: loadAidevContext()
+    Context->>Context: read ../_aidev directory
+    Context-->>Platform: workspace context
+    Platform->>Storage: initializeStorage()
+    Storage->>Storage: ensure chat data directory exists
+    Storage-->>Platform: storage ready
+    Platform->>PocketFlow: connectToPocketFlow()
+    PocketFlow->>PocketFlow: subscribe to workflow events
+    PocketFlow-->>Platform: connection established
+    Platform-->>CLI: platform ready
+    CLI-->>User: Welcome to Chat Space CLI
+    
+    User->>CLI: /create-room "general"
+    CLI->>Platform: createRoom("general", user)
+    Platform->>Storage: persistRoom(roomData)
+    Storage-->>Platform: room saved
+    Platform->>CLI: roomCreated(roomId)
+    CLI-->>User: Room 'general' created. Type /join general to enter.
+    
+    User->>CLI: /join general
+    CLI->>Platform: joinRoom("general", user)
+    Platform->>Storage: loadRoomHistory("general")
+    Storage-->>Platform: message history
+    Platform->>CLI: roomJoined(roomData, history)
+    CLI-->>User: [general] You joined the room
+    CLI-->>User: [general] > (ready for input)
+    
+    Note over User, PocketFlow: Scenario 2: Send and receive messages
+    
+    User->>CLI: Hello, world!
+    CLI->>Platform: sendMessage("general", "Hello, world!", user)
+    Platform->>Storage: persistMessage(messageData)
+    Storage-->>Platform: message saved
+    Platform->>Platform: broadcastMessage(messageData)
+    Platform-->>CLI: messageConfirmed(messageId)
+    CLI-->>User: [general] user: Hello, world!
+    
+    Note over User, PocketFlow: Scenario 3: PocketFlow integration
+    
+    PocketFlow->>Platform: workflowEvent(flowStarted, data)
+    Platform->>Platform: formatWorkflowNotification(event)
+    Platform->>CLI: displayNotification(notification)
+    CLI-->>User: [general] 🔄 Workflow 'backup-flow' started by user
+    
+    User->>CLI: /flow status backup-flow
+    CLI->>Platform: executeCommand("/flow status backup-flow", user)
+    Platform->>PocketFlow: getFlowStatus("backup-flow")
+    PocketFlow-->>Platform: flowStatus(data)
+    Platform->>CLI: commandResult(statusData)
+    CLI-->>User: [general] Flow 'backup-flow': running (2/5 steps completed)
+    
+    Note over User, PocketFlow: Scenario 4: Context access
+    
+    User->>CLI: /context
+    CLI->>Platform: getWorkspaceContext()
+    Platform->>Context: getCurrentContext()
+    Context-->>Platform: contextData
+    Platform->>CLI: contextResult(contextData)
+    CLI-->>User: [general] Workspace: /home/user/dev/aidev
+    CLI-->>User: [general] Active themes: pocketflow, chat-space
+    CLI-->>User: [general] PocketFlow tasks: 3 pending, 1 in progress
+    
+    Note over User, PocketFlow: Scenario 5: Error handling
+    
+    User->>CLI: /join nonexistent
+    CLI->>Platform: joinRoom("nonexistent", user)
+    Platform->>Storage: findRoom("nonexistent")
+    Storage-->>Platform: room not found
+    Platform-->>CLI: error(roomNotFound)
+    CLI-->>User: [error] Room 'nonexistent' not found. Use /list to see available rooms.
+    
+    Note over User, PocketFlow: Scenario 6: Multi-room management
+    
+    User->>CLI: /list
+    CLI->>Platform: listRooms(user)
+    Platform->>Storage: getAllRooms()
+    Storage-->>Platform: roomList
+    Platform-->>CLI: roomList(rooms)
+    CLI-->>User: Available rooms:
+    CLI-->>User:   * general (3 users online)
+    CLI-->>User:     dev-team (1 user online)
+    
+    User->>CLI: /switch dev-team
+    CLI->>Platform: switchRoom("dev-team", user)
+    Platform->>Platform: leaveCurrentRoom(user)
+    Platform->>Platform: joinRoom("dev-team", user)
+    Platform-->>CLI: roomSwitched("dev-team")
+    CLI-->>User: [dev-team] You switched to dev-team
+    CLI-->>User: [dev-team] > (ready for input)
+```

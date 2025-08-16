@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "pocketflow-epic-001",
+    "path": "/layer/themes/pocketflow/user-stories/002-web-server/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.596Z",
+    "updated_at": "2025-08-02T11:10:54.596Z"
+  },
+  "features": {
+    "002_web_server": [
+      {
+        "id": "pocketflow-002-web-server",
+        "name": "web server",
+        "data": {
+          "title": "Web server",
+          "description": "Implementation of web server",
+          "level": "user_story",
+          "parent_feature_id": "pocketflow-epic-001",
+          "epic_id": "pocketflow-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "pocketflow",
+            "web-server"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/pocketflow/user-stories/002-web-server/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.596Z",
+        "updatedAt": "2025-08-02T11:10:54.596Z"
+      }
+    ]
+  }
+}

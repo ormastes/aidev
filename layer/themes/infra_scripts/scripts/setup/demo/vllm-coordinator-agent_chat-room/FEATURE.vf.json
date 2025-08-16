@@ -1,0 +1,12 @@
+{
+  "project": {
+    "name": "vllm-coordinator-agent_chat-room",
+    "description": "vllm-coordinator-agent_chat-room demo project",
+    "type": "demo"
+  },
+  "features": {},
+  "metadata": {
+    "created": "2025-07-25T03:36:40.187Z",
+    "version": "1.0.0"
+  }
+}

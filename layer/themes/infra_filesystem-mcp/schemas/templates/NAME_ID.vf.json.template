@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created": "{{TIMESTAMP}}",
+    "lastModified": "{{TIMESTAMP}}",
+    "totalEntities": 0,
+    "description": "Name-ID mapping for {{NAME}}"
+  },
+  "entities": {},
+  "indices": {
+    "byType": {},
+    "byName": {}
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "aidev": {
+      "command": "node",
+      "args": ["${AIDEV_PATH}/scripts/mcp-server.js"],
+      "env": {
+        "AIDEV_ROOT": "${AIDEV_PATH}"
+      }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "${AIDEV_PATH}"]
+    }
+  }
+}

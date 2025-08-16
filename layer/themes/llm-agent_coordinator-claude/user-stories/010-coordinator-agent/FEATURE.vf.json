@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "coordinator-claude-agent-epic-001",
+    "path": "/layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.573Z",
+    "updated_at": "2025-08-02T11:10:54.573Z"
+  },
+  "features": {
+    "010_coordinator_agent": [
+      {
+        "id": "coordinator-claude-agent-010-coordinator-agent",
+        "name": "coordinator agent",
+        "data": {
+          "title": "Coordinator agent",
+          "description": "Implementation of coordinator agent",
+          "level": "user_story",
+          "parent_feature_id": "coordinator-claude-agent-epic-001",
+          "epic_id": "coordinator-claude-agent-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "coordinator-claude-agent",
+            "coordinator-agent"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.573Z",
+        "updatedAt": "2025-08-02T11:10:54.573Z"
+      }
+    ]
+  }
+}

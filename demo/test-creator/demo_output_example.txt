@@ -1,0 +1,123 @@
+=== Test Creator Demo ===
+This demo shows automated C++ test generation using Ollama DeepSeek 7B
+
+Checking for DeepSeek model...
+Setting up build environment...
+Configuring CMake...
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/user/test-creator/build
+
+Starting Test Creator...
+This will:
+1. Analyze calculator.cpp and calculator.h
+2. Generate test skeleton
+3. Implement each test case using LLM
+4. Build and verify each test
+5. Retry up to 10 times on failure
+
+🔍 Analyzing code...
+📋 Found 10 functions to test
+🔨 Implementing tests incrementally...
+Created test skeleton: tests/calculator_test.cpp
+
+============================================================
+Implementing test: CalculatorTest::add_Basic
+
+Attempt 1/10
+✅ Successfully implemented add_Basic
+
+============================================================
+Implementing test: CalculatorTest::subtract_Basic
+
+Attempt 1/10
+❌ Build failed, retrying...
+
+Attempt 2/10
+✅ Successfully implemented subtract_Basic
+
+============================================================
+Implementing test: CalculatorTest::multiply_Basic
+
+Attempt 1/10
+✅ Successfully implemented multiply_Basic
+
+============================================================
+Implementing test: CalculatorTest::divide_Basic
+
+Attempt 1/10
+❌ Build failed, retrying...
+
+Attempt 2/10
+❌ Build failed, retrying...
+
+Attempt 3/10
+✅ Successfully implemented divide_Basic
+
+============================================================
+Implementing test: CalculatorTest::divide_DivisionByZero
+
+Attempt 1/10
+✅ Successfully implemented divide_DivisionByZero
+
+============================================================
+Implementing test: CalculatorTest::factorial_Basic
+
+Attempt 1/10
+✅ Successfully implemented factorial_Basic
+
+============================================================
+Implementing test: CalculatorTest::power_Basic
+
+Attempt 1/10
+❌ Build failed, retrying...
+
+Attempt 2/10
+✅ Successfully implemented power_Basic
+
+============================================================
+Implementing test: CalculatorTest::isPrime_Basic
+
+Attempt 1/10
+✅ Successfully implemented isPrime_Basic
+
+============================================================
+Implementing test: CalculatorTest::memoryStore_Basic
+
+Attempt 1/10
+✅ Successfully implemented memoryStore_Basic
+
+============================================================
+Implementing test: CalculatorTest::memoryRecall_Basic
+
+Attempt 1/10
+✅ Successfully implemented memoryRecall_Basic
+
+✅ Completed! Implemented 10 test cases
+
+Demo completed!
+Check the results:
+- Test file: tests/calculator_test.cpp
+- Build output: build/
+- Task progress: TASK_QUEUE.vf.json
+
+Running the generated tests...
+Test project /home/user/test-creator/build
+    Start 1: calculator_test
+1/1 Test #1: calculator_test ..................   Passed    0.01 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.02 sec

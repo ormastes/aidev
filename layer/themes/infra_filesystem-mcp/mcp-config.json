@@ -1,0 +1,78 @@
+{
+  "mcpServers": {
+    "filesystem-mcp": {
+      "command": "node",
+      "args": [
+        "/home/ormastes/dev/aidev/layer/themes/infra_filesystem-mcp/mcp-server.js"
+      ],
+      "env": {
+        "VF_BASE_PATH": "/home/ormastes/dev/aidev",
+        "NODE_ENV": "production"
+      },
+      "description": "Standard filesystem MCP server for virtual file operations"
+    },
+    "filesystem-mcp-enhanced": {
+      "command": "node",
+      "args": [
+        "/home/ormastes/dev/aidev/layer/themes/infra_filesystem-mcp/mcp-server-enhanced.js"
+      ],
+      "env": {
+        "VF_BASE_PATH": "/home/ormastes/dev/aidev",
+        "VF_STRICT_MODE": "true",
+        "NODE_ENV": "production"
+      },
+      "description": "Enhanced filesystem MCP with artifact validation and task queue enforcement"
+    },
+    "filesystem-mcp-strict": {
+      "command": "node",
+      "args": [
+        "/home/ormastes/dev/aidev/layer/themes/infra_filesystem-mcp/mcp-server-strict.js"
+      ],
+      "env": {
+        "VF_BASE_PATH": "/home/ormastes/dev/aidev",
+        "NODE_ENV": "production"
+      },
+      "description": "Strict MCP server with root file prevention and NAME_ID validation"
+    }
+  },
+  "defaultServer": "filesystem-mcp-strict",
+  "features": {
+    "artifactValidation": true,
+    "taskDependencyChecking": true,
+    "featureTaskLinking": true,
+    "adhocJustification": true,
+    "lifecycleManagement": true,
+    "rootFilePrevention": true,
+    "nameIdValidation": true,
+    "duplicatePurposeDetection": true
+  },
+  "validation": {
+    "allowedRootFiles": [
+      "README.md",
+      "CLAUDE.md",
+      "package.json",
+      "tsconfig.json",
+      ".gitignore",
+      "NAME_ID.vf.json",
+      "TASK_QUEUE.vf.json",
+      "FEATURE.vf.json",
+      "FILE_STRUCTURE.vf.json",
+      "pyproject.toml",
+      ".behaverc",
+      ".python-version"
+    ],
+    "allowedDirectories": [
+      "gen/doc",
+      "layer/themes",
+      "layer/epics",
+      "config",
+      "scripts",
+      "tests",
+      "test/system",
+      "common",
+      "demo",
+      "examples",
+      "xlib"
+    ]
+  }
+}

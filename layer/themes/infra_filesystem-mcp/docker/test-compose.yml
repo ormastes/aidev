@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  # Node.js test environment
+  node-tests:
+    build:
+      context: ./node
+      dockerfile: Dockerfile
+    volumes:
+      - ../:/workspace
+      - node_modules:/workspace/node_modules
+    environment:
+      - TEST_MODE=dangerous_virtual_needed
+      - NODE_ENV=test
+    command: ["/workspace/run_system_tests.sh", "--filter", "typescript"]
+    networks:
+      - test-network
+
+  # Python test environment
+  python-tests:
+    build:
+      context: ./python
+      dockerfile: Dockerfile
+    volumes:
+      - ../:/workspace
+      - pip_cache:/root/.cache/pip
+    environment:
+      - TEST_MODE=dangerous_virtual_needed
+      - PYTHONPATH=/workspace
+    command: ["/workspace/run_system_tests.sh", "--filter", "python"]
+    networks:
+      - test-network
+
+  # C++ build test environment
+  cpp-tests:
+    build:
+      context: ./cpp
+      dockerfile: Dockerfile
+    volumes:
+      - ../:/workspace
+      - build_cache:/workspace/build
+    environment:
+      - TEST_MODE=dangerous_virtual_needed
+      - CC=clang
+      - CXX=clang++
+    command: ["/workspace/run_system_tests.sh", "--filter", "cpp"]
+    networks:
+      - test-network
+
+  # GUI test environment with X11
+  gui-tests:
+    build:
+      context: ./gui
+      dockerfile: Dockerfile
+    volumes:
+      - ../:/workspace
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    environment:
+      - TEST_MODE=dangerous_virtual_needed
+      - DISPLAY=:99
+      - QT_X11_NO_MITSHM=1
+    command: ["/workspace/run_system_tests.sh", "--filter", "gui"]
+    networks:
+      - test-network
+    privileged: true
+
+  # Android emulator environment
+  android-tests:
+    build:
+      context: ./android
+      dockerfile: Dockerfile
+    volumes:
+      - ../:/workspace
+      - android_sdk:/opt/android
+    environment:
+      - TEST_MODE=dangerous_virtual_needed
+      - ANDROID_HOME=/opt/android
+    command: ["/workspace/run_system_tests.sh", "--filter", "mobile"]
+    networks:
+      - test-network
+    devices:
+      - /dev/kvm
+    privileged: true
+
+networks:
+  test-network:
+    driver: bridge
+
+volumes:
+  node_modules:
+  pip_cache:
+  build_cache:
+  android_sdk:

@@ -1,0 +1,15 @@
+{
+  "id": "426e541bbccd",
+  "name": "dev-environment",
+  "format": "qcow2",
+  "size": "50G",
+  "sizeBytes": 53687091200,
+  "actualSize": 513,
+  "distro": "ubuntu",
+  "version": "24.04",
+  "path": "/home/ormastes/dev/aidev/layer/themes/init_qemu/gen/qemu-images/images/dev-environment.qcow2",
+  "created": "2025-08-13T04:19:19.854Z",
+  "type": "mock",
+  "bootable": false,
+  "description": "Mock QEMU image for demonstration"
+}

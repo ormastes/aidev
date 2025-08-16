@@ -1,0 +1,16 @@
+[Unit]
+Description=AI Dev Portal Demo - test_service
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=ormastes
+WorkingDirectory=/home/ormastes/dev/aidev/demo/test_service_demo
+Environment="NODE_ENV=demo"
+Environment="PORT=3303"
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

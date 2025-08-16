@@ -1,0 +1,462 @@
+{
+  "metadata": {
+    "level": "root",
+    "path": "/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.606Z",
+    "updated_at": "2025-08-02T11:10:54.606Z"
+  },
+  "features": {
+    "platform": [
+      {
+        "id": "platform-001",
+        "name": "AI Development Platform",
+        "data": {
+          "title": "AI Development Platform",
+          "description": "Comprehensive platform for AI-powered development with multiple theme modules",
+          "level": "root",
+          "status": "in-progress",
+          "priority": "critical",
+          "tags": [
+            "platform",
+            "ai",
+            "development"
+          ],
+          "virtual_path": "/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.606Z",
+        "updatedAt": "2025-08-11T10:30:00.000Z",
+        "completedAt": "2025-08-11T10:30:00.000Z"
+      }
+    ],
+    "infrastructure": [
+      {
+        "id": "infra-cucumber-cpp",
+        "name": "Custom Cucumber C++ Implementation",
+        "data": {
+          "title": "Custom Cucumber-CPP BDD Framework",
+          "description": "Build custom Cucumber implementation for C++ from scratch with Gherkin parser, step definitions, Catch2 integration, and test-as-manual documentation generation",
+          "level": "infrastructure",
+          "status": "completed",
+          "priority": "high",
+          "tags": [
+            "testing",
+            "bdd",
+            "cpp",
+            "cucumber",
+            "test-as-manual",
+            "documentation"
+          ],
+          "virtual_path": "/layer/themes/infra_test-as-manual/children/cucumber-cpp/FEATURE.vf.json",
+          "dependencies": [
+            "catch2",
+            "test-as-manual"
+          ],
+          "deliverables": [
+            "Gherkin parser from scratch",
+            "Step definition registry system",
+            "Catch2 test backend integration",
+            "Manual test documentation generator",
+            "CMake integration support",
+            "CLI tool for test execution",
+            "Multiple output formats (MD, HTML, JSON)"
+          ],
+          "success_criteria": [
+            "Parse standard Gherkin syntax",
+            "Support all step types (Given, When, Then, And, But)",
+            "Handle data tables and doc strings",
+            "Support scenario outlines with examples",
+            "Generate manual test documentation",
+            "90% test coverage minimum",
+            "No external Cucumber dependencies"
+          ]
+        },
+        "createdAt": "2025-08-09T12:00:00.000Z",
+        "updatedAt": "2025-08-11T10:30:00.000Z",
+        "completedAt": "2025-08-11T10:30:00.000Z"
+      },
+      {
+        "id": "infra-python-support",
+        "name": "Python Language Support",
+        "data": {
+          "title": "Python Language Support Infrastructure",
+          "description": "Add comprehensive Python support to the AI Development Platform with uv for environment management and package installation",
+          "level": "infrastructure",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "python",
+            "language-support",
+            "uv",
+            "environment"
+          ],
+          "virtual_path": "/layer/themes/python-support/FEATURE.vf.json",
+          "dependencies": [],
+          "deliverables": [
+            "UV environment setup and configuration",
+            "Python project structure templates",
+            "Package dependency management",
+            "Virtual environment isolation",
+            "Python-specific build scripts",
+            "IDE integration for Python"
+          ],
+          "success_criteria": [
+            "UV successfully manages Python environments",
+            "Package installation works seamlessly",
+            "Virtual environments properly isolated",
+            "Python code execution in platform",
+            "IDE features work for Python files"
+          ]
+        },
+        "createdAt": "2025-08-11T10:00:00.000Z",
+        "updatedAt": "2025-08-11T11:15:00.000Z",
+        "completedAt": "2025-08-11T11:15:00.000Z"
+      },
+      {
+        "id": "infra-cucumber-python",
+        "name": "Cucumber Python Implementation",
+        "data": {
+          "title": "Cucumber-Python BDD Framework",
+          "description": "Implement Cucumber BDD testing framework for Python with behave or custom implementation, supporting test-as-manual documentation",
+          "level": "infrastructure",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "testing",
+            "bdd",
+            "python",
+            "cucumber",
+            "test-as-manual",
+            "documentation"
+          ],
+          "virtual_path": "/layer/themes/infra_test-as-manual/children/cucumber-python/FEATURE.vf.json",
+          "dependencies": [
+            "python-support",
+            "test-as-manual"
+          ],
+          "deliverables": [
+            "Behave or custom Cucumber implementation",
+            "Step definition support for Python",
+            "Manual test documentation generator",
+            "UV integration for test dependencies",
+            "Python test runner integration",
+            "Multiple output formats (MD, HTML, JSON)"
+          ],
+          "success_criteria": [
+            "Parse standard Gherkin syntax",
+            "Support all step types in Python",
+            "Handle data tables and doc strings",
+            "Support scenario outlines with examples",
+            "Generate manual test documentation",
+            "Integration with Python coverage tools"
+          ]
+        },
+        "createdAt": "2025-08-11T10:00:00.000Z",
+        "updatedAt": "2025-08-11T12:00:00.000Z",
+        "completedAt": "2025-08-11T12:00:00.000Z"
+      },
+      {
+        "id": "infra-python-coverage",
+        "name": "Python Coverage Tools",
+        "data": {
+          "title": "Python Branch and Class Coverage",
+          "description": "Implement comprehensive coverage analysis for Python including branch coverage and system test class coverage",
+          "level": "infrastructure",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "testing",
+            "coverage",
+            "python",
+            "quality"
+          ],
+          "virtual_path": "/layer/themes/python-coverage/FEATURE.vf.json",
+          "dependencies": [
+            "python-support"
+          ],
+          "deliverables": [
+            "Branch coverage analysis with coverage.py",
+            "Class-level coverage metrics",
+            "System test coverage tracking",
+            "Coverage report generation",
+            "Integration with existing coverage aggregator",
+            "Coverage threshold enforcement"
+          ],
+          "success_criteria": [
+            "Accurate branch coverage measurement",
+            "Class-level coverage reporting",
+            "System test coverage tracking",
+            "HTML and JSON coverage reports",
+            "90% coverage threshold support",
+            "Integration with CI/CD pipeline"
+          ]
+        },
+        "createdAt": "2025-08-11T10:00:00.000Z",
+        "updatedAt": "2025-08-11T13:00:00.000Z",
+        "completedAt": "2025-08-11T13:00:00.000Z"
+      },
+      {
+        "id": "infra-qemu-development",
+        "name": "QEMU Linux Development Environment",
+        "data": {
+          "title": "QEMU Linux Kernel Development Infrastructure",
+          "description": "Comprehensive QEMU-based Linux kernel development environment with Rust support, custom NVMe emulation, and automated VM management for testing and development",
+          "level": "infrastructure",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "qemu",
+            "linux",
+            "kernel",
+            "rust",
+            "nvme",
+            "virtualization",
+            "development"
+          ],
+          "virtual_path": "/layer/themes/init_qemu/FEATURE.vf.json",
+          "dependencies": [
+            "init_container-environment"
+          ],
+          "deliverables": [
+            "QEMU system setup with KVM acceleration",
+            "Linux kernel build environment with Rust support",
+            "Custom NVMe device emulation (OpenChannelSSD)",
+            "Automated Ubuntu VM provisioning",
+            "VFIO PCI passthrough configuration",
+            "Network configuration with port forwarding",
+            "Automated build and deployment scripts",
+            "Integration with existing QEMUManager service",
+            "Remote debugging with GDB support",
+            "System test for build and debug workflow"
+          ],
+          "success_criteria": [
+            "Successfully build Linux kernel with Rust enabled",
+            "Boot Ubuntu 24.10 in QEMU with custom kernel",
+            "NVMe device properly emulated and accessible",
+            "SSH access to VM via port forwarding",
+            "GPU/storage passthrough working with VFIO",
+            "Automated scripts for common operations",
+            "Integration with AI Development Platform",
+            "Documentation and research notes complete",
+            "Remote debugging operational",
+            "System tests passing"
+          ]
+        },
+        "createdAt": "2025-08-13T10:00:00.000Z",
+        "updatedAt": "2025-08-13T12:00:00.000Z",
+        "completedAt": "2025-08-13T12:00:00.000Z"
+      },
+      {
+        "id": "infra-docker-development",
+        "name": "Docker Development Environment",
+        "data": {
+          "title": "Docker Container Development Infrastructure",
+          "description": "Comprehensive Docker-based development environment with multi-architecture support, VS Code Server integration, SSH remote debugging, and automated container management",
+          "level": "infrastructure",
+          "status": "in-progress",
+          "priority": "high",
+          "tags": [
+            "docker",
+            "containers",
+            "vscode",
+            "ssh",
+            "debugging",
+            "development",
+            "cross-platform"
+          ],
+          "virtual_path": "/layer/themes/init_docker/FEATURE.vf.json",
+          "dependencies": [
+            "init_container-environment",
+            "init_setup-folder"
+          ],
+          "deliverables": [
+            "Multi-stage Dockerfile templates for various languages",
+            "Docker image build automation with layer caching",
+            "Container runtime management with resource limits",
+            "SSH server integration for remote access",
+            "VS Code Server deployment in containers",
+            "Remote debugging setup (GDB, LLDB, DAP)",
+            "Volume mounting and file synchronization",
+            "Network configuration with port forwarding",
+            "Docker Compose orchestration support",
+            "Cross-platform build support (linux/amd64, linux/arm64)",
+            "Development tool installation (build-essential, git, vim)",
+            "Container registry integration",
+            "Automated security scanning"
+          ],
+          "success_criteria": [
+            "Build Docker images for C++, Python, Rust, Node.js",
+            "SSH access to running containers",
+            "VS Code Server accessible via browser",
+            "Remote debugging working with breakpoints",
+            "File changes synchronized between host and container",
+            "Port forwarding for application access",
+            "Docker Compose multi-container setup working",
+            "Cross-platform images building successfully",
+            "Container resource limits enforced",
+            "Security vulnerabilities scanned and reported"
+          ]
+        },
+        "createdAt": "2025-08-13T12:00:00.000Z",
+        "updatedAt": "2025-08-13T12:00:00.000Z"
+      },
+      {
+        "id": "infra-fraud-checker",
+        "name": "Fraud Checker Service",
+        "data": {
+          "title": "Fraud Detection and Prevention Service",
+          "description": "Comprehensive fraud detection system with multiple detection strategies including SQL injection, XSS, velocity checks, bot behavior detection, and blacklist/whitelist management",
+          "level": "infrastructure",
+          "status": "implemented",
+          "priority": "critical",
+          "tags": [
+            "security",
+            "fraud-detection",
+            "api",
+            "monitoring",
+            "protection"
+          ],
+          "virtual_path": "/layer/themes/fraud-checker/FEATURE.vf.json",
+          "system_test": "/release/gui-selector-portal/tests/system/fraud-checker.systest.ts",
+          "dependencies": [
+            "express",
+            "logging",
+            "session-management"
+          ],
+          "deliverables": [
+            "FraudCheckerService with 6 detection rule types",
+            "Pattern detection for SQL injection and XSS",
+            "Velocity checking for rate limiting",
+            "Bot behavior detection algorithms",
+            "Blacklist and whitelist management",
+            "Real-time fraud statistics API",
+            "Fraud scenario simulation for testing",
+            "RESTful API endpoints for all operations",
+            "Session and IP tracking with history",
+            "Automatic cleanup of old data"
+          ],
+          "success_criteria": [
+            "Detect SQL injection with 50+ score",
+            "Detect XSS attempts with pattern matching",
+            "Rate limit rapid login attempts",
+            "Identify bot behavior patterns",
+            "Support concurrent fraud checks",
+            "Maintain session history tracking",
+            "Provide real-time statistics",
+            "28 comprehensive system tests passing",
+            "Handle 20+ concurrent requests",
+            "Auto-cleanup after 1 hour window"
+          ],
+          "test_coverage": {
+            "system_tests": 28,
+            "test_file": "tests/system/fraud-checker.systest.ts",
+            "test_as_manual": true,
+            "no_hardcoded_urls": true,
+            "coverage_areas": [
+              "SQL injection detection",
+              "XSS detection",
+              "Velocity checks",
+              "Bot behavior detection",
+              "Blacklist management",
+              "Whitelist management",
+              "Rule management",
+              "Statistics API",
+              "Scenario simulation",
+              "Concurrent requests",
+              "Session tracking",
+              "Error handling"
+            ]
+          }
+        },
+        "createdAt": "2025-08-14T10:00:00.000Z",
+        "updatedAt": "2025-08-14T11:00:00.000Z",
+        "completedAt": "2025-08-14T11:00:00.000Z"
+      },
+      {
+        "id": "infra-circular-dependency-detection",
+        "name": "Circular Dependency Detection System",
+        "data": {
+          "title": "Comprehensive Circular Dependency Detection for Multi-Language Codebases",
+          "description": "Advanced circular dependency detection system supporting TypeScript, C++, and Python with CLI tools, visualization, and CI/CD integration for large codebases and monorepos",
+          "level": "infrastructure",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "static-analysis",
+            "code-quality",
+            "typescript",
+            "cpp",
+            "python",
+            "cli",
+            "visualization",
+            "ci-cd",
+            "monorepo"
+          ],
+          "virtual_path": "/layer/themes/research/user-stories/circular-dependency-detection/FEATURE.vf.json",
+          "dependencies": [
+            "typescript",
+            "python-support",
+            "test-as-manual"
+          ],
+          "deliverables": [
+            "TypeScript circular dependency detection using Madge, Dependency Cruiser, and ds",
+            "C++ circular dependency detection using Clang-Tidy and cpp-dependencies",
+            "Python circular dependency detection using Pylint, Pycycle, and circular-imports",
+            "Unified CLI interface for all languages",
+            "Graph visualization support (DOT, SVG, PNG)",
+            "Multiple output formats (JSON, text, HTML reports)",
+            "CI/CD integration scripts",
+            "Configuration management system",
+            "Comprehensive test suite",
+            "Documentation and examples"
+          ],
+          "success_criteria": [
+            "Detect circular dependencies in TypeScript with 100% accuracy",
+            "Detect circular dependencies in C++ include/link cycles",
+            "Detect circular dependencies in Python import cycles", 
+            "Support large codebases (10000+ files)",
+            "Generate actionable reports with fix suggestions",
+            "Integration with popular CI/CD systems",
+            "Sub-second analysis for incremental changes",
+            "Visual dependency graphs with cycle highlighting",
+            "90% test coverage minimum",
+            "Support for monorepo structures"
+          ]
+        },
+        "createdAt": "2025-08-14T12:00:00.000Z",
+        "updatedAt": "2025-08-14T12:00:00.000Z",
+        "completedAt": "2025-08-14T12:00:00.000Z"
+      }
+    ]
+  },
+  "children": [
+    "/layer/epics/init/FEATURE.vf.json",
+    "/layer/epics/llm-agent/FEATURE.vf.json",
+    "/layer/epics/check/FEATURE.vf.json",
+    "/layer/epics/infra/FEATURE.vf.json",
+    "/layer/epics/portal/FEATURE.vf.json",
+    "/layer/themes/.vscode/FEATURE.vf.json",
+    "/layer/themes/chat-space/FEATURE.vf.json",
+    "/layer/themes/cli-framework/FEATURE.vf.json",
+    "/layer/themes/coordinator-claude-agent/FEATURE.vf.json",
+    "/layer/themes/coverage-aggregator/FEATURE.vf.json",
+    "/layer/themes/dev-environment/FEATURE.vf.json",
+    "/layer/themes/init_container-environment/FEATURE.vf.json",
+    "/layer/themes/external-log-lib/FEATURE.vf.json",
+    "/layer/themes/fraud-checker/FEATURE.vf.json",
+    "/layer/themes/gui-generator/FEATURE.vf.json",
+    "/layer/themes/llm-agent-epic/FEATURE.vf.json",
+    "/layer/themes/lsp-mcp/FEATURE.vf.json",
+    "/layer/themes/mate-dealer/FEATURE.vf.json",
+    "/layer/themes/mcp-agent/FEATURE.vf.json",
+    "/layer/themes/mcp-protocol/FEATURE.vf.json",
+    "/layer/themes/ollama-mcp-agent/FEATURE.vf.json",
+    "/layer/themes/pocketflow/FEATURE.vf.json",
+    "/layer/themes/react-native-base/FEATURE.vf.json",
+    "/layer/themes/story-reporter/FEATURE.vf.json",
+    "/layer/themes/test-as-manual/FEATURE.vf.json",
+    "/layer/themes/vllm-coordinator-agent/FEATURE.vf.json",
+    "/layer/themes/vllm-mcp-agent/FEATURE.vf.json",
+    "/layer/themes/web-scraper/FEATURE.vf.json"
+  ]
+}

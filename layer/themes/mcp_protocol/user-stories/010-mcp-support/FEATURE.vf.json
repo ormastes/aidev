@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "mcp-protocol-epic-001",
+    "path": "/layer/themes/mcp-protocol/user-stories/010-mcp-support/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.592Z",
+    "updated_at": "2025-08-02T11:10:54.592Z"
+  },
+  "features": {
+    "010_mcp_support": [
+      {
+        "id": "mcp-protocol-010-mcp-support",
+        "name": "mcp support",
+        "data": {
+          "title": "Mcp support",
+          "description": "Implementation of mcp support",
+          "level": "user_story",
+          "parent_feature_id": "mcp-protocol-epic-001",
+          "epic_id": "mcp-protocol-epic-001",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "mcp-protocol",
+            "mcp-support"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/mcp-protocol/user-stories/010-mcp-support/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.592Z",
+        "updatedAt": "2025-08-02T11:10:54.592Z"
+      }
+    ]
+  }
+}

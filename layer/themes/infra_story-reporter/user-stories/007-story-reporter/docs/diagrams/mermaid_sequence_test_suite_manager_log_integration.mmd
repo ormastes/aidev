@@ -1,0 +1,93 @@
+sequenceDiagram
+    participant Client as Test Client
+    participant TSM as TestSuiteManager
+    participant MEL as MockExternalLogger
+    participant MFTR as MockFreeTestRunner
+    participant RG as ReportGenerator
+    participant FS as FileSystem
+
+    Note over Client, FS: TestSuiteManager External Log Integration Sequence
+
+    %% Logger Initialization
+    Client->>MEL: initializeLogger(testSuiteId)
+    MEL->>MEL: Create logger instance
+    MEL->>MEL: Add to active loggers
+    MEL-->>Client: loggerId
+
+    %% TestSuiteManager Configuration
+    Client->>TSM: configure(testConfig)
+    TSM->>TSM: Validate configuration
+    TSM->>TSM: Set configuration
+    TSM->>MFTR: configure(testConfig)
+    TSM->>RG: configure(testConfig)
+    TSM->>TSM: emit('log', 'configured')
+    TSM-->>Client: configured
+
+    %% External Logger Integration
+    Client->>TSM: setExternalLogger(externalLogger)
+    TSM->>TSM: Store external logger reference
+    TSM->>MFTR: setExternalLogger(externalLogger)
+    TSM->>RG: setExternalLogger(externalLogger)
+    TSM->>TSM: emit('log', 'External logger set')
+    TSM-->>Client: logger set
+
+    %% Test Execution with Logging
+    Client->>TSM: executeTestSuite()
+    TSM->>TSM: emit('testSuiteStart')
+    TSM->>MEL: log('info', 'Starting test suite')
+    MEL->>MEL: Store log entry
+    
+    TSM->>MFTR: executeTests()
+    activate MFTR
+    
+    %% MockFreeTestRunner Execution with Logging
+    MFTR->>MEL: log('info', 'Starting Mock Free Test execution')
+    MEL->>MEL: Store log entry
+    
+    loop for each scenario
+        MFTR->>MEL: log('info', 'Scenario started: ' + name)
+        MFTR->>MFTR: Execute scenario steps
+        
+        alt step passes
+            MFTR->>MEL: log('info', 'Step passed: ' + stepName)
+        else step fails
+            MFTR->>MEL: log('error', 'Step failed: ' + stepName)
+        end
+        
+        MFTR->>MEL: log('info', 'Scenario completed: ' + status)
+    end
+    
+    MFTR->>MEL: log('info', 'Mock Free Test execution completed')
+    deactivate MFTR
+    MFTR-->>TSM: testResults
+
+    %% Report Generation with Logs
+    TSM->>MEL: getLogHistory(testSuiteId)
+    MEL-->>TSM: logEntries[]
+    
+    TSM->>TSM: Add logs to test results metadata
+    TSM->>RG: generateAllReports(testResults)
+    activate RG
+    
+    RG->>MEL: getLogHistory(testSuiteId)
+    MEL-->>RG: logEntries[]
+    
+    RG->>RG: Include logs in report data
+    RG->>FS: writeReport(reportWithLogs)
+    FS-->>RG: report written
+    
+    deactivate RG
+    RG-->>TSM: reportPaths[]
+    
+    TSM->>MEL: log('info', 'Test suite execution completed')
+    TSM->>TSM: emit('testSuiteComplete')
+    TSM-->>Client: executionResult
+
+    %% Cleanup
+    Client->>TSM: cleanup()
+    TSM->>MFTR: cleanup()
+    TSM->>RG: cleanup()
+    TSM->>TSM: Remove event listeners
+    TSM-->>Client: cleanup complete
+
+    Note over Client, FS: External logger maintains logs for analysis

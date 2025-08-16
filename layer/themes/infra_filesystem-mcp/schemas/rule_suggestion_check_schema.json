@@ -1,0 +1,160 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Rule Suggestion Check Schema",
+  "description": "Schema for rule suggestion analysis results",
+  "allOf": [
+    { "$ref": "check_result_schema.json" }
+  ],
+  "properties": {
+    "results": {
+      "type": "object",
+      "properties": {
+        "retrospectiveFormat": {
+          "type": "object",
+          "properties": {
+            "found": { "type": "boolean" },
+            "files": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "missingRequiredSections": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "formatValid": { "type": "boolean" },
+            "violations": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/violation" }
+            }
+          }
+        },
+        "storyReportSteps": {
+          "type": "object",
+          "properties": {
+            "found": { "type": "boolean" },
+            "files": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "missingRequiredFields": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "stepsImplemented": { "type": "boolean" },
+            "violations": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/violation" }
+            }
+          }
+        },
+        "ruleExtraction": {
+          "type": "object",
+          "properties": {
+            "rulesFound": { "type": "integer" },
+            "validRules": { "type": "integer" },
+            "invalidRules": { "type": "integer" },
+            "rules": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "category": { "type": "string" },
+                  "description": { "type": "string" },
+                  "rationale": { "type": "string" },
+                  "valid": { "type": "boolean" }
+                }
+              }
+            },
+            "violations": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/violation" }
+            }
+          }
+        },
+        "knowledgeUpdates": {
+          "type": "object",
+          "properties": {
+            "updatesFound": { "type": "boolean" },
+            "knowledgeFiles": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "newKnowledge": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "violations": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/violation" }
+            }
+          }
+        },
+        "lessonsLearned": {
+          "type": "object",
+          "properties": {
+            "documented": { "type": "boolean" },
+            "sections": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "role": { "type": "string" },
+                  "content": { "type": "string" },
+                  "quality": { "type": "string" }
+                }
+              }
+            },
+            "quality": {
+              "type": "string",
+              "enum": ["excellent", "good", "acceptable", "poor"]
+            },
+            "violations": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/violation" }
+            }
+          }
+        },
+        "processImprovements": {
+          "type": "object",
+          "properties": {
+            "suggestionsFound": { "type": "integer" },
+            "suggestions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "area": { "type": "string" },
+                  "suggestion": { "type": "string" },
+                  "impact": { "type": "string" }
+                }
+              }
+            },
+            "violations": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/violation" }
+            }
+          }
+        },
+        "pass": { "type": "boolean" },
+        "summary": { "type": "string" }
+      }
+    }
+  },
+  "definitions": {
+    "violation": {
+      "type": "object",
+      "required": ["file", "type", "message", "severity"],
+      "properties": {
+        "file": { "type": "string" },
+        "line": { "type": "integer" },
+        "type": { "type": "string" },
+        "message": { "type": "string" },
+        "severity": {
+          "type": "string",
+          "enum": ["critical", "high", "medium", "low"]
+        }
+      }
+    }
+  }
+}

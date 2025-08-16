@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "vllm-coordinator-agent-epic-001",
+    "path": "/layer/themes/vllm-coordinator-agent/user-stories/027-vllm-coordinator/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.604Z",
+    "updated_at": "2025-08-02T11:10:54.604Z"
+  },
+  "features": {
+    "027_vllm_coordinator": [
+      {
+        "id": "vllm-coordinator-agent-027-vllm-coordinator",
+        "name": "vllm coordinator",
+        "data": {
+          "title": "Vllm coordinator",
+          "description": "Implementation of vllm coordinator",
+          "level": "user_story",
+          "parent_feature_id": "vllm-coordinator-agent-epic-001",
+          "epic_id": "vllm-coordinator-agent-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "vllm-coordinator-agent",
+            "vllm-coordinator"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/vllm-coordinator-agent/user-stories/027-vllm-coordinator/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.604Z",
+        "updatedAt": "2025-08-02T11:10:54.604Z"
+      }
+    ]
+  }
+}

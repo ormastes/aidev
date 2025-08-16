@@ -1,0 +1,220 @@
+{
+  "metadata": {
+    "theme": "story-reporter",
+    "version": "1.2.0",
+    "description": "Test execution and reporting theme with coverage analysis",
+    "updated": "2024-01-26"
+  },
+  "features": [
+    {
+      "id": "story-reporter-core",
+      "name": "Story Reporter Core",
+      "description": "Core test execution and reporting functionality",
+      "status": "implemented",
+      "priority": "high",
+      "components": [
+        "test-suite-manager",
+        "mock-free-test-runner",
+        "report-generator",
+        "statistics-analyzer"
+      ]
+    },
+    {
+      "id": "hierarchical-build-support",
+      "name": "Hierarchical Build Support",
+      "description": "Support for child themes/epics with their own build settings",
+      "status": "implemented",
+      "priority": "high",
+      "components": [
+        "hierarchical-build-config",
+        "distributed-build-executor",
+        "build-artifact-collector"
+      ]
+    },
+    {
+      "id": "test-result-aggregation",
+      "name": "Test Result Aggregation",
+      "description": "Aggregate test results from multiple builds",
+      "status": "implemented",
+      "priority": "high",
+      "components": [
+        "test-result-aggregator",
+        "unified-report-generator"
+      ]
+    },
+    {
+      "id": "branch-coverage-analysis",
+      "name": "Branch Coverage Analysis",
+      "description": "Analyze branch coverage across different code paths",
+      "status": "implemented",
+      "priority": "high",
+      "components": [
+        "branch-coverage-analyzer",
+        "coverage-report-generator"
+      ],
+      "cli": "coverage-analyzer",
+      "metrics": {
+        "threshold": 80,
+        "includeUncoveredLines": true
+      }
+    },
+    {
+      "id": "system-test-class-coverage",
+      "name": "System Test Class Coverage",
+      "description": "Analyze which classes have system-level tests",
+      "status": "implemented",
+      "priority": "high",
+      "components": [
+        "system-test-class-coverage-analyzer",
+        "coverage-report-generator"
+      ],
+      "cli": "coverage-analyzer",
+      "metrics": {
+        "threshold": 90,
+        "trackMethods": true
+      }
+    },
+    {
+      "id": "code-duplication-detection",
+      "name": "Code Duplication Detection",
+      "description": "Detect and report duplicate code blocks for TypeScript and C++",
+      "status": "implemented",
+      "priority": "medium",
+      "components": [
+        "duplication-checker",
+        "coverage-report-generator"
+      ],
+      "cli": "coverage-analyzer",
+      "config": {
+        "minTokens": 50,
+        "minLines": 5,
+        "threshold": 5
+      },
+      "languages": ["typescript", "javascript", "cpp", "c"]
+    },
+    {
+      "id": "coverage-cli-integration",
+      "name": "Coverage CLI Integration",
+      "description": "Command-line interface for coverage and duplication analysis",
+      "status": "implemented",
+      "priority": "high",
+      "cli": {
+        "command": "coverage-analyzer",
+        "script": "src/cli/coverage-analyzer.ts",
+        "modes": ["app", "epic", "theme", "story"]
+      },
+      "integration": {
+        "forwardingScript": "scripts/core/check-coverage-duplication.sh"
+      }
+    },
+    {
+      "id": "multi-format-reporting",
+      "name": "Multi-Format Reporting",
+      "description": "Generate reports in JSON, Markdown, and HTML formats",
+      "status": "implemented",
+      "priority": "medium",
+      "formats": ["json", "markdown", "html"],
+      "components": [
+        "coverage-report-generator",
+        "unified-report-generator"
+      ]
+    },
+    {
+      "id": "external-log-integration",
+      "name": "External Log Integration",
+      "description": "Integration with external logging libraries",
+      "status": "implemented",
+      "priority": "medium",
+      "components": [
+        "mock-external-logger",
+        "test-suite-manager",
+        "report-generator"
+      ]
+    },
+    {
+      "id": "cpp-coverage-analysis",
+      "name": "C++ Coverage Analysis",
+      "description": "Analyze code coverage for C++ projects using LLVM tools",
+      "status": "implemented",
+      "priority": "high",
+      "components": [
+        "llvm-coverage-analyzer",
+        "gcov-coverage-analyzer",
+        "cpp-coverage-aggregator"
+      ],
+      "cli": "coverage-analyzer",
+      "tools": {
+        "primary": "llvm-cov",
+        "fallback": "gcov",
+        "report_formats": ["json", "html", "lcov"]
+      },
+      "metrics": {
+        "lineCoverage": true,
+        "branchCoverage": true,
+        "functionCoverage": true,
+        "classCoverage": true,
+        "regionCoverage": true
+      }
+    },
+    {
+      "id": "cpp-system-test-coverage",
+      "name": "C++ System Test Class Coverage",
+      "description": "Analyze C++ class coverage at system test level",
+      "status": "implemented",
+      "priority": "high",
+      "components": [
+        "cpp-class-analyzer",
+        "cpp-method-coverage-tracker",
+        "coverage-report-generator"
+      ],
+      "metrics": {
+        "classThreshold": 90,
+        "methodThreshold": 85,
+        "namespaceTracking": true
+      }
+    },
+    {
+      "id": "unified-coverage-reporting",
+      "name": "Unified Coverage Reporting",
+      "description": "Unified coverage reporting for mixed TypeScript/C++ projects",
+      "status": "implemented",
+      "priority": "medium",
+      "components": [
+        "unified-coverage-aggregator",
+        "multi-language-reporter"
+      ],
+      "languages": ["typescript", "javascript", "cpp", "c"],
+      "output": {
+        "combined_report": true,
+        "per_language_breakdown": true
+      }
+    }
+  ],
+  "dependencies": {
+    "themes": [],
+    "external": [
+      "glob",
+      "typescript",
+      "crypto"
+    ]
+  },
+  "exports": {
+    "services": [
+      "BranchCoverageAnalyzer",
+      "SystemTestClassCoverageAnalyzer", 
+      "DuplicationChecker",
+      "CoverageReportGenerator",
+      "HierarchicalStoryReporter",
+      "DistributedBuildExecutor",
+      "TestResultAggregator"
+    ],
+    "cli": [
+      "coverage-analyzer"
+    ],
+    "types": [
+      "HierarchicalBuildConfig",
+      "CoverageReport",
+      "DuplicationCheckResult"
+    ]
+  }
+}

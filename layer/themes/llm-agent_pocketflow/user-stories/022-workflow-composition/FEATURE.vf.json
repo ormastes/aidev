@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "pocketflow-epic-001",
+    "path": "/layer/themes/pocketflow/user-stories/022-workflow-composition/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.599Z",
+    "updated_at": "2025-08-02T11:10:54.599Z"
+  },
+  "features": {
+    "022_workflow_composition": [
+      {
+        "id": "pocketflow-022-workflow-composition",
+        "name": "workflow composition",
+        "data": {
+          "title": "Workflow composition",
+          "description": "Implementation of workflow composition",
+          "level": "user_story",
+          "parent_feature_id": "pocketflow-epic-001",
+          "epic_id": "pocketflow-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "pocketflow",
+            "workflow-composition"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/pocketflow/user-stories/022-workflow-composition/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.599Z",
+        "updatedAt": "2025-08-02T11:10:54.599Z"
+      }
+    ]
+  }
+}

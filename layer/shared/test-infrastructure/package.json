@@ -1,0 +1,29 @@
+{
+  "name": "@aidev/test-infrastructure",
+  "version": "1.0.0",
+  "description": "Shared test infrastructure for Mock Free Test Oriented Development",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "sqlite3": "^5.1.6",
+    "sqlite": "^5.1.1",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "fs-extra": "^11.2.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/express-session": "^1.17.10",
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3"
+  }
+}

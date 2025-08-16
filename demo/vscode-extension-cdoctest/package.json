@@ -1,0 +1,320 @@
+{
+  "name": "cdoctest",
+  "displayName": "cdoctest",
+  "description": "Run cdocttest and executable tc runner.",
+  "version": "0.1.0",
+  "publisher": "ormastes",
+  "repository": "https://github.com/ormastes/cdoctest_vscode_extension",
+  "engines": {
+    "vscode": "^1.97.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "icon": "images/icon.png",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "npm run test:unit && npm run test:integration && npm run test:bugs",
+    "test:unit": "jest --selectProjects unit",
+    "test:integration": "jest --selectProjects integration",
+    "test:bugs": "jest --selectProjects bugs",
+    "test:all": "jest --selectProjects unit,integration,bugs",
+    "test:watch": "jest --watch --selectProjects unit",
+    "test:coverage": "jest --coverage --selectProjects unit,integration,bugs",
+    "test:unit:coverage": "jest --coverage --selectProjects unit",
+    "test:integration:coverage": "jest --coverage --selectProjects integration",
+    "test:bugs:coverage": "jest --coverage --selectProjects bugs",
+    "test:coverage:overall": "jest --coverage --config jest.config.coverage.js",
+    "test:coverage:merge": "node scripts/merge-coverage.js",
+    "test:e2e": "npm run compile && playwright test",
+    "test:e2e:ui": "npm run compile && playwright test --ui",
+    "test:e2e:coverage": "npm run compile && c8 --reporter=lcov --reporter=text --reporter=html playwright test",
+    "test:system:coverage": "npm run compile && bunx ts-node scripts/measure-system-test-coverage.ts",
+    "test:debug": "jest --runInBand --detectOpenHandles --selectProjects unit",
+    "coverage:report": "c8 report --reporter=html --reporter=text-summary",
+    "coverage:full": "npm run test:coverage && npm run duplication:check",
+    "duplication:check": "jscpd src/",
+    "duplication:report": "jscpd src/ --reporters html,console,json",
+    "clean": "rimraf out *.vsix coverage .nyc_output playwright-report test-results duplication-report",
+    "build": "tsc",
+    "rebuild": "npm run clean && npm run build",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "dependencies": {
+    "fast-glob": "^3.3.3",
+    "tslib": "^1.9.3",
+    "vscode-cmake-tools": "^1.2.0",
+    "xml2js": "^0.6.2"
+  },
+  "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
+    "@playwright/test": "^1.53.2",
+    "@types/jest": "^29.5.12",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.97.0",
+    "@types/xml2js": "^0.4.14",
+    "@typescript-eslint/eslint-plugin": "^8.22.0",
+    "@typescript-eslint/parser": "^8.22.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^2.32.0",
+    "c8": "^10.1.3",
+    "eslint": "^9.19.0",
+    "jest": "^29.7.0",
+    "jscpd": "^4.0.5",
+    "jscpd-html-reporter": "^2.0.1",
+    "nyc": "^17.1.0",
+    "playwright": "^1.53.2",
+    "sharp": "^0.34.2",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.7.3"
+  },
+  "extensionDependencies": [
+    "ms-vscode.cmake-tools",
+    "llvm-vs-code-extensions.lldb-dap"
+  ],
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "cdoctest Test Explorer configuration",
+      "properties": {
+        "cdoctest.configName": {
+          "description": "Name of the configuration",
+          "type": "string",
+          "default": "cdoctest"
+        },
+        "cdoctest.useCmakeTarget": {
+          "description": "Use cmake target to run tests",
+          "type": "boolean",
+          "default": true
+        },
+        "cdoctest.pythonExePath": {
+          "description": "Path to python executable. Required",
+          "type": "string",
+          "default": ""
+        },
+        "cdoctest.testRunArgPattern": {
+          "description": "Test run argument pattern for cdoctest",
+          "type": "string",
+          "default": "${pythonExePath} -m cdoctest --cdt_cmake_build_path=${buildDirectory} --cdt_cmake_target=${cmakeTarget} --cdt_include_target=${cmakeTarget} --cdt_run_testcase=${test_full_name} --cdt_output_xml=cdoctest_output.vsc"
+        },
+        "cdoctest.listTestArgPattern": {
+          "description": "List test argument pattern for cdoctest",
+          "type": "string",
+          "default": "${pythonExePath} -m cdoctest --cdt_cmake_build_path=${buildDirectory} --cdt_cmake_target=${cmakeTarget} --cdt_include_target=${cmakeTarget} --cdt_list_testcase"
+        },
+        "cdoctest.exe_testRunArgPattern": {
+          "description": "Test run argument pattern for executable",
+          "type": "string",
+          "default": "TC/${test_suite_name}::${test_case_name} output.vsc"
+        },
+        "cdoctest.exe_listTestArgPattern": {
+          "description": "List test argument pattern for executable",
+          "type": "string",
+          "default": "GetTcList:"
+        },
+        "cdoctest.resultFile": {
+          "description": "Result file for cdoctest",
+          "type": "string",
+          "default": "${buildDirectory}/cdoctest_output.vsc"
+        },
+        "cdoctest.exe_resultFile": {
+          "description": "Result file for executable",
+          "type": "string",
+          "default": "${buildDirectory}/output.vsc"
+        },
+        "cdoctest.resultSuccessRgex": {
+          "description": "Result success regex",
+          "type": "string",
+          "default": "failedtests=\"0\""
+        },
+        "cdoctest.srcDirectory": {
+          "description": "Source directory",
+          "type": "string",
+          "default": ""
+        },
+        "cdoctest.buildDirectory": {
+          "description": "Build directory",
+          "type": "string",
+          "default": ""
+        },
+        "cdoctest.executable": {
+          "description": "Executable",
+          "type": "string",
+          "default": ""
+        },
+        "cdoctest.exe_executable": {
+          "description": "Executable for executable",
+          "type": "string",
+          "default": ""
+        },
+        "cdoctest.testRunUseFile": {
+          "description": "Use file to run tests",
+          "type": "boolean",
+          "default": true
+        },
+        "cdoctest.listTestUseFile": {
+          "description": "Use file to list tests",
+          "type": "boolean",
+          "default": false
+        },
+        "cdoctest.exe_testRunUseFile": {
+          "description": "Use file to run tests for executable",
+          "type": "boolean",
+          "default": true
+        },
+        "cdoctest.exe_listTestUseFile": {
+          "description": "Use file to list tests for executable",
+          "type": "boolean",
+          "default": false
+        },
+        "cdoctest.libPaths": {
+          "description": "Dynamic library paths separated by ';'",
+          "type": "string",
+          "default": ""
+        },
+        "cdoctest.testcaseSeparator": {
+          "description": "Separator between test suite and test case names",
+          "type": "string",
+          "default": "::"
+        },
+        "cdoctest.exe_testcaseSeparator": {
+          "description": "Separator between test suite and test case names for executable tests",
+          "type": "string",
+          "default": "::"
+        },
+        "cdoctest.bin_testRunArgPattern": {
+          "description": "Test run argument pattern for binary",
+          "type": "string",
+          "default": "TC/${test_suite_name}::${test_case_name} output.vsc"
+        },
+        "cdoctest.bin_listTestArgPattern": {
+          "description": "List test argument pattern for binary",
+          "type": "string",
+          "default": "GetTcList:"
+        },
+        "cdoctest.bin_resultFile": {
+          "description": "Result file for binary",
+          "type": "string",
+          "default": "${buildDirectory}/output.vsc"
+        },
+        "cdoctest.bin_executable": {
+          "description": "Executable for binary",
+          "type": "string",
+          "default": ""
+        },
+        "cdoctest.bin_testRunUseFile": {
+          "description": "Use file to run tests for binary",
+          "type": "boolean",
+          "default": true
+        },
+        "cdoctest.bin_listTestUseFile": {
+          "description": "Use file to list tests for binary",
+          "type": "boolean",
+          "default": false
+        },
+        "cdoctest.bin_testcaseSeparator": {
+          "description": "Separator between test suite and test case names for binary tests",
+          "type": "string",
+          "default": "::"
+        },
+        "ctest.buildDirectory": {
+          "description": "CMake build directory containing CTestTestfile.cmake",
+          "type": "string",
+          "default": "build"
+        },
+        "ctest.ctestExecutable": {
+          "description": "Path to ctest executable",
+          "type": "string",
+          "default": "ctest"
+        },
+        "ctest.testFilter": {
+          "description": "Regex pattern to filter tests",
+          "type": "string",
+          "default": ""
+        },
+        "ctest.parallelJobs": {
+          "description": "Number of parallel test jobs",
+          "type": "number",
+          "default": 1
+        },
+        "ctest.buildBeforeTest": {
+          "description": "Build project before running tests",
+          "type": "boolean",
+          "default": true
+        },
+        "ctest.debuggerPath": {
+          "description": "Path to debugger for debug test runs",
+          "type": "string",
+          "default": "gdb"
+        },
+        "cdoctest.buildBeforeTest": {
+          "description": "Build project before running cdoctest tests (bypass build when false)",
+          "type": "boolean",
+          "default": true
+        },
+        "cdoctest.exe_buildBeforeTest": {
+          "description": "Build project before running executable tests (bypass build when false)",
+          "type": "boolean",
+          "default": true
+        },
+        "cdoctest.bin_buildBeforeTest": {
+          "description": "Build project before running binary tests (bypass build when false)",
+          "type": "boolean",
+          "default": true
+        },
+        "cdoctest.coverageLocation": {
+          "description": "Path to the coverage report file (e.g., coverage.info, coverage.lcov)",
+          "type": "string",
+          "default": ""
+        },
+        "cdoctest.coverageGenerateTask": {
+          "description": "Command to execute to generate coverage report from raw data",
+          "type": "string",
+          "default": ""
+        },
+        "cdoctest.coverageRawFilePattern": {
+          "description": "Glob pattern to detect raw coverage files. Use ${executable_folder} for the directory containing the executable and * for wildcards",
+          "type": "string",
+          "default": ""
+        },
+        "cdoctest.coverageThresholdLine": {
+          "description": "Minimum line coverage percentage threshold (0-100). Set to 0 to disable",
+          "type": "number",
+          "default": 0,
+          "minimum": 0,
+          "maximum": 100
+        },
+        "cdoctest.coverageThresholdFunction": {
+          "description": "Minimum function coverage percentage threshold (0-100). Set to 0 to disable",
+          "type": "number",
+          "default": 0,
+          "minimum": 0,
+          "maximum": 100
+        },
+        "cdoctest.coverageThresholdBranch": {
+          "description": "Minimum branch coverage percentage threshold (0-100). Set to 0 to disable",
+          "type": "number",
+          "default": 0,
+          "minimum": 0,
+          "maximum": 100
+        },
+        "cdoctest.coverageWarnIfBelowThreshold": {
+          "description": "Show warning if coverage is below configured thresholds",
+          "type": "boolean",
+          "default": false
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "test-theme",
+  "version": "1.0.0",
+  "environments": {
+    "test": {
+      "port": 4000,
+      "protocol": "http",
+      "url": "http://localhost:4000",
+      "healthCheckUrl": "http://localhost:4000/health"
+    }
+  }
+}

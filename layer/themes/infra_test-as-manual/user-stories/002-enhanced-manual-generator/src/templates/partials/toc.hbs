@@ -1,0 +1,10 @@
+<ul>
+{{#each items}}
+    <li>
+        <a href="#{{id}}">{{title}}</a>
+        {{#if children}}
+        {{> toc items=children}}
+        {{/if}}
+    </li>
+{{/each}}
+</ul>

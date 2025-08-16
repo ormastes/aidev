@@ -1,0 +1,24 @@
+{
+  "extends": "../../../config/typescript/tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "./dist",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true
+  },
+  "include": [
+    "pipe/**/*",
+    "common/**/*",
+    "tests/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage"
+  ],
+  "references": [
+    { "path": "../../themes/lib_cli-framework" },
+    { "path": "../../themes/lib_react-native-base" }
+  ]
+}

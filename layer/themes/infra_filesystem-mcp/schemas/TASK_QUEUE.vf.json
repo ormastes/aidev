@@ -1,0 +1,256 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-08-15T08:03:06.686Z",
+    "updated_at": "2025-08-15T08:03:06.686Z",
+    "total_items": 23,
+    "description": "Migrated from priority-based format",
+    "__subagent_config_comment": "Enable subagent delegation based on environment: For Claude Code use explicit invocation (e.g., 'Use the test-runner subagent'), for Ollama enable role-based agents (ROLE_TESTER, ROLE_FEATURE_MANAGER). See research/subagent-delegation-guide.md for details."
+  },
+  "working_item": null,
+  "queues": {
+    "adhoc_temp_user_request": {
+      "items": [
+        {
+          "id": "task-1755242688996-7u5jjhxgu",
+          "type": "adhoc_temp_user_request",
+          "content": "Create centralized log aggregation service",
+          "parent": "system",
+          "priority": "high",
+          "created_at": "2025-08-15T07:24:48.996Z"
+        },
+        {
+          "id": "task-1755242695735-9wxy23euz",
+          "type": "adhoc_temp_user_request",
+          "content": "Implement log rotation policy",
+          "parent": "system",
+          "priority": "medium",
+          "created_at": "2025-08-15T07:24:55.735Z"
+        },
+        {
+          "id": "task-1755242702613-j88vt5fso",
+          "type": "adhoc_temp_user_request",
+          "content": "Build log analysis dashboard",
+          "parent": "system",
+          "priority": "low",
+          "created_at": "2025-08-15T07:25:02.613Z"
+        }
+      ]
+    },
+    "user_story": {
+      "items": [
+        {
+          "id": "task-manual-navigation",
+          "type": "user_story",
+          "content": "Build Navigation and Search System",
+          "parent": "test-as-manual",
+          "priority": "medium",
+          "created_at": "2025-08-12T15:00:00.000Z"
+        },
+        {
+          "id": "task-manual-theme-specific",
+          "type": "user_story",
+          "content": "Create Theme-Specific Templates",
+          "parent": "test-as-manual",
+          "priority": "medium",
+          "created_at": "2025-08-12T15:00:00.000Z"
+        },
+        {
+          "id": "task-manual-ci-integration",
+          "type": "user_story",
+          "content": "Add CI/CD Integration",
+          "parent": "test-as-manual",
+          "priority": "low",
+          "created_at": "2025-08-12T15:00:00.000Z"
+        },
+        {
+          "id": "task-manual-validation",
+          "type": "user_story",
+          "content": "Implement Validation System",
+          "parent": "test-as-manual",
+          "priority": "low",
+          "created_at": "2025-08-12T15:00:00.000Z"
+        },
+        {
+          "id": "task-manual-dashboard",
+          "type": "user_story",
+          "content": "Create Reporting Dashboard",
+          "parent": "test-as-manual",
+          "priority": "low",
+          "created_at": "2025-08-12T15:00:00.000Z"
+        }
+      ]
+    },
+    "scenarios": {
+      "items": []
+    },
+    "environment_tests": {
+      "items": []
+    },
+    "external_tests": {
+      "items": []
+    },
+    "system_tests_implement": {
+      "items": [
+        {
+          "id": "task-test-embedded-apps",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Embedded Web Applications",
+          "parent": "system-testing",
+          "priority": "critical",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-mcp-integration",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for MCP Integration",
+          "parent": "system-testing",
+          "priority": "critical",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-filesystem-mcp",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for File System MCP",
+          "parent": "system-testing",
+          "priority": "high",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-python-environment",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Python Environment",
+          "parent": "system-testing",
+          "priority": "high",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-docker-integration",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Docker Integration",
+          "parent": "system-testing",
+          "priority": "high",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-realtime-updates",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Real-time Updates",
+          "parent": "system-testing",
+          "priority": "high",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-coverage-aggregation",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Coverage Aggregation",
+          "parent": "system-testing",
+          "priority": "medium",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-llm-coordination",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for LLM Agent Coordination",
+          "parent": "system-testing",
+          "priority": "medium",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-data-import-export",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Data Import/Export",
+          "parent": "system-testing",
+          "priority": "medium",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-qemu-integration",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for QEMU Development Environment",
+          "parent": "system-testing",
+          "priority": "medium",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-gui-generation",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for GUI Generation",
+          "parent": "system-testing",
+          "priority": "low",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-chat-space",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Chat Space Integration",
+          "parent": "system-testing",
+          "priority": "low",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-web-scraping",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Web Scraping Tool",
+          "parent": "system-testing",
+          "priority": "low",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-cucumber-frameworks",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Cucumber BDD Frameworks",
+          "parent": "system-testing",
+          "priority": "low",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-profile-management",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Profile Management",
+          "parent": "system-testing",
+          "priority": "low",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        }
+      ]
+    },
+    "integration_tests_implement": {
+      "items": []
+    },
+    "unit_tests": {
+      "items": []
+    },
+    "integration_tests_verify": {
+      "items": []
+    },
+    "system_tests_verify": {
+      "items": []
+    },
+    "coverage_duplication": {
+      "items": []
+    },
+    "retrospective": {
+      "items": []
+    }
+  },
+  "global_config": {
+    "seldom_display_default": 5,
+    "operation_counters": {}
+  },
+  "priority_order": [
+    "adhoc_temp_user_request",
+    "environment_tests",
+    "external_tests",
+    "system_tests_implement",
+    "integration_tests_implement",
+    "unit_tests",
+    "integration_tests_verify",
+    "system_tests_verify",
+    "scenarios",
+    "user_story",
+    "coverage_duplication",
+    "retrospective"
+  ],
+  "parentQueue": "/layer/themes/infra_filesystem-mcp/TASK_QUEUE.vf.json",
+  "theme": "infra_filesystem-mcp"
+}

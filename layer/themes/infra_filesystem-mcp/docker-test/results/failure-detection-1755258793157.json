@@ -1,0 +1,41 @@
+{
+  "timestamp": "2025-08-15T11:53:13.089Z",
+  "detectionTests": [
+    {
+      "test": "Direct CLAUDE.md modification",
+      "detected": true,
+      "method": "violation_log",
+      "details": "Violation logged in protection-test-1755247341728.json"
+    },
+    {
+      "test": "Root file creation",
+      "detected": false,
+      "method": null,
+      "details": ""
+    },
+    {
+      "test": "TASK_QUEUE.vf.json modification",
+      "detected": false,
+      "method": null,
+      "details": ""
+    },
+    {
+      "test": "FEATURE.vf.json modification",
+      "detected": false,
+      "method": null,
+      "details": ""
+    },
+    {
+      "test": "MCP server violation detection",
+      "detected": false,
+      "method": null,
+      "details": "MCP server not available"
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "detected": 1,
+    "missed": 4,
+    "detectionRate": 20
+  }
+}

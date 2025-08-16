@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "external-log-lib-epic-001",
+    "path": "/layer/themes/external-log-lib/user-stories/003-structured-log-parsing/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.581Z",
+    "updated_at": "2025-08-02T11:10:54.581Z"
+  },
+  "features": {
+    "003_structured_log_parsing": [
+      {
+        "id": "external-log-lib-003-structured-log-parsing",
+        "name": "structured log parsing",
+        "data": {
+          "title": "Structured log parsing",
+          "description": "Implementation of structured log parsing",
+          "level": "user_story",
+          "parent_feature_id": "external-log-lib-epic-001",
+          "epic_id": "external-log-lib-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "external-log-lib",
+            "structured-log-parsing"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/external-log-lib/user-stories/003-structured-log-parsing/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.581Z",
+        "updatedAt": "2025-08-02T11:10:54.581Z"
+      }
+    ]
+  }
+}

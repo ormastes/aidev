@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/themes/mcp-agent/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.591Z",
+    "updated_at": "2025-08-11T14:00:00.000Z"
+  },
+  "features": {
+    "mcp_agent": [
+      {
+        "id": "mcp-agent-001",
+        "name": "MCP Agent Framework",
+        "data": {
+          "title": "Model Context Protocol Agent System",
+          "description": "Comprehensive MCP agent system for orchestrating AI agents with different roles and capabilities",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "critical",
+          "tags": [
+            "mcp",
+            "agents",
+            "orchestration",
+            "ai"
+          ],
+          "virtual_path": "/layer/themes/mcp-agent/FEATURE.vf.json",
+          "components": {
+            "AgentOrchestrator": "Central orchestration system for managing agents",
+            "MCPServerManager": "Manages connections to MCP servers",
+            "SessionManager": "Handles agent sessions with context and history",
+            "CoreAgents": "Developer, Tester, Refactor, TaskManager agents",
+            "SpecializedAgents": "API Checker, DevOps, GUI Coordinator, Mobile Automation",
+            "SupportAgents": "Auth Manager, Context Manager, Feature Manager, Setup"
+          },
+          "capabilities": [
+            "Multiple agent roles and specializations",
+            "MCP server integration (stdio and websocket)",
+            "Session management with context preservation",
+            "Task queue orchestration with priority handling",
+            "Workflow automation for multi-step processes",
+            "Integration with PocketFlow and Chat Space themes"
+          ]
+        },
+        "createdAt": "2025-08-02T11:10:54.591Z",
+        "updatedAt": "2025-08-11T14:00:00.000Z"
+      }
+    ]
+  },
+  "children": []
+}

@@ -1,0 +1,122 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "{timestamp}",
+    "updated_at": "{timestamp}",
+    "description": "{project_name} workspace structure",
+    "project_type": "workspace"
+  },
+  "templates": {
+    "workspace": {
+      "id": "workspace",
+      "type": "directory",
+      "description": "Root workspace template with demo/release/setup hierarchy",
+      "required_children": [
+        { 
+          "name": "demo", 
+          "type": "directory", 
+          "description": "Demo projects and prototypes",
+          "template": "demo_container"
+        },
+        { 
+          "name": "release", 
+          "type": "directory", 
+          "description": "Release builds and deployments",
+          "template": "release_container"
+        },
+        { 
+          "name": "setup", 
+          "type": "directory", 
+          "description": "Setup scripts and tools",
+          "template": "setup_container"
+        },
+        { 
+          "name": "config", 
+          "type": "directory", 
+          "description": "Configuration files",
+          "template": "config_container"
+        },
+        { 
+          "name": "layer", 
+          "type": "directory", 
+          "description": "Layer architecture implementation",
+          "template": "layer_container"
+        },
+        { "name": "FEATURE.md", "type": "file", "description": "Feature backlog" },
+        { "name": "README.md", "type": "file", "description": "Project documentation" },
+        { "name": "TASK_QUEUE.vf.json", "type": "file", "description": "Task queue" },
+        { "name": "CLAUDE.md", "type": "file", "description": "AI assistant configuration" }
+      ],
+      "optional_children": [
+        { "name": "gen", "type": "directory", "description": "Generated files" },
+        { "name": "temp", "type": "directory", "description": "Temporary files" },
+        { "name": "docs", "type": "directory", "description": "Documentation" }
+      ],
+      "constraints": {
+        "max_depth": 10,
+        "forbidden_patterns": ["node_modules", ".git", "*.tmp"]
+      }
+    },
+    "demo_container": {
+      "id": "demo_container",
+      "type": "directory",
+      "description": "Container for demo projects",
+      "allowed_patterns": ["^[a-z][a-z0-9-]*$"],
+      "constraints": {
+        "max_children": 20
+      }
+    },
+    "release_container": {
+      "id": "release_container", 
+      "type": "directory",
+      "description": "Container for release builds",
+      "allowed_patterns": ["^[a-z][a-z0-9-_]*$"],
+      "constraints": {
+        "max_children": 50
+      }
+    },
+    "setup_container": {
+      "id": "setup_container",
+      "type": "directory", 
+      "description": "Container for setup scripts",
+      "required_children": [
+        { "name": "templates", "type": "directory" }
+      ],
+      "constraints": {
+        "file_extensions": [".sh", ".py", ".js", ".json", ".md"]
+      }
+    },
+    "config_container": {
+      "id": "config_container",
+      "type": "directory",
+      "description": "Configuration files container",
+      "constraints": {
+        "file_extensions": [".json", ".yaml", ".yml", ".toml", ".ini", ".env"]
+      }
+    },
+    "layer_container": {
+      "id": "layer_container",
+      "type": "directory",
+      "description": "Layer architecture container",
+      "required_children": [
+        { 
+          "name": "themes", 
+          "type": "directory",
+          "description": "Theme implementations",
+          "template": "themes_container"
+        }
+      ]
+    },
+    "themes_container": {
+      "id": "themes_container",
+      "type": "directory",
+      "description": "Container for theme implementations",
+      "allowed_patterns": ["^[a-z][a-z0-9_]*$"]
+    }
+  },
+  "structure": {
+    "name": ".",
+    "type": "directory",
+    "template": "workspace"
+  }
+}

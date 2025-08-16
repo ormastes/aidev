@@ -1,0 +1,46 @@
+# Development Dockerfile Template with Hot Reload
+FROM node:18-alpine
+
+# Install development tools
+RUN apk add --no-cache \
+    git \
+    python3 \
+    make \
+    g++ \
+    curl \
+    bash \
+    vim
+
+# Install global development dependencies
+RUN npm install -g \
+    nodemon \
+    ts-node \
+    typescript \
+    @types/node
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install all dependencies (including devDependencies)
+RUN npm ci
+
+# Copy TypeScript configuration
+COPY tsconfig.json* ./
+
+# Copy source code (will be overridden by volume mount in dev)
+COPY . .
+
+# Expose application port
+EXPOSE 3000
+
+# Expose debugger port
+EXPOSE 9229
+
+# Health check
+HEALTHCHECK --interval=10s --timeout=3s --retries=3 \
+    CMD curl -f http://localhost:3000/health || exit 1
+
+# Development command with debugging enabled
+CMD ["nodemon", "--inspect=0.0.0.0:9229", "--watch", "src", "--ext", "ts,js,json", "--exec", "ts-node", "src/index.ts"]

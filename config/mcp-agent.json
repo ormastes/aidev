@@ -1,0 +1,155 @@
+{
+  "agents": {
+    "claude": {
+      "name": "Claude Coordinator Agent",
+      "path": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent",
+      "command": "npm start",
+      "description": "Claude API-based coordinator with session management",
+      "features": [
+        "session-persistence",
+        "interrupt-handling",
+        "dangerous-mode",
+        "task-queue-integration"
+      ]
+    },
+    "ollama": {
+      "name": "Ollama MCP Agent",
+      "path": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration",
+      "command": "npm start",
+      "description": "Ollama-backed local LLM with DeepSeek R1 14B",
+      "features": [
+        "auto-install",
+        "server-management",
+        "mcp-protocol",
+        "deepseek-r1-14b",
+        "streaming-support"
+      ],
+      "config": {
+        "defaultModel": "deepseek-r1:14b",
+        "port": 11434,
+        "autoSetup": true
+      }
+    },
+    "vllm": {
+      "name": "VLLM MCP Agent",
+      "path": "layer/themes/vllm-mcp-agent/user-stories/012-vllm-mcp-integration",
+      "command": "npm start",
+      "description": "High-performance VLLM server with GPU acceleration",
+      "features": [
+        "auto-install",
+        "server-management",
+        "mcp-protocol",
+        "gpu-acceleration",
+        "huggingface-models",
+        "openai-compatible",
+        "streaming-support",
+        "tensor-parallelism"
+      ],
+      "config": {
+        "defaultModel": "meta-llama/Llama-2-7b-chat-hf",
+        "port": 8000,
+        "gpu": true,
+        "tensorParallelSize": 1,
+        "autoSetup": true
+      }
+    }
+  },
+  "routing": {
+    "default": "claude",
+    "fallback": "ollama",
+    "rules": [
+      {
+        "pattern": "local|offline|private",
+        "agent": "ollama"
+      },
+      {
+        "pattern": "claude|anthropic",
+        "agent": "claude"
+      },
+      {
+        "pattern": "vllm|gpu|performance|huggingface",
+        "agent": "vllm"
+      }
+    ]
+  },
+  "integration": {
+    "chatSpace": {
+      "enabled": true,
+      "agents": ["claude", "ollama", "vllm"]
+    },
+    "pocketflow": {
+      "enabled": true,
+      "agents": ["claude", "ollama", "vllm"]
+    },
+    "coordinator": {
+      "primaryAgent": "claude",
+      "secondaryAgent": "ollama",
+      "tertiaryAgent": "vllm",
+      "mode": "complementary"
+    }
+  },
+  "mcpServers": {
+    "filesystem-mcp": {
+      "command": "node",
+      "args": [
+        "layer/themes/infra_filesystem-mcp/dist/mcp-main.js"
+      ],
+      "env": {
+        "VF_BASE_PATH": "/home/ormastes/dev/aidev",
+        "NODE_ENV": "production"
+      },
+      "description": "Standard filesystem MCP server for virtual file operations"
+    }
+  },
+  "mcpRouting": {
+    "vf_*": "filesystem-mcp"
+  },
+  "features": {
+    "artifactValidation": true,
+    "taskDependencyChecking": true,
+    "featureTaskLinking": true,
+    "adhocJustification": true,
+    "lifecycleManagement": true,
+    "rootFilePrevention": true,
+    "nameIdValidation": true,
+    "duplicatePurposeDetection": true
+  },
+  "validation": {
+    "allowedRootFiles": [
+      "README.md",
+      "CLAUDE.md",
+      "package.json",
+      "tsconfig.json",
+      ".gitignore",
+      "NAME_ID.vf.json",
+      "TASK_QUEUE.vf.json",
+      "FEATURE.vf.json",
+      "FILE_STRUCTURE.vf.json",
+      "pyproject.toml",
+      ".behaverc",
+      ".python-version",
+      "bun.lock",
+      "bunfig.toml"
+    ],
+    "allowedDirectories": [
+      "gen/doc",
+      "layer/themes",
+      "layer/epics",
+      "config",
+      "scripts",
+      "tests",
+      "test/system",
+      "common",
+      "demo",
+      "examples",
+      "xlib",
+      "src",
+      "fraud-checker",
+      "security",
+      "monitoring",
+      "research",
+      "llm_rules",
+      "_aidev"
+    ]
+  }
+}

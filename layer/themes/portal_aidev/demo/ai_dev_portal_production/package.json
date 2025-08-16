@@ -1,0 +1,35 @@
+{
+  "name": "ai-dev-portal-production",
+  "version": "1.0.0",
+  "description": "AI Development Portal Demo with E2E Testing",
+  "main": "server.js",
+  "scripts": {
+    "init-db": "node init-db.js",
+    "init-db:postgres": "node init-db-postgres.js",
+    "start": "NODE_ENV=production node server.js",
+    "start:postgres": "node server-postgres.js",
+    "dev": "NODE_ENV=development node server.js",
+    "dev:postgres": "nodemon server-postgres.js",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "demo": "NODE_ENV=demo node server.js",
+    "init-db:dev": "NODE_ENV=development node init-db.js",
+    "init-db:demo": "NODE_ENV=demo node init-db.js",
+    "init-db:prod": "NODE_ENV=production node init-db.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "nodemon": "^3.0.1",
+    "sqlite3": "^5.1.7"
+  }
+}

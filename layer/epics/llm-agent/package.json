@@ -1,0 +1,45 @@
+{
+  "name": "@llm-agent/epic",
+  "version": "1.0.0",
+  "description": "LLM Agent Epic - Unified AI agent infrastructure",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "setup": "./init/setup/install-all.sh",
+    "build": "tsc",
+    "build:all": "./init/setup/build-all.sh",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "test:all": "npm run test && npm run test:themes",
+    "test:themes": "for theme in ../../themes/llm-agent_*; do (cd $theme && npm test); done",
+    "clean": "rm -rf dist",
+    "env:generate": "./init/setup/generate-env.sh"
+  },
+  "workspaces": [
+    "./init/types",
+    "../../themes/llm-agent_*"
+  ],
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "eventemitter3": "^5.0.1",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.11",
+    "@types/node": "^20.10.5",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.3.3"
+  },
+  "keywords": [
+    "llm",
+    "agent",
+    "ai",
+    "claude",
+    "ollama",
+    "vllm",
+    "mcp"
+  ],
+  "author": "AI Dev Platform",
+  "license": "MIT"
+}

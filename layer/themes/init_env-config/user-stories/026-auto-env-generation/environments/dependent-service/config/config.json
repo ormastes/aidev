@@ -1,0 +1,24 @@
+{
+  "name": "dependent-service",
+  "type": "theme",
+  "port": {
+    "base": 3200,
+    "range": [
+      3201,
+      3299
+    ]
+  },
+  "database": {
+    "type": "sqlite",
+    "connection": "./data/dependent-service.db"
+  },
+  "paths": {
+    "root": "environments/dependent-service",
+    "data": "environments/dependent-service/data",
+    "logs": "environments/dependent-service/logs",
+    "temp": "environments/dependent-service/temp"
+  },
+  "services": [],
+  "created": "2025-08-11T02:04:17.043Z",
+  "updated": "2025-08-11T02:04:17.043Z"
+}

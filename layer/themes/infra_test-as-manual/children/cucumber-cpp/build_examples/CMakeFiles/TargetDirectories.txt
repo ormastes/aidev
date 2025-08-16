@@ -1,0 +1,12 @@
+/home/ormastes/dev/aidev/layer/themes/infra_test-as-manual/children/cucumber-cpp/build_examples/CMakeFiles/calculator_example.dir
+/home/ormastes/dev/aidev/layer/themes/infra_test-as-manual/children/cucumber-cpp/build_examples/CMakeFiles/test_runner.dir
+/home/ormastes/dev/aidev/layer/themes/infra_test-as-manual/children/cucumber-cpp/build_examples/CMakeFiles/manual_test_example.dir
+/home/ormastes/dev/aidev/layer/themes/infra_test-as-manual/children/cucumber-cpp/build_examples/CMakeFiles/run_tests.dir
+/home/ormastes/dev/aidev/layer/themes/infra_test-as-manual/children/cucumber-cpp/build_examples/CMakeFiles/run_smoke_tests.dir
+/home/ormastes/dev/aidev/layer/themes/infra_test-as-manual/children/cucumber-cpp/build_examples/CMakeFiles/dry_run.dir
+/home/ormastes/dev/aidev/layer/themes/infra_test-as-manual/children/cucumber-cpp/build_examples/CMakeFiles/edit_cache.dir
+/home/ormastes/dev/aidev/layer/themes/infra_test-as-manual/children/cucumber-cpp/build_examples/CMakeFiles/rebuild_cache.dir
+/home/ormastes/dev/aidev/layer/themes/infra_test-as-manual/children/cucumber-cpp/build_examples/CMakeFiles/list_install_components.dir
+/home/ormastes/dev/aidev/layer/themes/infra_test-as-manual/children/cucumber-cpp/build_examples/CMakeFiles/install.dir
+/home/ormastes/dev/aidev/layer/themes/infra_test-as-manual/children/cucumber-cpp/build_examples/CMakeFiles/install/local.dir
+/home/ormastes/dev/aidev/layer/themes/infra_test-as-manual/children/cucumber-cpp/build_examples/CMakeFiles/install/strip.dir

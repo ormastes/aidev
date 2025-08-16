@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "../../../",
+    "outDir": "../../../dist",
+    "composite": true
+  },
+  "references": [
+    { "path": "../types" },
+    { "path": "../.." },
+    { "path": "../../../themes/llm-agent_coordinator-claude" },
+    { "path": "../../../themes/llm-agent_coordinator-ollama" },
+    { "path": "../../../themes/llm-agent_coordinator-vllm" },
+    { "path": "../../../themes/llm-agent_mcp" },
+    { "path": "../../../themes/llm-agent_chat-space" },
+    { "path": "../../../themes/llm-agent_pocketflow" }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "env-config-epic-001",
+    "path": "/layer/themes/init_env-config/user-stories/026-auto-env-generation/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.579Z",
+    "updated_at": "2025-08-02T11:10:54.579Z"
+  },
+  "features": {
+    "026_auto_env_generation": [
+      {
+        "id": "env-config-026-auto-env-generation",
+        "name": "auto env generation",
+        "data": {
+          "title": "Auto env generation",
+          "description": "Implementation of auto env generation",
+          "level": "user_story",
+          "parent_feature_id": "env-config-epic-001",
+          "epic_id": "env-config-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "env-config",
+            "auto-env-generation"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/init_env-config/user-stories/026-auto-env-generation/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.579Z",
+        "updatedAt": "2025-08-02T11:10:54.579Z"
+      }
+    ]
+  }
+}

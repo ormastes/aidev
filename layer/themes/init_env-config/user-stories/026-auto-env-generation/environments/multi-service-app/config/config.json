@@ -1,0 +1,24 @@
+{
+  "name": "multi-service-app",
+  "type": "theme",
+  "port": {
+    "base": 3200,
+    "range": [
+      3201,
+      3299
+    ]
+  },
+  "database": {
+    "type": "sqlite",
+    "connection": "./data/multi-service-app.db"
+  },
+  "paths": {
+    "root": "environments/multi-service-app",
+    "data": "environments/multi-service-app/data",
+    "logs": "environments/multi-service-app/logs",
+    "temp": "environments/multi-service-app/temp"
+  },
+  "services": [],
+  "created": "2025-08-11T02:04:29.997Z",
+  "updated": "2025-08-11T02:04:29.997Z"
+}

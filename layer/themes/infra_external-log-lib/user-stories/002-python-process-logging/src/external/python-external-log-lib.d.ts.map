@@ -1,0 +1,1 @@
+{"version":3,"file":"python-external-log-lib.d.ts","sourceRoot":"","sources":["python-external-log-lib.ts"],"names":[],"mappings":"AAAA,OAAO,EACL,QAAQ,EACR,cAAc,EACd,kBAAkB,EACnB,MAAM,8DAA8D,CAAC;AAGtE,qBAAa,oBAAqB,SAAQ,kBAAmB,YAAW,cAAc;IACpF,YAAY,CAAC,IAAI,EAAE,MAAM,EAAE,MAAM,EAAE,QAAQ,GAAG,QAAQ,GAAG,QAAQ;CAelE;AAGD,eAAO,MAAM,oBAAoB,sBAA6B,CAAC"}

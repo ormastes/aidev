@@ -1,0 +1,22 @@
+{
+  "name": "gui-cpp-cef",
+  "description": "Desktop GUI application using C++ with Chromium Embedded Framework",
+  "type": "gui-desktop",
+  "language": "cpp",
+  "framework": "cef",
+  "test_framework": "catch2-cucumber",
+  "supported_platforms": ["linux", "windows", "macos"],
+  "supported_architectures": ["x86_64"],
+  "dependencies": {
+    "cmake": ">=3.20",
+    "gcc": ">=11.0",
+    "cef": "latest"
+  },
+  "files": {
+    "src/main.cpp": "#include <iostream>\n#include \"include/cef_app.h\"\n#include \"include/cef_browser.h\"\n#include \"include/cef_client.h\"\n#include \"include/wrapper/cef_helpers.h\"\n\nclass SimpleApp : public CefApp, public CefBrowserProcessHandler {\npublic:\n    SimpleApp() {}\n    \n    virtual CefRefPtr<CefBrowserProcessHandler> GetBrowserProcessHandler() override {\n        return this;\n    }\n    \n    virtual void OnContextInitialized() override {\n        CEF_REQUIRE_UI_THREAD();\n        \n        CefWindowInfo window_info;\n        window_info.SetAsPopup(NULL, \"${PROJECT_NAME}\");\n        \n        CefBrowserSettings browser_settings;\n        CefRefPtr<CefClient> client;\n        \n        std::string url = \"file://\" + std::string(CMAKE_CURRENT_SOURCE_DIR) + \"/html/index.html\";\n        CefBrowserHost::CreateBrowser(window_info, client, url, browser_settings, nullptr, nullptr);\n    }\n    \nprivate:\n    IMPLEMENT_REFCOUNTING(SimpleApp);\n};\n\nint main(int argc, char* argv[]) {\n    CefMainArgs main_args(argc, argv);\n    CefRefPtr<SimpleApp> app(new SimpleApp);\n    \n    int exit_code = CefExecuteProcess(main_args, app, nullptr);\n    if (exit_code >= 0) {\n        return exit_code;\n    }\n    \n    CefSettings settings;\n    settings.no_sandbox = true;\n    \n    CefInitialize(main_args, settings, app, nullptr);\n    CefRunMessageLoop();\n    CefShutdown();\n    \n    return 0;\n}",
+    "html/index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>${PROJECT_NAME}</title>\n    <style>\n        body {\n            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n            padding: 20px;\n            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n            color: white;\n        }\n        h1 { font-size: 2.5em; }\n        button {\n            padding: 10px 20px;\n            font-size: 16px;\n            background: white;\n            color: #667eea;\n            border: none;\n            border-radius: 5px;\n            cursor: pointer;\n        }\n    </style>\n</head>\n<body>\n    <h1>C++ CEF Application</h1>\n    <p>Platform: <span id=\"platform\"></span></p>\n    <button onclick=\"showMessage()\">Click Me</button>\n    <div id=\"message\"></div>\n    <script>\n        document.getElementById('platform').innerText = navigator.platform;\n        \n        function showMessage() {\n            document.getElementById('message').innerText = 'Hello from CEF!';\n        }\n    </script>\n</body>\n</html>",
+    "CMakeLists.txt": "cmake_minimum_required(VERSION 3.20)\nproject(${PROJECT_NAME})\n\nset(CMAKE_CXX_STANDARD 17)\n\n# Find CEF\nfind_package(CEF REQUIRED)\n\n# Add executable\nadd_executable(${PROJECT_NAME} src/main.cpp)\n\n# Link CEF\ntarget_link_libraries(${PROJECT_NAME} ${CEF_LIBRARIES})\n\n# Copy HTML files\nfile(COPY html DESTINATION ${CMAKE_BINARY_DIR})\n\n# Add tests\nenable_testing()\nadd_subdirectory(tests)",
+    "tests/test_main.cpp": "#define CATCH_CONFIG_MAIN\n#include <catch2/catch.hpp>\n\nTEST_CASE(\"Application launches\", \"[gui]\") {\n    // Test implementation\n    REQUIRE(true);\n}\n\nSCENARIO(\"User interacts with GUI\", \"[gui][cucumber]\") {\n    GIVEN(\"The application is running\") {\n        // Setup\n        WHEN(\"User clicks the button\") {\n            // Action\n            THEN(\"Message is displayed\") {\n                // Verification\n                REQUIRE(true);\n            }\n        }\n    }\n}",
+    "tests/features/gui.feature": "Feature: CEF Desktop Application\n  Scenario: Application starts successfully\n    Given the CEF application is launched\n    When the main window appears\n    Then the title should be \"${PROJECT_NAME}\"\n    \n  Scenario: Button interaction\n    Given the application is running\n    When I click the \"Click Me\" button\n    Then I should see \"Hello from CEF!\""
+  }
+}

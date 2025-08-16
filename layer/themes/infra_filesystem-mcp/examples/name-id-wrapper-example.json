@@ -1,0 +1,70 @@
+{
+  "wrapperType": "VFNameIdWrapper",
+  "config": {
+    "basePath": "/data/entities",
+    "encoding": "utf-8",
+    "schemaValidation": true,
+    "allowedExtensions": [".json"]
+  },
+  "nameIdWrapper": {
+    "entities": {
+      "user-service": [
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440001",
+          "name": "user-service",
+          "type": "microservice",
+          "data": {
+            "port": 3001,
+            "version": "1.2.0",
+            "endpoints": ["/api/users", "/api/auth"]
+          },
+          "metadata": {
+            "created": "2024-01-19T09:00:00Z",
+            "updated": "2024-01-19T10:00:00Z",
+            "version": 1,
+            "tags": ["production", "critical"]
+          }
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440002",
+          "name": "user-service",
+          "type": "microservice",
+          "data": {
+            "port": 3002,
+            "version": "1.3.0-beta",
+            "endpoints": ["/api/users", "/api/auth", "/api/profile"]
+          },
+          "metadata": {
+            "created": "2024-01-19T11:00:00Z",
+            "updated": "2024-01-19T11:30:00Z",
+            "version": 1,
+            "tags": ["staging", "beta"]
+          }
+        }
+      ],
+      "config-service": [
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440003",
+          "name": "config-service",
+          "type": "microservice",
+          "data": {
+            "port": 3003,
+            "version": "2.0.0",
+            "configTypes": ["app", "database", "cache"]
+          },
+          "metadata": {
+            "created": "2024-01-18T08:00:00Z",
+            "updated": "2024-01-19T08:00:00Z",
+            "version": 2,
+            "tags": ["production", "configuration"]
+          }
+        }
+      ]
+    },
+    "searchParams": {
+      "name": "user-service",
+      "tags": ["production"],
+      "limit": 10
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "aidev-portal-epic-001",
+    "path": "/layer/themes/aidev-portal/user-stories/024-aidev-portal/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.564Z",
+    "updated_at": "2025-08-02T11:10:54.564Z"
+  },
+  "features": {
+    "024_aidev_portal": [
+      {
+        "id": "aidev-portal-024-aidev-portal",
+        "name": "aidev portal",
+        "data": {
+          "title": "Aidev portal",
+          "description": "Implementation of aidev portal",
+          "level": "user_story",
+          "parent_feature_id": "aidev-portal-epic-001",
+          "epic_id": "aidev-portal-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "aidev-portal",
+            "aidev-portal"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/aidev-portal/user-stories/024-aidev-portal/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.564Z",
+        "updatedAt": "2025-08-02T11:10:54.564Z"
+      }
+    ]
+  }
+}

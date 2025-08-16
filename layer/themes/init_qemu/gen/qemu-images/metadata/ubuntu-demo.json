@@ -1,0 +1,15 @@
+{
+  "id": "995d98fc9d8e",
+  "name": "ubuntu-demo",
+  "format": "qcow2",
+  "size": "20G",
+  "sizeBytes": 21474836480,
+  "actualSize": 513,
+  "distro": "ubuntu",
+  "version": "22.04",
+  "path": "/home/ormastes/dev/aidev/layer/themes/init_qemu/gen/qemu-images/images/ubuntu-demo.qcow2",
+  "created": "2025-08-13T04:19:19.846Z",
+  "type": "mock",
+  "bootable": false,
+  "description": "Mock QEMU image for demonstration"
+}

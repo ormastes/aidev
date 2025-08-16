@@ -1,0 +1,184 @@
+{
+  "reportId": "story-report-1752990784299",
+  "timestamp": "2025-07-20T05:53:04.299Z",
+  "roomId": "calculator-demo",
+  "storyId": "US001_Calculator_BasicMath",
+  "storyStatus": "In Progress",
+  "narrative": "Story US001_Calculator_BasicMath: 🔄 In Progress - All 7 system tests In Progress with 89.2% coverage.",
+  "systemTests": [
+    {
+      "name": "test_US001_SD001_addition",
+      "storyId": "US001",
+      "diagramId": "SD001",
+      "status": "In Progress",
+      "coverage": 89.18,
+      "duration": 4,
+      "externalCalls": [
+        "ext_cache_get",
+        "ext_logger_write"
+      ]
+    },
+    {
+      "name": "test_US001_SD001_multiplication",
+      "storyId": "US001",
+      "diagramId": "SD001",
+      "status": "In Progress",
+      "coverage": 89.18,
+      "duration": 1,
+      "externalCalls": [
+        "ext_cache_get",
+        "ext_database_query"
+      ]
+    },
+    {
+      "name": "test_US001_SD001_division",
+      "storyId": "US001",
+      "diagramId": "SD001",
+      "status": "In Progress",
+      "coverage": 89.18,
+      "duration": 6,
+      "externalCalls": []
+    },
+    {
+      "name": "test_US001_SD001_subtraction",
+      "storyId": "US001",
+      "diagramId": "SD001",
+      "status": "In Progress",
+      "coverage": 89.18,
+      "duration": 1,
+      "externalCalls": []
+    },
+    {
+      "name": "test_US001_SD001_string_expressions",
+      "storyId": "US001",
+      "diagramId": "SD001",
+      "status": "In Progress",
+      "coverage": 89.18,
+      "duration": 2,
+      "externalCalls": [
+        "ext_http_request"
+      ]
+    },
+    {
+      "name": "test_US001_SD001_division_by_zero",
+      "storyId": "US001",
+      "diagramId": "SD001",
+      "status": "In Progress",
+      "coverage": 89.18,
+      "duration": 21,
+      "externalCalls": [
+        "ext_logger_write"
+      ]
+    },
+    {
+      "name": "test_US001_SD001_invalid_expressions",
+      "storyId": "US001",
+      "diagramId": "SD001",
+      "status": "In Progress",
+      "coverage": 89.18,
+      "duration": 2,
+      "externalCalls": []
+    }
+  ],
+  "coverage": {
+    "overall": {
+      "statements": 89.18,
+      "branches": 88.88,
+      "functions": 77.77,
+      "lines": 89.18
+    },
+    "byTest": {
+      "test_US001_SD001_addition": {
+        "statements": 89.18,
+        "branches": 88.88,
+        "functions": 77.77,
+        "lines": 89.18
+      },
+      "test_US001_SD001_multiplication": {
+        "statements": 89.18,
+        "branches": 88.88,
+        "functions": 77.77,
+        "lines": 89.18
+      },
+      "test_US001_SD001_division": {
+        "statements": 89.18,
+        "branches": 88.88,
+        "functions": 77.77,
+        "lines": 89.18
+      },
+      "test_US001_SD001_subtraction": {
+        "statements": 89.18,
+        "branches": 88.88,
+        "functions": 77.77,
+        "lines": 89.18
+      },
+      "test_US001_SD001_string_expressions": {
+        "statements": 89.18,
+        "branches": 88.88,
+        "functions": 77.77,
+        "lines": 89.18
+      },
+      "test_US001_SD001_division_by_zero": {
+        "statements": 89.18,
+        "branches": 88.88,
+        "functions": 77.77,
+        "lines": 89.18
+      },
+      "test_US001_SD001_invalid_expressions": {
+        "statements": 89.18,
+        "branches": 88.88,
+        "functions": 77.77,
+        "lines": 89.18
+      }
+    }
+  },
+  "externalAccess": {
+    "totalCalls": 45,
+    "byFunction": {
+      "ext_cache_get": {
+        "count": 12
+      },
+      "ext_database_query": {
+        "count": 8
+      },
+      "ext_logger_write": {
+        "count": 20
+      },
+      "ext_http_request": {
+        "count": 5
+      }
+    },
+    "byType": {
+      "cache": 12,
+      "database": 8,
+      "logging": 20,
+      "http": 5
+    }
+  },
+  "sequenceDiagrams": [
+    {
+      "id": "SD001_Calculator_ProcessRequest",
+      "expectedCalls": [
+        "ext_cache_get",
+        "ext_database_query",
+        "ext_logger_write"
+      ],
+      "actualCalls": [
+        "ext_cache_get",
+        "ext_database_query",
+        "ext_logger_write",
+        "ext_http_request"
+      ],
+      "validation": {
+        "matched": true,
+        "missing": [],
+        "unexpected": [
+          "ext_http_request"
+        ]
+      }
+    }
+  ],
+  "events": 37,
+  "failureReasons": [],
+  "generatedAt": "2025-07-20T05:53:04.299Z"
+}

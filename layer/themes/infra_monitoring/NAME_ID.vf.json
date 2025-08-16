@@ -1,0 +1,25 @@
+{
+  "type": "name_id",
+  "version": "1.0.0",
+  "metadata": {
+    "title": "Infrastructure Monitoring Name-ID Registry",
+    "theme": "infra_monitoring",
+    "created": "2025-08-16"
+  },
+  "entities": [
+    {
+      "id": "pipe-001",
+      "name": "MonitoringPipe",
+      "type": "gateway",
+      "description": "Main gateway for monitoring services",
+      "location": "pipe/index.ts"
+    },
+    {
+      "id": "config-001",
+      "name": "MonitoringConfig",
+      "type": "interface",
+      "description": "Configuration interface for monitoring services",
+      "location": "pipe/index.ts"
+    }
+  ]
+}

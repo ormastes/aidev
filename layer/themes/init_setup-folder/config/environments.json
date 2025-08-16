@@ -1,0 +1,202 @@
+{
+  "environments": {
+    "qemu": {
+      "type": "virtualization",
+      "platforms": {
+        "x86_64": {
+          "executable": "qemu-system-x86_64",
+          "cpu": "host",
+          "architecture": "x86_64",
+          "defaultMemory": "4G",
+          "defaultCores": 4,
+          "features": ["kvm", "avx2", "numa", "virtfs"],
+          "debugging": {
+            "gdbPort": 1234,
+            "monitorPort": 4444,
+            "serialPort": 6666
+          }
+        },
+        "aarch64": {
+          "executable": "qemu-system-aarch64",
+          "cpu": "cortex-a72",
+          "architecture": "aarch64",
+          "defaultMemory": "2G",
+          "defaultCores": 2,
+          "features": ["virtio", "gic-version=3"]
+        },
+        "riscv64": {
+          "executable": "qemu-system-riscv64",
+          "cpu": "rv64",
+          "architecture": "riscv64",
+          "defaultMemory": "2G",
+          "defaultCores": 2,
+          "features": ["virtio"]
+        }
+      },
+      "networking": {
+        "mode": "user",
+        "portForwarding": {
+          "ssh": { "host": 6665, "guest": 22 },
+          "http": { "host": 8080, "guest": 80 },
+          "https": { "host": 8443, "guest": 443 },
+          "debug": { "host": 9000, "guest": 9000 }
+        },
+        "portRange": {
+          "start": 9001,
+          "end": 9010
+        }
+      },
+      "storage": {
+        "defaultFormat": "qcow2",
+        "defaultSize": "20G",
+        "nvme": {
+          "enabled": true,
+          "type": "ocssd",
+          "groups": 2,
+          "processingUnits": 4,
+          "chunks": 60
+        }
+      },
+      "sharedFolders": {
+        "enabled": true,
+        "mountTag": "share",
+        "securityModel": "none",
+        "defaultPath": "./shared"
+      },
+      "passthrough": {
+        "vfio": {
+          "enabled": false,
+          "devices": []
+        }
+      }
+    },
+    "docker": {
+      "type": "containerization",
+      "platforms": {
+        "linux/amd64": {
+          "architecture": "x86_64",
+          "defaultImage": "ubuntu:22.04",
+          "runtime": "runc"
+        },
+        "linux/arm64": {
+          "architecture": "aarch64",
+          "defaultImage": "ubuntu:22.04",
+          "runtime": "runc"
+        }
+      },
+      "networking": {
+        "defaultNetwork": "bridge",
+        "portForwarding": {
+          "ssh": { "host": 2222, "guest": 22 },
+          "http": { "host": 8080, "guest": 80 }
+        }
+      },
+      "storage": {
+        "driver": "overlay2",
+        "volumes": {
+          "defaultPath": "./volumes"
+        }
+      },
+      "debugging": {
+        "enabled": true,
+        "capabilities": ["SYS_PTRACE"],
+        "securityOpt": ["seccomp=unconfined"]
+      }
+    },
+    "uv": {
+      "type": "python-environment",
+      "pythonVersions": ["3.9", "3.10", "3.11", "3.12"],
+      "defaultVersion": "3.11",
+      "packageManager": "uv",
+      "virtualEnvPath": ".venv",
+      "dependencies": {
+        "development": ["pytest", "black", "mypy", "ruff"],
+        "debugging": ["debugpy", "ipdb"]
+      }
+    },
+    "node": {
+      "type": "javascript-runtime",
+      "versions": ["18", "20", "22"],
+      "defaultVersion": "20",
+      "packageManager": "npm",
+      "debugging": {
+        "inspectPort": 9229,
+        "protocol": "inspector"
+      }
+    },
+    "rust": {
+      "type": "systems-language",
+      "toolchain": "stable",
+      "targets": ["x86_64-unknown-linux-gnu", "wasm32-unknown-unknown"],
+      "components": ["rust-src", "rustfmt", "clippy"],
+      "debugging": {
+        "lldb": true,
+        "gdb": true
+      }
+    }
+  },
+  "osConfigurations": {
+    "ubuntu": {
+      "versions": ["20.04", "22.04", "24.04"],
+      "architecture": ["x86_64", "aarch64"],
+      "packages": {
+        "base": ["build-essential", "git", "curl", "wget", "vim"],
+        "development": ["gcc", "g++", "make", "cmake", "ninja-build"],
+        "debugging": ["gdb", "gdbserver", "valgrind", "strace"]
+      }
+    },
+    "alpine": {
+      "versions": ["3.17", "3.18", "3.19"],
+      "architecture": ["x86_64", "aarch64"],
+      "packages": {
+        "base": ["alpine-sdk", "git", "curl"],
+        "development": ["gcc", "g++", "make", "cmake"],
+        "debugging": ["gdb", "strace"]
+      }
+    },
+    "debian": {
+      "versions": ["11", "12"],
+      "architecture": ["x86_64", "aarch64", "armhf"],
+      "packages": {
+        "base": ["build-essential", "git", "curl"],
+        "development": ["gcc", "g++", "make", "cmake"],
+        "debugging": ["gdb", "gdbserver", "valgrind"]
+      }
+    }
+  },
+  "debugConfigurations": {
+    "gdb": {
+      "remote": {
+        "host": "localhost",
+        "port": 1234,
+        "protocol": "tcp"
+      },
+      "commands": [
+        "target remote :1234",
+        "set sysroot /path/to/sysroot",
+        "set substitute-path /src /path/to/source"
+      ]
+    },
+    "lldb": {
+      "remote": {
+        "host": "localhost",
+        "port": 1234,
+        "protocol": "gdb-remote"
+      }
+    },
+    "vscode": {
+      "launch": {
+        "type": "cppdbg",
+        "MIMode": "gdb",
+        "miDebuggerServerAddress": "localhost:1234",
+        "setupCommands": [
+          {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ]
+      }
+    }
+  }
+}

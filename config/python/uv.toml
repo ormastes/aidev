@@ -1,0 +1,147 @@
+# UV Configuration for AI Development Platform
+# https://github.com/astral-sh/uv
+
+[tool.uv]
+# Python version constraint
+python = ">=3.10,<3.13"
+
+# Virtual environment settings
+venv = ".venv"
+venv-seed = true
+
+# Performance settings
+compile = true
+no-cache = false
+concurrent-builds = 4
+concurrent-downloads = 8
+
+# Index settings
+index-url = "https://pypi.org/simple"
+extra-index-url = []
+trusted-host = []
+
+# Installation settings
+reinstall = false
+reinstall-package = []
+upgrade = false
+upgrade-package = []
+pre = false
+
+# Development settings
+dev = true
+editable = true
+
+# Output settings
+quiet = false
+verbose = false
+color = "auto"
+
+# Cache settings
+cache-dir = "~/.cache/uv"
+no-cache-dir = false
+
+# Platform settings
+platform = "auto"  # auto, linux, macos, windows
+universal = false
+
+# Security settings
+require-hashes = false
+no-deps = false
+only-deps = false
+
+# Project settings
+[project]
+name = "aidev-platform"
+version = "1.0.0"
+description = "AI Development Platform with Python Support"
+authors = ["AI Dev Team"]
+requires-python = ">=3.10"
+
+# Main dependencies
+dependencies = [
+    "behave>=1.2.6",
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.5.0",
+    "coverage[toml]>=7.3.0",
+    "libclang>=16.0.0",
+    "requests>=2.31.0",
+    "python-dotenv>=1.0.0",
+    "pyyaml>=6.0.1",
+    "jinja2>=3.1.2",
+    "click>=8.1.7",
+    "rich>=13.5.0",
+    "watchdog>=3.0.0",
+]
+
+# Development dependencies
+[project.optional-dependencies]
+dev = [
+    "ipython>=8.15.0",
+    "jupyter>=1.0.0",
+    "notebook>=7.0.0",
+    "pre-commit>=3.4.0",
+]
+
+ml = [
+    "torch>=2.0.0",
+    "transformers>=4.30.0",
+    "vllm>=0.2.0",
+    "openai>=1.0.0",
+    "langchain>=0.1.0",
+]
+
+test = [
+    "pytest-xdist>=3.3.0",
+    "pytest-mock>=3.11.0",
+    "pytest-benchmark>=4.0.0",
+    "hypothesis>=6.88.0",
+    "faker>=19.12.0",
+]
+
+docs = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.4.0",
+    "mkdocstrings[python]>=0.23.0",
+]
+
+# Scripts
+[project.scripts]
+aidev = "src.cli:main"
+test-creator = "demo.test_creator.main:main"
+coverage-analyzer = "src.coverage_analyzer:main"
+
+# Build settings
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# UV-specific workspace settings
+[tool.uv.workspace]
+members = [
+    "layer/themes/*/",
+    "layer/epics/*/",
+    "demo/*",
+]
+
+# UV pip settings (for compatibility)
+[tool.uv.pip]
+index-url = "https://pypi.org/simple"
+extra-index-url = []
+trusted-host = []
+find-links = []
+no-binary = []
+only-binary = []
+prefer-binary = false
+require-hashes = false
+pre = false
+compile = true
+
+# Resolution strategy
+[tool.uv.resolution]
+strategy = "highest"  # highest, lowest, compatible
+override = []
+exclude = []

@@ -1,0 +1,63 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/epics/mcp/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-03T04:00:00.000Z",
+    "updated_at": "2025-08-03T04:00:00.000Z"
+  },
+  "features": {
+    "mcp": [
+      {
+        "id": "mcp-epic-001",
+        "name": "Model Context Protocol Epic",
+        "data": {
+          "title": "Model Context Protocol (MCP) Epic",
+          "description": "Provides MCP-based integrations including LSP bridge, agent management, and protocol implementations for the LLM Agent ecosystem",
+          "level": "epic",
+          "status": "active",
+          "priority": "critical",
+          "tags": [
+            "mcp",
+            "model-context-protocol",
+            "lsp",
+            "agent",
+            "protocol"
+          ],
+          "virtual_path": "/layer/epics/mcp/FEATURE.vf.json",
+          "provides": [
+            "lsp-mcp-bridge",
+            "mcp-agent-management",
+            "mcp-protocol-implementation"
+          ],
+          "children": [
+            "mcp_lsp",
+            "mcp_agent",
+            "mcp_protocol"
+          ],
+          "components": {
+            "mcp_lsp": {
+              "description": "Language Server Protocol to MCP bridge for code intelligence",
+              "status": "active"
+            },
+            "mcp_agent": {
+              "description": "MCP agent management and orchestration",
+              "status": "active"
+            },
+            "mcp_protocol": {
+              "description": "Core MCP protocol implementation and specifications",
+              "status": "active"
+            }
+          }
+        },
+        "createdAt": "2025-08-03T04:00:00.000Z",
+        "updatedAt": "2025-08-03T04:00:00.000Z"
+      }
+    ]
+  },
+  "children": [
+    "mcp_lsp",
+    "mcp_agent",
+    "mcp_protocol"
+  ]
+}

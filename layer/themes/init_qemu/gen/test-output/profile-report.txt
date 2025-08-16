@@ -1,0 +1,16 @@
+Performance Profile Report
+==========================
+CPU Usage: 2.3%
+Memory: 128MB
+Execution Time: 5.2s
+
+Hotspots:
+  45.2% - main loop
+  22.1% - printf calls
+  15.3% - sleep
+  17.4% - other
+
+Cache Statistics:
+  L1 hits: 98.2%
+  L2 hits: 95.1%
+  L3 hits: 89.3%

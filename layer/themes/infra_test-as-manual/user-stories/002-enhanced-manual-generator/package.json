@@ -1,0 +1,67 @@
+{
+  "name": "@aidev/enhanced-manual-generator",
+  "version": "2.0.0",
+  "description": "Enhanced Manual Generator for Test-as-Manual Documentation with advanced features",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src --ext .ts",
+    "format": "prettier --write 'src/**/*.ts'",
+    "clean": "rm -rf dist coverage",
+    "prepublishOnly": "npm run clean && npm run build && npm run test"
+  },
+  "keywords": [
+    "test",
+    "manual",
+    "documentation",
+    "generator",
+    "bdd",
+    "test-as-manual",
+    "template",
+    "processor"
+  ],
+  "author": "AI Development Platform",
+  "license": "MIT",
+  "dependencies": {
+    "handlebars": "^4.7.8",
+    "marked": "^4.3.0",
+    "puppeteer": "^21.0.0",
+    "playwright": "^1.40.0",
+    "sharp": "^0.33.0",
+    "canvas": "^2.11.2",
+    "glob": "^10.3.0",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.0",
+    "@types/jest": "^29.5.5",
+    "@types/handlebars": "^4.1.0",
+    "@types/marked": "^4.3.0",
+    "@types/js-yaml": "^4.0.5",
+    "typescript": "^5.2.2",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "eslint": "^8.51.0",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
+    "prettier": "^3.0.3"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "files": [
+    "dist",
+    "src",
+    "templates",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aidev/enhanced-manual-generator"
+  }
+}

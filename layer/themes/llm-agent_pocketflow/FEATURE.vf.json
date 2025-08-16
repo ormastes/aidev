@@ -1,0 +1,102 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/themes/pocketflow/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.595Z",
+    "updated_at": "2025-08-02T11:10:54.595Z"
+  },
+  "features": {
+    "pocket-task-manager": [
+      {
+        "id": "pocketflow-story-001",
+        "name": "pocket-task-manager",
+        "data": {
+          "title": "pocket-task-manager",
+          "description": "**As a developer**, I want to create and manage pocket-sized tasks in a simple workflow so that I can track small development activities efficiently. ",
+          "level": "user_story",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "pocketflow",
+            "migrated"
+          ],
+          "acceptanceCriteria": [
+            "Create tasks with title, description, and status",
+            "Update task status (pending, in_progress, In Progress)",
+            "List all tasks with filtering by status",
+            "Delete In Progress tasks"
+          ],
+          "virtual_path": "/layer/themes/pocketflow/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.595Z",
+        "updatedAt": "2025-08-02T11:10:54.595Z"
+      }
+    ],
+    "quick-automation-flows": [
+      {
+        "id": "pocketflow-story-002",
+        "name": "quick-automation-flows",
+        "data": {
+          "title": "quick-automation-flows",
+          "description": "**As a developer**, I want to set up quick automation flows for repetitive tasks so that I can reduce manual work in my development process. ",
+          "level": "user_story",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "pocketflow",
+            "migrated"
+          ],
+          "acceptanceCriteria": [
+            "Define automation flows with triggers and actions",
+            "Execute flows automatically based on conditions",
+            "Monitor flow execution status",
+            "Log flow execution results"
+          ],
+          "virtual_path": "/layer/themes/pocketflow/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.595Z",
+        "updatedAt": "2025-08-02T11:10:54.595Z"
+      }
+    ],
+    "pocket-dashboard": [
+      {
+        "id": "pocketflow-story-003",
+        "name": "pocket-dashboard",
+        "data": {
+          "title": "pocket-dashboard",
+          "description": "**As a developer**, I want a minimal dashboard to view my workflow status so that I can quickly understand my current work state. ",
+          "level": "user_story",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "pocketflow",
+            "migrated"
+          ],
+          "acceptanceCriteria": [
+            "Display task summary (counts by status)",
+            "Show recent activity timeline",
+            "Display automation flow status",
+            "Provide quick action buttons"
+          ],
+          "virtual_path": "/layer/themes/pocketflow/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.595Z",
+        "updatedAt": "2025-08-02T11:10:54.595Z"
+      }
+    ]
+  },
+  "children": [
+    "/layer/themes/pocketflow/user-stories/001-pocket-task-manager/FEATURE.vf.json",
+    "/layer/themes/pocketflow/user-stories/002-quick-automation-flows/FEATURE.vf.json",
+    "/layer/themes/pocketflow/user-stories/002-web-server/FEATURE.vf.json",
+    "/layer/themes/pocketflow/user-stories/015-pocketflow-core/FEATURE.vf.json",
+    "/layer/themes/pocketflow/user-stories/016-agent-abstraction/FEATURE.vf.json",
+    "/layer/themes/pocketflow/user-stories/017-workflow-patterns/FEATURE.vf.json",
+    "/layer/themes/pocketflow/user-stories/018-type-safety/FEATURE.vf.json",
+    "/layer/themes/pocketflow/user-stories/019-agentic-coding/FEATURE.vf.json",
+    "/layer/themes/pocketflow/user-stories/020-architecture-docs/FEATURE.vf.json",
+    "/layer/themes/pocketflow/user-stories/021-integration-patterns/FEATURE.vf.json",
+    "/layer/themes/pocketflow/user-stories/022-workflow-composition/FEATURE.vf.json"
+  ]
+}

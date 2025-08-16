@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} - Portal Theme Test Manual</title>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --light-bg: #f8f9fa;
+            --dark-text: #212529;
+            --border-color: #dee2e6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background: var(--light-bg);
+        }
+
+        .portal-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        /* Portal Header */
+        .portal-header {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--primary-color), #0056b3);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .portal-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .portal-metadata {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Portal Sidebar */
+        .portal-sidebar {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .portal-nav h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .portal-nav ul {
+            list-style: none;
+        }
+
+        .portal-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .portal-nav a {
+            color: var(--dark-text);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .portal-nav a:hover {
+            background: var(--light-bg);
+            color: var(--primary-color);
+            padding-left: 1rem;
+        }
+
+        /* Portal Main Content */
+        .portal-main {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Test Sections */
+        .portal-section {
+            margin-bottom: 3rem;
+        }
+
+        .portal-section-header {
+            background: var(--light-bg);
+            padding: 1rem;
+            margin: -1rem -1rem 1.5rem -1rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .portal-section h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        /* Security Features */
+        .security-feature {
+            background: linear-gradient(to right, #f8f9fa, white);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .security-badge {
+            display: inline-block;
+            background: var(--success-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Test Cases */
+        .test-case {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .test-case-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--light-bg);
+        }
+
+        .test-case-id {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .test-priority {
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .priority-high {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .priority-medium {
+            background: var(--warning-color);
+            color: var(--dark-text);
+        }
+
+        .priority-low {
+            background: var(--info-color);
+            color: white;
+        }
+
+        /* Authentication Flow */
+        .auth-flow {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--light-bg);
+            border-radius: 6px;
+        }
+
+        .auth-step {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 4px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .auth-arrow {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        /* Portal Status Indicators */
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .status-active {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .status-pending {
+            background: var(--warning-color);
+            color: var(--dark-text);
+        }
+
+        .status-failed {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        /* Code Examples */
+        .code-example {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .code-example pre {
+            margin: 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .portal-footer {
+            grid-column: 1 / -1;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--dark-text);
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="portal-container">
+        <header class="portal-header">
+            <h1>{{title}}</h1>
+            <p>{{description}}</p>
+            <div class="portal-metadata">
+                <span>📅 Generated: {{generatedDate}}</span>
+                <span>🔒 Security Theme: Portal</span>
+                <span>📊 Total Tests: {{totalTests}}</span>
+                <span>✅ Coverage: {{coverage}}%</span>
+            </div>
+        </header>
+
+        <aside class="portal-sidebar">
+            <nav class="portal-nav">
+                <h3>Portal Features</h3>
+                <ul>
+                    {{#each sections}}
+                    <li><a href="#{{id}}">{{title}}</a></li>
+                    {{/each}}
+                </ul>
+            </nav>
+
+            <div class="portal-nav" style="margin-top: 2rem;">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#authentication">🔐 Authentication</a></li>
+                    <li><a href="#authorization">🛡️ Authorization</a></li>
+                    <li><a href="#session">🔄 Session Management</a></li>
+                    <li><a href="#security">🔒 Security Features</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="portal-main">
+            {{#each sections}}
+            <section class="portal-section" id="{{id}}">
+                <div class="portal-section-header">
+                    <h2>{{title}}</h2>
+                </div>
+
+                {{#if securityFeatures}}
+                <div class="security-feature">
+                    <h3>Security Implementation</h3>
+                    {{#each securityFeatures}}
+                    <span class="security-badge">{{this}}</span>
+                    {{/each}}
+                </div>
+                {{/if}}
+
+                {{#if authFlow}}
+                <div class="auth-flow">
+                    {{#each authFlow}}
+                    <div class="auth-step">{{this}}</div>
+                    {{#unless @last}}<span class="auth-arrow">→</span>{{/unless}}
+                    {{/each}}
+                </div>
+                {{/if}}
+
+                {{#each testCases}}
+                <div class="test-case">
+                    <div class="test-case-header">
+                        <span class="test-case-id">{{id}}</span>
+                        <span class="test-priority priority-{{priority}}">{{priority}} Priority</span>
+                    </div>
+                    <h3>{{title}}</h3>
+                    <p>{{description}}</p>
+
+                    {{#if preconditions}}
+                    <h4>Preconditions:</h4>
+                    <ul>
+                        {{#each preconditions}}
+                        <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                    {{/if}}
+
+                    <h4>Test Steps:</h4>
+                    <ol>
+                        {{#each steps}}
+                        <li>
+                            <strong>{{action}}</strong>
+                            {{#if expected}}<br>Expected: {{expected}}{{/if}}
+                        </li>
+                        {{/each}}
+                    </ol>
+
+                    {{#if code}}
+                    <h4>Code Example:</h4>
+                    <div class="code-example">
+                        <pre>{{code}}</pre>
+                    </div>
+                    {{/if}}
+
+                    {{#if status}}
+                    <div style="margin-top: 1rem;">
+                        <span class="status-indicator status-{{status}}">
+                            Status: {{status}}
+                        </span>
+                    </div>
+                    {{/if}}
+                </div>
+                {{/each}}
+            </section>
+            {{/each}}
+        </main>
+
+        <footer class="portal-footer">
+            <p>Portal Theme Test Manual - Generated with AI Development Platform</p>
+            <p>© {{year}} - All test cases are for security validation purposes</p>
+        </footer>
+    </div>
+</body>
+</html>

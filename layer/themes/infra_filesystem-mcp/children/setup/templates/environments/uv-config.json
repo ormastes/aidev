@@ -1,0 +1,24 @@
+{
+  "name": "uv-environment",
+  "description": "UV - Fast Python package installer and virtual environment manager",
+  "supported_languages": ["python"],
+  "supported_architectures": ["x86_64", "arm64"],
+  "supported_os": ["linux", "macos"],
+  "files": {
+    "pyproject.toml": "[project]\nname = \"${PROJECT_NAME}\"\nversion = \"1.0.0\"\ndescription = \"${PROJECT_DESCRIPTION}\"\nrequires-python = \">=3.8\"\ndependencies = [\n    \"flask>=2.0\",\n    \"pytest>=7.0\",\n    \"playwright>=1.40\",\n]\n\n[project.optional-dependencies]\ndev = [\n    \"black\",\n    \"ruff\",\n    \"mypy\",\n]\n\n[build-system]\nrequires = [\"hatchling\"]\nbuild-backend = \"hatchling.build\"\n\n[tool.uv]\npython-version = \"3.10\"\nvenv-path = \".venv\"",
+    "uv.toml": "# UV Configuration\n[tool.uv]\n# Python version to use\npython = \"3.10\"\n\n# Virtual environment settings\nvenv = \".venv\"\nauto-venv = true\n\n# Package resolution\nresolution = \"highest\"\nprerelease = \"if-necessary\"\n\n# Cache settings\ncache-dir = \"~/.cache/uv\"\noffline = false\n\n# Index URLs\nindex-url = \"https://pypi.org/simple\"\nextra-index-url = []",
+    ".python-version": "3.10",
+    "setup-uv.sh": "#!/bin/bash\n# UV Environment Setup Script\n\nset -e\n\necho \"Setting up UV environment for ${PROJECT_NAME}...\"\n\n# Install UV if not present\nif ! command -v uv &> /dev/null; then\n    echo \"Installing UV...\"\n    curl -LsSf https://astral.sh/uv/install.sh | sh\n    export PATH=\"$HOME/.cargo/bin:$PATH\"\nfi\n\n# Create virtual environment\necho \"Creating virtual environment...\"\nuv venv\n\n# Activate virtual environment\nsource .venv/bin/activate\n\n# Install dependencies\necho \"Installing dependencies...\"\nuv pip install -r requirements.txt\n\n# Install development dependencies\nif [ -f \"requirements-dev.txt\" ]; then\n    echo \"Installing development dependencies...\"\n    uv pip install -r requirements-dev.txt\nfi\n\necho \"UV environment setup complete!\"\necho \"Activate with: source .venv/bin/activate\"",
+    "requirements.txt": "# Production dependencies\nflask>=2.0.0\nrequests>=2.28.0\npydantic>=2.0.0\n\n# Testing\npytest>=7.0.0\npytest-cov>=4.0.0\npytest-playwright>=0.4.0\n\n# GUI (if applicable)\npywebview>=4.0.0\npyautogui>=0.9.0",
+    "Makefile": ".PHONY: install test run clean\n\n# UV commands\ninstall:\n\tuv venv\n\tuv pip install -r requirements.txt\n\ninstall-dev:\n\tuv venv\n\tuv pip install -r requirements.txt\n\tuv pip install -r requirements-dev.txt\n\ntest:\n\tuv run pytest tests/\n\nrun:\n\tuv run python src/main.py\n\nformat:\n\tuv run black src/ tests/\n\tlint:\n\tuv run ruff src/ tests/\n\ntype-check:\n\tuv run mypy src/\n\nclean:\n\trm -rf .venv\n\trm -rf __pycache__\n\trm -rf .pytest_cache\n\trm -rf .ruff_cache\n\tfind . -type d -name \"*.egg-info\" -exec rm -rf {} +\n\nreinstall: clean install"
+  },
+  "commands": {
+    "create_venv": "uv venv",
+    "activate": "source .venv/bin/activate",
+    "install_package": "uv pip install ${PACKAGE}",
+    "install_requirements": "uv pip install -r requirements.txt",
+    "freeze": "uv pip freeze > requirements.txt",
+    "run": "uv run python ${SCRIPT}",
+    "sync": "uv pip sync requirements.txt"
+  }
+}

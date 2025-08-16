@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "context-transformer-epic-001",
+    "path": "/layer/themes/llm-agent_context-transformer/user-stories/006-context-optimization/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.572Z",
+    "updated_at": "2025-08-02T11:10:54.572Z"
+  },
+  "features": {
+    "006_context_optimization": [
+      {
+        "id": "context-transformer-006-context-optimization",
+        "name": "context optimization",
+        "data": {
+          "title": "Context optimization",
+          "description": "Implementation of context optimization",
+          "level": "user_story",
+          "parent_feature_id": "context-transformer-epic-001",
+          "epic_id": "context-transformer-epic-001",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "context-transformer",
+            "context-optimization"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/llm-agent_context-transformer/user-stories/006-context-optimization/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.572Z",
+        "updatedAt": "2025-08-02T11:10:54.572Z"
+      }
+    ]
+  }
+}

@@ -1,0 +1,487 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Queue Item Types Schema",
+  "description": "Schema definitions for all item types referenced in <> brackets in TASK_QUEUE steps",
+  "type": "object",
+  "definitions": {
+    "base_item": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for this item"
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable name for the item"
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the item"
+        },
+        "parent_id": {
+          "type": "string",
+          "description": "ID of the parent item if this is a child"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Type of child item (e.g., 'environment_test', 'external_test')"
+              },
+              "id": {
+                "type": "string",
+                "description": "ID of the child item"
+              }
+            },
+            "required": ["type", "id"]
+          },
+          "description": "List of child items"
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Additional metadata for the item"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "name"]
+    },
+    "user_story": {
+      "allOf": [
+        { "$ref": "#/definitions/base_item" },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "user_story"
+            },
+            "story_points": {
+              "type": "number",
+              "minimum": 1,
+              "description": "Estimated story points"
+            },
+            "feature_id": {
+              "type": "string",
+              "description": "Reference to feature in FEATURE.vf.json"
+            },
+            "research_files": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of research file paths"
+            }
+          },
+          "required": ["type", "feature_id"]
+        }
+      ]
+    },
+    "scenarios": {
+      "allOf": [
+        { "$ref": "#/definitions/base_item" },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "scenarios"
+            },
+            "user_story_id": {
+              "type": "string",
+              "description": "Reference to parent user story"
+            },
+            "research_files": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Connected research files from user story"
+            },
+            "cucumber_steps": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Cucumber scenario steps"
+            }
+          },
+          "required": ["type", "user_story_id"]
+        }
+      ]
+    },
+    "system_sequence_diagram": {
+      "allOf": [
+        { "$ref": "#/definitions/base_item" },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "system_sequence_diagram"
+            },
+            "scenario_id": {
+              "type": "string",
+              "description": "Reference to parent scenario"
+            },
+            "diagram_path": {
+              "type": "string",
+              "description": "Path to mermaid diagram file"
+            },
+            "external_access": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of external access points identified in diagram"
+            }
+          },
+          "required": ["type", "scenario_id", "diagram_path"]
+        }
+      ]
+    },
+    "external_access": {
+      "allOf": [
+        { "$ref": "#/definitions/base_item" },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "external_access"
+            },
+            "system_sequence_diagram_id": {
+              "type": "string",
+              "description": "Reference to system sequence diagram"
+            },
+            "access_type": {
+              "type": "string",
+              "enum": ["api", "database", "file_system", "network", "external_service"],
+              "description": "Type of external access"
+            },
+            "endpoint": {
+              "type": "string",
+              "description": "Endpoint or resource being accessed"
+            }
+          },
+          "required": ["type", "system_sequence_diagram_id", "access_type"]
+        }
+      ]
+    },
+    "environment_test": {
+      "allOf": [
+        { "$ref": "#/definitions/base_item" },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "environment_test"
+            },
+            "external_access_id": {
+              "type": "string",
+              "description": "Reference to external access being tested"
+            },
+            "test_file_path": {
+              "type": "string",
+              "description": "Path to test file"
+            },
+            "log_assertions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Expected log entries to assert"
+            }
+          },
+          "required": ["type", "external_access_id"]
+        }
+      ]
+    },
+    "external_test": {
+      "allOf": [
+        { "$ref": "#/definitions/base_item" },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "external_test"
+            },
+            "external_access_id": {
+              "type": "string",
+              "description": "Reference to external access being tested"
+            },
+            "test_file_path": {
+              "type": "string",
+              "description": "Path to test file"
+            },
+            "interface_requirements": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "External interface requirements"
+            }
+          },
+          "required": ["type", "external_access_id"]
+        }
+      ]
+    },
+    "system_tests_implement": {
+      "allOf": [
+        { "$ref": "#/definitions/base_item" },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "system_tests_implement"
+            },
+            "system_sequence_diagram_id": {
+              "type": "string",
+              "description": "Reference to system sequence diagram"
+            },
+            "test_file_path": {
+              "type": "string",
+              "description": "Path to system test file"
+            },
+            "is_dangerous": {
+              "type": "boolean",
+              "default": false,
+              "description": "Whether this test is too dangerous to run without mocks"
+            }
+          },
+          "required": ["type", "system_sequence_diagram_id"]
+        }
+      ]
+    },
+    "integration_tests_implement": {
+      "allOf": [
+        { "$ref": "#/definitions/base_item" },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "integration_tests_implement"
+            },
+            "system_tests_implement_id": {
+              "type": "string",
+              "description": "Reference to parent system test"
+            },
+            "test_file_path": {
+              "type": "string",
+              "description": "Path to integration test file"
+            },
+            "uses_fake": {
+              "type": "boolean",
+              "default": false,
+              "description": "Whether this test uses mocks/fakes"
+            }
+          },
+          "required": ["type", "system_tests_implement_id"]
+        }
+      ]
+    },
+    "sequence_diagram": {
+      "allOf": [
+        { "$ref": "#/definitions/base_item" },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "sequence_diagram"
+            },
+            "integration_test_id": {
+              "type": "string",
+              "description": "Reference to integration test"
+            },
+            "diagram_path": {
+              "type": "string",
+              "description": "Path to mermaid sequence diagram"
+            },
+            "components": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Components involved in the sequence"
+            }
+          },
+          "required": ["type", "integration_test_id", "diagram_path"]
+        }
+      ]
+    },
+    "unit_tests": {
+      "allOf": [
+        { "$ref": "#/definitions/base_item" },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "unit_tests"
+            },
+            "sequence_diagram_id": {
+              "type": "string",
+              "description": "Reference to sequence diagram"
+            },
+            "component": {
+              "type": "string",
+              "description": "Component being unit tested"
+            },
+            "test_file_path": {
+              "type": "string",
+              "description": "Path to unit test file"
+            }
+          },
+          "required": ["type", "sequence_diagram_id", "component"]
+        }
+      ]
+    },
+    "integration_tests_verify": {
+      "allOf": [
+        { "$ref": "#/definitions/base_item" },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "integration_tests_verify"
+            },
+            "integration_test_id": {
+              "type": "string",
+              "description": "Reference to integration test to verify"
+            },
+            "verification_status": {
+              "type": "string",
+              "enum": ["pending", "passed", "failed"],
+              "default": "pending"
+            }
+          },
+          "required": ["type", "integration_test_id"]
+        }
+      ]
+    },
+    "system_tests_verify": {
+      "allOf": [
+        { "$ref": "#/definitions/base_item" },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "system_tests_verify"
+            },
+            "system_test_id": {
+              "type": "string",
+              "description": "Reference to system test to verify"
+            },
+            "integration_test_verify_id": {
+              "type": "string",
+              "description": "Reference to matching integration test verify"
+            },
+            "verification_status": {
+              "type": "string",
+              "enum": ["pending", "passed", "failed"],
+              "default": "pending"
+            }
+          },
+          "required": ["type", "system_test_id"]
+        }
+      ]
+    },
+    "coverage_duplication": {
+      "allOf": [
+        { "$ref": "#/definitions/base_item" },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "coverage_duplication"
+            },
+            "system_test_id": {
+              "type": "string",
+              "description": "Reference to system test"
+            },
+            "system_test_coverage": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "System test class coverage percentage"
+            },
+            "branch_coverage": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Branch coverage percentage"
+            },
+            "duplication_percentage": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Code duplication percentage"
+            }
+          },
+          "required": ["type", "system_test_id"]
+        }
+      ]
+    },
+    "gen_external_access": {
+      "allOf": [
+        { "$ref": "#/definitions/external_access" },
+        {
+          "type": "object",
+          "properties": {
+            "generated": {
+              "const": true,
+              "description": "Indicates this was generated from system sequence diagram"
+            },
+            "generation_timestamp": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": ["generated"]
+        }
+      ]
+    },
+    "gen_coverage_duplication": {
+      "allOf": [
+        { "$ref": "#/definitions/coverage_duplication" },
+        {
+          "type": "object",
+          "properties": {
+            "generated": {
+              "const": true,
+              "description": "Indicates this was generated for system test"
+            },
+            "generation_timestamp": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": ["generated"]
+        }
+      ]
+    }
+  },
+  "properties": {
+    "user_story": { "$ref": "#/definitions/user_story" },
+    "scenarios": { "$ref": "#/definitions/scenarios" },
+    "system_sequence_diagram": { "$ref": "#/definitions/system_sequence_diagram" },
+    "external_access": { "$ref": "#/definitions/external_access" },
+    "environment_test": { "$ref": "#/definitions/environment_test" },
+    "external_test": { "$ref": "#/definitions/external_test" },
+    "system_tests_implement": { "$ref": "#/definitions/system_tests_implement" },
+    "integration_tests_implement": { "$ref": "#/definitions/integration_tests_implement" },
+    "sequence_diagram": { "$ref": "#/definitions/sequence_diagram" },
+    "unit_tests": { "$ref": "#/definitions/unit_tests" },
+    "integration_tests_verify": { "$ref": "#/definitions/integration_tests_verify" },
+    "system_tests_verify": { "$ref": "#/definitions/system_tests_verify" },
+    "coverage_duplication": { "$ref": "#/definitions/coverage_duplication" },
+    "gen:external_access": { "$ref": "#/definitions/gen_external_access" },
+    "gen:coverage_duplication": { "$ref": "#/definitions/gen_coverage_duplication" }
+  }
+}

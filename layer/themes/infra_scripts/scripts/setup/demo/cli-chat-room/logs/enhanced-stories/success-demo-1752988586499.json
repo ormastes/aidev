@@ -1,0 +1,21 @@
+{
+  "reportId": "story-report-1752988586498",
+  "timestamp": "2025-07-20T05:16:26.498Z",
+  "roomId": "In Progress-demo-1752988578957",
+  "storyId": "US001_Calculator_BasicMath",
+  "storyStatus": "FAILURE",
+  "systemTests": [],
+  "coverage": {
+    "overall": {
+      "statements": 0,
+      "branches": 0,
+      "functions": 0,
+      "lines": 0
+    }
+  },
+  "failureReasons": [
+    "No system tests found"
+  ],
+  "events": 6,
+  "narrative": "Story US001_Calculator_BasicMath: ❌ FAILURE - Story requirements not met."
+}

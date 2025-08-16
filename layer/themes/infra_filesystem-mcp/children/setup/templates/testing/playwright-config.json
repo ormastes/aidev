@@ -1,0 +1,34 @@
+{
+  "name": "playwright-testing",
+  "description": "Playwright E2E testing configuration for GUI applications",
+  "configurations": {
+    "web": {
+      "packages": {
+        "@playwright/test": "^1.40.0"
+      },
+      "files": {
+        "playwright.config.ts": "import { defineConfig, devices } from '@playwright/test';\n\nexport default defineConfig({\n  testDir: './tests',\n  fullyParallel: true,\n  forbidOnly: !!process.env.CI,\n  retries: process.env.CI ? 2 : 0,\n  workers: process.env.CI ? 1 : undefined,\n  reporter: 'html',\n  use: {\n    baseURL: 'http://localhost:3000',\n    trace: 'on-first-retry',\n  },\n  projects: [\n    {\n      name: 'chromium',\n      use: { ...devices['Desktop Chrome'] },\n    },\n    {\n      name: 'firefox',\n      use: { ...devices['Desktop Firefox'] },\n    },\n    {\n      name: 'webkit',\n      use: { ...devices['Desktop Safari'] },\n    },\n  ],\n  webServer: {\n    command: 'bun run start',\n    url: 'http://localhost:3000',\n    reuseExistingServer: !process.env.CI,\n  },\n});",
+        "tests/example.spec.ts": "import { test, expect } from '@playwright/test';\n\ntest.describe('Application Tests', () => {\n  test('has title', async ({ page }) => {\n    await page.goto('/');\n    await expect(page).toHaveTitle(/${PROJECT_NAME}/);\n  });\n\n  test('button interaction', async ({ page }) => {\n    await page.goto('/');\n    await page.click('button');\n    await expect(page.locator('#message')).toContainText('Hello');\n  });\n});"
+      }
+    },
+    "electron": {
+      "packages": {
+        "@playwright/test": "^1.40.0",
+        "playwright": "^1.40.0"
+      },
+      "files": {
+        "tests/electron.spec.ts": "import { test, expect, _electron as electron } from 'playwright';\n\ntest('electron app launches', async () => {\n  const app = await electron.launch({ args: ['.'] });\n  const window = await app.firstWindow();\n  \n  // Test window title\n  const title = await window.title();\n  expect(title).toContain('${PROJECT_NAME}');\n  \n  // Test button click\n  await window.click('button');\n  const message = await window.textContent('#message');\n  expect(message).toContain('Hello');\n  \n  await app.close();\n});"
+      }
+    },
+    "python": {
+      "packages": {
+        "playwright": ">=1.40.0",
+        "pytest-playwright": ">=0.4.0"
+      },
+      "files": {
+        "tests/conftest.py": "import pytest\nfrom playwright.sync_api import sync_playwright\n\n@pytest.fixture(scope='session')\ndef browser():\n    with sync_playwright() as p:\n        browser = p.chromium.launch()\n        yield browser\n        browser.close()\n\n@pytest.fixture(scope='function')\ndef page(browser):\n    page = browser.new_page()\n    yield page\n    page.close()",
+        "tests/test_app.py": "import pytest\n\ndef test_app_title(page):\n    page.goto('http://localhost:5000')\n    assert '${PROJECT_NAME}' in page.title()\n\ndef test_button_click(page):\n    page.goto('http://localhost:5000')\n    page.click('button')\n    page.wait_for_selector('#message')\n    message = page.text_content('#message')\n    assert 'Hello' in message"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+================================
+SETUP SCRIPTS MIGRATION COMPLETE
+================================
+
+The old Python-based setup scripts have been replaced with a new Node.js CLI.
+
+If you have scripts or documentation that reference the old commands,
+please update them to use:
+
+  ./setup_folder.sh [command] [options]
+
+For a full command reference, see:
+- The backup directory (setup_backup_*)
+- The new README.md in this directory
+- src/layer/themes/setup-folder/README.md
+
+Need the old scripts? Check your backup directory.

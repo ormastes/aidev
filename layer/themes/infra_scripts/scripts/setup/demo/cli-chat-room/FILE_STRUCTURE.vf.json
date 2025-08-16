@@ -1,0 +1,59 @@
+{
+  "metadata": {
+    "level": "demo",
+    "version": "2.1.0",
+    "description": "CLI Chat Room demo structure with demo and release deployment support",
+    "supports_distributed_features": true,
+    "supports_freeze": false
+  },
+  "structure": {
+    "name": ".",
+    "type": "directory",
+    "description": "CLI Chat Room demo project root",
+    "children": [
+      {
+        "name": "src",
+        "type": "directory",
+        "description": "Source code for chat room application",
+        "children": [
+          { "name": "index.ts", "type": "file", "description": "Main application entry point" },
+          { "name": "chat-server.ts", "type": "file", "description": "Chat server implementation" },
+          { "name": "chat-client.ts", "type": "file", "description": "Chat client implementation" },
+          { "name": "message-handler.ts", "type": "file", "description": "Message handling logic" }
+        ]
+      },
+      {
+        "name": "test",
+        "type": "directory",
+        "description": "Test files for chat room",
+        "children": [
+          { "name": "unit", "type": "directory", "description": "Unit tests" },
+          { "name": "integration", "type": "directory", "description": "Integration tests" },
+          { "name": "system", "type": "directory", "description": "System tests" }
+        ]
+      },
+      {
+        "name": "config",
+        "type": "directory",
+        "description": "Configuration files",
+        "children": [
+          { "name": "server.json", "type": "file", "description": "Server configuration" },
+          { "name": "client.json", "type": "file", "description": "Client configuration" }
+        ]
+      },
+      {
+        "name": "demo",
+        "type": "directory",
+        "description": "Demo artifacts and examples"
+      },
+      {
+        "name": "release",
+        "type": "directory",
+        "description": "Release artifacts and deployments"
+      },
+      { "name": "package.json", "type": "file", "description": "NPM package configuration" },
+      { "name": "README.md", "type": "file", "description": "Project documentation" },
+      { "name": "tsconfig.json", "type": "file", "description": "TypeScript configuration" }
+    ]
+  }
+}

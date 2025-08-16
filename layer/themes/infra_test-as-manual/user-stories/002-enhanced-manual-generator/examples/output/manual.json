@@ -1,0 +1,313 @@
+{
+  "id": "doc-test-1755046330129",
+  "title": "inline - Test Manual Documentation",
+  "version": "2.0.0",
+  "generatedAt": "2025-08-13T00:52:10.129Z",
+  "test": {
+    "id": "test-1755046330129",
+    "name": "inline",
+    "filePath": "inline",
+    "type": "unit",
+    "suites": [
+      {
+        "id": "suite-0",
+        "name": "Shopping Cart Module",
+        "testCases": []
+      },
+      {
+        "id": "suite-1",
+        "name": "Adding items",
+        "testCases": [
+          {
+            "id": "test-1-0",
+            "name": "should add a single item to cart",
+            "steps": [
+              {
+                "id": "step-1-0-0",
+                "order": 0,
+                "type": "action",
+                "action": "should add a single item to cart",
+                "expected": "Test passes successfully"
+              }
+            ],
+            "priority": "medium"
+          }
+        ]
+      },
+      {
+        "id": "suite-2",
+        "name": "Removing items",
+        "testCases": [
+          {
+            "id": "test-2-0",
+            "name": "should remove item from cart",
+            "steps": [
+              {
+                "id": "step-2-0-0",
+                "order": 0,
+                "type": "action",
+                "action": "should remove item from cart",
+                "expected": "Test passes successfully"
+              }
+            ],
+            "priority": "medium"
+          }
+        ]
+      }
+    ],
+    "hooks": [
+      {
+        "type": "beforeEach",
+        "description": "Setup before each test",
+        "code": "cart = new ShoppingCart();"
+      }
+    ]
+  },
+  "metadata": {
+    "author": "Development Team",
+    "version": "2.0.0",
+    "tags": [
+      "unit",
+      "shopping-cart",
+      "e-commerce"
+    ],
+    "requirements": [
+      "REQ-CART-001",
+      "REQ-CART-002"
+    ]
+  },
+  "sections": [
+    {
+      "id": "section-0",
+      "title": "Overview",
+      "level": 1,
+      "content": "This document provides comprehensive manual test documentation for inline.\n\n**Test Statistics:**\n- Total Test Suites: 3\n- Total Test Cases: 2\n- Total Test Steps: 2\n- Test Type: UNIT\n\nThis test suite ensures the functionality and reliability of the system components."
+    },
+    {
+      "id": "section-1",
+      "title": "Shopping Cart Module",
+      "level": 1,
+      "content": "Test suite for Shopping Cart Module functionality.",
+      "testCases": []
+    },
+    {
+      "id": "section-2",
+      "title": "Adding items",
+      "level": 1,
+      "content": "Test suite for Adding items functionality.",
+      "testCases": [
+        {
+          "id": "test-1-0",
+          "name": "should add a single item to cart",
+          "steps": [
+            {
+              "id": "step-1-0-0",
+              "order": 0,
+              "type": "action",
+              "action": "should add a single item to cart",
+              "expected": "Test passes successfully"
+            }
+          ],
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "id": "section-3",
+      "title": "Removing items",
+      "level": 1,
+      "content": "Test suite for Removing items functionality.",
+      "testCases": [
+        {
+          "id": "test-2-0",
+          "name": "should remove item from cart",
+          "steps": [
+            {
+              "id": "step-2-0-0",
+              "order": 0,
+              "type": "action",
+              "action": "should remove item from cart",
+              "expected": "Test passes successfully"
+            }
+          ],
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "id": "section-4",
+      "title": "Test Execution Summary",
+      "level": 1,
+      "content": "## Execution Guidelines\n\n1. Execute tests in the order presented in this document\n2. Document any deviations or issues encountered\n3. Capture screenshots for failed test steps\n4. Report results using the standard test report template\n\n## Priority Distribution\n\n- Critical: 0 tests\n- High: 0 tests\n- Medium: 2 tests\n- Low: 0 tests\n\n## Estimated Execution Time\n\nTotal estimated time: 2 minutes\n\n## Success Criteria\n\nAll critical and high priority tests must pass for the release to be approved.\nMedium and low priority test failures should be documented and assessed for impact."
+    }
+  ],
+  "tableOfContents": [
+    {
+      "id": "section-0",
+      "title": "Overview",
+      "level": 1,
+      "href": "#section-0"
+    },
+    {
+      "id": "section-1",
+      "title": "Shopping Cart Module",
+      "level": 1,
+      "href": "#section-1"
+    },
+    {
+      "id": "section-2",
+      "title": "Adding items",
+      "level": 1,
+      "href": "#section-2"
+    },
+    {
+      "id": "section-3",
+      "title": "Removing items",
+      "level": 1,
+      "href": "#section-3"
+    },
+    {
+      "id": "section-4",
+      "title": "Test Execution Summary",
+      "level": 1,
+      "href": "#section-4"
+    }
+  ],
+  "index": [
+    {
+      "term": "add",
+      "references": [
+        "section-2"
+      ]
+    },
+    {
+      "term": "adding",
+      "references": [
+        "section-2"
+      ]
+    },
+    {
+      "term": "cart",
+      "references": [
+        "section-1",
+        "section-2",
+        "section-3"
+      ]
+    },
+    {
+      "term": "execution",
+      "references": [
+        "section-4"
+      ]
+    },
+    {
+      "term": "from",
+      "references": [
+        "section-3"
+      ]
+    },
+    {
+      "term": "item",
+      "references": [
+        "section-2",
+        "section-3"
+      ]
+    },
+    {
+      "term": "items",
+      "references": [
+        "section-2",
+        "section-3"
+      ]
+    },
+    {
+      "term": "module",
+      "references": [
+        "section-1"
+      ]
+    },
+    {
+      "term": "overview",
+      "references": [
+        "section-0"
+      ]
+    },
+    {
+      "term": "remove",
+      "references": [
+        "section-3"
+      ]
+    },
+    {
+      "term": "removing",
+      "references": [
+        "section-3"
+      ]
+    },
+    {
+      "term": "shopping",
+      "references": [
+        "section-1"
+      ]
+    },
+    {
+      "term": "should",
+      "references": [
+        "section-2",
+        "section-3"
+      ]
+    },
+    {
+      "term": "single",
+      "references": [
+        "section-2"
+      ]
+    },
+    {
+      "term": "summary",
+      "references": [
+        "section-4"
+      ]
+    },
+    {
+      "term": "test",
+      "references": [
+        "section-4"
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "Actual Result",
+      "definition": "The observed outcome of a test step"
+    },
+    {
+      "term": "Assertion",
+      "definition": "A statement that checks if a condition is true"
+    },
+    {
+      "term": "Expected Result",
+      "definition": "The anticipated outcome of a test step"
+    },
+    {
+      "term": "Postcondition",
+      "definition": "A state that should exist after test execution"
+    },
+    {
+      "term": "Precondition",
+      "definition": "A requirement that must be met before test execution"
+    },
+    {
+      "term": "Test Case",
+      "definition": "A set of conditions or steps to verify specific functionality"
+    },
+    {
+      "term": "Test Step",
+      "definition": "An individual action or verification in a test case"
+    },
+    {
+      "term": "Test Suite",
+      "definition": "A collection of related test cases"
+    }
+  ]
+}

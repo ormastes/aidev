@@ -1,0 +1,15 @@
+[behave]
+paths = features
+default_format = progress
+junit = true
+junit_directory = test-results/behave
+show_source = true
+show_timings = true
+show_skipped = false
+summary = true
+capture = true
+capture-errors = true
+stdout_capture = true
+stderr_capture = true
+log_capture = true
+logging_level = INFO

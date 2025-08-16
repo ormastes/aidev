@@ -1,0 +1,164 @@
+{
+  "queues": {
+    "critical": [
+      {
+        "id": "critical-001",
+        "type": "runnable",
+        "priority": "critical",
+        "content": {
+          "command": "hotfix",
+          "title": "Security Vulnerability Fix",
+          "description": "Critical security vulnerability in authentication system",
+          "steps": [
+            "Analyze vulnerability report",
+            "Implement security patch",
+            "Run security tests",
+            "Deploy to production immediately"
+          ],
+          "estimated_time": "2 hours",
+          "severity": "critical",
+          "impact": "high"
+        },
+        "status": "pending",
+        "createdAt": "2025-01-19T09:00:00.000Z"
+      }
+    ],
+    "high": [
+      {
+        "id": "high-001",
+        "type": "runnable", 
+        "priority": "high",
+        "content": {
+          "command": "implement",
+          "title": "User Authentication API",
+          "description": "Implement JWT-based user authentication system",
+          "steps": [
+            "Design authentication flow",
+            "Implement JWT token generation",
+            "Create login/logout endpoints",
+            "Add password hashing",
+            "Write authentication tests"
+          ],
+          "estimated_time": "4 hours",
+          "dependencies": [],
+          "assignee": "backend-team"
+        },
+        "status": "pending",
+        "createdAt": "2025-01-19T08:00:00.000Z"
+      },
+      {
+        "id": "high-002",
+        "type": "runnable",
+        "priority": "high", 
+        "content": {
+          "command": "implement",
+          "title": "Database Migration System",
+          "description": "Set up database migration and seeding system",
+          "steps": [
+            "Configure migration framework",
+            "Create initial user schema migration",
+            "Set up development seeds",
+            "Create rollback procedures",
+            "Document migration process"
+          ],
+          "estimated_time": "3 hours",
+          "dependencies": [],
+          "assignee": "backend-team"
+        },
+        "status": "pending",
+        "createdAt": "2025-01-19T08:30:00.000Z"
+      }
+    ],
+    "medium": [
+      {
+        "id": "medium-001",
+        "type": "data",
+        "priority": "medium",
+        "content": {
+          "title": "API Documentation",
+          "description": "Create comprehensive API documentation using OpenAPI",
+          "steps": [
+            "Set up OpenAPI/Swagger",
+            "Document authentication endpoints",
+            "Document user management endpoints", 
+            "Add example requests/responses",
+            "Generate interactive documentation"
+          ],
+          "estimated_time": "2 hours",
+          "dependencies": ["high-001"]
+        },
+        "status": "pending",
+        "createdAt": "2025-01-19T09:00:00.000Z"
+      },
+      {
+        "id": "medium-002",
+        "type": "runnable",
+        "priority": "medium",
+        "content": {
+          "command": "test",
+          "title": "Integration Test Suite",
+          "description": "Create comprehensive integration test suite",
+          "steps": [
+            "Set up test database",
+            "Write authentication integration tests",
+            "Write user management integration tests",
+            "Set up CI/CD test pipeline",
+            "Add test coverage reporting"
+          ],
+          "estimated_time": "3 hours",
+          "dependencies": ["high-001", "high-002"]
+        },
+        "status": "pending",
+        "createdAt": "2025-01-19T09:15:00.000Z"
+      }
+    ],
+    "low": [
+      {
+        "id": "low-001",
+        "type": "message",
+        "priority": "low",
+        "content": {
+          "title": "Performance Optimization",
+          "description": "Optimize database queries and API response times",
+          "steps": [
+            "Profile current API performance",
+            "Identify slow database queries",
+            "Add database indexes",
+            "Implement query optimization",
+            "Add performance monitoring"
+          ],
+          "estimated_time": "4 hours",
+          "dependencies": ["high-002", "medium-002"]
+        },
+        "status": "pending",
+        "createdAt": "2025-01-19T10:00:00.000Z"
+      },
+      {
+        "id": "low-002",
+        "type": "data",
+        "priority": "low",
+        "content": {
+          "title": "Code Documentation",
+          "description": "Add comprehensive code documentation and comments",
+          "steps": [
+            "Document all public APIs",
+            "Add JSDoc comments to functions",
+            "Create architecture documentation",
+            "Add inline code comments",
+            "Generate documentation website"
+          ],
+          "estimated_time": "2 hours",
+          "dependencies": []
+        },
+        "status": "pending",
+        "createdAt": "2025-01-19T10:30:00.000Z"
+      }
+    ]
+  },
+  "working": null,
+  "metadata": {
+    "lastPop": null,
+    "totalProcessed": 0,
+    "totalFailed": 0
+  }
+}

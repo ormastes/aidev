@@ -1,0 +1,50 @@
+{
+  "name": "vllm-coordinator-agent_chat-room-demo",
+  "version": "1.0.0",
+  "description": "vLLM Coordinator Agent Chat Room Demo",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write src/**/*.ts",
+    "vllm-demo": "ts-node src/vllm-demo.ts",
+    "openai-demo": "ts-node src/openai-api-demo.ts",
+    "chat-server": "ts-node src/server.ts",
+    "all-in-one": "ts-node src/all-in-one.ts"
+  },
+  "keywords": [
+    "vllm",
+    "coordinator",
+    "agent",
+    "chat",
+    "deepseek",
+    "openai"
+  ],
+  "author": "AI Dev Portal",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^11.0.0",
+    "dotenv": "^16.3.1",
+    "openai": "^4.28.0",
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.2",
+    "winston": "^3.11.0",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "jest": "^29.5.0",
+    "prettier": "^3.0.0",
+    "sqlite3": "^5.1.7",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}

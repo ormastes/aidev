@@ -1,0 +1,23 @@
+{
+  "reportId": "story-report-1752990201944",
+  "timestamp": "2025-07-20T05:43:21.943Z",
+  "roomId": "test-room-456",
+  "storyId": "US002_UserAuthentication",
+  "storyStatus": "FAILURE",
+  "narrative": "Story US002_UserAuthentication: ❌ FAILURE - No system tests found. Every story must have at least one system test.",
+  "systemTests": [],
+  "coverage": {
+    "overall": {
+      "statements": 0,
+      "branches": 0,
+      "functions": 0,
+      "lines": 0
+    }
+  },
+  "failureReasons": [
+    "No system tests found",
+    "Coverage below minimum requirement (0% < 80%)"
+  ],
+  "events": 10,
+  "generatedAt": "2025-07-20T05:43:21.968Z"
+}

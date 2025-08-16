@@ -1,0 +1,1349 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Task Queue VF Schema",
+  "description": "JSON Schema for VF task queue system with working item and multiple queues based on TASK_QUEUE.md workflow",
+  "type": "object",
+  "properties": {
+    "taskQueues": {
+      "type": "object",
+      "description": "Alternative priority-based task organization (for compatibility with existing systems)",
+      "properties": {
+        "critical": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/priority_task_item"
+          },
+          "description": "Critical priority tasks"
+        },
+        "high": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/priority_task_item"
+          },
+          "description": "High priority tasks"
+        },
+        "medium": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/priority_task_item"
+          },
+          "description": "Medium priority tasks"
+        },
+        "low": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/priority_task_item"
+          },
+          "description": "Low priority tasks"
+        },
+        "completed": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/priority_task_item"
+          },
+          "description": "Completed tasks"
+        }
+      },
+      "additionalProperties": false
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Schema version (e.g., '1.0.0')"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this task queue was created (ISO 8601 format)"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this task queue was last updated (ISO 8601 format)"
+        },
+        "total_items": {
+          "type": "number",
+          "description": "Total number of items across all queues"
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional description of this task queue"
+        },
+        "epic": {
+          "type": "string",
+          "description": "Epic name this task queue belongs to (optional)"
+        },
+        "epicId": {
+          "type": "string",
+          "description": "Epic ID this task queue belongs to (optional)"
+        }
+      },
+      "required": ["version", "created_at", "updated_at", "total_items"],
+      "additionalProperties": false
+    },
+    "working_item": {
+      "description": "Currently working item (last popped item from any queue) - not a queue but single item",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/task_queue_item"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "queues": {
+      "type": "object",
+      "properties": {
+        "epic": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/task_queue_item"
+              }
+            },
+            "insert_comment": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Simple comment text"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "description": "The runnable comment text"
+                    },
+                    "parameters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Parameters to pass to the runnable script"
+                    }
+                  },
+                  "required": ["text"],
+                  "additionalProperties": false
+                }
+              ],
+              "description": "Instructions for adding epic-level tasks",
+              "default": "Add epic-level coordination tasks that span multiple themes"
+            },
+            "pop_comment": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Simple comment text"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "description": "The runnable comment text"
+                    },
+                    "parameters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Parameters to pass to the runnable script"
+                    }
+                  },
+                  "required": ["text"],
+                  "additionalProperties": false
+                }
+              ],
+              "description": "Comment when popping epic items",
+              "default": "Starting epic-level task. Ensure cross-theme coordination is maintained."
+            },
+            "before_pop_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": []
+            },
+            "after_pop_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": []
+            }
+          },
+          "required": ["items"],
+          "additionalProperties": false
+        },
+        "adhoc_temp_user_request": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/task_queue_item"
+              }
+            },
+            "insert_comment": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Simple comment text"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "description": "The runnable comment text (e.g., 'write a <file>')"
+                    },
+                    "parameters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Parameters to pass to the runnable script"
+                    }
+                  },
+                  "required": ["text"],
+                  "additionalProperties": false
+                }
+              ],
+              "description": "Instructions shown to LLM when inserting items to this queue (optional). Can be a simple string or a runnable comment with parameters",
+              "default": "Validate item format: must start with type prefix (Test:, Scenario:, etc.)"
+            },
+            "pop_comment": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Simple comment text"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "description": "The runnable comment text (e.g., 'write a <file>')"
+                    },
+                    "parameters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Parameters to pass to the runnable script"
+                    }
+                  },
+                  "required": ["text"],
+                  "additionalProperties": false
+                }
+              ],
+              "description": "Instructions shown to LLM when popping items from this queue (optional). Can be a simple string or a runnable comment with parameters"
+            },
+            "empty_queue_comment": {
+              "type": "string",
+              "description": "Comment to display when queue is empty. If not provided, a default comment will be generated"
+            },
+            "before_insert_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": [
+                "Check if all other queues are empty before inserting adhoc request"
+              ]
+            },
+            "after_pop_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              }
+            },
+            "priority_sort_enabled": {
+              "type": "boolean",
+              "default": true,
+              "description": "Enable priority-based sorting of items in this queue (critical > high > medium > low)"
+            }
+          },
+          "required": ["items"],
+          "additionalProperties": false
+        },
+        "user_story": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/task_queue_item"
+              },
+              "maxItems": 1,
+              "description": "Only one item on queue, lowest priority"
+            },
+            "insert_comment": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Simple comment text"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "description": "The runnable comment text (e.g., 'write a <file>')"
+                    },
+                    "parameters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Parameters to pass to the runnable script"
+                    }
+                  },
+                  "required": ["text"],
+                  "additionalProperties": false
+                }
+              ],
+              "description": "Instructions shown to LLM when inserting items to this queue (optional). Can be a simple string or a runnable comment with parameters",
+              "default": "Validate item format: must start with type prefix (Test:, Scenario:, etc.)"
+            },
+            "pop_comment": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Simple comment text"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "description": "The runnable comment text (e.g., 'write a <file>')"
+                    },
+                    "parameters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Parameters to pass to the runnable script"
+                    }
+                  },
+                  "required": ["text"],
+                  "additionalProperties": false
+                }
+              ],
+              "description": "Instructions shown to LLM when popping items from this queue (optional). Can be a simple string or a runnable comment with parameters"
+            },
+            "empty_queue_comment": {
+              "type": "string",
+              "description": "Comment to display when queue is empty. If not provided, a default comment will be generated"
+            },
+            "before_insert_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": [
+                "Pick and mark ONE 'User Story' from 'FEATURE.md'",
+                "Register <user_story> on NAME_ID.vf.json"
+              ]
+            },
+            "after_pop_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": []
+            }
+          },
+          "required": ["items"],
+          "additionalProperties": false
+        },
+        "scenarios": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/task_queue_item"
+              }
+            },
+            "insert_comment": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Simple comment text"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "description": "The runnable comment text (e.g., 'write a <file>')"
+                    },
+                    "parameters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Parameters to pass to the runnable script"
+                    }
+                  },
+                  "required": ["text"],
+                  "additionalProperties": false
+                }
+              ],
+              "description": "Instructions shown to LLM when inserting items to this queue (optional). Can be a simple string or a runnable comment with parameters",
+              "default": "Validate item format: must start with type prefix (Test:, Scenario:, etc.)"
+            },
+            "pop_comment": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Simple comment text"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "description": "The runnable comment text (e.g., 'write a <file>')"
+                    },
+                    "parameters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Parameters to pass to the runnable script"
+                    }
+                  },
+                  "required": ["text"],
+                  "additionalProperties": false
+                }
+              ],
+              "description": "Instructions shown to LLM when popping items from this queue (optional). Can be a simple string or a runnable comment with parameters"
+            },
+            "empty_queue_comment": {
+              "type": "string",
+              "description": "Comment to display when queue is empty. If not provided, a default comment will be generated"
+            },
+            "before_insert_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": [
+                "Check <scenarios>, each scenario item should has connected <user_story>/research/(domain|external)/? file or files. and file existance check",
+                "Register the <scenarios> on NAME_ID.vf.json"
+              ]
+            },
+            "after_pop_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": []
+            }
+          },
+          "required": ["items"],
+          "additionalProperties": false
+        },
+        "environment_tests": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/task_queue_item"
+              }
+            },
+            "insert_comment": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Simple comment text"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "description": "The runnable comment text (e.g., 'write a <file>')"
+                    },
+                    "parameters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Parameters to pass to the runnable script"
+                    }
+                  },
+                  "required": ["text"],
+                  "additionalProperties": false
+                }
+              ],
+              "description": "Instructions shown to LLM when inserting items to this queue (optional). Can be a simple string or a runnable comment with parameters",
+              "default": "Validate item format: must start with type prefix (Test:, Scenario:, etc.)"
+            },
+            "pop_comment": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Simple comment text"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "description": "The runnable comment text (e.g., 'write a <file>')"
+                    },
+                    "parameters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Parameters to pass to the runnable script"
+                    }
+                  },
+                  "required": ["text"],
+                  "additionalProperties": false
+                }
+              ],
+              "description": "Instructions shown to LLM when popping items from this queue (optional). Can be a simple string or a runnable comment with parameters"
+            },
+            "empty_queue_comment": {
+              "type": "string",
+              "description": "Comment to display when queue is empty. If not provided, a default comment will be generated"
+            },
+            "before_insert_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": [
+                "Check external dependencies and log requirements for <environment_tests>"
+              ]
+            },
+            "after_pop_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": []
+            }
+          },
+          "required": ["items"],
+          "additionalProperties": false
+        },
+        "external_tests": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/task_queue_item"
+              }
+            },
+            "insert_comment": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Simple comment text"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "description": "The runnable comment text (e.g., 'write a <file>')"
+                    },
+                    "parameters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Parameters to pass to the runnable script"
+                    }
+                  },
+                  "required": ["text"],
+                  "additionalProperties": false
+                }
+              ],
+              "description": "Instructions shown to LLM when inserting items to this queue (optional). Can be a simple string or a runnable comment with parameters",
+              "default": "Validate item format: must start with type prefix (Test:, Scenario:, etc.)"
+            },
+            "pop_comment": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Simple comment text"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "description": "The runnable comment text (e.g., 'write a <file>')"
+                    },
+                    "parameters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Parameters to pass to the runnable script"
+                    }
+                  },
+                  "required": ["text"],
+                  "additionalProperties": false
+                }
+              ],
+              "description": "Instructions shown to LLM when popping items from this queue (optional). Can be a simple string or a runnable comment with parameters"
+            },
+            "empty_queue_comment": {
+              "type": "string",
+              "description": "Comment to display when queue is empty. If not provided, a default comment will be generated"
+            },
+            "before_insert_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": [
+                "Check external interface requirements for <external_tests>"
+              ]
+            },
+            "after_pop_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": []
+            }
+          },
+          "required": ["items"],
+          "additionalProperties": false
+        },
+        "system_tests_implement": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/task_queue_item"
+              }
+            },
+            "before_insert_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": [
+                "Check <system_tests_implement> its system sequence diagram and check its external access and register external access on NAME_ID.vf.json",
+                "Check <system_tests_implement> child items Environment Test for each external access unless already there. check all external access match, samething for External Test. for each system test there should be Integration Test matching system_test, coverage duplication check item must",
+                "Register <system_tests_implement> on NAME_ID.vf.json"
+              ]
+            },
+            "after_pop_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": []
+            }
+          },
+          "required": ["items"],
+          "additionalProperties": false
+        },
+        "integration_tests_implement": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/task_queue_item"
+              }
+            },
+            "before_insert_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": [
+                "Check integration test requirements and sequence diagram dependencies"
+              ]
+            },
+            "after_pop_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": []
+            }
+          },
+          "required": ["items"],
+          "additionalProperties": false
+        },
+        "unit_tests": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/task_queue_item"
+              }
+            },
+            "before_insert_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": [
+                "Check unit test requirements from sequence diagram"
+              ]
+            },
+            "after_pop_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": []
+            }
+          },
+          "required": ["items"],
+          "additionalProperties": false
+        },
+        "integration_tests_verify": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/task_queue_item"
+              }
+            },
+            "before_insert_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              }
+            },
+            "after_pop_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": []
+            }
+          },
+          "required": ["items"],
+          "additionalProperties": false
+        },
+        "system_tests_verify": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/task_queue_item"
+              }
+            },
+            "before_insert_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": [
+                "All system test has matched Integration test and if system test requires dangerous operation then do not write system test for that scenario but make only Integration test with '_FAKE.ts' suffix"
+              ]
+            },
+            "after_pop_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": []
+            }
+          },
+          "required": ["items"],
+          "additionalProperties": false
+        },
+        "coverage_duplication": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/task_queue_item"
+              }
+            },
+            "before_insert_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              }
+            },
+            "after_pop_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": []
+            }
+          },
+          "required": ["items"],
+          "additionalProperties": false
+        },
+        "retrospective": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/task_queue_item"
+              }
+            },
+            "before_insert_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              }
+            },
+            "after_pop_steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/queue_step"
+              },
+              "default": []
+            }
+          },
+          "required": ["items"],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "epic",
+        "adhoc_temp_user_request",
+        "user_story", 
+        "scenarios",
+        "environment_tests",
+        "external_tests",
+        "system_tests_implement",
+        "integration_tests_implement",
+        "unit_tests",
+        "integration_tests_verify",
+        "system_tests_verify",
+        "coverage_duplication",
+        "retrospective"
+      ],
+      "additionalProperties": false
+    },
+    "global_config": {
+      "type": "object",
+      "properties": {
+        "seldom_display_default": {
+          "type": "number",
+          "minimum": 1,
+          "default": 5,
+          "description": "Default frequency for seldom message display (every N operations)"
+        },
+        "operation_counters": {
+          "type": "object",
+          "description": "Counters for tracking operations per queue",
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "default_empty_queue_comment": {
+          "type": "string",
+          "description": "Default comment to show for empty queues when no specific empty_queue_comment is defined",
+          "default": "Queue is empty"
+        },
+        "all_queues_empty_comment": {
+          "type": "string",
+          "description": "Comment to show when all queues are empty. This typically prompts to pick a user story from FEATURE.vf.json",
+          "default": "All queues are empty. Pick feature user story from FEATURE.vf.json (or FEATURE.md if vf.json not exist) and push to User Story Queue"
+        }
+      },
+      "additionalProperties": false
+    },
+    "priority_order": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "epic",
+          "adhoc_temp_user_request",
+          "environment_tests",
+          "external_tests", 
+          "system_tests_implement",
+          "integration_tests_implement",
+          "unit_tests",
+          "integration_tests_verify",
+          "system_tests_verify",
+          "scenarios",
+          "user_story"
+        ]
+      },
+      "default": [
+        "epic",
+        "adhoc_temp_user_request",
+        "environment_tests",
+        "external_tests",
+        "system_tests_implement", 
+        "integration_tests_implement",
+        "unit_tests",
+        "integration_tests_verify",
+        "system_tests_verify",
+        "scenarios",
+        "user_story"
+      ],
+      "description": "Queue processing priority order from highest to lowest"
+    }
+  },
+  "oneOf": [
+    {
+      "required": ["metadata", "working_item", "queues", "global_config", "priority_order"],
+      "not": {
+        "required": ["taskQueues"]
+      }
+    },
+    {
+      "required": ["taskQueues"],
+      "not": {
+        "required": ["working_item", "queues", "global_config", "priority_order"]
+      }
+    }
+  ],
+  "additionalProperties": false,
+  
+  "definitions": {
+    "priority_task_item": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the task"
+        },
+        "type": {
+          "type": "string",
+          "description": "Task type (e.g., test_implementation, feature_implementation, bug_fix)"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["critical", "high", "medium", "low"],
+          "description": "Task priority level"
+        },
+        "epic": {
+          "type": "string",
+          "description": "Epic this task belongs to"
+        },
+        "root_item_id": {
+          "type": "string",
+          "description": "Root item identifier that links this task to its origin epic or feature"
+        },
+        "content": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Task title"
+            },
+            "description": {
+              "type": "string",
+              "description": "Detailed task description"
+            },
+            "components": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Task components or subtasks"
+            },
+            "estimated_hours": {
+              "type": "number",
+              "description": "Estimated hours to complete"
+            },
+            "feature_covered": {
+              "type": "string",
+              "description": "Feature being covered by this task"
+            },
+            "test_file": {
+              "type": "string",
+              "description": "Test file path for test tasks"
+            },
+            "dependencies": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Task dependencies"
+            },
+            "queue_section": {
+              "type": "string",
+              "description": "Original queue section"
+            },
+            "original_text": {
+              "type": "string",
+              "description": "Original task text"
+            }
+          },
+          "additionalProperties": true
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "in_progress", "completed", "blocked"],
+          "description": "Task status"
+        },
+        "parent": {
+          "type": "string",
+          "description": "Parent task or context"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Alternative creation timestamp format"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Alternative update timestamp format"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Task creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Completion timestamp"
+        }
+      },
+      "required": ["id", "content", "status"],
+      "additionalProperties": true
+    },
+    "queue_step": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The step content/description. Step file name is auto-generated from this content by converting special characters to underscores and making it lowercase."
+    },
+    "task_queue_item": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Unique identifier for the task item"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "adhoc_temp_user_request",
+            "user_story",
+            "scenarios",
+            "environment_tests",
+            "external_tests",
+            "system_tests_implement",
+            "integration_tests_implement",
+            "unit_tests",
+            "integration_tests_verify",
+            "system_tests_verify",
+            "coverage_duplication",
+            "retrospective",
+            "empty"
+          ],
+          "description": "Queue item type - determines which queue this item belongs to. 'empty' type shows comment to pick feature user story from FEATURE.md"
+        },
+        "content": {
+          "type": "string",
+          "minLength": 0,
+          "description": "Task content/description. For 'empty' type items, this is auto-generated comment: '<!-- Pick feature user story from FEATURE.md and push to User Story Queue -->'"
+        },
+        "parent": {
+          "type": "string",
+          "description": "Parent output that was used to create this item - required for tracking lineage"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["critical", "high", "medium", "low"],
+          "default": "medium",
+          "description": "Priority level for the task item within its queue"
+        },
+        "root_item_id": {
+          "type": "string",
+          "description": "Root item identifier that links this task to its origin epic or feature (e.g., 'infra_epic__feature__log_aggregation_service')"
+        },
+        "points": {
+          "type": "number",
+          "minimum": 1,
+          "description": "Story points (optional, for estimation)"
+        },
+        "cucumber_steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Cucumber steps that should be run for this item - stored as references to llm_rules/steps/"
+        },
+        "messages": {
+          "type": "object",
+          "properties": {
+            "always_print": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Messages printed always (marked with * in original)"
+            },
+            "operation_print": {
+              "type": "array", 
+              "items": {
+                "type": "string"
+              },
+              "description": "Messages printed during operations but seldomly config (marked with - in original)"
+            }
+          },
+          "additionalProperties": false
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/task_queue_item"
+          },
+          "description": "Child items that should be inserted when this item is processed"
+        },
+        "variables": {
+          "type": "object",
+          "description": "Variables dictionary maintained through workflow steps",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "description": "The variable value"
+              },
+              "generated": {
+                "type": "boolean",
+                "description": "Whether this variable was generated"
+              },
+              "source": {
+                "type": "string",
+                "description": "Source of the variable (e.g., 'gen:external_access')"
+              }
+            }
+          }
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this item was created (ISO 8601 format)"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this item was last updated (ISO 8601 format)"
+        },
+        "metadata": {
+          "type": "object",
+          "description": "Additional flexible metadata",
+          "additionalProperties": true
+        }
+      },
+      "required": ["id", "type", "content", "parent"],
+      "additionalProperties": false
+    }
+  },
+
+  "examples": [
+    {
+      "metadata": {
+        "version": "1.0.0",
+        "created_at": "2024-01-01T10:00:00Z",
+        "updated_at": "2024-01-20T15:30:00Z",
+        "total_items": 5,
+        "description": "Development task queue for environment configuration system"
+      },
+      "working_item": {
+        "id": "working-env-integration-test",
+        "type": "integration_tests_implement",
+        "content": "Test: EnvGenerator integrates with TokenService to include security tokens",
+        "parent": "scenario-security-tokens-generation",
+        "cucumber_steps": ["check_integration_test_requirements"],
+        "messages": {
+          "always_print": ["Writing Integration Test for TokenService integration"],
+          "operation_print": ["Checking sequence diagram dependencies"]
+        },
+        "created_at": "2024-01-20T14:00:00Z",
+        "updated_at": "2024-01-20T15:30:00Z"
+      },
+      "queues": {
+        "adhoc_temp_user_request": {
+          "items": []
+        },
+        "user_story": {
+          "items": [
+            {
+              "id": "empty-user-story-queue",
+              "type": "empty",
+              "content": "<!-- Pick feature user story from FEATURE.md and push to User Story Queue -->",
+              "parent": "system",
+              "created_at": "2024-01-20T10:00:00Z",
+              "updated_at": "2024-01-20T10:00:00Z"
+            }
+          ]
+        },
+        "scenarios": {
+          "items": [
+            {
+              "id": "scenario-service-discovery-urls",
+              "type": "scenarios",
+              "content": "Scenario: Service discovery URLs are automatically included when themes depend on each other",
+              "parent": "user-story-env-config-system",
+              "cucumber_steps": ["check_scenario_research_files"],
+              "created_at": "2024-01-20T10:00:00Z",
+              "updated_at": "2024-01-20T10:00:00Z"
+            }
+          ]
+        },
+        "environment_tests": {
+          "items": []
+        },
+        "external_tests": {
+          "items": []
+        },
+        "system_tests_implement": {
+          "items": []
+        },
+        "integration_tests_implement": {
+          "items": [
+            {
+              "id": "integration-service-discovery",
+              "type": "integration_tests_implement", 
+              "content": "Test: EnvGenerator integrates with ServiceDiscovery for service URLs",
+              "parent": "scenario-service-discovery-urls",
+              "created_at": "2024-01-20T12:00:00Z",
+              "updated_at": "2024-01-20T12:00:00Z"
+            }
+          ]
+        },
+        "unit_tests": {
+          "items": []
+        },
+        "integration_tests_verify": {
+          "items": []
+        },
+        "system_tests_verify": {
+          "items": []
+        },
+        "coverage_duplication": {
+          "items": [
+            {
+              "id": "coverage-env-generation",
+              "type": "coverage_duplication",
+              "content": "Coverage check for automatic .env generation implementation",
+              "parent": "integration-env-config-In Progress",
+              "created_at": "2024-01-20T13:00:00Z",
+              "updated_at": "2024-01-20T13:00:00Z"
+            }
+          ]
+        },
+        "retrospective": {
+          "items": []
+        }
+      },
+      "global_config": {
+        "seldom_display_default": 5,
+        "operation_counters": {
+          "epic": 0,
+          "adhoc_temp_user_request": 0,
+          "user_story": 2,
+          "scenarios": 1,
+          "environment_tests": 0,
+          "external_tests": 0,
+          "system_tests_implement": 0,
+          "integration_tests_implement": 3,
+          "unit_tests": 0,
+          "integration_tests_verify": 0,
+          "system_tests_verify": 0,
+          "coverage_duplication": 1,
+          "retrospective": 0
+        }
+      },
+      "priority_order": [
+        "epic",
+        "adhoc_temp_user_request",
+        "environment_tests",
+        "external_tests",
+        "system_tests_implement",
+        "integration_tests_implement",
+        "unit_tests", 
+        "integration_tests_verify",
+        "system_tests_verify",
+        "scenarios",
+        "user_story"
+      ]
+    }
+  ],
+
+  "usage_notes": {
+    "description": "Guidelines for using task_queue.vf.json",
+    "notes": [
+      "Working item is a single item, not a queue - represents the currently active task",
+      "All steps are runnable (execute filesystem MCP operations) - they are NOT task queue items",
+      "Task queue items follow format: 'Type: Description' (e.g., 'Test: EnvGenerator integration')",
+      "Empty queues can show 'empty' type items with comments like '<!-- Pick feature user story from FEATURE.md -->'",
+      "All steps must reference step files in llm_rules/steps/ directory",
+      "Queue priority determines pop order - higher priority queues are processed first",
+      "Before insert steps are validation steps that must pass before adding items to queue",
+      "After pop steps are actions to execute when an item is popped from the queue",
+      "Each queue maintains its own items array and step definitions",
+      "The schema supports the In Progress workflow from TASK_QUEUE.md with enhanced step control"
+    ]
+  },
+
+  "operations": {
+    "description": "Common operations on task_queue.vf.json",
+    "operations": [
+      {
+        "name": "pop_next_item",
+        "description": "Pop the next item based on priority order",
+        "steps": [
+          "1. Check priority_order array from highest to lowest priority",
+          "2. Find first non-empty queue in priority order",
+          "3. Pop first item from that queue",
+          "4. Set as working_item",
+          "5. Execute after_pop_steps for that queue type",
+          "6. Update metadata.updated_at and total_items"
+        ]
+      },
+      {
+        "name": "insert_item",
+        "description": "Insert item into appropriate queue",
+        "steps": [
+          "1. Validate item matches task_queue_item schema",
+          "2. Execute before_insert_steps for target queue type",
+          "3. If validation passes, add to queues[item.type].items",
+          "4. Update metadata.total_items and updated_at"
+        ]
+      },
+      {
+        "name": "complete_working_item",
+        "description": "Mark working item as In Progress",
+        "steps": [
+          "1. Set working_item to null",
+          "2. Update metadata.updated_at"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "level": "theme",
+    "version": "2.1.0",
+    "description": "File structure definition for setup-folder theme",
+    "supports_distributed_features": true,
+    "supports_freeze": true,
+    "freeze_validation": "When freeze is true on a directory, filesystem-mcp will reject file creation and show the allowed structure"
+  },
+  "templates": {
+    "setup-folder": {
+      "id": "setup-folder",
+      "type": "directory",
+      "feature_level": "theme",
+      "has_feature_file": true,
+      "freeze": false,
+      "description": "Setup automation theme",
+      "comment": "Provides project setup automation tools",
+      "required_children": [
+        { "name": "TASK_QUEUE.vf.json", "type": "file", "comment": "Virtual filesystem task queue" },
+        { "name": "FEATURE.vf.json", "type": "feature_file", "feature_level": "theme", "comment": "Theme-level features" },
+        { "name": "FILE_STRUCTURE.vf.json", "type": "file", "comment": "File structure definition" },
+        { "name": "NAME_ID.vf.json", "type": "file", "comment": "Name-based entity storage" },
+        { "name": "README.md", "type": "file", "comment": "Theme documentation" },
+        { "name": "package.json", "type": "file", "comment": "Node.js package configuration" },
+        { "name": "tsconfig.json", "type": "file", "comment": "TypeScript configuration" },
+        { "name": "jest.config.js", "type": "file", "comment": "Jest test configuration" },
+        { "name": "children", "type": "directory", "comment": "Main source code directory" },
+        { "name": "tests", "type": "directory", "comment": "Test suites" },
+        { "name": "scripts", "type": "directory", "comment": "Utility scripts" },
+        { "name": "pipe", "type": "directory", "comment": "Cross-layer communication" },
+        { "name": "test-deploy", "type": "directory", "comment": "Test deployment artifacts" }
+      ],
+      "optional_children": [
+        { "name": "coverage", "type": "directory", "comment": "Test coverage reports" },
+        { "name": "dist", "type": "directory", "comment": "Build output" },
+        { "name": "node_modules", "type": "directory", "comment": "Dependencies" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "userManagement": [
+    {
+      "id": "user-001",
+      "name": "userManagement",
+      "data": {
+        "title": "User Registration System",
+        "description": "In Progress user registration and authentication system",
+        "priority": "high",
+        "status": "pending",
+        "category": "authentication",
+        "complexity": "intermediate",
+        "estimated_hours": 8,
+        "tags": ["security", "user", "auth"],
+        "active": true
+      },
+      "createdAt": "2025-01-19T10:00:00.000Z",
+      "updatedAt": "2025-01-19T10:00:00.000Z"
+    },
+    {
+      "id": "user-002", 
+      "name": "userManagement",
+      "data": {
+        "title": "User Profile Management",
+        "description": "Allow users to manage their profiles",
+        "priority": "medium",
+        "status": "pending",
+        "category": "user-interface",
+        "complexity": "beginner",
+        "estimated_hours": 4,
+        "tags": ["ui", "profile", "user"],
+        "active": true
+      },
+      "createdAt": "2025-01-19T10:00:00.000Z",
+      "updatedAt": "2025-01-19T10:00:00.000Z"
+    }
+  ],
+  "dataAnalytics": [
+    {
+      "id": "analytics-001",
+      "name": "dataAnalytics",
+      "data": {
+        "title": "Real-time Analytics Dashboard",
+        "description": "Dashboard showing real-time system metrics",
+        "priority": "low",
+        "status": "In Progress",
+        "category": "analytics",
+        "complexity": "advanced",
+        "estimated_hours": 16,
+        "tags": ["dashboard", "metrics", "realtime"],
+        "active": false
+      },
+      "createdAt": "2025-01-18T10:00:00.000Z",
+      "updatedAt": "2025-01-19T09:00:00.000Z"
+    }
+  ],
+  "apiIntegration": [
+    {
+      "id": "api-001",
+      "name": "apiIntegration", 
+      "data": {
+        "title": "Third-party API Integration",
+        "description": "Integration with external payment and notification APIs",
+        "priority": "high",
+        "status": "in-progress", 
+        "category": "integration",
+        "complexity": "intermediate",
+        "estimated_hours": 12,
+        "tags": ["api", "payment", "notification"],
+        "active": true
+      },
+      "createdAt": "2025-01-17T10:00:00.000Z",
+      "updatedAt": "2025-01-19T08:00:00.000Z"
+    },
+    {
+      "id": "api-002",
+      "name": "apiIntegration",
+      "data": {
+        "title": "API Rate Limiting",
+        "description": "Implement rate limiting for API endpoints",
+        "priority": "medium",
+        "status": "pending",
+        "category": "security",
+        "complexity": "intermediate", 
+        "estimated_hours": 6,
+        "tags": ["api", "security", "rate-limit"],
+        "active": true
+      },
+      "createdAt": "2025-01-19T10:00:00.000Z",
+      "updatedAt": "2025-01-19T10:00:00.000Z"
+    }
+  ]
+}

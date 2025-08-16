@@ -1,0 +1,60 @@
+# {{document.title}}
+
+{{#if document.version}}
+**Version:** {{document.version}}
+{{/if}}
+
+**Generated:** {{formatDateTime document.generatedAt}}
+
+{{#if document.metadata.author}}
+**Author:** {{document.metadata.author}}
+{{/if}}
+
+{{#if document.tableOfContents}}
+## Table of Contents
+
+{{> toc items=document.tableOfContents}}
+{{/if}}
+
+## Test Documentation
+
+{{#each document.sections}}
+### {{title}}
+
+{{{content}}}
+
+{{#if testCases}}
+#### Test Cases
+
+{{#each testCases}}
+{{> testCase test=this}}
+{{/each}}
+{{/if}}
+
+{{#if subsections}}
+{{#each subsections}}
+{{> section}}
+{{/each}}
+{{/if}}
+
+{{/each}}
+
+{{#if document.glossary}}
+## Glossary
+
+{{#each document.glossary}}
+- **{{term}}:** {{definition}}
+{{/each}}
+{{/if}}
+
+{{#if document.index}}
+## Index
+
+{{#each document.index}}
+- {{term}}: {{join references ", "}}
+{{/each}}
+{{/if}}
+
+---
+
+{{> footer}}

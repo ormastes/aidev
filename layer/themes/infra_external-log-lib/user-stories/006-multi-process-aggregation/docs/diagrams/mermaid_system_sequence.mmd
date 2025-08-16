@@ -1,0 +1,86 @@
+sequenceDiagram
+    participant Dev as Developer
+    participant ELL as External Log Library
+    participant LogMon as Log Monitor
+    participant LogAgg as Log Aggregator
+    participant PM1 as Process Manager 1
+    participant PM2 as Process Manager 2
+    participant PM3 as Process Manager 3
+    participant P1 as Process 1
+    participant P2 as Process 2
+    participant P3 as Process 3
+
+    Dev->>ELL: Create LogMonitor instance
+    ELL->>LogMon: Initialize monitor
+    
+    Note over Dev,LogMon: Start multiple processes concurrently
+    
+    Dev->>LogMon: startRealTimeMonitoring(cmd1, options1)
+    LogMon->>PM1: Create ProcessManager
+    PM1->>P1: Spawn process
+    P1-->>PM1: Process started
+    PM1-->>LogMon: Process ID 1
+    LogMon-->>Dev: Return processId1
+    
+    Dev->>LogMon: startRealTimeMonitoring(cmd2, options2)
+    LogMon->>PM2: Create ProcessManager
+    PM2->>P2: Spawn process
+    P2-->>PM2: Process started
+    PM2-->>LogMon: Process ID 2
+    LogMon-->>Dev: Return processId2
+    
+    Dev->>LogMon: startRealTimeMonitoring(cmd3, options3)
+    LogMon->>PM3: Create ProcessManager
+    PM3->>P3: Spawn process
+    P3-->>PM3: Process started
+    PM3-->>LogMon: Process ID 3
+    LogMon-->>Dev: Return processId3
+    
+    Note over P1,P3: Processes generate logs concurrently
+    
+    P1->>PM1: stdout/stderr logs
+    PM1->>LogMon: Log entries (processId1)
+    LogMon->>LogAgg: Aggregate log (processId1)
+    
+    P2->>PM2: stdout/stderr logs
+    PM2->>LogMon: Log entries (processId2)
+    LogMon->>LogAgg: Aggregate log (processId2)
+    
+    P3->>PM3: stdout/stderr logs
+    PM3->>LogMon: Log entries (processId3)
+    LogMon->>LogAgg: Aggregate log (processId3)
+    
+    LogAgg->>Dev: Aggregated log entry (all processes)
+    
+    Note over Dev,LogAgg: Developer queries aggregated logs
+    
+    Dev->>LogMon: getAggregatedLogs(filters)
+    LogMon->>LogAgg: Query logs
+    LogAgg-->>LogMon: Filtered results
+    LogMon-->>Dev: Aggregated log results
+    
+    Dev->>LogMon: getProcessLogs(processId2)
+    LogMon->>LogAgg: Query process-specific logs
+    LogAgg-->>LogMon: Process 2 logs
+    LogMon-->>Dev: Process 2 log results
+    
+    Note over P1,P3: Processes complete at different times
+    
+    P1->>PM1: Process exit
+    PM1->>LogMon: Process 1 completed
+    LogMon->>LogAgg: Mark process 1 complete
+    
+    P3->>PM3: Process exit
+    PM3->>LogMon: Process 3 completed
+    LogMon->>LogAgg: Mark process 3 complete
+    
+    Dev->>LogMon: getMonitoringStatus()
+    LogMon-->>Dev: Status (1 active, 2 completed)
+    
+    P2->>PM2: Process exit
+    PM2->>LogMon: Process 2 completed
+    LogMon->>LogAgg: Mark process 2 complete
+    
+    Dev->>LogMon: stopAllMonitoring()
+    LogMon->>LogAgg: Cleanup aggregator
+    LogMon-->>Dev: All monitoring stopped

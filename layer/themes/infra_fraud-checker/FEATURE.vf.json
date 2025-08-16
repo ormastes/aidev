@@ -1,0 +1,191 @@
+{
+  "name": "fraud-checker",
+  "version": "1.1.0",
+  "description": "Theme for detecting fraudulent patterns in test code and analyzing code quality issues",
+  "features": [
+    {
+      "id": "fraud-detection-cli",
+      "name": "Fraud Detection CLI",
+      "description": "Command-line interface for running comprehensive fraud analysis",
+      "status": "completed",
+      "priority": "high",
+      "tags": ["cli", "analysis", "fraud-detection"]
+    },
+    {
+      "id": "mock-detection",
+      "name": "Mock Detection Service",
+      "description": "Detects inappropriate mock usage in production code and tests",
+      "status": "completed",
+      "priority": "high",
+      "tags": ["mock", "test-quality", "fraud-detection"]
+    },
+    {
+      "id": "test-coverage-fraud",
+      "name": "Test Coverage Fraud Detector",
+      "description": "Identifies fake, empty, or fraudulent tests that inflate coverage metrics",
+      "status": "completed",
+      "priority": "high",
+      "tags": ["test-coverage", "fraud-detection", "quality"]
+    },
+    {
+      "id": "dependency-fraud",
+      "name": "Dependency Fraud Detector",
+      "description": "Analyzes dependencies for suspicious patterns and unused packages",
+      "status": "completed",
+      "priority": "medium",
+      "tags": ["dependency-analysis", "security", "fraud-detection"]
+    },
+    {
+      "id": "code-smell-detection",
+      "name": "Code Smell Detector",
+      "description": "Identifies code quality issues like long methods, god classes, and magic numbers",
+      "status": "completed",
+      "priority": "medium",
+      "tags": ["code-quality", "analysis", "maintainability"]
+    },
+    {
+      "id": "security-vulnerability",
+      "name": "Security Vulnerability Detector",
+      "description": "Detects potential security issues including SQL injection, XSS, and hardcoded secrets",
+      "status": "completed",
+      "priority": "critical",
+      "tags": ["security", "vulnerability", "analysis"]
+    },
+    {
+      "id": "fraud-report-generation",
+      "name": "Fraud Report Generator",
+      "description": "Generates comprehensive fraud analysis reports in JSON and Markdown formats",
+      "status": "completed",
+      "priority": "high",
+      "tags": ["reporting", "output", "analysis"]
+    },
+    {
+      "id": "test-type-detection",
+      "name": "Test Type Detection",
+      "description": "Identifies different test types (unit, integration, system, environment)",
+      "status": "completed",
+      "priority": "medium",
+      "tags": ["test-analysis", "categorization"]
+    },
+    {
+      "id": "pattern-based-analysis",
+      "name": "Pattern-Based Fraud Detection",
+      "description": "Uses configurable patterns to detect various types of fraud",
+      "status": "completed",
+      "priority": "medium",
+      "tags": ["pattern-matching", "configuration", "analysis"]
+    },
+    {
+      "id": "severity-classification",
+      "name": "Severity Classification",
+      "description": "Classifies issues by severity levels (critical, high, medium, low)",
+      "status": "completed",
+      "priority": "medium",
+      "tags": ["classification", "prioritization", "reporting"]
+    },
+    {
+      "id": "rule-suggestion-analysis",
+      "name": "Rule Suggestion Analysis",
+      "description": "Analyzes retrospectives and story reports to validate rule suggestions and lessons learned",
+      "status": "completed",
+      "priority": "high",
+      "tags": ["retrospective", "rules", "analysis", "validation"]
+    },
+    {
+      "id": "retrospective-validation",
+      "name": "Retrospective Format Validation",
+      "description": "Validates retrospective documents for required sections and format compliance",
+      "status": "completed",
+      "priority": "high",
+      "tags": ["retrospective", "validation", "documentation"]
+    },
+    {
+      "id": "story-report-validation",
+      "name": "Story Report Steps Validation",
+      "description": "Validates story report implementation and required fields",
+      "status": "completed",
+      "priority": "high",
+      "tags": ["story-report", "validation", "steps"]
+    },
+    {
+      "id": "common-check-format",
+      "name": "Common Check Result Format",
+      "description": "Standardized pass/fail format for all check scripts",
+      "status": "completed",
+      "priority": "medium",
+      "tags": ["standardization", "reporting", "schema"]
+    },
+    {
+      "id": "web-ui-test-validation",
+      "name": "Web UI Test Validation",
+      "description": "Validates that web-based UI tests (React, React Native, Electron) follow strict E2E testing rules: Playwright only, login page URL only, all user interactions allowed, no DOM manipulation or non-user actions",
+      "status": "completed",
+      "priority": "critical",
+      "tags": ["web-ui", "e2e-testing", "playwright", "validation", "user-interaction"]
+    },
+    {
+      "id": "file-structure-validation",
+      "name": "File Structure Validation",
+      "description": "On-demand validation of project file structure against FILE_STRUCTURE.vf.json definitions. Uses filesystem-mcp logic to check compliance and report violations. Not for daily checks - only runs when explicitly requested.",
+      "status": "in_progress",
+      "priority": "high",
+      "tags": ["file-structure", "validation", "compliance", "on-demand", "filesystem-mcp"]
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "glob",
+      "version": "^8.0.3",
+      "purpose": "File pattern matching for analysis"
+    },
+    {
+      "name": "typescript",
+      "version": "^5.0.0",
+      "purpose": "TypeScript support and AST parsing"
+    },
+    {
+      "name": "@typescript-eslint/parser",
+      "version": "^5.0.0",
+      "purpose": "Advanced TypeScript parsing capabilities"
+    }
+  ],
+  "interfaces": {
+    "cli": {
+      "commands": [
+        {
+          "name": "analyze",
+          "description": "Run fraud analysis on a target directory",
+          "usage": "node fraud-analyzer.js <request-file.json>"
+        }
+      ]
+    },
+    "pipe": {
+      "exports": [
+        "FraudAnalyzerService",
+        "MockDetectionService",
+        "TestCoverageFraudDetector",
+        "DependencyFraudDetector",
+        "CodeSmellDetector",
+        "SecurityVulnerabilityDetector",
+        "RuleSuggestionAnalyzer",
+        "FraudReportGenerator",
+        "WebUITestDetector",
+        "FileStructureValidator"
+      ]
+    }
+  },
+  "configuration": {
+    "mockPatterns": {
+      "description": "Patterns for detecting mock usage",
+      "configurable": true
+    },
+    "securityPatterns": {
+      "description": "Patterns for security vulnerability detection",
+      "configurable": true
+    },
+    "codeSmellThresholds": {
+      "description": "Thresholds for code smell detection",
+      "configurable": true
+    }
+  }
+}

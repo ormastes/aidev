@@ -1,0 +1,17 @@
+
+@µÏ4«Ä.ní}„Œa+JP?M´Àr§ü«±ƒ*ƒÈDÚÿÉùJí"êH<ß!Æ™kkZRN¸¡@GÝ¾À¤ÒäÏÉU¡‹ŸHU\žÃ›7wI7§š—>ýa’ÌŒ®îóµ»ïR
+[À¤êPQ<§´t´½Ì"”
+•ßéˆ‰3–ßéˆ‰38describe commit 565c12c73f61d6b6211c0e05d2f4ead1cd1899a9"dl*ormastes2·
+args®jj describe -m 'Refactor theme names: init_container-environment â†’ init_docker, infra_qemu â†’ init_qemu
+
+- Renamed init_container-environment to init_docker for clarity
+- Renamed infra_qemu to init_qemu to match init epic convention
+- Updated all references in init_setup-folder theme
+- Added Docker CMake build features with volume mounting
+- Added debug port configuration (disabled by default)
+- Created minimal QEMU theme as Docker alternative
+
+ðŸ¤– Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>'",
+ÿRþž“ÄÉèTï´X¼ ”EÈucV\Ç?aÖ¶!ÒôêÑÍ™©(

@@ -1,0 +1,22 @@
+{
+  "structure": {
+    ".": {
+      "type": "directory",
+      "description": "Demo project root",
+      "children": {
+        "src": {
+          "type": "directory",
+          "description": "Source code"
+        },
+        "test": {
+          "type": "directory",
+          "description": "Test files"
+        },
+        "config": {
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "@aidev/cross-theme-integration",
+  "version": "1.0.0",
+  "description": "Cross-theme integration tests for AI Development Platform",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:portal-pocketflow": "jest portal-pocketflow-chat",
+    "test:coordinator-ollama": "jest coordinator-ollama-chat",
+    "test:cli-hea": "jest cli-hea-typescript",
+    "test:full-journey": "jest full-journey",
+    "build": "tsc",
+    "clean": "rm -rf dist coverage"
+  },
+  "keywords": [
+    "integration-testing",
+    "cross-theme",
+    "aidev"
+  ],
+  "author": "AI Development Platform Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.30",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.3"
+  },
+  "dependencies": {
+    "@aidev/aidev-portal": "file:../themes/portal_aidev/user-stories/024-portal_aidev",
+    "@aidev/chat-space": "file:../themes/chat-space/user-stories/007-chat-room-cli",
+    "@aidev/cli-framework": "file:../themes/cli-framework/user-stories/002-cli-base-structure",
+    "@aidev/coordinator-claude-agent": "file:../themes/coordinator-claude-agent/user-stories/010-coordinator-agent",
+    "@aidev/external-log-lib": "file:../themes/external-log-lib",
+    "@aidev/hea-architecture": "file:../themes/check_hea-architecture/user-stories/006-hea-implementation",
+    "@aidev/ollama-mcp-agent": "file:../themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration",
+    "@aidev/pocketflow": "file:../themes/pocketflow",
+    "@aidev/typescript-config": "file:../themes/init_typescript-config/user-stories/004-strict-typescript"
+  }
+}

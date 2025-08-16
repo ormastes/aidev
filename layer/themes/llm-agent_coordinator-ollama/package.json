@@ -1,0 +1,50 @@
+{
+  "name": "@aidev/coordinator-ollama-agent",
+  "version": "1.0.0",
+  "description": "Ollama API Coordinator Agent Theme for AI Development Platform",
+  "main": "pipe/index.ts",
+  "bin": {
+    "ollama-cli": "./dist/src/cli.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:unit": "jest tests/unit",
+    "test:integration": "jest tests/integration",
+    "test:system": "jest user-stories/**/tests/system",
+    "test:external": "jest user-stories/**/tests/external",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "start": "npm run build && node dist/src/cli.js",
+    "cli": "node dist/src/cli.js",
+    "dev": "ts-node src/cli.ts",
+    "coordinator": "ts-node src/ollama-coordinator.ts",
+    "demo": "ts-node demo.ts",
+    "lint": "eslint pipe/**/*.ts src/**/*.ts children/**/*.ts tests/**/*.ts --ext .ts"
+  },
+  "dependencies": {
+    "events": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.0.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0"
+  },
+  "keywords": ["ollama", "api", "coordinator", "agent", "llm", "ai", "theme", "chat", "embeddings"],
+  "author": "AI Development Platform",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aidev/llm-agent_coordinator-ollama"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "project": {
+    "name": "cli-chat-room",
+    "description": "cli-chat-room demo project",
+    "type": "demo"
+  },
+  "features": {},
+  "metadata": {
+    "created": "2025-07-25T03:31:19.485Z",
+    "version": "1.0.0"
+  }
+}

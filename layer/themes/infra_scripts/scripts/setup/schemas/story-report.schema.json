@@ -1,0 +1,259 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Story Report Schema",
+  "description": "Schema for story reporter output with test coverage, branch coverage, and duplication metrics",
+  "type": "object",
+  "required": ["metadata", "testResults", "coverage", "duplication", "setupConfig"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["reportGenerated", "reportGenerator", "version", "format"],
+      "properties": {
+        "reportGenerated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reportGenerator": {
+          "type": "string",
+          "const": "Mock Free Test Oriented Development Story Reporter"
+        },
+        "version": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string",
+          "enum": ["json", "md", "html"]
+        }
+      }
+    },
+    "testResults": {
+      "type": "object",
+      "required": ["testSuiteId", "status", "duration", "scenarios", "totalTests", "passedTests", "failedTests"],
+      "properties": {
+        "testSuiteId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["passed", "failed", "In Progress"]
+        },
+        "duration": {
+          "type": "number"
+        },
+        "scenarios": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/scenario"
+          }
+        },
+        "totalTests": {
+          "type": "integer"
+        },
+        "passedTests": {
+          "type": "integer"
+        },
+        "failedTests": {
+          "type": "integer"
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "required": ["systemTest", "overall"],
+      "properties": {
+        "systemTest": {
+          "$ref": "#/definitions/coverageDetails"
+        },
+        "overall": {
+          "$ref": "#/definitions/coverageDetails"
+        }
+      }
+    },
+    "duplication": {
+      "type": "object",
+      "required": ["percentage", "duplicatedLines", "totalLines", "duplicatedBlocks"],
+      "properties": {
+        "percentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "duplicatedLines": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "totalLines": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "duplicatedBlocks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/duplicatedBlock"
+          }
+        }
+      }
+    },
+    "setupConfig": {
+      "type": "object",
+      "required": ["testFramework", "coverageThreshold", "testTimeout", "environment"],
+      "properties": {
+        "testFramework": {
+          "type": "string",
+          "enum": ["jest", "vitest", "mocha"]
+        },
+        "coverageThreshold": {
+          "type": "object",
+          "properties": {
+            "branches": {
+              "type": "number"
+            },
+            "functions": {
+              "type": "number"
+            },
+            "lines": {
+              "type": "number"
+            },
+            "statements": {
+              "type": "number"
+            }
+          }
+        },
+        "testTimeout": {
+          "type": "integer"
+        },
+        "environment": {
+          "type": "string",
+          "enum": ["test", "development", "staging", "production"]
+        }
+      }
+    },
+    "logs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/logEntry"
+      }
+    }
+  },
+  "definitions": {
+    "scenario": {
+      "type": "object",
+      "required": ["name", "status", "duration"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["passed", "failed", "In Progress", "skipped"]
+        },
+        "duration": {
+          "type": "number"
+        },
+        "errorMessage": {
+          "type": "string"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/step"
+          }
+        }
+      }
+    },
+    "step": {
+      "type": "object",
+      "required": ["name", "status"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["passed", "failed", "skipped", "pending"]
+        },
+        "duration": {
+          "type": "number"
+        },
+        "error": {
+          "type": "string"
+        }
+      }
+    },
+    "coverageDetails": {
+      "type": "object",
+      "required": ["class", "branch", "line", "method"],
+      "properties": {
+        "class": {
+          "$ref": "#/definitions/coverageMetric"
+        },
+        "branch": {
+          "$ref": "#/definitions/coverageMetric"
+        },
+        "line": {
+          "$ref": "#/definitions/coverageMetric"
+        },
+        "method": {
+          "$ref": "#/definitions/coverageMetric"
+        }
+      }
+    },
+    "coverageMetric": {
+      "type": "object",
+      "required": ["percentage", "covered", "total"],
+      "properties": {
+        "percentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "covered": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "duplicatedBlock": {
+      "type": "object",
+      "required": ["files", "lines", "tokens"],
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2
+        },
+        "lines": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "tokens": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "logEntry": {
+      "type": "object",
+      "required": ["level", "timestamp", "message"],
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": ["error", "warn", "info", "debug", "trace"]
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

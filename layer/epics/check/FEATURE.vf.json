@@ -1,0 +1,62 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/epics/check/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-03T15:30:00.000Z",
+    "updated_at": "2025-08-03T15:30:00.000Z"
+  },
+  "features": {
+    "check": [
+      {
+        "id": "check-001",
+        "name": "Code Quality and Architecture Check Epic",
+        "data": {
+          "title": "Code Quality and Architecture Check Epic",
+          "description": "Provides comprehensive code quality checking, architecture validation, and development methodology enforcement across the platform",
+          "level": "epic",
+          "status": "active",
+          "priority": "high",
+          "tags": [
+            "check",
+            "quality",
+            "architecture",
+            "validation",
+            "testing"
+          ],
+          "virtual_path": "/layer/epics/check/FEATURE.vf.json",
+          "provides": [
+            "code-enhancement",
+            "architecture-validation",
+            "test-methodology",
+            "quality-assurance"
+          ],
+          "components": {
+            "code-quality": {
+              "code-enhancer": "Code formatting and quality improvement",
+              "style-checker": "Code style validation",
+              "complexity-analyzer": "Code complexity metrics"
+            },
+            "architecture": {
+              "hea-validator": "Hierarchical Encapsulation Architecture validation",
+              "structure-checker": "Project structure compliance",
+              "dependency-analyzer": "Dependency management validation"
+            },
+            "testing": {
+              "mftod-enforcer": "Mock Free Test Oriented Development enforcement",
+              "coverage-validator": "Test coverage validation",
+              "test-quality": "Test quality assessment"
+            }
+          }
+        },
+        "createdAt": "2025-08-03T15:30:00.000Z",
+        "updatedAt": "2025-08-03T15:30:00.000Z"
+      }
+    ]
+  },
+  "children": [
+    "/layer/themes/check_code-enhancer/FEATURE.vf.json",
+    "/layer/themes/check_hea-architecture/FEATURE.vf.json",
+    "/layer/themes/check_mock-free-test-oriented/FEATURE.vf.json"
+  ]
+}

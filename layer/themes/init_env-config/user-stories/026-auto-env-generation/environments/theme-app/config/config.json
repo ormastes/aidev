@@ -1,0 +1,24 @@
+{
+  "name": "theme-app",
+  "type": "theme",
+  "port": {
+    "base": 3200,
+    "range": [
+      3201,
+      3299
+    ]
+  },
+  "database": {
+    "type": "sqlite",
+    "connection": "./data/theme-app.db"
+  },
+  "paths": {
+    "root": "environments/theme-app",
+    "data": "environments/theme-app/data",
+    "logs": "environments/theme-app/logs",
+    "temp": "environments/theme-app/temp"
+  },
+  "services": [],
+  "created": "2025-08-11T02:04:30.009Z",
+  "updated": "2025-08-11T02:04:30.009Z"
+}

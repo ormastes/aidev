@@ -1,0 +1,14 @@
+[requires]
+# Add dependencies here as needed
+# fmt/10.1.1
+# spdlog/1.12.0
+
+[generators]
+CMakeDeps
+CMakeToolchain
+
+[options]
+# Add options here
+
+[imports]
+# Import shared libraries if needed

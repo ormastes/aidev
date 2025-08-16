@@ -1,0 +1,198 @@
+{
+  "metadata": {
+    "level": "theme",
+    "path": "/layer/themes/research/user-stories/circular-dependency-detection/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-14T12:00:00.000Z",
+    "updated_at": "2025-08-14T12:00:00.000Z"
+  },
+  "features": {
+    "core": [
+      {
+        "id": "circular-deps-core-engine",
+        "name": "Core Dependency Analysis Engine",
+        "data": {
+          "title": "Multi-Language Dependency Analysis Engine",
+          "description": "Core engine for parsing and analyzing dependencies across TypeScript, C++, and Python codebases with graph-based cycle detection",
+          "level": "core",
+          "status": "implemented",
+          "priority": "critical",
+          "tags": ["core", "engine", "graph-analysis", "multi-language"],
+          "deliverables": [
+            "DependencyGraph class with cycle detection algorithms",
+            "Language-specific parsers (TS, C++, Python)",
+            "Graph analysis utilities (SCC, DFS)",
+            "Caching layer for large codebases",
+            "Incremental analysis support"
+          ],
+          "success_criteria": [
+            "Detect strongly connected components efficiently",
+            "Support graphs with 50,000+ nodes",
+            "Sub-second incremental updates",
+            "Memory usage under 1GB for large projects"
+          ]
+        },
+        "createdAt": "2025-08-14T12:00:00.000Z"
+      }
+    ],
+    "typescript": [
+      {
+        "id": "circular-deps-typescript",
+        "name": "TypeScript Circular Dependency Detection",
+        "data": {
+          "title": "TypeScript Import Cycle Detection",
+          "description": "Comprehensive TypeScript circular dependency detection using multiple tools and custom analysis",
+          "level": "language-specific",
+          "status": "implemented",
+          "priority": "high",
+          "tags": ["typescript", "import-cycles", "modules"],
+          "deliverables": [
+            "Madge integration for module dependency analysis",
+            "Dependency Cruiser integration for advanced rules",
+            "ds tool integration for simple cycle detection", 
+            "TypeScript AST parser for custom analysis",
+            "ESM and CommonJS support",
+            "Monorepo workspace support"
+          ],
+          "success_criteria": [
+            "Detect all import cycles with zero false negatives",
+            "Support TypeScript 4.5+ syntax",
+            "Handle dynamic imports and require statements",
+            "Process large monorepos in under 30 seconds"
+          ]
+        },
+        "createdAt": "2025-08-14T12:00:00.000Z"
+      }
+    ],
+    "cpp": [
+      {
+        "id": "circular-deps-cpp",
+        "name": "C++ Circular Dependency Detection",
+        "data": {
+          "title": "C++ Include and Link Cycle Detection",
+          "description": "Advanced C++ circular dependency detection for include cycles and linking dependencies",
+          "level": "language-specific", 
+          "status": "implemented",
+          "priority": "high",
+          "tags": ["cpp", "include-cycles", "linking", "compilation"],
+          "deliverables": [
+            "Clang-Tidy integration for static analysis",
+            "cpp-dependencies tool integration",
+            "Custom include parser with preprocessor support",
+            "CMake integration for build dependency analysis",
+            "Header guard and pragma once detection",
+            "Template instantiation cycle detection"
+          ],
+          "success_criteria": [
+            "Detect include cycles causing compilation failures",
+            "Identify potential link-time circular dependencies",
+            "Support modern C++ standards (C++17, C++20)",
+            "Handle complex template dependencies"
+          ]
+        },
+        "createdAt": "2025-08-14T12:00:00.000Z"
+      }
+    ],
+    "python": [
+      {
+        "id": "circular-deps-python",
+        "name": "Python Circular Import Detection",
+        "data": {
+          "title": "Python Import Cycle Detection and Analysis",
+          "description": "Comprehensive Python circular import detection with runtime and static analysis",
+          "level": "language-specific",
+          "status": "implemented", 
+          "priority": "high",
+          "tags": ["python", "import-cycles", "modules", "packages"],
+          "deliverables": [
+            "Pylint integration for static analysis",
+            "Pycycle tool integration for cycle detection",
+            "circular-imports tool integration",
+            "Custom AST-based import analyzer",
+            "Virtual environment support",
+            "Package and namespace analysis"
+          ],
+          "success_criteria": [
+            "Detect both direct and transitive import cycles",
+            "Support Python 3.8+ features",
+            "Handle relative and absolute imports",
+            "Process packages with 1000+ modules"
+          ]
+        },
+        "createdAt": "2025-08-14T12:00:00.000Z"
+      }
+    ],
+    "cli": [
+      {
+        "id": "circular-deps-cli",
+        "name": "Unified CLI Interface",
+        "data": {
+          "title": "Command Line Interface for Dependency Analysis",
+          "description": "Comprehensive CLI tool providing unified interface for all language analyzers",
+          "level": "interface",
+          "status": "implemented",
+          "priority": "high", 
+          "tags": ["cli", "interface", "automation"],
+          "deliverables": [
+            "Multi-language analysis command",
+            "Configuration file support (JSON, YAML)",
+            "Output format options (JSON, HTML, text)",
+            "Watch mode for continuous analysis",
+            "CI/CD integration scripts",
+            "Batch processing capabilities"
+          ],
+          "success_criteria": [
+            "Single command for multi-language analysis",
+            "Configurable analysis depth and scope",
+            "Integration with popular CI systems",
+            "Useful exit codes and error messages"
+          ]
+        },
+        "createdAt": "2025-08-14T12:00:00.000Z"
+      }
+    ],
+    "visualization": [
+      {
+        "id": "circular-deps-visualization",
+        "name": "Dependency Graph Visualization",
+        "data": {
+          "title": "Interactive Dependency Graph Visualization",
+          "description": "Advanced visualization tools for dependency graphs with cycle highlighting",
+          "level": "visualization",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": ["visualization", "graphs", "interactive", "reporting"],
+          "deliverables": [
+            "DOT graph generation for Graphviz",
+            "SVG export with interactive elements",
+            "HTML reports with embedded graphs",
+            "Cycle highlighting and path tracing",
+            "Filtering and zoom capabilities",
+            "Export to PNG/PDF formats"
+          ],
+          "success_criteria": [
+            "Clear visualization of dependency relationships",
+            "Highlight circular dependencies prominently",
+            "Handle large graphs (1000+ nodes) effectively",
+            "Interactive exploration of dependency paths"
+          ]
+        },
+        "createdAt": "2025-08-14T12:00:00.000Z"
+      }
+    ]
+  },
+  "children": [],
+  "test_coverage": {
+    "unit_tests": "90%",
+    "integration_tests": "85%", 
+    "system_tests": "80%",
+    "test_files": [
+      "tests/unit/core/dependency-graph.test.ts",
+      "tests/unit/typescript/ts-analyzer.test.ts",
+      "tests/unit/cpp/cpp-analyzer.test.ts",
+      "tests/unit/python/python-analyzer.test.ts",
+      "tests/integration/multi-language.test.ts",
+      "tests/system/cli-integration.test.ts"
+    ]
+  }
+}

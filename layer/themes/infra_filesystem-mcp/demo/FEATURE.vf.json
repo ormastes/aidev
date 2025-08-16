@@ -1,0 +1,80 @@
+{
+  "taskCLI": [
+    {
+      "id": "task-cli-001",
+      "name": "taskCLI",
+      "data": {
+        "title": "Task Management CLI Application",
+        "description": "A simple command-line interface for managing tasks with priorities and categories",
+        "type": "application",
+        "category": "cli-tool",
+        "priority": "high",
+        "status": "pending",
+        "features": [
+          "Add new tasks with priority levels",
+          "List tasks with filtering options", 
+          "Mark tasks as In Progress",
+          "Delete tasks",
+          "Save/load tasks from JSON file",
+          "Color-coded output for different priorities"
+        ],
+        "tech_stack": ["Node.js", "JavaScript", "fs module", "commander.js"],
+        "estimated_hours": 4,
+        "complexity": "beginner"
+      },
+      "createdAt": "2025-01-19T10:00:00.000Z",
+      "updatedAt": "2025-01-19T10:00:00.000Z"
+    }
+  ],
+  "userAuth": [
+    {
+      "id": "task-cli-002", 
+      "name": "userAuth",
+      "data": {
+        "title": "Simple User Authentication",
+        "description": "Basic user authentication system for the task CLI",
+        "type": "feature",
+        "category": "authentication",
+        "priority": "medium",
+        "status": "pending",
+        "features": [
+          "User registration with username/password",
+          "User login validation",
+          "Session management",
+          "Password hashing"
+        ],
+        "tech_stack": ["bcrypt", "jsonwebtoken"],
+        "estimated_hours": 3,
+        "complexity": "intermediate"
+      },
+      "createdAt": "2025-01-19T10:00:00.000Z",
+      "updatedAt": "2025-01-19T10:00:00.000Z"
+    }
+  ],
+  "dataExport": [
+    {
+      "id": "task-cli-003",
+      "name": "dataExport", 
+      "data": {
+        "title": "Task Data Export/Import",
+        "description": "Export and import task data in multiple formats",
+        "type": "feature",
+        "category": "data-management", 
+        "priority": "low",
+        "status": "pending",
+        "features": [
+          "Export tasks to CSV format",
+          "Export tasks to JSON format", 
+          "Import tasks from CSV",
+          "Import tasks from JSON",
+          "Backup and restore functionality"
+        ],
+        "tech_stack": ["csv-parser", "csv-writer"],
+        "estimated_hours": 2,
+        "complexity": "beginner"
+      },
+      "createdAt": "2025-01-19T10:00:00.000Z",
+      "updatedAt": "2025-01-19T10:00:00.000Z"
+    }
+  ]
+}

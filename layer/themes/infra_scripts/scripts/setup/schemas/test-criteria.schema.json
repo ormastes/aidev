@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Test Criteria Configuration Schema",
+  "description": "Defines acceptance criteria for different test environments and themes",
+  "type": "object",
+  "required": ["version", "defaultCriteria", "themeCriteria"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Schema version"
+    },
+    "defaultCriteria": {
+      "$ref": "#/definitions/testCriteria",
+      "description": "Default criteria applied to all themes unless overridden"
+    },
+    "themeCriteria": {
+      "type": "object",
+      "description": "Theme-specific criteria overrides",
+      "additionalProperties": {
+        "$ref": "#/definitions/testCriteria"
+      }
+    },
+    "environmentOverrides": {
+      "type": "object",
+      "description": "Environment-specific criteria adjustments",
+      "properties": {
+        "demo": {
+          "$ref": "#/definitions/demoCriteria"
+        },
+        "production": {
+          "$ref": "#/definitions/testCriteria"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "testCriteria": {
+      "type": "object",
+      "required": ["coverage", "duplication", "fraudCheck"],
+      "properties": {
+        "coverage": {
+          "type": "object",
+          "required": ["class", "branch", "line", "method"],
+          "properties": {
+            "class": {
+              "$ref": "#/definitions/threshold"
+            },
+            "branch": {
+              "$ref": "#/definitions/threshold"
+            },
+            "line": {
+              "$ref": "#/definitions/threshold"
+            },
+            "method": {
+              "$ref": "#/definitions/threshold"
+            }
+          }
+        },
+        "duplication": {
+          "type": "object",
+          "required": ["maxPercentage"],
+          "properties": {
+            "maxPercentage": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            }
+          }
+        },
+        "fraudCheck": {
+          "type": "object",
+          "required": ["enabled", "minScore"],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "minScore": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            }
+          }
+        }
+      }
+    },
+    "threshold": {
+      "type": "object",
+      "required": ["minimum", "target"],
+      "properties": {
+        "minimum": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Minimum acceptable percentage"
+        },
+        "target": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Target percentage to achieve"
+        }
+      }
+    },
+    "demoCriteria": {
+      "type": "object",
+      "description": "Relaxed criteria for demo purposes",
+      "allOf": [
+        {
+          "$ref": "#/definitions/testCriteria"
+        },
+        {
+          "properties": {
+            "intentionalFailures": {
+              "type": "array",
+              "description": "List of criteria that should intentionally fail for demo",
+              "items": {
+                "type": "string",
+                "enum": ["classCoverage", "branchCoverage", "duplication", "fraudCheck"]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

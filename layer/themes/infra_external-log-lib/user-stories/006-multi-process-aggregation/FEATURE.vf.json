@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "external-log-lib-epic-001",
+    "path": "/layer/themes/external-log-lib/user-stories/006-multi-process-aggregation/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.583Z",
+    "updated_at": "2025-08-02T11:10:54.583Z"
+  },
+  "features": {
+    "006_multi_process_aggregation": [
+      {
+        "id": "external-log-lib-006-multi-process-aggregation",
+        "name": "multi process aggregation",
+        "data": {
+          "title": "Multi process aggregation",
+          "description": "Implementation of multi process aggregation",
+          "level": "user_story",
+          "parent_feature_id": "external-log-lib-epic-001",
+          "epic_id": "external-log-lib-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "external-log-lib",
+            "multi-process-aggregation"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/external-log-lib/user-stories/006-multi-process-aggregation/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.583Z",
+        "updatedAt": "2025-08-02T11:10:54.583Z"
+      }
+    ]
+  }
+}

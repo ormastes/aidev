@@ -1,0 +1,358 @@
+{
+  "version": "1.0.0",
+  "schema": "https://schema.enhanced-manual-generator.com/v1/test-document.json",
+  "document": {
+    "id": "doc-feature-1755047200306",
+    "title": "E-Commerce Shopping Cart - Test Manual Documentation",
+    "version": "2.0.0",
+    "generatedAt": "2025-08-13T01:06:40.308Z",
+    "test": {
+      "id": "feature-1755047200306",
+      "name": "E-Commerce Shopping Cart",
+      "filePath": "inline",
+      "type": "bdd",
+      "suites": [
+        {
+          "id": "suite-0",
+          "name": "Add product to cart",
+          "testCases": [
+            {
+              "id": "scenario-0",
+              "name": "Add product to cart",
+              "steps": [
+                {
+                  "id": "step-0-0",
+                  "order": 0,
+                  "type": "setup",
+                  "action": "a customer browsing products",
+                  "expected": "Precondition established"
+                },
+                {
+                  "id": "step-0-1",
+                  "order": 1,
+                  "type": "action",
+                  "action": "the customer adds \"Laptop\" to cart",
+                  "expected": "Action performed successfully"
+                },
+                {
+                  "id": "step-0-2",
+                  "order": 2,
+                  "type": "assertion",
+                  "action": "the cart should contain 1 item",
+                  "expected": "Assertion verified"
+                },
+                {
+                  "id": "step-0-3",
+                  "order": 3,
+                  "type": "assertion",
+                  "action": "the cart total should be $999.99",
+                  "expected": "Assertion verified"
+                }
+              ],
+              "priority": "medium"
+            }
+          ]
+        },
+        {
+          "id": "suite-1",
+          "name": "Apply discount code",
+          "testCases": [
+            {
+              "id": "scenario-1",
+              "name": "Apply discount code",
+              "steps": [
+                {
+                  "id": "step-1-0",
+                  "order": 0,
+                  "type": "setup",
+                  "action": "a cart with items totaling $100",
+                  "expected": "Precondition established"
+                },
+                {
+                  "id": "step-1-1",
+                  "order": 1,
+                  "type": "action",
+                  "action": "the customer applies code \"SAVE20\"",
+                  "expected": "Action performed successfully"
+                },
+                {
+                  "id": "step-1-2",
+                  "order": 2,
+                  "type": "assertion",
+                  "action": "a 20% discount should be applied",
+                  "expected": "Assertion verified"
+                },
+                {
+                  "id": "step-1-3",
+                  "order": 3,
+                  "type": "assertion",
+                  "action": "the final total should be $80",
+                  "expected": "Assertion verified"
+                }
+              ],
+              "priority": "medium"
+            }
+          ]
+        }
+      ]
+    },
+    "metadata": {
+      "author": "QA Team",
+      "version": "2.0.0",
+      "tags": [
+        "e-commerce",
+        "shopping-cart",
+        "bdd"
+      ],
+      "estimatedDuration": 15
+    },
+    "sections": [
+      {
+        "id": "section-0",
+        "title": "Overview",
+        "level": 1,
+        "content": "This document provides comprehensive manual test documentation for E-Commerce Shopping Cart.\n\n**Test Statistics:**\n- Total Test Suites: 2\n- Total Test Cases: 2\n- Total Test Steps: 8\n- Test Type: BDD\n\nThis test suite ensures the functionality and reliability of the system components."
+      },
+      {
+        "id": "section-1",
+        "title": "Add product to cart",
+        "level": 1,
+        "content": "Test suite for Add product to cart functionality.",
+        "testCases": [
+          {
+            "id": "scenario-0",
+            "name": "Add product to cart",
+            "steps": [
+              {
+                "id": "step-0-0",
+                "order": 0,
+                "type": "setup",
+                "action": "a customer browsing products",
+                "expected": "Precondition established"
+              },
+              {
+                "id": "step-0-1",
+                "order": 1,
+                "type": "action",
+                "action": "the customer adds \"Laptop\" to cart",
+                "expected": "Action performed successfully"
+              },
+              {
+                "id": "step-0-2",
+                "order": 2,
+                "type": "assertion",
+                "action": "the cart should contain 1 item",
+                "expected": "Assertion verified"
+              },
+              {
+                "id": "step-0-3",
+                "order": 3,
+                "type": "assertion",
+                "action": "the cart total should be $999.99",
+                "expected": "Assertion verified"
+              }
+            ],
+            "priority": "medium"
+          }
+        ]
+      },
+      {
+        "id": "section-2",
+        "title": "Apply discount code",
+        "level": 1,
+        "content": "Test suite for Apply discount code functionality.",
+        "testCases": [
+          {
+            "id": "scenario-1",
+            "name": "Apply discount code",
+            "steps": [
+              {
+                "id": "step-1-0",
+                "order": 0,
+                "type": "setup",
+                "action": "a cart with items totaling $100",
+                "expected": "Precondition established"
+              },
+              {
+                "id": "step-1-1",
+                "order": 1,
+                "type": "action",
+                "action": "the customer applies code \"SAVE20\"",
+                "expected": "Action performed successfully"
+              },
+              {
+                "id": "step-1-2",
+                "order": 2,
+                "type": "assertion",
+                "action": "a 20% discount should be applied",
+                "expected": "Assertion verified"
+              },
+              {
+                "id": "step-1-3",
+                "order": 3,
+                "type": "assertion",
+                "action": "the final total should be $80",
+                "expected": "Assertion verified"
+              }
+            ],
+            "priority": "medium"
+          }
+        ]
+      },
+      {
+        "id": "section-3",
+        "title": "Test Execution Summary",
+        "level": 1,
+        "content": "## Execution Guidelines\n\n1. Execute tests in the order presented in this document\n2. Document any deviations or issues encountered\n3. Capture screenshots for failed test steps\n4. Report results using the standard test report template\n\n## Priority Distribution\n\n- Critical: 0 tests\n- High: 0 tests\n- Medium: 2 tests\n- Low: 0 tests\n\n## Estimated Execution Time\n\nTotal estimated time: 8 minutes\n\n## Success Criteria\n\nAll critical and high priority tests must pass for the release to be approved.\nMedium and low priority test failures should be documented and assessed for impact."
+      }
+    ],
+    "tableOfContents": [
+      {
+        "id": "section-0",
+        "title": "Overview",
+        "level": 1,
+        "href": "#section-0"
+      },
+      {
+        "id": "section-1",
+        "title": "Add product to cart",
+        "level": 1,
+        "href": "#section-1"
+      },
+      {
+        "id": "section-2",
+        "title": "Apply discount code",
+        "level": 1,
+        "href": "#section-2"
+      },
+      {
+        "id": "section-3",
+        "title": "Test Execution Summary",
+        "level": 1,
+        "href": "#section-3"
+      }
+    ],
+    "index": [
+      {
+        "term": "add",
+        "references": [
+          "section-1"
+        ]
+      },
+      {
+        "term": "apply",
+        "references": [
+          "section-2"
+        ]
+      },
+      {
+        "term": "cart",
+        "references": [
+          "section-1"
+        ]
+      },
+      {
+        "term": "code",
+        "references": [
+          "section-2"
+        ]
+      },
+      {
+        "term": "discount",
+        "references": [
+          "section-2"
+        ]
+      },
+      {
+        "term": "execution",
+        "references": [
+          "section-3"
+        ]
+      },
+      {
+        "term": "overview",
+        "references": [
+          "section-0"
+        ]
+      },
+      {
+        "term": "product",
+        "references": [
+          "section-1"
+        ]
+      },
+      {
+        "term": "summary",
+        "references": [
+          "section-3"
+        ]
+      },
+      {
+        "term": "test",
+        "references": [
+          "section-3"
+        ]
+      }
+    ],
+    "glossary": [
+      {
+        "term": "Actual Result",
+        "definition": "The observed outcome of a test step"
+      },
+      {
+        "term": "Assertion",
+        "definition": "A statement that checks if a condition is true"
+      },
+      {
+        "term": "Expected Result",
+        "definition": "The anticipated outcome of a test step"
+      },
+      {
+        "term": "Postcondition",
+        "definition": "A state that should exist after test execution"
+      },
+      {
+        "term": "Precondition",
+        "definition": "A requirement that must be met before test execution"
+      },
+      {
+        "term": "Test Case",
+        "definition": "A set of conditions or steps to verify specific functionality"
+      },
+      {
+        "term": "Test Step",
+        "definition": "An individual action or verification in a test case"
+      },
+      {
+        "term": "Test Suite",
+        "definition": "A collection of related test cases"
+      }
+    ]
+  },
+  "metadata": {
+    "generator": "Enhanced Manual Generator",
+    "generatorVersion": "2.0.0",
+    "generatedAt": "2025-08-13T01:06:40.385Z",
+    "options": {
+      "supportMultipleFormats": true
+    }
+  },
+  "statistics": {
+    "totalSuites": 2,
+    "totalTestCases": 2,
+    "totalSteps": 8,
+    "priorityDistribution": {
+      "critical": 0,
+      "high": 0,
+      "medium": 4,
+      "low": 0
+    },
+    "typeDistribution": {
+      "action": 4,
+      "assertion": 8,
+      "setup": 4,
+      "teardown": 0
+    },
+    "estimatedDuration": 15
+  }
+}

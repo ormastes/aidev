@@ -1,0 +1,24 @@
+{
+  "agents": {
+    "architect": {
+      "description": "System architecture and design",
+      "capabilities": ["design", "architecture", "patterns"],
+      "tools": ["filesystem", "search", "edit"]
+    },
+    "developer": {
+      "description": "Implementation and coding",
+      "capabilities": ["coding", "testing", "debugging"],
+      "tools": ["filesystem", "edit", "bash", "git"]
+    },
+    "tester": {
+      "description": "Testing and quality assurance",
+      "capabilities": ["testing", "coverage", "e2e"],
+      "tools": ["filesystem", "bash", "playwright"]
+    },
+    "gui": {
+      "description": "GUI design and implementation",
+      "capabilities": ["ui", "ux", "design"],
+      "tools": ["filesystem", "edit", "preview"]
+    }
+  }
+}

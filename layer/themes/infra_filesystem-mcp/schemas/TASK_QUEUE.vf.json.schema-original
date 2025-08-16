@@ -1,0 +1,170 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "description": "Development task queues"
+  },
+  "working_item": null,
+  "queues": {
+    "adhoc_temp_user_request": {
+      "items": [],
+      "insert_comment": "📋 Before inserting adhoc requests: (Automated validation step) Check if all other queues are empty before inserting adhoc request",
+      "pop_comment": "🎯 After popping adhoc requests: Handle the temporary user request immediately",
+      "before_insert_steps": [],
+      "after_pop_steps": []
+    },
+    "user_story": {
+      "items": [],
+      "insert_comment": "📋 Before inserting user story: Mark ONE 'User Story' from 'FEATURE.vf.json'. (Automated register step) Register <user_story> on NAME_ID.vf.json",
+      "pop_comment": "🎯 After popping user story: Do research and make doc on <user_story>/research/(domain|external) and make scenario items and push to Scenario queue",
+      "before_insert_steps": [
+        "Register <user_story> on NAME_ID.vf.json"
+      ],
+      "after_pop_steps": []
+    },
+    "scenarios": {
+      "items": [],
+      "insert_comment": "📋 Before inserting scenarios: (Automated validation step) Check <scenarios>, each scenario item should has connected <user_story>/research/(domain|external)/? file or files. and file existance check. (Automated register step) Register the <scenarios> on NAME_ID.vf.json",
+      "pop_comment": "🎯 After popping scenarios: 1) Make one or multiple 'System Sequence diagram' on 'layer/themes/<theme-name>/user-stories/<story-id>/docs/diagrams/mermaid_system_sequence.mmd' 2) From the 'System Sequence diagram': Insert One Item to 'System Test Implementation' 3) Insert one or multiple 'Environment Test' 4) Insert one or multiple 'External Test' 5) Insert one or multiple 'Integration Test' 6) Insert one 'Coverage and Duplication'",
+      "before_insert_steps": [
+        "Check <scenarios> are match to all <system_sequence_diagram>",
+        "Register <scenarios> on NAME_ID.vf.json"
+      ],
+      "after_pop_steps": []
+    },
+    "environment_tests": {
+      "items": [],
+      "insert_comment": "📋 Before inserting environment tests: (Automated validation step) Check external dependencies and log requirements for <environment_tests>",
+      "pop_comment": "🎯 After popping environment tests: 1) Write a 'Environment Test' (No Mock) 2) Add assert to check external producing log (check layer/themes/external_log_lib/README.md) 3) Fix compile error and let test pass 4) Intensionally let test fail to check test and rollback",
+      "before_insert_steps": [
+        "Check child items <external_test> are match to all <environment_tests>"
+      ],
+      "after_pop_steps": []
+    },
+    "external_tests": {
+      "items": [],
+      "insert_comment": "📋 Before inserting external tests: (Automated validation step) Check external interface requirements for <external_tests>",
+      "pop_comment": "🎯 After popping external tests: 1) Write a 'External Test' (No Mock) 2) Add assert to check external producing log (check layer/themes/external_log_lib/README.md) 3) Fix compile error and let test pass 4) Intensionally let test fail to check test and rollback",
+      "before_insert_steps": [
+        "Check child items <external_test> are match to all <external_access>"
+      ],
+      "after_pop_steps": []
+    },
+    "system_tests_implement": {
+      "items": [],
+      "insert_comment": "📋 Before inserting system tests: (Automated validation step) Check <system_tests_implement> its system sequence diagram and check its external access and register external access on NAME_ID.vf.json. (Automated validation step) Check <system_tests_implement> child items Environment Test for each external access unless already there. check all external access match, samething for External Test. for each system test there should be Integration Test matching system_test, coverage duplication check item must. (Automated register step) Register <system_tests_implement> on NAME_ID.vf.json",
+      "pop_comment": "🎯 After popping system tests: 1) Write a 'System Test' and fix compile error. (No Mock) **NO MOCK** Do not make a system test which make system unUPDATING without mock 2) Verify Test fail 3) Insert a 'System Test Verify'. If system test is too dangerous to implement, just put file name ends with '_DANGEROUS.md'",
+      "before_insert_steps": [
+        "Check <system_tests_implement> are match to all <system_sequence_diagram>",
+        "Generate <gen:external_access> of <system_sequence_diagram>",
+        "Check child items <environment_test> are match to all <external_access>",
+        "Check child items <external_test> are match to all <external_access>", 
+        "Check child items <sequence_diagram> are match to all <integration_tests_implement>",
+        "Check child items <integration_tests_implement> are match to all <system_tests_implement>", 
+        "Insert <gen:coverage_duplication> item for <system_tests_implement>",
+        "Insert <environment_test> item for <system_tests_implement>",
+        "Insert <external_test> item for <system_tests_implement>",
+        "Insert <integration_tests_implement> item for <system_tests_implement>",
+        "Register <external_access> on NAME_ID.vf.json",
+        "Register <environment_test> on NAME_ID.vf.json",
+        "Register <external_test> on NAME_ID.vf.json",
+        "Register <integration_tests_implement> on NAME_ID.vf.json",
+        "Register <system_tests_implement> on NAME_ID.vf.json"
+      ],
+      "after_pop_steps": []
+    },
+    "integration_tests_implement": {
+      "items": [],
+      "insert_comment": "📋 Before inserting integration tests: (Automated validation step) Check integration test requirements and sequence diagram dependencies",
+      "pop_comment": "🎯 After popping integration tests: 1) Write a 'Integration Test' and fix compile error 2) Do role playing and make a 'Sequence diagram' on 'layer/themes/<theme-name>/user-stories/<story-id>/docs/diagrams/mermaid_sequence.mmd' 3) Insert one or multiple 'Unit Test' from the 'Sequence Diagram' (Lower layer Unit on bottom) 4) Verify test fail 5) Insert a 'Integration Test Verify'",
+      "before_insert_steps": [
+        "Check child items <sequence_diagram> are match to all <integration_tests_implement>"
+      ],
+      "after_pop_steps": []
+    },
+    "unit_tests": {
+      "items": [],
+      "insert_comment": "📋 Before inserting unit tests: (Automated validation step) Check unit test requirements from sequence diagram",
+      "pop_comment": "🎯 After popping unit tests: 1) After pass TC 2) Run 'Unit Test' and 'Integration Test' 3) Check if or switch can do Interface Extraction. Do Interface extraction.",
+      "before_insert_steps": [
+        "Check child items <sequence_diagram> are match to all <unit_tests>"
+      ],
+      "after_pop_steps": []
+    },
+    "integration_tests_verify": {
+      "items": [],
+      "insert_comment": "📋 Before inserting integration test verify: No automated steps required",
+      "pop_comment": "🎯 After popping integration test verify: Verify Test pass. make Integration test file name ends with '_FAKE' if it use mock or other fakes.",
+      "before_insert_steps": [],
+      "after_pop_steps": []
+    },
+    "system_tests_verify": {
+      "items": [],
+      "insert_comment": "📋 Before inserting system test verify: (Automated validation step) All system test has matched Integration test and if system test requires dangerous operation then do not write system test for that scenario but make only Integration test with '_FAKE.ts' suffix",
+      "pop_comment": "🎯 After popping system test verify: Verify Test pass",
+      "before_insert_steps": [
+        "Check child items <system_tests_verify> are match to all <integration_tests_verify>", 
+        "Check <integration_tests_verify>'s test file name endswith '_FAKE' If <system_tests_verify>'s file name ends with '_DANGEROUS.md'"
+      ],
+      "after_pop_steps": []
+    },
+    "coverage_duplication": {
+      "items": [],
+      "insert_comment": "📋 Before inserting coverage duplication: No automated steps required",
+      "pop_comment": "🎯 After popping coverage duplication: use scripts/core/check-coverage-duplication.sh. 1) Check 'System Test class coverage' Improving 2) Check 'Branch Coverage' Improving 3) Add Proper Test Items in Queue if not met coverage 4) Check 'Duplication' and refactor",
+      "before_insert_steps": [],
+      "after_pop_steps": []
+    },
+    "retrospective": {
+      "items": [],
+      "insert_comment": "📋 Before inserting retrospective: No automated steps required",
+      "pop_comment": "🎯 After popping retrospective: 1) As each role make one or more opinion 2) Lesson learned and update 00.llm_rules/additional/KNOW_HOW.md 3) Rules to add or modify in 'layer/themes/story_reporter/docs/RULE_SUGGESTIONS.md' for user story report 4) Make rule suggestion on 'gen/reports/rule_suggestion/<user_story_name>-data.md and check format by running script/core/check-rule-suggestion.sh <suggestion_file>, <story-report> should contains these all reports",
+      "before_insert_steps": [],
+      "after_pop_steps": [
+        "Run <scripts/core/check-coverage-duplication.sh> <current_folder> <app-epic-theme-user_story-type>",
+        "Check <<current_folder>/gen/check-coverage-duplication-<latest>.json> is passed",
+        "Run <scripts/core/check-fraud.sh> <current_folder> <app-epic-theme-user_story-type>",
+        "Check <<current_folder>/gen/check-fraud-<latest>.json> is passed",
+        "Insert <story report> item for <retrospective>"
+      ]
+    },
+    "story_report": {
+      "items": [],
+      "insert_comment": "📋 Before inserting done: <story report> needs its story report json file which may not yet exist",
+      "pop_comment": "🎯 After popping done: 1) Check if all items in queue are done 2) If not, check if any item is not done and fix it 3) If all items are done, mark the user story as complete",
+      "before_insert_steps": [
+        "Run <scripts/core/check-rule-suggestion.sh> <suggestion_file>",
+        "Check <<current_folder>/gen/check-rule-suggestion-<latest>.json> is passed"
+      ],
+      "after_pop_steps": []
+    }
+  },
+  "global_config": {
+    "seldom_display_default": 5,
+    "operation_counters": {
+      "adhoc_temp_user_request": 0,
+      "user_story": 0,
+      "scenarios": 0,
+      "environment_tests": 0,
+      "external_tests": 0,
+      "system_tests_implement": 0,
+      "integration_tests_implement": 0,
+      "unit_tests": 0,
+      "integration_tests_verify": 0,
+      "system_tests_verify": 0,
+      "coverage_duplication": 0,
+      "retrospective": 0
+    }
+  },
+  "priority_order": [
+    "adhoc_temp_user_request",
+    "environment_tests",
+    "external_tests",
+    "system_tests_implement",
+    "integration_tests_implement",
+    "unit_tests",
+    "integration_tests_verify",
+    "system_tests_verify",
+    "scenarios",
+    "user_story"
+  ]
+}

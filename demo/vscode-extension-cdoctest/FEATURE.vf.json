@@ -1,0 +1,12 @@
+{
+  "project": {
+    "name": "cdoctest_vscode_extension",
+    "description": "cdoctest_vscode_extension demo project",
+    "type": "demo"
+  },
+  "features": {},
+  "metadata": {
+    "created": "2025-07-25T03:31:19.456Z",
+    "version": "1.0.0"
+  }
+}

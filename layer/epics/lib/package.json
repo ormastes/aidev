@@ -1,0 +1,23 @@
+{
+  "name": "@aidev/lib-epic",
+  "version": "1.0.0",
+  "description": "Library & Framework Epic for LLM Agent ecosystem",
+  "main": "pipe/index.ts",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "clean": "rm -rf dist coverage",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "@aidev/lib_cli-framework": "file:../../themes/lib_cli-framework",
+    "@aidev/lib_react-native-base": "file:../../themes/lib_react-native-base"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.19",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.3.3"
+  }
+}

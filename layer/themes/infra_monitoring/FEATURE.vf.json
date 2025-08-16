@@ -1,0 +1,42 @@
+{
+  "type": "feature",
+  "version": "1.0.0",
+  "metadata": {
+    "title": "Infrastructure Monitoring Theme",
+    "description": "System monitoring, performance tracking, and health dashboard services",
+    "created": "2025-08-16",
+    "theme": "infra_monitoring",
+    "priority": "high",
+    "status": "active"
+  },
+  "features": [
+    {
+      "id": "system-monitoring",
+      "title": "System Resource Monitoring",
+      "description": "Real-time monitoring of CPU, memory, disk, and network resources",
+      "status": "planned",
+      "components": []
+    },
+    {
+      "id": "performance-dashboard",
+      "title": "Performance Dashboard",
+      "description": "Web-based dashboard for visualizing system metrics and performance",
+      "status": "planned",
+      "components": []
+    },
+    {
+      "id": "metrics-api",
+      "title": "Metrics Collection API",
+      "description": "API for collecting and querying performance metrics",
+      "status": "in_progress",
+      "components": ["MonitoringPipe"]
+    },
+    {
+      "id": "alert-system",
+      "title": "Alert and Notification System",
+      "description": "Threshold-based alerts for system health issues",
+      "status": "planned",
+      "components": []
+    }
+  ]
+}

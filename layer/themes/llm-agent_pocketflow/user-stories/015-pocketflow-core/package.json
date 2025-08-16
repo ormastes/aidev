@@ -1,0 +1,43 @@
+{
+  "name": "@aidev/pocketflow-core",
+  "version": "1.0.0",
+  "description": "Core graph/node-based TypeScript implementation of PocketFlow - minimalist LLM framework",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "test": "jest",
+    "test:unit": "jest --testPathPattern=tests/unit",
+    "test:integration": "jest --testPathPattern=tests/integration",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit",
+    "benchmark": "ts-node scripts/benchmark.ts"
+  },
+  "keywords": [
+    "pocketflow",
+    "llm",
+    "ai",
+    "workflow",
+    "graph",
+    "zero-dependency",
+    "typescript"
+  ],
+  "author": "AI Dev Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.5",
+    "@types/node": "^20.8.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.5",
+    "@typescript-eslint/parser": "^6.7.5",
+    "eslint": "^8.51.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

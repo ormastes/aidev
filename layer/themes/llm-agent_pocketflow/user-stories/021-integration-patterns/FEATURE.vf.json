@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "pocketflow-epic-001",
+    "path": "/layer/themes/pocketflow/user-stories/021-integration-patterns/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.599Z",
+    "updated_at": "2025-08-02T11:10:54.599Z"
+  },
+  "features": {
+    "021_integration_patterns": [
+      {
+        "id": "pocketflow-021-integration-patterns",
+        "name": "integration patterns",
+        "data": {
+          "title": "Integration patterns",
+          "description": "Implementation of integration patterns",
+          "level": "user_story",
+          "parent_feature_id": "pocketflow-epic-001",
+          "epic_id": "pocketflow-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "pocketflow",
+            "integration-patterns"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/pocketflow/user-stories/021-integration-patterns/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.599Z",
+        "updatedAt": "2025-08-02T11:10:54.599Z"
+      }
+    ]
+  }
+}

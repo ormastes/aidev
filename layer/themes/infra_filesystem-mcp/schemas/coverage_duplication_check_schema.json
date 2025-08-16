@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Coverage Duplication Check Schema",
+  "description": "Schema for coverage and duplication analysis results",
+  "allOf": [
+    { "$ref": "check_result_schema.json" }
+  ],
+  "properties": {
+    "results": {
+      "type": "object",
+      "properties": {
+        "branchCoverage": {
+          "type": "object",
+          "properties": {
+            "totalFiles": { "type": "integer" },
+            "filesWithBranches": { "type": "integer" },
+            "totalBranches": { "type": "integer" },
+            "coveredBranches": { "type": "integer" },
+            "coveragePercentage": { "type": "number" },
+            "files": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "file": { "type": "string" },
+                  "branches": { "type": "integer" },
+                  "covered": { "type": "integer" },
+                  "percentage": { "type": "number" }
+                }
+              }
+            }
+          }
+        },
+        "systemTestClassCoverage": {
+          "type": "object",
+          "properties": {
+            "totalClasses": { "type": "integer" },
+            "classesWithSystemTests": { "type": "integer" },
+            "coveragePercentage": { "type": "number" },
+            "coveredClasses": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "uncoveredClasses": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "duplication": {
+          "type": "object",
+          "properties": {
+            "totalDuplicates": { "type": "integer" },
+            "duplicatedLines": { "type": "integer" },
+            "totalLines": { "type": "integer" },
+            "duplicationPercentage": { "type": "number" },
+            "duplicates": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "hash": { "type": "string" },
+                  "lineCount": { "type": "integer" },
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "file": { "type": "string" },
+                        "startLine": { "type": "integer" },
+                        "endLine": { "type": "integer" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

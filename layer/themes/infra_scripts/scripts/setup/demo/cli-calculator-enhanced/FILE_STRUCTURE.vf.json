@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-07-21T00:39:42.265482",
+    "updated_at": "2025-07-21T00:39:42.265482",
+    "description": "CLI Calculator Enhanced demo structure",
+    "project_type": "demo"
+  },
+  "templates": {
+    "demo_project": {
+      "id": "demo_project",
+      "type": "directory",
+      "description": "Demo project with full VF integration",
+      "required_children": [
+        { 
+          "name": "src", 
+          "type": "directory", 
+          "description": "Source code",
+          "template": "source_container"
+        },
+        { 
+          "name": "tests", 
+          "type": "directory", 
+          "description": "Test files",
+          "template": "tests_container"
+        },
+        { 
+          "name": "config", 
+          "type": "directory", 
+          "description": "Configuration files",
+          "template": "config_container"
+        },
+        { "name": "TASK_QUEUE.vf.json", "type": "file", "description": "Task queue" },
+        { "name": "NAME_ID.vf.json", "type": "file", "description": "Entity registry" },
+        { "name": "FEATURE.vf.json", "type": "file", "description": "Feature tracking" },
+        { "name": "FILE_STRUCTURE.vf.json", "type": "file", "description": "Structure definition" },
+        { "name": "demo", "type": "directory", "description": "Demo artifacts and examples" },
+        { "name": "release", "type": "directory", "description": "Release artifacts and deployments" },
+        { "name": "README.md", "type": "file", "description": "Project documentation" },
+        { "name": "CLAUDE.md", "type": "file", "description": "AI assistant configuration" }
+      ],
+      "optional_children": [
+        { "name": "docs", "type": "directory", "description": "Documentation" },
+        { "name": "scripts", "type": "directory", "description": "Utility scripts" },
+        { "name": "public", "type": "directory", "description": "Public assets" },
+        { "name": "package.json", "type": "file", "description": "Node.js package file" },
+        { "name": "tsconfig.json", "type": "file", "description": "TypeScript configuration" },
+        { "name": "jest.config.js", "type": "file", "description": "Jest test configuration" }
+      ],
+      "constraints": {
+        "max_depth": 8,
+        "forbidden_patterns": ["node_modules", "dist", "build", ".next"]
+      }
+    },
+    "source_container": {
+      "id": "source_container",
+      "type": "directory",
+      "description": "Source code container",
+      "constraints": {
+        "file_extensions": [".ts", ".js", ".tsx", ".jsx", ".vue", ".svelte"]
+      }
+    },
+    "tests_container": {
+      "id": "tests_container",
+      "type": "directory", 
+      "description": "Test files container",
+      "constraints": {
+        "file_extensions": [".test.ts", ".test.js", ".spec.ts", ".spec.js", ".systest.ts", ".etest.ts", ".envtest.ts"]
+      }
+    },
+    "config_container": {
+      "id": "config_container",
+      "type": "directory",
+      "description": "Configuration container",
+      "required_children": [
+        { "name": "mcp-agent.json", "type": "file", "description": "MCP configuration" }
+      ],
+      "constraints": {
+        "file_extensions": [".json", ".yaml", ".yml", ".toml", ".env"]
+      }
+    }
+  },
+  "structure": {
+    "name": ".",
+    "type": "directory",
+    "template": "demo_project"
+  }
+}

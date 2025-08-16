@@ -1,0 +1,251 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Test Environment Report Schema",
+  "description": "Schema for test coverage, duplication, and fraud detection reports across all themes",
+  "type": "object",
+  "required": ["theme", "timestamp", "environment", "metrics", "status"],
+  "properties": {
+    "theme": {
+      "type": "string",
+      "description": "The theme/module being tested",
+      "examples": ["authentication", "data-processing", "ui-components", "api-gateway"]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the report was generated"
+    },
+    "environment": {
+      "type": "object",
+      "required": ["type", "version", "platform"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["unit", "integration", "system", "e2e"],
+          "description": "Type of test environment"
+        },
+        "version": {
+          "type": "string",
+          "description": "Version of the codebase being tested"
+        },
+        "platform": {
+          "type": "string",
+          "description": "Platform where tests were executed"
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "required": ["coverage", "duplication", "fraudCheck"],
+      "properties": {
+        "coverage": {
+          "type": "object",
+          "required": ["class", "branch", "line", "method"],
+          "properties": {
+            "class": {
+              "$ref": "#/definitions/coverageMetric"
+            },
+            "branch": {
+              "$ref": "#/definitions/coverageMetric"
+            },
+            "line": {
+              "$ref": "#/definitions/coverageMetric"
+            },
+            "method": {
+              "$ref": "#/definitions/coverageMetric"
+            }
+          }
+        },
+        "duplication": {
+          "type": "object",
+          "required": ["percentage", "duplicatedLines", "totalLines", "duplicatedBlocks"],
+          "properties": {
+            "percentage": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Percentage of duplicated code"
+            },
+            "duplicatedLines": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "totalLines": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "duplicatedBlocks": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/duplicatedBlock"
+              }
+            }
+          }
+        },
+        "fraudCheck": {
+          "type": "object",
+          "required": ["passed", "violations", "score"],
+          "properties": {
+            "passed": {
+              "type": "boolean",
+              "description": "Whether all fraud checks passed"
+            },
+            "score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Overall fraud detection score"
+            },
+            "violations": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/fraudViolation"
+              }
+            }
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "required": ["overall", "criteria"],
+      "properties": {
+        "overall": {
+          "type": "string",
+          "enum": ["passed", "failed", "warning"],
+          "description": "Overall test status"
+        },
+        "criteria": {
+          "type": "object",
+          "required": ["classCoverage", "branchCoverage", "duplication", "fraudCheck"],
+          "properties": {
+            "classCoverage": {
+              "$ref": "#/definitions/criteriaStatus"
+            },
+            "branchCoverage": {
+              "$ref": "#/definitions/criteriaStatus"
+            },
+            "duplication": {
+              "$ref": "#/definitions/criteriaStatus"
+            },
+            "fraudCheck": {
+              "$ref": "#/definitions/criteriaStatus"
+            }
+          }
+        }
+      }
+    },
+    "epic": {
+      "type": "object",
+      "required": ["id", "name", "userStories"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "userStories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/userStory"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "coverageMetric": {
+      "type": "object",
+      "required": ["percentage", "covered", "total"],
+      "properties": {
+        "percentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "covered": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "duplicatedBlock": {
+      "type": "object",
+      "required": ["files", "lines", "tokens"],
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lines": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "tokens": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "fraudViolation": {
+      "type": "object",
+      "required": ["type", "severity", "message", "location"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["test-manipulation", "coverage-bypass", "fake-assertions", "disabled-tests"]
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["critical", "high", "medium", "low"]
+        },
+        "message": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        }
+      }
+    },
+    "criteriaStatus": {
+      "type": "object",
+      "required": ["met", "target", "actual"],
+      "properties": {
+        "met": {
+          "type": "boolean"
+        },
+        "target": {
+          "type": "number"
+        },
+        "actual": {
+          "type": "number"
+        }
+      }
+    },
+    "userStory": {
+      "type": "object",
+      "required": ["id", "description", "acceptanceCriteria"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "acceptanceCriteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

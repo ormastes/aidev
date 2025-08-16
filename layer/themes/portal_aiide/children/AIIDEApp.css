@@ -1,0 +1,58 @@
+.aiide-app {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.aiide-app.dark {
+  background: #1f1f1f;
+}
+
+.aiide-app.light {
+  background: #ffffff;
+}
+
+.aiide-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.aiide-sidebar {
+  background: #2b2b2b;
+  border-right: 1px solid #3a3a3a;
+}
+
+.aiide-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.aiide-split-pane {
+  width: 100%;
+  height: 100%;
+}
+
+.aiide-editor-container,
+.aiide-chat-container {
+  height: 100%;
+  overflow: hidden;
+}
+
+.aiide-chat-full {
+  width: 100%;
+  height: 100%;
+}
+
+.aiide-context-panel {
+  background: #f5f5f5;
+  border-left: 1px solid #e0e0e0;
+}
+
+.aiide-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #1f1f1f;
+}

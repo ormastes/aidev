@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "pocketflow-epic-001",
+    "path": "/layer/themes/pocketflow/user-stories/016-agent-abstraction/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.597Z",
+    "updated_at": "2025-08-02T11:10:54.597Z"
+  },
+  "features": {
+    "016_agent_abstraction": [
+      {
+        "id": "pocketflow-016-agent-abstraction",
+        "name": "agent abstraction",
+        "data": {
+          "title": "Agent abstraction",
+          "description": "Implementation of agent abstraction",
+          "level": "user_story",
+          "parent_feature_id": "pocketflow-epic-001",
+          "epic_id": "pocketflow-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "pocketflow",
+            "agent-abstraction"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/pocketflow/user-stories/016-agent-abstraction/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.597Z",
+        "updatedAt": "2025-08-02T11:10:54.597Z"
+      }
+    ]
+  }
+}

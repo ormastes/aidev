@@ -1,0 +1,46 @@
+{
+  "name": "@aidev/chat-space-cli",
+  "version": "1.0.0",
+  "description": "Chat Space CLI - Interactive chat room interface for AI Development Platform",
+  "main": "src/index.js",
+  "bin": {
+    "chat-space": "./src/cli.js"
+  },
+  "scripts": {
+    "start": "node src/cli.js",
+    "dev": "ts-node src/cli.ts",
+    "build": "tsc",
+    "test": "jest",
+    "test:unit": "jest --testMatch='**/*.test.ts'",
+    "test:integration": "jest --testMatch='**/*.itest.ts'",
+    "test:system": "jest --testMatch='**/*.stest.ts'",
+    "test:external": "jest --testMatch='**/*.etest.ts'"
+  },
+  "keywords": [
+    "chat",
+    "cli",
+    "realtime",
+    "messaging",
+    "ai",
+    "development"
+  ],
+  "author": "AI Development Platform",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "uuid": "^9.0.1",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.14",
+    "@types/uuid": "^9.0.8",
+    "@types/ws": "^8.18.1",
+    "jest": "^30.0.4",
+    "ts-jest": "^29.4.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

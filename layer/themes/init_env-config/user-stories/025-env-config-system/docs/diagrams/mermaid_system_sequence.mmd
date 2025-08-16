@@ -1,0 +1,50 @@
+sequenceDiagram
+    participant Dev as Developer
+    participant CLI as Config CLI
+    participant CM as ConfigManager
+    participant PA as PortAllocator
+    participant PR as PortRegistry
+    participant FG as FileGenerator
+    participant FS as FileSystem
+
+    Note over Dev,FS: Scenario: Developer configures new theme with automatic port allocation
+
+    Dev->>CLI: env-config create --type theme --name "my-theme"
+    CLI->>CM: createEnvironment("my-theme", "theme")
+    
+    CM->>CM: validateThemeName("my-theme")
+    CM->>PA: allocatePortsForEnvironment("theme")
+    
+    PA->>PR: getUsedPorts("theme")
+    PR->>FS: readPortRegistry()
+    FS-->>PR: portRegistry.json
+    PR-->>PA: [3201, 3202, 3203]
+    
+    PA->>PA: calculateNextAvailablePort(3200, [3201,3202,3203])
+    PA->>PR: reservePort(3204, "my-theme")
+    PR->>FS: updatePortRegistry()
+    
+    PA-->>CM: {portal: 3204, services: [3205-3299]}
+    
+    CM->>FG: generateEnvironmentConfig(config)
+    FG->>FS: writeConfig("my-theme/config.json")
+    FG->>FS: writeEnvFile("my-theme/.env")
+    FG->>FS: writeDockerCompose("my-theme/docker-compose.yml")
+    
+    CM-->>CLI: Environment created successfully
+    CLI-->>Dev: ✓ Created theme environment "my-theme" on port 3204
+
+    Note over Dev,FS: Additional flows for service registration
+
+    Dev->>CLI: env-config add-service --env "my-theme" --service "story-reporter"
+    CLI->>CM: addService("my-theme", "story-reporter")
+    CM->>PA: allocateServicePort("my-theme", "story-reporter")
+    PA->>PR: getNextServicePort("my-theme")
+    PR-->>PA: 3205
+    PA->>PR: reservePort(3205, "my-theme/story-reporter")
+    PA-->>CM: 3205
+    CM->>FG: updateEnvironmentConfig(config)
+    FG->>FS: updateConfig("my-theme/config.json")
+    FG->>FS: updateEnvFile("my-theme/.env")
+    CM-->>CLI: Service added successfully
+    CLI-->>Dev: ✓ Added story-reporter on port 3205

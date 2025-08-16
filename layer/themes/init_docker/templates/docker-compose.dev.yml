@@ -1,0 +1,45 @@
+# Development Environment Docker Compose Template
+# Usage: docker-compose -f docker-compose.dev.yml up
+
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      args:
+        NODE_ENV: development
+    container_name: ${THEME_NAME:-app}-dev
+    ports:
+      - "${PORT:-3000}:3000"
+      - "${DEBUG_PORT:-9229}:9229"
+    volumes:
+      # Mount entire source for hot reload
+      - .:/app
+      # Use named volume for node_modules to avoid conflicts
+      - node_modules:/app/node_modules
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DEBUG: '*'
+      WATCH_MODE: "true"
+      HOT_RELOAD: "true"
+    command: ["nodemon", "--inspect=0.0.0.0:9229", "--watch", "src", "--ext", "ts,js,json", "--exec", "ts-node", "src/index.ts"]
+    networks:
+      - dev-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  node_modules:
+    driver: local
+
+networks:
+  dev-network:
+    driver: bridge

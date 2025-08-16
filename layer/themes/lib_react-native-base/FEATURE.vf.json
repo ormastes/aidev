@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/themes/react-native-base/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.600Z",
+    "updated_at": "2025-08-02T11:10:54.600Z"
+  },
+  "features": {
+    "react_native_base": [
+      {
+        "id": "react-native-base-epic-001",
+        "name": "React Native Base",
+        "data": {
+          "title": "React Native Base Theme",
+          "description": "Core functionality for React Native Base",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "react-native-base",
+            "theme"
+          ],
+          "virtual_path": "/layer/themes/react-native-base/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.600Z",
+        "updatedAt": "2025-08-02T11:10:54.600Z"
+      }
+    ]
+  },
+  "children": [
+    "/layer/themes/react-native-base/user-stories/001-basic-architecture/FEATURE.vf.json",
+    "/layer/themes/react-native-base/user-stories/005-rn-project-structure/FEATURE.vf.json"
+  ]
+}

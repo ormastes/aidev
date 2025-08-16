@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "web-scraper-epic-001",
+    "path": "/layer/themes/web-scraper/user-stories/011-web-scraping/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.605Z",
+    "updated_at": "2025-08-02T11:10:54.605Z"
+  },
+  "features": {
+    "011_web_scraping": [
+      {
+        "id": "web-scraper-011-web-scraping",
+        "name": "web scraping",
+        "data": {
+          "title": "Web scraping",
+          "description": "Implementation of web scraping",
+          "level": "user_story",
+          "parent_feature_id": "web-scraper-epic-001",
+          "epic_id": "web-scraper-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "web-scraper",
+            "web-scraping"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/web-scraper/user-stories/011-web-scraping/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.605Z",
+        "updatedAt": "2025-08-02T11:10:54.605Z"
+      }
+    ]
+  }
+}

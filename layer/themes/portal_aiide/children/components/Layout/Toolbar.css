@@ -1,0 +1,29 @@
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: #2d2d2d;
+  border-bottom: 1px solid #3a3a3a;
+  height: 48px;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.toolbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1890ff;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+}

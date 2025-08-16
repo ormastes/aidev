@@ -1,0 +1,131 @@
+TASK_QUEUE.vf.json REVIEW - MISSING IMPROVEMENTS
+================================================
+
+1. MISSING QUEUE-LEVEL COMMENTS
+-------------------------------
+- No pop_comment or insert_comment at queue level (only at task level)
+- According to VFTaskQueueWrapper API, comments should be at queue level, not task level
+- Example of correct structure:
+  "adhoc": {
+    "priority": "critical",
+    "pop_comment": "Starting adhoc task",
+    "insert_comment": "validate <type> format",
+    "items": [...]
+  }
+
+2. MISSING REQUIRED FIELDS
+--------------------------
+- No 'status' field for tasks (pending, in_progress, completed)
+- No 'created_at' or 'updated_at' timestamps for tasks
+- No 'type' field for tasks (e.g., "cucumber_step", "runnable", etc.)
+- No 'content' object with title, description, cucumber_step
+
+3. MISSING SCRIPT IMPLEMENTATIONS
+---------------------------------
+Several runnable comments reference scripts that don't exist:
+- "create <type> file" → needs create__type__file.js
+- "add <item> to <queue>" → needs add__item__to__queue_.js
+- "verify <type> registration" → needs verify__type__registration.js
+
+4. INVALID JSON IN PARAMETERS
+-----------------------------
+- Line 80: '{"invalid": json}' - This is intentionally invalid for testing but might cause issues
+- Mixed use of single and double quotes in JSON parameters
+- Some params use JSON strings that need proper escaping
+
+5. MISSING QUEUE TYPES
+----------------------
+Based on the main TASK_QUEUE.vf.json structure, missing:
+- environment_tests queue
+- external_tests queue
+- coverage queue
+- user_story queue
+- critical queue (separate from adhoc)
+
+6. MISSING VALIDATION RULES
+---------------------------
+- No max_items constraint on other queues (only on working queue)
+- No before_insert_steps or after_pop_steps validation
+- No queue-specific validation rules
+- No schema validation references
+
+7. MISSING TASK STRUCTURE
+-------------------------
+Tasks should have more complete structure like:
+{
+  "id": "task-test-envgenerator-integrates-with-servicediscovery-mda2ggic",
+  "type": "cucumber_step",
+  "priority": "medium",
+  "content": {
+    "title": "Test: EnvGenerator integrates with ServiceDiscovery",
+    "description": "Task from Integration Tests Queue",
+    "cucumber_step": "Then EnvGenerator integrates with ServiceDiscovery",
+    "queue_section": "Integration Tests Queue",
+    "original_text": "Test: EnvGenerator integrates with ServiceDiscovery"
+  },
+  "status": "pending",
+  "createdAt": "2025-07-22T10:00:00.000Z",
+  "updatedAt": "2025-07-22T10:00:00.000Z"
+}
+
+8. MISSING INTEGRATION WITH SCHEMA
+----------------------------------
+- Should follow schema defined in /schemas/TASK_QUEUE.vf.json
+- Missing validation steps and workflow enforcement
+- No reference to step_file validations
+- Missing integration with workflow rules
+
+9. PARAMETER FORMAT ISSUES
+--------------------------
+- insert_params and pop_params should match script expectations
+- Some parameters are arrays when scripts expect individual arguments
+- JSON parameters need consistent formatting and escaping
+
+10. MISSING ERROR TEST CASES
+----------------------------
+- No test cases for script execution failures
+- No test cases for missing scripts
+- No test cases for invalid parameters
+- No test cases for permission errors
+- No test cases for concurrent access
+
+11. MISSING METADATA FIELDS
+---------------------------
+Current metadata is minimal. Should include:
+- totalTasks count
+- workingTasks count
+- pendingTasks count
+- cucumberStepCount
+- conversionSource
+- sections array with queue statistics
+
+12. MISSING WORKFLOW INTEGRATION
+--------------------------------
+- No working queue item (should have exactly one)
+- No proper priority flow (critical → high → medium → low)
+- No queue dependencies or prerequisites
+- No state transition validations
+
+13. MISSING RUNNABLE COMMENT PATTERNS
+-------------------------------------
+Not demonstrating all available patterns:
+- "check all other queues empty"
+- "register user story item"
+- "check scenario research files"
+- "check external dependencies"
+- "check system test sequence diagram"
+- "check integration test requirements"
+
+14. STRUCTURAL IMPROVEMENTS NEEDED
+----------------------------------
+- Should have 'allTasks' array for overview
+- Should have 'cucumberSteps' array for step tracking
+- Should have 'sections' array with queue metadata
+- Should follow the exact structure of main TASK_QUEUE.vf.json
+
+15. MISSING DOCUMENTATION
+-------------------------
+- No comments explaining test scenarios
+- No documentation of expected outcomes
+- No explanation of parameter formats
+- No reference to related test files

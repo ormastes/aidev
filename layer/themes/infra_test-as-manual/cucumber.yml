@@ -1,0 +1,28 @@
+default: >
+  --format progress
+  --format json:reports/cucumber-report.json
+  --format html:reports/cucumber-report.html
+  --require features/step_definitions
+  --require features/support
+  --publish-quiet
+
+automated: >
+  --tags @automated
+  --format progress
+  --format junit:reports/automated-tests.xml
+  --require features/step_definitions
+  --require features/support
+
+manual: >
+  --tags @manual
+  --format pretty
+  --format html:reports/manual-test-guide.html
+  --dry-run
+  --require features/step_definitions
+  --require features/support
+
+all: >
+  --format progress
+  --format json:reports/all-tests.json
+  --require features/step_definitions
+  --require features/support

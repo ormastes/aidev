@@ -1,0 +1,323 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Name ID Item Schema",
+  "description": "JSON Schema for VF name-id mapping items supporting case-insensitive search",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for the name-id item"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "file",
+        "directory", 
+        "function",
+        "class",
+        "method",
+        "variable",
+        "constant",
+        "interface",
+        "type",
+        "module",
+        "namespace",
+        "component",
+        "concept",
+        "service",
+        "entity",
+        "schema",
+        "config",
+        "test",
+        "script",
+        "other"
+      ],
+      "description": "Type of the named entity being tracked"
+    },
+    "namespace": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Namespace/scope for the name (e.g., 'src/components', 'tests/unit', 'config')"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The actual name (e.g., 'UserProfile', 'login.test.ts', 'database-config')"
+    },
+    "full_path": {
+      "type": "string",
+      "minLength": 1,
+      "description": "In Progress path or identifier (e.g., 'src/components/UserProfile.tsx')"
+    },
+    "extension": {
+      "type": "string",
+      "description": "File extension (optional, for file types - e.g., '.ts', '.json', '.md')"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional description of the entity"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Optional tags for categorization and search"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this mapping was created (ISO 8601 format)"
+    },
+    "updated_at": {
+      "type": "string", 
+      "format": "date-time",
+      "description": "When this mapping was last updated (ISO 8601 format)"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional flexible metadata",
+      "properties": {
+        "size": {
+          "type": "number",
+          "description": "File size in bytes (for files)"
+        },
+        "line_count": {
+          "type": "number",
+          "description": "Number of lines (for code files)"
+        },
+        "language": {
+          "type": "string",
+          "description": "Programming language (for code files)"
+        },
+        "parent_class": {
+          "type": "string", 
+          "description": "Parent class name (for methods/properties)"
+        },
+        "module_exports": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of exported symbols (for modules)"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "required": ["id", "type", "namespace", "name", "full_path"],
+  "additionalProperties": false,
+  
+  "_comment_name_id_search_item_schema": {
+    "description": "Alternative schema for search queries where only 'name' is required",
+    "note": "This would be identical to the main schema above, but with different required fields",
+    "schema": {
+      "title": "Name ID Search Item Schema",
+      "description": "JSON Schema for VF name-id search items where only name is required",
+      "type": "object",
+      "properties": "Same as above name_id_item_schema properties",
+      "required": ["name"],
+      "additionalProperties": false,
+      "usage_examples": [
+        {
+          "name": "UserProfile",
+          "description": "Search for any entity named UserProfile"
+        },
+        {
+          "name": "login.test",
+          "type": "file",
+          "description": "Search for test files with 'login.test' in the name"
+        },
+        {
+          "name": "validateUser",
+          "type": "function", 
+          "namespace": "src/utils",
+          "description": "Search for validateUser function in utils namespace"
+        },
+        {
+          "name": "config",
+          "tags": ["database"],
+          "description": "Search for config entities tagged with database"
+        }
+      ]
+    }
+  },
+  "examples": [
+    {
+      "id": "user-profile-component",
+      "type": "component",
+      "namespace": "src/components",
+      "name": "UserProfile",
+      "full_path": "src/components/UserProfile.tsx",
+      "extension": ".tsx",
+      "description": "User profile display component",
+      "tags": ["react", "ui", "user"],
+      "created_at": "2024-01-01T10:00:00Z",
+      "updated_at": "2024-01-15T14:30:00Z",
+      "metadata": {
+        "size": 2048,
+        "line_count": 85,
+        "language": "typescript"
+      }
+    },
+    {
+      "id": "login-test-file",
+      "type": "file",
+      "namespace": "tests/unit",
+      "name": "login.test.ts", 
+      "full_path": "tests/unit/auth/login.test.ts",
+      "extension": ".ts",
+      "description": "Unit tests for login functionality",
+      "tags": ["test", "auth", "unit"],
+      "created_at": "2024-01-02T09:00:00Z",
+      "updated_at": "2024-01-10T16:45:00Z",
+      "metadata": {
+        "size": 1536,
+        "line_count": 42,
+        "language": "typescript"
+      }
+    },
+    {
+      "id": "db-config-dir",
+      "type": "directory",
+      "namespace": "config",
+      "name": "database",
+      "full_path": "config/database",
+      "description": "Database configuration directory",
+      "tags": ["config", "database"],
+      "created_at": "2024-01-01T08:00:00Z",
+      "updated_at": "2024-01-01T08:00:00Z",
+      "metadata": {}
+    },
+    {
+      "id": "validate-user-function",
+      "type": "function", 
+      "namespace": "src/utils",
+      "name": "validateUser",
+      "full_path": "src/utils/validation.ts:validateUser",
+      "extension": ".ts",
+      "description": "Function to validate user input data",
+      "tags": ["validation", "user", "utility"],
+      "created_at": "2024-01-03T11:20:00Z",
+      "updated_at": "2024-01-12T13:15:00Z",
+      "metadata": {
+        "line_count": 15,
+        "language": "typescript",
+        "parent_class": null
+      }
+    },
+    {
+      "id": "user-service-class",
+      "type": "class",
+      "namespace": "src/services",
+      "name": "UserService", 
+      "full_path": "src/services/UserService.ts:UserService",
+      "extension": ".ts",
+      "description": "Service class for user operations",
+      "tags": ["service", "user", "class"],
+      "created_at": "2024-01-01T12:00:00Z",
+      "updated_at": "2024-01-20T10:30:00Z",
+      "metadata": {
+        "line_count": 120,
+        "language": "typescript",
+        "module_exports": ["UserService", "IUserService"]
+      }
+    }
+  ],
+  "search_patterns": {
+    "description": "Supported search patterns for name-id items",
+    "patterns": [
+      {
+        "name": "namespace_name_search",
+        "description": "Search by namespace/name pattern (case-insensitive)",
+        "examples": [
+          "src/components/UserProfile",
+          "tests/unit/login.test.ts",
+          "config/database"
+        ]
+      },
+      {
+        "name": "name_only_search", 
+        "description": "Search by name only, returns matches from all namespaces",
+        "examples": [
+          "UserProfile -> matches src/components/UserProfile, tests/UserProfile.test.ts",
+          "login -> matches tests/unit/login.test.ts, src/auth/login.service.ts",
+          "database -> matches config/database, src/models/database.ts"
+        ]
+      },
+      {
+        "name": "extension_agnostic_search",
+        "description": "Search by name with or without extension",
+        "examples": [
+          "login.test -> matches login.test.ts, login.test.js",
+          "UserProfile -> matches UserProfile.tsx, UserProfile.vue", 
+          "config -> matches config.json, config.yml, config/ (directory)"
+        ]
+      },
+      {
+        "name": "partial_namespace_search",
+        "description": "Search with partial namespace matching",
+        "examples": [
+          "components/User -> matches src/components/UserProfile, lib/components/UserCard",
+          "test/login -> matches tests/unit/login.test.ts, tests/integration/login.spec.ts"
+        ]
+      },
+      {
+        "name": "tag_based_search",
+        "description": "Search by tags for categorization",
+        "examples": [
+          "tag:react -> all React components",
+          "tag:test -> all test files",
+          "tag:config -> all configuration items"
+        ]
+      },
+      {
+        "name": "type_filtered_search",
+        "description": "Search filtered by entity type",
+        "examples": [
+          "type:file name:config -> all config files",
+          "type:function namespace:utils -> all utility functions",
+          "type:component tag:ui -> all UI components"
+        ]
+      }
+    ]
+  },
+  "search_results_format": {
+    "description": "Format for search results",
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "Original search query"
+      },
+      "matches": {
+        "type": "array",
+        "items": {
+          "$ref": "#"
+        },
+        "description": "Array of matching name-id items"
+      },
+      "total_matches": {
+        "type": "number",
+        "description": "Total number of matches found"
+      },
+      "search_time_ms": {
+        "type": "number", 
+        "description": "Time taken for search in milliseconds"
+      },
+      "suggestions": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Alternative search suggestions if no exact matches"
+      }
+    },
+    "required": ["query", "matches", "total_matches"]
+  },
+
+  "name_id_search_item_schema_note": {
+    "description": "NOTE: For search queries, create a separate name_id_search_item_schema that is identical to this schema but only requires 'name' field. All other fields become optional filters. Examples: {'name': 'UserProfile'}, {'name': 'login', 'type': 'function'}, {'name': 'config', 'namespace': 'src/config'}"
+  }
+}

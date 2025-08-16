@@ -1,0 +1,153 @@
+sequenceDiagram
+    participant TSM as Test Suite Manager
+    participant MFT as Mock Free Test Runner
+    participant RG as Report Generator
+    participant TR as Test Results
+    participant TRA as Test Result Aggregator
+    participant SA as Statistics Analyzer
+    participant FS as File System
+
+    Note over TSM, FS: Test Result Aggregation and Analysis Workflow
+
+    %% Test execution produces raw results
+    TSM->>MFT: executeTests()
+    activate MFT
+    
+    MFT->>TR: createTestResult(testSuiteId)
+    TR-->>MFT: testResult instance
+    
+    loop for each scenario execution
+        MFT->>TR: addScenario(scenarioResult)
+        
+        alt scenario passed
+            TR->>TR: incrementPassedScenarios()
+            TR->>TR: addPassedSteps(scenarioSteps)
+        else scenario failed
+            TR->>TR: incrementFailedScenarios()
+            TR->>TR: addFailedSteps(scenarioSteps)
+            TR->>TR: recordFailureDetails(errorMessage, stackTrace)
+        else scenario skipped
+            TR->>TR: incrementSkippedScenarios()
+            TR->>TR: addSkippedSteps(scenarioSteps)
+        else scenario pending
+            TR->>TR: incrementPendingScenarios()
+            TR->>TR: addPendingSteps(scenarioSteps)
+        end
+        
+        TR->>TR: updateDuration(scenarioDuration)
+    end
+    
+    deactivate MFT
+    MFT-->>TSM: rawTestResults
+    
+    %% Test Suite Manager aggregates and analyzes results
+    TSM->>TRA: aggregateResults(rawTestResults)
+    activate TRA
+    
+    %% Calculate basic statistics
+    TRA->>SA: calculateBasicStatistics(testResults)
+    SA->>SA: computeTotalScenarios()
+    SA->>SA: computePassRate()
+    SA->>SA: computeFailureRate()
+    SA->>SA: computeExecutionTime()
+    SA-->>TRA: basicStatistics
+    
+    %% Calculate advanced metrics
+    TRA->>SA: calculateAdvancedMetrics(testResults)
+    SA->>SA: computeStepStatistics()
+    SA->>SA: analyzeFailurePatterns()
+    SA->>SA: calculatePerformanceMetrics()
+    SA->>SA: generateTrendAnalysis()
+    SA-->>TRA: advancedMetrics
+    
+    %% Aggregate scenario-level data
+    TRA->>TRA: aggregateScenarioData(scenarios)
+    loop for each scenario
+        TRA->>TRA: categorizeScenario(scenario)
+        TRA->>TRA: extractScenarioMetrics(scenario)
+        TRA->>TRA: analyzeStepFailures(scenario.steps)
+    end
+    
+    %% Aggregate step-level data
+    TRA->>TRA: aggregateStepData(allSteps)
+    loop for each step
+        TRA->>TRA: categorizeStepType(step)
+        TRA->>TRA: recordStepDuration(step)
+        TRA->>TRA: trackStepFailureReasons(step)
+    end
+    
+    %% Generate aggregation summary
+    TRA->>TRA: generateAggregationSummary()
+    TRA->>TRA: createExecutionTimeline()
+    TRA->>TRA: buildFailureHierarchy()
+    
+    deactivate TRA
+    TRA-->>TSM: aggregatedResults
+    
+    %% Generate comprehensive reports with analysis
+    TSM->>RG: generateReports(aggregatedResults)
+    activate RG
+    
+    %% Generate analytical reports
+    RG->>RG: generateExecutiveSummary(aggregatedResults)
+    RG->>RG: generateDetailedAnalysis(aggregatedResults)
+    RG->>RG: generateFailureAnalysis(aggregatedResults)
+    RG->>RG: generatePerformanceReport(aggregatedResults)
+    
+    loop for each report format
+        alt HTML Report with Analysis
+            RG->>FS: writeReport(htmlAnalyticalReport, 'test-analysis.html')
+            FS-->>RG: HTML analysis report written
+            Note over RG: Includes charts, graphs, failure breakdown
+        else JSON Report with Metrics
+            RG->>FS: writeReport(jsonMetricsReport, 'test-metrics.json')
+            FS-->>RG: JSON metrics report written
+            Note over RG: Structured data for dashboards
+        else XML Report with Statistics
+            RG->>FS: writeReport(xmlStatisticsReport, 'test-statistics.xml')
+            FS-->>RG: XML statistics report written
+            Note over RG: Compatible with CI/CD tools
+        else CSV Report for Data Analysis
+            RG->>FS: writeReport(csvDataReport, 'test-data.csv')
+            FS-->>RG: CSV data report written
+            Note over RG: Raw data for external analysis tools
+        end
+    end
+    
+    %% Generate trend analysis if historical data exists
+    RG->>FS: readHistoricalData('previous-test-results.json')
+    FS-->>RG: historicalData
+    
+    alt historical data available
+        RG->>SA: generateTrendAnalysis(currentResults, historicalData)
+        SA->>SA: compareWithPreviousRuns()
+        SA->>SA: identifyRegressions()
+        SA->>SA: calculateImprovements()
+        SA-->>RG: trendAnalysis
+        
+        RG->>FS: writeReport(trendReport, 'trend-analysis.html')
+        FS-->>RG: Trend analysis report written
+    end
+    
+    deactivate RG
+    RG-->>TSM: comprehensive reports generated
+    
+    %% Archive results for future trend analysis
+    TSM->>FS: archiveResults(aggregatedResults, 'historical-data/')
+    FS-->>TSM: results archived
+    
+    TSM->>TSM: updateTestMetadata(aggregatedResults)
+    
+    Note over TSM: Test result aggregation and analysis complete
+    Note over RG: Multiple analytical reports generated
+    Note over SA: Comprehensive statistics and metrics calculated
+    Note over FS: Results archived for trend analysis
+
+    %% Summary of aggregated data
+    Note over TRA: Aggregated Data Includes:
+    Note over TRA: - Scenario pass/fail rates
+    Note over TRA: - Step execution statistics  
+    Note over TRA: - Performance metrics
+    Note over TRA: - Failure pattern analysis
+    Note over TRA: - Execution timeline
+    Note over TRA: - Trend comparisons

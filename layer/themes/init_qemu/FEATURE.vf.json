@@ -1,0 +1,92 @@
+{
+  "metadata": {
+    "theme": "qemu",
+    "version": "1.0.0",
+    "description": "QEMU-based virtualization and emulation infrastructure",
+    "created": "2025-08-09"
+  },
+  "features": [
+    {
+      "id": "qemu-container-alternative",
+      "name": "QEMU Container Alternative",
+      "description": "Full Docker container feature parity using QEMU virtualization",
+      "status": "implemented",
+      "priority": "high",
+      "components": [
+        "qemu-manager",
+        "image-builder",
+        "volume-manager",
+        "network-bridge"
+      ],
+      "docker_parity": {
+        "build": true,
+        "run": true,
+        "compose": true,
+        "volumes": true,
+        "networks": true,
+        "port_forwarding": true
+      }
+    },
+    {
+      "id": "qemu-cmake-build",
+      "name": "QEMU CMake Build Environment",
+      "description": "Build CMake projects inside QEMU with current folder mounted",
+      "status": "implemented",
+      "priority": "high",
+      "components": [
+        "cmake-builder",
+        "folder-mount",
+        "build-cache"
+      ],
+      "build_features": {
+        "cross_compilation": true,
+        "cache_persistence": true,
+        "incremental_builds": true
+      }
+    },
+    {
+      "id": "qemu-debug-support",
+      "name": "QEMU Debug Port Support",
+      "description": "GDB debugging through QEMU with configurable debug ports",
+      "status": "implemented",
+      "priority": "high",
+      "components": [
+        "gdb-server",
+        "debug-port-manager",
+        "symbol-mapper"
+      ],
+      "debug_config": {
+        "gdb_port": 1234,
+        "monitor_port": 4444,
+        "serial_port": 5555,
+        "enabled_by_default": false
+      }
+    },
+    {
+      "id": "qemu-architecture-emulation",
+      "name": "Multi-Architecture Emulation",
+      "description": "Support for ARM, RISC-V, MIPS, and x86 emulation",
+      "status": "implemented",
+      "priority": "medium",
+      "architectures": [
+        "x86_64",
+        "aarch64",
+        "arm",
+        "riscv64",
+        "mips"
+      ]
+    },
+    {
+      "id": "qemu-snapshot-restore",
+      "name": "Snapshot and Restore",
+      "description": "VM state snapshot and restore capabilities",
+      "status": "implemented",
+      "priority": "medium",
+      "components": [
+        "snapshot-manager",
+        "state-storage",
+        "restore-handler"
+      ]
+    }
+  ]
+}

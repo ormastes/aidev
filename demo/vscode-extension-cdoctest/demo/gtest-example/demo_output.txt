@@ -1,0 +1,150 @@
+=== GTest CTest Integration Demo Output ===
+
+This file shows the expected output when running the demo with CTest.
+
+1. CTest JSON Output (used by VSCode extension for test discovery):
+```json
+{
+  "tests": [
+    {
+      "name": "MathOperationsTest.AddPositiveNumbers",
+      "command": ["./math_tests", "--gtest_filter=MathOperationsTest.AddPositiveNumbers"],
+      "properties": {
+        "LABELS": "unit"
+      }
+    },
+    {
+      "name": "MathOperationsTest.AddNegativeNumbers",
+      "command": ["./math_tests", "--gtest_filter=MathOperationsTest.AddNegativeNumbers"],
+      "properties": {
+        "LABELS": "unit"
+      }
+    },
+    {
+      "name": "MathOperationsTest.SubtractNumbers",
+      "command": ["./math_tests", "--gtest_filter=MathOperationsTest.SubtractNumbers"],
+      "properties": {
+        "LABELS": "unit"
+      }
+    },
+    {
+      "name": "MathOperationsTest.MultiplyNumbers",
+      "command": ["./math_tests", "--gtest_filter=MathOperationsTest.MultiplyNumbers"],
+      "properties": {
+        "LABELS": "unit"
+      }
+    },
+    {
+      "name": "MathOperationsTest.DivideNumbers",
+      "command": ["./math_tests", "--gtest_filter=MathOperationsTest.DivideNumbers"],
+      "properties": {
+        "LABELS": "unit"
+      }
+    },
+    {
+      "name": "MathOperationsTest.DivideByZero",
+      "command": ["./math_tests", "--gtest_filter=MathOperationsTest.DivideByZero"],
+      "properties": {
+        "LABELS": "unit"
+      }
+    },
+    {
+      "name": "FactorialTest.ValidInputs",
+      "command": ["./math_tests", "--gtest_filter=FactorialTest.ValidInputs"],
+      "properties": {
+        "LABELS": "unit"
+      }
+    },
+    {
+      "name": "FactorialTest.NegativeInput",
+      "command": ["./math_tests", "--gtest_filter=FactorialTest.NegativeInput"],
+      "properties": {
+        "LABELS": "unit"
+      }
+    },
+    {
+      "name": "PrimeTest.CheckPrime/0",
+      "command": ["./math_tests", "--gtest_filter=PrimeTest.CheckPrime/0"],
+      "properties": {
+        "LABELS": "unit"
+      }
+    },
+    {
+      "name": "StringUtilsTest.ToUpperCase",
+      "command": ["./math_tests", "--gtest_filter=StringUtilsTest.ToUpperCase"],
+      "properties": {
+        "LABELS": "unit"
+      }
+    },
+    {
+      "name": "StringUtilsTest.ToLowerCase",
+      "command": ["./math_tests", "--gtest_filter=StringUtilsTest.ToLowerCase"],
+      "properties": {
+        "LABELS": "unit"
+      }
+    },
+    {
+      "name": "StringUtilsTest.Trim",
+      "command": ["./math_tests", "--gtest_filter=StringUtilsTest.Trim"],
+      "properties": {
+        "LABELS": "unit"
+      }
+    }
+  ]
+}
+```
+
+2. Test Execution Output:
+```
+Test project /home/user/gtest-example/build
+    Start 1: MathOperationsTest.AddPositiveNumbers
+1/25 Test  #1: MathOperationsTest.AddPositiveNumbers .....   Passed    0.01 sec
+    Start 2: MathOperationsTest.AddNegativeNumbers
+2/25 Test  #2: MathOperationsTest.AddNegativeNumbers .....   Passed    0.01 sec
+    Start 3: MathOperationsTest.SubtractNumbers
+3/25 Test  #3: MathOperationsTest.SubtractNumbers ........   Passed    0.01 sec
+    Start 4: MathOperationsTest.MultiplyNumbers
+4/25 Test  #4: MathOperationsTest.MultiplyNumbers ........   Passed    0.01 sec
+    Start 5: MathOperationsTest.DivideNumbers
+5/25 Test  #5: MathOperationsTest.DivideNumbers ..........   Passed    0.01 sec
+    Start 6: MathOperationsTest.DivideByZero
+6/25 Test  #6: MathOperationsTest.DivideByZero ...........   Passed    0.01 sec
+    Start 7: FactorialTest.ValidInputs
+7/25 Test  #7: FactorialTest.ValidInputs .................   Passed    0.01 sec
+    Start 8: FactorialTest.NegativeInput
+8/25 Test  #8: FactorialTest.NegativeInput ...............   Passed    0.01 sec
+...
+
+100% tests passed, 0 tests failed out of 25
+
+Total Test time (real) =   0.25 sec
+```
+
+3. VSCode Test Explorer View:
+
+CTest GTest
+├── MathOperationsTest
+│   ├── ✅ AddPositiveNumbers
+│   ├── ✅ AddNegativeNumbers
+│   ├── ✅ SubtractNumbers
+│   ├── ✅ MultiplyNumbers
+│   ├── ✅ DivideNumbers
+│   └── ✅ DivideByZero
+├── FactorialTest
+│   ├── ✅ ValidInputs
+│   └── ✅ NegativeInput
+├── PrimeTest
+│   ├── ✅ CheckPrime/0 (2, true)
+│   ├── ✅ CheckPrime/1 (3, true)
+│   ├── ✅ CheckPrime/2 (4, false)
+│   └── ... (10 more tests)
+├── FibonacciTest
+│   ├── ✅ BasicCases
+│   └── ✅ NegativeInput
+└── StringUtilsTest
+    ├── ✅ ToUpperCase
+    ├── ✅ ToLowerCase
+    ├── ✅ Trim
+    └── ✅ CaseConversion
+
+Total: 25 tests, all passed ✅

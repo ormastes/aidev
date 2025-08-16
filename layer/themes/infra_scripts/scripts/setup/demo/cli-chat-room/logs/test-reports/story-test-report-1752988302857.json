@@ -1,0 +1,22 @@
+{
+  "storyId": "US001_Calculator_BasicMath",
+  "timestamp": "2025-07-20T05:11:42.857Z",
+  "tests": [
+    {
+      "name": "/home/ormastes/dev/aidev/demo/cli-chat-room/test/system/calculator/test_US001_SD001_error_handling.ts",
+      "status": "failed",
+      "coverage": {}
+    },
+    {
+      "name": "/home/ormastes/dev/aidev/demo/cli-chat-room/test/system/calculator/test_US001_SD001_basic_operations.ts",
+      "status": "failed",
+      "coverage": {}
+    }
+  ],
+  "overall": {
+    "In Progress": false,
+    "numTotalTests": 0,
+    "numIN PROGRESSTests": 0,
+    "numFailedTests": 0
+  }
+}

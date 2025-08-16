@@ -1,0 +1,28 @@
+{
+  "name": "gui-python-pywebview",
+  "description": "Desktop GUI application using Python with pywebview",
+  "type": "gui-desktop",
+  "language": "python",
+  "framework": "pywebview",
+  "test_framework": "playwright",
+  "supported_platforms": ["linux", "windows", "macos"],
+  "supported_architectures": ["x86_64", "arm64"],
+  "dependencies": {
+    "python": ">=3.8"
+  },
+  "pip_packages": {
+    "pywebview": ">=4.0",
+    "flask": ">=2.0",
+    "pyautogui": ">=0.9",
+    "playwright": ">=1.40",
+    "pytest": ">=7.0",
+    "pytest-playwright": ">=0.4",
+    "behave": ">=1.2"
+  },
+  "files": {
+    "src/main.py": "#!/usr/bin/env python3\nimport webview\nimport threading\nfrom flask import Flask, render_template\n\napp = Flask(__name__, template_folder='templates', static_folder='static')\n\n@app.route('/')\ndef index():\n    return render_template('index.html')\n\n@app.route('/api/hello')\ndef hello():\n    return {'message': 'Hello from Python pywebview!'}\n\ndef start_server():\n    app.run(port=5000, debug=False)\n\nif __name__ == '__main__':\n    t = threading.Thread(target=start_server)\n    t.daemon = True\n    t.start()\n    \n    webview.create_window('${PROJECT_NAME}', 'http://localhost:5000', width=800, height=600)\n    webview.start()",
+    "src/templates/index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>${PROJECT_NAME}</title>\n    <style>\n        body { font-family: Arial, sans-serif; padding: 20px; }\n        h1 { color: #333; }\n    </style>\n</head>\n<body>\n    <h1>Python Desktop App</h1>\n    <p>Built with pywebview and Flask</p>\n    <button onclick=\"fetchHello()\">Get Message</button>\n    <div id=\"message\"></div>\n    <script>\n        async function fetchHello() {\n            const response = await fetch('/api/hello');\n            const data = await response.json();\n            document.getElementById('message').innerText = data.message;\n        }\n    </script>\n</body>\n</html>",
+    "tests/test_gui.py": "import pytest\nfrom playwright.sync_api import sync_playwright\nimport subprocess\nimport time\n\ndef test_app_launches():\n    # Start the application\n    process = subprocess.Popen(['python', 'src/main.py'])\n    time.sleep(3)  # Wait for app to start\n    \n    with sync_playwright() as p:\n        browser = p.chromium.launch()\n        page = browser.new_page()\n        page.goto('http://localhost:5000')\n        \n        # Check title\n        assert '${PROJECT_NAME}' in page.title()\n        \n        # Click button and check message\n        page.click('button')\n        page.wait_for_selector('#message')\n        message = page.text_content('#message')\n        assert 'Hello from Python pywebview!' in message\n        \n        browser.close()\n    \n    process.terminate()",
+    "features/gui.feature": "Feature: Desktop GUI Application\n  Scenario: Application launches successfully\n    Given the application is running\n    When I open the main window\n    Then I should see \"Python Desktop App\"\n    \n  Scenario: API interaction works\n    Given the application is running\n    When I click the \"Get Message\" button\n    Then I should see \"Hello from Python pywebview!\""
+  }
+}

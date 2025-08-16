@@ -1,0 +1,1 @@
+{"version":3,"file":"pocket-task-platform.d.ts","sourceRoot":"","sources":["pocket-task-platform.ts"],"names":[],"mappings":"AAIA,OAAO,EAAE,oBAAoB,EAAE,MAAM,eAAe,CAAC;AAErD,qBAAa,kBAAkB;IAC7B,OAAO,CAAC,WAAW,CAAuB;gBAE9B,OAAO,EAAE,MAAM;IAa3B,cAAc,IAAI,oBAAoB;CAGvC"}

@@ -1,0 +1,93 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "{timestamp}",
+    "updated_at": "{timestamp}",
+    "description": "{project_name} epic structure",
+    "project_type": "epic"
+  },
+  "templates": {
+    "epic": {
+      "id": "epic",
+      "type": "directory",
+      "description": "Epic container with user stories",
+      "required_children": [
+        { 
+          "name": "user-stories", 
+          "type": "directory", 
+          "description": "User stories in this epic",
+          "template": "user_stories_container"
+        },
+        { "name": "FEATURE.vf.json", "type": "file", "description": "Epic features" },
+        { "name": "TASK_QUEUE.vf.json", "type": "file", "description": "Epic tasks" },
+        { "name": "README.md", "type": "file", "description": "Epic documentation" }
+      ],
+      "optional_children": [
+        { "name": "docs", "type": "directory", "description": "Epic documentation" },
+        { "name": "tests", "type": "directory", "description": "Integration tests" },
+        { "name": "config", "type": "directory", "description": "Epic configuration" }
+      ],
+      "constraints": {
+        "max_depth": 6
+      }
+    },
+    "user_stories_container": {
+      "id": "user_stories_container",
+      "type": "directory",
+      "description": "Container for user stories",
+      "allowed_patterns": ["^us-[0-9]+-[a-z][a-z0-9-]*$", "^[a-z][a-z0-9-]*$"],
+      "constraints": {
+        "max_children": 50
+      }
+    },
+    "user_story": {
+      "id": "user_story",
+      "type": "directory",
+      "description": "Individual user story implementation",
+      "required_children": [
+        { 
+          "name": "src", 
+          "type": "directory", 
+          "description": "Source code",
+          "template": "story_source"
+        },
+        { 
+          "name": "tests", 
+          "type": "directory", 
+          "description": "Story tests",
+          "template": "story_tests"
+        },
+        { "name": "TASK_QUEUE.vf.json", "type": "file", "description": "Story tasks" },
+        { "name": "NAME_ID.vf.json", "type": "file", "description": "Story entities" },
+        { "name": "README.md", "type": "file", "description": "Story documentation" }
+      ],
+      "optional_children": [
+        { "name": "docs", "type": "directory", "description": "Story documentation" },
+        { "name": "config", "type": "directory", "description": "Story configuration" }
+      ]
+    },
+    "story_source": {
+      "id": "story_source",
+      "type": "directory",
+      "description": "User story source code",
+      "constraints": {
+        "file_extensions": [".ts", ".js", ".tsx", ".jsx"],
+        "max_depth": 3
+      }
+    },
+    "story_tests": {
+      "id": "story_tests",
+      "type": "directory",
+      "description": "User story tests",
+      "constraints": {
+        "file_extensions": [".test.ts", ".test.js", ".spec.ts", ".spec.js"],
+        "max_depth": 2
+      }
+    }
+  },
+  "structure": {
+    "name": ".",
+    "type": "directory", 
+    "template": "epic"
+  }
+}

@@ -1,0 +1,233 @@
+# Multi-stage Dockerfile for Development Environment
+# Supports C++, Python, Rust, Node.js with debugging capabilities
+
+ARG BASE_IMAGE=ubuntu:22.04
+ARG PLATFORM=linux/amd64
+
+# ===========================================
+# Stage 1: Base Development Tools
+# ===========================================
+FROM --platform=${PLATFORM} ${BASE_IMAGE} AS dev-base
+
+# Set environment variables
+ENV DEBIAN_FRONTEND=noninteractive
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+
+# Install essential development tools
+RUN apt-get update && apt-get install -y \
+    # Build tools
+    build-essential \
+    cmake \
+    ninja-build \
+    autoconf \
+    automake \
+    libtool \
+    pkg-config \
+    # Version control
+    git \
+    git-lfs \
+    subversion \
+    # Network tools
+    curl \
+    wget \
+    netcat \
+    iputils-ping \
+    dnsutils \
+    # SSH server for remote access
+    openssh-server \
+    # Debugging tools
+    gdb \
+    gdbserver \
+    lldb \
+    valgrind \
+    strace \
+    # Editor and utilities
+    vim \
+    nano \
+    tmux \
+    screen \
+    htop \
+    tree \
+    jq \
+    # Python essentials
+    python3 \
+    python3-pip \
+    python3-dev \
+    python3-venv \
+    # Archive tools
+    zip \
+    unzip \
+    tar \
+    xz-utils \
+    # Documentation
+    man-db \
+    && rm -rf /var/lib/apt/lists/*
+
+# ===========================================
+# Stage 2: Language-specific tools
+# ===========================================
+FROM dev-base AS language-tools
+
+# Install Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+RUN rustup default stable && \
+    rustup component add rust-src rust-analyzer clippy rustfmt
+
+# Install Node.js and npm
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g yarn pnpm typescript ts-node nodemon
+
+# Install Go
+RUN wget -q https://go.dev/dl/go1.21.0.linux-amd64.tar.gz && \
+    tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz && \
+    rm go1.21.0.linux-amd64.tar.gz
+ENV PATH="/usr/local/go/bin:${PATH}"
+
+# Install additional C++ tools
+RUN apt-get update && apt-get install -y \
+    clang \
+    clang-format \
+    clang-tidy \
+    ccache \
+    cppcheck \
+    && rm -rf /var/lib/apt/lists/*
+
+# ===========================================
+# Stage 3: VS Code Server Setup
+# ===========================================
+FROM language-tools AS vscode-server
+
+# Install code-server (VS Code in browser)
+RUN curl -fsSL https://code-server.dev/install.sh | sh
+
+# Configure code-server
+RUN mkdir -p /root/.config/code-server
+COPY <<EOF /root/.config/code-server/config.yaml
+bind-addr: 0.0.0.0:8080
+auth: password
+password: changeme
+cert: false
+EOF
+
+# Install VS Code extensions for development
+RUN code-server --install-extension ms-vscode.cpptools \
+    --install-extension ms-python.python \
+    --install-extension rust-lang.rust-analyzer \
+    --install-extension dbaeumer.vscode-eslint \
+    --install-extension esbenp.prettier-vscode \
+    --install-extension eamodio.gitlens \
+    --install-extension mhutchie.git-graph \
+    --install-extension vadimcn.vscode-lldb
+
+# ===========================================
+# Stage 4: SSH and Remote Debugging Setup
+# ===========================================
+FROM vscode-server AS remote-dev
+
+# Configure SSH
+RUN mkdir /var/run/sshd && \
+    echo 'root:docker' | chpasswd && \
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
+    echo "export VISIBLE=now" >> /etc/profile
+
+# SSH port
+EXPOSE 22
+
+# Configure GDB for remote debugging
+RUN echo "set auto-load safe-path /" >> /root/.gdbinit && \
+    echo "set history save on" >> /root/.gdbinit && \
+    echo "set history size 10000" >> /root/.gdbinit
+
+# ===========================================
+# Stage 5: Development Environment Setup
+# ===========================================
+FROM remote-dev AS development
+
+# Create workspace directory
+WORKDIR /workspace
+
+# Install Python development packages
+RUN pip3 install --upgrade pip && \
+    pip3 install \
+    debugpy \
+    ipython \
+    jupyter \
+    notebook \
+    pytest \
+    pytest-cov \
+    black \
+    flake8 \
+    mypy \
+    pylint \
+    requests \
+    numpy \
+    pandas
+
+# Setup entrypoint script
+COPY <<'EOF' /usr/local/bin/docker-entrypoint.sh
+#!/bin/bash
+set -e
+
+# Start SSH service if requested
+if [ "$ENABLE_SSH" = "true" ]; then
+    echo "Starting SSH server..."
+    service ssh start
+fi
+
+# Start code-server if requested
+if [ "$ENABLE_VSCODE" = "true" ]; then
+    echo "Starting VS Code Server on port 8080..."
+    code-server --bind-addr 0.0.0.0:8080 --auth password &
+fi
+
+# Start GDB server if requested
+if [ "$ENABLE_GDB_SERVER" = "true" ]; then
+    echo "Starting GDB server on port 1234..."
+    gdbserver :1234 --attach 1 &
+fi
+
+# Execute command or start bash
+if [ $# -eq 0 ]; then
+    exec /bin/bash
+else
+    exec "$@"
+fi
+EOF
+
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Expose common development ports
+EXPOSE 22    # SSH
+EXPOSE 1234  # GDB Server
+EXPOSE 3000  # Node.js apps
+EXPOSE 5000  # Python Flask
+EXPOSE 8000  # Python Django
+EXPOSE 8080  # VS Code Server
+EXPOSE 9229  # Node.js debug
+
+# Set entrypoint
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+CMD ["/bin/bash"]
+
+# ===========================================
+# Stage 6: Production-ready image (optional)
+# ===========================================
+FROM development AS production
+
+# Remove unnecessary packages for production
+RUN apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Add health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8080/ || exit 1
+
+# Labels
+LABEL maintainer="AI Development Platform"
+LABEL version="1.0.0"
+LABEL description="Multi-language development container with debugging support"

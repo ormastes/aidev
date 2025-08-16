@@ -1,0 +1,4257 @@
+{
+  "timestamp": "2025-08-03T01:31:18.427Z",
+  "totalThemes": 35,
+  "checkedThemes": [
+    {
+      "theme": "aidev-portal",
+      "path": "/home/ormastes/dev/aidev/layer/themes/aidev-portal",
+      "files": 144,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/aidev-portal/children/release-additional/ai_dev_portal_final/config/database.js",
+            "pattern": "/require\\(['\"]sqlite3['\"]\\)/",
+            "match": "require('sqlite3')"
+          },
+          {
+            "file": "layer/themes/aidev-portal/children/release-additional/ai_dev_portal_final/init-db.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/aidev-portal/children/release-additional/ai_dev_portal_live_demo/config/database.js",
+            "pattern": "/require\\(['\"]sqlite3['\"]\\)/",
+            "match": "require('sqlite3')"
+          },
+          {
+            "file": "layer/themes/aidev-portal/children/release-additional/ai_dev_portal_live_demo/init-db.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal/config/database.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal/init-db-postgres.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal/init-db.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal/init-db.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal/server-postgres.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal/server.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal/test-db-integrity.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal_e2e_test/config/database.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal_e2e_test/init-db-postgres.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal_e2e_test/init-db.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal_e2e_test/init-db.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal_e2e_test/server-postgres.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal_e2e_test/server.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal_e2e_test/test-db-integrity.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal_production/config/database.js",
+            "pattern": "/require\\(['\"]sqlite3['\"]\\)/",
+            "match": "require('sqlite3')"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal_production/init-db.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal_secured/server.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal_test_demo/config/database.js",
+            "pattern": "/require\\(['\"]sqlite3['\"]\\)/",
+            "match": "require('sqlite3')"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/ai_dev_portal_test_demo/init-db.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/test_cleanup_demo/config/database.js",
+            "pattern": "/require\\(['\"]sqlite3['\"]\\)/",
+            "match": "require('sqlite3')"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/test_cleanup_demo/init-db.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/test_service_demo/check-db.js",
+            "pattern": "/require\\(['\"]sqlite3['\"]\\)/",
+            "match": "require('sqlite3')"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/test_service_demo/config/database.js",
+            "pattern": "/require\\(['\"]sqlite3['\"]\\)/",
+            "match": "require('sqlite3')"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/test_service_demo/init-db.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/test_service_demo/init-db.js",
+            "pattern": "/require\\(['\"]sqlite3['\"]\\)/",
+            "match": "require('sqlite3')"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/test_service_demo/server.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/aidev-portal/demo/test_service_demo/server.js",
+            "pattern": "/require\\(['\"]sqlite3['\"]\\)/",
+            "match": "require('sqlite3')"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal/config/database.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal/init-db-postgres.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal/init-db.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal/init-db.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal/server-postgres.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal/server.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal/test-db-integrity.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal_release/config/database.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal_release/init-db-postgres.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal_release/init-db.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal_release/init-db.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal_release/server-postgres.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal_release/server.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal_release/test-db-integrity.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal_v2025.07.19/ai_dev_portal/config/database.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal_v2025.07.19/ai_dev_portal/init-db-postgres.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal_v2025.07.19/ai_dev_portal/init-db.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal_v2025.07.19/ai_dev_portal/init-db.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal_v2025.07.19/ai_dev_portal/server-postgres.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal_v2025.07.19/ai_dev_portal/server.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/release/ai_dev_portal_v2025.07.19/ai_dev_portal/test-db-integrity.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/scripts/clean-database.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/aidev-portal/user-stories/024-aidev-portal/src/core/service-registry.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import { Server } from 'http'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/user-stories/024-aidev-portal/src/server.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/user-stories/024-aidev-portal/tests/env/authentication-middleware.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import { Server } from 'http'"
+          },
+          {
+            "file": "layer/themes/aidev-portal/user-stories/024-aidev-portal/tests/env/express-portal-server.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import { Server } from 'http'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/aidev-portal/tests/setup.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/aidev-portal/tests/setup.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/aidev-portal/tests/unit/authentication-manager.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/aidev-portal/tests/unit/authentication-manager.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/aidev-portal/tests/unit/authentication-manager.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/aidev-portal/user-stories/024-aidev-portal/tests/unit/auth/authentication-manager.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/aidev-portal/user-stories/024-aidev-portal/tests/unit/auth/authentication-manager.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/aidev-portal/user-stories/024-aidev-portal/tests/unit/auth/authentication-manager.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/aidev-portal/user-stories/024-aidev-portal/tests/unit/auth/user-manager.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/aidev-portal/user-stories/024-aidev-portal/tests/unit/auth/user-manager.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/aidev-portal/user-stories/024-aidev-portal/tests/unit/authentication-manager.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/aidev-portal/user-stories/024-aidev-portal/tests/unit/authentication-manager.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/aidev-portal/user-stories/024-aidev-portal/tests/unit/authentication-manager.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/aidev-portal/user-stories/024-aidev-portal/tests/unit/core/service-registry-simple.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "chat-space",
+      "path": "/home/ormastes/dev/aidev/layer/themes/chat-space",
+      "files": 46,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/chat-space/user-stories/001-basic-server/server.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import { createServer } from 'http'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/001-basic-server/server.ts",
+            "pattern": "/import.*from\\s+['\"]socket\\.io['\"]/",
+            "match": "import { Server } from 'socket.io'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/src/external/context-provider.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/src/external/file-storage.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/env/cli-interface-availability.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/env/cli-interface-availability.envtest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/env/parent-aidev-access.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/env/process-spawn-management.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/env/process-spawn-management.envtest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/env/websocket-messaging-infrastructure.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/env/websocket-messaging-infrastructure.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import * as http from 'http'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/env/websocket-messaging-infrastructure.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]ws['\"]/",
+            "match": "import { WebSocket } from 'ws'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/external/cli-interface-command-processing.etest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/external/context-provider-aidev-access.etest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/external/file-storage-operations.etest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/helpers/test-file-system.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/integration/chat-room-platform-coordination.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/integration/pocketflow-context-provider-integration.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/integration/storage-messaging-broker-coordination.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/system/complete-chat-room-lifecycle.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/system/complete-chat-room-lifecycle.stest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/system/context-access-workspace-integration.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/system/context-access-workspace-integration.stest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/system/mockless-chat-room-lifecycle.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/system/mockless-pocketflow-integration.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/system/multi-room-navigation-switching.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/system/multi-room-navigation-switching.stest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/system/pocketflow-integration-workflow-notifications.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/system/pocketflow-integration-workflow-notifications.stest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/unit/file-storage-additional.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/unit/file-storage-comprehensive.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/chat-space/user-stories/007-chat-room-cli/tests/unit/message-broker-comprehensive.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "cli-framework",
+      "path": "/home/ormastes/dev/aidev/layer/themes/cli-framework",
+      "files": 39,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/cli-framework/user-stories/002-cli-base-structure/examples/plugin-example.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/cli-framework/user-stories/002-cli-base-structure/tests/system/command-registration-execution.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/cli-framework/user-stories/002-cli-base-structure/tests/system/error-handling.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/cli-framework/user-stories/002-cli-base-structure/tests/system/help-system.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/cli-framework/user-stories/002-cli-base-structure/tests/system/plugins-hooks.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/cli-framework/user-stories/002-cli-base-structure/tests/system/process-console-interaction.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/cli-framework/user-stories/002-cli-base-structure/tests/system/process-console-interaction.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/cli-framework/user-stories/004-cli-development/tests/system/cli-full-application.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/cli-framework/tests/setup.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/cli-framework/tests/unit/cli.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/cli-framework/tests/unit/cli.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/cli-framework/user-stories/002-cli-base-structure/tests/integration/cli.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "code-enhancer",
+      "path": "/home/ormastes/dev/aidev/layer/themes/code-enhancer",
+      "files": 7,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/code-enhancer/user-stories/012-code-enhancement/tests/integration/code-enhancement-pipeline.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "context-transformer",
+      "path": "/home/ormastes/dev/aidev/layer/themes/context-transformer",
+      "files": 5,
+      "violations": {
+        "externalLibraryUsage": [],
+        "testFraud": [],
+        "mockUsage": [],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "coordinator-claude-agent",
+      "path": "/home/ormastes/dev/aidev/layer/themes/coordinator-claude-agent",
+      "files": 39,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/examples/auth-demo.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/src/core/claude-api-client.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import { IncomingMessage } from 'http'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/src/core/claude-api-client.ts",
+            "pattern": "/import.*from\\s+['\"]https['\"]/",
+            "match": "import * as https from 'https'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/src/core/claude-auth.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/src/core/session-manager.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/src/index.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/src/integration/task-queue-manager.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/test-auth.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/test-comprehensive.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/env/environment.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/helpers/https-test-helper.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/helpers/https-test-helper.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import * as http from 'http'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/helpers/https-test-helper.ts",
+            "pattern": "/import.*from\\s+['\"]https['\"]/",
+            "match": "import * as https from 'https'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/helpers/test-utils.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/helpers/test-utils.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import { createServer, Server, IncomingMessage, ServerResponse } from 'http'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/integration/auth-integration.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/integration/coordinator-integration.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/system/coordinator-comprehensive-system.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/system/coordinator-comprehensive-system.test.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/system/coordinator-e2e.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/system/coordinator-integration-system.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/system/coordinator-realtime-system.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/unit/claude-api-client.test.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import * as http from 'http'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/unit/claude-api-client.test.ts",
+            "pattern": "/import.*from\\s+['\"]https['\"]/",
+            "match": "import * as https from 'https'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/unit/claude-auth.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/unit/coordinator.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/unit/core/claude-api-client.test.ts",
+            "pattern": "/import.*from\\s+['\"]https['\"]/",
+            "match": "import * as https from 'https'"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/unit/session-manager.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/coordinator-claude-agent/tests/setup.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/unit/claude-api-client.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/unit/core/claude-api-client.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/unit/core/claude-api-client.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/coordinator-claude-agent/user-stories/010-coordinator-agent/tests/unit/core/claude-api-client.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "coverage-aggregator",
+      "path": "/home/ormastes/dev/aidev/layer/themes/coverage-aggregator",
+      "files": 22,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/coverage-aggregator/tests/unit/coverage-aggregator.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/scripts/analyze-coverage.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/coverage-aggregator-branch.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/coverage-aggregator.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/coverage-aggregator.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/coverage-report-generator.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/coverage-report-generator.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/integrated-coverage-service-unmocked.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/integrated-coverage-service.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/integrated-coverage-service.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/coverage-aggregator/tests/unit/coverage-aggregator.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/tests/unit/coverage-aggregator.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/tests/unit/coverage-aggregator.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/index.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/index.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/coverage-aggregator-branch.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/coverage-aggregator-branch.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/coverage-aggregator-branch.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/coverage-aggregator.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/coverage-aggregator.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/coverage-aggregator.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/coverage-report-generator.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/coverage-report-generator.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/coverage-report-generator.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/integrated-coverage-service-unmocked.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/integrated-coverage-service-unmocked.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/integrated-coverage-service-unmocked.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/integrated-coverage-service.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/integrated-coverage-service.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/coverage-aggregator/user-stories/001-app-level-coverage/src/services/integrated-coverage-service.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "dev-environment",
+      "path": "/home/ormastes/dev/aidev/layer/themes/dev-environment",
+      "files": 7,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/dev-environment/tests/unit/setup-script.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/dev-environment/user-stories/001-setup-scripts/tests/integration/setup-workflow.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/dev-environment/user-stories/001-setup-scripts/tests/unit/script-helpers.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "docker-environment",
+      "path": "/home/ormastes/dev/aidev/layer/themes/docker-environment",
+      "files": 5,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/docker-environment/tests/unit/docker-compose.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "env-config",
+      "path": "/home/ormastes/dev/aidev/layer/themes/env-config",
+      "files": 42,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/env-config/tests/unit/config-manager.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/025-env-config-system/src/components/config-manager.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/025-env-config-system/src/components/file-generator.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/025-env-config-system/src/components/port-registry.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/025-env-config-system/tests/env/file-system-operations.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/025-env-config-system/tests/env/file-system-operations.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import { mkdtemp, rm } from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/025-env-config-system/tests/integration/config-manager-port-allocator.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/025-env-config-system/tests/integration/file-generator-config.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/025-env-config-system/tests/integration/port-allocator-registry.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/025-env-config-system/tests/system/theme-creation-workflow.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/025-env-config-system/tests/system/theme-creation-workflow.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import { mkdtemp, rm } from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/025-env-config-system/tests/system/theme-creation-workflow.systest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/025-env-config-system/tests/unit/config-manager-additional.utest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/025-env-config-system/tests/unit/config-manager.utest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/025-env-config-system/tests/unit/file-generator.utest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/025-env-config-system/tests/unit/port-allocator.utest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/025-env-config-system/tests/unit/port-registry.utest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/026-auto-env-generation/src/implementations/env-generator-impl.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/026-auto-env-generation/tests/env/service-discovery.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/026-auto-env-generation/tests/env/service-discovery.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import * as http from 'http'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/026-auto-env-generation/tests/external/env-generator.etest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/026-auto-env-generation/tests/external/service-discovery.etest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/026-auto-env-generation/tests/external/service-discovery.etest.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import * as http from 'http'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/026-auto-env-generation/tests/system/complete-env-generation.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/env-config/user-stories/026-auto-env-generation/tests/system/complete-env-generation.systest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/env-config/tests/unit/config-manager.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "external-log-lib",
+      "path": "/home/ormastes/dev/aidev/layer/themes/external-log-lib",
+      "files": 147,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/external-log-lib/children/fs-wrapper.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as originalFs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/children/fs-wrapper.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as originalFsPromises from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/children/http-wrapper.ts",
+            "pattern": "/import.*from\\s+['\"]axios['\"]/",
+            "match": "import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/children/http-wrapper.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import * as http from 'http'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/children/http-wrapper.ts",
+            "pattern": "/import.*from\\s+['\"]https['\"]/",
+            "match": "import * as https from 'https'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/children/sqlite3-wrapper.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import * as originalSqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/children/src/external/database-wrapper.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/children/src/external/database-wrapper.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/external-log-lib/tests/setup.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/external-log-lib/tests/system/advanced-log-scenarios.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/tests/system/comprehensive-log-system.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/tests/system/transport-buffering.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/tests/system/transport-buffering.stest.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import * as http from 'http'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/tests/system/transport-buffering.stest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/external-log-lib/tests/unit/external-log-lib-core.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/tests/utils/process-simulator.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/001-basic-log-capture/src/application/aidev-platform.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/001-basic-log-capture/src/domain/file-manager.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/001-basic-log-capture/tests/env/nodejs-spawn.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/001-basic-log-capture/tests/integration/file-save-integration.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/001-basic-log-capture/tests/system/log-capture-e2e.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/001-basic-log-capture/tests/unit/file-manager.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/001-basic-log-capture/tests/unit/log-capture-session.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/002-python-process-logging/tests/system/python-log-capture-e2e.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/002-python-process-logging/tests/unit/python-log-capture-session.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/003-structured-log-parsing/tests/system/structured-log-parsing.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/004-real-time-streaming/tests/env/high-volume-performance.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/004-real-time-streaming/tests/env/nodejs-realtime-streaming.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/004-real-time-streaming/tests/env/process-lifecycle.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/004-real-time-streaming/tests/integration/event-emitter-filtering.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/004-real-time-streaming/tests/integration/log-monitor-process-manager.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/004-real-time-streaming/tests/system/backpressure-management.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/004-real-time-streaming/tests/system/end-to-end-monitoring.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/004-real-time-streaming/tests/system/process-crash-recovery.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/004-real-time-streaming/tests/system/process-crash-recovery.stest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/005-error-log-filtering/tests/system/error-log-filtering-e2e.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/006-multi-process-aggregation/tests/system/multi-process-aggregation-e2e.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/external-log-lib/tests/unit/database-wrapper.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/001-basic-log-capture/tests/external/external-log-lib-api.etest.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/001-basic-log-capture/tests/unit/log-capture-session-comprehensive.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/001-basic-log-capture/tests/unit/log-capture-session-comprehensive.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/001-basic-log-capture/tests/unit/log-capture-session-comprehensive.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/001-basic-log-capture/tests/unit/process-handle.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/002-python-process-logging/tests/unit/python-log-capture-session.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/external-log-lib/user-stories/002-python-process-logging/tests/unit/python-log-platform.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "filesystem_mcp",
+      "path": "/home/ormastes/dev/aidev/layer/themes/filesystem_mcp",
+      "files": 124,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/filesystem_mcp/children/CommentTaskExecutor.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/children/DefaultTaskExecutor.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/children/RunnableCommentExecutor.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/children/RunnableCommentProcessor.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/children/StepFileExecutor.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/children/StoryReportValidator.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/children/TaskQueueRunnableExtension.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/children/VFDistributedFeatureWrapper.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/children/VFFileStructureWrapper.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/children/VFFileWrapper.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/children/VFNameIdWrapper.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/children/VFScenarioEntityManager.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/children/VFSearchWrapper.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/children/VFValidatedFileWrapper.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/demo/test-pop-comment.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/examples/runnable-comment-demo.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/scripts/check-duplication.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/scripts/convert-taskqueue.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/scripts/fix-all-tests.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/scripts/fix-test-failures.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/scripts/run-system-tests.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/scripts/runnable/runnable-generate-test-manual.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/scripts/simple-test-runner.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/scripts/test-quality-check.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/src/VFSetupFolderWrapper.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/src/scripts/insert-task-with-children.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/VFDistributedFeatureWrapper.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/VFFileWrapper.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/VFNameIdWrapper.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/VFSearchWrapper.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/VFTaskQueueWrapper.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/complex-hierarchical-relationships.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/comprehensive-e2e.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/concurrent-operations.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/demo-e2e-realworld.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/distributed-feature-integration.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/edge-cases-error-handling.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/environment/mcp-server-environment.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/external/mcp-protocol-interactions.etest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/fraud-detection.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/integration/real-world-freeze.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/migration-scenarios.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/name-search.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/pipe-integration.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/runnable-comment-demo.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/runnable-comment-demo.test.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/runnable-comment-validation.fixed.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/runnable-comment-validation.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/schema-validation.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/simple-integration.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/story-report-validation-extended.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/story-report-validation.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/system/complete-queue-workflow.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/system/e2e/filesystem-mcp-integration.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/system/freeze-validation.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/system/mcp-freeze-validation.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/system/register-item.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/system/runnable-comment-simple.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/system/runnable-comment-step-file.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/system/runnable-comment-step-file.systest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/system/scenarios/file-structure-scenarios.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/system/scenarios/name-id-scenarios.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/system/scenarios/task-queue-scenarios.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/system/step-file-integration.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/system/test-scenario-entity-manager.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/tag-search.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/test-search-simple.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/test-vf-search-by-name.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/testJsonUpdates.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/CommentTaskExecutor.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/DefaultTaskExecutor.comprehensive.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/DefaultTaskExecutor.real.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/DefaultTaskExecutor.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/RunnableCommentExecutor.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/VFFileWrapper.comprehensive.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/VFFileWrapper.filter.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/VFIdNameWrapper.comprehensive.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/VFIdNameWrapper.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/VFTaskQueueWrapper.step.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/debug-freeze.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/freeze-validation.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/insert-task-with-children.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/utils/JsonDocumentHandler.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/utils/migrateToV2.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/filesystem_mcp/tests/VFDistributedFeatureWrapper.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/fraud-detection.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/pipe-integration.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/story-report-validation-extended.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/story-report-validation-extended.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/story-report-validation.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/system/mcp-freeze-validation.systest.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/system/mcp-freeze-validation.systest.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/system/mcp-freeze-validation.systest.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/CommentTaskExecutor.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/DefaultTaskExecutor.comprehensive.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/DefaultTaskExecutor.comprehensive.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/DefaultTaskExecutor.real.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/DefaultTaskExecutor.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/insert-task-with-children.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/insert-task-with-children.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/filesystem_mcp/tests/unit/insert-task-with-children.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "flow-validator",
+      "path": "/home/ormastes/dev/aidev/layer/themes/flow-validator",
+      "files": 4,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/flow-validator/user-stories/009-flow-validation/tests/system/flow-validation-system.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/flow-validator/user-stories/009-flow-validation/tests/system/flow-validation-system.stest.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import * as http from 'http'"
+          },
+          {
+            "file": "layer/themes/flow-validator/user-stories/009-flow-validation/tests/system/flow-validation-system.stest.ts",
+            "pattern": "/import.*from\\s+['\"]ws['\"]/",
+            "match": "import * as WebSocket from 'ws'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "fraud-checker",
+      "path": "/home/ormastes/dev/aidev/layer/themes/fraud-checker",
+      "files": 73,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/fraud-checker/children/ExternalLibraryDetector.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from \"fs\""
+          },
+          {
+            "file": "layer/themes/fraud-checker/examples/example.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/external/FileSystemWrapper.d.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/external/FileSystemWrapper.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/scripts/check-all-themes-comprehensive.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/scripts/check-external-lib-usage.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/scripts/check-external-lib-usage.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from \"sqlite3\""
+          },
+          {
+            "file": "layer/themes/fraud-checker/scripts/check-external-lib-usage.ts",
+            "pattern": "/import.*from\\s+['\"]axios['\"]/",
+            "match": "import axios from \"axios\""
+          },
+          {
+            "file": "layer/themes/fraud-checker/scripts/check-fraud.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/scripts/run-all-fraud-checks.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/fraud-checker/src/cli/fraud-analyzer.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/src/detectors/base-detector.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/src/reporters/fraud-report-generator.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/src/services/code-smell-detector.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/src/services/dependency-fraud-detector.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/src/services/fraud-analyzer-service.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/src/services/mock-detection-service.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/src/services/rule-suggestion-analyzer.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/src/services/security-vulnerability-detector.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/src/services/test-coverage-fraud-detector.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/integration/cli-script.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/integration/pipe-integration.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/integration/real-coverage.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/performance/stress-tests.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/unit/FileSystemWrapper.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          }
+        ],
+        "testFraud": [
+          {
+            "file": "layer/themes/fraud-checker/tests/integration/cli-script.test.ts",
+            "pattern": "/test\\.skip\\(/"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/integration/pipe-integration.test.ts",
+            "pattern": "/test\\.skip\\(/"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/integration/real-coverage.test.ts",
+            "pattern": "/it\\.skip\\(/"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/unit/FraudPatternDetector-coverage.test.ts",
+            "pattern": "/test\\.skip\\(/"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/unit/FraudPatternDetector-coverage.test.ts",
+            "pattern": "/it\\(['\"].*['\"]\\s*,\\s*\\(\\)\\s*=>\\s*{\\s*}\\)/"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/unit/FraudPatternDetector-coverage.test.ts",
+            "pattern": "/expect\\(true\\)\\.toBe\\(true\\)/"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/unit/FraudPatternDetector-coverage.test.ts",
+            "pattern": "/\\/\\/\\s*expect\\(/"
+          }
+        ],
+        "mockUsage": [
+          {
+            "file": "layer/themes/fraud-checker/examples/example.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/unit/ASTParserWrapper.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/unit/ASTParserWrapper.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/unit/ASTParserWrapper.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/unit/FileSystemWrapper.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/unit/FileSystemWrapper.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/unit/FileSystemWrapper.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/unit/FraudChecker.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/unit/FraudChecker.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/unit/FraudChecker.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/unit/FraudReportGenerator.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/unit/FraudReportGenerator.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/fraud-checker/tests/unit/jest.setup.ts",
+            "pattern": "/jest\\.mock\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "gui-generator",
+      "path": "/home/ormastes/dev/aidev/layer/themes/gui-generator",
+      "files": 5,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/gui-generator/user-stories/008-gui-generation/tests/integration/gui-generation-workflow.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "gui-selector",
+      "path": "/home/ormastes/dev/aidev/layer/themes/gui-selector",
+      "files": 85,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/gui-selector/scripts/check-pages-comments.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/gui-selector/scripts/e2e-comment-test.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/gui-selector/scripts/fix-pages.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/src/routes/apps.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/src/services/DatabaseService.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/src/services/DatabaseService.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/src/services/ExternalLogService.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/src/services/VFThemeStorageExtended.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/src/services/VFThemeStorageWrapper.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/env/database-connection.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/env/session-middleware.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/env/session-middleware.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import * as http from 'http'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/integration/authentication-session-integration.itest.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import { Server } from 'http'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/integration/guiserver-database-integration.itest.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import { Server } from 'http'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/integration/guiserver-sessionstore-integration.itest.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import { Server } from 'http'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/integration/guiserver-templateengine-integration.itest.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import { Server } from 'http'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/integration/session-persistence-restart_FAKE.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/integration/session-persistence-restart_FAKE.itest.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import { Server } from 'http'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/system/comprehensive-gui-server.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/system/comprehensive-gui-server.systest.ts",
+            "pattern": "/import.*from\\s+['\"]axios['\"]/",
+            "match": "import axios, { AxiosInstance } from 'axios'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/system/database-service.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/system/gui-server-integration.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/system/gui-template-selection-workflow.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/system/gui-template-selection-workflow.systest.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import { Server } from 'http'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/system/requirements-export-workflow.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/system/requirements-export-workflow.systest.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import { Server } from 'http'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/routes/apps.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/services/DatabaseService.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/services/DatabaseService.test.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import sqlite3 from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/services/ExternalLogService.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/__mocks__/sqlite3.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/setup-jwt-mock.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/setup.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/middleware/jwt-auth.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/middleware/jwt-auth.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/middleware/jwt-auth.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/routes/apps.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/routes/apps.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/routes/apps.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/routes/auth-jwt.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/routes/auth-jwt.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/routes/auth-jwt.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/routes/health.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/routes/messages.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/routes/requirements.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/routes/requirements.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/routes/selections.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/routes/templates.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/routes/themes.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/routes/themes.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/services/DatabaseService.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/services/DatabaseService.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/services/DatabaseService.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/services/ExternalLogService.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/services/ExternalLogService.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/services/JWTService.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/services/JWTService.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/services/JWTService.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/services/TemplateService.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/gui-selector/user-stories/023-gui-selector-server/tests/unit/services/ThemeService.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "hea-architecture",
+      "path": "/home/ormastes/dev/aidev/layer/themes/hea-architecture",
+      "files": 22,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/hea-architecture/user-stories/006-hea-implementation/scripts/scaffold.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/hea-architecture/user-stories/006-hea-implementation/scripts/validate.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/hea-architecture/user-stories/006-hea-implementation/src/core/layer-validator.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/hea-architecture/user-stories/006-hea-implementation/src/utils/dependency-graph.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/hea-architecture/user-stories/006-hea-implementation/src/utils/module-analyzer.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/hea-architecture/user-stories/006-hea-implementation/tests/dependency-graph-system.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/hea-architecture/user-stories/006-hea-implementation/tests/hea-real-world.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/hea-architecture/user-stories/006-hea-implementation/tests/hea-system.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/hea-architecture/user-stories/006-hea-implementation/tests/pipe-system.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/hea-architecture/user-stories/006-hea-implementation/tests/unit/layer-validator.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/hea-architecture/user-stories/006-hea-implementation/tests/unit/layer-validator.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/hea-architecture/user-stories/006-hea-implementation/tests/unit/layer-validator.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/hea-architecture/user-stories/006-hea-implementation/tests/unit/layer-validator.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "llm-agent-epic",
+      "path": "/home/ormastes/dev/aidev/layer/themes/llm-agent-epic",
+      "files": 23,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/llm-agent-epic/children/src/infrastructure/session-manager.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/llm-agent-epic/tests/unit/permission-manager.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/llm-agent-epic/tests/unit/session-manager.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/llm-agent-epic/tests/unit/auth-service.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/llm-agent-epic/tests/unit/permission-manager.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/llm-agent-epic/tests/unit/permission-manager.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/llm-agent-epic/tests/unit/permission-manager.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/llm-agent-epic/tests/unit/session-manager.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/llm-agent-epic/tests/unit/session-manager.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/llm-agent-epic/tests/unit/session-manager.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "lsp-mcp",
+      "path": "/home/ormastes/dev/aidev/layer/themes/lsp-mcp",
+      "files": 18,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/lsp-mcp/children/LSPClient.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/lsp-mcp/examples/verify-multi-instance.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/lsp-mcp/tests/coverage-report.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/lsp-mcp/tests/integration/lsp-mcp.integration.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/lsp-mcp/tests/integration/multi-instance.integration.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/lsp-mcp/tests/unit/LSPClient.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/lsp-mcp/tests/unit/LSPManager.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/lsp-mcp/tests/integration/lsp-mcp.integration.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/lsp-mcp/tests/integration/lsp-mcp.integration.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/lsp-mcp/tests/integration/lsp-mcp.integration.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/lsp-mcp/tests/integration/multi-instance.integration.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/lsp-mcp/tests/integration/multi-instance.integration.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/lsp-mcp/tests/setup.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/lsp-mcp/tests/unit/LSPClient.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/lsp-mcp/tests/unit/LSPClient.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/lsp-mcp/tests/unit/LSPManager.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/lsp-mcp/tests/unit/LSPManager.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "mate-dealer",
+      "path": "/home/ormastes/dev/aidev/layer/themes/mate-dealer",
+      "files": 6,
+      "violations": {
+        "externalLibraryUsage": [],
+        "testFraud": [
+          {
+            "file": "layer/themes/mate-dealer/tests/unit/sample.test.ts",
+            "pattern": "/expect\\(true\\)\\.toBe\\(true\\)/"
+          }
+        ],
+        "mockUsage": [],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "mcp-agent",
+      "path": "/home/ormastes/dev/aidev/layer/themes/mcp-agent",
+      "files": 41,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/mcp-agent/children/src/server/mcp-connection.ts",
+            "pattern": "/import.*from\\s+['\"]ws['\"]/",
+            "match": "import WebSocket from 'ws'"
+          },
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/agents/core/coder-agent.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from \"fs\""
+          },
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/mcp-connection.test.ts",
+            "pattern": "/import.*from\\s+['\"]ws['\"]/",
+            "match": "import WebSocket from 'ws'"
+          }
+        ],
+        "testFraud": [
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/agents/core/coder-agent.test.ts",
+            "pattern": "/it\\(['\"].*['\"]\\s*,\\s*\\(\\)\\s*=>\\s*{\\s*}\\)/"
+          }
+        ],
+        "mockUsage": [
+          {
+            "file": "layer/themes/mcp-agent/children/src/agents/core/coder-agent.ts",
+            "pattern": "/sinon\\.stub\\(/"
+          },
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/agent-orchestrator.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/agents/core/coder-agent.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/coder-agent.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/mcp-connection.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/mcp-connection.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/mcp-connection.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/mcp-server-manager.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/mcp-server-manager.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/mcp-server-manager.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/session/session-manager.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/session/session-manager.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/session/session-manager.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/session-manager.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/session-manager.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/session-manager.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/mcp-agent/tests/unit/tester-agent.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "mcp-protocol",
+      "path": "/home/ormastes/dev/aidev/layer/themes/mcp-protocol",
+      "files": 2,
+      "violations": {
+        "externalLibraryUsage": [],
+        "testFraud": [],
+        "mockUsage": [],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "mock-free-test-oriented",
+      "path": "/home/ormastes/dev/aidev/layer/themes/mock-free-test-oriented",
+      "files": 5,
+      "violations": {
+        "externalLibraryUsage": [],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/mock-free-test-oriented/user-stories/003-mock-free-testing/tests/unit/mock-free-validator.utest.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/mock-free-test-oriented/user-stories/003-mock-free-testing/tests/unit/mock-free-validator.utest.ts",
+            "pattern": "/sinon\\.stub\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "ollama-mcp-agent",
+      "path": "/home/ormastes/dev/aidev/layer/themes/ollama-mcp-agent",
+      "files": 49,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/ollama-mcp-agent/tests/unit/ollama-mcp-agent-core.test.ts",
+            "pattern": "/import.*from\\s+['\"]axios['\"]/",
+            "match": "import axios from 'axios'"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/tests/unit/ollama-mcp-agent-core.test.ts",
+            "pattern": "/import.*from\\s+['\"]ws['\"]/",
+            "match": "import WebSocket from 'ws'"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/scripts/setup-ollama.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/src/domain/ollama-server.ts",
+            "pattern": "/import.*from\\s+['\"]axios['\"]/",
+            "match": "import axios from 'axios'"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/src/external/ollama-client.ts",
+            "pattern": "/import.*from\\s+['\"]axios['\"]/",
+            "match": "import axios, { AxiosInstance } from 'axios'"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/e2e/mcp-server-integration.e2e.test.ts",
+            "pattern": "/import.*from\\s+['\"]ws['\"]/",
+            "match": "import WebSocket from 'ws'"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/e2e/ollama-install-flow.e2e.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { existsSync } from 'fs'"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/e2e/ollama-install-flow.e2e.test.ts",
+            "pattern": "/import.*from\\s+['\"]axios['\"]/",
+            "match": "import axios from 'axios'"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/e2e/platform-lifecycle.e2e.test.ts",
+            "pattern": "/import.*from\\s+['\"]axios['\"]/",
+            "match": "import axios from 'axios'"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/system/chat-space-integration.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/system/ollama-platform.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/advanced-coverage.test.ts",
+            "pattern": "/import.*from\\s+['\"]axios['\"]/",
+            "match": "import axios from 'axios'"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/mcp-server.test.ts",
+            "pattern": "/import.*from\\s+['\"]ws['\"]/",
+            "match": "import { WebSocket, WebSocketServer } from 'ws'"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/ollama-client.test.ts",
+            "pattern": "/import.*from\\s+['\"]axios['\"]/",
+            "match": "import axios from 'axios'"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/pipe.test.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/ollama-mcp-agent/tests/setup.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/integration/ollama-integration.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/advanced-coverage.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/advanced-coverage.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/async-coverage.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/async-coverage.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/chat-space-connector.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/chat-space-connector.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/chat-space-connector.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/coordinator-bridge.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/coordinator-bridge.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/coordinator-bridge.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/edge-cases.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/index.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/index.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/mcp-server.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/mcp-server.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/mcp-server.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/ollama-client.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/ollama-client.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/ollama-platform.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/pocketflow-nodes.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/ollama-mcp-agent/user-stories/011-ollama-mcp-integration/tests/unit/pocketflow-nodes.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "pocketflow",
+      "path": "/home/ormastes/dev/aidev/layer/themes/pocketflow",
+      "files": 158,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/pocketflow/tests/system/pocketflow-complete.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/pocketflow/tests/system/pocketflow-complete.stest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/pocketflow/tests/system/pocketflow-scenarios.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/pocketflow/tests/system/pocketflow-scenarios.stest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/001-pocket-task-manager/src/external/logger.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/001-pocket-task-manager/src/external/task-storage.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/001-pocket-task-manager/tests/env/logger-external-lib.etest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/001-pocket-task-manager/tests/env/task-storage-filesystem.etest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/001-pocket-task-manager/tests/integration/task-manager-logger.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/001-pocket-task-manager/tests/integration/task-manager-task-storage.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/001-pocket-task-manager/tests/integration/task-storage-logger-coordination.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/001-pocket-task-manager/tests/system/task-lifecycle-e2e.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/001-pocket-task-manager/tests/unit/task-storage-persist-to-file.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/002-quick-automation-flows/tests/external/action-executor-action-execution.etest.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import * as http from 'http'"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/002-quick-automation-flows/tests/external/flow-storage-crud-operations.etest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/002-quick-automation-flows/tests/integration/flow-manager-flow-storage.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/002-quick-automation-flows/tests/system/flow-lifecycle-e2e.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/002-quick-automation-flows/tests/system/flow-lifecycle-e2e.stest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/002-quick-automation-flows/tests/unit/flow-storage-methods.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/019-agentic-coding/tests/environment/019_agentic_coding.envtest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/019-agentic-coding/tests/external/019_agentic_coding.etest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/020-architecture-docs/tests/docs.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          }
+        ],
+        "testFraud": [
+          {
+            "file": "layer/themes/pocketflow/user-stories/019-agentic-coding/tests/unit/agentic-node.test.ts",
+            "pattern": "/it\\(['\"].*['\"]\\s*,\\s*\\(\\)\\s*=>\\s*{\\s*}\\)/"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/019-agentic-coding/tests/unit/test-gen-agent.test.ts",
+            "pattern": "/it\\(['\"].*['\"]\\s*,\\s*\\(\\)\\s*=>\\s*{\\s*}\\)/"
+          }
+        ],
+        "mockUsage": [
+          {
+            "file": "layer/themes/pocketflow/user-stories/001-pocket-task-manager/tests/unit/task-storage-generate-task-id.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/001-pocket-task-manager/tests/unit/task-storage-generate-task-id.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/001-pocket-task-manager/tests/unit/task-storage-persist-to-file.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/002-quick-automation-flows/tests/fraud/pocketflow-fraud.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/002-quick-automation-flows/tests/fraud/pocketflow-fraud.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/002-quick-automation-flows/tests/unit/async-node.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/002-quick-automation-flows/tests/unit/domain/flow.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/002-quick-automation-flows/tests/unit/flow-manager-methods.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/019-agentic-coding/src/agents/test-gen-agent.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/019-agentic-coding/tests/unit/agentic-node.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/019-agentic-coding/tests/unit/agentic-node.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/019-agentic-coding/tests/unit/test-gen-agent.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/pocketflow/user-stories/021-integration-patterns/tests/providers/base-provider.test_FAKE.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "react-native-base",
+      "path": "/home/ormastes/dev/aidev/layer/themes/react-native-base",
+      "files": 45,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/react-native-base/user-stories/001-basic-architecture/tests/unit/project-generator.utest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/react-native-base/user-stories/001-basic-architecture/tests/unit/template-manager.utest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/react-native-base/user-stories/005-rn-project-structure/src/layers/infrastructure/api/client.ts",
+            "pattern": "/import.*from\\s+['\"]axios['\"]/",
+            "match": "import axios, { AxiosInstance, AxiosRequestConfig, AxiosError } from 'axios'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/react-native-base/user-stories/001-basic-architecture/tests/unit/project-generator.utest.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/react-native-base/user-stories/001-basic-architecture/tests/unit/project-generator.utest.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/react-native-base/user-stories/001-basic-architecture/tests/unit/template-manager.utest.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/react-native-base/user-stories/005-rn-project-structure/jest.setup.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/react-native-base/user-stories/005-rn-project-structure/jest.setup.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/react-native-base/user-stories/005-rn-project-structure/src/__tests__/App.test.tsx",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/react-native-base/user-stories/005-rn-project-structure/src/layers/application/hooks/__tests__/useAuth.test.tsx",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/react-native-base/user-stories/005-rn-project-structure/src/layers/application/hooks/__tests__/useAuth.test.tsx",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/react-native-base/user-stories/005-rn-project-structure/src/layers/application/hooks/__tests__/useAuth.test.tsx",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/react-native-base/user-stories/005-rn-project-structure/src/layers/application/services/__tests__/authService.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/react-native-base/user-stories/005-rn-project-structure/src/layers/presentation/components/__tests__/ErrorBoundary.test.tsx",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/react-native-base/user-stories/005-rn-project-structure/src/layers/presentation/navigation/__tests__/AppNavigator.test.tsx",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/react-native-base/user-stories/005-rn-project-structure/src/layers/presentation/navigation/__tests__/AppNavigator.test.tsx",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/react-native-base/user-stories/005-rn-project-structure/src/layers/presentation/screens/auth/__tests__/LoginScreen.test.tsx",
+            "pattern": "/jest\\.mock\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "setup-folder",
+      "path": "/home/ormastes/dev/aidev/layer/themes/setup-folder",
+      "files": 76,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/setup-folder/children/src/setup/filesystem-mcp-integration.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/setup-folder/children/src/setup/mcp-setup.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/setup-folder/children/src/setup/release-setup.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/setup-folder/jest.setup.js",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/jest.setup.js",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/all-setup-coverage.test.js",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/all-setup-coverage.test.js",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/all-setup-coverage.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/all-setup-coverage.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/base-setup-complete.test.js",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/base-setup-complete.test.js",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/base-setup-complete.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/base-setup-complete.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/base-setup.test.js",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/base-setup.test.js",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/base-setup.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/base-setup.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/commands/theme.test.js",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/commands/theme.test.js",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/commands/theme.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/commands/theme.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/demo-setup.test.js",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/demo-setup.test.js",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/demo-setup.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/demo-setup.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/setup-classes-complete.test.js",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/setup-classes-complete.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/story-setup.test.js",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/story-setup.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/theme-setup.test.js",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/setup-folder/tests/unit/theme-setup.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "shared",
+      "path": "/home/ormastes/dev/aidev/layer/themes/shared",
+      "files": 31,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/shared/children/utils/file-generation.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/shared/children/utils/test-helpers.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/shared/children/fraud-detection/tests/mock-detector.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/shared/children/fraud-detection/tests/mock-detector.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/shared/children/fraud-detection/tests/mock-detector.test.ts",
+            "pattern": "/sinon\\.stub\\(/"
+          },
+          {
+            "file": "layer/themes/shared/children/utils/test-helpers.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/shared/children/utils/test-helpers.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/shared/tests/unit/port-management.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/shared/tests/unit/port-management.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/shared/tests/unit/port-management.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "story-reporter",
+      "path": "/home/ormastes/dev/aidev/layer/themes/story-reporter",
+      "files": 121,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/story-reporter/release/server/src/simple-server.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/release/server/test/system/story-reporter-portal-e2e.systest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/src/cli/coverage-analyzer.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/story-reporter/src/cli/rule-suggestion-analyzer.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/story-reporter/src/services/branch-coverage-analyzer.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/story-reporter/src/services/coverage-report-generator.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/story-reporter/src/services/duplication-checker.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/story-reporter/src/services/rule-suggestion-analyzer.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/story-reporter/src/services/system-test-class-coverage-analyzer.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { readFileSync } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/src/services/system-test-class-coverage-analyzer.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/src/external/mock-free-test-runner.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/src/external/report-generator.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/src/external/story-report-generator.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/src/server.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/src/services/build-artifact-collector.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/src/services/coverage-checker.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/src/services/distributed-build-executor.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/src/services/setup-aggregator.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/src/services/story-service.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/src/services/unified-report-generator.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/env/file-validation.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/env/mock-free-test-execution.envtest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { existsSync, readFileSync, writeFileSync } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/env/mock-free-test-execution.envtest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/external/event-bus.etest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/external/workflow-manager.etest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/fraud/story-reporter-fraud.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/helpers/test-file-system.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/helpers/test-process-simulator.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/integration/configuration-validation.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/integration/error-handling-components.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/integration/external-log-library-report-generation.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/integration/file-system-operations.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/integration/mock-free-test-runner-logger.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/integration/monitor-resource-tracking.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/integration/report-generator-logger.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/integration/workflow-manager-logger.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/integration/workflow-manager-mock-free-test-runner.itest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/system/automated-workflow-lifecycle.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/system/automated-workflow-lifecycle.stest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/system/external-log-integration-workflow.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/system/mock-free-test-workflow.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/system/multi-format-report-generation.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/system/story-reporter-minimal.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/system/story-reporter-minimal.stest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/system/test-result-aggregation-workflow.stest.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/system/test-result-aggregation-workflow.stest.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/unit/coverage-report-generator.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/unit/distributed-build-executor.test.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/unit/report-generator-error-scenarios.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/fraud/story-reporter-fraud.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/helpers/spawn-simulator.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/unit/distributed-build-executor.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/unit/distributed-build-executor.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/unit/distributed-build-executor.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/unit/mock-free-test-runner-external-logger.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/unit/report-generator-external-logger.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/unit/test-suite-manager-error-scenarios-coverage.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/unit/test-suite-manager-error-scenarios-coverage.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/story-reporter/user-stories/007-story-reporter/tests/unit/test-suite-manager-error-scenarios-coverage.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "test-as-manual",
+      "path": "/home/ormastes/dev/aidev/layer/themes/test-as-manual",
+      "files": 62,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/bin/test-as-manual.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/examples/bdd-demo.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/examples/executive-summary-demo.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/examples/hea-demo.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/examples/simple-values-demo.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/src/54.external/database/DatabaseAdapter.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import { Database } from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/src/54.external/database/SqliteAdapter.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/src/54.external/database/SqliteAdapter.ts",
+            "pattern": "/import.*from\\s+['\"]sqlite3['\"]/",
+            "match": "import { Database } from 'sqlite3'"
+          },
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/src/54.external/services/FileReader.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/src/54.external/services/FileWriter.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/src/54.external/services/RealCaptureService.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/src/application/converter.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs } from 'fs'"
+          },
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/src/domain/capture-service.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import { promises as fs, existsSync } from 'fs'"
+          },
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/src/domain/external-log-service.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/src/plugins/playwright-capture/index.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/tests/integration/converter.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          }
+        ],
+        "testFraud": [
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/tests/integration/converter.test.ts",
+            "pattern": "/it\\(['\"].*['\"]\\s*,\\s*\\(\\)\\s*=>\\s*{\\s*}\\)/"
+          },
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/tests/unit/test-parser.test.ts",
+            "pattern": "/it\\(['\"].*['\"]\\s*,\\s*\\(\\)\\s*=>\\s*{\\s*}\\)/"
+          }
+        ],
+        "mockUsage": [
+          {
+            "file": "layer/themes/test-as-manual/user-stories/001-mftod-converter/tests/integration/converter.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "typescript-config",
+      "path": "/home/ormastes/dev/aidev/layer/themes/typescript-config",
+      "files": 7,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/typescript-config/tests/unit/typescript-config.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/typescript-config/user-stories/004-strict-typescript/scripts/migrate-to-strict.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "vllm-coordinator-agent",
+      "path": "/home/ormastes/dev/aidev/layer/themes/vllm-coordinator-agent",
+      "files": 22,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/vllm-coordinator-agent/tests/unit/vllm-coordinator-agent-core.test.ts",
+            "pattern": "/import.*from\\s+['\"]axios['\"]/",
+            "match": "import axios from 'axios'"
+          },
+          {
+            "file": "layer/themes/vllm-coordinator-agent/tests/unit/vllm-coordinator-agent-core.test.ts",
+            "pattern": "/import.*from\\s+['\"]socket\\.io['\"]/",
+            "match": "import { Server } from 'socket.io'"
+          },
+          {
+            "file": "layer/themes/vllm-coordinator-agent/user-stories/027-vllm-coordinator/scripts/setup-vllm.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/vllm-coordinator-agent/user-stories/027-vllm-coordinator/src/services/vllm-client.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import * as http from 'http'"
+          },
+          {
+            "file": "layer/themes/vllm-coordinator-agent/user-stories/027-vllm-coordinator/src/services/vllm-client.ts",
+            "pattern": "/import.*from\\s+['\"]https['\"]/",
+            "match": "import * as https from 'https'"
+          },
+          {
+            "file": "layer/themes/vllm-coordinator-agent/user-stories/027-vllm-coordinator/src/services/vllm-installer.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/vllm-coordinator-agent/user-stories/027-vllm-coordinator/tests/unit/services/vllm-client.test.ts",
+            "pattern": "/import.*from\\s+['\"]http['\"]/",
+            "match": "import * as http from 'http'"
+          },
+          {
+            "file": "layer/themes/vllm-coordinator-agent/user-stories/027-vllm-coordinator/tests/unit/services/vllm-client.test.ts",
+            "pattern": "/import.*from\\s+['\"]https['\"]/",
+            "match": "import * as https from 'https'"
+          },
+          {
+            "file": "layer/themes/vllm-coordinator-agent/user-stories/027-vllm-coordinator/tests/unit/services/vllm-installer.test.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/vllm-coordinator-agent/tests/setup.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/vllm-coordinator-agent/user-stories/027-vllm-coordinator/tests/unit/agents/vllm-coordinator.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/vllm-coordinator-agent/user-stories/027-vllm-coordinator/tests/unit/agents/vllm-coordinator.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/vllm-coordinator-agent/user-stories/027-vllm-coordinator/tests/unit/agents/vllm-coordinator.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/vllm-coordinator-agent/user-stories/027-vllm-coordinator/tests/unit/services/vllm-client.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/vllm-coordinator-agent/user-stories/027-vllm-coordinator/tests/unit/services/vllm-client.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/vllm-coordinator-agent/user-stories/027-vllm-coordinator/tests/unit/services/vllm-installer.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/vllm-coordinator-agent/user-stories/027-vllm-coordinator/tests/unit/services/vllm-installer.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/vllm-coordinator-agent/user-stories/027-vllm-coordinator/tests/unit/services/vllm-installer.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "vllm-mcp-agent",
+      "path": "/home/ormastes/dev/aidev/layer/themes/vllm-mcp-agent",
+      "files": 16,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/vllm-mcp-agent/user-stories/012-vllm-mcp-integration/scripts/chat-cli.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/vllm-mcp-agent/user-stories/012-vllm-mcp-integration/scripts/setup-vllm.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/vllm-mcp-agent/user-stories/012-vllm-mcp-integration/src/application/VLLMPlatform.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/vllm-mcp-agent/user-stories/012-vllm-mcp-integration/src/domain/ModelManager.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/vllm-mcp-agent/user-stories/012-vllm-mcp-integration/src/domain/ModelManager.ts",
+            "pattern": "/import.*from\\s+['\"]axios['\"]/",
+            "match": "import axios from 'axios'"
+          },
+          {
+            "file": "layer/themes/vllm-mcp-agent/user-stories/012-vllm-mcp-integration/src/domain/VLLMServer.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/vllm-mcp-agent/user-stories/012-vllm-mcp-integration/src/domain/VLLMServer.ts",
+            "pattern": "/import.*from\\s+['\"]axios['\"]/",
+            "match": "import axios from 'axios'"
+          },
+          {
+            "file": "layer/themes/vllm-mcp-agent/user-stories/012-vllm-mcp-integration/src/external/VLLMClient.ts",
+            "pattern": "/import.*from\\s+['\"]axios['\"]/",
+            "match": "import axios, { AxiosInstance } from 'axios'"
+          },
+          {
+            "file": "layer/themes/vllm-mcp-agent/user-stories/012-vllm-mcp-integration/src/index.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/vllm-mcp-agent/user-stories/012-vllm-mcp-integration/tests/unit/VLLMPlatform.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "web-scraper",
+      "path": "/home/ormastes/dev/aidev/layer/themes/web-scraper",
+      "files": 5,
+      "violations": {
+        "externalLibraryUsage": [],
+        "testFraud": [],
+        "mockUsage": [],
+        "coverageIssues": []
+      }
+    },
+    {
+      "theme": "web-security",
+      "path": "/home/ormastes/dev/aidev/layer/themes/web-security",
+      "files": 107,
+      "violations": {
+        "externalLibraryUsage": [
+          {
+            "file": "layer/themes/web-security/children/CredentialStore.ts",
+            "pattern": "/import.*from\\s+['\"]fs\\/promises['\"]/",
+            "match": "import * as fs from 'fs/promises'"
+          },
+          {
+            "file": "layer/themes/web-security/demo/serve-test.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/children/src/setup/mcp-setup.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/children/src/setup/release-setup.ts",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/web-security/llm_rules/steps/check__type__requirements.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/web-security/llm_rules/steps/check_all_other_queues_empty.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/web-security/llm_rules/steps/check_coverage__type_.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/web-security/llm_rules/steps/check_external_dependencies.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/web-security/llm_rules/steps/check_scenario_research_files.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/web-security/llm_rules/steps/check_system_test_child_items.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/web-security/llm_rules/steps/conduct__type__retrospective.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/web-security/llm_rules/steps/register__type__item.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/web-security/llm_rules/steps/register_scenario_items.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/web-security/llm_rules/steps/register_user_story_item.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/web-security/llm_rules/steps/script-matcher.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/web-security/llm_rules/steps/task_queue_steps.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/web-security/llm_rules/steps/task_queue_validation_steps.ts",
+            "pattern": "/import.*from\\s+['\"]fs['\"]/",
+            "match": "import * as fs from 'fs'"
+          },
+          {
+            "file": "layer/themes/web-security/llm_rules/steps/update_name_id.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/web-security/llm_rules/steps/validate__type__format.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/web-security/llm_rules/steps/verify__type__implementation.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/web-security/llm_rules/steps/write_a__file_.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          },
+          {
+            "file": "layer/themes/web-security/scripts/mcp-server.js",
+            "pattern": "/require\\(['\"]fs['\"]\\)/",
+            "match": "require('fs')"
+          }
+        ],
+        "testFraud": [],
+        "mockUsage": [
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/jest.setup.js",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/jest.setup.js",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/all-setup-coverage.test.js",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/all-setup-coverage.test.js",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/all-setup-coverage.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/all-setup-coverage.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/base-setup-complete.test.js",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/base-setup-complete.test.js",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/base-setup-complete.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/base-setup-complete.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/base-setup.test.js",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/base-setup.test.js",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/base-setup.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/base-setup.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/commands/theme.test.js",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/commands/theme.test.js",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/commands/theme.test.ts",
+            "pattern": "/jest\\.mock\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/commands/theme.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/demo-setup.test.js",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/demo-setup.test.js",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/demo-setup.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/demo-setup.test.ts",
+            "pattern": "/\\.mockReturnValue\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/setup-classes-complete.test.js",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/setup-classes-complete.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/story-setup.test.js",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/story-setup.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/theme-setup.test.js",
+            "pattern": "/\\.mockImplementation\\(/"
+          },
+          {
+            "file": "layer/themes/web-security/layer/themes/setup-folder/tests/unit/theme-setup.test.ts",
+            "pattern": "/\\.mockImplementation\\(/"
+          }
+        ],
+        "coverageIssues": []
+      }
+    }
+  ],
+  "summary": {
+    "totalFiles": 1610,
+    "totalViolations": 819,
+    "themesWithViolations": 32,
+    "violations": {
+      "externalLibraryUsage": 519,
+      "testFraud": 13,
+      "mockUsage": 287,
+      "coverageIssues": 0
+    }
+  }
+}

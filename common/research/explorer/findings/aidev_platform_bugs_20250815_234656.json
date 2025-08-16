@@ -1,0 +1,43 @@
+{
+  "timestamp": "20250815_234656",
+  "summary": {
+    "components_tested": 5,
+    "total_tests": 80,
+    "total_bugs": 0,
+    "critical_bugs": 0,
+    "high_bugs": 0
+  },
+  "components": {
+    "gui_selector": {
+      "name": "GUI Selector Portal",
+      "tests_run": 20,
+      "bugs_found": 0,
+      "findings": []
+    },
+    "gui_server": {
+      "name": "Multi-Agent GUI Generation Server",
+      "tests_run": 10,
+      "bugs_found": 0,
+      "findings": []
+    },
+    "monitoring_dashboard": {
+      "name": "Performance Monitoring Dashboard",
+      "tests_run": 30,
+      "bugs_found": 0,
+      "findings": []
+    },
+    "aidev_portal": {
+      "name": "AI Dev Portal",
+      "tests_run": 10,
+      "bugs_found": 0,
+      "findings": []
+    },
+    "vscode_extension": {
+      "name": "VSCode Extension Web UI",
+      "tests_run": 10,
+      "bugs_found": 0,
+      "findings": []
+    }
+  },
+  "findings": []
+}

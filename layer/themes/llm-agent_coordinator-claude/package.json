@@ -1,0 +1,42 @@
+{
+  "name": "@aidev/coordinator-claude-agent-theme",
+  "version": "1.0.0",
+  "description": "Claude API Coordinator Agent Theme for AI Development Platform",
+  "main": "pipe/index.ts",
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:unit": "jest tests/unit",
+    "test:integration": "jest tests/integration",
+    "test:system": "jest user-stories/**/tests/system",
+    "test:external": "jest user-stories/**/tests/external",
+    "build": "tsc",
+    "lint": "eslint pipe/**/*.ts user-stories/**/*.ts tests/**/*.ts --ext .ts"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "axios": "^1.11.0",
+    "eslint": "^8.0.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "claude",
+    "api",
+    "coordinator",
+    "agent",
+    "anthropic",
+    "theme"
+  ],
+  "author": "AI Development Platform",
+  "license": "MIT",
+  "dependencies": {
+    "2": "^3.0.0"
+  }
+}

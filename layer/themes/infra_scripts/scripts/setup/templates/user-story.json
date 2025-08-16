@@ -1,0 +1,93 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "{timestamp}",
+    "updated_at": "{timestamp}",
+    "description": "{project_name} user story structure",
+    "project_type": "user-story"
+  },
+  "templates": {
+    "user_story": {
+      "id": "user_story",
+      "type": "directory",
+      "description": "User story implementation with TDD workflow",
+      "required_children": [
+        { 
+          "name": "src", 
+          "type": "directory", 
+          "description": "Implementation code",
+          "template": "implementation_source"
+        },
+        { 
+          "name": "tests", 
+          "type": "directory", 
+          "description": "Test files following MFTOD",
+          "template": "mftod_tests"
+        },
+        { 
+          "name": "docs", 
+          "type": "directory", 
+          "description": "Story documentation",
+          "template": "story_docs"
+        },
+        { "name": "TASK_QUEUE.vf.json", "type": "file", "description": "Story task queue" },
+        { "name": "NAME_ID.vf.json", "type": "file", "description": "Story entity registry" },
+        { "name": "README.md", "type": "file", "description": "Story overview" }
+      ],
+      "optional_children": [
+        { "name": "config", "type": "directory", "description": "Story configuration" },
+        { "name": "assets", "type": "directory", "description": "Story assets" },
+        { "name": "FEATURE.vf.json", "type": "file", "description": "Story features" }
+      ],
+      "constraints": {
+        "max_depth": 4,
+        "file_extensions": [".ts", ".js", ".tsx", ".jsx", ".md", ".json"]
+      }
+    },
+    "implementation_source": {
+      "id": "implementation_source",
+      "type": "directory",
+      "description": "Implementation source code",
+      "allowed_patterns": ["^[a-zA-Z][a-zA-Z0-9]*\\.(ts|js|tsx|jsx)$", "^[a-z][a-z0-9-]*$"],
+      "constraints": {
+        "file_extensions": [".ts", ".js", ".tsx", ".jsx"],
+        "max_depth": 3,
+        "max_children": 20
+      }
+    },
+    "mftod_tests": {
+      "id": "mftod_tests",
+      "type": "directory",
+      "description": "Mock Free Test Oriented Development test structure",
+      "optional_children": [
+        { "name": "unit", "type": "directory", "description": "Unit tests (.test.ts)" },
+        { "name": "system", "type": "directory", "description": "System tests (.systest.ts)" },
+        { "name": "external", "type": "directory", "description": "External tests (.etest.ts)" },
+        { "name": "environment", "type": "directory", "description": "Environment tests (.envtest.ts)" }
+      ],
+      "constraints": {
+        "file_extensions": [".test.ts", ".test.js", ".spec.ts", ".spec.js", ".systest.ts", ".etest.ts", ".envtest.ts"],
+        "max_depth": 2
+      }
+    },
+    "story_docs": {
+      "id": "story_docs",
+      "type": "directory",
+      "description": "Story documentation",
+      "optional_children": [
+        { "name": "acceptance-criteria.md", "type": "file", "description": "Acceptance criteria" },
+        { "name": "implementation-notes.md", "type": "file", "description": "Implementation notes" },
+        { "name": "api.md", "type": "file", "description": "API documentation" }
+      ],
+      "constraints": {
+        "file_extensions": [".md", ".txt", ".json"],
+        "max_children": 10
+      }
+    }
+  },
+  "structure": {
+    "name": ".",
+    "type": "directory",
+    "template": "user_story"
+  }
+}

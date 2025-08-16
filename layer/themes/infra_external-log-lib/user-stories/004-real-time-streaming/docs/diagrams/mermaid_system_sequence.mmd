@@ -1,0 +1,110 @@
+sequenceDiagram
+    title Real-time Log Streaming System Sequence Diagram
+    
+    participant Developer as Developer
+    participant LogMonitor as Log Monitor
+    participant ProcessManager as Process Manager  
+    participant ChildProcess as Child Process
+    participant LogStream as Log Stream
+    participant LogParser as Log Parser
+    participant EventEmitter as Event Emitter
+    
+    Note over Developer, EventEmitter: Scenario 1: Start Real-time Log Streaming
+    Developer->>LogMonitor: startRealTimeMonitoring(processCommand, options)
+    LogMonitor->>ProcessManager: spawnProcess(command, options)
+    ProcessManager->>ChildProcess: spawn(command, {stdio: 'pipe'})
+    ChildProcess-->>ProcessManager: process instance
+    ProcessManager-->>LogMonitor: {process, stdout, stderr}
+    
+    LogMonitor->>LogStream: createStream(stdout, stderr)
+    LogStream->>LogParser: setupParsing(format)
+    LogParser-->>LogStream: parser ready
+    LogStream-->>LogMonitor: stream ready
+    
+    LogMonitor->>EventEmitter: emit('monitoring-started', {processId, command})
+    EventEmitter-->>Developer: onMonitoringStarted(event)
+    
+    Note over Developer, EventEmitter: Scenario 2: Receive Real-time Log Data
+    loop Continuous Log Output
+        ChildProcess->>LogStream: stdout.data(chunk)
+        LogStream->>LogParser: parseChunk(chunk, 'stdout')
+        LogParser-->>LogStream: parsed log entries[]
+        LogStream->>EventEmitter: emit('log-entry', entry)
+        EventEmitter-->>Developer: onLogEntry(entry)
+        
+        alt Stderr output
+            ChildProcess->>LogStream: stderr.data(chunk)
+            LogStream->>LogParser: parseChunk(chunk, 'stderr')
+            LogParser-->>LogStream: parsed log entries[]
+            LogStream->>EventEmitter: emit('log-entry', entry)
+            EventEmitter-->>Developer: onLogEntry(entry)
+        end
+    end
+    
+    Note over Developer, EventEmitter: Scenario 3: Handle Process Events
+    alt Process exits normally
+        ChildProcess->>ProcessManager: exit(code=0)
+        ProcessManager->>LogMonitor: onProcessExit(code, signal)
+        LogMonitor->>EventEmitter: emit('process-exited', {processId, code, signal})
+        EventEmitter-->>Developer: onProcessExited(event)
+    else Process crashes
+        ChildProcess->>ProcessManager: exit(code!=0)
+        ProcessManager->>LogMonitor: onProcessExit(code, signal)
+        LogMonitor->>EventEmitter: emit('process-crashed', {processId, code, signal, lastLogs})
+        EventEmitter-->>Developer: onProcessCrashed(event)
+    end
+    
+    Note over Developer, EventEmitter: Scenario 4: Filter Log Levels
+    Developer->>LogMonitor: setLogLevelFilter(['error', 'warn'])
+    LogMonitor->>LogParser: updateFilter(levels)
+    
+    loop Filtered Log Processing
+        ChildProcess->>LogStream: stdout.data(chunk)
+        LogStream->>LogParser: parseChunk(chunk, 'stdout')
+        LogParser->>LogParser: applyLevelFilter(entry)
+        alt Log level matches filter
+            LogParser-->>LogStream: filtered entry
+            LogStream->>EventEmitter: emit('log-entry', entry)
+            EventEmitter-->>Developer: onLogEntry(entry)
+        else Log level filtered out
+            LogParser-->>LogParser: discard entry
+        end
+    end
+    
+    Note over Developer, EventEmitter: Scenario 5: Handle Buffering and Backpressure
+    loop High-volume log output
+        ChildProcess->>LogStream: high-frequency stdout.data(chunks)
+        LogStream->>LogStream: bufferChunks(chunks)
+        
+        alt Buffer threshold reached
+            LogStream->>LogParser: parseBatch(bufferedChunks)
+            LogParser-->>LogStream: batch of parsed entries
+            LogStream->>EventEmitter: emit('log-batch', entries)
+            EventEmitter-->>Developer: onLogBatch(entries)
+        end
+        
+        alt Buffer overflow risk
+            LogStream->>LogMonitor: emit('backpressure-warning')
+            LogMonitor->>EventEmitter: emit('buffer-warning', {bufferSize, threshold})
+            EventEmitter-->>Developer: onBufferWarning(event)
+        end
+    end
+    
+    Note over Developer, EventEmitter: Scenario 6: Stop Monitoring
+    Developer->>LogMonitor: stopMonitoring(processId)
+    LogMonitor->>ProcessManager: terminateProcess(processId, SIGTERM)
+    ProcessManager->>ChildProcess: kill(SIGTERM)
+    
+    alt Graceful shutdown
+        ChildProcess->>ProcessManager: exit(code)
+        ProcessManager->>LogMonitor: onProcessTerminated(processId)
+    else Force kill required
+        LogMonitor->>ProcessManager: forceKill(processId, SIGKILL)
+        ProcessManager->>ChildProcess: kill(SIGKILL)
+        ChildProcess->>ProcessManager: exit(code)
+    end
+    
+    LogMonitor->>LogStream: closeStream(processId)
+    LogStream->>LogParser: cleanup()
+    LogMonitor->>EventEmitter: emit('monitoring-stopped', {processId})
+    EventEmitter-->>Developer: onMonitoringStopped(event)

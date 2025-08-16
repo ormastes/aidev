@@ -1,0 +1,163 @@
+{
+  "metadata": {
+    "level": "theme",
+    "path": "/layer/themes/init_setup-folder/FEATURE.vf.json",
+    "version": "3.0.0",
+    "created_at": "2025-08-03T14:00:00.000Z",
+    "updated_at": "2025-08-12T15:00:00.000Z"
+  },
+  "features": {
+    "initSetupFolder": [
+      {
+        "id": "init-setup-001",
+        "name": "Project Setup and Initialization",
+        "data": {
+          "title": "Comprehensive Project Setup and Initialization",
+          "description": "Complete setup automation and initialization for themes, epics, stories, demos, releases, and tests with enhanced configuration management",
+          "status": "active",
+          "priority": "high",
+          "tags": [
+            "init",
+            "setup",
+            "automation",
+            "infrastructure"
+          ],
+          "components": [
+            "BaseSetup - Core setup functionality with VF/MD mode support",
+            "ThemeSetup - Theme deployment automation",
+            "StorySetup - User story initialization",
+            "DemoSetup - Demo environment creation",
+            "ReleaseSetup - Production release management",
+            "TestSetup - Test environment configuration",
+            "MCPSetup - MCP server integration",
+            "InitSetup - Project initialization",
+            "ConfigSetup - Configuration management",
+            "EnvSetup - Environment setup"
+          ],
+          "modes": ["vf", "md"],
+          "version": "3.0.0"
+        },
+        "createdAt": "2025-07-22T00:00:00.000Z",
+        "updatedAt": "2025-08-03T14:30:00.000Z"
+      },
+      {
+        "id": "cpp-coverage-setup",
+        "name": "C++ Coverage Configuration Setup",
+        "data": {
+          "title": "C++ Project Coverage and Quality Setup",
+          "description": "Setup and configuration for C++ projects with LLVM-based coverage tools, branch coverage, class coverage, and duplication detection",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "cpp",
+            "coverage",
+            "llvm",
+            "quality",
+            "setup"
+          ],
+          "components": [
+            "CppCoverageSetup - LLVM coverage tool configuration",
+            "CppBuildSetup - CMake integration for coverage builds",
+            "CppThresholdConfig - Coverage threshold configuration",
+            "CppReportSetup - Report generation setup"
+          ],
+          "tools": {
+            "primary": "llvm-cov",
+            "fallback": "gcov",
+            "build": "cmake",
+            "analysis": "clang-tidy"
+          },
+          "coverage_types": [
+            "line",
+            "branch",
+            "function",
+            "class",
+            "region"
+          ],
+          "thresholds": {
+            "line": 80,
+            "branch": 75,
+            "function": 80,
+            "class": 90,
+            "region": 70
+          },
+          "version": "1.0.0"
+        },
+        "createdAt": "2025-08-09T14:00:00.000Z",
+        "updatedAt": "2025-08-09T14:00:00.000Z"
+      },
+      {
+        "id": "cpp-duplication-setup",
+        "name": "C++ Duplication Detection Setup",
+        "data": {
+          "title": "C++ Code Duplication Detection Configuration",
+          "description": "Setup duplication detection for C++ projects integrated with existing TypeScript duplication checking",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "cpp",
+            "duplication",
+            "quality",
+            "setup"
+          ],
+          "components": [
+            "CppDuplicationSetup - Configure duplication detection",
+            "UnifiedDuplicationConfig - Unified TS/C++ configuration",
+            "ClangTidySetup - Setup clang-tidy for redundancy checks"
+          ],
+          "tools": [
+            "clang-tidy",
+            "cpd",
+            "story-reporter-duplication-checker"
+          ],
+          "config": {
+            "minTokens": 50,
+            "minLines": 5,
+            "threshold": 5,
+            "languages": ["cpp", "c", "typescript", "javascript"]
+          },
+          "version": "1.0.0"
+        },
+        "createdAt": "2025-08-09T14:00:00.000Z",
+        "updatedAt": "2025-08-09T14:00:00.000Z"
+      },
+      {
+        "id": "unified-quality-setup",
+        "name": "Unified Quality Metrics Setup",
+        "data": {
+          "title": "Unified TypeScript/C++ Quality Metrics Configuration",
+          "description": "Setup unified quality metrics and reporting for mixed TypeScript and C++ projects",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "quality",
+            "metrics",
+            "unified",
+            "setup"
+          ],
+          "components": [
+            "UnifiedMetricsSetup - Configure unified metrics",
+            "MultiLanguageReportSetup - Setup multi-language reporting",
+            "QualityDashboardSetup - Configure quality dashboard"
+          ],
+          "languages": ["typescript", "javascript", "cpp", "c"],
+          "metrics": [
+            "coverage",
+            "duplication",
+            "complexity",
+            "maintainability"
+          ],
+          "integration": {
+            "story_reporter": true,
+            "ci_pipeline": true,
+            "pre_commit_hooks": true
+          },
+          "version": "1.0.0"
+        },
+        "createdAt": "2025-08-09T14:00:00.000Z",
+        "updatedAt": "2025-08-09T14:00:00.000Z"
+      }
+    ]
+  },
+  "children": []
+}

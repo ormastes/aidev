@@ -1,0 +1,154 @@
+{
+  "description": "Examples of multi-instance LSP management",
+  "examples": [
+    {
+      "name": "Create LSP instance for a project",
+      "request": {
+        "method": "createInstance",
+        "params": {
+          "name": "my-frontend",
+          "rootPath": "/projects/my-frontend"
+        }
+      },
+      "response": "my-frontend"
+    },
+    {
+      "name": "Create instance with custom ID",
+      "request": {
+        "method": "createInstance",
+        "params": {
+          "id": "frontend-v2",
+          "name": "Frontend V2",
+          "rootPath": "/projects/frontend-v2",
+          "tsServerPath": "/custom/path/to/tsserver"
+        }
+      },
+      "response": "frontend-v2"
+    },
+    {
+      "name": "List all instances",
+      "request": {
+        "method": "listInstances",
+        "params": {}
+      },
+      "response": [
+        {
+          "id": "my-frontend",
+          "name": "my-frontend",
+          "rootPath": "/projects/my-frontend",
+          "active": true,
+          "isDefault": true,
+          "isActive": true,
+          "lastUsed": "2024-01-15T10:30:00.000Z"
+        },
+        {
+          "id": "frontend-v2",
+          "name": "Frontend V2",
+          "rootPath": "/projects/frontend-v2",
+          "active": true,
+          "isDefault": false,
+          "isActive": false,
+          "lastUsed": "2024-01-15T10:25:00.000Z"
+        }
+      ]
+    },
+    {
+      "name": "Set active instance",
+      "request": {
+        "method": "setActiveInstance",
+        "params": {
+          "instanceId": "frontend-v2"
+        }
+      },
+      "response": null
+    },
+    {
+      "name": "Use specific instance for type query",
+      "request": {
+        "method": "getTypeAtPosition",
+        "params": {
+          "file": "/projects/frontend-v2/src/components/Button.tsx",
+          "line": 15,
+          "character": 10,
+          "instanceId": "frontend-v2"
+        }
+      },
+      "response": {
+        "name": "ButtonProps",
+        "kind": "interface",
+        "type": "interface",
+        "documentation": "Props for the Button component"
+      }
+    },
+    {
+      "name": "Auto-create instance for file",
+      "description": "When no instance exists for a file's project, one is automatically created",
+      "request": {
+        "method": "findReferences",
+        "params": {
+          "file": "/new-project/src/utils/api.ts",
+          "line": 10,
+          "character": 15
+        }
+      },
+      "response": [
+        {
+          "file": "/new-project/src/utils/api.ts",
+          "range": {
+            "start": { "line": 10, "character": 10 },
+            "end": { "line": 10, "character": 20 }
+          }
+        },
+        {
+          "file": "/new-project/src/services/userService.ts",
+          "range": {
+            "start": { "line": 5, "character": 15 },
+            "end": { "line": 5, "character": 25 }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Remove instance",
+      "request": {
+        "method": "removeInstance",
+        "params": {
+          "instanceId": "old-project"
+        }
+      },
+      "response": null
+    },
+    {
+      "name": "Concurrent operations on different instances",
+      "description": "Multiple instances can handle requests simultaneously",
+      "requests": [
+        {
+          "method": "getCompletions",
+          "params": {
+            "file": "/project-a/src/index.ts",
+            "line": 20,
+            "character": 5,
+            "instanceId": "project-a"
+          }
+        },
+        {
+          "method": "getCompletions",
+          "params": {
+            "file": "/project-b/src/main.ts",
+            "line": 15,
+            "character": 10,
+            "instanceId": "project-b"
+          }
+        }
+      ],
+      "note": "Both requests are processed in parallel by their respective LSP instances"
+    }
+  ],
+  "benefits": [
+    "Isolate different projects with their own TypeScript configurations",
+    "Faster performance by avoiding cross-project analysis",
+    "Support monorepo development with multiple tsconfig.json files",
+    "Background initialization reduces wait time",
+    "Automatic instance creation based on file location"
+  ]
+}

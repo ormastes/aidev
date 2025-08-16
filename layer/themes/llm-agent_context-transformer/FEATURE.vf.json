@@ -1,0 +1,34 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/themes/llm-agent_context-transformer/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.571Z",
+    "updated_at": "2025-08-02T11:10:54.571Z"
+  },
+  "features": {
+    "context_transformer": [
+      {
+        "id": "context-transformer-epic-001",
+        "name": "Context Transformer",
+        "data": {
+          "title": "Context Transformer Theme",
+          "description": "Core functionality for Context Transformer",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "context-transformer",
+            "theme"
+          ],
+          "virtual_path": "/layer/themes/llm-agent_context-transformer/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.571Z",
+        "updatedAt": "2025-08-02T11:10:54.571Z"
+      }
+    ]
+  },
+  "children": [
+    "/layer/themes/llm-agent_context-transformer/user-stories/006-context-optimization/FEATURE.vf.json"
+  ]
+}

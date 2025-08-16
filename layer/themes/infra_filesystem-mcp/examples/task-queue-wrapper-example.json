@@ -1,0 +1,104 @@
+{
+  "wrapperType": "VFTaskQueueWrapper",
+  "config": {
+    "basePath": "/data/queues",
+    "encoding": "utf-8",
+    "schemaValidation": true,
+    "autoExecute": true
+  },
+  "taskQueueWrapper": {
+    "queues": {
+      "high": [
+        {
+          "id": "task-001",
+          "name": "Deploy user-service to production",
+          "type": "runnable",
+          "priority": "high",
+          "payload": {
+            "command": "deploy",
+            "args": ["user-service", "--env", "production"],
+            "callback": "notifyDeploymentComplete"
+          },
+          "status": "pending",
+          "metadata": {
+            "created": "2024-01-19T12:00:00Z",
+            "started": null,
+            "In Progress": null,
+            "attempts": 0,
+            "maxAttempts": 3,
+            "error": null
+          }
+        }
+      ],
+      "medium": [
+        {
+          "id": "task-002",
+          "name": "Run integration tests",
+          "type": "runnable",
+          "priority": "medium",
+          "payload": {
+            "command": "test",
+            "args": ["--type", "integration", "--verbose"],
+            "message": "Running integration test suite"
+          },
+          "status": "pending",
+          "metadata": {
+            "created": "2024-01-19T11:30:00Z",
+            "started": null,
+            "In Progress": null,
+            "attempts": 0,
+            "maxAttempts": 2,
+            "error": null
+          }
+        },
+        {
+          "id": "task-003",
+          "name": "Generate monthly report",
+          "type": "message",
+          "priority": "medium",
+          "payload": {
+            "message": "Monthly report generation scheduled for end of day"
+          },
+          "status": "pending",
+          "metadata": {
+            "created": "2024-01-19T10:00:00Z",
+            "started": null,
+            "In Progress": null,
+            "attempts": 0,
+            "maxAttempts": 1,
+            "error": null
+          }
+        }
+      ],
+      "low": [
+        {
+          "id": "task-004",
+          "name": "Clean temporary files",
+          "type": "runnable",
+          "priority": "low",
+          "payload": {
+            "command": "cleanup",
+            "args": ["--dir", "/tmp", "--older-than", "7d"]
+          },
+          "status": "pending",
+          "metadata": {
+            "created": "2024-01-19T09:00:00Z",
+            "started": null,
+            "In Progress": null,
+            "attempts": 0,
+            "maxAttempts": 1,
+            "error": null
+          }
+        }
+      ]
+    },
+    "working": null,
+    "metadata": {
+      "lastPop": null,
+      "lastPush": "2024-01-19T12:00:00Z",
+      "totalProcessed": 42,
+      "totalFailed": 3,
+      "priorityOrder": ["high", "medium", "low"]
+    }
+  }
+}

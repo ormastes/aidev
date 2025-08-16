@@ -1,0 +1,82 @@
+{
+  "development": {
+    "cpu": "x86_64",
+    "os": "linux",
+    "wordsize": 64,
+    "environment": "none"
+  },
+  "supported": {
+    "cpus": ["x86", "x86_64", "arm", "arm64", "riscv", "riscv64", "mips", "mips64", "ppc", "ppc64"],
+    "operating_systems": ["linux", "windows", "macos", "freebsd", "openbsd", "netbsd", "android", "ios", "baremetal"],
+    "word_sizes": [16, 32, 64, 128],
+    "environments": ["none", "docker", "podman", "uv", "conda", "virtualenv", "vmware", "virtualbox", "qemu", "wsl", "container"],
+    "languages": ["c", "cpp", "rust", "go", "python", "javascript", "typescript", "java", "kotlin", "swift", "assembly", "zig", "nim", "crystal"],
+    "app_types": ["cli", "web", "mobile", "desktop", "driver", "embedded", "library", "service", "game", "tool"]
+  },
+  "language_defaults": {
+    "c": {
+      "compiler": "gcc",
+      "standard": "c11",
+      "build_system": "make"
+    },
+    "cpp": {
+      "compiler": "g++",
+      "standard": "c++17",
+      "build_system": "cmake",
+      "library_environment": "docker",
+      "clang_depend_environment": "docker"
+    },
+    "rust": {
+      "version": "stable",
+      "build_system": "cargo"
+    },
+    "go": {
+      "version": "1.21",
+      "build_system": "go"
+    },
+    "python": {
+      "version": "3.10",
+      "build_system": "setuptools"
+    },
+    "javascript": {
+      "runtime": "node",
+      "version": "18",
+      "build_system": "bun"
+    },
+    "typescript": {
+      "version": "5.0",
+      "build_system": "bun",
+      "target": "ES2020"
+    },
+    "java": {
+      "version": "17",
+      "build_system": "gradle"
+    },
+    "kotlin": {
+      "version": "1.9",
+      "build_system": "gradle"
+    },
+    "swift": {
+      "version": "5.9",
+      "build_system": "swift"
+    }
+  },
+  "cross_compilation": {
+    "x86_64_to_arm": {
+      "toolchain": "aarch64-linux-gnu",
+      "flags": "-march=armv8-a"
+    },
+    "x86_64_to_arm64": {
+      "toolchain": "aarch64-linux-gnu",
+      "flags": "-march=armv8-a"
+    },
+    "x86_64_to_riscv": {
+      "toolchain": "riscv64-linux-gnu",
+      "flags": "-march=rv64gc"
+    },
+    "x86_64_to_wasm": {
+      "toolchain": "wasi-sdk",
+      "flags": "--target=wasm32-wasi"
+    }
+  }
+}

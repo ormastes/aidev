@@ -1,0 +1,10 @@
+=== GDB Remote Debug Session ===
+Connected to QEMU GDB server at :1234
+Breakpoint 1: main() at hello.c:4
+  Registers: rax=0x0 rbx=0x0 rcx=0x0
+  Local variables: counter = 0
+Breakpoint 2: main+20 at hello.c:9
+  counter = 10
+  Stack trace:
+    #0  main () at hello.c:9
+Program completed successfully

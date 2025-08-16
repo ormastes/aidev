@@ -1,0 +1,25 @@
+{
+  "mcp": {
+    "enabled": true,
+    "servers": {
+      "filesystem_mcp": {
+        "command": "node",
+        "args": ["../pipe/index.js"],
+        "env": {
+          "NODE_PATH": "../",
+          "VF_BASE_PATH": "."
+        }
+      }
+    }
+  },
+  "project": {
+    "name": "Task CLI Demo",
+    "description": "Demo project using filesystem_mcp for virtual file operations",
+    "type": "cli-application"
+  },
+  "virtual_files": {
+    "features": "FEATURE.vf.json",
+    "structure": "FILE_STRUCTURE.vf.json", 
+    "tasks": "TASK_QUEUE.vf.json"
+  }
+}

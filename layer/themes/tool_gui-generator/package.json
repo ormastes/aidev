@@ -1,0 +1,26 @@
+{
+  "name": "@aidev/tool_gui-generator",
+  "version": "1.0.0",
+  "description": "GUI Generation Theme for AI Development Platform",
+  "main": "pipe/index.ts",
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "build": "tsc",
+    "lint": "eslint pipe/**/*.ts children/**/*.ts tests/**/*.ts --ext .ts"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.0.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0"
+  },
+  "keywords": ["gui", "generator", "ui", "components", "theme"],
+  "author": "AI Development Platform",
+  "license": "MIT"
+}

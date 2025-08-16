@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Mate Dealer - Mobile App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .app-container {
+            max-width: 100%;
+            height: 100vh;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Login Screen */
+        .screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            background: white;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        .login-screen {
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: #6366f1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .app-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .app-subtitle {
+            font-size: 16px;
+            color: #6b7280;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #f3f4f6;
+            -webkit-appearance: none;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 16px;
+            background: #6366f1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .login-button:active {
+            opacity: 0.8;
+        }
+
+        .error-message {
+            color: #ef4444;
+            text-align: center;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: #6366f1;
+            color: white;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .navbar-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Home Screen */
+        .home-screen {
+            background: #f9fafb;
+        }
+
+        .welcome-section {
+            background: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .welcome-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            background: #6366f1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .stats-container {
+            display: flex;
+            padding: 20px;
+            gap: 8px;
+        }
+
+        .stat-card {
+            flex: 1;
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #6366f1;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .quick-actions {
+            display: flex;
+            padding: 0 20px 20px;
+            gap: 8px;
+        }
+
+        .action-button {
+            flex: 1;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .action-button:active {
+            transform: scale(0.95);
+        }
+
+        .action-button.primary {
+            background: #6366f1;
+            color: white;
+        }
+
+        .action-button.secondary {
+            background: white;
+            color: #6366f1;
+            border: 1px solid #e5e7eb;
+        }
+
+        .deals-section {
+            background: white;
+            border-radius: 24px 24px 0 0;
+            padding: 20px;
+            min-height: 300px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+
+        .deals-list {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .deal-card {
+            min-width: 200px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .deal-image {
+            width: 100%;
+            height: 120px;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .deal-info {
+            padding: 12px;
+        }
+
+        .deal-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .deal-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #6366f1;
+            margin-bottom: 4px;
+        }
+
+        .deal-location {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6b7280;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 375px) {
+            .stats-container {
+                flex-wrap: wrap;
+            }
+            
+            .stat-card {
+                min-width: calc(50% - 4px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Login Screen -->
+        <div class="screen login-screen active" id="loginScreen">
+            <div class="logo-container">
+                <div class="logo">MD</div>
+                <h1 class="app-title">Mate Dealer</h1>
+                <p class="app-subtitle">Your Local Marketplace</p>
+            </div>
+            
+            <div class="form-container">
+                <input type="text" id="username" placeholder="Username" value="admin">
+                <input type="password" id="password" placeholder="Password" value="admin123">
+                <div class="error-message" id="errorMessage"></div>
+                <button class="login-button" onclick="handleLogin()">Login</button>
+                
+                <div style="margin-top: 32px; text-align: center;">
+                    <p style="color: #6b7280; font-size: 14px; margin-bottom: 4px;">Demo Credentials:</p>
+                    <p style="color: #9ca3af; font-size: 12px; font-family: monospace;">Username: admin<br>Password: admin123</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home Screen -->
+        <div class="screen home-screen" id="homeScreen">
+            <nav class="navbar">
+                <span class="navbar-title">Mate Dealer</span>
+                <button class="navbar-button" onclick="logout()">Logout</button>
+            </nav>
+
+            <div class="welcome-section">
+                <h2 class="welcome-text">Welcome back, <span id="usernameDisplay">admin</span>!</h2>
+                <div class="profile-avatar">A</div>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Active Deals</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Messages</div>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <button class="action-button primary">Create Deal</button>
+                <button class="action-button secondary">Dashboard</button>
+            </div>
+
+            <div class="deals-section">
+                <h3 class="section-title">Recent Deals</h3>
+                <div class="deals-list" id="dealsList">
+                    <div class="loading">Loading deals...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+
+        function handleLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (!username || !password) {
+                errorMessage.textContent = 'Please enter username and password';
+                return;
+            }
+
+            if (username === 'admin' && password === 'admin123') {
+                currentUser = username;
+                document.getElementById('usernameDisplay').textContent = username;
+                document.getElementById('loginScreen').classList.remove('active');
+                document.getElementById('homeScreen').classList.add('active');
+                errorMessage.textContent = '';
+                loadDeals();
+            } else {
+                errorMessage.textContent = 'Invalid credentials';
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('homeScreen').classList.remove('active');
+            document.getElementById('loginScreen').classList.add('active');
+            document.getElementById('password').value = '';
+        }
+
+        function loadDeals() {
+            setTimeout(() => {
+                const dealsList = document.getElementById('dealsList');
+                dealsList.innerHTML = `
+                    <div class="deal-card">
+                        <div class="deal-image">No Image</div>
+                        <div class="deal-info">
+                            <div class="deal-title">Vintage Leather Jacket</div>
+                            <div class="deal-price">$150</div>
+                            <div class="deal-location">San Francisco, CA</div>
+                        </div>
+                    </div>
+                    <div class="deal-card">
+                        <div class="deal-image">No Image</div>
+                        <div class="deal-info">
+                            <div class="deal-title">MacBook Pro 2019</div>
+                            <div class="deal-price">$1200</div>
+                            <div class="deal-location">San Francisco, CA</div>
+                        </div>
+                    </div>
+                `;
+            }, 1000);
+        }
+
+        // Handle Enter key on login
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        handleLogin();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

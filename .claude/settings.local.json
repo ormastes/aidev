@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./scripts/setup/setup-cli-calculator.sh:*)"
+    ],
+    "deny": []
+  }
+}

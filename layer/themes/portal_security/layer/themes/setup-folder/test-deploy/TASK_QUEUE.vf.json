@@ -1,0 +1,15 @@
+{
+  "workingItem": null,
+  "queues": {
+    "high": [],
+    "medium": [],
+    "low": []
+  },
+  "metadata": {
+    "processedCount": 0,
+    "failedCount": 0,
+    "lastUpdated": "2025-07-25T10:03:34.820Z"
+  },
+  "parentQueue": "/layer/themes/portal_security/layer/themes/setup-folder/TASK_QUEUE.vf.json",
+  "theme": "portal_security"
+}

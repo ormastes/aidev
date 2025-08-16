@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "rootDir": "./",
+    "composite": true,
+    "declarationDir": "./dist/types",
+    "tsBuildInfoFile": "./dist/.tsbuildinfo"
+  },
+  "files": [],
+  "references": [
+    { "path": "./layer/core" },
+    { "path": "./layer/shared" },
+    { "path": "./layer/themes/cli-framework" },
+    { "path": "./layer/themes/docker-environment" },
+    { "path": "./layer/themes/pocketflow" },
+    { "path": "./layer/themes/coordinator-claude-agent" },
+    { "path": "./layer/themes/story-reporter" },
+    { "path": "./layer/themes/test-as-manual" },
+    { "path": "./layer/themes/gui-selector" },
+    { "path": "./layer/themes/mcp" },
+    { "path": "./layer/themes/typescript-config" }
+  ],
+  "include": [],
+  "exclude": [
+    "**/node_modules",
+    "**/dist",
+    "**/build",
+    "**/coverage",
+    "**/.next",
+    "**/out"
+  ]
+}

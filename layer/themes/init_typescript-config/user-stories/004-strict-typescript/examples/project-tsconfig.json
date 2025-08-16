@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "../config/tsconfig.base.json",
+  "compilerOptions": {
+    /* Project-specific paths */
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"],
+      "@components/*": ["./components/*"],
+      "@services/*": ["./services/*"],
+      "@utils/*": ["./utils/*"],
+      "@types/*": ["./types/*"]
+    },
+    
+    /* Output configuration */
+    "outDir": "./dist",
+    "rootDir": "./src",
+    
+    /* React configuration (if using React) */
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    
+    /* Additional project settings */
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  },
+  
+  /* Include/Exclude patterns */
+  "include": [
+    "src/**/*",
+    "types/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx"
+  ],
+  
+  /* Project references for monorepo */
+  "references": [
+    { "path": "../shared" },
+    { "path": "../core" }
+  ]
+}

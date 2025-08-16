@@ -1,0 +1,168 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Feature VF Schema",
+  "description": "JSON Schema for FEATURE.vf.json - tracks features using VFNameIdWrapper format",
+  "type": "object",
+  "additionalProperties": {
+    "type": "array",
+    "description": "Array of features grouped by category name",
+    "items": {
+      "$ref": "#/definitions/feature"
+    }
+  },
+  "definitions": {
+    "feature": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the feature"
+        },
+        "name": {
+          "type": "string",
+          "description": "Feature name (used by VFNameIdWrapper for grouping)"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Feature title"
+            },
+            "description": {
+              "type": "string",
+              "description": "Detailed feature description"
+            },
+            "status": {
+              "type": "string",
+              "enum": ["planned", "in-progress", "completed", "blocked"],
+              "description": "Current status"
+            },
+            "priority": {
+              "type": "string",
+              "enum": ["critical", "high", "medium", "low"],
+              "description": "Feature priority"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Tags for categorization"
+            },
+            "assignee": {
+              "type": "string",
+              "description": "Who is working on this"
+            },
+            "dueDate": {
+              "type": "string",
+              "format": "date",
+              "description": "Target completion date"
+            },
+            "dependencies": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Feature IDs this depends on"
+            },
+            "components": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Related components or modules"
+            },
+            "acceptanceCriteria": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of acceptance criteria"
+            }
+          },
+          "required": ["title", "description", "status", "priority"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "name", "data", "createdAt", "updatedAt"]
+    }
+  },
+  "examples": [
+    {
+      "calculator-features": [
+        {
+          "id": "calc-001",
+          "name": "Basic Operations",
+          "data": {
+            "title": "Implement Basic Calculator Operations",
+            "description": "Add, subtract, multiply, and divide functions",
+            "status": "completed",
+            "priority": "high",
+            "tags": ["core", "math", "operations"],
+            "assignee": "developer",
+            "components": ["calculator.ts", "operations.ts"],
+            "acceptanceCriteria": [
+              "All four basic operations work correctly",
+              "Division by zero is handled",
+              "Results are accurate to 10 decimal places"
+            ]
+          },
+          "createdAt": "2025-01-20T10:00:00Z",
+          "updatedAt": "2025-01-20T12:00:00Z"
+        },
+        {
+          "id": "calc-002",
+          "name": "Scientific Functions",
+          "data": {
+            "title": "Add Scientific Calculator Functions",
+            "description": "Implement sqrt, pow, sin, cos, tan functions",
+            "status": "planned",
+            "priority": "medium",
+            "tags": ["enhancement", "scientific", "math"],
+            "dependencies": ["calc-001"],
+            "components": ["scientific.ts"],
+            "acceptanceCriteria": [
+              "Square root function works for positive numbers",
+              "Power function handles negative exponents",
+              "Trigonometric functions use radians"
+            ]
+          },
+          "createdAt": "2025-01-20T10:00:00Z",
+          "updatedAt": "2025-01-20T10:00:00Z"
+        }
+      ],
+      "ui-features": [
+        {
+          "id": "ui-001",
+          "name": "CLI Interface",
+          "data": {
+            "title": "Command Line Interface",
+            "description": "Interactive CLI for calculator operations",
+            "status": "in-progress",
+            "priority": "high",
+            "tags": ["ui", "cli", "interface"],
+            "assignee": "frontend-dev",
+            "dueDate": "2025-02-01",
+            "components": ["cli.ts", "prompt.ts"],
+            "acceptanceCriteria": [
+              "User can input expressions",
+              "Results are displayed clearly",
+              "Error messages are helpful",
+              "History of calculations is maintained"
+            ]
+          },
+          "createdAt": "2025-01-20T11:00:00Z",
+          "updatedAt": "2025-01-20T14:00:00Z"
+        }
+      ]
+    }
+  ]
+}

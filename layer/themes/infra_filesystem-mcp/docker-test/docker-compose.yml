@@ -1,0 +1,94 @@
+version: '3.8'
+
+services:
+  mcp-test-strict:
+    build: .
+    container_name: mcp-test-strict
+    volumes:
+      # Mount project directory as workspace
+      - ../../../:/workspace:ro
+      # Mount results directory for output
+      - ./results:/results:rw
+      # Mount MCP servers
+      - ../:/app/mcp-servers:ro
+      # Mount test files
+      - ./src:/app/src:ro
+      - ./tests:/app/tests:ro
+      - ./prompts:/app/prompts:ro
+    environment:
+      - MCP_MODE=strict
+      - VF_BASE_PATH=/workspace
+      - TEST_MODE=true
+      - NODE_ENV=test
+      - CLAUDE_MCP_ENABLED=true
+    networks:
+      - mcp-test-network
+    command: ["node", "/app/src/mcp-test-runner.js", "--mode", "strict"]
+
+  mcp-test-enhanced:
+    build: .
+    container_name: mcp-test-enhanced
+    volumes:
+      - ../../../:/workspace:ro
+      - ./results:/results:rw
+      - ../:/app/mcp-servers:ro
+      - ./src:/app/src:ro
+      - ./tests:/app/tests:ro
+      - ./prompts:/app/prompts:ro
+    environment:
+      - MCP_MODE=enhanced
+      - VF_BASE_PATH=/workspace
+      - VF_STRICT_MODE=true
+      - TEST_MODE=true
+      - NODE_ENV=test
+    networks:
+      - mcp-test-network
+    command: ["node", "/app/src/mcp-test-runner.js", "--mode", "enhanced"]
+
+  mcp-test-basic:
+    build: .
+    container_name: mcp-test-basic
+    volumes:
+      - ../../../:/workspace:ro
+      - ./results:/results:rw
+      - ../:/app/mcp-servers:ro
+      - ./src:/app/src:ro
+      - ./tests:/app/tests:ro
+      - ./prompts:/app/prompts:ro
+    environment:
+      - MCP_MODE=basic
+      - VF_BASE_PATH=/workspace
+      - TEST_MODE=true
+      - NODE_ENV=test
+    networks:
+      - mcp-test-network
+    command: ["node", "/app/src/mcp-test-runner.js", "--mode", "basic"]
+
+  # Claude simulator for testing
+  claude-simulator:
+    build: .
+    container_name: claude-simulator
+    volumes:
+      - ../../../:/workspace:rw
+      - ./results:/results:rw
+      - ./src:/app/src:ro
+      - ./prompts:/app/prompts:ro
+    environment:
+      - CLAUDE_MODE=simulator
+      - MCP_SERVERS=mcp-test-strict:8080,mcp-test-enhanced:8081,mcp-test-basic:8082
+      - VF_BASE_PATH=/workspace
+    networks:
+      - mcp-test-network
+    depends_on:
+      - mcp-test-strict
+      - mcp-test-enhanced
+      - mcp-test-basic
+    command: ["node", "/app/src/claude-simulator.js"]
+
+networks:
+  mcp-test-network:
+    driver: bridge
+
+volumes:
+  test-results:
+    driver: local

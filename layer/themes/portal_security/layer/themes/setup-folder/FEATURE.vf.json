@@ -1,0 +1,53 @@
+{
+  "setupFolder": [
+    {
+      "id": "setup-001",
+      "name": "Project Setup Automation",
+      "data": {
+        "title": "Automated Project Setup and Deployment",
+        "description": "Comprehensive setup automation for themes, epics, stories, demos, releases, and tests",
+        "status": "active",
+        "priority": "high",
+        "components": [
+          "BaseSetup - Core setup functionality with VF/MD mode support",
+          "ThemeSetup - Theme deployment automation",
+          "StorySetup - User story initialization",
+          "DemoSetup - Demo environment creation",
+          "ReleaseSetup - Production release management",
+          "TestSetup - Test environment configuration",
+          "MCPSetup - MCP server integration"
+        ],
+        "modes": ["vf", "md"],
+        "version": "2.0.0"
+      },
+      "createdAt": "2025-07-22T00:00:00.000Z",
+      "updatedAt": "2025-07-29T22:36:00.000Z"
+    },
+    {
+      "id": "setup-002",
+      "name": "Filesystem MCP Schema Compliance",
+      "data": {
+        "title": "Filesystem MCP Schema Compliance Update",
+        "description": "Updated VF file generation to follow filesystem MCP schemas",
+        "status": "completed",
+        "priority": "high",
+        "changes": [
+          "Updated TASK_QUEUE.vf.json structure with proper sections and metadata",
+          "Updated FEATURE.vf.json to use correct schema format",
+          "Updated FILE_STRUCTURE.vf.json with proper template structure",
+          "Added theme-level VF files"
+        ],
+        "version": "2.1.0"
+      },
+      "createdAt": "2025-07-29T22:30:00.000Z",
+      "updatedAt": "2025-07-29T22:36:00.000Z"
+    }
+  ],
+  "metadata": {
+    "version": "2.0.0",
+    "description": "Setup automation theme features",
+    "lastUpdated": "2025-07-29T22:36:00.000Z",
+    "level": "theme",
+    "aggregatesChildren": false
+  }
+}

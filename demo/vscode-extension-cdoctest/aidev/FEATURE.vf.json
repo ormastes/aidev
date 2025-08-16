@@ -1,0 +1,105 @@
+{
+  "aiDevPlatform": [
+    {
+      "id": "aidev-001",
+      "name": "Virtual File System with MCP Integration",
+      "data": {
+        "title": "Virtual File System with MCP Integration",
+        "description": "In Progress virtual file system using filesystem_mcp as default MCP server",
+        "status": "In Progress",
+        "priority": "high",
+        "components": [
+          "VFFileWrapper - Basic file operations",
+          "VFNameIdWrapper - Entity management with name-based storage",
+          "VFTaskQueueWrapper - Priority-based task queue processing",
+          "VFDistributedFeatureWrapper - Hierarchical feature management",
+          "VFSearchWrapper - Unified search across themes, epics, and user stories"
+        ],
+        "implementation": "release/filesystem_mcp",
+        "version": "1.0.0"
+      },
+      "createdAt": "2025-07-19T12:00:00.000Z",
+      "updatedAt": "2025-07-19T12:00:00.000Z"
+    },
+    {
+      "id": "aidev-002", 
+      "name": "Mock Free Test Oriented Development Framework",
+      "data": {
+        "title": "MFTOD Framework Implementation",
+        "description": "In Progress testing framework following Mock Free Test Oriented Development principles",
+        "status": "In Progress",
+        "priority": "high",
+        "test_layers": [
+          "Environment Tests (.envtest.ts)",
+          "External Tests (.etest.ts)", 
+          "System Tests (.systest.ts)",
+          "Unit Tests (.test.ts)"
+        ],
+        "compliance": "Improving mock-free",
+        "coverage": "62 tests, Improving pass rate"
+      },
+      "createdAt": "2025-07-19T12:00:00.000Z",
+      "updatedAt": "2025-07-19T12:00:00.000Z"
+    },
+    {
+      "id": "aidev-003",
+      "name": "Story-Based Test Reporting System", 
+      "data": {
+        "title": "Comprehensive Test Reporting",
+        "description": "Story-based test reporting with HTML, JSON, and Markdown outputs",
+        "status": "In Progress", 
+        "priority": "medium",
+        "outputs": [
+          "HTML reports with interactive navigation",
+          "JSON data for programmatic access",
+          "Markdown summaries for documentation"
+        ],
+        "personas": [
+          "Product Manager - Feature planning workflows",
+          "Developer - Work item management", 
+          "DevOps - Critical issue handling"
+        ]
+      },
+      "createdAt": "2025-07-19T12:00:00.000Z",
+      "updatedAt": "2025-07-19T12:00:00.000Z"
+    },
+    {
+      "id": "aidev-004",
+      "name": "Unified Search System for Themes and Stories",
+      "data": {
+        "title": "MCP Search Feature for Themes, Epics, and User Stories",
+        "description": "Comprehensive search functionality supporting both local (current + children) and global (top-level) search across distributed FEATURE.vf.json and NAME_ID.vf.json files",
+        "status": "completed",
+        "priority": "high",
+        "features": [
+          "Global search across all themes, epics, and user stories",
+          "Local search within a directory and its children",
+          "Multi-criteria filtering (tags, level, status, assignee, epic)",
+          "Text search with relevance scoring",
+          "Search result faceting for better navigation",
+          "Feature hierarchy retrieval",
+          "MCP server endpoints for REST API access",
+          "CLI tool for command-line searching"
+        ],
+        "api_endpoints": [
+          "GET /search - Unified search with multiple criteria",
+          "GET /search/themes - Search for themes only",
+          "GET /search/epics - Search for epics only",
+          "GET /search/stories - Search for user stories",
+          "GET /search/theme/:themeName/stories - Get stories by theme",
+          "GET /search/hierarchy/:featureId - Get feature hierarchy",
+          "GET /search/suggestions - Autocomplete suggestions"
+        ],
+        "implementation_files": [
+          "VFSearchWrapper.ts - Core search implementation",
+          "VFSearchWrapper.test.ts - Comprehensive test suite",
+          "mcp-search-endpoints.js - MCP server integration",
+          "examples/mcp-server-with-search.js - Example server",
+          "examples/search-cli.js - Command-line interface"
+        ]
+      },
+      "createdAt": "2025-07-25T12:00:00.000Z",
+      "updatedAt": "2025-07-25T12:00:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@aidev/infra_test-as-manual",
+  "version": "1.0.0",
+  "description": "Manual testing simulation and automation framework",
+  "main": "pipe/index.ts",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": [
+    "testing",
+    "manual",
+    "automation",
+    "simulation"
+  ],
+  "author": "AI Development Platform",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.0"
+  }
+}

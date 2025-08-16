@@ -1,0 +1,26 @@
+{
+  "name": "@llm-agent/types",
+  "version": "1.0.0",
+  "description": "Shared TypeScript types for LLM Agent Epic",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "llm-agent",
+    "types",
+    "typescript"
+  ],
+  "author": "AI Dev Platform",
+  "license": "MIT"
+}

@@ -1,0 +1,63 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/epics/tool/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-03T04:00:00.000Z",
+    "updated_at": "2025-08-03T04:00:00.000Z"
+  },
+  "features": {
+    "tool": [
+      {
+        "id": "tool-epic-001",
+        "name": "Development Tools Epic",
+        "data": {
+          "title": "Development Tools Epic",
+          "description": "Provides essential development tools including coverage aggregation, GUI generation, and web scraping capabilities for the LLM Agent ecosystem",
+          "level": "epic",
+          "status": "active",
+          "priority": "high",
+          "tags": [
+            "tools",
+            "development",
+            "coverage",
+            "gui-generation",
+            "web-scraping"
+          ],
+          "virtual_path": "/layer/epics/tool/FEATURE.vf.json",
+          "provides": [
+            "coverage-aggregation",
+            "gui-generation",
+            "web-scraping"
+          ],
+          "children": [
+            "tool_coverage-aggregator",
+            "tool_gui-generator",
+            "tool_web-scraper"
+          ],
+          "components": {
+            "tool_coverage-aggregator": {
+              "description": "Test coverage aggregation and reporting across multiple projects",
+              "status": "active"
+            },
+            "tool_gui-generator": {
+              "description": "Automated GUI generation and design tools",
+              "status": "active"
+            },
+            "tool_web-scraper": {
+              "description": "Web scraping and data extraction utilities",
+              "status": "active"
+            }
+          }
+        },
+        "createdAt": "2025-08-03T04:00:00.000Z",
+        "updatedAt": "2025-08-03T04:00:00.000Z"
+      }
+    ]
+  },
+  "children": [
+    "tool_coverage-aggregator",
+    "tool_gui-generator",
+    "tool_web-scraper"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "timestamp": "20250815_234731",
+  "tests_run": 8,
+  "bugs_found": 8,
+  "findings": [
+    {
+      "type": "Console Error",
+      "severity": "Medium",
+      "description": "JavaScript console errors detected on homepage",
+      "evidence": "Found console.error() call in page source"
+    },
+    {
+      "type": "XSS Vulnerability",
+      "severity": "High",
+      "description": "Unescaped user input allows script injection",
+      "evidence": "Payload \"<script>alert(1)</script>\" reflected without escaping"
+    },
+    {
+      "type": "Missing Security Headers",
+      "severity": "Medium",
+      "description": "API endpoints missing important security headers",
+      "evidence": "Missing headers: X-Content-Type-Options, X-Frame-Options"
+    },
+    {
+      "type": "API Schema Violation",
+      "severity": "High",
+      "description": "API response does not match OpenAPI specification",
+      "evidence": "Missing required fields: total"
+    },
+    {
+      "type": "Server Error",
+      "severity": "Critical",
+      "description": "503 server error on /api/crash endpoint",
+      "evidence": "HTTP 503: Service Unavailable"
+    },
+    {
+      "type": "Performance Issue",
+      "severity": "Medium",
+      "description": "Login endpoint responds too slowly",
+      "evidence": "Response time: 4016ms (>3000ms threshold)"
+    },
+    {
+      "type": "PII Leak",
+      "severity": "Critical",
+      "description": "Password exposed in error message",
+      "evidence": "User password visible in login error response"
+    }
+  ]
+}

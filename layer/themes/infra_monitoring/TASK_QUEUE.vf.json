@@ -1,0 +1,11 @@
+{
+  "type": "task_queue",
+  "version": "1.0.0",
+  "metadata": {
+    "title": "Infrastructure Monitoring Task Queue",
+    "theme": "infra_monitoring",
+    "created": "2025-08-16",
+    "priority": "medium"
+  },
+  "queue": []
+}

@@ -1,0 +1,38 @@
+{
+  "name": "aidev-qemu",
+  "image": "ubuntu-22.04.qcow2",
+  "memory": "4G",
+  "cpus": 4,
+  "ssh_port": 2222,
+  "vnc_port": 5901,
+  "gdb_port": 1234,
+  "vscode_port": 8080,
+  "monitor_port": 4444,
+  "share_folder": true,
+  "network_mode": "user",
+  "users": {
+    "default": {
+      "username": "ubuntu",
+      "password": "ubuntu"
+    }
+  },
+  "build": {
+    "cmake_options": "-DCMAKE_BUILD_TYPE=Debug",
+    "make_jobs": 4,
+    "test_command": "ctest --output-on-failure"
+  },
+  "debug": {
+    "gdbserver_port": 1234,
+    "enable_symbols": true,
+    "optimization_level": "O0"
+  },
+  "vscode": {
+    "port": 8080,
+    "password": "aidev",
+    "extensions": [
+      "ms-vscode.cpptools",
+      "ms-python.python",
+      "ms-vscode.cmake-tools"
+    ]
+  }
+}

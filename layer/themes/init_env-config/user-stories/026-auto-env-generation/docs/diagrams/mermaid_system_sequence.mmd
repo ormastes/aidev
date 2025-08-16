@@ -1,0 +1,82 @@
+sequenceDiagram
+    participant Developer
+    participant CLI
+    participant ConfigManager
+    participant EnvGenerator
+    participant TokenService
+    participant ServiceDiscovery
+    participant FileSystem
+
+    %% Scenario: Developer creates new environment and gets complete .env file
+    Developer->>CLI: create-env --type theme --name my-app
+    CLI->>ConfigManager: createEnvironment({name: "my-app", type: "theme"})
+    ConfigManager->>ConfigManager: allocatePortsForEnvironment()
+    ConfigManager->>EnvGenerator: generateEnvFile(config)
+    
+    %% Generate base environment variables
+    EnvGenerator->>EnvGenerator: generateBaseVariables()
+    Note over EnvGenerator: NODE_ENV, PORT, APP_NAME, etc.
+    
+    %% Generate database configuration
+    EnvGenerator->>EnvGenerator: generateDatabaseConfig(type)
+    alt Release Environment
+        Note over EnvGenerator: DATABASE_TYPE=postgresql<br/>DATABASE_URL=postgresql://...
+    else Other Environments
+        Note over EnvGenerator: DATABASE_TYPE=sqlite<br/>DATABASE_PATH=./data/app.db
+    end
+    
+    %% Generate security tokens
+    EnvGenerator->>TokenService: generateSecurityTokens(environment)
+    TokenService->>TokenService: generateJWTSecret()
+    TokenService->>TokenService: generateAPIKey()
+    TokenService->>TokenService: generateRefreshToken()
+    TokenService-->>EnvGenerator: {jwt_secret, api_key, refresh_token}
+    
+    %% Service discovery URLs
+    EnvGenerator->>ServiceDiscovery: getServiceURLs(environment)
+    ServiceDiscovery->>ConfigManager: listEnvironments()
+    ConfigManager-->>ServiceDiscovery: [environments]
+    ServiceDiscovery->>ServiceDiscovery: buildServiceURLs()
+    ServiceDiscovery-->>EnvGenerator: {service_urls}
+    
+    %% Write .env file
+    EnvGenerator->>FileSystem: writeFile(.env, content)
+    FileSystem-->>EnvGenerator: success
+    
+    EnvGenerator-->>ConfigManager: envPath
+    ConfigManager-->>CLI: {success: true, envPath}
+    CLI-->>Developer: Environment created with .env at ./my-app/.env
+
+    %% Scenario: Adding service updates .env
+    Developer->>CLI: add-service --env my-app --name auth-service
+    CLI->>ConfigManager: addService("my-app", "auth-service")
+    ConfigManager->>ConfigManager: allocateServicePort()
+    ConfigManager->>EnvGenerator: updateEnvFile(config, newService)
+    
+    EnvGenerator->>FileSystem: readFile(.env)
+    FileSystem-->>EnvGenerator: existing content
+    EnvGenerator->>EnvGenerator: appendServiceVariables()
+    Note over EnvGenerator: SERVICE_AUTH_SERVICE_PORT=3201<br/>SERVICE_AUTH_SERVICE_URL=http://localhost:3201
+    EnvGenerator->>FileSystem: writeFile(.env, updated)
+    
+    ConfigManager-->>CLI: {success: true}
+    CLI-->>Developer: Service added, .env updated
+
+    %% Scenario: Theme dependencies update service discovery
+    Developer->>CLI: add-dependency --env my-app --depends-on other-theme
+    CLI->>ConfigManager: addDependency("my-app", "other-theme")
+    ConfigManager->>ServiceDiscovery: updateDependencies("my-app", ["other-theme"])
+    
+    ServiceDiscovery->>ConfigManager: getEnvironment("other-theme")
+    ConfigManager-->>ServiceDiscovery: otherThemeConfig
+    ServiceDiscovery->>ServiceDiscovery: buildDependencyURLs()
+    
+    ServiceDiscovery->>EnvGenerator: updateServiceDiscovery(envPath, urls)
+    EnvGenerator->>FileSystem: readFile(.env)
+    EnvGenerator->>EnvGenerator: updateServiceURLs()
+    Note over EnvGenerator: OTHER_THEME_URL=http://localhost:3250<br/>OTHER_THEME_API=http://localhost:3251
+    EnvGenerator->>FileSystem: writeFile(.env, updated)
+    
+    ServiceDiscovery-->>ConfigManager: updated
+    ConfigManager-->>CLI: {success: true}
+    CLI-->>Developer: Dependencies updated in .env

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text GUI Terminal - GUI Selector</title>
+    
+    <!-- XTerm CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header .status {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4CAF50;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        .terminal-wrapper {
+            flex: 1;
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            border-bottom: 1px solid #333;
+            margin-bottom: 1rem;
+        }
+
+        .terminal-title {
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .terminal-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .terminal-btn:hover {
+            opacity: 0.8;
+        }
+
+        .terminal-btn.close { background: #ff5f56; }
+        .terminal-btn.minimize { background: #ffbd2e; }
+        .terminal-btn.maximize { background: #27c93f; }
+
+        #terminal {
+            flex: 1;
+            background: #000;
+            border-radius: 4px;
+            padding: 8px;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .sidebar h2 {
+            color: #333;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .control-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .control-group label {
+            display: block;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .control-group select,
+        .control-group input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: transform 0.2s;
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn.secondary {
+            background: #6c757d;
+        }
+
+        .shortcuts {
+            background: #f8f9fa;
+            border-radius: 4px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .shortcuts h3 {
+            color: #333;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.25rem 0;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .shortcut-key {
+            background: #e9ecef;
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>
+            <span>🖥️</span>
+            Text GUI Terminal
+        </h1>
+        <div class="status">
+            <span id="connection-status">Disconnected</span>
+            <div class="status-indicator" id="status-indicator"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="terminal-wrapper">
+            <div class="terminal-header">
+                <span class="terminal-title">GUI Selector - Text Interface</span>
+                <div class="terminal-controls">
+                    <button class="terminal-btn minimize" onclick="minimizeTerminal()"></button>
+                    <button class="terminal-btn maximize" onclick="maximizeTerminal()"></button>
+                    <button class="terminal-btn close" onclick="closeTerminal()"></button>
+                </div>
+            </div>
+            <div id="terminal"></div>
+        </div>
+
+        <div class="sidebar">
+            <h2>Terminal Controls</h2>
+            
+            <div class="control-group">
+                <label>Terminal Size</label>
+                <select id="terminal-size" onchange="resizeTerminal()">
+                    <option value="80x24">80x24 (Standard)</option>
+                    <option value="120x30">120x30 (Large)</option>
+                    <option value="160x40">160x40 (Extra Large)</option>
+                    <option value="custom">Custom</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Theme</label>
+                <select id="terminal-theme" onchange="changeTheme()">
+                    <option value="default">Default (Dark)</option>
+                    <option value="light">Light</option>
+                    <option value="monokai">Monokai</option>
+                    <option value="solarized">Solarized</option>
+                </select>
+            </div>
+
+            <button class="btn" onclick="startTextGui()">
+                Start Text GUI
+            </button>
+            
+            <button class="btn secondary" onclick="clearTerminal()">
+                Clear Terminal
+            </button>
+
+            <button class="btn secondary" onclick="reconnect()">
+                Reconnect
+            </button>
+
+            <div class="shortcuts">
+                <h3>Keyboard Shortcuts</h3>
+                <div class="shortcut-item">
+                    <span>Navigation</span>
+                    <span class="shortcut-key">↑ ↓</span>
+                </div>
+                <div class="shortcut-item">
+                    <span>Select</span>
+                    <span class="shortcut-key">Enter</span>
+                </div>
+                <div class="shortcut-item">
+                    <span>Back</span>
+                    <span class="shortcut-key">b</span>
+                </div>
+                <div class="shortcut-item">
+                    <span>Templates</span>
+                    <span class="shortcut-key">Ctrl+T</span>
+                </div>
+                <div class="shortcut-item">
+                    <span>Themes</span>
+                    <span class="shortcut-key">Ctrl+H</span>
+                </div>
+                <div class="shortcut-item">
+                    <span>Projects</span>
+                    <span class="shortcut-key">Ctrl+P</span>
+                </div>
+                <div class="shortcut-item">
+                    <span>Exit</span>
+                    <span class="shortcut-key">q / ESC</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Socket.IO -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <!-- XTerm -->
+    <script src="https://cdn.jsdelivr.net/npm/xterm@5.3.0/lib/xterm.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xterm-addon-fit@0.8.0/lib/xterm-addon-fit.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xterm-addon-web-links@0.9.0/lib/xterm-addon-web-links.js"></script>
+
+    <script>
+        let terminal;
+        let socket;
+        let sessionId;
+        let fitAddon;
+
+        // Terminal themes
+        const themes = {
+            default: {
+                background: '#1e1e1e',
+                foreground: '#d4d4d4',
+                cursor: '#d4d4d4',
+                selection: '#3a3d41'
+            },
+            light: {
+                background: '#ffffff',
+                foreground: '#333333',
+                cursor: '#333333',
+                selection: '#add6ff'
+            },
+            monokai: {
+                background: '#272822',
+                foreground: '#f8f8f2',
+                cursor: '#f8f8f2',
+                selection: '#49483e'
+            },
+            solarized: {
+                background: '#002b36',
+                foreground: '#839496',
+                cursor: '#839496',
+                selection: '#073642'
+            }
+        };
+
+        function initTerminal() {
+            terminal = new Terminal({
+                cursorBlink: true,
+                fontSize: 14,
+                fontFamily: 'Consolas, "Courier New", monospace',
+                theme: themes.default,
+                scrollback: 1000
+            });
+
+            fitAddon = new FitAddon.FitAddon();
+            terminal.loadAddon(fitAddon);
+            
+            const webLinksAddon = new WebLinksAddon.WebLinksAddon();
+            terminal.loadAddon(webLinksAddon);
+
+            terminal.open(document.getElementById('terminal'));
+            fitAddon.fit();
+
+            // Handle terminal input
+            terminal.onData(data => {
+                if (socket && sessionId) {
+                    socket.emit('terminal-input', {
+                        sessionId,
+                        input: data
+                    });
+                }
+            });
+
+            // Handle resize
+            window.addEventListener('resize', () => {
+                fitAddon.fit();
+                if (socket && sessionId) {
+                    socket.emit('terminal-resize', {
+                        sessionId,
+                        cols: terminal.cols,
+                        rows: terminal.rows
+                    });
+                }
+            });
+        }
+
+        function connectWebSocket() {
+            socket = io('http://localhost:3457');
+
+            socket.on('connect', () => {
+                console.log('Connected to terminal server');
+                updateConnectionStatus('Connected', true);
+                
+                // Create a new session
+                socket.emit('create-session', {
+                    cols: terminal.cols,
+                    rows: terminal.rows,
+                    autoStart: false
+                });
+            });
+
+            socket.on('session-created', (data) => {
+                sessionId = data.sessionId;
+                console.log('Session created:', sessionId);
+            });
+
+            socket.on('terminal-output', (data) => {
+                terminal.write(data.data);
+            });
+
+            socket.on('session-closed', (data) => {
+                console.log('Session closed:', data);
+                terminal.write('\r\n[Session terminated]\r\n');
+            });
+
+            socket.on('disconnect', () => {
+                console.log('Disconnected from terminal server');
+                updateConnectionStatus('Disconnected', false);
+            });
+
+            socket.on('error', (error) => {
+                console.error('Socket error:', error);
+                terminal.write(`\r\n[Error: ${error.message}]\r\n`);
+            });
+        }
+
+        function updateConnectionStatus(status, connected) {
+            const statusElement = document.getElementById('connection-status');
+            const indicatorElement = document.getElementById('status-indicator');
+            
+            statusElement.textContent = status;
+            indicatorElement.style.background = connected ? '#4CAF50' : '#f44336';
+        }
+
+        function startTextGui() {
+            if (socket && sessionId) {
+                // Send command to start the text GUI
+                socket.emit('terminal-input', {
+                    sessionId,
+                    input: 'npx tsx ./src/text-gui/cli.tsx\r'
+                });
+            }
+        }
+
+        function clearTerminal() {
+            terminal.clear();
+        }
+
+        function resizeTerminal() {
+            const sizeSelect = document.getElementById('terminal-size');
+            const size = sizeSelect.value;
+            
+            if (size === 'custom') {
+                const cols = prompt('Enter columns:', '80');
+                const rows = prompt('Enter rows:', '24');
+                
+                if (cols && rows) {
+                    terminal.resize(parseInt(cols), parseInt(rows));
+                    fitAddon.fit();
+                }
+            } else {
+                const [cols, rows] = size.split('x').map(Number);
+                terminal.resize(cols, rows);
+                fitAddon.fit();
+            }
+
+            if (socket && sessionId) {
+                socket.emit('terminal-resize', {
+                    sessionId,
+                    cols: terminal.cols,
+                    rows: terminal.rows
+                });
+            }
+        }
+
+        function changeTheme() {
+            const themeSelect = document.getElementById('terminal-theme');
+            const theme = themes[themeSelect.value] || themes.default;
+            terminal.options.theme = theme;
+        }
+
+        function minimizeTerminal() {
+            const wrapper = document.querySelector('.terminal-wrapper');
+            wrapper.style.height = '100px';
+        }
+
+        function maximizeTerminal() {
+            const wrapper = document.querySelector('.terminal-wrapper');
+            wrapper.style.height = 'auto';
+            fitAddon.fit();
+        }
+
+        function closeTerminal() {
+            if (socket && sessionId) {
+                socket.emit('close-session', sessionId);
+            }
+            window.close();
+        }
+
+        function reconnect() {
+            if (socket) {
+                socket.disconnect();
+            }
+            connectWebSocket();
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            initTerminal();
+            connectWebSocket();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,689 @@
+{
+  "profile-selection": {
+    "c9e5d3d4-b602-4e25-9bce-dc876f0663e9_1752641969440": {
+      "userId": "c9e5d3d4-b602-4e25-9bce-dc876f0663e9",
+      "comment": "NAVIGATION_TEST: Profile page navigation test. REQUIREMENT: Add child page links dynamically. Current time: 2025-07-16T04:59:29.418Z",
+      "timestamp": "2025-07-16T04:59:29.440Z",
+      "metadata": {},
+      "id": "c9e5d3d4-b602-4e25-9bce-dc876f0663e9_1752641969440"
+    },
+    "22962295-664e-4dce-9141-f4656cbab127_1752642900260": {
+      "userId": "22962295-664e-4dce-9141-f4656cbab127",
+      "comment": "REQUIREMENT: Profile must support multiple photo uploads. REQUIREMENT: Add social media linking features. User profile interface needs modern touch.",
+      "timestamp": "2025-07-16T05:15:00.260Z",
+      "metadata": {
+        "userAgent": "curl/8.5.0"
+      },
+      "id": "22962295-664e-4dce-9141-f4656cbab127_1752642900260"
+    },
+    "a5d887f6-e6a1-4af5-9a59-5b1e7126b1d4_1752643107522": {
+      "userId": "a5d887f6-e6a1-4af5-9a59-5b1e7126b1d4",
+      "comment": "REQUIREMENT: Profile page must include photo gallery with zoom functionality. REQUIREMENT: Support user verification badges. The modern design looks great!",
+      "timestamp": "2025-07-16T05:18:27.522Z",
+      "metadata": {},
+      "id": "a5d887f6-e6a1-4af5-9a59-5b1e7126b1d4_1752643107522"
+    }
+  },
+  "dashboard-selection": {
+    "c897cef9-cd14-48bb-a14b-55f4dac1987b_1752642907446": {
+      "userId": "c897cef9-cd14-48bb-a14b-55f4dac1987b",
+      "comment": "REQUIREMENT: Dashboard needs real-time updates every 5 seconds. REQUIREMENT: Add export functionality for reports. The current design looks good but needs performance improvements.",
+      "timestamp": "2025-07-16T05:15:07.446Z",
+      "metadata": {
+        "userAgent": "curl/8.5.0"
+      },
+      "id": "c897cef9-cd14-48bb-a14b-55f4dac1987b_1752642907446"
+    },
+    "dd7b9f1f-5562-47fe-ad65-8dae775ceb86_1752643010754": {
+      "userId": "dd7b9f1f-5562-47fe-ad65-8dae775ceb86",
+      "comment": "REQUIREMENT: Dashboard must have dark mode support. REQUIREMENT: Include automated data refresh every 30 seconds. The interface should be responsive on mobile devices.",
+      "timestamp": "2025-07-16T05:16:50.754Z",
+      "metadata": {
+        "userAgent": "curl/8.5.0"
+      },
+      "id": "dd7b9f1f-5562-47fe-ad65-8dae775ceb86_1752643010754"
+    }
+  },
+  "broker-selection": {
+    "efc4da2f-fff7-441b-a7c7-b6e6da1e2e1a_1752643107652": {
+      "userId": "efc4da2f-fff7-441b-a7c7-b6e6da1e2e1a",
+      "comment": "REQUIREMENT: Broker interface needs commission calculator. REQUIREMENT: Add favorite brokers functionality. Performance should be optimized.",
+      "timestamp": "2025-07-16T05:18:27.652Z",
+      "metadata": {},
+      "id": "efc4da2f-fff7-441b-a7c7-b6e6da1e2e1a_1752643107652"
+    }
+  },
+  "screen-selection": {
+    "9bd52f4e-d9e0-42ff-a685-672d45139b6d_1752643107699": {
+      "userId": "9bd52f4e-d9e0-42ff-a685-672d45139b6d",
+      "comment": "REQUIREMENT: Navigation must support breadcrumb trails. REQUIREMENT: Include quick search functionality across all screens.",
+      "timestamp": "2025-07-16T05:18:27.699Z",
+      "metadata": {},
+      "id": "9bd52f4e-d9e0-42ff-a685-672d45139b6d_1752643107699"
+    }
+  },
+  "profile-screen": {
+    "cb0ea56e-21df-46bf-87d5-1d804fd1c0ac_1752643671858": {
+      "userId": "cb0ea56e-21df-46bf-87d5-1d804fd1c0ac",
+      "comment": "REQUIREMENT: Profile detail page must show user verification status. REQUIREMENT: Add social media profile links. REQUIREMENT: Include contact preferences settings. This profile view is very clean.",
+      "timestamp": "2025-07-16T05:27:51.858Z",
+      "metadata": {
+        "userAgent": "curl/8.5.0"
+      },
+      "id": "cb0ea56e-21df-46bf-87d5-1d804fd1c0ac_1752643671858"
+    },
+    "1c72367e-bf2c-4490-8940-2c4d5c41336c_1752647031377": {
+      "userId": "1c72367e-bf2c-4490-8940-2c4d5c41336c",
+      "comment": "REAL PROFILE SCREEN TEST: This profile screen shows user details nicely. REQUIREMENT: Add profile photo editing capability.",
+      "timestamp": "2025-07-16T06:23:51.377Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Real Browser Test)"
+      },
+      "id": "1c72367e-bf2c-4490-8940-2c4d5c41336c_1752647031377"
+    },
+    "3a778e87-6ae3-4cc6-a570-47be24830eb8_1752648138852": {
+      "userId": "3a778e87-6ae3-4cc6-a570-47be24830eb8",
+      "comment": "WEB TEST: This is a real web comment from profile screen. The layout is clean and user-friendly.",
+      "timestamp": "2025-07-16T06:42:18.852Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Chrome Real Browser Test)"
+      },
+      "id": "3a778e87-6ae3-4cc6-a570-47be24830eb8_1752648138852"
+    },
+    "058a9c3c-9604-464f-acf9-f1027ce72a00_1752648404370": {
+      "userId": "058a9c3c-9604-464f-acf9-f1027ce72a00",
+      "comment": "WEB COMMENT: Profile screen displays user info clearly. The layout is intuitive and professional.",
+      "timestamp": "2025-07-16T06:46:44.370Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Chrome Real Browser)"
+      },
+      "id": "058a9c3c-9604-464f-acf9-f1027ce72a00_1752648404370"
+    }
+  },
+  "dashboard-screen": {
+    "87aa6377-d338-4896-a437-5a4b05822c07_1752643681073": {
+      "userId": "87aa6377-d338-4896-a437-5a4b05822c07",
+      "comment": "REQUIREMENT: Dashboard screen needs live data feeds. REQUIREMENT: Include customizable widget layouts. REQUIREMENT: Add keyboard shortcuts for quick navigation. The dashboard functionality is comprehensive.",
+      "timestamp": "2025-07-16T05:28:01.073Z",
+      "metadata": {
+        "userAgent": "curl/8.5.0"
+      },
+      "id": "87aa6377-d338-4896-a437-5a4b05822c07_1752643681073"
+    }
+  },
+  "profile-screen.html": {
+    "abe14c3e-0a6d-4e92-b8ee-c293cab4e9da_1752644258925": {
+      "userId": "abe14c3e-0a6d-4e92-b8ee-c293cab4e9da",
+      "comment": "This profile page layout is clean and user-friendly. REQUIREMENT: Add quick edit button for profile picture.",
+      "timestamp": "2025-07-16T05:37:38.925Z",
+      "metadata": {
+        "userAgent": "curl/8.5.0"
+      },
+      "id": "abe14c3e-0a6d-4e92-b8ee-c293cab4e9da_1752644258925"
+    }
+  },
+  "broker-screen.html": {
+    "7828c8e3-a66a-43b9-9d21-8967542ba8f8_1752644514067": {
+      "userId": "7828c8e3-a66a-43b9-9d21-8967542ba8f8",
+      "comment": "VERIFICATION TEST: This is a real browser comment to prove the system works. REQUIREMENT: Add profile photo upload feature with drag and drop support.",
+      "timestamp": "2025-07-16T05:41:54.067Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+      },
+      "id": "7828c8e3-a66a-43b9-9d21-8967542ba8f8_1752644514067"
+    }
+  },
+  "profile_selection": {
+    "0f0cedee-c834-4610-81fb-8588273b77cc_1752646036258": {
+      "userId": "0f0cedee-c834-4610-81fb-8588273b77cc",
+      "comment": "E2E TEST: Real browser comment on profile layout selection page. This layout looks modern.",
+      "timestamp": "2025-07-16T06:07:16.258Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (E2E Test Browser)"
+      },
+      "id": "0f0cedee-c834-4610-81fb-8588273b77cc_1752646036258"
+    },
+    "dfe5d607-62a6-4a87-87cf-c77a31e4a303_1752646693800": {
+      "userId": "dfe5d607-62a6-4a87-87cf-c77a31e4a303",
+      "comment": "TRACE TEST: This is a real profile layout comment for debugging.",
+      "timestamp": "2025-07-16T06:18:13.800Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Real Browser Test)"
+      },
+      "id": "dfe5d607-62a6-4a87-87cf-c77a31e4a303_1752646693800"
+    },
+    "262d1ac1-526c-4642-aa9d-1a6ecdfa2b91_1752648153702": {
+      "userId": "262d1ac1-526c-4642-aa9d-1a6ecdfa2b91",
+      "comment": "WEB TEST: Profile selection page layout looks modern and intuitive. REQUIREMENT: Add photo upload feature.",
+      "timestamp": "2025-07-16T06:42:33.702Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Chrome Real Browser Test)"
+      },
+      "id": "262d1ac1-526c-4642-aa9d-1a6ecdfa2b91_1752648153702"
+    },
+    "2c3df4e2-b93a-45f3-bef5-5082b7ed078a_1752648410449": {
+      "userId": "2c3df4e2-b93a-45f3-bef5-5082b7ed078a",
+      "comment": "WEB COMMENT: Profile selection interface works well. REQUIREMENT: Add drag-and-drop photo upload feature.",
+      "timestamp": "2025-07-16T06:46:50.449Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Chrome Real Browser)"
+      },
+      "id": "2c3df4e2-b93a-45f3-bef5-5082b7ed078a_1752648410449"
+    }
+  },
+  "profile-detail-view": {
+    "bb9d2353-cada-48e7-8d23-78452323a757_1752648931342": {
+      "userId": "bb9d2353-cada-48e7-8d23-78452323a757",
+      "comment": "WEB COMMENT: Profile detail view is clean and shows all necessary information. REQUIREMENT: Add edit profile functionality.",
+      "timestamp": "2025-07-16T06:55:31.342Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Chrome Real Browser)"
+      },
+      "id": "bb9d2353-cada-48e7-8d23-78452323a757_1752648931342"
+    },
+    "ab67f7ad-7a95-4a74-9258-adb81cb76d73_1752648989970": {
+      "userId": "ab67f7ad-7a95-4a74-9258-adb81cb76d73",
+      "comment": "TEST: Comment for profile-detail-view",
+      "timestamp": "2025-07-16T06:56:29.970Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser)"
+      },
+      "id": "ab67f7ad-7a95-4a74-9258-adb81cb76d73_1752648989970"
+    },
+    "1820d826-0e14-4e05-a42e-6186d3aac085_1752649141809": {
+      "userId": "1820d826-0e14-4e05-a42e-6186d3aac085",
+      "comment": "TEST: Comment for profile-detail-view",
+      "timestamp": "2025-07-16T06:59:01.809Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser)"
+      },
+      "id": "1820d826-0e14-4e05-a42e-6186d3aac085_1752649141809"
+    },
+    "bf21decc-f70c-44a3-bb57-fa2c87e5450c_1752649292695": {
+      "userId": "bf21decc-f70c-44a3-bb57-fa2c87e5450c",
+      "comment": "WEB TEST COMMENT: Testing profile-detail-view at 2025-07-16T07:01:32.680Z",
+      "timestamp": "2025-07-16T07:01:32.695Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser) WebKit/537.36"
+      },
+      "id": "bf21decc-f70c-44a3-bb57-fa2c87e5450c_1752649292695"
+    },
+    "2f932fd4-0e77-4349-9ec0-9765f11b8bd6_1752649311703": {
+      "userId": "2f932fd4-0e77-4349-9ec0-9765f11b8bd6",
+      "comment": "WEB TEST COMMENT: Testing profile-detail-view at 2025-07-16T07:01:51.689Z",
+      "timestamp": "2025-07-16T07:01:51.703Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser) WebKit/537.36"
+      },
+      "id": "2f932fd4-0e77-4349-9ec0-9765f11b8bd6_1752649311703"
+    },
+    "bfa12b37-e817-4263-9496-cf6068e7db0b_1752649363624": {
+      "userId": "bfa12b37-e817-4263-9496-cf6068e7db0b",
+      "comment": "DEBUG TEST: Database debugging at 2025-07-16T07:02:43.607Z",
+      "timestamp": "2025-07-16T07:02:43.624Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Debug Browser) WebKit/537.36"
+      },
+      "id": "bfa12b37-e817-4263-9496-cf6068e7db0b_1752649363624"
+    },
+    "c8eb96f9-7e27-4e6b-b148-30a8d2e5acb3_1752649396485": {
+      "userId": "c8eb96f9-7e27-4e6b-b148-30a8d2e5acb3",
+      "comment": "KEY TEST: profile-detail-view at 2025-07-16T07:03:16.468Z",
+      "timestamp": "2025-07-16T07:03:16.485Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Key Test Browser) WebKit/537.36"
+      },
+      "id": "c8eb96f9-7e27-4e6b-b148-30a8d2e5acb3_1752649396485"
+    },
+    "d87d2c05-3188-4493-a32e-a3a495f15e71_1752649416322": {
+      "userId": "d87d2c05-3188-4493-a32e-a3a495f15e71",
+      "comment": "KEY TEST: profile-detail-view at 2025-07-16T07:03:36.307Z",
+      "timestamp": "2025-07-16T07:03:36.322Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Key Test Browser) WebKit/537.36"
+      },
+      "id": "d87d2c05-3188-4493-a32e-a3a495f15e71_1752649416322"
+    },
+    "afda87d6-3b8c-4c85-b89b-0cf88e1c20e8_1752649448581": {
+      "userId": "afda87d6-3b8c-4c85-b89b-0cf88e1c20e8",
+      "comment": "DIRECT TEST: Direct curl test",
+      "timestamp": "2025-07-16T07:04:08.581Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser)"
+      },
+      "id": "afda87d6-3b8c-4c85-b89b-0cf88e1c20e8_1752649448581"
+    },
+    "f5333f91-cb6e-43fa-b385-cd2f62d0aa8a_1752649471215": {
+      "userId": "f5333f91-cb6e-43fa-b385-cd2f62d0aa8a",
+      "comment": "WEB TEST COMMENT: Testing profile-detail-view at 2025-07-16T07:04:31.199Z",
+      "timestamp": "2025-07-16T07:04:31.215Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser) WebKit/537.36"
+      },
+      "id": "f5333f91-cb6e-43fa-b385-cd2f62d0aa8a_1752649471215"
+    },
+    "a57af9b4-2938-42a4-b7ce-8adf44e5fb78_1752651858642": {
+      "userId": "a57af9b4-2938-42a4-b7ce-8adf44e5fb78",
+      "comment": "REAL PLAYWRIGHT: This is a real browser typing at 2025-07-16T07:44:17.974Z",
+      "timestamp": "2025-07-16T07:44:18.642Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36"
+      },
+      "id": "a57af9b4-2938-42a4-b7ce-8adf44e5fb78_1752651858642"
+    },
+    "c15494fd-1819-4906-9328-43daa1eed206_1752652677764": {
+      "userId": "c15494fd-1819-4906-9328-43daa1eed206",
+      "comment": "TRUTH TEST: Real comment typed at 2025-07-16T07:57:57.128Z",
+      "timestamp": "2025-07-16T07:57:57.764Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36"
+      },
+      "id": "c15494fd-1819-4906-9328-43daa1eed206_1752652677764"
+    },
+    "36407142-92e5-42f6-aba3-21453d434459_1752652679876": {
+      "userId": "36407142-92e5-42f6-aba3-21453d434459",
+      "comment": "DIRECT API: Testing direct submission",
+      "timestamp": "2025-07-16T07:57:59.876Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+      },
+      "id": "36407142-92e5-42f6-aba3-21453d434459_1752652679876"
+    },
+    "7f65fb5e-4652-4a8e-92af-acc21d67d3a8_1752653408953": {
+      "userId": "7f65fb5e-4652-4a8e-92af-acc21d67d3a8",
+      "comment": "E2E TEST COMMENT: This is a real comment typed by Playwright at 2025-07-16T08:10:07.250Z",
+      "timestamp": "2025-07-16T08:10:08.953Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36"
+      },
+      "id": "7f65fb5e-4652-4a8e-92af-acc21d67d3a8_1752653408953"
+    },
+    "8205988a-f04a-4111-a871-d495d87e4e41_1752653521690": {
+      "userId": "8205988a-f04a-4111-a871-d495d87e4e41",
+      "comment": "E2E TEST COMMENT: This is a real comment typed by Playwright at 2025-07-16T08:11:59.917Z",
+      "timestamp": "2025-07-16T08:12:01.690Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36"
+      },
+      "id": "8205988a-f04a-4111-a871-d495d87e4e41_1752653521690"
+    },
+    "dc7de3ec-84d3-4ff0-9021-a262aee82c69_1752653602644": {
+      "userId": "dc7de3ec-84d3-4ff0-9021-a262aee82c69",
+      "comment": "E2E TEST COMMENT: This is a real comment typed by Playwright at 2025-07-16T08:13:20.945Z",
+      "timestamp": "2025-07-16T08:13:22.644Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36"
+      },
+      "id": "dc7de3ec-84d3-4ff0-9021-a262aee82c69_1752653602644"
+    },
+    "92027f23-6e7f-4ef0-acda-d9b2577ff4ab_1752653695657": {
+      "userId": "92027f23-6e7f-4ef0-acda-d9b2577ff4ab",
+      "comment": "E2E TEST COMMENT: This is a real comment typed by Playwright at 2025-07-16T08:14:53.930Z",
+      "timestamp": "2025-07-16T08:14:55.657Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36"
+      },
+      "id": "92027f23-6e7f-4ef0-acda-d9b2577ff4ab_1752653695657"
+    },
+    "00f2c4ed-fae6-4337-a521-bc7cb11116eb_1752653731536": {
+      "userId": "00f2c4ed-fae6-4337-a521-bc7cb11116eb",
+      "comment": "E2E TEST COMMENT: This is a real comment typed by Playwright at 2025-07-16T08:15:29.756Z",
+      "timestamp": "2025-07-16T08:15:31.536Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36"
+      },
+      "id": "00f2c4ed-fae6-4337-a521-bc7cb11116eb_1752653731536"
+    },
+    "852b0c19-d9a5-4205-a300-d1685b28294b_1752653859322": {
+      "userId": "852b0c19-d9a5-4205-a300-d1685b28294b",
+      "comment": "E2E TEST COMMENT: This is a real comment typed by Playwright at 2025-07-16T08:17:37.608Z",
+      "timestamp": "2025-07-16T08:17:39.322Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36"
+      },
+      "id": "852b0c19-d9a5-4205-a300-d1685b28294b_1752653859322"
+    }
+  },
+  "profile-view-customization": {
+    "728c95f0-60b5-42b7-8dc4-421ddd5eba99_1752648989997": {
+      "userId": "728c95f0-60b5-42b7-8dc4-421ddd5eba99",
+      "comment": "TEST: Comment for profile-view-customization",
+      "timestamp": "2025-07-16T06:56:29.997Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser)"
+      },
+      "id": "728c95f0-60b5-42b7-8dc4-421ddd5eba99_1752648989997"
+    },
+    "0d195a3a-d98c-4773-bc91-ea457cae97b2_1752649141834": {
+      "userId": "0d195a3a-d98c-4773-bc91-ea457cae97b2",
+      "comment": "TEST: Comment for profile-view-customization",
+      "timestamp": "2025-07-16T06:59:01.834Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser)"
+      },
+      "id": "0d195a3a-d98c-4773-bc91-ea457cae97b2_1752649141834"
+    },
+    "5be6564a-62b3-4ac4-91f7-4ef45ec72530_1752649292719": {
+      "userId": "5be6564a-62b3-4ac4-91f7-4ef45ec72530",
+      "comment": "WEB TEST COMMENT: Testing profile-view-customization at 2025-07-16T07:01:32.716Z",
+      "timestamp": "2025-07-16T07:01:32.719Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser) WebKit/537.36"
+      },
+      "id": "5be6564a-62b3-4ac4-91f7-4ef45ec72530_1752649292719"
+    },
+    "29ac2f1f-d8c3-40d5-809a-a4bd8b9328a4_1752649311729": {
+      "userId": "29ac2f1f-d8c3-40d5-809a-a4bd8b9328a4",
+      "comment": "WEB TEST COMMENT: Testing profile-view-customization at 2025-07-16T07:01:51.726Z",
+      "timestamp": "2025-07-16T07:01:51.729Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser) WebKit/537.36"
+      },
+      "id": "29ac2f1f-d8c3-40d5-809a-a4bd8b9328a4_1752649311729"
+    },
+    "5e3cb8ac-b406-4ca9-b72e-2e0bbcb868c7_1752649471253": {
+      "userId": "5e3cb8ac-b406-4ca9-b72e-2e0bbcb868c7",
+      "comment": "WEB TEST COMMENT: Testing profile-view-customization at 2025-07-16T07:04:31.250Z",
+      "timestamp": "2025-07-16T07:04:31.253Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser) WebKit/537.36"
+      },
+      "id": "5e3cb8ac-b406-4ca9-b72e-2e0bbcb868c7_1752649471253"
+    }
+  },
+  "dealer-dashboard": {
+    "bf50718a-ba9f-455d-914e-be9c8b4917b3_1752648990015": {
+      "userId": "bf50718a-ba9f-455d-914e-be9c8b4917b3",
+      "comment": "TEST: Comment for dealer-dashboard",
+      "timestamp": "2025-07-16T06:56:30.015Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser)"
+      },
+      "id": "bf50718a-ba9f-455d-914e-be9c8b4917b3_1752648990015"
+    },
+    "b8e8ff36-0290-483b-84e9-53fbfeb8018a_1752649141855": {
+      "userId": "b8e8ff36-0290-483b-84e9-53fbfeb8018a",
+      "comment": "TEST: Comment for dealer-dashboard",
+      "timestamp": "2025-07-16T06:59:01.855Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser)"
+      },
+      "id": "b8e8ff36-0290-483b-84e9-53fbfeb8018a_1752649141855"
+    },
+    "9186c890-6c45-4f7e-9c30-856adf9d5165_1752649292745": {
+      "userId": "9186c890-6c45-4f7e-9c30-856adf9d5165",
+      "comment": "WEB TEST COMMENT: Testing dealer-dashboard at 2025-07-16T07:01:32.744Z",
+      "timestamp": "2025-07-16T07:01:32.745Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser) WebKit/537.36"
+      },
+      "id": "9186c890-6c45-4f7e-9c30-856adf9d5165_1752649292745"
+    },
+    "debd8b42-99fd-488d-8344-bd7ddb1ebd82_1752649311755": {
+      "userId": "debd8b42-99fd-488d-8344-bd7ddb1ebd82",
+      "comment": "WEB TEST COMMENT: Testing dealer-dashboard at 2025-07-16T07:01:51.754Z",
+      "timestamp": "2025-07-16T07:01:51.755Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser) WebKit/537.36"
+      },
+      "id": "debd8b42-99fd-488d-8344-bd7ddb1ebd82_1752649311755"
+    },
+    "752f7c59-8150-4d2c-a748-a57941dd8d6b_1752649471286": {
+      "userId": "752f7c59-8150-4d2c-a748-a57941dd8d6b",
+      "comment": "WEB TEST COMMENT: Testing dealer-dashboard at 2025-07-16T07:04:31.284Z",
+      "timestamp": "2025-07-16T07:04:31.286Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser) WebKit/537.36"
+      },
+      "id": "752f7c59-8150-4d2c-a748-a57941dd8d6b_1752649471286"
+    }
+  },
+  "broker-network-area": {
+    "3ebb90a4-cc75-4d3f-89a6-e007d9039c25_1752648990031": {
+      "userId": "3ebb90a4-cc75-4d3f-89a6-e007d9039c25",
+      "comment": "TEST: Comment for broker-network-area",
+      "timestamp": "2025-07-16T06:56:30.031Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser)"
+      },
+      "id": "3ebb90a4-cc75-4d3f-89a6-e007d9039c25_1752648990031"
+    },
+    "2476b007-a967-49b5-b1ba-5e60c3f31c67_1752649141877": {
+      "userId": "2476b007-a967-49b5-b1ba-5e60c3f31c67",
+      "comment": "TEST: Comment for broker-network-area",
+      "timestamp": "2025-07-16T06:59:01.877Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser)"
+      },
+      "id": "2476b007-a967-49b5-b1ba-5e60c3f31c67_1752649141877"
+    },
+    "be1ae812-f9c0-43cd-9d7c-f8ab71280e16_1752649292772": {
+      "userId": "be1ae812-f9c0-43cd-9d7c-f8ab71280e16",
+      "comment": "WEB TEST COMMENT: Testing broker-network-area at 2025-07-16T07:01:32.770Z",
+      "timestamp": "2025-07-16T07:01:32.772Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser) WebKit/537.36"
+      },
+      "id": "be1ae812-f9c0-43cd-9d7c-f8ab71280e16_1752649292772"
+    },
+    "dc406dc8-2490-409b-9838-26cd455633b7_1752649311784": {
+      "userId": "dc406dc8-2490-409b-9838-26cd455633b7",
+      "comment": "WEB TEST COMMENT: Testing broker-network-area at 2025-07-16T07:01:51.782Z",
+      "timestamp": "2025-07-16T07:01:51.784Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser) WebKit/537.36"
+      },
+      "id": "dc406dc8-2490-409b-9838-26cd455633b7_1752649311784"
+    },
+    "4a105001-2159-4c7b-8f76-a81e36712a9d_1752649471304": {
+      "userId": "4a105001-2159-4c7b-8f76-a81e36712a9d",
+      "comment": "WEB TEST COMMENT: Testing broker-network-area at 2025-07-16T07:04:31.302Z",
+      "timestamp": "2025-07-16T07:04:31.304Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser) WebKit/537.36"
+      },
+      "id": "4a105001-2159-4c7b-8f76-a81e36712a9d_1752649471304"
+    }
+  },
+  "animation-effects-selection": {
+    "auto-updater-1752649251441_1752649251443": {
+      "userId": "auto-updater-1752649251441",
+      "comment": "REQUIREMENT: Selection interface must be intuitive and clear. REQUIREMENT: Support multiple selection modes if applicable. REQUIREMENT: Provide visual feedback for selections.",
+      "timestamp": "2025-07-16T07:00:51.443Z",
+      "metadata": {},
+      "id": "auto-updater-1752649251441_1752649251443"
+    }
+  },
+  "broker-layout-selection": {
+    "auto-updater-1752649251457_1752649251458": {
+      "userId": "auto-updater-1752649251457",
+      "comment": "REQUIREMENT: Selection interface must be intuitive and clear. REQUIREMENT: Support multiple selection modes if applicable. REQUIREMENT: Provide visual feedback for selections.",
+      "timestamp": "2025-07-16T07:00:51.458Z",
+      "metadata": {},
+      "id": "auto-updater-1752649251457_1752649251458"
+    }
+  },
+  "recommendations-layout-selection": {
+    "auto-updater-1752649251487_1752649251488": {
+      "userId": "auto-updater-1752649251487",
+      "comment": "REQUIREMENT: Selection interface must be intuitive and clear. REQUIREMENT: Support multiple selection modes if applicable. REQUIREMENT: Provide visual feedback for selections.",
+      "timestamp": "2025-07-16T07:00:51.488Z",
+      "metadata": {},
+      "id": "auto-updater-1752649251487_1752649251488"
+    }
+  },
+  "screen-selection-hub": {
+    "auto-updater-1752649251501_1752649251503": {
+      "userId": "auto-updater-1752649251501",
+      "comment": "REQUIREMENT: Selection interface must be intuitive and clear. REQUIREMENT: Support multiple selection modes if applicable. REQUIREMENT: Provide visual feedback for selections.",
+      "timestamp": "2025-07-16T07:00:51.503Z",
+      "metadata": {},
+      "id": "auto-updater-1752649251501_1752649251503"
+    }
+  },
+  "style-selection": {
+    "auto-updater-1752649251515_1752649251516": {
+      "userId": "auto-updater-1752649251515",
+      "comment": "REQUIREMENT: Selection interface must be intuitive and clear. REQUIREMENT: Support multiple selection modes if applicable. REQUIREMENT: Provide visual feedback for selections.",
+      "timestamp": "2025-07-16T07:00:51.516Z",
+      "metadata": {},
+      "id": "auto-updater-1752649251515_1752649251516"
+    }
+  },
+  "enhanced-settings-screen": {
+    "242658c2-2676-456d-8dd4-95e5ba04e476_1752649292793": {
+      "userId": "242658c2-2676-456d-8dd4-95e5ba04e476",
+      "comment": "WEB TEST COMMENT: Testing enhanced-settings-screen at 2025-07-16T07:01:32.791Z",
+      "timestamp": "2025-07-16T07:01:32.793Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser) WebKit/537.36"
+      },
+      "id": "242658c2-2676-456d-8dd4-95e5ba04e476_1752649292793"
+    },
+    "23691e1e-18e2-41c1-8fd9-1ec431f360d8_1752649311810": {
+      "userId": "23691e1e-18e2-41c1-8fd9-1ec431f360d8",
+      "comment": "WEB TEST COMMENT: Testing enhanced-settings-screen at 2025-07-16T07:01:51.808Z",
+      "timestamp": "2025-07-16T07:01:51.810Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser) WebKit/537.36"
+      },
+      "id": "23691e1e-18e2-41c1-8fd9-1ec431f360d8_1752649311810"
+    },
+    "b31646be-fcff-4042-b5c6-ec211e0bd67b_1752649471320": {
+      "userId": "b31646be-fcff-4042-b5c6-ec211e0bd67b",
+      "comment": "WEB TEST COMMENT: Testing enhanced-settings-screen at 2025-07-16T07:04:31.318Z",
+      "timestamp": "2025-07-16T07:04:31.320Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser) WebKit/537.36"
+      },
+      "id": "b31646be-fcff-4042-b5c6-ec211e0bd67b_1752649471320"
+    }
+  },
+  "error-boundary-screen": {
+    "88e5c7a9-85fa-48ed-b67a-241b3ee63801_1752649292808": {
+      "userId": "88e5c7a9-85fa-48ed-b67a-241b3ee63801",
+      "comment": "WEB TEST COMMENT: Testing error-boundary-screen at 2025-07-16T07:01:32.806Z",
+      "timestamp": "2025-07-16T07:01:32.808Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser) WebKit/537.36"
+      },
+      "id": "88e5c7a9-85fa-48ed-b67a-241b3ee63801_1752649292808"
+    },
+    "c983cc6d-1523-4867-bf75-65a53bd6dcab_1752649311824": {
+      "userId": "c983cc6d-1523-4867-bf75-65a53bd6dcab",
+      "comment": "WEB TEST COMMENT: Testing error-boundary-screen at 2025-07-16T07:01:51.822Z",
+      "timestamp": "2025-07-16T07:01:51.824Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser) WebKit/537.36"
+      },
+      "id": "c983cc6d-1523-4867-bf75-65a53bd6dcab_1752649311824"
+    },
+    "3caab06d-a2bc-4d11-b196-9506b1e5a666_1752649471343": {
+      "userId": "3caab06d-a2bc-4d11-b196-9506b1e5a666",
+      "comment": "WEB TEST COMMENT: Testing error-boundary-screen at 2025-07-16T07:04:31.341Z",
+      "timestamp": "2025-07-16T07:04:31.343Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser) WebKit/537.36"
+      },
+      "id": "3caab06d-a2bc-4d11-b196-9506b1e5a666_1752649471343"
+    }
+  },
+  "profile_detail_view": {
+    "c6b1e04c-04b0-4365-be32-19d4f11319a6_1752649396516": {
+      "userId": "c6b1e04c-04b0-4365-be32-19d4f11319a6",
+      "comment": "KEY TEST: profile_detail_view at 2025-07-16T07:03:16.513Z",
+      "timestamp": "2025-07-16T07:03:16.516Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Key Test Browser) WebKit/537.36"
+      },
+      "id": "c6b1e04c-04b0-4365-be32-19d4f11319a6_1752649396516"
+    },
+    "00087733-25ee-4fc9-a467-87f23e02bf50_1752649416352": {
+      "userId": "00087733-25ee-4fc9-a467-87f23e02bf50",
+      "comment": "KEY TEST: profile_detail_view at 2025-07-16T07:03:36.349Z",
+      "timestamp": "2025-07-16T07:03:36.352Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Key Test Browser) WebKit/537.36"
+      },
+      "id": "00087733-25ee-4fc9-a467-87f23e02bf50_1752649416352"
+    },
+    "42dcd4e0-f0aa-4a80-94ae-e1e2cdae1aff_1752653793177": {
+      "userId": "42dcd4e0-f0aa-4a80-94ae-e1e2cdae1aff",
+      "comment": "E2E TEST COMMENT: Manual test with underscore key",
+      "timestamp": "2025-07-16T08:16:33.177Z",
+      "metadata": {
+        "userAgent": "curl/8.5.0"
+      },
+      "id": "42dcd4e0-f0aa-4a80-94ae-e1e2cdae1aff_1752653793177"
+    }
+  },
+  "profile-detail-view.html": {
+    "78fc9f32-6e8b-430b-b354-a113d1310aee_1752649396545": {
+      "userId": "78fc9f32-6e8b-430b-b354-a113d1310aee",
+      "comment": "KEY TEST: profile-detail-view.html at 2025-07-16T07:03:16.543Z",
+      "timestamp": "2025-07-16T07:03:16.545Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Key Test Browser) WebKit/537.36"
+      },
+      "id": "78fc9f32-6e8b-430b-b354-a113d1310aee_1752649396545"
+    },
+    "381240be-d049-457b-9405-b1d408c85c0d_1752649416379": {
+      "userId": "381240be-d049-457b-9405-b1d408c85c0d",
+      "comment": "KEY TEST: profile-detail-view.html at 2025-07-16T07:03:36.378Z",
+      "timestamp": "2025-07-16T07:03:36.379Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Key Test Browser) WebKit/537.36"
+      },
+      "id": "381240be-d049-457b-9405-b1d408c85c0d_1752649416379"
+    }
+  },
+  "mate-dealer-app-gui-design-studio": {
+    "8124d56f-3af1-44cb-8d92-b8ad14ef05b7_1752651368344": {
+      "userId": "8124d56f-3af1-44cb-8d92-b8ad14ef05b7",
+      "comment": "GUI STUDIO TEST: Testing GUI Design Studio comment integration",
+      "timestamp": "2025-07-16T07:36:08.344Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Test Browser)"
+      },
+      "id": "8124d56f-3af1-44cb-8d92-b8ad14ef05b7_1752651368344"
+    },
+    "3df06dc0-cbe0-4fb6-95e1-c851f73c5627_1752651406339": {
+      "userId": "3df06dc0-cbe0-4fb6-95e1-c851f73c5627",
+      "comment": "SCREEN REQUEST: Please add the following new screens:\n    \n1. Notification Center - A centralized place for all notifications\n2. Analytics Dashboard - Show detailed analytics for dealers\n3. Video Call Integration - Add video calling to profile screens\n4. Help & Tutorial Screen - Interactive tutorials for new users\n\nAlso, please remove the old debug monitoring screen as it's redundant with the new log viewer.\n\nGeneral feedback: The design workflow is excellent but could use more animation previews.",
+      "timestamp": "2025-07-16T07:36:46.339Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+      },
+      "id": "3df06dc0-cbe0-4fb6-95e1-c851f73c5627_1752651406339"
+    },
+    "4bc12393-aeee-4f6b-a69f-446aab668a0d_1752655606757": {
+      "userId": "4bc12393-aeee-4f6b-a69f-446aab668a0d",
+      "comment": "This is a test comment from Playwright automation test",
+      "timestamp": "2025-07-16T08:46:46.757Z",
+      "metadata": {
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36"
+      },
+      "id": "4bc12393-aeee-4f6b-a69f-446aab668a0d_1752655606757"
+    },
+    "6ade346b-bfd0-4baf-a8e2-8d08be442141_1752655660594": {
+      "userId": "6ade346b-bfd0-4baf-a8e2-8d08be442141",
+      "comment": "TEST: Direct API test comment",
+      "timestamp": "2025-07-16T08:47:40.594Z",
+      "metadata": {
+        "userAgent": "curl/8.5.0"
+      },
+      "id": "6ade346b-bfd0-4baf-a8e2-8d08be442141_1752655660594"
+    }
+  },
+  "test-page": {
+    "6baa7a3a-e92e-4a67-8892-744b3ba9b83e_1752653712021": {
+      "userId": "6baa7a3a-e92e-4a67-8892-744b3ba9b83e",
+      "comment": "Test comment for debugging",
+      "timestamp": "2025-07-16T08:15:12.021Z",
+      "metadata": {
+        "userAgent": "curl/8.5.0"
+      },
+      "id": "6baa7a3a-e92e-4a67-8892-744b3ba9b83e_1752653712021"
+    }
+  }
+}

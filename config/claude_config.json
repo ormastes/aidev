@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "filesystem_mcp": {
+      "command": "node",
+      "args": ["layer/themes/filesystem_mcp/mcp-server.js"],
+      "env": {
+        "NODE_ENV": "development",
+        "VF_BASE_PATH": "."
+      }
+    }
+  },
+  "globalShortcuts": {
+    "vf_read": "filesystem_mcp",
+    "vf_write": "filesystem_mcp",
+    "vf_list_features": "filesystem_mcp",
+    "vf_get_tasks": "filesystem_mcp",
+    "vf_pop_task": "filesystem_mcp",
+    "vf_complete_task": "filesystem_mcp",
+    "vf_push_task": "filesystem_mcp",
+    "vf_get_name_id": "filesystem_mcp",
+    "vf_set_name_id": "filesystem_mcp"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "lib": ["ES2022"],
+    "outDir": "./dist",
+    "rootDir": "./",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "types": ["node", "jest"]
+  },
+  "include": [
+    "../../**/*.ts",
+    "../../**/*.tsx"
+  ],
+  "exclude": [
+    "../../node_modules",
+    "../../dist",
+    "../../release",
+    "../../demo",
+    "../../**/build/**",
+    "../../**/build_examples/**",
+    "../../scripts/setup/demo/**",
+    "../../layer/themes/**/build/**",
+    "../../layer/themes/**/dist/**",
+    "../../layer/themes/**/node_modules/**",
+    "../../**/CMakeFiles/**",
+    "../../**/*.d.ts",
+    "../../temp/**"
+  ]
+}

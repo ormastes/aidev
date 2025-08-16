@@ -1,0 +1,13 @@
+
+@¯ÿOPË˜wËmÍB’(š¡rd¯ õoNú6ek·j8E£Úš³xÊOG#xÿ‘¾‚‡©ôF‡g ¢bœ=(Á@zÍ#†LÔ%
+»ÿÔXï%Iˆp\£Jºô›C®4Â§¨ i¬·±&Îw}•ş«îÈdK£/ı]ñ=KÄ!ÛvF„
+ñÂÔÅŠ3óÂÔÅŠ38describe commit ffd23caff880a3e8411648de9f0f10343a790c42"dl*ormastes2§
+argsjj describe -m 'Remove 7000+ duplicate files across documentation and scripts
+
+- Removed duplicate documentation files (README.md duplicates, error-context files)
+- Removed duplicate script files (coverage assets, jest configs)
+- Removed VSCode test duplicates (~2000 files)
+- Saved 140MB of disk space
+- Created backups in .duplicate-backups/2025-08-14/
+- Restored critical root files (README.md, CLAUDE.md, etc)'",
+ns”‹u¤#y”pöt^‘B?ÅÿÒ<¯ø€£èAHŞŸ4:yB(

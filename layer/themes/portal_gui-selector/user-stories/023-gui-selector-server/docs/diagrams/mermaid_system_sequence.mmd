@@ -1,0 +1,82 @@
+sequenceDiagram
+    participant User
+    participant Browser
+    participant GUIServer as GUI Selector Server
+    participant Session as Session Store
+    participant Database
+    participant FileSystem as Template Files
+
+    Note over User,FileSystem: GUI Template Selection Workflow
+
+    User->>Browser: Navigate to GUI Selector
+    Browser->>GUIServer: GET /
+    GUIServer->>Session: Check session
+    Session-->>GUIServer: Session data
+    GUIServer->>FileSystem: Load index.html
+    FileSystem-->>GUIServer: HTML content
+    GUIServer-->>Browser: Render selection page
+    Browser-->>User: Display template options
+
+    User->>Browser: Click on template (e.g., Modern)
+    Browser->>GUIServer: GET /api/templates/modern/preview
+    GUIServer->>FileSystem: Load template preview
+    FileSystem-->>GUIServer: Template HTML/CSS
+    GUIServer-->>Browser: Preview data
+    Browser-->>User: Show live preview
+
+    User->>Browser: Add comment/requirement
+    Browser->>GUIServer: POST /api/requirements
+    GUIServer->>Database: Save requirement
+    Database-->>GUIServer: Success
+    GUIServer-->>Browser: Confirmation
+    Browser-->>User: Show saved indicator
+
+    User->>Browser: Select template
+    Browser->>GUIServer: POST /api/selections
+    GUIServer->>Session: Update user selection
+    Session-->>GUIServer: Session updated
+    GUIServer->>Database: Save selection
+    Database-->>GUIServer: Selection ID
+    GUIServer-->>Browser: Selection confirmed
+    Browser-->>User: Show success message
+
+    Note over User,FileSystem: Multi-User Session Management
+
+    User->>Browser: Login
+    Browser->>GUIServer: POST /api/auth/login
+    GUIServer->>Database: Verify credentials
+    Database-->>GUIServer: User data
+    GUIServer->>Session: Create session
+    Session-->>GUIServer: Session ID
+    GUIServer-->>Browser: Set cookie + redirect
+    Browser-->>User: Dashboard view
+
+    Note over User,FileSystem: Real-time Preview Updates
+
+    User->>Browser: Toggle between templates
+    Browser->>GUIServer: WebSocket: preview-update
+    GUIServer->>FileSystem: Load new template
+    FileSystem-->>GUIServer: Template data
+    GUIServer-->>Browser: WebSocket: template-data
+    Browser-->>User: Instant preview update
+
+    Note over User,FileSystem: Design Persistence
+
+    User->>Browser: Return visit
+    Browser->>GUIServer: GET / (with session cookie)
+    GUIServer->>Session: Validate session
+    Session-->>GUIServer: User ID
+    GUIServer->>Database: Get user selections
+    Database-->>GUIServer: Previous selections
+    GUIServer-->>Browser: Page with selections
+    Browser-->>User: Show saved designs
+
+    Note over User,FileSystem: Requirements Export
+
+    User->>Browser: Export requirements
+    Browser->>GUIServer: GET /api/requirements/export
+    GUIServer->>Database: Fetch all requirements
+    Database-->>GUIServer: Requirements data
+    GUIServer->>GUIServer: Format as Markdown
+    GUIServer-->>Browser: Download file
+    Browser-->>User: Save requirements.md

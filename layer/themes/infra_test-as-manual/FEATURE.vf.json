@@ -1,0 +1,82 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/themes/test-as-manual/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.602Z",
+    "updated_at": "2025-08-02T11:10:54.602Z"
+  },
+  "features": {
+    "test_as_manual": [
+      {
+        "id": "test-as-manual-epic-001",
+        "name": "Test As Manual",
+        "data": {
+          "title": "Test As Manual Theme",
+          "description": "Core functionality for Test As Manual",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "test-as-manual",
+            "theme"
+          ],
+          "virtual_path": "/layer/themes/test-as-manual/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.602Z",
+        "updatedAt": "2025-08-02T11:10:54.602Z"
+      },
+      {
+        "id": "test-as-manual-enhance-001",
+        "name": "Enhanced Manual Generation System",
+        "data": {
+          "title": "Professional Test Manual Generator",
+          "description": "Enhanced test-as-manual system with professional formatting, multi-format output, and comprehensive theme coverage",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "critical",
+          "tags": [
+            "test-as-manual",
+            "documentation",
+            "automation",
+            "enhancement"
+          ],
+          "virtual_path": "/layer/themes/test-as-manual/enhanced/FEATURE.vf.json",
+          "components": [
+            "ManualGenerator - Core generation engine",
+            "TemplateEngine - Customizable templates",
+            "FormatProcessors - HTML/PDF/MD/JSON",
+            "ThemeScanner - Automatic theme discovery",
+            "BatchProcessor - Parallel generation",
+            "ScreenshotSystem - Image integration",
+            "NavigationBuilder - TOC and search"
+          ],
+          "deliverables": [
+            "Professional manual templates",
+            "Multi-format output support",
+            "Batch generation for all themes",
+            "Screenshot integration",
+            "Interactive navigation",
+            "CI/CD integration",
+            "Validation system"
+          ],
+          "success_criteria": [
+            "100% theme coverage",
+            "4+ output formats",
+            "< 5 min batch generation",
+            "Professional formatting score > 90/100",
+            "Zero generation failures",
+            "Mobile responsive output"
+          ]
+        },
+        "createdAt": "2025-08-12T15:00:00.000Z",
+        "updatedAt": "2025-08-13T01:35:00.000Z",
+        "completedAt": "2025-08-13T01:35:00.000Z"
+      }
+    ]
+  },
+  "children": [
+    "/layer/themes/test-as-manual/user-stories/001-mftod-converter/FEATURE.vf.json",
+    "/layer/themes/test-as-manual/user-stories/002-enhanced-manual-generator/FEATURE.vf.json"
+  ]
+}

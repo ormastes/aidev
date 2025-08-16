@@ -1,0 +1,24 @@
+{
+  "name": "theme-three",
+  "type": "theme",
+  "port": {
+    "base": 3202,
+    "range": [
+      3203,
+      3299
+    ]
+  },
+  "database": {
+    "type": "sqlite",
+    "connection": "./data/theme-three.db"
+  },
+  "paths": {
+    "root": "environments/theme-three",
+    "data": "environments/theme-three/data",
+    "logs": "environments/theme-three/logs",
+    "temp": "environments/theme-three/temp"
+  },
+  "services": [],
+  "created": "2025-08-11T02:04:30.026Z",
+  "updated": "2025-08-11T02:04:30.026Z"
+}

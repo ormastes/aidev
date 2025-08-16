@@ -1,0 +1,44 @@
+{{document.title}}
+================================================================================
+
+Version: {{document.version}}
+Generated: {{formatDate document.generatedAt}}
+
+{{#each document.sections}}
+{{title}}
+--------------------------------------------------------------------------------
+{{content}}
+
+{{#if testCases}}
+Test Cases:
+{{#each testCases}}
+
+[{{priority}}] {{name}}
+{{#if description}}
+  Description: {{description}}
+{{/if}}
+{{#if preconditions}}
+  Prerequisites:
+  {{#each preconditions}}
+    - {{this}}
+  {{/each}}
+{{/if}}
+  Steps:
+  {{#each steps}}
+    {{order}}. {{action}}
+       Expected: {{expected}}
+  {{/each}}
+{{#if postconditions}}
+  Cleanup:
+  {{#each postconditions}}
+    - {{this}}
+  {{/each}}
+{{/if}}
+
+{{/each}}
+{{/if}}
+
+{{/each}}
+
+================================================================================
+End of Document

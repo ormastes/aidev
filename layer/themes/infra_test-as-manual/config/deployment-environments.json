@@ -1,0 +1,90 @@
+{
+  "environments": [
+    {
+      "name": "local-dev",
+      "type": "local",
+      "domain": "localhost",
+      "protocol": "http",
+      "healthCheckEndpoint": "/health",
+      "timeout": 5000
+    },
+    {
+      "name": "local-release",
+      "type": "local",
+      "domain": "localhost",
+      "protocol": "http",
+      "healthCheckEndpoint": "/api/health",
+      "timeout": 5000
+    },
+    {
+      "name": "docker-local",
+      "type": "local",
+      "domain": "host.docker.internal",
+      "protocol": "http",
+      "healthCheckEndpoint": "/health",
+      "timeout": 10000
+    },
+    {
+      "name": "staging",
+      "type": "demo",
+      "domain": "staging.aidev.platform",
+      "protocol": "https",
+      "healthCheckEndpoint": "/api/health",
+      "authConfig": {
+        "type": "basic",
+        "credentials": {
+          "username": "staging",
+          "password": "${STAGING_PASSWORD}"
+        }
+      },
+      "customHeaders": {
+        "X-Environment": "staging"
+      },
+      "timeout": 10000
+    },
+    {
+      "name": "production",
+      "type": "production",
+      "domain": "app.aidev.platform",
+      "protocol": "https",
+      "healthCheckEndpoint": "/api/health",
+      "authConfig": {
+        "type": "bearer",
+        "credentials": {
+          "token": "${PROD_API_TOKEN}"
+        }
+      },
+      "customHeaders": {
+        "X-Environment": "production"
+      },
+      "timeout": 15000
+    },
+    {
+      "name": "canary",
+      "type": "production",
+      "domain": "canary.aidev.platform",
+      "protocol": "https",
+      "healthCheckEndpoint": "/api/health",
+      "authConfig": {
+        "type": "bearer",
+        "credentials": {
+          "token": "${CANARY_API_TOKEN}"
+        }
+      },
+      "customHeaders": {
+        "X-Environment": "canary",
+        "X-Canary-Version": "latest"
+      },
+      "timeout": 10000
+    }
+  ],
+  "globalSettings": {
+    "defaultTimeout": 30000,
+    "retryAttempts": 3,
+    "parallelTests": false,
+    "recordVideo": true,
+    "tracingEnabled": true,
+    "screenshotOnFailure": true
+  },
+  "timestamp": "2025-01-01T10:00:00Z"
+}

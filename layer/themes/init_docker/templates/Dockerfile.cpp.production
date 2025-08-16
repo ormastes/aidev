@@ -1,0 +1,117 @@
+# Multi-stage C++ Production Dockerfile
+ARG COMPILER=clang
+ARG COMPILER_VERSION=15
+ARG CMAKE_BUILD_TYPE=Release
+ARG CXX_STANDARD=17
+
+# Build stage
+FROM ubuntu:22.04 AS builder
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y \
+    cmake \
+    ninja-build \
+    git \
+    wget \
+    python3 \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install compiler based on ARG
+ARG COMPILER
+ARG COMPILER_VERSION
+RUN if [ "$COMPILER" = "clang" ]; then \
+        apt-get update && apt-get install -y \
+            clang-${COMPILER_VERSION} \
+            lld-${COMPILER_VERSION} \
+        && rm -rf /var/lib/apt/lists/* \
+        && update-alternatives --install /usr/bin/cc cc /usr/bin/clang-${COMPILER_VERSION} 100 \
+        && update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-${COMPILER_VERSION} 100; \
+    else \
+        apt-get update && apt-get install -y \
+            g++-${COMPILER_VERSION} \
+        && rm -rf /var/lib/apt/lists/* \
+        && update-alternatives --install /usr/bin/cc cc /usr/bin/gcc-${COMPILER_VERSION} 100 \
+        && update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++-${COMPILER_VERSION} 100; \
+    fi
+
+# Install Conan if conanfile exists
+WORKDIR /build
+COPY conanfile.txt* ./
+RUN if [ -f conanfile.txt ]; then \
+        pip3 install conan && \
+        conan install . --build=missing; \
+    fi
+
+# Copy CMake files first for better caching
+COPY CMakeLists.txt ./
+COPY cmake/ ./cmake/
+
+# Install dependencies with vcpkg if manifest exists
+COPY vcpkg.json* ./
+RUN if [ -f vcpkg.json ]; then \
+        git clone https://github.com/Microsoft/vcpkg.git /opt/vcpkg && \
+        /opt/vcpkg/bootstrap-vcpkg.sh && \
+        /opt/vcpkg/vcpkg install; \
+    fi
+
+# Copy source code
+COPY include/ ./include/
+COPY src/ ./src/
+
+# Build application
+ARG CMAKE_BUILD_TYPE
+ARG CXX_STANDARD
+RUN cmake -B build \
+    -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
+    -DCMAKE_CXX_STANDARD=${CXX_STANDARD} \
+    -DBUILD_SHARED_LIBS=OFF \
+    -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+    -G Ninja && \
+    cmake --build build --target all
+
+# Strip debug symbols for smaller binary
+RUN strip build/bin/* || true
+
+# Runtime stage - minimal image
+FROM ubuntu:22.04-slim AS runtime
+
+# Install only runtime dependencies
+RUN apt-get update && apt-get install -y \
+    libstdc++6 \
+    libssl3 \
+    libcurl4 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create non-root user
+RUN useradd -m -u 1000 -s /bin/bash appuser
+
+WORKDIR /app
+
+# Copy binary from builder
+COPY --from=builder --chown=appuser:appuser /build/build/bin/* ./
+
+# Copy any required runtime resources
+COPY --chown=appuser:appuser config* ./config/
+COPY --chown=appuser:appuser data* ./data/
+
+# Switch to non-root user
+USER appuser
+
+# Expose application port
+EXPOSE 8080
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD ["/app/app", "--health-check"] || exit 1
+
+# Run application
+ENTRYPOINT ["./app"]
+
+# Alternative: Use scratch image for statically linked binary
+FROM scratch AS minimal
+COPY --from=builder /build/build/bin/app /app
+EXPOSE 8080
+ENTRYPOINT ["/app"]

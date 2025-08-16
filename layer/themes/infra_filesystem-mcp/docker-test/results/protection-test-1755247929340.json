@@ -1,0 +1,46 @@
+{
+  "timestamp": "2025-08-15T08:52:09.328Z",
+  "tests": [
+    {
+      "file": "CLAUDE.md",
+      "status": "unprotected",
+      "violation": "Direct modification allowed"
+    },
+    {
+      "file": "README.md",
+      "status": "unprotected",
+      "violation": "Direct modification allowed"
+    },
+    {
+      "file": "TASK_QUEUE.vf.json JSON",
+      "status": "unprotected",
+      "violation": "JSON structure modification allowed"
+    },
+    {
+      "file": "FEATURE.vf.json JSON",
+      "status": "unprotected",
+      "violation": "JSON structure modification allowed"
+    },
+    {
+      "file": "NAME_ID.vf.json JSON",
+      "status": "unprotected",
+      "violation": "JSON structure modification allowed"
+    },
+    {
+      "file": "FILE_STRUCTURE.vf.json JSON",
+      "status": "unprotected",
+      "violation": "JSON structure modification allowed"
+    },
+    {
+      "file": "root file creation",
+      "status": "unprotected",
+      "violation": "Root file creation allowed"
+    }
+  ],
+  "summary": {
+    "total": 7,
+    "protected": 0,
+    "unprotected": 7,
+    "protection_rate": 0
+  }
+}

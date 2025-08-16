@@ -1,0 +1,37 @@
+{
+  "name": "cucumber-testing",
+  "description": "Cucumber BDD testing configuration for all languages",
+  "configurations": {
+    "typescript": {
+      "packages": {
+        "@cucumber/cucumber": "^9.0.0",
+        "@types/cucumber": "^7.0.0",
+        "ts-node": "^10.0.0"
+      },
+      "files": {
+        "cucumber.js": "module.exports = {\n  default: {\n    require: ['features/step_definitions/**/*.ts'],\n    requireModule: ['ts-node/register'],\n    format: ['progress', 'html:reports/cucumber.html'],\n    publishQuiet: true\n  }\n};",
+        "features/step_definitions/steps.ts": "import { Given, When, Then } from '@cucumber/cucumber';\nimport { expect } from 'chai';\n\nGiven('the application is running', function () {\n  // Setup code\n});\n\nWhen('I perform an action', function () {\n  // Action code\n});\n\nThen('I should see {string}', function (expected: string) {\n  // Assertion code\n  expect(actual).to.equal(expected);\n});"
+      }
+    },
+    "python": {
+      "packages": {
+        "behave": ">=1.2.6",
+        "pytest-bdd": ">=6.0.0"
+      },
+      "files": {
+        "behave.ini": "[behave]\nstdout_capture = false\nstderr_capture = false\nlog_capture = false\nformat = plain\nshow_source = true\nshow_timings = true",
+        "features/steps/steps.py": "from behave import given, when, then\n\n@given('the application is running')\ndef step_app_running(context):\n    # Setup code\n    pass\n\n@when('I perform an action')\ndef step_perform_action(context):\n    # Action code\n    pass\n\n@then('I should see \"{expected}\"')\ndef step_should_see(context, expected):\n    # Assertion code\n    assert context.result == expected"
+      }
+    },
+    "cpp": {
+      "packages": {
+        "catch2": ">=3.0.0",
+        "cucumber-cpp": "latest"
+      },
+      "files": {
+        "tests/cucumber_steps.cpp": "#include <cucumber-cpp/autodetect.hpp>\n#include <catch2/catch.hpp>\n\nusing cucumber::ScenarioScope;\n\nstruct Context {\n    std::string result;\n};\n\nGIVEN(\"^the application is running$\") {\n    ScenarioScope<Context> context;\n    // Setup code\n}\n\nWHEN(\"^I perform an action$\") {\n    ScenarioScope<Context> context;\n    // Action code\n}\n\nTHEN(\"^I should see \\\"([^\\\"]*)\\\"$\", (std::string expected)) {\n    ScenarioScope<Context> context;\n    REQUIRE(context->result == expected);\n}",
+        "tests/CMakeLists.txt": "find_package(Catch2 3 REQUIRED)\nfind_package(CucumberCpp REQUIRED)\n\nadd_executable(cucumber_tests cucumber_steps.cpp)\ntarget_link_libraries(cucumber_tests\n    Catch2::Catch2WithMain\n    CucumberCpp::CucumberCpp\n)\n\nenable_testing()\nadd_test(NAME cucumber_tests COMMAND cucumber_tests)"
+      }
+    }
+  }
+}

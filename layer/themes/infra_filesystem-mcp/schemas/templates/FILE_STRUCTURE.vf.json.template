@@ -1,0 +1,48 @@
+{
+  "metadata": {
+    "level": "{{LEVEL}}",
+    "version": "2.1.0",
+    "description": "File structure definition for {{NAME}}",
+    "supports_distributed_features": true,
+    "supports_freeze": true,
+    "freeze_validation": "When freeze is true on a directory, filesystem-mcp will reject file creation and show the allowed structure"
+  },
+  "templates": {
+    "{{TEMPLATE_NAME}}": {
+      "id": "{{TEMPLATE_ID}}",
+      "type": "directory",
+      "feature_level": "{{FEATURE_LEVEL}}",
+      "has_feature_file": true,
+      "freeze": true,
+      "freeze_message": "{{FREEZE_MESSAGE}}",
+      "description": "{{DESCRIPTION}}",
+      "comment": "{{COMMENT}}",
+      "required_children": [
+        {{REQUIRED_CHILDREN}}
+      ],
+      "optional_children": [
+        {{OPTIONAL_CHILDREN}}
+      ]
+    }
+  },
+  "structure": {
+    "name": "{{ROOT_NAME}}",
+    "type": "directory",
+    "template": "{{ROOT_TEMPLATE}}",
+    "comment": "{{ROOT_COMMENT}}",
+    "children": [
+      {{STRUCTURE_CHILDREN}}
+    ]
+  },
+  "validation_rules": {
+    "freeze_validation": {
+      "description": "Directories marked with freeze=true prevent file creation",
+      "enforcement": "filesystem-mcp VFFileStructureWrapper validates freeze status",
+      "error_response": "Shows freeze_message and displays allowed file structure",
+      "frozen_directories": [
+        {{FROZEN_DIRECTORIES}}
+      ],
+      "comment": "Use freeze to enforce structural discipline and prevent accidental file creation"
+    }
+  }
+}

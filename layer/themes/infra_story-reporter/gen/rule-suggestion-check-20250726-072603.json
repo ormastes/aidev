@@ -1,0 +1,260 @@
+{
+  "metadata": {
+    "type": "rule-suggestion-analysis",
+    "mode": "theme",
+    "targetPath": "/home/ormastes/dev/aidev/layer/themes/story-reporter",
+    "timestamp": "2025-07-26T07:26:03Z",
+    "pass": false,
+    "summary": {
+      "totalChecks": 6,
+      "passed": 3,
+      "failed": 3,
+      "highSeverityFailed": 1
+    }
+  },
+  "checks": [
+    {
+      "type": "retrospective-format",
+      "passed": false,
+      "message": "1 retrospective(s) missing required sections",
+      "severity": "high",
+      "details": [
+        {
+          "file": "/home/ormastes/dev/aidev/layer/themes/story-reporter/user-stories/007-story-reporter/docs/implementation-retrospective.md",
+          "missing": [
+            "Product Owner Perspective",
+            "Developer Perspective",
+            "QA Engineer Perspective",
+            "System Architect Perspective",
+            "DevOps Perspective",
+            "Key Takeaways",
+            "Rule Suggestions",
+            "Know-How Updates"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "story-report-steps",
+      "passed": true,
+      "message": "All story reports have required fields",
+      "severity": "high",
+      "details": []
+    },
+    {
+      "type": "rule-extraction",
+      "passed": false,
+      "message": "No rule suggestions found in retrospectives",
+      "severity": "medium",
+      "details": []
+    },
+    {
+      "type": "knowledge-updates",
+      "passed": false,
+      "message": "No know-how updates found",
+      "severity": "medium",
+      "details": []
+    },
+    {
+      "type": "lessons-learned",
+      "passed": true,
+      "message": "Found 74 lessons learned",
+      "severity": "medium",
+      "details": [
+        {
+          "file": "/home/ormastes/dev/aidev/layer/themes/story-reporter/user-stories/007-story-reporter/docs/implementation-retrospective.md",
+          "lessons": [
+            "Excellent for progress tracking",
+            "Enables flexible integration",
+            "Requires careful event timing",
+            "Subprocess management is complex",
+            "Timeout handling is critical",
+            "Error propagation needs careful design",
+            "Template-based approach scales well",
+            "Format-specific optimizations needed",
+            "Consistent data structures essential",
+            "External tests provided excellent interface specification",
+            "System tests revealed integration issues",
+            "Environment tests validated real-world usage",
+            "Building layer by layer worked well",
+            "Early testing prevented major issues",
+            "Continuous validation valuable",
+            "Add missing domain layer tests",
+            "Fix failing external tests",
+            "In Progress system test implementation",
+            "Standardize error message format",
+            "Improve error propagation",
+            "Add comprehensive error recovery",
+            "Large report generation",
+            "High-frequency event emission",
+            "Memory management",
+            "Create shared utilities",
+            "Extract common patterns",
+            "Standardize implementations",
+            "Ensure Node.js version compatibility",
+            "Set up proper testing environment",
+            "Validate external dependencies",
+            "Add comprehensive integration tests",
+            "Test component interactions",
+            "Validate end-to-end workflows",
+            "Core Mock Free Test Oriented Development workflow In Progress",
+            "Multiple report formats supported",
+            "External integration architecture ready",
+            "High test coverage (93.4% pass rate)",
+            "Clean, modular architecture",
+            "Comprehensive documentation",
+            "Clear separation of concerns",
+            "Consistent coding patterns",
+            "Good error handling foundation",
+            "Some failing tests need resolution",
+            "Event timing issues",
+            "Error handling edge cases",
+            "Need Improving test coverage",
+            "Require comprehensive error handling",
+            "Performance validation needed",
+            "Working on Mock Free Test Oriented Development Test Runner event issues",
+            "Fix Test Suite Manager error handling",
+            "In Progress system test implementation",
+            "Domain layer validation tests",
+            "Integration tests",
+            "Unit tests for complex functions",
+            "Create shared utilities",
+            "Extract common patterns",
+            "Standardize error handling",
+            "Optimize large report generation",
+            "Improve memory usage",
+            "Add performance monitoring",
+            "Additional report formats",
+            "Advanced filtering options",
+            "Custom template support",
+            "Comprehensive error recovery",
+            "Monitoring and alerting",
+            "Security considerations",
+            "🔄 93.4% test pass rate across 91 tests",
+            "🔄 In Progress multi-format reporting",
+            "🔄 Event-driven architecture",
+            "🔄 External integration capability",
+            "Fix remaining failing tests",
+            "In Progress test coverage to Improving",
+            "Reduce code duplication",
+            "Optimize performance"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "process-improvements",
+      "passed": true,
+      "message": "Found 1 process improvement suggestions",
+      "severity": "low",
+      "details": [
+        {
+          "file": "/home/ormastes/dev/aidev/layer/themes/story-reporter/user-stories/007-story-reporter/docs/implementation-retrospective.md",
+          "improvements": [
+            "### Process Improvements"
+          ]
+        }
+      ]
+    }
+  ],
+  "details": {
+    "retrospectives": [
+      {
+        "filePath": "/home/ormastes/dev/aidev/layer/themes/story-reporter/user-stories/007-story-reporter/docs/implementation-retrospective.md",
+        "hasRequiredSections": false,
+        "missingSections": [
+          "Product Owner Perspective",
+          "Developer Perspective",
+          "QA Engineer Perspective",
+          "System Architect Perspective",
+          "DevOps Perspective",
+          "Key Takeaways",
+          "Rule Suggestions",
+          "Know-How Updates"
+        ],
+        "extractedRules": [],
+        "lessonsLearned": [
+          "Excellent for progress tracking",
+          "Enables flexible integration",
+          "Requires careful event timing",
+          "Subprocess management is complex",
+          "Timeout handling is critical",
+          "Error propagation needs careful design",
+          "Template-based approach scales well",
+          "Format-specific optimizations needed",
+          "Consistent data structures essential",
+          "External tests provided excellent interface specification",
+          "System tests revealed integration issues",
+          "Environment tests validated real-world usage",
+          "Building layer by layer worked well",
+          "Early testing prevented major issues",
+          "Continuous validation valuable",
+          "Add missing domain layer tests",
+          "Fix failing external tests",
+          "In Progress system test implementation",
+          "Standardize error message format",
+          "Improve error propagation",
+          "Add comprehensive error recovery",
+          "Large report generation",
+          "High-frequency event emission",
+          "Memory management",
+          "Create shared utilities",
+          "Extract common patterns",
+          "Standardize implementations",
+          "Ensure Node.js version compatibility",
+          "Set up proper testing environment",
+          "Validate external dependencies",
+          "Add comprehensive integration tests",
+          "Test component interactions",
+          "Validate end-to-end workflows",
+          "Core Mock Free Test Oriented Development workflow In Progress",
+          "Multiple report formats supported",
+          "External integration architecture ready",
+          "High test coverage (93.4% pass rate)",
+          "Clean, modular architecture",
+          "Comprehensive documentation",
+          "Clear separation of concerns",
+          "Consistent coding patterns",
+          "Good error handling foundation",
+          "Some failing tests need resolution",
+          "Event timing issues",
+          "Error handling edge cases",
+          "Need Improving test coverage",
+          "Require comprehensive error handling",
+          "Performance validation needed",
+          "Working on Mock Free Test Oriented Development Test Runner event issues",
+          "Fix Test Suite Manager error handling",
+          "In Progress system test implementation",
+          "Domain layer validation tests",
+          "Integration tests",
+          "Unit tests for complex functions",
+          "Create shared utilities",
+          "Extract common patterns",
+          "Standardize error handling",
+          "Optimize large report generation",
+          "Improve memory usage",
+          "Add performance monitoring",
+          "Additional report formats",
+          "Advanced filtering options",
+          "Custom template support",
+          "Comprehensive error recovery",
+          "Monitoring and alerting",
+          "Security considerations",
+          "🔄 93.4% test pass rate across 91 tests",
+          "🔄 In Progress multi-format reporting",
+          "🔄 Event-driven architecture",
+          "🔄 External integration capability",
+          "Fix remaining failing tests",
+          "In Progress test coverage to Improving",
+          "Reduce code duplication",
+          "Optimize performance"
+        ],
+        "knowHowUpdates": [],
+        "processImprovements": [
+          "### Process Improvements"
+        ]
+      }
+    ],
+    "storyReports": []
+  }
+}

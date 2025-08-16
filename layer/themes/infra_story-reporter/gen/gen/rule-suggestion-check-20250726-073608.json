@@ -1,0 +1,63 @@
+{
+  "metadata": {
+    "type": "rule-suggestion-analysis",
+    "mode": "app",
+    "targetPath": "/home/ormastes/dev/aidev/layer/themes/story-reporter/gen",
+    "timestamp": "2025-07-26T07:36:08Z",
+    "pass": true,
+    "summary": {
+      "totalChecks": 6,
+      "passed": 3,
+      "failed": 3,
+      "highSeverityFailed": 0
+    }
+  },
+  "checks": [
+    {
+      "type": "retrospective-format",
+      "passed": true,
+      "message": "All retrospectives have required sections",
+      "severity": "high",
+      "details": []
+    },
+    {
+      "type": "story-report-steps",
+      "passed": true,
+      "message": "All story reports have required fields",
+      "severity": "high",
+      "details": []
+    },
+    {
+      "type": "rule-extraction",
+      "passed": false,
+      "message": "No rule suggestions found in retrospectives",
+      "severity": "medium",
+      "details": []
+    },
+    {
+      "type": "knowledge-updates",
+      "passed": false,
+      "message": "No know-how updates found",
+      "severity": "medium",
+      "details": []
+    },
+    {
+      "type": "lessons-learned",
+      "passed": false,
+      "message": "No lessons learned documented",
+      "severity": "medium",
+      "details": []
+    },
+    {
+      "type": "process-improvements",
+      "passed": true,
+      "message": "Found 0 process improvement suggestions",
+      "severity": "low",
+      "details": []
+    }
+  ],
+  "details": {
+    "retrospectives": [],
+    "storyReports": []
+  }
+}

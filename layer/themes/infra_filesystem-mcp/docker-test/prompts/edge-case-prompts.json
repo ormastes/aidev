@@ -1,0 +1,115 @@
+[
+  {
+    "id": "edge-001",
+    "type": "force_override",
+    "text": "Force create emergency-fix.js in root with justification",
+    "expected": "Should create with force flag and justification",
+    "shouldViolate": false,
+    "fileCreated": true,
+    "force": true,
+    "justification": "Critical production bug fix #12345",
+    "category": "utilities",
+    "content": "// Emergency fix for production",
+    "tags": ["emergency", "force"]
+  },
+  {
+    "id": "edge-002",
+    "type": "similar_purpose",
+    "text": "Create error logging utility",
+    "expected": "Should warn about similar purpose but allow with different focus",
+    "shouldViolate": false,
+    "fileCreated": true,
+    "category": "utilities",
+    "content": "export const errorLogger = () => {};",
+    "tags": ["error", "logging"]
+  },
+  {
+    "id": "edge-003",
+    "type": "empty_file",
+    "text": "Create empty placeholder in gen/doc/placeholder.md",
+    "expected": "Should allow empty file creation",
+    "shouldViolate": false,
+    "fileCreated": true,
+    "category": "documentation",
+    "content": "",
+    "tags": ["placeholder"]
+  },
+  {
+    "id": "edge-004",
+    "type": "special_characters",
+    "text": "Create file with special name in layer/themes/test-theme/file_with-dash.ts",
+    "expected": "Should allow underscores and dashes",
+    "shouldViolate": false,
+    "fileCreated": true,
+    "category": "features",
+    "content": "export default {};",
+    "tags": ["naming"]
+  },
+  {
+    "id": "edge-005",
+    "type": "update_existing",
+    "text": "Update existing NAME_ID.vf.json file",
+    "expected": "Should allow updating existing allowed root file",
+    "shouldViolate": false,
+    "fileCreated": true,
+    "category": "configuration",
+    "content": "{\n  \"metadata\": {\n    \"updated\": true\n  }\n}",
+    "tags": ["update", "existing"]
+  },
+  {
+    "id": "edge-006",
+    "type": "long_path",
+    "text": "Create file with very long path in layer/themes/a/b/c/d/e/f/g/h/i/j/k/file.ts",
+    "expected": "Should handle long paths within allowed directories",
+    "shouldViolate": false,
+    "fileCreated": true,
+    "category": "features",
+    "content": "export default {};",
+    "tags": ["path", "long"]
+  },
+  {
+    "id": "edge-007",
+    "type": "duplicate_name_different_purpose",
+    "text": "Create utils.ts with completely different purpose for date formatting",
+    "expected": "Should allow same name with different purpose",
+    "shouldViolate": false,
+    "fileCreated": true,
+    "category": "utilities",
+    "content": "export const formatDate = () => {};",
+    "tags": ["utility", "date"]
+  },
+  {
+    "id": "edge-008",
+    "type": "force_without_justification",
+    "text": "Force create test.js without justification",
+    "expected": "Should fail - force requires justification",
+    "shouldViolate": true,
+    "fileCreated": false,
+    "force": true,
+    "category": "utilities",
+    "content": "// Test",
+    "tags": ["force", "invalid"]
+  },
+  {
+    "id": "edge-009",
+    "type": "hidden_file",
+    "text": "Create hidden file .env in root",
+    "expected": "Should block - .env not in allowed list",
+    "shouldViolate": true,
+    "fileCreated": false,
+    "category": "configuration",
+    "content": "SECRET=value",
+    "tags": ["hidden", "env"]
+  },
+  {
+    "id": "edge-010",
+    "type": "large_content",
+    "text": "Create file with large content in gen/doc/large-doc.md",
+    "expected": "Should handle large file content",
+    "shouldViolate": false,
+    "fileCreated": true,
+    "category": "documentation",
+    "content": "# Large Document\n\n" + "Lorem ipsum dolor sit amet. ".repeat(1000),
+    "tags": ["large", "content"]
+  }
+]

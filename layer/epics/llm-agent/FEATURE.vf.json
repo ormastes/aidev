@@ -1,0 +1,53 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/epics/llm-agent/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.589Z",
+    "updated_at": "2025-08-03T12:00:00.000Z"
+  },
+  "features": {
+    "llm_agent": [
+      {
+        "id": "llm-agent-001",
+        "name": "LLM Agent Epic",
+        "data": {
+          "title": "LLM Agent Integration Epic",
+          "description": "Cross-cutting epic that provides unified infrastructure and interfaces for all AI agents, enabling seamless integration between Claude, Ollama, vLLM agents with Chat Space, PocketFlow, and other themes",
+          "level": "epic",
+          "status": "in_progress",
+          "priority": "high",
+          "tags": [
+            "llm-agent",
+            "infrastructure",
+            "integration",
+            "cross-theme"
+          ],
+          "virtual_path": "/layer/epics/llm-agent/FEATURE.vf.json",
+          "themes_connected": [
+            "llm-agent_coordinator-claude",
+            "llm-agent_coordinator-ollama",
+            "llm-agent_coordinator-vllm",
+            "llm-agent_mcp",
+            "llm-agent_chat-space",
+            "llm-agent_pocketflow",
+            "llm-agent_flow-validator",
+            "llm-agent_context-transformer"
+          ]
+        },
+        "createdAt": "2025-08-02T11:10:54.589Z",
+        "updatedAt": "2025-08-03T12:00:00.000Z"
+      }
+    ]
+  },
+  "children": [
+    "/layer/themes/llm-agent_coordinator-claude/FEATURE.vf.json",
+    "/layer/themes/llm-agent_coordinator-ollama/FEATURE.vf.json",
+    "/layer/themes/llm-agent_coordinator-vllm/FEATURE.vf.json",
+    "/layer/themes/llm-agent_mcp/FEATURE.vf.json",
+    "/layer/themes/llm-agent_chat-space/FEATURE.vf.json",
+    "/layer/themes/llm-agent_pocketflow/FEATURE.vf.json",
+    "/layer/themes/llm-agent_flow-validator/FEATURE.vf.json",
+    "/layer/themes/llm-agent_context-transformer/FEATURE.vf.json"
+  ]
+}

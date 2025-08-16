@@ -1,0 +1,102 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/themes/external-log-lib/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.580Z",
+    "updated_at": "2025-08-02T11:10:54.580Z"
+  },
+  "features": {
+    "external_log_lib": [
+      {
+        "id": "external-log-lib-epic-001",
+        "name": "External Log Lib",
+        "data": {
+          "title": "External Log Lib Theme",
+          "description": "Core functionality for External Log Lib",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "external-log-lib",
+            "theme"
+          ],
+          "virtual_path": "/layer/themes/external-log-lib/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.580Z",
+        "updatedAt": "2025-08-02T11:10:54.580Z"
+      },
+      {
+        "id": "strict-file-violation-prevention",
+        "name": "Strict File Violation Prevention",
+        "data": {
+          "title": "Prevent File Structure Violations",
+          "description": "Enforce strict file checking to prevent creation of files that violate FILE_STRUCTURE.vf.json rules. Uses filesystem-mcp logic to check violations and throw exceptions before file operations.",
+          "level": "feature",
+          "status": "completed",
+          "priority": "high",
+          "tags": [
+            "file-structure",
+            "validation",
+            "filesystem-mcp",
+            "strict-mode",
+            "violation-prevention"
+          ],
+          "requirements": [
+            "Check file operations against FILE_STRUCTURE.vf.json before execution",
+            "Support strict mode (enabled) and non-strict mode (default)",
+            "Strict mode applies to this theme and all children",
+            "Throw exceptions on violations in strict mode",
+            "Log warnings in non-strict mode",
+            "Use filesystem-mcp validation logic"
+          ]
+        },
+        "createdAt": "2025-08-13T10:10:00.000Z",
+        "updatedAt": "2025-08-13T10:10:00.000Z"
+      },
+      {
+        "id": "comprehensive-event-logging",
+        "name": "Comprehensive Event Logging",
+        "data": {
+          "title": "Event and Change Logging System",
+          "description": "Automatically log task queue changes, feature updates, name ID modifications, events, and rejections to tmp directory with structured format",
+          "level": "feature",
+          "status": "completed",
+          "priority": "high",
+          "tags": [
+            "logging",
+            "monitoring",
+            "task-queue",
+            "features",
+            "events",
+            "rejections",
+            "audit"
+          ],
+          "requirements": [
+            "Log to tmp directory with rotation",
+            "Track TASK_QUEUE.vf.json changes",
+            "Track FEATURE.vf.json changes",
+            "Track NAME_ID.vf.json changes",
+            "Record all system events",
+            "Log file operation rejections",
+            "Structured JSON log format",
+            "Daily log rotation",
+            "Query and search capabilities"
+          ]
+        },
+        "createdAt": "2025-08-13T10:20:00.000Z",
+        "updatedAt": "2025-08-13T10:20:00.000Z"
+      }
+    ]
+  },
+  "children": [
+    "/layer/themes/external-log-lib/user-stories/001-basic-log-capture/FEATURE.vf.json",
+    "/layer/themes/external-log-lib/user-stories/002-python-process-logging/FEATURE.vf.json",
+    "/layer/themes/external-log-lib/user-stories/003-structured-log-parsing/FEATURE.vf.json",
+    "/layer/themes/external-log-lib/user-stories/004-real-time-streaming/FEATURE.vf.json",
+    "/layer/themes/external-log-lib/user-stories/005-advanced-log-filtering/FEATURE.vf.json",
+    "/layer/themes/external-log-lib/user-stories/005-error-log-filtering/FEATURE.vf.json",
+    "/layer/themes/external-log-lib/user-stories/006-multi-process-aggregation/FEATURE.vf.json",
+    "/layer/themes/external-log-lib/user-stories/007-story-reporter/FEATURE.vf.json"
+  ]
+}

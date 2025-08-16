@@ -1,0 +1,386 @@
+{
+  "metadata": {
+    "level": "root",
+    "version": "2.1.0",
+    "description": "File structure definition with distributed features. A hierarchical theme-based architecture with distributed feature management.",
+    "supports_distributed_features": true,
+    "supports_freeze": true,
+    "freeze_validation": "When freeze is true on a directory, filesystem-mcp will reject file creation and show the allowed structure"
+  },
+  "templates": {
+    "workspace": {
+      "id": "workspace",
+      "type": "directory",
+      "feature_level": "root",
+      "has_feature_file": true,
+      "freeze": true,
+      "freeze_message": "Root directory is frozen. Create files in appropriate subdirectories: gen/doc/ for reports, layer/themes/ for features",
+      "description": "Root workspace template",
+      "comment": "Root folder containing all project files and directories",
+      "required_children": [
+        { "name": "TASK_QUEUE.md", "type": "file", "comment": "Development task queue (copied to story directories using scripts/setup/)" },
+        { "name": "TASK_QUEUE.vf.json", "type": "file", "comment": "Virtual filesystem task queue with priority support" },
+        { "name": "FEATURE.vf.json", "type": "feature_file", "feature_level": "root", "aggregates_children": true, "comment": "Root level features with aggregated view" },
+        { "name": "FILE_STRUCTURE.vf.json", "type": "file", "comment": "Distributed file structure definition" },
+        { "name": "NAME_ID.vf.json", "type": "file", "comment": "Name-based entity storage system" },
+        { "name": "CLAUDE.md", "type": "file", "comment": "Claude Code configuration and rules" },
+        { "name": "config", "type": "directory", "comment": "Configuration files for the project" },
+        { "name": "gen", "type": "directory", "comment": "Code generation outputs", "children": [
+          { "name": "doc", "type": "directory", "required": false, "comment": "Generated documentation" }
+        ]},
+        { "name": "common", "type": "directory", "comment": "Root-level shared utilities, types, UI components", "children": [
+          { "name": "xlib", "type": "directory", "comment": "External library wrappers (xlib_fs, xlib_http, etc.)" }
+        ]},
+        { "name": "layer", "type": "directory", "comment": "Contains themes and epics for feature organization" },
+        { "name": "llm_rules", "type": "directory", "freeze": true, "freeze_message": "LLM rules are generated from templates. Edit templates/llm_rules/ instead", "comment": "Generated LLM rule definitions" },
+        { "name": "scripts", "type": "directory", "comment": "Automation scripts", "children": [
+          { "name": "core", "type": "directory", "comment": "Core automation scripts" },
+          { "name": "setup", "type": "directory", "comment": "Setup and initialization scripts. Main script folder.sh" }
+        ]},
+        { "name": "temp", "type": "directory", "comment": "Temporary files" },
+        { "name": "FEATURE.md", "type": "file", "comment": "Feature backlog and overview of themes. gen from vf.json" },
+        { "name": "FILE_STRUCTURE.md", "type": "file", "comment": "Project file structure documentation. gen from vf.json" },
+        { "name": "README.md", "type": "file", "comment": "Conventions, CI, import rules" }
+      ],
+      "optional_children": [
+        { "name": "package.json", "type": "file", "comment": "Node.js package manifest - required for npm/yarn/bun" },
+        { "name": "package-lock.json", "type": "file", "comment": "NPM lock file" },
+        { "name": "bun.lock", "type": "file", "comment": "Bun lock file (if using Bun)" },
+        { "name": "bunfig.toml", "type": "file", "comment": "Bun configuration (if using Bun)" },
+        { "name": "node_modules", "type": "directory", "comment": "Node.js dependencies" },
+        { "name": "tsconfig.json", "type": "file", "comment": "TypeScript configuration" },
+        { "name": "pyproject.toml", "type": "file", "comment": "Python project configuration" },
+        { "name": "venv", "type": "directory", "comment": "Python virtual environment, typically git-ignored" },
+        { "name": ".vscode", "type": "directory", "comment": "VS Code workspace settings" },
+        { "name": ".claude", "type": "directory", "comment": "Claude configuration" },
+        { "name": "demo", "type": "directory", "comment": "Demo and example files" },
+        { "name": "setup", "type": "directory", "comment": "Setup scripts and configurations" },
+        { "name": "coverage", "type": "directory", "comment": "Test coverage reports" },
+        { "name": "dist", "type": "directory", "comment": "Build output directory" },
+        { "name": ".gitignore", "type": "file", "comment": "Git ignore patterns" },
+        { "name": ".jj", "type": "directory", "comment": "Jujutsu version control (if using jj)" },
+        { "name": ".github", "type": "directory", "comment": "GitHub Actions and configuration" },
+        { "name": ".prettierrc", "type": "file", "comment": "Prettier configuration" },
+        { "name": ".eslintrc.json", "type": "file", "comment": "ESLint configuration" },
+        { "name": ".babelrc", "type": "file", "comment": "Babel configuration" },
+        { "name": ".behaverc", "type": "file", "comment": "Behave test framework config" },
+        { "name": ".python-version", "type": "file", "comment": "Python version specification" },
+        { "name": "jest.config.js", "type": "file", "comment": "Jest test configuration" }
+      ],
+      "platform_files": "$ref:platform_specific_root_files"
+    },
+    "user_story": {
+      "id": "user_story",
+      "type": "directory",
+      "feature_level": "user_story",
+      "has_feature_file": true,
+      "freeze": true,
+      "freeze_message": "User story root is frozen. Create files in appropriate subdirectories: src/, tests/, docs/, etc.",
+      "description": "User story folder template",
+      "comment": "Self-contained feature slice under a theme",
+      "allowed_patterns": ["^\\d{3}-[a-z][a-z0-9-]*$"],
+      "required_children": [
+        { "name": "README.md", "type": "file", "comment": "Story overview and implementation details" },
+        { "name": "FEATURE.vf.json", "type": "feature_file", "feature_level": "user_story", "comment": "User story level features" },
+        { "name": "TASK_QUEUE.md", "type": "file", "comment": "Development task queue (copied from root temp/)" },
+        { "name": "TASK_QUEUE.vf.json", "type": "file", "comment": "Virtual filesystem task queue with priority support" },
+        { "name": "NAME_ID.vf.json", "type": "file", "comment": "Name-based entity storage for user story" },
+        { 
+          "name": "docs", 
+          "type": "directory",
+          "comment": "Story documentation",
+          "children": [
+            { "name": "story.md", "type": "file", "comment": "Story details with Theme, Story ID, and Epic headers" },
+            { 
+              "name": "diagrams", 
+              "type": "directory",
+              "comment": "Mermaid-based diagrams",
+              "children": [
+                { "name": "mermaid_sequence.mmd", "type": "file", "comment": "Sequence diagram" },
+                { "name": "mermaid_system_sequence.mmd", "type": "file", "comment": "System sequence diagram" }
+              ]
+            }
+          ]
+        },
+        { 
+          "name": "src", 
+          "type": "directory",
+          "comment": "Source code organized by layers",
+          "children": [
+            { "name": "ui", "type": "directory", "comment": "User interface layer" },
+            { "name": "ui_logic", "type": "directory", "comment": "UI logic layer" },
+            { "name": "domain", "type": "directory", "comment": "Domain/business logic layer" },
+            { "name": "application", "type": "directory", "comment": "Application services layer" },
+            { "name": "external", "type": "directory", "comment": "External services integration layer" },
+            { 
+              "name": "pipe", 
+              "type": "directory",
+              "comment": "M-V-C for cross-layer communication",
+              "children": [
+                { "name": "models.ts", "type": "file", "comment": "Data models for cross-layer communication" },
+                { "name": "controllers.ts", "type": "file", "comment": "Controllers for cross-layer logic" },
+                { "name": "views.ts", "type": "file", "comment": "View interfaces for cross-layer presentation" },
+                { "name": "index.ts", "type": "file", "comment": "Pipe entrypoint - all cross-layer imports must go through here" }
+              ]
+            }
+          ]
+        },
+        { 
+          "name": "tests", 
+          "type": "directory",
+          "comment": "Test folder with different test levels",
+          "children": [
+            { "name": "unit", "type": "directory", "comment": "Isolated, fast unit tests" },
+            { "name": "integration", "type": "directory", "comment": "Multi-module integration tests" },
+            { "name": "system", "type": "directory", "comment": "End-to-end system flows" },
+            { "name": "external", "type": "directory", "comment": "Tests against real external services" },
+            { "name": "env", "type": "directory", "comment": "Smoke and environment checks" },
+            { "name": "helpers", "type": "directory", "comment": "Test helper utilities" },
+            { "name": "fixtures", "type": "directory", "comment": "Test fixtures" }
+          ]
+        },
+        { "name": "package.json", "type": "file", "platform": "node", "comment": "Node.js package configuration for story" },
+        { "name": "package-lock.json", "type": "file", "platform": "node", "comment": "NPM lock file" },
+        { "name": "node_modules", "type": "directory", "platform": "node", "comment": "Node.js dependencies", "ignore": true },
+        { "name": "temp", "type": "directory", "comment": "Temporary files for story" },
+        { "name": "scripts", "type": "directory", "comment": "Story-specific scripts" }
+      ]
+    },
+    "theme": {
+      "id": "theme",
+      "type": "directory",
+      "inherits": "user_story",
+      "feature_level": "epic",
+      "has_feature_file": true,
+      "freeze": true,
+      "freeze_message": "Theme root is frozen. Create files in appropriate subdirectories: user-stories/, children/, research/, etc.",
+      "description": "Theme folder template (represents epic level)",
+      "comment": "Feature theme containing multiple user stories",
+      "allowed_patterns": ["^[a-z][a-z0-9-]*$"],
+      "required_children": [
+        { "name": "FEATURE.vf.json", "type": "feature_file", "feature_level": "epic", "aggregates_children": true, "comment": "Epic level features with aggregated view" },
+        { "name": "FEATURE.md", "type": "file", "comment": "Overview of this theme" },
+        { "name": "pipe", "type": "directory", "comment": "Theme-level cross-layer communication gateway", "children": [
+          { "name": "index.ts", "type": "file", "comment": "Gateway for cross-layer imports at theme level" }
+        ]},
+        { "name": "children", "type": "directory", "comment": "Theme-level implementation files" },
+        { "name": "common", "type": "directory", "comment": "Theme-wide shared utilities", "children": [
+          { "name": "README.md", "type": "file", "comment": "Common utilities documentation" }
+        ]},
+        { "name": "research", "type": "directory", "comment": "Domain and external library research", "children": [
+          { "name": "domain", "type": "directory", "comment": "Domain research and analysis" },
+          { "name": "external", "type": "directory", "comment": "External library research" }
+        ]},
+        { "name": "resources", "type": "directory", "comment": "Static resources for this theme", "children": [
+          { "name": "README.md", "type": "file", "comment": "Resources documentation" }
+        ]},
+        { "name": "TASK_QUEUE.vf.json", "type": "file", "comment": "Virtual filesystem task queue for theme" },
+        { "name": "NAME_ID.vf.json", "type": "file", "comment": "Name-based entity storage for theme" },
+        { "name": "templates", "type": "directory", "comment": "Folder templates for this theme" },
+        { "name": "llm_rules", "type": "directory", "freeze": true, "freeze_message": "Theme LLM rules are generated. Edit templates/llm_rules/ instead", "comment": "Generated LLM rule definitions for this theme" },
+        { "name": "gen", "type": "directory", "comment": "Code generation outputs for this theme" },
+        { "name": "demo", "type": "directory", "comment": "Demo artifacts for this theme" },
+        { "name": "release", "type": "directory", "comment": "Release artifacts and deployments for this theme" },
+        { "name": "xlib", "type": "directory", "comment": "External library wrappers for this theme" },
+        { 
+          "name": "user-stories", 
+          "type": "directory",
+          "comment": "Container for all user stories in this theme",
+          "children": [
+            { 
+              "name": "*", 
+              "type": "template_ref",
+              "template": "user_story",
+              "pattern": "^\\d{3}-[a-z][a-z0-9-]*$",
+              "comment": "User story folders (e.g., 001-login, 002-...)"
+            }
+          ]
+        }
+      ]
+    },
+    "epic": {
+      "id": "epic",
+      "type": "directory",
+      "freeze": true,
+      "freeze_message": "Epic root is frozen. Create files in appropriate subdirectories: common/, orchestrator/, research/, tests/, etc.",
+      "description": "Epic folder template",
+      "comment": "Big-theme orchestration containing multiple themes",
+      "allowed_patterns": ["^[a-z][a-z0-9-]*$"],
+      "required_children": [
+        { "name": "README.md", "type": "file", "comment": "Epic overview and documentation" },
+        { "name": "FEATURE.md", "type": "file", "comment": "High-level epic overview" },
+        { "name": "FEATURE.vf.json", "type": "file", "comment": "Epic feature tracking" },
+        { "name": "TASK_QUEUE.md", "type": "file", "comment": "Development task queue for epic" },
+        { "name": "TASK_QUEUE.vf.json", "type": "file", "comment": "Virtual filesystem task queue for epic" },
+        { "name": "NAME_ID.vf.json", "type": "file", "comment": "Name-based entity storage for epic" },
+        { "name": "common", "type": "directory", "comment": "Code shared across themes", "children": [
+          { "name": "fixtures", "type": "directory", "comment": "Test fixtures for epic" },
+          { "name": "test-helpers", "type": "directory", "comment": "Test helper utilities" }
+        ]},
+        { "name": "orchestrator", "type": "directory", "comment": "Stitches theme orchestrators together" },
+        { "name": "research", "type": "directory", "comment": "Epic-level research and analysis", "children": [
+          { "name": "domain", "type": "directory", "comment": "Domain research for epic scope" },
+          { "name": "integration", "type": "directory", "comment": "Cross-theme integration research" }
+        ]},
+        { "name": "tests", "type": "directory", "comment": "Epic-level integration tests" },
+        { "name": "config", "type": "directory", "comment": "Epic configuration files" },
+        { "name": "package.json", "type": "file", "platform": "node", "comment": "Node.js package configuration for epic" }
+      ],
+      "optional_children": [
+        { 
+          "name": "*", 
+          "type": "template_ref",
+          "template": "theme",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "comment": "Theme folders within this epic"
+        }
+      ]
+    }
+  },
+  "platform_specific_root_files": {
+    "comment": "Files that MUST be at root for tooling to work properly",
+    "node": [
+      { "name": "package.json", "type": "file", "comment": "Node.js package configuration - required at root for npm/yarn/bun" },
+      { "name": "package-lock.json", "type": "file", "comment": "NPM lock file - must be at root" },
+      { "name": "yarn.lock", "type": "file", "comment": "Yarn lock file - must be at root" },
+      { "name": "pnpm-lock.yaml", "type": "file", "comment": "PNPM lock file - must be at root" },
+      { "name": "bun.lock", "type": "file", "comment": "Bun lock file - must be at root (if using Bun)" },
+      { "name": "bunfig.toml", "type": "file", "comment": "Bun configuration - must be at root (if using Bun)" },
+      { "name": "tsconfig.json", "type": "file", "comment": "TypeScript configuration - must be at root for tsc" },
+      { "name": "node_modules", "type": "directory", "comment": "Dependencies directory - created at root by package managers" },
+      { "name": ".eslintrc.json", "type": "file", "comment": "ESLint configuration - must be at root for linting" },
+      { "name": ".babelrc", "type": "file", "comment": "Babel configuration - must be at root for transpilation" }
+    ],
+    "python": [
+      { "name": "pyproject.toml", "type": "file", "comment": "Python project configuration - marks project root for pip/poetry/uv" },
+      { "name": "uv.lock", "type": "file", "comment": "UV lock file for reproducible environments" },
+      { "name": "poetry.lock", "type": "file", "comment": "Poetry lock file" },
+      { "name": "Pipfile", "type": "file", "comment": "Pipenv project file" },
+      { "name": "Pipfile.lock", "type": "file", "comment": "Pipenv lock file" },
+      { "name": "venv", "type": "directory", "comment": "Python virtual environment directory - typically git-ignored" },
+      { "name": ".python-version", "type": "file", "comment": "Python version specification for pyenv" },
+      { "name": ".behaverc", "type": "file", "comment": "Behave test framework configuration" }
+    ],
+    "cmake": [
+      { "name": "CMakeLists.txt", "type": "file", "comment": "Top-level CMake definition - required at root by CMake" }
+    ],
+    "rust": [
+      { "name": "Cargo.toml", "type": "file", "comment": "Rust package manifest - required at workspace root" },
+      { "name": "Cargo.lock", "type": "file", "comment": "Rust dependency lock file" }
+    ],
+    "ruby": [
+      { "name": "Gemfile", "type": "file", "comment": "Ruby dependency specification - required at root by Bundler" },
+      { "name": "Gemfile.lock", "type": "file", "comment": "Ruby dependency lock file" }
+    ],
+    "dotnet": [
+      { "name": "*.sln", "type": "file", "pattern": "^.*\\.sln$", "comment": "Visual Studio solution file" },
+      { "name": "global.json", "type": "file", "comment": ".NET SDK version specification" }
+    ],
+    "java": [
+      { "name": "pom.xml", "type": "file", "comment": "Maven project configuration" },
+      { "name": "build.gradle", "type": "file", "comment": "Gradle build configuration" },
+      { "name": "settings.gradle", "type": "file", "comment": "Gradle settings" }
+    ],
+    "go": [
+      { "name": "go.mod", "type": "file", "comment": "Go module definition - marks module root" },
+      { "name": "go.sum", "type": "file", "comment": "Go module checksums" }
+    ],
+    "common": [
+      { "name": ".gitignore", "type": "file", "comment": "Git ignore patterns" },
+      { "name": ".jj", "type": "directory", "comment": "Jujutsu version control directory (if using jj)" },
+      { "name": ".github", "type": "directory", "comment": "GitHub Actions workflows and configuration" },
+      { "name": ".vscode", "type": "directory", "comment": "VS Code workspace settings (optional per FILE_STRUCTURE.vf.json)" },
+      { "name": ".claude", "type": "directory", "comment": "Claude configuration directory" },
+      { "name": "README.md", "type": "file", "comment": "Project documentation" },
+      { "name": "LICENSE", "type": "file", "comment": "License file" },
+      { "name": "CHANGELOG.md", "type": "file", "comment": "Change log" },
+      { "name": "aidev", "type": "directory", "comment": "Ai dev app deployed for Ai dev development it self." }
+    ]
+  },
+  "structure": {
+    "name": ".",
+    "type": "directory",
+    "template": "workspace",
+    "comment": "Root directory of AI Development Platform",
+    "children": [
+      {
+        "name": "layer",
+        "type": "directory",
+        "comment": "Contains themes and epics for feature organization",
+        "children": [
+          {
+            "name": "themes",
+            "type": "directory",
+            "comment": "Container for all feature themes",
+            "children": [
+              {
+                "name": "*",
+                "type": "template_ref",
+                "template": "theme",
+                "pattern": "^[a-z][a-z0-9-]*$",
+                "comment": "Theme folders (e.g., user-auth)"
+              }
+            ]
+          },
+          {
+            "name": "epics",
+            "type": "directory",
+            "comment": "Container for all epics",
+            "children": [
+              {
+                "name": "*",
+                "type": "template_ref",
+                "template": "epic",
+                "pattern": "^[a-z][a-z0-9-]*$",
+                "comment": "Epic folders for big-theme orchestration"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "feature_distribution": {
+    "auto_create_epics": true,
+    "common_epic_prefix": "common-",
+    "feature_file_locations": {
+      "root": "/FEATURE.vf.json",
+      "epic": "/layer/epics/{epic_name}/FEATURE.vf.json",
+      "theme": "/layer/themes/{theme_name}/FEATURE.vf.json",
+      "user_story": "/layer/themes/{theme_name}/user-stories/{story_name}/FEATURE.vf.json"
+    }
+  },
+  "validation_rules": {
+    "cross_layer_imports": {
+      "description": "All cross-layer imports must go through pipe/index.ts",
+      "pattern": "^.*pipe/index\\.ts$",
+      "comment": "Do not import subfiles of pipe/ directly; only import from the pipe's entrypoint"
+    },
+    "test_file_patterns": {
+      "unit": "**/user-stories/*/tests/unit/**/*.test.*",
+      "integration": "**/user-stories/*/tests/integration/**/*.itest.*",
+      "system": "**/user-stories/*/tests/system/**/*.stest.*",
+      "comment": "CI patterns for different test levels"
+    },
+    "naming_conventions": {
+      "theme": "^[a-z][a-z0-9-]*$",
+      "user_story": "^\\d{3}-[a-z][a-z0-9-]*$",
+      "epic": "^[a-z][a-z0-9-]*$",
+      "comment": "Naming patterns for different directory types"
+    },
+    "freeze_validation": {
+      "description": "Directories marked with freeze=true prevent file creation",
+      "enforcement": "filesystem-mcp VFFileStructureWrapper validates freeze status",
+      "error_response": "Shows freeze_message and displays allowed file structure",
+      "frozen_directories": [
+        "/",
+        "/llm_rules",
+        "/layer/themes/*/llm_rules",
+        "/layer/themes/*/user-stories/*",
+        "/layer/themes/*",
+        "/layer/epics/*"
+      ],
+      "comment": "Use freeze to enforce structural discipline and prevent accidental file creation"
+    }
+  }
+}

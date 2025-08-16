@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "../../../../layer/themes/typescript-config/user-stories/004-strict-typescript/config/tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "tsBuildInfoFile": "./.tsbuildinfo",
+    
+    "paths": {
+      "@core/*": ["../../../core/*"],
+      "@shared/*": ["../../../shared/*"],
+      "@themes/*": ["../../../themes/*"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ],
+  "references": [
+    { "path": "../../../core" },
+    { "path": "../../../shared" }
+  ]
+}

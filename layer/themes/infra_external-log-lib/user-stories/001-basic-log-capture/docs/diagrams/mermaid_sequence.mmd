@@ -1,0 +1,253 @@
+# Sequence Diagram: Log Capture Integration
+
+## Integration: AIDevPlatform with ExternalLogLib
+
+```mermaid
+sequenceDiagram
+    participant Test
+    participant AIDevPlatform
+    participant LogCaptureSession
+    participant ExternalLogLib
+    participant LogCapturer
+    participant ChildProcess
+
+    Test->>AIDevPlatform: startLogCapture(config)
+    AIDevPlatform->>LogCaptureSession: new LogCaptureSession(config)
+    
+    LogCaptureSession->>ChildProcess: spawn(command, args)
+    ChildProcess-->>LogCaptureSession: process instance
+    
+    LogCaptureSession->>ExternalLogLib: createCapturer(process)
+    ExternalLogLib->>LogCapturer: new LogCapturer()
+    LogCapturer-->>LogCaptureSession: capturer instance
+    
+    LogCaptureSession->>LogCapturer: onLog(callback)
+    Note over LogCaptureSession: Register internal callback to collect logs
+    
+    LogCaptureSession->>LogCapturer: start()
+    LogCapturer->>ChildProcess: stdout.on('data', handler)
+    LogCapturer->>ChildProcess: stderr.on('data', handler)
+    
+    LogCaptureSession-->>Test: session instance
+    
+    Test->>LogCaptureSession: onLogEntry(callback)
+    Note over LogCaptureSession: Register external callback
+    
+    ChildProcess-->>LogCapturer: stdout data: "[INFO] Test log"
+    LogCapturer->>ExternalLogLib: parseLogLine(line, 'stdout')
+    ExternalLogLib-->>LogCapturer: LogEntry
+    LogCapturer->>LogCaptureSession: callback(LogEntry)
+    LogCaptureSession->>LogCaptureSession: Store in logs array
+    LogCaptureSession->>Test: callback(LogEntry)
+    
+    Test->>LogCaptureSession: waitForCompletion()
+    Note over LogCaptureSession: Return promise
+    
+    ChildProcess-->>LogCaptureSession: 'close' event
+    LogCaptureSession->>LogCapturer: stop()
+    LogCapturer->>ChildProcess: removeListener('data')
+    LogCaptureSession-->>Test: resolve({ exitCode })
+    
+    Test->>LogCaptureSession: getLogs()
+    LogCaptureSession-->>Test: LogEntry[]
+    
+    Test->>LogCaptureSession: getFormattedLogs()
+    LogCaptureSession->>LogCaptureSession: Format each log entry
+    LogCaptureSession-->>Test: Formatted string
+```
+
+## Unit Tests to Create (Bottom-up order)
+
+### 1. ExternalLogLib parseLogLine (Unit Test)
+- Test parsing structured log format with timestamp
+- Test parsing simple format with level only  
+- Test parsing plain text (default to info/error based on stream)
+- Test different log levels (DEBUG, INFO, WARN, ERROR)
+
+### 2. LogCapturer (Unit Test)
+- Test start/stop functionality
+- Test data handler registration/removal
+- Test log entry collection
+- Test callback notification
+
+### 3. LogCaptureSession (Unit Test)
+- Test process spawning
+- Test capturer integration
+- Test log storage
+- Test completion promise
+- Test formatted output generation
+- Test callback management
+
+### 4. AIDevPlatform (Unit Test)
+- Test session creation
+- Test configuration passing# Sequence Diagram: File Save Integration
+
+## Integration: Log Capture Session with FileManager
+
+```mermaid
+sequenceDiagram
+    participant Test
+    participant AIDevPlatform
+    participant LogCaptureSession
+    participant FileManager
+    participant FileSystem
+
+    Test->>AIDevPlatform: startLogCapture(config)
+    AIDevPlatform->>LogCaptureSession: new LogCaptureSession()
+    Note over LogCaptureSession: Capture logs...
+    AIDevPlatform-->>Test: session
+    
+    Test->>LogCaptureSession: waitForCompletion()
+    LogCaptureSession-->>Test: completion
+    
+    Test->>LogCaptureSession: saveLogsToFile(path)
+    LogCaptureSession->>LogCaptureSession: getFormattedLogs()
+    LogCaptureSession->>FileSystem: fs.writeFile(path, content)
+    FileSystem-->>LogCaptureSession: success
+    LogCaptureSession-->>Test: void
+    
+    Note over Test: Advanced file operations:
+    
+    Test->>LogCaptureSession: getLogs()
+    LogCaptureSession-->>Test: LogEntry[]
+    
+    Test->>FileManager: saveLogsToFile(logs, path, options)
+    FileManager->>FileSystem: path.dirname(filePath)
+    FileManager->>FileSystem: fs.existsSync(dir)
+    
+    alt Directory doesn't exist
+        FileManager->>FileSystem: fs.mkdirSync(dir, {recursive: true})
+    end
+    
+    FileManager->>FileManager: format logs based on options
+    
+    alt format = 'json'
+        FileManager->>FileManager: formatAsJson(logs, options)
+    else format = 'csv'
+        FileManager->>FileManager: formatAsCsv(logs)
+    else format = 'text'
+        FileManager->>FileManager: formatAsText(logs)
+    end
+    
+    alt append = true AND file exists
+        FileManager->>FileSystem: fs.appendFile(path, content)
+    else
+        FileManager->>FileSystem: fs.writeFile(path, content)
+    end
+    
+    FileSystem-->>FileManager: success/error
+    FileManager-->>Test: Promise<void>
+```
+
+## Unit Tests to Create (Bottom-up order)
+
+### 1. FileManager formatAsText (Unit Test)
+- Test formatting log entries as plain text
+- Test timestamp formatting
+- Test level uppercase conversion
+
+### 2. FileManager formatAsJson (Unit Test)
+- Test JSON formatting with/without timestamp wrapper
+- Test proper JSON structure
+- Test indentation
+
+### 3. FileManager formatAsCsv (Unit Test)
+- Test CSV header generation
+- Test field escaping for commas, quotes, newlines
+- Test proper row formatting
+
+### 4. FileManager saveLogsToFile (Unit Test)
+- Test directory creation when missing
+- Test format selection logic
+- Test append vs overwrite behavior
+- Test error handling for invalid paths
+
+### 5. LogCaptureSession saveLogsToFile (Unit Test)
+- Test integration with fs.writeFile
+- Test formatted output generation
+- Test error propagation# Sequence Diagram: Process Management Integration
+
+## Integration: Process Management with Log Capture
+
+```mermaid
+sequenceDiagram
+    participant Test
+    participant AIDevPlatform
+    participant ProcessManager
+    participant ProcessHandle
+    participant LogCaptureSession
+    participant ChildProcess
+
+    Test->>ProcessManager: new ProcessManager()
+    ProcessManager-->>Test: manager instance
+    
+    Test->>ProcessManager: spawn(config)
+    ProcessManager->>ChildProcess: spawn(command, args)
+    ChildProcess-->>ProcessManager: process instance
+    
+    ProcessManager->>ProcessHandle: new ProcessHandle(process)
+    ProcessHandle->>ProcessHandle: Initialize tracking
+    ProcessHandle->>ChildProcess: on('exit', handler)
+    ProcessHandle-->>ProcessManager: handle instance
+    
+    ProcessManager->>ProcessManager: Add to activeProcesses
+    ProcessManager-->>Test: ProcessHandle
+    
+    Test->>ProcessHandle: isRunning()
+    ProcessHandle-->>Test: true
+    
+    Test->>ProcessHandle: getPid()
+    ProcessHandle->>ChildProcess: process.pid
+    ProcessHandle-->>Test: pid number
+    
+    Test->>ProcessHandle: waitForExit()
+    Note over ProcessHandle: Return exit promise
+    
+    ChildProcess-->>ProcessHandle: 'exit' event (code)
+    ProcessHandle->>ProcessHandle: Set running = false
+    ProcessHandle->>ProcessManager: Remove from active
+    ProcessHandle-->>Test: resolve(exitCode)
+    
+    Test->>ProcessHandle: isRunning()
+    ProcessHandle-->>Test: false
+    
+    Note over Test: For termination flow:
+    
+    Test->>ProcessHandle: terminate()
+    ProcessHandle->>ChildProcess: kill('SIGTERM')
+    ChildProcess-->>ProcessHandle: 'exit' event
+    ProcessHandle-->>Test: true
+    
+    Note over Test: For integration with log capture:
+    
+    Test->>AIDevPlatform: startLogCapture(config)
+    AIDevPlatform->>LogCaptureSession: new LogCaptureSession()
+    AIDevPlatform->>ProcessManager: spawn(config)
+    ProcessManager-->>AIDevPlatform: ProcessHandle
+    AIDevPlatform->>LogCaptureSession: setProcessHandle(handle)
+    AIDevPlatform-->>Test: session
+    
+    Test->>LogCaptureSession: getProcessHandle()
+    LogCaptureSession-->>Test: ProcessHandle
+```
+
+## Unit Tests to Create (Bottom-up order)
+
+### 1. ProcessHandle (Unit Test)
+- Test isRunning() state tracking
+- Test getPid() returns correct process ID
+- Test waitForExit() promise resolution
+- Test terminate() with SIGTERM and SIGKILL fallback
+- Test getResourceUsage() tracking
+
+### 2. ProcessManager (Unit Test)  
+- Test spawn() creates ProcessHandle
+- Test activeProcesses tracking
+- Test getActiveCount() with cleanup
+- Test terminateAll() functionality
+- Test process removal on exit
+
+### 3. AIDevPlatform ProcessManager Integration (Unit Test)
+- Test platform creates ProcessManager
+- Test startLogCapture spawns via ProcessManager
+- Test session gets ProcessHandle

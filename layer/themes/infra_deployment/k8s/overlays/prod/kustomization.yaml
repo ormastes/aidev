@@ -1,0 +1,44 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: aidev-platform
+
+bases:
+  - ../../base
+
+commonLabels:
+  environment: production
+
+patchesStrategicMerge:
+  - deployment-patch.yaml
+  - ingress-patch.yaml
+
+configMapGenerator:
+  - name: env-config
+    literals:
+      - NODE_ENV=production
+      - LOG_LEVEL=info
+      - RATE_LIMIT_MAX_REQUESTS=100
+
+secretGenerator:
+  - name: prod-secrets
+    literals:
+      - JWT_SECRET=${JWT_SECRET}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - SESSION_SECRET=${SESSION_SECRET}
+
+replicas:
+  - name: api-gateway
+    count: 5
+  - name: portal
+    count: 3
+  - name: monitoring-dashboard
+    count: 2
+
+images:
+  - name: aidev/api-gateway
+    newTag: v1.0.0
+  - name: aidev/portal
+    newTag: v1.0.0
+  - name: aidev/monitoring-dashboard
+    newTag: v1.0.0

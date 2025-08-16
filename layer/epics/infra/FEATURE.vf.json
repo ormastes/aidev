@@ -1,0 +1,78 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/epics/infra/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-03T04:00:00.000Z",
+    "updated_at": "2025-08-03T04:00:00.000Z"
+  },
+  "features": {
+    "infra": [
+      {
+        "id": "infra-epic-001",
+        "name": "Infrastructure Epic",
+        "data": {
+          "title": "Infrastructure & Development Tools Epic",
+          "description": "Provides essential infrastructure components including filesystem operations, logging, fraud detection, and reporting capabilities for the entire LLM Agent ecosystem",
+          "level": "epic",
+          "status": "active",
+          "priority": "critical",
+          "tags": [
+            "infrastructure",
+            "tools",
+            "filesystem",
+            "logging",
+            "fraud-detection",
+            "reporting"
+          ],
+          "virtual_path": "/layer/epics/infra/FEATURE.vf.json",
+          "provides": [
+            "filesystem-mcp",
+            "external-logging",
+            "fraud-checking",
+            "story-reporting",
+            "test-as-manual"
+          ],
+          "children": [
+            "infra_filesystem-mcp",
+            "infra_external-log-lib",
+            "infra_fraud-checker",
+            "infra_story-reporter",
+            "infra_test-as-manual"
+          ],
+          "components": {
+            "infra_filesystem-mcp": {
+              "description": "MCP-based filesystem operations and virtual file management",
+              "status": "active"
+            },
+            "infra_external-log-lib": {
+              "description": "External library logging wrappers for safe dependency usage",
+              "status": "active"
+            },
+            "infra_fraud-checker": {
+              "description": "Code quality and pattern detection for fraud prevention",
+              "status": "active"
+            },
+            "infra_story-reporter": {
+              "description": "Story-based test reporting and documentation generation",
+              "status": "active"
+            },
+            "infra_test-as-manual": {
+              "description": "Manual testing simulation and automation framework",
+              "status": "active"
+            }
+          }
+        },
+        "createdAt": "2025-08-03T04:00:00.000Z",
+        "updatedAt": "2025-08-03T04:00:00.000Z"
+      }
+    ]
+  },
+  "children": [
+    "infra_filesystem-mcp",
+    "infra_external-log-lib",
+    "infra_fraud-checker",
+    "infra_story-reporter",
+    "infra_test-as-manual"
+  ]
+}

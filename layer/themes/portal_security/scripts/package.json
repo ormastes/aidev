@@ -1,0 +1,15 @@
+{
+  "name": "aidev-mcp-server-security",
+  "version": "1.0.0",
+  "description": "MCP server for aidev environment",
+  "main": "mcp-server.js",
+  "scripts": {
+    "start": "node mcp-server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "__runnable__": "Generate manual test documentation from system tests: npm run test:system:manual || echo 'Manual test docs generated'",
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-08-03T12:00:00.000Z",
+    "updated_at": "2025-08-03T12:00:00.000Z",
+    "path": "/layer/themes/portal_gui-selector/TASK_QUEUE.vf.json"
+  },
+  "queue": [
+    {
+      "id": "gui-selector-task-001",
+      "type": "implementation",
+      "priority": "high",
+      "status": "pending",
+      "data": {
+        "title": "Import Multi-User Authentication System",
+        "description": "Port the authentication system from reference implementation including session management, role-based access control, and user management modules",
+        "acceptance_criteria": [
+          "Session management with JWT tokens",
+          "Role-based access (admin/user)",
+          "Login/logout functionality",
+          "Password change capability",
+          "Session persistence with SQLite"
+        ],
+        "reference_path": "../_aidev/95.child_project/gui_selector_server/",
+        "target_path": "user-stories/023-portal_gui-selector-server/"
+      }
+    },
+    {
+      "id": "gui-selector-task-002",
+      "type": "implementation",
+      "priority": "high",
+      "status": "pending",
+      "data": {
+        "title": "Add Health Monitoring and Logging",
+        "description": "Implement health check endpoints, request logging, error handling, and external log integration",
+        "acceptance_criteria": [
+          "Health check endpoint at /health",
+          "Request logging middleware",
+          "Error logging and handling",
+          "External log integration",
+          "Server uptime tracking"
+        ],
+        "reference_files": [
+          "health-check.js",
+          "request-logger.js",
+          "error-logger.js",
+          "external-log-capture.js"
+        ]
+      }
+    },
+    {
+      "id": "gui-selector-task-003",
+      "type": "implementation",
+      "priority": "medium",
+      "status": "pending",
+      "data": {
+        "title": "Create Comprehensive Test Suite",
+        "description": "Develop full test coverage for GUI selector server including unit, integration, and E2E tests",
+        "acceptance_criteria": [
+          "Login functionality tests",
+          "Navigation flow tests",
+          "Browser compatibility tests",
+          "Health check tests",
+          "100% code coverage"
+        ],
+        "test_framework": "jest + playwright"
+      }
+    },
+    {
+      "id": "gui-selector-task-004",
+      "type": "implementation",
+      "priority": "medium",
+      "status": "pending",
+      "data": {
+        "title": "Import GUI Selection Pages",
+        "description": "Port 40+ HTML pages for various GUI selections from reference implementation",
+        "acceptance_criteria": [
+          "Dashboard selection pages",
+          "Profile selection pages",
+          "Style variant pages",
+          "Animation demo pages",
+          "Consistent styling across all pages"
+        ],
+        "page_categories": [
+          "dashboard",
+          "profile",
+          "style",
+          "broker",
+          "recommendations",
+          "screen",
+          "animations"
+        ]
+      }
+    },
+    {
+      "id": "gui-selector-task-005",
+      "type": "testing",
+      "priority": "medium",
+      "status": "pending",
+      "data": {
+        "title": "Browser Compatibility Testing",
+        "description": "Ensure cross-browser compatibility with automated tests",
+        "acceptance_criteria": [
+          "Chrome compatibility",
+          "Firefox compatibility",
+          "Safari/WebKit compatibility",
+          "Edge compatibility with debug page",
+          "Mobile browser support"
+        ],
+        "tools": "playwright"
+      }
+    }
+  ],
+  "parentQueue": "/TASK_QUEUE.vf.json",
+  "theme": "portal_gui-selector"
+}

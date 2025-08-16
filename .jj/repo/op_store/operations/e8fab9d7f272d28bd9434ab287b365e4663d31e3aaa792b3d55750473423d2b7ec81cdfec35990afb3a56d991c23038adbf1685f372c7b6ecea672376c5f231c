@@ -1,0 +1,13 @@
+
+@#¯i‹şqá[¤ÈEÒ·Fåpe¹ğòfÜûï!Àáè™x* ºõl›F 6y®9¾ËHu…`@ `İ@n¡;k•%e­İÃG?\‘xäÎa•±€Dj™Ñ¯Ë6Ğ´÷|íär8×/ía)€œœGˆ6ÔSĞlşØËúÀ§
+Ñ½­îŠ3Ô½­îŠ3/commit af27f98f22669e6eb440ba6de388356d5bbee2fb"dl*ormastes2Ó
+argsÊjj commit -m 'Complete package manager migration cleanup
+
+- Updated remaining npm/pip references in init_qemu theme
+- Fixed build-qemu-image.sh to use bun instead of npm/npx
+- Updated qemu_manager.py and Makefile to use uv pip
+- Created comprehensive migration documentation
+- All package manager references now updated to bun/uv'",
+mÃŸ(»K	<F¶Á9ÂÓ Õ¤ ¯'ù"fn´@ºmãˆ5m[¾âû"
+~‘g¸ş
+§ñØÖì=MNc¥˜(

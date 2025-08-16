@@ -1,0 +1,397 @@
+{
+  "statistics": {
+    "detectionDate": "2025-07-23T22:37:27.539Z",
+    "formats": {
+      "typescript": {
+        "sources": {
+          "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/tclist_parser/watchers.ts": {
+            "lines": 22,
+            "tokens": 260,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/tclist_parser/testTree.ts": {
+            "lines": 127,
+            "tokens": 1342,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/tclist_parser/parser.ts": {
+            "lines": 28,
+            "tokens": 420,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/tclist_parser/file_change_listener.ts": {
+            "lines": 62,
+            "tokens": 672,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/tclist_parser/fileHelper.ts": {
+            "lines": 40,
+            "tokens": 446,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/ctest/ctestHandler.ts": {
+            "lines": 246,
+            "tokens": 1955,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 15,
+            "duplicatedTokens": 175,
+            "percentage": 6.1,
+            "percentageTokens": 8.95,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/ctest/ctestConfig.ts": {
+            "lines": 321,
+            "tokens": 2633,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 31,
+            "duplicatedTokens": 359,
+            "percentage": 9.66,
+            "percentageTokens": 13.63,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/controller/resultHandler.ts": {
+            "lines": 94,
+            "tokens": 1036,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/controller/controller.ts": {
+            "lines": 230,
+            "tokens": 1994,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/util.ts": {
+            "lines": 18,
+            "tokens": 166,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/runner.ts": {
+            "lines": 362,
+            "tokens": 3221,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/pyAdapter.ts": {
+            "lines": 219,
+            "tokens": 2235,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/extension.ts": {
+            "lines": 84,
+            "tokens": 766,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/coverage.ts": {
+            "lines": 13,
+            "tokens": 152,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/config.ts": {
+            "lines": 640,
+            "tokens": 6720,
+            "sources": 1,
+            "clones": 6,
+            "duplicatedLines": 56,
+            "duplicatedTokens": 574,
+            "percentage": 8.75,
+            "percentageTokens": 8.54,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 2506,
+          "tokens": 24018,
+          "sources": 15,
+          "clones": 5,
+          "duplicatedLines": 51,
+          "duplicatedTokens": 554,
+          "percentage": 2.04,
+          "percentageTokens": 2.31,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      }
+    },
+    "total": {
+      "lines": 2506,
+      "tokens": 24018,
+      "sources": 15,
+      "clones": 5,
+      "duplicatedLines": 51,
+      "duplicatedTokens": 554,
+      "percentage": 2.04,
+      "percentageTokens": 2.31,
+      "newDuplicatedLines": 0,
+      "newClones": 0
+    }
+  },
+  "duplicates": [
+    {
+      "format": "typescript",
+      "lines": 9,
+      "fragment": "];\n\n            if (this.parallelJobs > 1) {\n                args.push('-j', this.parallelJobs.toString());\n            }\n\n            const { stdout, stderr } = await execAsync(`\"${this.ctestExecutable}\" ${args.join(' ')}`, {\n                cwd: this.buildDirectory,\n                timeout: 120000",
+      "tokens": 0,
+      "firstFile": {
+        "name": "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/ctest/ctestConfig.ts",
+        "start": 148,
+        "end": 156,
+        "startLoc": {
+          "line": 148,
+          "column": 13,
+          "position": 1235
+        },
+        "endLoc": {
+          "line": 156,
+          "column": 7,
+          "position": 1327
+        }
+      },
+      "secondFile": {
+        "name": "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/ctest/ctestConfig.ts",
+        "start": 104,
+        "end": 112,
+        "startLoc": {
+          "line": 104,
+          "column": 13,
+          "position": 889
+        },
+        "endLoc": {
+          "line": 112,
+          "column": 6,
+          "position": 981
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 16,
+      "fragment": "parseTestInfo(test: any): CTestInfo {\n        const testName = test.name || '';\n        const parts = testName.split('.');\n        const suite = parts.length > 1 ? parts.slice(0, -1).join('.') : testName;\n        const testCase = parts.length > 1 ? parts[parts.length - 1] : '';\n\n        return {\n            name: testName,\n            command: test.command || [],\n            properties: test.properties || {},\n            suite,\n            case: testCase\n        };\n    }\n\n    private",
+      "tokens": 0,
+      "firstFile": {
+        "name": "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/ctest/ctestConfig.ts",
+        "start": 214,
+        "end": 229,
+        "startLoc": {
+          "line": 214,
+          "column": 2,
+          "position": 1726
+        },
+        "endLoc": {
+          "line": 229,
+          "column": 8,
+          "position": 1901
+        }
+      },
+      "secondFile": {
+        "name": "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/ctest/ctestHandler.ts",
+        "start": 96,
+        "end": 113,
+        "startLoc": {
+          "line": 96,
+          "column": 2,
+          "position": 769
+        },
+        "endLoc": {
+          "line": 113,
+          "column": 4,
+          "position": 942
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 8,
+      "fragment": "vscode.commands.executeCommand<string>('cmake.buildDirectory')\n                        .then(targetDir => {\n                            this.cmakeBuildDirectory = targetDir || \"\";\n                            getExecutablePath(this.cmakeBuildType, this.cmakeBuildDirectory, this.cmakeTarget)\n                                .then(targetPath => {\n                                    if (targetPath !== null) {\n                                        this.cmakeLaunchTargetPath = targetPath || \"\";\n                                        this",
+      "tokens": 0,
+      "firstFile": {
+        "name": "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/config.ts",
+        "start": 425,
+        "end": 432,
+        "startLoc": {
+          "line": 425,
+          "column": 21,
+          "position": 4258
+        },
+        "endLoc": {
+          "line": 432,
+          "column": 5,
+          "position": 4350
+        }
+      },
+      "secondFile": {
+        "name": "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/config.ts",
+        "start": 401,
+        "end": 408,
+        "startLoc": {
+          "line": 401,
+          "column": 21,
+          "position": 4046
+        },
+        "endLoc": {
+          "line": 408,
+          "column": 2,
+          "position": 4138
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 10,
+      "fragment": "project.getBuildDirectory().then(buildDir => {\n                        if (buildDir) {\n                            this.cmakeBuildDirectory = buildDir;\n                            this.update_exe_executable().then(() => {\n                                this.activeWorkspace(this);\n                            });\n                        }\n                    });\n                });\n            }",
+      "tokens": 0,
+      "firstFile": {
+        "name": "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/config.ts",
+        "start": 543,
+        "end": 552,
+        "startLoc": {
+          "line": 543,
+          "column": 21,
+          "position": 5818
+        },
+        "endLoc": {
+          "line": 552,
+          "column": 2,
+          "position": 5895
+        }
+      },
+      "secondFile": {
+        "name": "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/config.ts",
+        "start": 526,
+        "end": 535,
+        "startLoc": {
+          "line": 526,
+          "column": 17,
+          "position": 5663
+        },
+        "endLoc": {
+          "line": 535,
+          "column": 5,
+          "position": 5740
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 13,
+      "fragment": ";\n    }\n    public get srcDirectory(): string {\n        return this._srcDirectory;\n    }\n    public get buildDirectory(): string {\n        if (this.useCmakeTarget) {\n            return this.covert_file_path(this.cmakeBuildDirectory, \"buildDirectory\");\n        }\n        return this.covert_file_path(this._buildDirectory, \"buildDirectory\");\n    }\n    public get testrun_list_args(): string[] | undefined {\n        return this.bin_testrun_list_args",
+      "tokens": 0,
+      "firstFile": {
+        "name": "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/config.ts",
+        "start": 627,
+        "end": 639,
+        "startLoc": {
+          "line": 627,
+          "column": 16,
+          "position": 6596
+        },
+        "endLoc": {
+          "line": 639,
+          "column": 22,
+          "position": 6714
+        }
+      },
+      "secondFile": {
+        "name": "/home/ormastes/dev/aidev/demo/cdoctest_vscode_extension/src/config.ts",
+        "start": 586,
+        "end": 598,
+        "startLoc": {
+          "line": 586,
+          "column": 16,
+          "position": 6216
+        },
+        "endLoc": {
+          "line": 598,
+          "column": 22,
+          "position": 6334
+        }
+      }
+    }
+  ]
+}

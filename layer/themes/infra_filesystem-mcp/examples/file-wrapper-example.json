@@ -1,0 +1,23 @@
+{
+  "wrapperType": "VFFileWrapper",
+  "config": {
+    "basePath": "/data/files",
+    "encoding": "utf-8",
+    "maxFileSize": 5242880,
+    "allowedExtensions": [".txt", ".json", ".md", ".log"],
+    "schemaValidation": true
+  },
+  "fileWrapper": {
+    "operation": "read",
+    "path": "/data/files/config.json?name=app-config&version=latest",
+    "queryParams": {
+      "name": "app-config",
+      "version": "latest"
+    },
+    "metadata": {
+      "timestamp": "2024-01-19T10:30:00Z",
+      "size": 2048,
+      "encoding": "utf-8"
+    }
+  }
+}

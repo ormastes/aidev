@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    /* Modules */
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "baseUrl": ".",
+    "paths": {
+      "@aidev/*": ["./layer/*"],
+      "@themes/*": ["./layer/themes/*"],
+      "@shared/*": ["./layer/shared/*"],
+      "@core/*": ["./layer/core/*"],
+      "@test/*": ["./test/*"],
+      "@types/*": ["./types/*"]
+    },
+    "resolveJsonModule": true,
+    "allowJs": false,
+
+    /* JavaScript Support */
+    "checkJs": false,
+
+    /* Emit */
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "removeComments": false,
+    "importHelpers": true,
+    "importsNotUsedAsValues": "remove",
+    "downlevelIteration": true,
+    "preserveConstEnums": true,
+    "preserveValueImports": true,
+
+    /* Interop Constraints */
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Type Checking - STRICT MODE */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+
+    /* Skip Type Checking for Libraries */
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+
+    /* Advanced */
+    "stripInternal": true,
+    "disableSizeLimit": false,
+    "disableSourceOfProjectReferenceRedirect": true,
+    "disableSolutionSearching": true,
+    "disableReferencedProjectLoad": false,
+    "noEmitOnError": true,
+    "preserveSymlinks": false,
+    "maxNodeModuleJsDepth": 0,
+    "allowArbitraryExtensions": false,
+    "resolvePackageJsonExports": true,
+    "resolvePackageJsonImports": true,
+
+    /* Output Formatting */
+    "pretty": true,
+    "newLine": "lf",
+
+    /* Completeness */
+    "noErrorTruncation": true
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    ".next",
+    "out",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/*.test.tsx",
+    "**/*.spec.tsx"
+  ],
+  "compileOnSave": false
+}

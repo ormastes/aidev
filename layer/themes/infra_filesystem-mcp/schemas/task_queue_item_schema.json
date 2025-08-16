@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Task Queue Item Schema",
+  "description": "JSON Schema for VF task queue items with type, content, and parent tracking",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for the task item"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "epic",
+        "working",
+        "adhoc_temp", 
+        "environment_tests",
+        "external_tests",
+        "system_tests_implement",
+        "integration_tests_implement",
+        "unit_tests",
+        "integration_tests_verify",
+        "system_tests_verify",
+        "coverage_duplication",
+        "retrospective",
+        "scenarios",
+        "user_story"
+      ],
+      "description": "Queue item type - determines which queue this item belongs to"
+    },
+    "content": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Task content/description - must not be empty"
+    },
+    "parent": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Parent output that was used to create this item - required for tracking lineage"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["high", "medium", "low"],
+      "description": "Priority level (optional, for adhoc_temp items)"
+    },
+    "points": {
+      "type": "number",
+      "minimum": 1,
+      "description": "Story points (optional, for working items)"
+    },
+    "epic": {
+      "type": "string",
+      "description": "Epic name this task belongs to (optional)"
+    },
+    "epicId": {
+      "type": "string",
+      "description": "Epic ID this task belongs to (optional)"
+    }
+  },
+  "required": ["type", "content", "parent"],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "type": "working",
+      "content": "Environment Configuration System - unified config for theme/epic/demo/release environments",
+      "parent": "user_story_123_environment_setup",
+      "points": 8
+    },
+    {
+      "type": "adhoc_temp",
+      "content": "Fix critical database connection issue",
+      "parent": "bug_report_456_db_connection",
+      "priority": "high"
+    },
+    {
+      "type": "system_tests_implement",
+      "content": "Test: In Progress theme creation workflow with automatic port allocation",
+      "parent": "feature_789_theme_creation"
+    },
+    {
+      "type": "scenarios",
+      "content": "Developer configures new theme with automatic port allocation",
+      "parent": "requirement_101_auto_config"
+    },
+    {
+      "type": "user_story",
+      "content": "As a developer, I want automated theme configuration so that I can focus on business logic",
+      "parent": "epic_202_developer_experience"
+    },
+    {
+      "type": "epic",
+      "content": "Infrastructure and Build Tools Enhancement",
+      "parent": "platform_roadmap",
+      "epicId": "epic-infra-001",
+      "points": 21
+    },
+    {
+      "type": "system_tests_implement",
+      "content": "Test: Epic-level integration across multiple themes",
+      "parent": "epic_integration_requirements",
+      "epic": "Platform Integration",
+      "epicId": "epic-platform-001"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "code-enhancer-epic-001",
+    "path": "/layer/themes/check_code-enhancer/user-stories/012-code-enhancement/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.570Z",
+    "updated_at": "2025-08-02T11:10:54.570Z"
+  },
+  "features": {
+    "012_code_enhancement": [
+      {
+        "id": "code-enhancer-012-code-enhancement",
+        "name": "code enhancement",
+        "data": {
+          "title": "Code enhancement",
+          "description": "Implementation of code enhancement",
+          "level": "user_story",
+          "parent_feature_id": "code-enhancer-epic-001",
+          "epic_id": "code-enhancer-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "code-enhancer",
+            "code-enhancement"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/check_code-enhancer/user-stories/012-code-enhancement/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.570Z",
+        "updatedAt": "2025-08-02T11:10:54.570Z"
+      }
+    ]
+  }
+}

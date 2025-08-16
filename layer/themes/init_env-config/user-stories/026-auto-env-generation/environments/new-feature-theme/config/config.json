@@ -1,0 +1,24 @@
+{
+  "name": "new-feature-theme",
+  "type": "theme",
+  "port": {
+    "base": 3200,
+    "range": [
+      3201,
+      3299
+    ]
+  },
+  "database": {
+    "type": "sqlite",
+    "connection": "./data/new-feature-theme.db"
+  },
+  "paths": {
+    "root": "environments/new-feature-theme",
+    "data": "environments/new-feature-theme/data",
+    "logs": "environments/new-feature-theme/logs",
+    "temp": "environments/new-feature-theme/temp"
+  },
+  "services": [],
+  "created": "2025-08-11T02:04:30.018Z",
+  "updated": "2025-08-11T02:04:30.018Z"
+}

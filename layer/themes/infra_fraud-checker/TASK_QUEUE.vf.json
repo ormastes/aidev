@@ -1,0 +1,173 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "theme": "infra_fraud-checker",
+    "description": "Task queue for fraud checker theme implementation",
+    "created": "2025-08-13",
+    "updated": "2025-08-13"
+  },
+  "queues": {
+    "file_structure_validation": {
+      "name": "File Structure Validation Feature",
+      "description": "Implement on-demand file structure validation against FILE_STRUCTURE.vf.json",
+      "priority": "high",
+      "status": "in_progress",
+      "tasks": [
+        {
+          "id": "fsv-001",
+          "title": "Create FileStructureValidator class",
+          "description": "Implement main validator class that reads FILE_STRUCTURE.vf.json and validates against actual file system",
+          "status": "pending",
+          "priority": "high",
+          "assignee": "dev",
+          "cucumber_step": "Given a FileStructureValidator with FILE_STRUCTURE.vf.json loaded",
+          "acceptance_criteria": [
+            "Loads and parses FILE_STRUCTURE.vf.json",
+            "Can traverse actual file system",
+            "Compares structure against definition"
+          ]
+        },
+        {
+          "id": "fsv-002",
+          "title": "Implement filesystem-mcp logic integration",
+          "description": "Use filesystem-mcp patterns for freeze validation and structure checking",
+          "status": "pending",
+          "priority": "high",
+          "assignee": "dev",
+          "cucumber_step": "When checking directory freeze rules",
+          "acceptance_criteria": [
+            "Respects freeze rules from FILE_STRUCTURE.vf.json",
+            "Validates required vs optional files",
+            "Checks allowed patterns for file names"
+          ]
+        },
+        {
+          "id": "fsv-003",
+          "title": "Create violation detection logic",
+          "description": "Detect and categorize structure violations",
+          "status": "pending",
+          "priority": "high",
+          "assignee": "dev",
+          "cucumber_step": "Then violations are detected and categorized",
+          "acceptance_criteria": [
+            "Detects missing required files",
+            "Detects unexpected files in frozen directories",
+            "Detects files not matching allowed patterns",
+            "Categorizes violations by severity"
+          ]
+        },
+        {
+          "id": "fsv-004",
+          "title": "Implement report generator",
+          "description": "Generate detailed violation reports in JSON and Markdown",
+          "status": "pending",
+          "priority": "medium",
+          "assignee": "dev",
+          "cucumber_step": "And a violation report is generated",
+          "acceptance_criteria": [
+            "Generates JSON report with all violations",
+            "Generates Markdown report for human reading",
+            "Includes suggestions for fixing violations",
+            "Shows compliance percentage"
+          ]
+        },
+        {
+          "id": "fsv-005",
+          "title": "Create CLI command for validation",
+          "description": "Add command to run file structure validation on demand",
+          "status": "pending",
+          "priority": "medium",
+          "assignee": "dev",
+          "cucumber_step": "Given the user runs 'npm run validate:structure'",
+          "acceptance_criteria": [
+            "Creates new CLI command",
+            "Accepts optional path parameter",
+            "Shows progress during validation",
+            "Outputs report to gen/doc/"
+          ]
+        },
+        {
+          "id": "fsv-006",
+          "title": "Add unit tests",
+          "description": "Create comprehensive unit tests for validator",
+          "status": "pending",
+          "priority": "high",
+          "assignee": "dev",
+          "cucumber_step": "Given unit tests for FileStructureValidator",
+          "acceptance_criteria": [
+            "Tests validation logic",
+            "Tests violation detection",
+            "Tests report generation",
+            "Achieves 80% coverage"
+          ]
+        },
+        {
+          "id": "fsv-007",
+          "title": "Add integration tests",
+          "description": "Create integration tests with actual file system",
+          "status": "pending",
+          "priority": "medium",
+          "assignee": "dev",
+          "cucumber_step": "Given integration tests with test file structures",
+          "acceptance_criteria": [
+            "Tests with valid structures",
+            "Tests with various violations",
+            "Tests freeze rule enforcement",
+            "Tests pattern matching"
+          ]
+        },
+        {
+          "id": "fsv-008",
+          "title": "Create system test",
+          "description": "End-to-end test of validation and reporting",
+          "status": "pending",
+          "priority": "medium",
+          "assignee": "dev",
+          "cucumber_step": "Given a full system test of structure validation",
+          "acceptance_criteria": [
+            "Runs validation on actual project",
+            "Generates real report",
+            "Verifies report accuracy",
+            "Tests CLI integration"
+          ]
+        },
+        {
+          "id": "fsv-009",
+          "title": "Document usage and API",
+          "description": "Create documentation for the new feature",
+          "status": "pending",
+          "priority": "low",
+          "assignee": "dev",
+          "cucumber_step": "Given documentation is created",
+          "acceptance_criteria": [
+            "Documents CLI usage",
+            "Documents API for programmatic use",
+            "Includes examples",
+            "Updates README.md"
+          ]
+        },
+        {
+          "id": "fsv-010",
+          "title": "Add to fraud-checker pipe exports",
+          "description": "Export FileStructureValidator through pipe/index.ts",
+          "status": "pending",
+          "priority": "high",
+          "assignee": "dev",
+          "cucumber_step": "Given FileStructureValidator is exported",
+          "acceptance_criteria": [
+            "Added to pipe/index.ts",
+            "Follows cross-layer communication rules",
+            "Can be imported by other themes"
+          ]
+        }
+      ]
+    }
+  },
+  "runnable_comments": [
+    "<!-- runnable:validate-structure:layer/themes/infra_fraud-checker,gen/doc/structure-validation-report.md -->",
+    "<!-- runnable:check-freeze-violations:.,gen/doc/freeze-violations.md -->",
+    "<!-- runnable:generate-compliance-report:.,gen/doc/compliance-report.md -->"
+  ],
+  "parentQueue": "/TASK_QUEUE.vf.json",
+  "theme": "infra_fraud-checker"
+}

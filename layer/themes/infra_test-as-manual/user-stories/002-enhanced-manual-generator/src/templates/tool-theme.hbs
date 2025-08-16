@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} - Tool Testing Manual</title>
+    <style>
+        :root {
+            --tool-primary: #ff6b6b;
+            --tool-secondary: #4ecdc4;
+            --tool-accent: #45b7d1;
+            --tool-dark: #2c3e50;
+            --tool-light: #f7f7f7;
+            --tool-success: #95e1d3;
+            --tool-warning: #ffd93d;
+            --tool-danger: #ff6b6b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+            min-height: 100vh;
+        }
+
+        .tool-container {
+            max-width: 1300px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+        }
+
+        /* Tool Header */
+        .tool-header {
+            background: linear-gradient(135deg, var(--tool-primary) 0%, var(--tool-accent) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            position: relative;
+        }
+
+        .tool-header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--tool-secondary), var(--tool-accent), var(--tool-primary));
+        }
+
+        .tool-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-icon {
+            font-size: 3rem;
+        }
+
+        .tool-header h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: -1px;
+        }
+
+        /* Tool Navigation */
+        .tool-nav {
+            background: var(--tool-dark);
+            padding: 0;
+            display: flex;
+            overflow-x: auto;
+        }
+
+        .tool-nav-item {
+            color: white;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .tool-nav-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .tool-nav-item.active {
+            background: var(--tool-accent);
+        }
+
+        .tool-nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--tool-secondary);
+        }
+
+        /* Tool Main Content */
+        .tool-main {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        /* Tool Sidebar */
+        .tool-sidebar {
+            background: var(--tool-light);
+            border-radius: 15px;
+            padding: 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .tool-info {
+            margin-bottom: 2rem;
+        }
+
+        .tool-info h3 {
+            color: var(--tool-dark);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .info-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .info-value {
+            font-weight: bold;
+            color: var(--tool-dark);
+        }
+
+        /* Tool Features */
+        .tool-features {
+            margin-top: 2rem;
+        }
+
+        .feature-tag {
+            display: inline-block;
+            background: var(--tool-accent);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 0.25rem;
+        }
+
+        /* Tool Content */
+        .tool-content {
+            max-width: 100%;
+        }
+
+        /* Tool Test Section */
+        .tool-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--tool-light);
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--tool-accent);
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        /* Tool Test Cases */
+        .tool-test {
+            background: white;
+            border: 2px solid var(--tool-light);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .tool-test:hover {
+            border-color: var(--tool-accent);
+            box-shadow: 0 5px 15px rgba(69, 183, 209, 0.1);
+        }
+
+        .tool-test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .test-id-badge {
+            background: var(--tool-primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .test-tags {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .test-tag {
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .tag-api { background: #e3f2fd; color: #1976d2; }
+        .tag-ui { background: #f3e5f5; color: #7b1fa2; }
+        .tag-cli { background: #e8f5e9; color: #388e3c; }
+        .tag-integration { background: #fff3e0; color: #f57c00; }
+
+        /* Tool Usage Examples */
+        .usage-example {
+            background: #f8f9fa;
+            border-left: 4px solid var(--tool-accent);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .usage-example h4 {
+            color: var(--tool-dark);
+            margin-bottom: 1rem;
+        }
+
+        .code-snippet {
+            background: var(--tool-dark);
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+        }
+
+        .code-snippet .keyword { color: var(--tool-accent); }
+        .code-snippet .string { color: var(--tool-secondary); }
+        .code-snippet .comment { color: #75715e; }
+
+        /* Tool Workflow */
+        .workflow-diagram {
+            background: var(--tool-light);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .workflow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+
+        .workflow-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .workflow-step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: var(--tool-accent);
+        }
+
+        .step-circle {
+            width: 60px;
+            height: 60px;
+            background: var(--tool-accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 0.5rem;
+        }
+
+        /* Tool Results */
+        .test-results {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .result-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+
+        .result-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Tool Parameters */
+        .parameters-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .parameters-table th {
+            background: var(--tool-accent);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .parameters-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--tool-light);
+        }
+
+        .parameters-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .param-required {
+            background: var(--tool-danger);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            font-size: 0.75rem;
+        }
+
+        .param-optional {
+            background: var(--tool-success);
+            color: var(--tool-dark);
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            font-size: 0.75rem;
+        }
+
+        /* Footer */
+        .tool-footer {
+            background: var(--tool-dark);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="tool-container">
+        <header class="tool-header">
+            <div class="tool-title">
+                <span class="tool-icon">🛠️</span>
+                <div>
+                    <h1>{{title}}</h1>
+                    <p>{{description}}</p>
+                </div>
+            </div>
+            <div style="margin-top: 1.5rem; display: flex; gap: 2rem;">
+                <span>📦 Version: {{version}}</span>
+                <span>🔧 Type: {{toolType}}</span>
+                <span>📊 Tests: {{totalTests}}</span>
+            </div>
+        </header>
+
+        <nav class="tool-nav">
+            {{#each sections}}
+            <a href="#{{id}}" class="tool-nav-item">{{title}}</a>
+            {{/each}}
+        </nav>
+
+        <div class="tool-main">
+            <aside class="tool-sidebar">
+                <div class="tool-info">
+                    <h3>Tool Information</h3>
+                    {{#each toolInfo}}
+                    <div class="info-item">
+                        <span class="info-label">{{label}}</span>
+                        <span class="info-value">{{value}}</span>
+                    </div>
+                    {{/each}}
+                </div>
+
+                {{#if features}}
+                <div class="tool-features">
+                    <h3>Features</h3>
+                    {{#each features}}
+                    <span class="feature-tag">{{this}}</span>
+                    {{/each}}
+                </div>
+                {{/if}}
+            </aside>
+
+            <main class="tool-content">
+                {{#if workflow}}
+                <div class="workflow-diagram">
+                    <h2>Tool Workflow</h2>
+                    <div class="workflow-steps">
+                        {{#each workflow}}
+                        <div class="workflow-step">
+                            <div class="step-circle">{{icon}}</div>
+                            <div>{{title}}</div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+                {{/if}}
+
+                {{#each sections}}
+                <section class="tool-section" id="{{id}}">
+                    <div class="section-header">
+                        <div class="section-icon">{{icon}}</div>
+                        <h2>{{title}}</h2>
+                    </div>
+
+                    {{#if parameters}}
+                    <table class="parameters-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Required</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each parameters}}
+                            <tr>
+                                <td><code>{{name}}</code></td>
+                                <td>{{type}}</td>
+                                <td>
+                                    {{#if required}}
+                                    <span class="param-required">Required</span>
+                                    {{else}}
+                                    <span class="param-optional">Optional</span>
+                                    {{/if}}
+                                </td>
+                                <td>{{description}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    {{/if}}
+
+                    {{#each testCases}}
+                    <div class="tool-test">
+                        <div class="tool-test-header">
+                            <div>
+                                <span class="test-id-badge">{{id}}</span>
+                                <h3 style="margin-top: 0.5rem;">{{title}}</h3>
+                            </div>
+                            <div class="test-tags">
+                                {{#each tags}}
+                                <span class="test-tag tag-{{this}}">{{this}}</span>
+                                {{/each}}
+                            </div>
+                        </div>
+
+                        <p>{{description}}</p>
+
+                        {{#if usage}}
+                        <div class="usage-example">
+                            <h4>Usage Example</h4>
+                            <div class="code-snippet">
+                                <pre>{{usage}}</pre>
+                            </div>
+                        </div>
+                        {{/if}}
+
+                        <h4>Test Steps:</h4>
+                        <ol>
+                            {{#each steps}}
+                            <li>
+                                <strong>{{action}}</strong>
+                                {{#if input}}
+                                <div style="margin: 0.5rem 0;">
+                                    <em>Input:</em>
+                                    <div class="code-snippet">{{input}}</div>
+                                </div>
+                                {{/if}}
+                                {{#if expected}}
+                                <div style="margin: 0.5rem 0; padding: 0.75rem; background: #e8f5e9; border-radius: 8px;">
+                                    <strong>Expected Output:</strong> {{expected}}
+                                </div>
+                                {{/if}}
+                            </li>
+                            {{/each}}
+                        </ol>
+
+                        {{#if validation}}
+                        <h4>Validation Criteria:</h4>
+                        <ul>
+                            {{#each validation}}
+                            <li>{{this}}</li>
+                            {{/each}}
+                        </ul>
+                        {{/if}}
+                    </div>
+                    {{/each}}
+                </section>
+                {{/each}}
+
+                {{#if results}}
+                <div class="test-results">
+                    <h2>Test Results Summary</h2>
+                    <div class="results-grid">
+                        {{#each results}}
+                        <div class="result-item">
+                            <div class="result-value">{{value}}</div>
+                            <div class="result-label">{{label}}</div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+                {{/if}}
+            </main>
+        </div>
+
+        <footer class="tool-footer">
+            <p>Tool Testing Manual - Generated {{generatedDate}}</p>
+            <p>{{toolName}} v{{version}} - Comprehensive Testing Documentation</p>
+        </footer>
+    </div>
+</body>
+</html>

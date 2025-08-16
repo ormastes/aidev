@@ -1,0 +1,546 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ID Name VF Schema",
+  "description": "JSON Schema for ID_NAME.vf.json file - groups name-id mappings by entity type",
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Schema version (e.g., '1.0.0')"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this ID_NAME.vf.json was created (ISO 8601 format)"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this ID_NAME.vf.json was last updated (ISO 8601 format)"
+        },
+        "total_items": {
+          "type": "number",
+          "description": "Total number of name-id items across all types"
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional description of this name-id collection"
+        }
+      },
+      "required": ["version", "created_at", "updated_at", "total_items"],
+      "additionalProperties": false
+    },
+    "types": {
+      "type": "object",
+      "description": "Name-id mappings grouped by entity type",
+      "properties": {
+        "file": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All file entities"
+        },
+        "directory": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All directory entities"
+        },
+        "function": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All function entities"
+        },
+        "class": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All class entities"
+        },
+        "method": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All method entities"
+        },
+        "variable": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All variable entities"
+        },
+        "constant": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All constant entities"
+        },
+        "interface": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All interface entities"
+        },
+        "type": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All type definition entities"
+        },
+        "module": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All module entities"
+        },
+        "namespace": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All namespace entities"
+        },
+        "component": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All component entities"
+        },
+        "concept": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All conceptual entities"
+        },
+        "service": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All service entities"
+        },
+        "entity": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All entity/model entities"
+        },
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All schema entities"
+        },
+        "config": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All configuration entities"
+        },
+        "test": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All test entities"
+        },
+        "script": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All script entities"
+        },
+        "other": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/name_id_item"
+          },
+          "description": "All other/miscellaneous entities"
+        }
+      },
+      "additionalProperties": false
+    },
+    "indices": {
+      "type": "object",
+      "description": "Lookup indices for fast searching",
+      "properties": {
+        "by_name": {
+          "type": "object",
+          "description": "Index by name (case-insensitive) -> array of item IDs",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "by_namespace": {
+          "type": "object", 
+          "description": "Index by namespace -> array of item IDs",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "by_tag": {
+          "type": "object",
+          "description": "Index by tag -> array of item IDs",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "by_extension": {
+          "type": "object",
+          "description": "Index by file extension -> array of item IDs",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["metadata", "types"],
+  "additionalProperties": false,
+
+  "definitions": {
+    "name_id_item": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Unique identifier for the name-id item"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "file", "directory", "function", "class", "method", "variable",
+            "constant", "interface", "type", "module", "namespace",
+            "component", "concept", "service", "entity", "schema",
+            "config", "test", "script", "other"
+          ],
+          "description": "Type of the named entity being tracked"
+        },
+        "namespace": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Namespace/scope for the name (e.g., 'src/components', 'tests/unit', 'config')"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The actual name (e.g., 'UserProfile', 'login.test.ts', 'database-config')"
+        },
+        "full_path": {
+          "type": "string",
+          "minLength": 1,
+          "description": "In Progress path or identifier (e.g., 'src/components/UserProfile.tsx')"
+        },
+        "extension": {
+          "type": "string",
+          "description": "File extension (optional, for file types - e.g., '.ts', '.json', '.md')"
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional description of the entity"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Optional tags for categorization and search"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this mapping was created (ISO 8601 format)"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this mapping was last updated (ISO 8601 format)"
+        },
+        "metadata": {
+          "type": "object",
+          "description": "Additional flexible metadata",
+          "properties": {
+            "size": {
+              "type": "number",
+              "description": "File size in bytes (for files)"
+            },
+            "line_count": {
+              "type": "number",
+              "description": "Number of lines (for code files)"
+            },
+            "language": {
+              "type": "string",
+              "description": "Programming language (for code files)"
+            },
+            "parent_class": {
+              "type": "string",
+              "description": "Parent class name (for methods/properties)"
+            },
+            "module_exports": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of exported symbols (for modules)"
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": ["id", "type", "namespace", "name", "full_path"],
+      "additionalProperties": false
+    }
+  },
+
+  "examples": [
+    {
+      "metadata": {
+        "version": "1.0.0",
+        "created_at": "2024-01-01T10:00:00Z",
+        "updated_at": "2024-01-20T15:30:00Z",
+        "total_items": 8,
+        "description": "Name-ID mappings for the main project"
+      },
+      "types": {
+        "file": [
+          {
+            "id": "login-test-file",
+            "type": "file",
+            "namespace": "tests/unit",
+            "name": "login.test.ts",
+            "full_path": "tests/unit/auth/login.test.ts",
+            "extension": ".ts",
+            "description": "Unit tests for login functionality",
+            "tags": ["test", "auth", "unit"],
+            "created_at": "2024-01-02T09:00:00Z",
+            "updated_at": "2024-01-10T16:45:00Z",
+            "metadata": {
+              "size": 1536,
+              "line_count": 42,
+              "language": "typescript"
+            }
+          }
+        ],
+        "directory": [
+          {
+            "id": "db-config-dir",
+            "type": "directory",
+            "namespace": "config",
+            "name": "database",
+            "full_path": "config/database",
+            "description": "Database configuration directory",
+            "tags": ["config", "database"],
+            "created_at": "2024-01-01T08:00:00Z",
+            "updated_at": "2024-01-01T08:00:00Z",
+            "metadata": {}
+          }
+        ],
+        "function": [
+          {
+            "id": "validate-user-function",
+            "type": "function",
+            "namespace": "src/utils",
+            "name": "validateUser",
+            "full_path": "src/utils/validation.ts:validateUser",
+            "extension": ".ts",
+            "description": "Function to validate user input data",
+            "tags": ["validation", "user", "utility"],
+            "created_at": "2024-01-03T11:20:00Z",
+            "updated_at": "2024-01-12T13:15:00Z",
+            "metadata": {
+              "line_count": 15,
+              "language": "typescript",
+              "parent_class": null
+            }
+          }
+        ],
+        "class": [
+          {
+            "id": "user-service-class",
+            "type": "class",
+            "namespace": "src/services",
+            "name": "UserService",
+            "full_path": "src/services/UserService.ts:UserService",
+            "extension": ".ts",
+            "description": "Service class for user operations",
+            "tags": ["service", "user", "class"],
+            "created_at": "2024-01-01T12:00:00Z",
+            "updated_at": "2024-01-20T10:30:00Z",
+            "metadata": {
+              "line_count": 120,
+              "language": "typescript",
+              "module_exports": ["UserService", "IUserService"]
+            }
+          }
+        ],
+        "component": [
+          {
+            "id": "user-profile-component",
+            "type": "component",
+            "namespace": "src/components",
+            "name": "UserProfile",
+            "full_path": "src/components/UserProfile.tsx",
+            "extension": ".tsx",
+            "description": "User profile display component",
+            "tags": ["react", "ui", "user"],
+            "created_at": "2024-01-01T10:00:00Z",
+            "updated_at": "2024-01-15T14:30:00Z",
+            "metadata": {
+              "size": 2048,
+              "line_count": 85,
+              "language": "typescript"
+            }
+          }
+        ],
+        "method": [],
+        "variable": [],
+        "constant": [],
+        "interface": [],
+        "type": [],
+        "module": [],
+        "namespace": [],
+        "concept": [],
+        "service": [],
+        "entity": [],
+        "schema": [],
+        "config": [],
+        "test": [],
+        "script": [],
+        "other": []
+      },
+      "indices": {
+        "by_name": {
+          "userprofile": ["user-profile-component"],
+          "login.test.ts": ["login-test-file"],
+          "database": ["db-config-dir"],
+          "validateuser": ["validate-user-function"],
+          "userservice": ["user-service-class"]
+        },
+        "by_namespace": {
+          "src/components": ["user-profile-component"],
+          "tests/unit": ["login-test-file"],
+          "config": ["db-config-dir"],
+          "src/utils": ["validate-user-function"],
+          "src/services": ["user-service-class"]
+        },
+        "by_tag": {
+          "react": ["user-profile-component"],
+          "ui": ["user-profile-component"],
+          "user": ["user-profile-component", "validate-user-function", "user-service-class"],
+          "test": ["login-test-file"],
+          "auth": ["login-test-file"],
+          "unit": ["login-test-file"],
+          "config": ["db-config-dir"],
+          "database": ["db-config-dir"],
+          "validation": ["validate-user-function"],
+          "utility": ["validate-user-function"],
+          "service": ["user-service-class"],
+          "class": ["user-service-class"]
+        },
+        "by_extension": {
+          ".tsx": ["user-profile-component"],
+          ".ts": ["login-test-file", "validate-user-function", "user-service-class"]
+        }
+      }
+    }
+  ],
+
+  "usage_notes": {
+    "description": "Guidelines for using ID_NAME.vf.json",
+    "notes": [
+      "Each entity type has its own array in the 'types' object for efficient grouping",
+      "Indices provide fast lookup capabilities for common search patterns",
+      "The 'by_name' index uses lowercase keys for case-insensitive search",
+      "Empty arrays should be maintained for unused types to preserve schema consistency",
+      "The metadata.total_items should be kept in sync with the actual number of items",
+      "When adding/removing items, update both the types arrays and the indices",
+      "The indices can be rebuilt from the types data if they become inconsistent"
+    ]
+  },
+
+  "operations": {
+    "description": "Common operations on ID_NAME.vf.json",
+    "operations": [
+      {
+        "name": "add_item",
+        "description": "Add a new name-id item",
+        "steps": [
+          "1. Add item to appropriate types[item.type] array",
+          "2. Update indices (by_name, by_namespace, by_tag, by_extension)",
+          "3. Increment metadata.total_items",
+          "4. Update metadata.updated_at"
+        ]
+      },
+      {
+        "name": "remove_item",
+        "description": "Remove a name-id item",
+        "steps": [
+          "1. Remove item from types[item.type] array",
+          "2. Remove item ID from all indices",
+          "3. Decrement metadata.total_items",
+          "4. Update metadata.updated_at"
+        ]
+      },
+      {
+        "name": "search_by_name",
+        "description": "Search items by name",
+        "steps": [
+          "1. Lookup in indices.by_name[name.toLowerCase()]",
+          "2. Get item IDs and retrieve full items from types arrays",
+          "3. Return matching items"
+        ]
+      },
+      {
+        "name": "search_by_type",
+        "description": "Get all items of a specific type",
+        "steps": [
+          "1. Return entire types[type_name] array"
+        ]
+      },
+      {
+        "name": "rebuild_indices",
+        "description": "Rebuild all indices from types data",
+        "steps": [
+          "1. Clear all index objects",
+          "2. Iterate through all items in all type arrays",
+          "3. Rebuild by_name, by_namespace, by_tag, by_extension indices",
+          "4. Update metadata.updated_at"
+        ]
+      }
+    ]
+  }
+}

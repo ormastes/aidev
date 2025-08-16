@@ -1,0 +1,29 @@
+{
+  "name": "cli-ink-typescript",
+  "description": "CLI application using Ink (React for CLI) with TypeScript",
+  "type": "cli",
+  "language": "typescript",
+  "framework": "ink",
+  "test_framework": "cucumber",
+  "supported_platforms": ["linux", "windows", "macos"],
+  "supported_architectures": ["x86", "x86_64", "arm", "arm64"],
+  "dependencies": {
+    "node": ">=18.0.0",
+    "bun": ">=9.0.0"
+  },
+  "npm_packages": {
+    "ink": "^3.2.0",
+    "react": "^18.0.0",
+    "@types/react": "^18.0.0",
+    "typescript": "^5.0.0",
+    "@cucumber/cucumber": "^9.0.0",
+    "ts-node": "^10.0.0"
+  },
+  "files": {
+    "src/app.tsx": "import React from 'react';\nimport {render, Text, Box} from 'ink';\n\nconst App = () => (\n  <Box>\n    <Text color=\"green\">Hello from Ink CLI!</Text>\n  </Box>\n);\n\nrender(<App />);",
+    "src/cli.ts": "#!/usr/bin/env node\nimport './app';",
+    "tsconfig.json": "{\n  \"compilerOptions\": {\n    \"target\": \"ES2020\",\n    \"module\": \"commonjs\",\n    \"jsx\": \"react\",\n    \"strict\": true,\n    \"esModuleInterop\": true,\n    \"skipLibCheck\": true,\n    \"forceConsistentCasingInFileNames\": true,\n    \"outDir\": \"./dist\",\n    \"rootDir\": \"./src\"\n  }\n}",
+    "package.json": "{\n  \"name\": \"${PROJECT_NAME}\",\n  \"version\": \"1.0.0\",\n  \"main\": \"dist/cli.js\",\n  \"scripts\": {\n    \"build\": \"tsc\",\n    \"start\": \"ts-node src/cli.ts\",\n    \"test\": \"cucumber-js\"\n  }\n}",
+    "features/cli.feature": "Feature: CLI Application\n  Scenario: Display hello message\n    Given the CLI is running\n    When I start the application\n    Then I should see \"Hello from Ink CLI!\""
+  }
+}

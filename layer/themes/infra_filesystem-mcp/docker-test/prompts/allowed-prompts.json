@@ -1,0 +1,113 @@
+[
+  {
+    "id": "allow-001",
+    "type": "allowed_root_file",
+    "text": "Update README.md with new documentation",
+    "expected": "Should allow updating existing allowed root file",
+    "shouldViolate": false,
+    "fileCreated": true,
+    "tool": "write_file_with_validation",
+    "category": "documentation",
+    "content": "# Updated README\n\nNew documentation content",
+    "tags": ["documentation", "readme"]
+  },
+  {
+    "id": "allow-002",
+    "type": "documentation_directory",
+    "text": "Create API documentation in gen/doc/api-reference.md",
+    "expected": "Should allow file in gen/doc directory",
+    "shouldViolate": false,
+    "fileCreated": true,
+    "category": "documentation",
+    "content": "# API Reference\n\n## Endpoints",
+    "tags": ["documentation", "api"]
+  },
+  {
+    "id": "allow-003",
+    "type": "theme_file",
+    "text": "Create new theme component in layer/themes/my-theme/component.ts",
+    "expected": "Should allow file in themes directory",
+    "shouldViolate": false,
+    "fileCreated": true,
+    "category": "features",
+    "content": "export class Component {}",
+    "tags": ["theme", "component"]
+  },
+  {
+    "id": "allow-004",
+    "type": "test_file",
+    "text": "Create unit test in test/system/new-test.spec.ts",
+    "expected": "Should allow test file creation",
+    "shouldViolate": false,
+    "fileCreated": true,
+    "category": "tests",
+    "content": "describe('Test', () => {});",
+    "tags": ["test", "unit"]
+  },
+  {
+    "id": "allow-005",
+    "type": "config_file",
+    "text": "Create configuration in config/app-settings.json",
+    "expected": "Should allow config file",
+    "shouldViolate": false,
+    "fileCreated": true,
+    "category": "configuration",
+    "content": "{\n  \"setting\": \"value\"\n}",
+    "tags": ["config", "settings"]
+  },
+  {
+    "id": "allow-006",
+    "type": "script_file",
+    "text": "Create utility script in scripts/build.sh",
+    "expected": "Should allow script creation",
+    "shouldViolate": false,
+    "fileCreated": true,
+    "category": "utilities",
+    "content": "#!/bin/bash\necho 'Building...'",
+    "tags": ["script", "build"]
+  },
+  {
+    "id": "allow-007",
+    "type": "common_utility",
+    "text": "Create shared utility in common/helpers.ts",
+    "expected": "Should allow common utilities",
+    "shouldViolate": false,
+    "fileCreated": true,
+    "category": "utilities",
+    "content": "export const helper = () => {};",
+    "tags": ["utility", "common"]
+  },
+  {
+    "id": "allow-008",
+    "type": "demo_file",
+    "text": "Create demo example in demo/example.js",
+    "expected": "Should allow demo files",
+    "shouldViolate": false,
+    "fileCreated": true,
+    "category": "documentation",
+    "content": "// Demo code",
+    "tags": ["demo", "example"]
+  },
+  {
+    "id": "allow-009",
+    "type": "vf_file",
+    "text": "Create virtual file CUSTOM.vf.json in root",
+    "expected": "Should allow .vf.json files in root",
+    "shouldViolate": false,
+    "fileCreated": true,
+    "category": "configuration",
+    "content": "{\n  \"metadata\": {}\n}",
+    "tags": ["vf", "configuration"]
+  },
+  {
+    "id": "allow-010",
+    "type": "nested_directory",
+    "text": "Create deeply nested file in layer/themes/deep/nested/dir/file.ts",
+    "expected": "Should allow nested directories within allowed paths",
+    "shouldViolate": false,
+    "fileCreated": true,
+    "category": "features",
+    "content": "export default {};",
+    "tags": ["nested", "theme"]
+  }
+]

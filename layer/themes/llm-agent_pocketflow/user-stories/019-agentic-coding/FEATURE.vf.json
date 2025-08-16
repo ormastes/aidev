@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "pocketflow-epic-001",
+    "path": "/layer/themes/pocketflow/user-stories/019-agentic-coding/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.598Z",
+    "updated_at": "2025-08-02T11:10:54.598Z"
+  },
+  "features": {
+    "019_agentic_coding": [
+      {
+        "id": "pocketflow-019-agentic-coding",
+        "name": "agentic coding",
+        "data": {
+          "title": "Agentic coding",
+          "description": "Implementation of agentic coding",
+          "level": "user_story",
+          "parent_feature_id": "pocketflow-epic-001",
+          "epic_id": "pocketflow-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "pocketflow",
+            "agentic-coding"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/pocketflow/user-stories/019-agentic-coding/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.598Z",
+        "updatedAt": "2025-08-02T11:10:54.598Z"
+      }
+    ]
+  }
+}

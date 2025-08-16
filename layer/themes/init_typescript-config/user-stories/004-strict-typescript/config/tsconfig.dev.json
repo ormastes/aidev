@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    /* Development Settings */
+    "sourceMap": true,
+    "removeComments": false,
+    "declaration": true,
+    "declarationMap": true,
+    
+    /* Watch Mode Optimizations */
+    "incremental": true,
+    "tsBuildInfoFile": "./.tsbuildinfo",
+    "assumeChangesOnlyAffectDirectDependencies": false,
+    
+    /* Development Debugging */
+    "diagnostics": true,
+    "extendedDiagnostics": false,
+    "listEmittedFiles": false,
+    "listFiles": false,
+    "traceResolution": false,
+    
+    /* Type Checking Relaxations for Development */
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    
+    /* Module Resolution */
+    "allowJs": true,
+    "checkJs": false,
+    
+    /* Output */
+    "outDir": "../dist",
+    "rootDir": "../src",
+    
+    /* Fast Refresh Support */
+    "jsx": "react-jsxdev",
+    "jsxImportSource": "react"
+  },
+  "include": [
+    "../src/**/*",
+    "../types/**/*",
+    "../test/**/*"
+  ],
+  "exclude": [
+    "../node_modules",
+    "../dist",
+    "../build",
+    "../coverage"
+  ],
+  "watchOptions": {
+    "watchFile": "useFsEvents",
+    "watchDirectory": "useFsEvents",
+    "fallbackPolling": "dynamicPriority",
+    "synchronousWatchDirectory": true,
+    "excludeDirectories": [
+      "**/node_modules",
+      "**/dist",
+      "../.git"
+    ]
+  }
+}

@@ -1,0 +1,83 @@
+sequenceDiagram
+    participant User
+    participant TaskManager
+    participant TaskStorage
+    participant Logger
+
+    Note over User, Logger: Integration Test Sequence Diagrams
+
+    %% TaskManager-TaskStorage Integration
+    rect rgb(240, 248, 255)
+        Note over TaskManager, TaskStorage: Create Task Integration
+        User->>TaskManager: createTask("Task Title", "Description")
+        TaskManager->>TaskManager: validateInput(title, description)
+        TaskManager->>TaskStorage: save(taskObject)
+        TaskStorage->>TaskStorage: generateTaskId()
+        TaskStorage->>TaskStorage: persistToFile(task)
+        TaskStorage-->>TaskManager: taskId
+        TaskManager-->>User: { success: true, taskId }
+    end
+
+    rect rgb(255, 248, 240)
+        Note over TaskManager, TaskStorage: Update Task Integration
+        User->>TaskManager: updateTaskStatus(taskId, "in_progress")
+        TaskManager->>TaskStorage: findById(taskId)
+        TaskStorage-->>TaskManager: existingTask
+        TaskManager->>TaskManager: validateStatusTransition(currentStatus, newStatus)
+        TaskManager->>TaskStorage: update(taskId, { status: "in_progress", updatedAt })
+        TaskStorage->>TaskStorage: updateInFile(taskId, updates)
+        TaskStorage-->>TaskManager: updatedTask
+        TaskManager-->>User: { success: true, task: updatedTask }
+    end
+
+    rect rgb(248, 255, 240)
+        Note over TaskManager, TaskStorage: List Tasks Integration
+        User->>TaskManager: listTasks("pending")
+        TaskManager->>TaskStorage: findAll("pending")
+        TaskStorage->>TaskStorage: filterByStatus("pending")
+        TaskStorage-->>TaskManager: filteredTasks[]
+        TaskManager->>TaskManager: sortByCreatedAt(tasks)
+        TaskManager-->>User: { success: true, tasks: sortedTasks }
+    end
+
+    rect rgb(255, 240, 248)
+        Note over TaskManager, TaskStorage: Delete Task Integration
+        User->>TaskManager: deleteTask(taskId)
+        TaskManager->>TaskStorage: findById(taskId)
+        TaskStorage-->>TaskManager: existingTask
+        TaskManager->>TaskManager: validateTaskCompleted(task.status)
+        TaskManager->>TaskStorage: delete(taskId)
+        TaskStorage->>TaskStorage: removeFromFile(taskId)
+        TaskStorage-->>TaskManager: void
+        TaskManager-->>User: { success: true }
+    end
+
+    %% TaskManager-Logger Integration
+    rect rgb(240, 255, 255)
+        Note over TaskManager, Logger: Logging Integration
+        User->>TaskManager: createTask("Logged Task", "Description")
+        TaskManager->>Logger: log("INFO: Creating task")
+        TaskManager->>TaskManager: validateInput()
+        alt validation success
+            TaskManager->>Logger: log("INFO: Task created successfully")
+        else validation failure
+            TaskManager->>Logger: log("ERROR: Task creation failed")
+        end
+        TaskManager-->>User: result
+    end
+
+    %% TaskStorage-Logger Coordination
+    rect rgb(255, 255, 240)
+        Note over TaskStorage, Logger: Storage-Logger Coordination
+        TaskManager->>TaskStorage: save(task)
+        TaskStorage->>Logger: log("STORAGE: Attempting to save task")
+        TaskStorage->>TaskStorage: persistToFile(task)
+        alt save success
+            TaskStorage->>Logger: log("STORAGE: Task saved successfully")
+        else save failure
+            TaskStorage->>Logger: log("STORAGE: Save operation failed")
+        end
+        TaskStorage-->>TaskManager: result
+    end
+
+    Note over User, Logger: All integrations maintain data consistency and proper error handling

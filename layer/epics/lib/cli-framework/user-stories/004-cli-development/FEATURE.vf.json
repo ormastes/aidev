@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "cli-framework-epic-001",
+    "path": "/layer/themes/cli-framework/user-stories/004-cli-development/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.569Z",
+    "updated_at": "2025-08-02T11:10:54.569Z"
+  },
+  "features": {
+    "004_cli_development": [
+      {
+        "id": "cli-framework-004-cli-development",
+        "name": "cli development",
+        "data": {
+          "title": "Cli development",
+          "description": "Implementation of cli development",
+          "level": "user_story",
+          "parent_feature_id": "cli-framework-epic-001",
+          "epic_id": "cli-framework-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "cli-framework",
+            "cli-development"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/cli-framework/user-stories/004-cli-development/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.569Z",
+        "updatedAt": "2025-08-02T11:10:54.569Z"
+      }
+    ]
+  }
+}

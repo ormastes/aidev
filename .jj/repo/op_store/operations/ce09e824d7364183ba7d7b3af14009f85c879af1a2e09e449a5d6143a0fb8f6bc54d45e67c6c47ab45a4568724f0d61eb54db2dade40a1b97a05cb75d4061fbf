@@ -1,0 +1,35 @@
+
+@şşä/uÄ«U‰¯R$¾5>¥~? ˜aˆ[“î9}NÃ@@”ß:¾l¹Ğèÿj5Ì+’­¹“€ÅìK0£@ïlºìD¤4(>¤UG;ccô©«‚—m¦ôŸœÙ&Nä¸ÇÆŠŠ-‚İê¿tdP­úHUÃ!~rìHÊ‰
+ÊÍ‡çŠ3ÍÍ‡çŠ3/commit 07d04ab7410d1c825594f368d3e0fe9e514a2f89"dl*ormastes2µ
+
+args¬
+jj commit -m 'Add VF1 virtual task queue with recursive embedding and hierarchy management
+
+Major Features:
+- Implement TASK_QUEUE.vf1.json virtual file format with recursive child embedding
+- Add root_item_id field to task queue schema for tracking task lineage
+- Convert all task queues from priority-based to test-driven format
+- Create parent-child hierarchy tracking with TASK_QUEUE_REGISTRY.vf.json
+- Add simplified task display mode (essential fields only) with detail option
+
+Implementation:
+- VFTaskQueueV1Wrapper.ts: TypeScript implementation for virtual queue handling
+- mcp-server-vf1.js: MCP server with VF1-specific tools
+- Update propagation from virtual to real .vf.json files
+- Hierarchical pop functionality traversing child queues
+- Migration scripts for format conversion
+
+Registry & Validation:
+- Central registry tracking 43 task queues across all themes
+- Parent-child relationship validation scripts
+- Root item ID validation and tracking
+- Automatic parent reference updates
+
+Testing:
+- test-vf1-functionality.js: Comprehensive VF1 feature testing
+- validate-queue-hierarchy.js: Hierarchy validation
+- validate-root-item-id.js: Root item tracking validation
+
+The VF1 format provides a clean hierarchical view of all task queues while maintaining backward compatibility with existing .vf.json files.'",
+Ê§Å5§Îãt¨çÇõ¥LJ¤ÈĞJ·A‚U”óhÓàşQJ/‰"
+òÊÂ‘$jô Ióº…=HŒÇ5(

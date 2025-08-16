@@ -1,0 +1,118 @@
+sequenceDiagram
+    participant User
+    participant FlowManager
+    participant FlowStorage
+    participant FlowValidator
+    participant Logger
+
+    %% Define Simple Automation Flow
+    User->>FlowManager: defineFlow(name, description, trigger, actions)
+    FlowManager->>FlowValidator: validate(flowConfig)
+    FlowValidator-->>FlowManager: validationResult
+    alt validation fails
+        FlowManager-->>User: error(validation failed)
+    else validation succeeds
+        FlowManager->>Logger: log("Creating flow: {name}")
+        FlowManager->>FlowStorage: save(flowDefinition)
+        FlowStorage-->>FlowManager: flowId
+        FlowManager->>Logger: log("Flow created: {flowId}")
+        FlowManager-->>User: success(flowId)
+    end
+
+    %% Execute Flow Manually
+    User->>FlowManager: executeFlow(flowId)
+    FlowManager->>FlowStorage: findById(flowId)
+    FlowStorage-->>FlowManager: flowDefinition
+    alt flow not found
+        FlowManager-->>User: error(flow not found)
+    else flow found
+        FlowManager->>FlowValidator: validateEnabled(flow)
+        alt flow disabled
+            FlowManager-->>User: error(flow is disabled)
+        else flow enabled
+            FlowManager->>Logger: log("Executing flow: {flowId}")
+            FlowManager->>FlowManager: createExecutionContext()
+            loop for each action
+                FlowManager->>ActionExecutor: execute(action, context)
+                ActionExecutor-->>FlowManager: actionResult
+                FlowManager->>Logger: log("Action {name} result: {status}")
+            end
+            FlowManager->>FlowStorage: saveExecution(executionRecord)
+            FlowManager-->>User: success(executionId, results)
+        end
+    end
+
+    %% Trigger Flow Automatically
+    FileWatcher->>FlowManager: onFileEvent(event)
+    FlowManager->>FlowStorage: findByTrigger(event.pattern)
+    FlowStorage-->>FlowManager: matchingFlows
+    loop for each matching flow
+        FlowManager->>FlowValidator: validateEnabled(flow)
+        alt flow enabled
+            FlowManager->>Logger: log("Auto-triggering flow: {flowId}")
+            FlowManager->>FlowManager: executeFlow(flowId)
+        end
+    end
+
+    %% Monitor Flow Execution
+    User->>FlowManager: getExecutionHistory(flowId, limit)
+    FlowManager->>FlowStorage: findExecutions(flowId, limit)
+    FlowStorage-->>FlowManager: executionHistory
+    FlowManager-->>User: executionList(history)
+
+    %% Update Existing Flow
+    User->>FlowManager: updateFlow(flowId, updates)
+    FlowManager->>FlowStorage: findById(flowId)
+    FlowStorage-->>FlowManager: existingFlow
+    alt flow not found
+        FlowManager-->>User: error(flow not found)
+    else flow found
+        FlowManager->>FlowValidator: validate(updatedConfig)
+        FlowValidator-->>FlowManager: validationResult
+        alt validation fails
+            FlowManager-->>User: error(validation failed)
+        else validation succeeds
+            FlowManager->>Logger: log("Updating flow: {flowId}")
+            FlowManager->>FlowStorage: update(flowId, updates)
+            FlowStorage-->>FlowManager: success
+            FlowManager-->>User: success(updated flow)
+        end
+    end
+
+    %% Enable/Disable Flow
+    User->>FlowManager: toggleFlow(flowId, enabled)
+    FlowManager->>FlowStorage: findById(flowId)
+    FlowStorage-->>FlowManager: flow
+    alt flow not found
+        FlowManager-->>User: error(flow not found)
+    else flow found
+        FlowManager->>Logger: log("Setting flow {flowId} enabled: {enabled}")
+        FlowManager->>FlowStorage: update(flowId, {enabled})
+        FlowStorage-->>FlowManager: success
+        FlowManager-->>User: success(flow status updated)
+    end
+
+    %% Delete Flow
+    User->>FlowManager: deleteFlow(flowId)
+    FlowManager->>FlowStorage: findById(flowId)
+    FlowStorage-->>FlowManager: flow
+    alt flow not found
+        FlowManager-->>User: error(flow not found)
+    else flow found
+        FlowManager->>FlowStorage: hasActiveExecutions(flowId)
+        FlowStorage-->>FlowManager: hasActive
+        alt has active executions
+            FlowManager-->>User: error(cannot delete flow with active executions)
+        else no active executions
+            FlowManager->>Logger: log("Deleting flow: {flowId}")
+            FlowManager->>FlowStorage: delete(flowId)
+            FlowStorage-->>FlowManager: success
+            FlowManager-->>User: success(flow deleted)
+        end
+    end
+
+    %% List All Flows
+    User->>FlowManager: listFlows(filter?)
+    FlowManager->>FlowStorage: findAll(filter)
+    FlowStorage-->>FlowManager: flowList
+    FlowManager-->>User: flows(list with status)

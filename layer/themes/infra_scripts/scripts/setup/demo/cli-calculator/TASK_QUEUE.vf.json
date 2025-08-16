@@ -1,0 +1,120 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-07-21T07:39:45.843193Z",
+    "updated_at": "2025-07-21T07:39:45.843206Z",
+    "total_items": 0,
+    "description": "cli-calculator task queue"
+  },
+  "working_item": null,
+  "queues": {
+    "adhoc_temp_user_request": {
+      "items": [],
+      "insert_comment": "Validate item format: must start with type prefix (Test:, Scenario:, etc.)",
+      "pop_comment": {
+        "text": "write a <file>",
+        "parameters": [
+          "temp/adhoc_pop.txt"
+        ]
+      }
+    },
+    "user_story": {
+      "items": [
+        {
+          "id": "story-001",
+          "content": "As a developer, I want to perform basic arithmetic operations so that I can calculate simple expressions",
+          "acceptance_criteria": [
+            "Can add two numbers",
+            "Can subtract two numbers",
+            "Can multiply two numbers",
+            "Can divide two numbers with zero division protection"
+          ],
+          "status": "pending",
+          "priority": "high"
+        }
+      ],
+      "insert_comment": {
+        "text": "write a <file>",
+        "parameters": [
+          "temp/story_insert.txt"
+        ]
+      },
+      "pop_comment": "Starting new user story implementation"
+    },
+    "scenarios": {
+      "items": [],
+      "insert_comment": "Validate scenario format",
+      "pop_comment": {
+        "text": "write a <file>",
+        "parameters": [
+          "temp/scenario_pop.txt"
+        ]
+      }
+    },
+    "environment_tests": {
+      "items": [],
+      "insert_comment": "Validate test format",
+      "pop_comment": "Writing environment test"
+    },
+    "external_tests": {
+      "items": [],
+      "insert_comment": "Validate test format",
+      "pop_comment": "Writing external test"
+    },
+    "system_tests_implement": {
+      "items": [],
+      "insert_comment": "Validate test format",
+      "pop_comment": "Implementing system test"
+    },
+    "integration_tests_implement": {
+      "items": [],
+      "insert_comment": "Validate test format",
+      "pop_comment": "Implementing integration test"
+    },
+    "unit_tests": {
+      "items": [],
+      "insert_comment": "Validate test format",
+      "pop_comment": "Writing unit test"
+    },
+    "integration_tests_verify": {
+      "items": [],
+      "insert_comment": "Validate test format",
+      "pop_comment": "Verifying integration test"
+    },
+    "system_tests_verify": {
+      "items": [],
+      "insert_comment": "Validate test format",
+      "pop_comment": "Verifying system test"
+    },
+    "coverage_duplication": {
+      "items": [],
+      "insert_comment": "Check coverage requirements",
+      "pop_comment": "Checking coverage and duplication"
+    },
+    "retrospective": {
+      "items": [],
+      "insert_comment": "Add retrospective item",
+      "pop_comment": "Conducting retrospective"
+    }
+  },
+  "global_config": {
+    "seldom_display_default": 5,
+    "operation_counters": {},
+    "default_empty_queue_comment": "Queue is empty",
+    "all_queues_empty_comment": "All queues are empty. Pick feature user story from FEATURE.vf.json"
+  },
+  "priority_order": [
+    "adhoc_temp_user_request",
+    "environment_tests",
+    "external_tests",
+    "system_tests_implement",
+    "integration_tests_implement",
+    "unit_tests",
+    "integration_tests_verify",
+    "system_tests_verify",
+    "scenarios",
+    "user_story",
+    "coverage_duplication",
+    "retrospective"
+  ]
+}

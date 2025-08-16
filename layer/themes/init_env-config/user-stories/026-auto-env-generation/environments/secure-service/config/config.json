@@ -1,0 +1,24 @@
+{
+  "name": "secure-service",
+  "type": "release",
+  "port": {
+    "base": 3456,
+    "range": [
+      3401,
+      3499
+    ]
+  },
+  "database": {
+    "type": "postgresql",
+    "connection": "postgresql://localhost:5432/secure-service"
+  },
+  "paths": {
+    "root": "environments/secure-service",
+    "data": "environments/secure-service/data",
+    "logs": "environments/secure-service/logs",
+    "temp": "environments/secure-service/temp"
+  },
+  "services": [],
+  "created": "2025-08-11T02:04:16.993Z",
+  "updated": "2025-08-11T02:04:16.993Z"
+}

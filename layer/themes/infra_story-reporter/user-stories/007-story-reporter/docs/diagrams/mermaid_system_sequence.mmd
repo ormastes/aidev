@@ -1,0 +1,69 @@
+sequenceDiagram
+    participant Dev as Developer
+    participant SR as Story Reporter
+    participant BDD as BDD Test Runner
+    participant TestSuite as Test Suite
+    participant Logger as External Log Library
+    participant ReportGen as Report Generator
+    participant FileSystem as File System
+
+    Note over Dev, FileSystem: BDD Test Execution and Report Generation
+
+    Dev->>SR: executeTestSuite(testSuiteConfig)
+    SR->>Logger: initializeLogging(testSuiteId)
+    Logger-->>SR: logging initialized
+    
+    SR->>BDD: configure(testSuiteConfig)
+    BDD-->>SR: configuration set
+    
+    SR->>BDD: runTests()
+    activate BDD
+    
+    BDD->>TestSuite: loadTestScenarios()
+    TestSuite-->>BDD: scenarios loaded
+    
+    loop for each scenario
+        BDD->>TestSuite: executeScenario(scenario)
+        TestSuite->>Logger: logTestStep(step, status)
+        Logger-->>TestSuite: step logged
+        
+        alt scenario passes
+            TestSuite-->>BDD: scenario passed
+            BDD->>Logger: logTestResult(scenario, 'PASSED')
+        else scenario fails
+            TestSuite-->>BDD: scenario failed
+            BDD->>Logger: logTestResult(scenario, 'FAILED', errorDetails)
+        end
+    end
+    
+    BDD->>Logger: finalizeTestRun()
+    Logger-->>BDD: test run finalized
+    deactivate BDD
+    
+    BDD-->>SR: test execution complete
+    
+    SR->>Logger: getTestResults()
+    Logger-->>SR: test results and logs
+    
+    SR->>ReportGen: generateReport(testResults, config)
+    ReportGen->>Logger: getDetailedLogs(testSuiteId)
+    Logger-->>ReportGen: detailed logs
+    
+    ReportGen->>FileSystem: writeReport(htmlReport, 'test-report.html')
+    FileSystem-->>ReportGen: HTML report written
+    
+    ReportGen->>FileSystem: writeReport(jsonReport, 'test-results.json')
+    FileSystem-->>ReportGen: JSON report written
+    
+    ReportGen->>FileSystem: writeReport(xmlReport, 'test-results.xml')
+    FileSystem-->>ReportGen: XML report written
+    
+    ReportGen-->>SR: reports generated
+    
+    SR->>Logger: cleanupTestRun(testSuiteId)
+    Logger-->>SR: cleanup complete
+    
+    SR-->>Dev: test suite executed successfully
+    
+    Note over Dev: Developer receives comprehensive test reports
+    Note over Dev: All test logs are captured and integrated into reports

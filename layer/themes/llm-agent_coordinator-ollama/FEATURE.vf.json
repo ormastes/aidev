@@ -1,0 +1,62 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/themes/llm-agent_coordinator-ollama/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.573Z",
+    "updated_at": "2025-08-11T15:00:00.000Z"
+  },
+  "features": {
+    "coordinator_ollama_agent": [
+      {
+        "id": "coordinator-ollama-agent-epic-001",
+        "name": "Ollama Coordinator Agent",
+        "data": {
+          "title": "Ollama Coordinator Agent with Local LLM Support",
+          "description": "Complete Ollama integration for local LLM inference with chat, embeddings, and model management",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "ollama",
+            "coordinator",
+            "local-llm",
+            "agent"
+          ],
+          "virtual_path": "/layer/themes/llm-agent_coordinator-ollama/FEATURE.vf.json",
+          "components": {
+            "OllamaClient": "HTTP API client for Ollama server communication",
+            "ChatManager": "Multi-session chat with context management",
+            "StreamHandler": "Real-time streaming response handling",
+            "ModelManager": "Model lifecycle management (pull, list, delete)",
+            "EmbeddingsManager": "Vector embeddings and similarity operations",
+            "OllamaCoordinator": "Main orchestrator with MCP integration",
+            "CLI": "Interactive command-line interface"
+          },
+          "capabilities": [
+            "Local LLM inference with Ollama",
+            "Support for Llama, Mistral, CodeLlama models",
+            "Real-time streaming responses",
+            "Multi-turn conversation management",
+            "Vector embeddings generation",
+            "Model management and switching",
+            "Task queue with priority handling",
+            "MCP agent system integration",
+            "Production metrics and monitoring"
+          ],
+          "deliverables": [
+            "Complete TypeScript implementation",
+            "Interactive CLI tool",
+            "Comprehensive test suite (26+ tests)",
+            "Production-ready error handling",
+            "Docker deployment support",
+            "Full documentation"
+          ]
+        },
+        "createdAt": "2025-08-02T11:10:54.573Z",
+        "updatedAt": "2025-08-11T15:00:00.000Z"
+      }
+    ]
+  },
+  "children": []
+}

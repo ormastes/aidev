@@ -1,0 +1,33 @@
+{
+  "story": {
+    "id": "full-story",
+    "title": "Full Coverage Story",
+    "description": "Testing all methods",
+    "epicId": "epic-456",
+    "themeId": "theme-123",
+    "priority": "high",
+    "storyPoints": 8,
+    "acceptanceCriteria": [
+      "AC1",
+      "AC2"
+    ],
+    "tasks": [
+      {
+        "id": "task-1",
+        "description": "Task1",
+        "status": "todo",
+        "assignee": null
+      },
+      {
+        "id": "task-2",
+        "description": "Task2",
+        "status": "todo",
+        "assignee": null
+      }
+    ],
+    "createdAt": "2025-07-25T10:03:34.620Z",
+    "updatedAt": "2025-07-25T10:03:34.620Z",
+    "status": "todo",
+    "assignee": null
+  }
+}

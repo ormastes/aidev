@@ -1,0 +1,341 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-08-15T08:03:06.082Z",
+    "updated_at": "2025-08-15T15:15:00.000Z",
+    "total_items": 26,
+    "description": "Migrated from priority-based format",
+    "__subagent_delegation": {
+      "__comment": "Subagent configuration for Claude Code and Ollama environments",
+      "__claude_mode": "When using Claude Code, explicitly invoke subagents: 'Use the test-runner subagent'",
+      "__ollama_mode": "When using Ollama, enable role-based agents: ROLE_TESTER, ROLE_FEATURE_MANAGER",
+      "__auto_delegation": "Tasks marked with 'use proactively' trigger automatic subagent selection",
+      "__reference": "See research/subagent-delegation-guide.md for complete configuration"
+    }
+  },
+  "working_item": null,
+  "queues": {
+    "adhoc_temp_user_request": {
+      "items": [
+        {
+          "id": "task-explorer-qa-web-bugs",
+          "type": "adhoc_temp_user_request",
+          "content": "Run Explorer QA Agent to find web app bugs in AI Dev Portal and platform components",
+          "parent": "system",
+          "priority": "critical",
+          "root_item_id": "check_epic__feature__explorer_qa_web_testing",
+          "created_at": "2025-08-15T15:15:00.000Z",
+          "details": {
+            "description": "Use Explorer QA Agent with Playwright MCP to systematically test AI Dev Portal and other web components for vulnerabilities",
+            "targets": [
+              "AI Dev Portal (if deployed)",
+              "Setup configuration UI",
+              "Web-based monitoring dashboards",
+              "Any embedded web apps"
+            ],
+            "expected_checks": [
+              "Console errors",
+              "XSS vulnerabilities",
+              "API schema validation",
+              "Security headers",
+              "Performance issues",
+              "Authentication flows",
+              "CORS configuration",
+              "Error handling"
+            ],
+            "subagent": "test-runner",
+            "use_proactively": true
+          }
+        },
+        {
+          "id": "task-1755242688996-7u5jjhxgu",
+          "type": "adhoc_temp_user_request",
+          "content": "Create centralized log aggregation service",
+          "parent": "system",
+          "priority": "high",
+          "root_item_id": "infra_epic__feature__log_aggregation_service",
+          "created_at": "2025-08-15T07:24:48.996Z"
+        },
+        {
+          "id": "task-1755242695735-9wxy23euz",
+          "type": "adhoc_temp_user_request",
+          "content": "Implement log rotation policy",
+          "parent": "system",
+          "priority": "medium",
+          "root_item_id": "infra_epic__feature__log_rotation_policy",
+          "created_at": "2025-08-15T07:24:55.735Z"
+        },
+        {
+          "id": "task-1755242702613-j88vt5fso",
+          "type": "adhoc_temp_user_request",
+          "content": "Build log analysis dashboard",
+          "parent": "system",
+          "priority": "low",
+          "root_item_id": "portal_epic__feature__log_analysis_dashboard",
+          "created_at": "2025-08-15T07:25:02.613Z"
+        }
+      ]
+    },
+    "user_story": {
+      "items": [
+        {
+          "id": "task-manual-navigation",
+          "type": "user_story",
+          "content": "Build Navigation and Search System",
+          "parent": "test-as-manual",
+          "priority": "medium",
+          "root_item_id": "test_as_manual__theme__navigation_search",
+          "created_at": "2025-08-12T15:00:00.000Z"
+        },
+        {
+          "id": "task-manual-theme-specific",
+          "type": "user_story",
+          "content": "Create Theme-Specific Templates",
+          "parent": "test-as-manual",
+          "priority": "medium",
+          "root_item_id": "test_as_manual__theme__theme_templates",
+          "created_at": "2025-08-12T15:00:00.000Z"
+        },
+        {
+          "id": "task-manual-ci-integration",
+          "type": "user_story",
+          "content": "Add CI/CD Integration",
+          "parent": "test-as-manual",
+          "priority": "low",
+          "root_item_id": "test_as_manual__theme__cicd_integration",
+          "created_at": "2025-08-12T15:00:00.000Z"
+        },
+        {
+          "id": "task-manual-validation",
+          "type": "user_story",
+          "content": "Implement Validation System",
+          "parent": "test-as-manual",
+          "priority": "low",
+          "root_item_id": "test_as_manual__theme__validation_system",
+          "created_at": "2025-08-12T15:00:00.000Z"
+        },
+        {
+          "id": "task-manual-dashboard",
+          "type": "user_story",
+          "content": "Create Reporting Dashboard",
+          "parent": "test-as-manual",
+          "priority": "low",
+          "root_item_id": "test_as_manual__theme__reporting_dashboard",
+          "created_at": "2025-08-12T15:00:00.000Z"
+        }
+      ]
+    },
+    "scenarios": {
+      "items": []
+    },
+    "environment_tests": {
+      "items": []
+    },
+    "external_tests": {
+      "items": []
+    },
+    "system_tests_implement": {
+      "items": [
+        {
+          "id": "task-explorer-portal-testing",
+          "type": "system_tests_implement",
+          "content": "Explorer QA Agent - Test AI Dev Portal for vulnerabilities",
+          "parent": "system-testing",
+          "priority": "critical",
+          "root_item_id": "check_epic__feature__explorer_portal_testing",
+          "created_at": "2025-08-15T15:15:00.000Z",
+          "details": {
+            "tool": "Explorer QA Agent",
+            "target": "AI Dev Portal",
+            "checks": ["XSS", "CSRF", "Auth bypass", "API misuse", "Performance"]
+          }
+        },
+        {
+          "id": "task-explorer-dashboard-testing",
+          "type": "system_tests_implement",
+          "content": "Explorer QA Agent - Test monitoring dashboards",
+          "parent": "system-testing",
+          "priority": "critical",
+          "root_item_id": "check_epic__feature__explorer_dashboard_testing",
+          "created_at": "2025-08-15T15:15:00.000Z",
+          "details": {
+            "tool": "Explorer QA Agent",
+            "target": "Monitoring Dashboards",
+            "checks": ["Real-time updates", "Data integrity", "Access control"]
+          }
+        },
+        {
+          "id": "task-test-embedded-apps",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Embedded Web Applications",
+          "parent": "system-testing",
+          "priority": "critical",
+          "root_item_id": "check_epic__feature__embedded_web_apps_testing",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-mcp-integration",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for MCP Integration",
+          "parent": "system-testing",
+          "priority": "critical",
+          "root_item_id": "check_epic__feature__mcp_integration_testing",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-filesystem-mcp",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for File System MCP",
+          "parent": "system-testing",
+          "priority": "high",
+          "root_item_id": "check_epic__feature__filesystem_mcp_testing",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-python-environment",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Python Environment",
+          "parent": "system-testing",
+          "priority": "high",
+          "root_item_id": "check_epic__feature__python_environment_testing",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-docker-integration",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Docker Integration",
+          "parent": "system-testing",
+          "priority": "high",
+          "root_item_id": "check_epic__feature__docker_integration_testing",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-realtime-updates",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Real-time Updates",
+          "parent": "system-testing",
+          "priority": "high",
+          "root_item_id": "check_epic__feature__realtime_updates_testing",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-coverage-aggregation",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Coverage Aggregation",
+          "parent": "system-testing",
+          "priority": "medium",
+          "root_item_id": "check_epic__feature__coverage_aggregation_testing",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-llm-coordination",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for LLM Agent Coordination",
+          "parent": "system-testing",
+          "priority": "medium",
+          "root_item_id": "check_epic__feature__llm_coordination_testing",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-data-import-export",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Data Import/Export",
+          "parent": "system-testing",
+          "priority": "medium",
+          "root_item_id": "check_epic__feature__data_import_export_testing",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-qemu-integration",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for QEMU Development Environment",
+          "parent": "system-testing",
+          "priority": "medium",
+          "root_item_id": "check_epic__feature__qemu_environment_testing",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-gui-generation",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for GUI Generation",
+          "parent": "system-testing",
+          "priority": "low",
+          "root_item_id": "check_epic__feature__gui_generation_testing",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-chat-space",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Chat Space Integration",
+          "parent": "system-testing",
+          "priority": "low",
+          "root_item_id": "check_epic__feature__chat_space_testing",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-web-scraping",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Web Scraping Tool",
+          "parent": "system-testing",
+          "priority": "low",
+          "root_item_id": "check_epic__feature__web_scraping_testing",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-cucumber-frameworks",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Cucumber BDD Frameworks",
+          "parent": "system-testing",
+          "priority": "low",
+          "root_item_id": "check_epic__feature__cucumber_bdd_testing",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        },
+        {
+          "id": "task-test-profile-management",
+          "type": "system_tests_implement",
+          "content": "Implement System Tests for Profile Management",
+          "parent": "system-testing",
+          "priority": "low",
+          "root_item_id": "check_epic__feature__profile_management_testing",
+          "created_at": "2025-08-14T06:00:00.000Z"
+        }
+      ]
+    },
+    "integration_tests_implement": {
+      "items": []
+    },
+    "unit_tests": {
+      "items": []
+    },
+    "integration_tests_verify": {
+      "items": []
+    },
+    "system_tests_verify": {
+      "items": []
+    },
+    "coverage_duplication": {
+      "items": []
+    },
+    "retrospective": {
+      "items": []
+    }
+  },
+  "global_config": {
+    "seldom_display_default": 5,
+    "operation_counters": {}
+  },
+  "priority_order": [
+    "adhoc_temp_user_request",
+    "environment_tests",
+    "external_tests",
+    "system_tests_implement",
+    "integration_tests_implement",
+    "unit_tests",
+    "integration_tests_verify",
+    "system_tests_verify",
+    "scenarios",
+    "user_story",
+    "coverage_duplication",
+    "retrospective"
+  ]
+}

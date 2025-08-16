@@ -1,0 +1,224 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "File Structure VF Schema",
+  "description": "JSON Schema for FILE_STRUCTURE.vf.json - defines project file structure templates and validation rules",
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Schema version"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": ["version", "created_at", "updated_at"]
+    },
+    "templates": {
+      "type": "object",
+      "description": "Template definitions for different folder types",
+      "additionalProperties": {
+        "$ref": "#/definitions/template"
+      }
+    },
+    "structure": {
+      "type": "object",
+      "description": "The root structure definition",
+      "$ref": "#/definitions/node"
+    }
+  },
+  "required": ["metadata", "templates", "structure"],
+  "definitions": {
+    "template": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Template identifier"
+        },
+        "inherits": {
+          "type": "string",
+          "description": "Parent template to inherit from"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["directory", "file"],
+          "default": "directory"
+        },
+        "required_children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/node"
+          },
+          "description": "Required child nodes for this template"
+        },
+        "optional_children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/node"
+          },
+          "description": "Optional child nodes for this template"
+        },
+        "allowed_patterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Regex patterns for allowed child names"
+        },
+        "forbidden_patterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Regex patterns for forbidden child names"
+        },
+        "constraints": {
+          "type": "object",
+          "properties": {
+            "max_depth": {
+              "type": "integer",
+              "description": "Maximum depth for this template"
+            },
+            "max_children": {
+              "type": "integer",
+              "description": "Maximum number of children"
+            },
+            "file_extensions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Allowed file extensions for children"
+            }
+          }
+        }
+      },
+      "required": ["id", "type"]
+    },
+    "node": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Node name or pattern"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["directory", "file", "template_ref"],
+          "description": "Node type"
+        },
+        "template": {
+          "type": "string",
+          "description": "Template ID to use for this node"
+        },
+        "required": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether this node is required"
+        },
+        "pattern": {
+          "type": "string",
+          "description": "Regex pattern for dynamic names"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/node"
+          },
+          "description": "Child nodes"
+        },
+        "description": {
+          "type": "string"
+        },
+        "constraints": {
+          "$ref": "#/definitions/template/properties/constraints"
+        }
+      },
+      "required": ["name", "type"]
+    }
+  },
+  "examples": [
+    {
+      "metadata": {
+        "version": "1.0.0",
+        "created_at": "2025-01-20T10:00:00Z",
+        "updated_at": "2025-01-20T10:00:00Z",
+        "description": "AI Development Platform file structure"
+      },
+      "templates": {
+        "workspace": {
+          "id": "workspace",
+          "type": "directory",
+          "description": "Root workspace template",
+          "required_children": [
+            { "name": "config", "type": "directory" },
+            { "name": "gen", "type": "directory" },
+            { "name": "layer", "type": "directory" },
+            { "name": "FEATURE.md", "type": "file" },
+            { "name": "README.md", "type": "file" }
+          ]
+        },
+        "user_story": {
+          "id": "user_story",
+          "type": "directory",
+          "description": "User story folder template",
+          "required_children": [
+            { "name": "TASK_QUEUE.md", "type": "file" },
+            { "name": "docs", "type": "directory" },
+            { "name": "src", "type": "directory" },
+            { "name": "tests", "type": "directory" }
+          ]
+        },
+        "theme": {
+          "id": "theme",
+          "inherits": "user_story",
+          "description": "Theme folder template",
+          "required_children": [
+            { "name": "FEATURE.md", "type": "file" },
+            { "name": "user-stories", "type": "directory" }
+          ]
+        }
+      },
+      "structure": {
+        "name": ".",
+        "type": "directory",
+        "template": "workspace",
+        "children": [
+          {
+            "name": "layer",
+            "type": "directory",
+            "children": [
+              {
+                "name": "themes",
+                "type": "directory",
+                "children": [
+                  {
+                    "name": "*",
+                    "type": "template_ref",
+                    "template": "theme",
+                    "pattern": "^[a-z][a-z0-9-]*$"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

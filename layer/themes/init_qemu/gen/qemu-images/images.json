@@ -1,0 +1,62 @@
+[
+  {
+    "id": "995d98fc9d8e",
+    "name": "ubuntu-demo",
+    "format": "qcow2",
+    "size": "20G",
+    "sizeBytes": 21474836480,
+    "actualSize": 513,
+    "distro": "ubuntu",
+    "version": "22.04",
+    "path": "/home/ormastes/dev/aidev/layer/themes/init_qemu/gen/qemu-images/images/ubuntu-demo.qcow2",
+    "created": "2025-08-13T04:19:19.846Z",
+    "type": "mock",
+    "bootable": false,
+    "description": "Mock QEMU image for demonstration"
+  },
+  {
+    "id": "28195c7139e0",
+    "name": "alpine-demo",
+    "format": "qcow2",
+    "size": "2G",
+    "sizeBytes": 2147483648,
+    "actualSize": 513,
+    "distro": "alpine",
+    "version": "3.18",
+    "path": "/home/ormastes/dev/aidev/layer/themes/init_qemu/gen/qemu-images/images/alpine-demo.qcow2",
+    "created": "2025-08-13T04:19:19.851Z",
+    "type": "mock",
+    "bootable": false,
+    "description": "Mock QEMU image for demonstration"
+  },
+  {
+    "id": "426e541bbccd",
+    "name": "dev-environment",
+    "format": "qcow2",
+    "size": "50G",
+    "sizeBytes": 53687091200,
+    "actualSize": 513,
+    "distro": "ubuntu",
+    "version": "24.04",
+    "path": "/home/ormastes/dev/aidev/layer/themes/init_qemu/gen/qemu-images/images/dev-environment.qcow2",
+    "created": "2025-08-13T04:19:19.854Z",
+    "type": "mock",
+    "bootable": false,
+    "description": "Mock QEMU image for demonstration"
+  },
+  {
+    "id": "2873d742ce29",
+    "name": "kubernetes-node",
+    "format": "qcow2",
+    "size": "100G",
+    "sizeBytes": 107374182400,
+    "actualSize": 513,
+    "distro": "debian",
+    "version": "12",
+    "path": "/home/ormastes/dev/aidev/layer/themes/init_qemu/gen/qemu-images/images/kubernetes-node.qcow2",
+    "created": "2025-08-13T04:20:13.327Z",
+    "type": "mock",
+    "bootable": false,
+    "description": "Mock QEMU image for demonstration"
+  }
+]

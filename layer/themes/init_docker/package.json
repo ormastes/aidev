@@ -1,0 +1,59 @@
+{
+  "name": "@aidev/init-container-environment",
+  "version": "1.0.0",
+  "description": "Docker container build and runtime environment for AI Development Platform",
+  "main": "pipe/index.js",
+  "types": "pipe/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint . --ext .ts,.js",
+    "typecheck": "tsc --noEmit",
+    "cli": "ts-node scripts/cli.ts",
+    "docker:dev": "node scripts/docker-dev.js",
+    "docker:demo": "node scripts/docker-demo.js",
+    "docker:release": "node scripts/docker-release.js",
+    "docker:stop": "node scripts/docker-stop.js",
+    "docker:build": "ts-node scripts/cli.ts build",
+    "docker:deploy": "ts-node scripts/cli.ts deploy",
+    "docker:list": "ts-node scripts/cli.ts list",
+    "docker:logs": "ts-node scripts/cli.ts logs",
+    "docker:stats": "ts-node scripts/cli.ts stats",
+    "docker:clean": "ts-node scripts/cli.ts clean",
+    "docker:validate": "ts-node scripts/cli.ts validate",
+    "example:build": "ts-node examples/build-theme.ts",
+    "example:compose": "ts-node examples/compose-platform.ts",
+    "example:manage": "ts-node examples/container-management.ts"
+  },
+  "keywords": [
+    "docker",
+    "container",
+    "orchestration",
+    "deployment",
+    "devops"
+  ],
+  "author": "AI Development Platform Team",
+  "license": "MIT",
+  "dependencies": {
+    "dockerode": "^3.3.5",
+    "js-yaml": "^4.1.0",
+    "chalk": "^4.1.2",
+    "ora": "^5.4.1",
+    "commander": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/jest": "^29.0.0",
+    "@types/dockerode": "^3.3.20",
+    "@types/js-yaml": "^4.0.5",
+    "jest": "^29.0.0",
+    "ts-jest": "^29.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0"
+  }
+}

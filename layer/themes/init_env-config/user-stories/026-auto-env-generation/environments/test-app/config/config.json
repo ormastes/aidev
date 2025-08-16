@@ -1,0 +1,24 @@
+{
+  "name": "test-app",
+  "type": "test",
+  "port": {
+    "base": 3100,
+    "range": [
+      3101,
+      3199
+    ]
+  },
+  "database": {
+    "type": "sqlite",
+    "connection": "./data/test-app.db"
+  },
+  "paths": {
+    "root": "environments/test-app",
+    "data": "environments/test-app/data",
+    "logs": "environments/test-app/logs",
+    "temp": "environments/test-app/temp"
+  },
+  "services": [],
+  "created": "2025-08-11T02:04:30.006Z",
+  "updated": "2025-08-11T02:04:30.006Z"
+}

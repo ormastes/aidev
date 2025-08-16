@@ -1,0 +1,12 @@
+{
+  "theme": {
+    "id": "test-theme-app",
+    "name": "Test Theme",
+    "description": "Test theme description",
+    "epicId": "epic-123",
+    "stories": [],
+    "createdAt": "2025-07-25T10:03:34.704Z",
+    "updatedAt": "2025-07-25T10:03:34.704Z",
+    "status": "planning"
+  }
+}

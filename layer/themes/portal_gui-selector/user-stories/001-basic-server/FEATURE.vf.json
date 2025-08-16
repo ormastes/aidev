@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "gui-selector-epic-001",
+    "path": "/layer/themes/gui-selector/user-stories/001-basic-server/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.587Z",
+    "updated_at": "2025-08-02T11:10:54.587Z"
+  },
+  "features": {
+    "001_basic_server": [
+      {
+        "id": "gui-selector-001-basic-server",
+        "name": "basic server",
+        "data": {
+          "title": "Basic server",
+          "description": "Implementation of basic server",
+          "level": "user_story",
+          "parent_feature_id": "gui-selector-epic-001",
+          "epic_id": "gui-selector-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "gui-selector",
+            "basic-server"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/gui-selector/user-stories/001-basic-server/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.587Z",
+        "updatedAt": "2025-08-02T11:10:54.587Z"
+      }
+    ]
+  }
+}

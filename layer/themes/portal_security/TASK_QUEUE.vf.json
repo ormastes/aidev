@@ -1,0 +1,188 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-08-15T08:03:06.269Z",
+    "updated_at": "2025-08-15T08:03:06.269Z",
+    "total_items": 13,
+    "description": "Migrated from priority-based format"
+  },
+  "working_item": null,
+  "queues": {
+    "adhoc_temp_user_request": {
+      "items": []
+    },
+    "user_story": {
+      "items": []
+    },
+    "scenarios": {
+      "items": [
+        {
+          "id": "task-scenario-service-discovery-urls-are-automatically--mda2ggid",
+          "type": "scenarios",
+          "content": "Scenario: Service discovery URLs are automatically included when themes depend on each other",
+          "parent": "system",
+          "priority": "low",
+          "created_at": "2025-07-19T09:49:29.365Z",
+          "updated_at": "2025-07-19T09:49:29.365Z"
+        },
+        {
+          "id": "task-scenario-security-tokens-are-generated-uniquely-pe-mda2ggid",
+          "type": "scenarios",
+          "content": "Scenario: Security tokens are generated uniquely per environment",
+          "parent": "system",
+          "priority": "low",
+          "created_at": "2025-07-19T09:49:29.365Z",
+          "updated_at": "2025-07-19T09:49:29.365Z"
+        },
+        {
+          "id": "task-scenario-database-configuration-differs-correctly--mda2ggid",
+          "type": "scenarios",
+          "content": "Scenario: Database configuration differs correctly between release (PostgreSQL) and other environments (SQLite)",
+          "parent": "system",
+          "priority": "low",
+          "created_at": "2025-07-19T09:49:29.365Z",
+          "updated_at": "2025-07-19T09:49:29.365Z"
+        },
+        {
+          "id": "task-scenario-adding-new-service-updates-env-file-with--mda2ggid",
+          "type": "scenarios",
+          "content": "Scenario: Adding new service updates .env file with service-specific variables",
+          "parent": "system",
+          "priority": "low",
+          "created_at": "2025-07-19T09:49:29.365Z",
+          "updated_at": "2025-07-19T09:49:29.365Z"
+        },
+        {
+          "id": "task-scenario-env-files-include-all-port-allocations-fr-mda2ggid",
+          "type": "scenarios",
+          "content": "Scenario: .env files include all port allocations from ConfigManager",
+          "parent": "system",
+          "priority": "low",
+          "created_at": "2025-07-19T09:49:29.365Z",
+          "updated_at": "2025-07-19T09:49:29.365Z"
+        },
+        {
+          "id": "task-scenario-developer-configures-new-theme-with-autom-mda2ggid",
+          "type": "scenarios",
+          "content": "Scenario: Developer configures new theme with automatic port allocation",
+          "parent": "system",
+          "priority": "low",
+          "created_at": "2025-07-19T09:49:29.365Z",
+          "updated_at": "2025-07-19T09:49:29.365Z"
+        },
+        {
+          "id": "task-scenario-system-manages-different-database-configs-mda2ggid",
+          "type": "scenarios",
+          "content": "Scenario: System manages different database configs for release vs development",
+          "parent": "system",
+          "priority": "low",
+          "created_at": "2025-07-19T09:49:29.365Z",
+          "updated_at": "2025-07-19T09:49:29.365Z"
+        },
+        {
+          "id": "task-scenario-multiple-themes-discover-and-connect-to-e-mda2ggid",
+          "type": "scenarios",
+          "content": "Scenario: Multiple themes discover and connect to each other",
+          "parent": "system",
+          "priority": "low",
+          "created_at": "2025-07-19T09:49:29.365Z",
+          "updated_at": "2025-07-19T09:49:29.365Z"
+        },
+        {
+          "id": "task-scenario-environment-specific-env-files-are-genera-mda2ggid",
+          "type": "scenarios",
+          "content": "Scenario: Environment-specific .env files are generated automatically",
+          "parent": "system",
+          "priority": "low",
+          "created_at": "2025-07-19T09:49:29.365Z",
+          "updated_at": "2025-07-19T09:49:29.365Z"
+        },
+        {
+          "id": "task-scenario-configuration-changes-propagate-across-de-mda2ggid",
+          "type": "scenarios",
+          "content": "Scenario: Configuration changes propagate across dependent services",
+          "parent": "system",
+          "priority": "low",
+          "created_at": "2025-07-19T09:49:29.365Z",
+          "updated_at": "2025-07-19T09:49:29.365Z"
+        }
+      ]
+    },
+    "environment_tests": {
+      "items": []
+    },
+    "external_tests": {
+      "items": []
+    },
+    "system_tests_implement": {
+      "items": []
+    },
+    "integration_tests_implement": {
+      "items": [
+        {
+          "id": "task-test-envgenerator-integrates-with-servicediscovery-mda2ggic",
+          "type": "integration_tests_implement",
+          "content": "Test: EnvGenerator integrates with ServiceDiscovery for service URLs",
+          "parent": "system",
+          "priority": "medium",
+          "created_at": "2025-07-19T09:49:29.364Z",
+          "updated_at": "2025-07-19T09:49:29.364Z"
+        },
+        {
+          "id": "task-test-configmanager-integrates-with-envgenerator-fo-mda2ggic",
+          "type": "integration_tests_implement",
+          "content": "Test: ConfigManager integrates with EnvGenerator for In Progress .env generation",
+          "parent": "system",
+          "priority": "medium",
+          "created_at": "2025-07-19T09:49:29.364Z",
+          "updated_at": "2025-07-19T09:49:29.364Z"
+        }
+      ]
+    },
+    "unit_tests": {
+      "items": []
+    },
+    "integration_tests_verify": {
+      "items": []
+    },
+    "system_tests_verify": {
+      "items": []
+    },
+    "coverage_duplication": {
+      "items": [
+        {
+          "id": "task-coverage-check-for-automatic-env-generation-implem-mda2ggic",
+          "type": "coverage_duplication",
+          "content": "Coverage check for automatic .env generation implementation",
+          "parent": "system",
+          "priority": "low",
+          "created_at": "2025-07-19T09:49:29.365Z",
+          "updated_at": "2025-07-19T09:49:29.365Z"
+        }
+      ]
+    },
+    "retrospective": {
+      "items": []
+    }
+  },
+  "global_config": {
+    "seldom_display_default": 5,
+    "operation_counters": {}
+  },
+  "priority_order": [
+    "adhoc_temp_user_request",
+    "environment_tests",
+    "external_tests",
+    "system_tests_implement",
+    "integration_tests_implement",
+    "unit_tests",
+    "integration_tests_verify",
+    "system_tests_verify",
+    "scenarios",
+    "user_story",
+    "coverage_duplication",
+    "retrospective"
+  ],
+  "parentQueue": "/TASK_QUEUE.vf.json",
+  "theme": "portal_security"
+}

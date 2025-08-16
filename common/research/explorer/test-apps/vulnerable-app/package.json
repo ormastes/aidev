@@ -1,0 +1,18 @@
+{
+  "name": "vulnerable-test-app",
+  "version": "1.0.0",
+  "description": "Intentionally vulnerable app for Explorer testing",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:safe": "BUGS_DISABLED=true node server.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "supertest": "^6.3.0"
+  }
+}

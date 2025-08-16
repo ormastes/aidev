@@ -1,0 +1,14 @@
+{
+  "development": {
+    "type": "sqlite",
+    "database": "../data/ai_dev_portal.db",
+    "logging": true,
+    "synchronize": true
+  },
+  "test": {
+    "type": "sqlite",
+    "database": ":memory:",
+    "logging": false,
+    "synchronize": true
+  }
+}

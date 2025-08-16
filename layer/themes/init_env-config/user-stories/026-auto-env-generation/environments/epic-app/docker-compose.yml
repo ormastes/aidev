@@ -1,0 +1,12 @@
+version: 3.8
+services:
+  portal:
+    image: aidev/epic-app:latest
+    ports:
+      - 3500:3500
+    environment:
+      - NODE_ENV=epic
+      - PORT=3500
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs

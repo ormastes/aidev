@@ -1,0 +1,366 @@
+name: Comprehensive Security Scan
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+  schedule:
+    - cron: '0 2 * * *' # Daily at 2 AM UTC
+  workflow_dispatch:
+
+jobs:
+  # Dependency vulnerability scanning
+  dependency-scan:
+    name: Dependency Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Run npm audit
+        run: |
+          npm audit --json > npm-audit-report.json || true
+          npm audit --audit-level=moderate || true
+
+      - name: Upload npm audit results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: npm-audit-report
+          path: npm-audit-report.json
+
+      - name: Check for critical vulnerabilities
+        run: |
+          CRITICAL=$(npm audit --json | jq '.metadata.vulnerabilities.critical // 0')
+          if [ "$CRITICAL" -gt 0 ]; then
+            echo "❌ $CRITICAL critical vulnerabilities found"
+            exit 1
+          else
+            echo "✅ No critical vulnerabilities found"
+          fi
+
+  # Code security scanning with CodeQL
+  codeql-analysis:
+    name: CodeQL Security Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'javascript', 'typescript' ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+          queries: security-and-quality
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:${{matrix.language}}"
+
+  # Secret scanning
+  secret-scan:
+    name: Secret Detection
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Gitleaks Secret Scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: GitGuardian scan
+        uses: GitGuardian/ggshield-action@master
+        env:
+          GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
+          GITHUB_PUSH_BASE_SHA: ${{ github.event.base }}
+          GITHUB_PULL_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
+        continue-on-error: true
+
+  # Custom fraud checker scan
+  fraud-check:
+    name: Fraud Check Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Fraud Checker
+        run: |
+          node scripts/run-fraud-check.js || echo "Fraud check script not found, creating..."
+          cat > scripts/run-fraud-check.js << 'EOF'
+          const { FraudChecker } = require('../fraud-checker/fraud-checker.js');
+          const fs = require('fs');
+          const path = require('path');
+          
+          const checker = new FraudChecker();
+          let criticalCount = 0;
+          let highCount = 0;
+          
+          function scanDir(dir) {
+            const files = fs.readdirSync(dir);
+            for (const file of files) {
+              const filePath = path.join(dir, file);
+              const stat = fs.statSync(filePath);
+              
+              if (stat.isDirectory() && !file.startsWith('.') && file !== 'node_modules') {
+                scanDir(filePath);
+              } else if (stat.isFile() && (file.endsWith('.ts') || file.endsWith('.js'))) {
+                const content = fs.readFileSync(filePath, 'utf8');
+                const violations = checker.detectFraud({
+                  content,
+                  filename: filePath,
+                  type: 'source_code'
+                });
+                
+                violations.forEach(v => {
+                  if (v.severity === 'critical') criticalCount++;
+                  if (v.severity === 'high') highCount++;
+                });
+              }
+            }
+          }
+          
+          console.log('🔍 Running fraud check...');
+          scanDir('.');
+          console.log(`Results: ${criticalCount} critical, ${highCount} high`);
+          
+          if (criticalCount > 0) {
+            console.error('❌ Critical security issues found!');
+            process.exit(1);
+          }
+          console.log('✅ No critical issues found');
+          EOF
+          node scripts/run-fraud-check.js
+
+  # SAST with multiple tools
+  sast-scan:
+    name: Static Application Security Testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Semgrep
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: >-
+            p/security-audit
+            p/secrets
+            p/owasp-top-ten
+            p/javascript
+            p/typescript
+            p/nodejs
+        continue-on-error: true
+
+      - name: Run Snyk
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+        continue-on-error: true
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        continue-on-error: true
+
+  # Container and infrastructure scanning
+  container-scan:
+    name: Container Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Trivy scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+          exit-code: '0'
+
+      - name: Upload Trivy results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  # License compliance check
+  license-check:
+    name: License Compliance
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check licenses
+        run: |
+          npx license-checker --summary --excludePrivatePackages --onlyAllow 'MIT;Apache-2.0;BSD;ISC;CC0-1.0;CC-BY-3.0;CC-BY-4.0;Unlicense;0BSD' || echo "⚠️ Some packages may have incompatible licenses"
+
+  # Security headers and configuration check
+  security-config-check:
+    name: Security Configuration Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Check security implementations
+        run: |
+          echo "🔍 Checking security implementations..."
+          
+          # Check for security headers
+          if [ -f "security/security-headers.ts" ]; then
+            echo "✅ Security headers module found"
+            grep -q "Content-Security-Policy" security/security-headers.ts && echo "  ✓ CSP configured" || echo "  ⚠ CSP missing"
+            grep -q "Strict-Transport-Security" security/security-headers.ts && echo "  ✓ HSTS configured" || echo "  ⚠ HSTS missing"
+          fi
+          
+          # Check for rate limiting
+          if [ -f "security/rate-limiter.ts" ]; then
+            echo "✅ Rate limiting module found"
+          fi
+          
+          # Check for CSRF protection
+          if [ -f "security/csrf-protection.ts" ]; then
+            echo "✅ CSRF protection module found"
+          fi
+          
+          # Check for audit logging
+          if [ -f "security/audit-logger.ts" ]; then
+            echo "✅ Audit logging module found"
+          fi
+
+  # OWASP ZAP scan (for staging/production URLs)
+  dast-scan:
+    name: Dynamic Application Security Testing
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.7.0
+        with:
+          target: 'http://localhost:3000'
+          cmd_options: '-a -j'
+          allow_issue_writing: false
+        continue-on-error: true
+
+  # Generate comprehensive security report
+  security-report:
+    name: Generate Security Report
+    runs-on: ubuntu-latest
+    needs: [dependency-scan, secret-scan, fraud-check, sast-scan, container-scan, license-check, security-config-check]
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Generate report
+        run: |
+          cat > SECURITY_SCAN_SUMMARY.md << EOF
+          # 🔒 Security Scan Summary
+          
+          **Date:** $(date)
+          **Branch:** ${{ github.ref }}
+          **Commit:** ${{ github.sha }}
+          
+          ## Scan Results
+          
+          | Check | Status |
+          |-------|--------|
+          | Dependency Scan | ${{ needs.dependency-scan.result }} |
+          | Secret Scan | ${{ needs.secret-scan.result }} |
+          | Fraud Check | ${{ needs.fraud-check.result }} |
+          | SAST Scan | ${{ needs.sast-scan.result }} |
+          | Container Scan | ${{ needs.container-scan.result }} |
+          | License Check | ${{ needs.license-check.result }} |
+          | Security Config | ${{ needs.security-config-check.result }} |
+          
+          ## Overall Status
+          
+          EOF
+          
+          if [ "${{ needs.dependency-scan.result }}" == "failure" ] || \
+             [ "${{ needs.secret-scan.result }}" == "failure" ] || \
+             [ "${{ needs.fraud-check.result }}" == "failure" ]; then
+            echo "### ❌ Security Issues Detected" >> SECURITY_SCAN_SUMMARY.md
+            echo "Critical security issues require immediate attention." >> SECURITY_SCAN_SUMMARY.md
+          else
+            echo "### ✅ All Critical Security Checks Passed" >> SECURITY_SCAN_SUMMARY.md
+          fi
+          
+          echo "" >> SECURITY_SCAN_SUMMARY.md
+          echo "View detailed reports in the workflow artifacts." >> SECURITY_SCAN_SUMMARY.md
+
+      - name: Upload summary
+        uses: actions/upload-artifact@v3
+        with:
+          name: security-scan-summary
+          path: SECURITY_SCAN_SUMMARY.md
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const summary = fs.readFileSync('SECURITY_SCAN_SUMMARY.md', 'utf8');
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: summary
+            });

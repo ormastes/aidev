@@ -1,0 +1,21 @@
+{
+  "name": "@agile/theme-test-theme-app",
+  "version": "1.0.0",
+  "description": "Test Theme",
+  "type": "theme",
+  "scripts": {
+    "status": "node scripts/theme-status.js",
+    "add:story": "node scripts/add-story.js",
+    "list:stories": "node scripts/list-stories.js",
+    "report": "node scripts/generate-theme-report.js"
+  },
+  "theme": {
+    "id": "test-theme-app",
+    "name": "Test Theme",
+    "epicId": "epic-123"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}

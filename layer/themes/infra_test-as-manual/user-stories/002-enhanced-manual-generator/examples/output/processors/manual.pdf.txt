@@ -1,0 +1,18 @@
+PDF generation for "E-Commerce Shopping Cart - Test Manual Documentation" - This feature requires Puppeteer setup.
+    
+To enable PDF generation:
+1. Ensure Puppeteer is properly installed
+2. Uncomment the Puppeteer import
+3. Implement the actual PDF generation logic
+
+Current configuration:
+- Format: A4
+- Landscape: false
+- Print Background: true
+- Display Header/Footer: true
+
+Document Statistics:
+- Sections: 4
+- Test Suites: 2
+- Total Test Cases: 4
+- Generated: 8/13/2025, 1:06:40 AM

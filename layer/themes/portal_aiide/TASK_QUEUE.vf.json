@@ -1,0 +1,172 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-08-15T09:00:00.000Z",
+    "updated_at": "2025-08-15T09:00:00.000Z",
+    "total_items": 12,
+    "description": "AIIDE - AI Integrated Development Environment task queue"
+  },
+  "working_item": null,
+  "queues": {
+    "adhoc_temp_user_request": {
+      "items": []
+    },
+    "user_story": {
+      "items": [
+        {
+          "id": "aiide-story-001",
+          "type": "user_story",
+          "content": "As a developer, I want to chat with multiple AI providers simultaneously",
+          "parent": "portal_aiide",
+          "priority": "high",
+          "root_item_id": "portal_epic__feature__multi_provider_chat",
+          "created_at": "2025-08-15T09:00:00.000Z"
+        },
+        {
+          "id": "aiide-story-002",
+          "type": "user_story",
+          "content": "As a user, I want to browse and edit files in a tree view",
+          "parent": "portal_aiide",
+          "priority": "high",
+          "root_item_id": "portal_epic__feature__file_explorer",
+          "created_at": "2025-08-15T09:00:00.000Z"
+        }
+      ]
+    },
+    "scenarios": {
+      "items": []
+    },
+    "environment_tests": {
+      "items": []
+    },
+    "external_tests": {
+      "items": []
+    },
+    "system_tests_implement": {
+      "items": [
+        {
+          "id": "aiide-test-001",
+          "type": "system_tests_implement",
+          "content": "Test multi-provider chat session management",
+          "parent": "portal_aiide",
+          "priority": "high",
+          "root_item_id": "portal_epic__test__chat_sessions",
+          "created_at": "2025-08-15T09:00:00.000Z"
+        },
+        {
+          "id": "aiide-test-002",
+          "type": "system_tests_implement",
+          "content": "Test file CRUD operations",
+          "parent": "portal_aiide",
+          "priority": "high",
+          "root_item_id": "portal_epic__test__file_operations",
+          "created_at": "2025-08-15T09:00:00.000Z"
+        }
+      ]
+    },
+    "integration_tests_implement": {
+      "items": [
+        {
+          "id": "aiide-int-001",
+          "type": "integration_tests_implement",
+          "content": "Test Claude API integration",
+          "parent": "portal_aiide",
+          "priority": "critical",
+          "root_item_id": "portal_epic__test__claude_integration",
+          "created_at": "2025-08-15T09:00:00.000Z"
+        },
+        {
+          "id": "aiide-int-002",
+          "type": "integration_tests_implement",
+          "content": "Test Ollama local model integration",
+          "parent": "portal_aiide",
+          "priority": "high",
+          "root_item_id": "portal_epic__test__ollama_integration",
+          "created_at": "2025-08-15T09:00:00.000Z"
+        },
+        {
+          "id": "aiide-int-003",
+          "type": "integration_tests_implement",
+          "content": "Test DeepSeek R1 integration",
+          "parent": "portal_aiide",
+          "priority": "medium",
+          "root_item_id": "portal_epic__test__deepseek_integration",
+          "created_at": "2025-08-15T09:00:00.000Z"
+        }
+      ]
+    },
+    "unit_tests": {
+      "items": [
+        {
+          "id": "aiide-unit-001",
+          "type": "unit_tests",
+          "content": "Test ChatSpace component functionality",
+          "parent": "portal_aiide",
+          "priority": "high",
+          "root_item_id": "portal_epic__test__chat_component",
+          "created_at": "2025-08-15T09:00:00.000Z"
+        },
+        {
+          "id": "aiide-unit-002",
+          "type": "unit_tests",
+          "content": "Test FileExplorer component functionality",
+          "parent": "portal_aiide",
+          "priority": "high",
+          "root_item_id": "portal_epic__test__file_explorer_component",
+          "created_at": "2025-08-15T09:00:00.000Z"
+        },
+        {
+          "id": "aiide-unit-003",
+          "type": "unit_tests",
+          "content": "Test store state management",
+          "parent": "portal_aiide",
+          "priority": "high",
+          "root_item_id": "portal_epic__test__state_management",
+          "created_at": "2025-08-15T09:00:00.000Z"
+        }
+      ]
+    },
+    "integration_tests_verify": {
+      "items": []
+    },
+    "system_tests_verify": {
+      "items": []
+    },
+    "coverage_duplication": {
+      "items": [
+        {
+          "id": "aiide-coverage-001",
+          "type": "coverage_duplication",
+          "content": "Ensure 80% test coverage for all components",
+          "parent": "portal_aiide",
+          "priority": "medium",
+          "root_item_id": "portal_epic__quality__test_coverage",
+          "created_at": "2025-08-15T09:00:00.000Z"
+        }
+      ]
+    },
+    "retrospective": {
+      "items": []
+    }
+  },
+  "global_config": {
+    "seldom_display_default": 5,
+    "operation_counters": {}
+  },
+  "priority_order": [
+    "adhoc_temp_user_request",
+    "environment_tests",
+    "external_tests",
+    "system_tests_implement",
+    "integration_tests_implement",
+    "unit_tests",
+    "integration_tests_verify",
+    "system_tests_verify",
+    "scenarios",
+    "user_story",
+    "coverage_duplication",
+    "retrospective"
+  ],
+  "parentQueue": "/TASK_QUEUE.vf.json",
+  "theme": "portal_aiide"
+}

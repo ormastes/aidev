@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/themes/cli-framework/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.568Z",
+    "updated_at": "2025-08-02T11:10:54.568Z"
+  },
+  "features": {
+    "cli_framework": [
+      {
+        "id": "cli-framework-epic-001",
+        "name": "Cli Framework",
+        "data": {
+          "title": "Cli Framework Theme",
+          "description": "Core functionality for Cli Framework",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "cli-framework",
+            "theme"
+          ],
+          "virtual_path": "/layer/themes/cli-framework/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.568Z",
+        "updatedAt": "2025-08-02T11:10:54.568Z"
+      }
+    ]
+  },
+  "children": [
+    "/layer/themes/cli-framework/user-stories/002-cli-base-structure/FEATURE.vf.json",
+    "/layer/themes/cli-framework/user-stories/004-cli-development/FEATURE.vf.json"
+  ]
+}

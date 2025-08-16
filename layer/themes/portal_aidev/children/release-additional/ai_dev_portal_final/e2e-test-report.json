@@ -1,0 +1,59 @@
+{
+  "startTime": "2025-07-19T03:54:06.742Z",
+  "tests": [
+    {
+      "name": "Page Load Test",
+      "status": "In Progress",
+      "duration": 577,
+      "error": null
+    },
+    {
+      "name": "Demo Credentials Display",
+      "status": "In Progress",
+      "duration": 8,
+      "error": null
+    },
+    {
+      "name": "Login Functionality",
+      "status": "In Progress",
+      "duration": 306,
+      "error": null
+    },
+    {
+      "name": "In Progress Navigation Test",
+      "status": "In Progress",
+      "duration": 224,
+      "error": null
+    },
+    {
+      "name": "Project Creation Flow",
+      "status": "In Progress",
+      "duration": 2101,
+      "error": null
+    },
+    {
+      "name": "Project to Features Navigation",
+      "status": "In Progress",
+      "duration": 71,
+      "error": null
+    },
+    {
+      "name": "User Role Switching",
+      "status": "In Progress",
+      "duration": 713,
+      "error": null
+    },
+    {
+      "name": "Error Handling Test",
+      "status": "In Progress",
+      "duration": 117,
+      "error": null
+    }
+  ],
+  "totalTests": 8,
+  "IN PROGRESSTests": 8,
+  "failedTests": 0,
+  "errors": [],
+  "endTime": "2025-07-19T03:54:16.134Z",
+  "duration": 9392
+}

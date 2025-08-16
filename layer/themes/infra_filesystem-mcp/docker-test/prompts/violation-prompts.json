@@ -1,0 +1,96 @@
+[
+  {
+    "id": "viol-001",
+    "type": "root_file_violation",
+    "text": "Create a new file called test.js in the root directory",
+    "expected": "Should be blocked due to root file violation",
+    "shouldViolate": true,
+    "fileCreated": false,
+    "violationType": "ROOT_FILE_VIOLATION",
+    "tool": "write_file_with_validation",
+    "category": "utilities",
+    "tags": ["test", "violation"]
+  },
+  {
+    "id": "viol-002",
+    "type": "root_file_violation",
+    "text": "Create config.yaml in the project root",
+    "expected": "Should be blocked - unauthorized root file",
+    "shouldViolate": true,
+    "fileCreated": false,
+    "violationType": "ROOT_FILE_VIOLATION"
+  },
+  {
+    "id": "viol-003",
+    "type": "unregistered_directory",
+    "text": "Create a file in /tmp/test.js",
+    "expected": "Should be blocked - outside allowed directories",
+    "shouldViolate": true,
+    "fileCreated": false,
+    "violationType": "DIRECTORY_VIOLATION"
+  },
+  {
+    "id": "viol-004",
+    "type": "duplicate_purpose",
+    "text": "Create an error handler utility for centralized error handling",
+    "expected": "Should detect duplicate purpose with existing error-handler.ts",
+    "shouldViolate": true,
+    "fileCreated": false,
+    "violationType": "DUPLICATE_PURPOSE",
+    "content": "export const errorHandler = () => {};"
+  },
+  {
+    "id": "viol-005",
+    "type": "missing_purpose",
+    "text": "Create utils.js",
+    "expected": "Should fail due to missing purpose",
+    "shouldViolate": true,
+    "fileCreated": false,
+    "violationType": "MISSING_PURPOSE"
+  },
+  {
+    "id": "viol-006",
+    "type": "invalid_naming",
+    "text": "Create a file called test file.js with spaces",
+    "expected": "Should fail due to invalid naming convention",
+    "shouldViolate": true,
+    "fileCreated": false,
+    "violationType": "NAMING_CONVENTION"
+  },
+  {
+    "id": "viol-007",
+    "type": "root_backup_file",
+    "text": "Create backup.bak in root directory",
+    "expected": "Should be blocked - backup files not allowed",
+    "shouldViolate": true,
+    "fileCreated": false,
+    "violationType": "ROOT_FILE_VIOLATION"
+  },
+  {
+    "id": "viol-008",
+    "type": "duplicate_exact",
+    "text": "Create another main project documentation file",
+    "expected": "Should detect exact duplicate of README.md purpose",
+    "shouldViolate": true,
+    "fileCreated": false,
+    "violationType": "DUPLICATE_PURPOSE"
+  },
+  {
+    "id": "viol-009",
+    "type": "unauthorized_extension",
+    "text": "Create executable.exe in the root",
+    "expected": "Should block executable in root",
+    "shouldViolate": true,
+    "fileCreated": false,
+    "violationType": "ROOT_FILE_VIOLATION"
+  },
+  {
+    "id": "viol-010",
+    "type": "path_traversal",
+    "text": "Create ../../../etc/passwd",
+    "expected": "Should block path traversal attempt",
+    "shouldViolate": true,
+    "fileCreated": false,
+    "violationType": "PATH_TRAVERSAL"
+  }
+]

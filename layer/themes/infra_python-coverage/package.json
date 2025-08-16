@@ -1,0 +1,47 @@
+{
+  "name": "@aidev/infra-python-coverage",
+  "version": "1.0.0",
+  "description": "Python coverage analysis with branch, class-level metrics and system test coverage tracking",
+  "main": "pipe/index.js",
+  "types": "pipe/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "clean": "rm -rf dist coverage *.js *.d.ts *.js.map *.d.ts.map children/*.js children/*.d.ts pipe/*.js pipe/*.d.ts",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "python",
+    "coverage",
+    "testing",
+    "branch-coverage",
+    "class-coverage"
+  ],
+  "author": "AI Development Platform",
+  "license": "MIT",
+  "dependencies": {
+    "execa": "^5.1.1",
+    "fs-extra": "^11.1.1",
+    "glob": "^10.3.10"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/jest": "^29.5.5",
+    "@types/node": "^20.8.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.2.2"
+  },
+  "files": [
+    "pipe",
+    "children",
+    "README.md",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

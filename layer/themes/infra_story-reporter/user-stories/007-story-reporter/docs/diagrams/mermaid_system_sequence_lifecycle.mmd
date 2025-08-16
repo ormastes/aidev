@@ -1,0 +1,107 @@
+sequenceDiagram
+    participant Dev as Developer
+    participant SR as Story Reporter
+    participant WM as Workflow Manager
+    participant BDD as BDD Test Runner
+    participant Logger as External Log Library
+    participant Monitor as Process Monitor
+    participant Events as Event Bus
+    participant FS as File System
+
+    Note over Dev, FS: Automated Workflow Management with Test Lifecycle
+
+    Dev->>SR: startAutomatedWorkflow(workflowConfig)
+    SR->>WM: initializeWorkflow(config)
+    
+    WM->>Logger: createWorkflowLogger(workflowId)
+    Logger-->>WM: logger initialized
+    
+    WM->>Events: subscribe(lifecycleEvents)
+    Events-->>WM: subscribed
+    
+    WM->>Monitor: startMonitoring()
+    activate Monitor
+    
+    Note over WM: Setup Phase
+    WM->>FS: validateFeatureFiles(paths)
+    FS-->>WM: files validated
+    
+    WM->>FS: validateStepDefinitions(paths)
+    FS-->>WM: step definitions validated
+    
+    WM->>Logger: logPhase('setup', 'completed')
+    
+    Note over WM: Execution Phase
+    WM->>BDD: configure(testConfig)
+    BDD-->>WM: configured
+    
+    WM->>Events: emit('workflowStarted', metadata)
+    
+    par Parallel Execution
+        WM->>BDD: executeTests()
+        activate BDD
+        
+        loop for each test event
+            BDD->>Events: emit(testEvent)
+            Events->>WM: handleTestEvent(event)
+            WM->>Logger: logEvent(event)
+            
+            alt event is failure
+                WM->>Monitor: captureFailureContext()
+                Monitor-->>WM: contextCaptured
+            end
+        end
+        
+        BDD-->>WM: testResults
+        deactivate BDD
+    and Resource Monitoring
+        loop every interval
+            Monitor->>WM: resourceMetrics
+            WM->>Logger: logMetrics(metrics)
+            
+            alt resource threshold exceeded
+                WM->>BDD: pauseExecution()
+                WM->>Dev: notifyResourceWarning()
+                Dev->>WM: continueExecution()
+                WM->>BDD: resumeExecution()
+            end
+        end
+    end
+    
+    Note over WM: Analysis Phase
+    WM->>Logger: aggregateLogs()
+    Logger-->>WM: aggregatedLogs
+    
+    WM->>WM: analyzeResults(testResults, logs)
+    
+    alt tests failed
+        WM->>WM: identifyFailurePatterns()
+        WM->>Logger: logAnalysis(failureAnalysis)
+        WM->>FS: saveFailureReport(analysis)
+    end
+    
+    Note over WM: Reporting Phase
+    WM->>SR: generateReports(results, analysis)
+    SR-->>WM: reportPaths
+    
+    WM->>Events: emit('workflowCompleted', summary)
+    
+    Note over WM: Cleanup Phase
+    WM->>Monitor: stopMonitoring()
+    deactivate Monitor
+    
+    WM->>Logger: archiveLogs(workflowId)
+    Logger-->>WM: archived
+    
+    WM->>Events: unsubscribe(lifecycleEvents)
+    
+    WM->>WM: generateWorkflowSummary()
+    WM-->>SR: workflowSummary
+    
+    SR-->>Dev: workflowExecutionComplete(summary)
+    
+    Note over Dev: Developer receives:
+    Note over Dev: - Test results
+    Note over Dev: - Performance metrics
+    Note over Dev: - Failure analysis
+    Note over Dev: - Resource usage report

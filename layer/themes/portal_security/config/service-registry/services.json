@@ -1,0 +1,149 @@
+{
+  "development": {
+    "dev-api": {
+      "name": "dev-api",
+      "url": "http://localhost:3000",
+      "port": 3000,
+      "protocol": "http",
+      "healthCheckUrl": "http://localhost:3000/health",
+      "status": "unknown",
+      "lastSeen": "2025-08-11T13:34:57.291Z"
+    },
+    "dev-only-service": {
+      "name": "dev-only-service",
+      "url": "http://localhost:3001",
+      "port": 3001,
+      "protocol": "http",
+      "healthCheckUrl": "http://localhost:3001/health",
+      "status": "offline",
+      "lastSeen": "2025-08-11T13:34:57.317Z"
+    }
+  },
+  "test": {
+    "test-api": {
+      "name": "test-api",
+      "url": "http://localhost:3001",
+      "port": 3001,
+      "protocol": "http",
+      "healthCheckUrl": "http://localhost:3001/health",
+      "status": "unknown",
+      "lastSeen": "2025-08-11T13:40:31.485Z"
+    },
+    "auth-service": {
+      "name": "auth-service",
+      "url": "http://localhost:3458",
+      "port": 3458,
+      "protocol": "http",
+      "healthCheckUrl": "http://localhost:3458/health",
+      "status": "offline",
+      "lastSeen": "2025-08-11T13:34:56.832Z"
+    },
+    "api-service": {
+      "name": "api-service",
+      "url": "http://localhost:3457",
+      "port": 3457,
+      "protocol": "http",
+      "healthCheckUrl": "http://localhost:3457/api/health",
+      "status": "offline",
+      "lastSeen": "2025-08-11T13:34:56.837Z"
+    },
+    "websocket-service": {
+      "name": "websocket-service",
+      "url": "http://localhost:3460",
+      "port": 3460,
+      "protocol": "http",
+      "healthCheckUrl": "http://localhost:3460/health",
+      "status": "unknown",
+      "lastSeen": "2025-08-11T13:34:56.837Z"
+    },
+    "database": {
+      "name": "database",
+      "url": "http://localhost:5432",
+      "port": 5432,
+      "protocol": "http",
+      "healthCheckUrl": "http://localhost:5432/health",
+      "status": "offline",
+      "lastSeen": "2025-08-11T13:34:56.883Z"
+    },
+    "cache": {
+      "name": "cache",
+      "url": "http://localhost:6379",
+      "port": 6379,
+      "protocol": "http",
+      "healthCheckUrl": "http://localhost:6379/health",
+      "status": "offline",
+      "lastSeen": "2025-08-11T13:34:56.884Z"
+    },
+    "api": {
+      "name": "api",
+      "url": "http://localhost:3000",
+      "port": 3000,
+      "protocol": "http",
+      "healthCheckUrl": "http://localhost:3000/health",
+      "status": "unknown",
+      "dependencies": [
+        "database",
+        "cache"
+      ],
+      "lastSeen": "2025-08-11T13:34:56.884Z"
+    },
+    "auth": {
+      "name": "auth",
+      "url": "http://localhost:3458",
+      "port": 3458,
+      "protocol": "http",
+      "healthCheckUrl": "http://localhost:3458/health",
+      "status": "unknown",
+      "lastSeen": "2025-08-11T13:34:57.303Z"
+    },
+    "test-only-service": {
+      "name": "test-only-service",
+      "url": "http://localhost:4001",
+      "port": 4001,
+      "protocol": "http",
+      "healthCheckUrl": "http://localhost:4001/health",
+      "status": "unknown",
+      "lastSeen": "2025-08-11T13:34:57.320Z"
+    },
+    "metadata-service": {
+      "name": "metadata-service",
+      "url": "http://localhost:5000",
+      "port": 5000,
+      "protocol": "http",
+      "healthCheckUrl": "http://localhost:5000/health",
+      "status": "unknown",
+      "version": "2.1.0",
+      "metadata": {
+        "region": "us-east-1",
+        "cluster": "primary",
+        "features": [
+          "auth",
+          "logging",
+          "metrics"
+        ]
+      },
+      "lastSeen": "2025-08-11T13:34:57.324Z"
+    }
+  },
+  "demo": {},
+  "release": {
+    "secure-api": {
+      "name": "secure-api",
+      "url": "https://portal.production.com:443",
+      "port": 443,
+      "protocol": "https",
+      "healthCheckUrl": "https://portal.production.com:443/health",
+      "status": "offline",
+      "lastSeen": "2025-08-11T13:34:57.290Z"
+    },
+    "prod-only-service": {
+      "name": "prod-only-service",
+      "url": "https://portal.production.com:443",
+      "port": 443,
+      "protocol": "https",
+      "healthCheckUrl": "https://portal.production.com:443/health",
+      "status": "offline",
+      "lastSeen": "2025-08-11T13:34:57.320Z"
+    }
+  }
+}

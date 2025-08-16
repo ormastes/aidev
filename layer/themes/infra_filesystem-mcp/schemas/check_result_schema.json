@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Check Result Schema",
+  "description": "Common schema for all check scripts results with pass/fail status",
+  "type": "object",
+  "required": ["metadata", "results"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["targetPath", "mode", "timestamp", "pass"],
+      "properties": {
+        "targetPath": {
+          "type": "string",
+          "description": "The path that was analyzed"
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["app", "epic", "theme", "user_story"],
+          "description": "The type of component being analyzed"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of when the check was performed"
+        },
+        "pass": {
+          "type": "boolean",
+          "description": "Overall pass/fail status"
+        },
+        "summary": {
+          "type": "string",
+          "description": "Human-readable summary of the results"
+        },
+        "totalIssues": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of issues found"
+        },
+        "criticalIssues": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of critical issues found"
+        }
+      }
+    },
+    "results": {
+      "type": "object",
+      "description": "Check-specific results",
+      "additionalProperties": true
+    }
+  }
+}

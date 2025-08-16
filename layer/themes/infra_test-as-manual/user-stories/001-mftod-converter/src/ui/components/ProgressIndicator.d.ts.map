@@ -1,0 +1,1 @@
+{"version":3,"file":"ProgressIndicator.d.ts","sourceRoot":"","sources":["ProgressIndicator.tsx"],"names":[],"mappings":"AAAA;;;GAGG;AAEH,OAAO,KAAK,MAAM,OAAO,CAAC;AAE1B,UAAU,sBAAsB;IAC9B,OAAO,EAAE,MAAM,CAAC;IAChB,QAAQ,CAAC,EAAE,MAAM,CAAC;IAClB,eAAe,CAAC,EAAE,OAAO,CAAC;CAC3B;AAED,eAAO,MAAM,iBAAiB,EAAE,KAAK,CAAC,EAAE,CAAC,sBAAsB,CA8E9D,CAAC"}

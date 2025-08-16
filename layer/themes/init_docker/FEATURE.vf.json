@@ -1,0 +1,878 @@
+{
+  "metadata": {
+    "level": "theme",
+    "path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-08T00:00:00.000Z",
+    "updated_at": "2025-08-08T00:00:00.000Z"
+  },
+  "features": {
+    "container": [
+      {
+        "id": "container-001",
+        "name": "Docker Container Build System (C++ support)",
+        "data": {
+          "title": "Docker Container Build and Management with C++ Support",
+          "description": "Provides Docker container build, run, and orchestration capabilities for all themes including C++ projects with CMake",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "docker",
+            "container",
+            "build",
+            "deployment",
+            "orchestration"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "components": {
+            "DockerBuilder": "Dockerfile generation and image building",
+            "ContainerRunner": "Container lifecycle management",
+            "pipe/index": "External API for container operations"
+          }
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-002",
+        "name": "Docker Compose Orchestration",
+        "data": {
+          "title": "Multi-container Application Orchestration",
+          "description": "Docker Compose support for multi-service deployments with networking and volumes",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "docker-compose",
+            "orchestration",
+            "microservices",
+            "networking"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "components": {
+            "ComposeManager": "Docker Compose file generation and orchestration"
+          }
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-003",
+        "name": "Multi-Environment Docker Support",
+        "data": {
+          "title": "Complete Environment Lifecycle Management",
+          "description": "Support for local, dev, dev-demo, demo, and release/production environments with specific configurations",
+          "level": "theme",
+          "status": "active",
+          "priority": "critical",
+          "tags": [
+            "environments",
+            "lifecycle",
+            "deployment",
+            "docker"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "environments": {
+            "local": "Hot-reload development with full source mounting",
+            "dev": "Development with selective source mounting",
+            "dev-demo": "Development demonstration environment",
+            "demo": "Public demonstration environment",
+            "release": "Production-ready release environment"
+          }
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-011",
+        "name": "Folder-Based Docker Building (C++ support)",
+        "data": {
+          "title": "Build Docker Images from Folder Structure with C++ Support",
+          "description": "Automatically build Docker images from theme folders supporting both Node.js and C++ project structures (src/, include/, build/)",
+          "level": "theme",
+          "status": "active",
+          "priority": "high",
+          "tags": [
+            "build",
+            "folders",
+            "context",
+            "automation"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-012",
+        "name": "Volume Mount Management (C++ support)",
+        "data": {
+          "title": "Intelligent Volume Mounting for Multi-Language Development",
+          "description": "Smart volume mounting for source code, dependencies (node_modules/build), headers, and data with language-specific configurations",
+          "level": "theme",
+          "status": "active",
+          "priority": "high",
+          "tags": [
+            "volumes",
+            "mounting",
+            "development",
+            "hot-reload"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-013",
+        "name": "Local Development Environment (C++ support)",
+        "data": {
+          "title": "Local Development with Hot Reload and C++ Support",
+          "description": "Full local development environment with source mounting, hot reload/incremental builds, debugging (Node.js/GDB), and instant feedback",
+          "level": "theme",
+          "status": "active",
+          "priority": "critical",
+          "tags": [
+            "local",
+            "development",
+            "hot-reload",
+            "debugging"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "features": [
+            "Source code volume mounting",
+            "Node.js debugger support (port 9229)",
+            "GDB/LLDB debugger support (port 2345)",
+            "C++ incremental builds with Ninja",
+            "Hot reload with file watching",
+            "Separate node_modules volume"
+          ]
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-014",
+        "name": "Development Demo Environment",
+        "data": {
+          "title": "Dev-Demo Environment for Testing",
+          "description": "Isolated demo environment for development testing with production-like settings but development conveniences",
+          "level": "theme",
+          "status": "active",
+          "priority": "high",
+          "tags": [
+            "dev-demo",
+            "testing",
+            "staging",
+            "preview"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-015",
+        "name": "Production Release Environment (C++ support)",
+        "data": {
+          "title": "Production-Ready Release Deployment for All Languages",
+          "description": "Full production environment with multi-replica support, health checks, resource limits, monitoring, and optimized C++ binaries",
+          "level": "theme",
+          "status": "active",
+          "priority": "critical",
+          "tags": [
+            "production",
+            "release",
+            "scaling",
+            "monitoring"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "features": [
+            "Multi-replica deployment",
+            "Resource limits and reservations",
+            "Health check configuration",
+            "Production networking",
+            "Tini for signal handling"
+          ]
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-016",
+        "name": "Environment-Specific Configuration (C++ support)",
+        "data": {
+          "title": "Per-Environment Docker Configuration with Build Types",
+          "description": "Automatic generation of environment-specific Dockerfiles and docker-compose configurations with C++ build types (Debug/Release)",
+          "level": "theme",
+          "status": "active",
+          "priority": "high",
+          "tags": [
+            "configuration",
+            "environments",
+            "automation",
+            "templates"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-017",
+        "name": "Port Management System",
+        "data": {
+          "title": "Intelligent Port Allocation",
+          "description": "Environment-specific port allocation with automatic mapping for local (3000), dev-demo (3001), demo (3002), and production (80/443)",
+          "level": "theme",
+          "status": "active",
+          "priority": "medium",
+          "tags": [
+            "ports",
+            "networking",
+            "allocation",
+            "mapping"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-018",
+        "name": "Resource Management",
+        "data": {
+          "title": "Environment-Based Resource Allocation",
+          "description": "Automatic resource limits based on environment: dev (unlimited), demo (512MB/0.5CPU), production (2GB/2CPU)",
+          "level": "theme",
+          "status": "active",
+          "priority": "medium",
+          "tags": [
+            "resources",
+            "memory",
+            "cpu",
+            "limits"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-019",
+        "name": "Network Isolation",
+        "data": {
+          "title": "Environment-Specific Network Isolation",
+          "description": "Separate Docker networks for each environment to ensure isolation and security",
+          "level": "theme",
+          "status": "active",
+          "priority": "high",
+          "tags": [
+            "networking",
+            "isolation",
+            "security",
+            "environments"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-020",
+        "name": "Deployment Tracking",
+        "data": {
+          "title": "Deployment Status and History Tracking",
+          "description": "Track all deployments with status, timestamps, and container IDs for monitoring and rollback",
+          "level": "theme",
+          "status": "active",
+          "priority": "medium",
+          "tags": [
+            "deployment",
+            "tracking",
+            "monitoring",
+            "history"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-021",
+        "name": "Container Registry Integration",
+        "data": {
+          "title": "Container Registry Management",
+          "description": "Integration with container registries for image storage and distribution",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "registry",
+            "docker-hub",
+            "image-management"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-004",
+        "name": "Development Container Support",
+        "data": {
+          "title": "VSCode Dev Containers Integration",
+          "description": "Support for VSCode development containers and GitHub Codespaces",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "devcontainer",
+            "vscode",
+            "codespaces",
+            "development"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-005",
+        "name": "Dockerfile Generation (C++ support)",
+        "data": {
+          "title": "Automated Dockerfile Generation for Multiple Languages",
+          "description": "Generate optimized Dockerfiles with multi-stage builds for Node.js and C++ applications with compiler selection",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "dockerfile",
+            "automation",
+            "multi-stage-build"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-006",
+        "name": "Container Health Monitoring",
+        "data": {
+          "title": "Container Health Check and Monitoring",
+          "description": "Health check configuration and container status monitoring",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "healthcheck",
+            "monitoring",
+            "container-stats"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-007",
+        "name": "Container Lifecycle Management",
+        "data": {
+          "title": "Complete Container Lifecycle Operations",
+          "description": "Start, stop, restart, remove, and manage container lifecycle",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "lifecycle",
+            "container-management",
+            "operations"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-008",
+        "name": "Container Logging",
+        "data": {
+          "title": "Container Log Management",
+          "description": "Access and manage container logs with tail and follow options",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "logging",
+            "debugging",
+            "container-logs"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-009",
+        "name": "Container Execution",
+        "data": {
+          "title": "Execute Commands in Containers",
+          "description": "Run commands inside running containers for debugging and management",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "exec",
+            "debugging",
+            "container-access"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-010",
+        "name": "Container Statistics",
+        "data": {
+          "title": "Container Resource Statistics",
+          "description": "Monitor CPU, memory, network, and block I/O statistics for containers",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "statistics",
+            "monitoring",
+            "resource-usage"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-08T00:00:00.000Z",
+        "updatedAt": "2025-08-08T00:00:00.000Z"
+      },
+      {
+        "id": "container-022",
+        "name": "C++ Compiler Management",
+        "data": {
+          "title": "Multi-Compiler Support for C++ Projects",
+          "description": "Support for GCC, Clang, and MSVC compilers with version selection and cross-compilation",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "cpp",
+            "compiler",
+            "gcc",
+            "clang",
+            "cross-compilation"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "components": {
+            "DockerBuilder": "C++ Dockerfile generation with compiler selection",
+            "CppBuildManager": "Compiler configuration and management"
+          }
+        },
+        "createdAt": "2025-08-09T00:00:00.000Z",
+        "updatedAt": "2025-08-09T00:00:00.000Z"
+      },
+      {
+        "id": "container-023",
+        "name": "CMake Build System Integration",
+        "data": {
+          "title": "Complete CMake Build System Support",
+          "description": "CMakeLists.txt generation, build type management, CMake cache handling, and Find_package support",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "critical",
+          "tags": [
+            "cpp",
+            "cmake",
+            "build-system",
+            "configuration"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "components": {
+            "CppBuildManager": "CMake configuration and build management",
+            "templates/CMakeLists.txt.template": "CMake template generation"
+          },
+          "features": [
+            "CMakeLists.txt generation",
+            "Build type management (Debug, Release, RelWithDebInfo, MinSizeRel)",
+            "CMake cache management",
+            "compile_commands.json generation",
+            "CPack support for package generation"
+          ]
+        },
+        "createdAt": "2025-08-09T00:00:00.000Z",
+        "updatedAt": "2025-08-09T00:00:00.000Z"
+      },
+      {
+        "id": "container-024",
+        "name": "C++ Dependency Management",
+        "data": {
+          "title": "Package Manager Integration for C++",
+          "description": "Support for Conan and vcpkg package managers with automatic dependency resolution",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "cpp",
+            "conan",
+            "vcpkg",
+            "dependencies",
+            "package-management"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "features": [
+            "Conan package manager integration",
+            "vcpkg support",
+            "System library detection",
+            "Static/shared library management"
+          ]
+        },
+        "createdAt": "2025-08-09T00:00:00.000Z",
+        "updatedAt": "2025-08-09T00:00:00.000Z"
+      },
+      {
+        "id": "container-025",
+        "name": "C++ Debug Support",
+        "data": {
+          "title": "Advanced Debugging for C++ Applications",
+          "description": "GDB and LLDB integration with remote debugging, core dump analysis, and memory leak detection",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "critical",
+          "tags": [
+            "cpp",
+            "debugging",
+            "gdb",
+            "lldb",
+            "valgrind"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "components": {
+            "DevEnvironmentRunner": "GDB/LLDB debugging support"
+          },
+          "features": [
+            "GDB server integration (port 2345)",
+            "LLDB support",
+            "Core dump analysis",
+            "Valgrind memory leak detection",
+            "AddressSanitizer integration"
+          ]
+        },
+        "createdAt": "2025-08-09T00:00:00.000Z",
+        "updatedAt": "2025-08-09T00:00:00.000Z"
+      },
+      {
+        "id": "container-026",
+        "name": "C++ Testing Framework Integration",
+        "data": {
+          "title": "Testing Support for C++ Projects",
+          "description": "Integration with Google Test, Catch2, and CTest with coverage reporting",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "cpp",
+            "testing",
+            "googletest",
+            "catch2",
+            "coverage"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "components": {
+            "CppBuildManager": "Test execution and coverage reporting"
+          },
+          "features": [
+            "Google Test integration",
+            "Catch2 support",
+            "CTest runner",
+            "Coverage reports (gcov/llvm-cov)",
+            "Test result parsing"
+          ]
+        },
+        "createdAt": "2025-08-09T00:00:00.000Z",
+        "updatedAt": "2025-08-09T00:00:00.000Z"
+      },
+      {
+        "id": "container-027",
+        "name": "C++ Static Analysis Tools",
+        "data": {
+          "title": "Code Quality Tools for C++",
+          "description": "Static analysis, format checking, and code quality tools integration",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "cpp",
+            "static-analysis",
+            "clang-tidy",
+            "cppcheck",
+            "clang-format"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "components": {
+            "CppBuildManager": "Static analysis and formatting"
+          },
+          "features": [
+            "clang-tidy integration",
+            "cppcheck support",
+            "clang-format automatic formatting",
+            "include-what-you-use (IWYU)"
+          ]
+        },
+        "createdAt": "2025-08-09T00:00:00.000Z",
+        "updatedAt": "2025-08-09T00:00:00.000Z"
+      },
+      {
+        "id": "container-028",
+        "name": "C++ Profiling Support",
+        "data": {
+          "title": "Performance Profiling for C++ Applications",
+          "description": "Integration with profiling tools for performance analysis",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "cpp",
+            "profiling",
+            "performance",
+            "gprof",
+            "perf"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "features": [
+            "gprof integration",
+            "perf tools support",
+            "Flame graph generation",
+            "Memory profiling"
+          ]
+        },
+        "createdAt": "2025-08-09T00:00:00.000Z",
+        "updatedAt": "2025-08-09T00:00:00.000Z"
+      },
+      {
+        "id": "container-029",
+        "name": "C++ Cross-Compilation Support",
+        "data": {
+          "title": "Cross-Platform Build Support",
+          "description": "Build C++ applications for different target architectures and platforms",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "low",
+          "tags": [
+            "cpp",
+            "cross-compilation",
+            "arm",
+            "embedded"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "features": [
+            "ARM cross-compilation",
+            "x86/x64 target selection",
+            "Embedded system support",
+            "Custom toolchain support"
+          ]
+        },
+        "createdAt": "2025-08-09T00:00:00.000Z",
+        "updatedAt": "2025-08-09T00:00:00.000Z"
+      },
+      {
+        "id": "container-030",
+        "name": "C++ Package Generation",
+        "data": {
+          "title": "Distribution Package Creation",
+          "description": "Generate DEB, RPM, and TAR packages for C++ applications",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "cpp",
+            "packaging",
+            "cpack",
+            "distribution"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "components": {
+            "CppBuildManager": "Package generation with CPack"
+          },
+          "features": [
+            "DEB package generation",
+            "RPM package generation",
+            "TAR.GZ archive creation",
+            "CPack configuration"
+          ]
+        },
+        "createdAt": "2025-08-09T00:00:00.000Z",
+        "updatedAt": "2025-08-09T00:00:00.000Z"
+      },
+      {
+        "id": "container-031",
+        "name": "C++ Standard Library Selection",
+        "data": {
+          "title": "C++ Standard and Library Configuration",
+          "description": "Support for different C++ standards (C++11 to C++23) and standard library implementations",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "cpp",
+            "standards",
+            "libstdc++",
+            "libc++"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "features": [
+            "C++11/14/17/20/23 standard selection",
+            "libstdc++ support",
+            "libc++ support",
+            "Standard compliance checking"
+          ]
+        },
+        "createdAt": "2025-08-09T00:00:00.000Z",
+        "updatedAt": "2025-08-09T00:00:00.000Z"
+      },
+      {
+        "id": "container-032",
+        "name": "C++ Hot Reload Development",
+        "data": {
+          "title": "Incremental Build and Hot Reload for C++",
+          "description": "File watching with automatic incremental builds for C++ development",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "cpp",
+            "hot-reload",
+            "incremental-build",
+            "file-watching"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "components": {
+            "DevEnvironmentRunner": "C++ file watching and auto-rebuild",
+            "CppBuildManager": "Incremental build support"
+          },
+          "features": [
+            "Source file watching (.cpp, .hpp, .h, .cc)",
+            "Automatic incremental rebuilds",
+            "Ninja build system for fast rebuilds",
+            "compile_commands.json auto-update"
+          ]
+        },
+        "createdAt": "2025-08-09T00:00:00.000Z",
+        "updatedAt": "2025-08-09T00:00:00.000Z"
+      },
+      {
+        "id": "container-033",
+        "name": "Docker CMake Build with Current Folder",
+        "data": {
+          "title": "Build CMake Projects in Docker with Host Folder Mount",
+          "description": "Build CMake projects inside Docker container with current folder mounted as volume, supporting both local and CI environments",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "critical",
+          "tags": [
+            "docker",
+            "cmake",
+            "build",
+            "volume-mount",
+            "ci-cd"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "components": {
+            "DockerCMakeBuilder": "Docker-based CMake build orchestrator",
+            "VolumeManager": "Host folder mounting and caching"
+          },
+          "features": [
+            "Current folder mounted as /workspace",
+            "Build artifacts persist on host",
+            "CMake cache preservation",
+            "Multi-stage build support",
+            "CI/CD pipeline integration"
+          ],
+          "configuration": {
+            "default_mount": "/workspace",
+            "build_dir": "/workspace/build",
+            "cache_dir": "/workspace/.cmake-cache"
+          }
+        },
+        "createdAt": "2025-08-09T15:00:00.000Z",
+        "updatedAt": "2025-08-09T15:00:00.000Z"
+      },
+      {
+        "id": "container-034",
+        "name": "Docker Debug Port Configuration",
+        "data": {
+          "title": "Debug Port Exposure for Docker Containers",
+          "description": "Configurable debug port exposure for GDB/LLDB debugging through Docker, disabled by default for security",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "docker",
+            "debugging",
+            "gdb",
+            "port-forwarding",
+            "security"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "components": {
+            "DebugPortManager": "Debug port configuration and mapping",
+            "SecurityValidator": "Port exposure security checks"
+          },
+          "features": [
+            "GDB server port mapping (default: 2345)",
+            "LLDB server port mapping",
+            "Debug mode flag (--debug)",
+            "Port randomization for security",
+            "SSH tunnel support for remote debugging"
+          ],
+          "configuration": {
+            "debug_enabled_default": false,
+            "gdb_port": 2345,
+            "lldb_port": 2346,
+            "require_explicit_flag": true
+          }
+        },
+        "createdAt": "2025-08-09T15:00:00.000Z",
+        "updatedAt": "2025-08-09T15:00:00.000Z"
+      },
+      {
+        "id": "container-035",
+        "name": "Docker Build Cache Management",
+        "data": {
+          "title": "Intelligent Build Cache for Docker CMake Builds",
+          "description": "Advanced caching strategies for faster Docker-based CMake builds with dependency tracking",
+          "level": "theme",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "docker",
+            "cache",
+            "cmake",
+            "build-optimization",
+            "performance"
+          ],
+          "virtual_path": "/layer/themes/init_container-environment/FEATURE.vf.json",
+          "components": {
+            "CacheManager": "Build cache orchestration",
+            "DependencyTracker": "Track and cache dependencies"
+          },
+          "features": [
+            "CMake build cache persistence",
+            "ccache integration",
+            "Docker layer caching",
+            "Dependency change detection",
+            "Selective cache invalidation"
+          ]
+        },
+        "createdAt": "2025-08-09T15:00:00.000Z",
+        "updatedAt": "2025-08-09T15:00:00.000Z"
+      }
+    ]
+  },
+  "children": []
+}

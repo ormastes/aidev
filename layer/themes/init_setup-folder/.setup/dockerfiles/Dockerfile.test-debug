@@ -1,0 +1,46 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install development tools
+RUN apt-get update && apt-get install -y \
+    build-essential cmake ninja-build \
+    git vim tmux curl wget \
+    gdb gdbserver lldb valgrind \
+    openssh-server \
+    python3 python3-pip python3-dev \
+    nodejs npm \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+# Install code-server (VS Code in browser)
+RUN curl -fsSL https://code-server.dev/install.sh | sh
+
+# Configure SSH
+RUN mkdir /var/run/sshd && \
+    echo 'root:docker' | chpasswd && \
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+# Install Python debugging tools
+RUN pip3 install debugpy ipython jupyter
+
+# Create workspace
+WORKDIR /workspace
+
+# Expose ports
+EXPOSE 22 8080 1234 3000 5000 8000 9229
+
+# Entrypoint script
+COPY <<'ENTRYPOINT' /entrypoint.sh
+#!/bin/bash
+service ssh start
+code-server --bind-addr 0.0.0.0:8080 --auth password &
+exec "$@"
+ENTRYPOINT
+
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/bin/bash"]

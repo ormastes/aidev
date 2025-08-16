@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "mock-free-test-oriented-epic-001",
+    "path": "/layer/themes/check_mock-free-test-oriented/user-stories/003-mock-free-testing/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.593Z",
+    "updated_at": "2025-08-02T11:10:54.593Z"
+  },
+  "features": {
+    "003_mock_free_testing": [
+      {
+        "id": "mock-free-test-oriented-003-mock-free-testing",
+        "name": "mock free testing",
+        "data": {
+          "title": "Mock free testing",
+          "description": "Implementation of mock free testing",
+          "level": "user_story",
+          "parent_feature_id": "mock-free-test-oriented-epic-001",
+          "epic_id": "mock-free-test-oriented-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "mock-free-test-oriented",
+            "mock-free-testing"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/check_mock-free-test-oriented/user-stories/003-mock-free-testing/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.593Z",
+        "updatedAt": "2025-08-02T11:10:54.593Z"
+      }
+    ]
+  }
+}

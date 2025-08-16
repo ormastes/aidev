@@ -1,0 +1,26 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: aidev-platform
+
+resources:
+  - namespace.yaml
+  - secrets.yaml
+  - redis-deployment.yaml
+  - api-gateway-deployment.yaml
+  - portal-deployment.yaml
+  - monitoring-deployment.yaml
+  - ingress.yaml
+  - hpa.yaml
+
+commonLabels:
+  project: aidev-platform
+  managed-by: kustomize
+
+images:
+  - name: aidev/api-gateway
+    newTag: latest
+  - name: aidev/portal
+    newTag: latest
+  - name: aidev/monitoring-dashboard
+    newTag: latest

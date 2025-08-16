@@ -1,0 +1,15 @@
+{
+  "statistics": {
+    "total_targets": 1,
+    "total_mocks": 0,
+    "generated_tests": 1,
+    "failed_tests": 0,
+    "success_rate": "100.0%"
+  },
+  "targets": [
+    "Calculator"
+  ],
+  "mocks": [],
+  "llm_model": "deepseek:7b",
+  "retry_threshold": 3
+}

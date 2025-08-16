@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-07-19T08:38:16.014Z",
+  "action": "Hello World Story Creation",
+  "story": {
+    "id": "hello-world-1752914295988",
+    "title": "Hello World from AI Dev Portal",
+    "status": "In Progress",
+    "created_at": "2025-07-19T08:38:15.988Z",
+    "portal": "ai_dev_portal"
+  },
+  "integration": {
+    "source": "story-reporter",
+    "target": "ai_dev_portal",
+    "In Progress": true
+  }
+}

@@ -1,0 +1,96 @@
+sequenceDiagram
+    participant TestCase as Integration Test
+    participant TSM as Test Suite Manager
+    participant MEL as Mock External Logger
+    participant RG as Report Generator
+    participant FS as File System
+
+    Note over TestCase, FS: External Log Library and Report Generation Integration
+
+    TestCase->>MEL: initializeLogger(testSuiteId)
+    MEL-->>TestCase: loggerId
+
+    TestCase->>TSM: configure(testConfig)
+    TSM-->>TestCase: configured
+
+    TestCase->>TSM: initializeLogLibrary()
+    TSM->>MEL: mockLogLibraryInitialization()
+    MEL-->>TSM: initialized
+    TSM-->>TestCase: log library initialized
+
+    TestCase->>MEL: log(loggerId, 'info', 'Test started')
+    MEL-->>TestCase: logged
+
+    TestCase->>TSM: executeTestSuite()
+    activate TSM
+    
+    TSM->>TSM: executeFeaturesWithProgress()
+    TSM->>MEL: getAggregatedLogEntries()
+    MEL-->>TSM: logEntries[]
+    
+    TSM-->>TestCase: testResults with metadata
+    deactivate TSM
+
+    TestCase->>MEL: getLogHistory(loggerId)
+    MEL-->>TestCase: LogEntry[]
+
+    TestCase->>MEL: getLogStatistics(loggerId)
+    MEL-->>TestCase: {total, byLevel, timestamps}
+
+    TestCase->>RG: configure(testConfig)
+    RG-->>TestCase: configured
+
+    TestCase->>RG: generateJSONReport(testResultsWithLogs)
+    activate RG
+    RG->>RG: processLogMetadata()
+    RG-->>TestCase: jsonReport
+    deactivate RG
+
+    TestCase->>RG: generateHTMLReport(testResultsWithLogs)
+    activate RG
+    RG->>RG: renderLogData()
+    RG-->>TestCase: htmlReport
+    deactivate RG
+
+    TestCase->>RG: generateXMLReport(testResultsWithLogs)
+    activate RG
+    RG->>RG: serializeLogData()
+    RG-->>TestCase: xmlReport
+    deactivate RG
+
+    TestCase->>RG: saveReports(testResults)
+    activate RG
+    RG->>FS: mkdir(outputDirectory)
+    FS-->>RG: directory created
+    
+    RG->>FS: writeFile(jsonReport)
+    FS-->>RG: json file written
+    
+    RG->>FS: writeFile(htmlReport)
+    FS-->>RG: html file written
+    
+    RG->>FS: writeFile(xmlReport)
+    FS-->>RG: xml file written
+    
+    RG-->>TestCase: reportPaths[]
+    deactivate RG
+
+    TestCase->>MEL: searchLogs(loggerId, searchTerm)
+    MEL-->>TestCase: filteredLogs[]
+
+    TestCase->>MEL: getLogsByLevel(loggerId, level)
+    MEL-->>TestCase: levelFilteredLogs[]
+
+    TestCase->>TSM: cleanup()
+    TSM->>MEL: cleanupLogLibrary()
+    MEL-->>TSM: cleaned
+    TSM-->>TestCase: cleanup complete
+
+    TestCase->>RG: cleanup()
+    RG-->>TestCase: cleanup complete
+
+    TestCase->>MEL: cleanup()
+    MEL-->>TestCase: all loggers cleared
+
+    Note over TestCase: Integration test verifies complete workflow
+    Note over TestCase: from log capture to report generation

@@ -1,0 +1,50 @@
+{
+  "name": "@aidev/infra_filesystem-mcp",
+  "version": "1.0.0",
+  "description": "Virtual filesystem interface with specialized wrappers for MCP",
+  "main": "dist/pipe/index.js",
+  "types": "dist/pipe/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:unit": "jest --testPathPattern=\"test\\.ts$\"",
+    "test:integration": "jest --testPathPattern=\"itest\\.ts$\"",
+    "test:system": "jest --testPathPattern=\"systest\\.ts$\"",
+    "test:external": "jest --testPathPattern=\"etest\\.ts$\"",
+    "test:environment": "jest --testPathPattern=\"envtest\\.ts$\"",
+    "test:mftod": "bun run test:environment && bun run test:external && bun run test:system && bun run test:integration && bun run test:unit",
+    "test:system-reports": "node scripts/run-system-tests.js",
+    "clean": "rm -rf dist coverage tests/system/reports",
+    "typecheck": "tsc --noEmit",
+    "build:mcp": "tsc --project tsconfig.mcp.json",
+    "mcp-server": "tsc --project tsconfig.mcp.json && node dist/mcp-main.js",
+    "mcp-server:dev": "node dist/mcp-main.js",
+    "mcp-test": "node scripts/test-enhanced-mcp.js",
+    "mcp-setup-demo": "bash scripts/setup-demo-mcp.sh",
+    "mcp-deploy": "bash scripts/deploy-enhanced-mcp.sh",
+    "demo": "cd demo && claude-code --dangerously-skip-permission ."
+  },
+  "keywords": [
+    "filesystem",
+    "mcp",
+    "virtual",
+    "wrapper"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.19.11",
+    "jest": "^29.5.0",
+    "jest-html-reporters": "^3.1.7",
+    "jest-stare": "^2.5.2",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.3",
+    "ajv": "^8.12.0"
+  }
+}

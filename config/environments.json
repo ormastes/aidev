@@ -1,0 +1,79 @@
+{
+  "environments": {
+    "theme": {
+      "name": "Theme Demo Environment",
+      "port_range": [3200, 3299],
+      "base_path": "layer/themes",
+      "db_prefix": "theme_demo",
+      "services": {
+        "portal": 3200,
+        "story_reporter": 3201,
+        "gui_selector": 3202,
+        "auth_service": 3203,
+        "db_service": 3204
+      }
+    },
+    "epic": {
+      "name": "Epic Test Environment",
+      "port_range": [3100, 3199],
+      "base_path": "layer/epics",
+      "db_prefix": "epic_test",
+      "services": {
+        "portal": 3100,
+        "story_reporter": 3101,
+        "gui_selector": 3102,
+        "auth_service": 3103,
+        "db_service": 3104
+      }
+    },
+    "demo": {
+      "name": "General Demo Environment",
+      "port_range": [3300, 3399],
+      "base_path": "demo",
+      "db_prefix": "demo",
+      "services": {
+        "portal": 3300,
+        "story_reporter": 3301,
+        "gui_selector": 3302,
+        "auth_service": 3303,
+        "db_service": 3304
+      }
+    },
+    "release": {
+      "name": "Production/Release Environment",
+      "port_range": [3400, 3499],
+      "base_path": "release",
+      "db_prefix": "prod",
+      "services": {
+        "portal": 3456,
+        "story_reporter": 3401,
+        "gui_selector": 3457,
+        "auth_service": 3403,
+        "db_service": 3404
+      }
+    }
+  },
+  "database": {
+    "postgres": {
+      "host": "localhost",
+      "port": 5432,
+      "ssl": false
+    },
+    "sqlite": {
+      "data_dir": "data"
+    }
+  },
+  "themes": [
+    "coordinator-claude-agent",
+    "react-native-base",
+    "dev-environment",
+    "core-features",
+    "gui-management"
+  ],
+  "inter_theme_connections": {
+    "coordinator-claude-agent": ["react-native-base", "gui-management"],
+    "react-native-base": ["dev-environment"],
+    "dev-environment": ["core-features"],
+    "gui-management": ["core-features"]
+  }
+}

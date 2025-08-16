@@ -1,0 +1,262 @@
+import { test, expect } from '@playwright/test';
+import { request } from '@playwright/test';
+
+/**
+ * API Validation Test Template
+ * Cross-validates UI behavior with API responses
+ */
+
+test.describe('API Validation', () => {
+  let apiContext: any;
+  
+  test.beforeAll(async ({ playwright }) => {
+    apiContext = await playwright.request.newContext({
+      baseURL: process.env.STAGING_URL || 'https://staging.example.com',
+      extraHTTPHeaders: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+  });
+
+  test.afterAll(async () => {
+    await apiContext.dispose();
+  });
+
+  test('UI and API should return consistent data', async ({ page }) => {
+    // Get data from UI
+    await page.goto(process.env.STAGING_URL || 'https://staging.example.com');
+    await page.getByRole('link', { name: /products|items|catalog/i }).click();
+    
+    // Wait for list to load
+    await page.waitForSelector('[data-testid=item-list], .item-list, ul.products');
+    
+    // Get items from UI
+    const uiItems = await page.$$eval('[data-testid=item], .item, .product', items => 
+      items.map(item => ({
+        id: item.getAttribute('data-id') || '',
+        title: item.querySelector('h2, h3, .title')?.textContent || '',
+        price: item.querySelector('.price, [data-price]')?.textContent || ''
+      }))
+    );
+
+    // Get same data from API
+    const apiResponse = await apiContext.get('/api/products');
+    expect(apiResponse.ok()).toBeTruthy();
+    
+    const apiData = await apiResponse.json();
+    
+    // Validate consistency
+    expect(uiItems.length).toBe(apiData.items?.length || apiData.products?.length);
+    
+    // Check that UI items exist in API response
+    for (const uiItem of uiItems) {
+      const apiItem = apiData.items?.find((item: any) => item.id === uiItem.id) ||
+                      apiData.products?.find((item: any) => item.id === uiItem.id);
+      expect(apiItem).toBeTruthy();
+    }
+  });
+
+  test('API responses should match OpenAPI schema', async ({ page }) => {
+    // Fetch OpenAPI spec
+    const specResponse = await apiContext.get(process.env.OPENAPI_SPEC_URL || '/openapi.json');
+    expect(specResponse.ok()).toBeTruthy();
+    
+    const openApiSpec = await specResponse.json();
+    
+    // Test each endpoint defined in spec
+    const paths = Object.keys(openApiSpec.paths || {});
+    
+    for (const path of paths.slice(0, 5)) { // Test first 5 endpoints
+      const methods = Object.keys(openApiSpec.paths[path]);
+      
+      for (const method of methods) {
+        if (method.toUpperCase() === 'GET') {
+          const response = await apiContext.get(path);
+          
+          // Basic schema validation
+          if (response.ok()) {
+            const data = await response.json();
+            
+            // Check response has expected structure
+            const expectedSchema = openApiSpec.paths[path][method].responses?.['200']?.content?.['application/json']?.schema;
+            
+            if (expectedSchema) {
+              // Validate required fields exist
+              if (expectedSchema.required) {
+                for (const field of expectedSchema.required) {
+                  expect(data).toHaveProperty(field);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+
+  test('API errors should not expose sensitive information', async ({ page }) => {
+    // Try to trigger various errors
+    const errorEndpoints = [
+      { path: '/api/users/999999', expected: 404 },
+      { path: '/api/invalid-endpoint', expected: 404 },
+      { path: '/api/users/invalid-id', expected: 400 },
+    ];
+
+    for (const endpoint of errorEndpoints) {
+      const response = await apiContext.get(endpoint.path);
+      
+      if (!response.ok()) {
+        const text = await response.text();
+        
+        // Check for sensitive information
+        expect(text).not.toContain('stack trace');
+        expect(text).not.toContain('traceback');
+        expect(text).not.toContain('at line');
+        expect(text).not.toMatch(/\/home\/|\/usr\/|C:\\/); // File paths
+        expect(text).not.toMatch(/password|secret|token|key/i);
+      }
+    }
+  });
+
+  test('Pagination should work consistently between UI and API', async ({ page }) => {
+    // Test UI pagination
+    await page.goto(`${process.env.STAGING_URL}/items`);
+    
+    // Get first page items
+    const firstPageItems = await page.$$eval('[data-testid=item]', items => 
+      items.map(item => item.getAttribute('data-id'))
+    );
+
+    // Go to second page
+    await page.getByRole('button', { name: /next|2|›/i }).click();
+    await page.waitForLoadState('networkidle');
+    
+    // Get second page items
+    const secondPageItems = await page.$$eval('[data-testid=item]', items => 
+      items.map(item => item.getAttribute('data-id'))
+    );
+
+    // Test API pagination
+    const apiPage1 = await apiContext.get('/api/items?page=1');
+    const apiData1 = await apiPage1.json();
+    
+    const apiPage2 = await apiContext.get('/api/items?page=2');
+    const apiData2 = await apiPage2.json();
+
+    // Validate no duplicates
+    const uiIds = [...firstPageItems, ...secondPageItems];
+    const uniqueUiIds = new Set(uiIds);
+    expect(uniqueUiIds.size).toBe(uiIds.length);
+
+    const apiIds = [...(apiData1.items || []), ...(apiData2.items || [])].map((i: any) => i.id);
+    const uniqueApiIds = new Set(apiIds);
+    expect(uniqueApiIds.size).toBe(apiIds.length);
+  });
+
+  test('Form submissions should validate consistently', async ({ page }) => {
+    await page.goto(`${process.env.STAGING_URL}/contact`);
+    
+    // Test invalid email in UI
+    await page.getByLabel(/email/i).fill('invalid-email');
+    await page.getByRole('button', { name: /submit/i }).click();
+    
+    const uiError = await page.getByText(/invalid|enter valid/i).isVisible();
+    expect(uiError).toBeTruthy();
+
+    // Test same invalid email via API
+    const apiResponse = await apiContext.post('/api/contact', {
+      data: {
+        email: 'invalid-email',
+        message: 'Test message'
+      }
+    });
+
+    expect(apiResponse.status()).toBe(400);
+    
+    const apiError = await apiResponse.json();
+    expect(apiError.error || apiError.message).toMatch(/invalid|email/i);
+  });
+
+  test('Rate limiting should work consistently', async ({ page }) => {
+    const requests = [];
+    
+    // Make rapid API requests
+    for (let i = 0; i < 20; i++) {
+      requests.push(apiContext.get('/api/search?q=test'));
+    }
+    
+    const responses = await Promise.all(requests);
+    
+    // Check if rate limiting kicked in
+    const rateLimited = responses.some(r => r.status() === 429);
+    
+    if (rateLimited) {
+      // Find the rate limited response
+      const limitedResponse = responses.find(r => r.status() === 429);
+      const headers = limitedResponse?.headers();
+      
+      // Should have retry-after header
+      expect(headers?.['retry-after']).toBeTruthy();
+      
+      // UI should also respect rate limits
+      await page.goto(`${process.env.STAGING_URL}/search`);
+      
+      // Make rapid searches
+      for (let i = 0; i < 20; i++) {
+        await page.getByRole('searchbox').fill(`test${i}`);
+        await page.keyboard.press('Enter');
+      }
+      
+      // Check for rate limit message in UI
+      const rateLimitMessage = await page.getByText(/rate limit|slow down|too many/i).isVisible();
+      expect(rateLimitMessage).toBeTruthy();
+    }
+  });
+});
+
+test.describe('API Security Validation', () => {
+  test('Protected endpoints should require authentication', async () => {
+    const context = await request.newContext({
+      baseURL: process.env.STAGING_URL || 'https://staging.example.com'
+    });
+
+    const protectedEndpoints = [
+      '/api/user/profile',
+      '/api/user/settings',
+      '/api/admin/users',
+      '/api/orders',
+    ];
+
+    for (const endpoint of protectedEndpoints) {
+      const response = await context.get(endpoint);
+      
+      // Should return 401 or 403 without auth
+      expect([401, 403]).toContain(response.status());
+    }
+  });
+
+  test('CORS headers should be properly configured', async () => {
+    const context = await request.newContext({
+      baseURL: process.env.STAGING_URL || 'https://staging.example.com'
+    });
+
+    const response = await context.options('/api/items', {
+      headers: {
+        'Origin': 'https://different-origin.com',
+        'Access-Control-Request-Method': 'GET'
+      }
+    });
+
+    const headers = response.headers();
+    
+    // Check CORS headers
+    expect(headers['access-control-allow-origin']).toBeTruthy();
+    expect(headers['access-control-allow-methods']).toBeTruthy();
+    
+    // Should not allow all origins in production
+    if (!process.env.STAGING_URL?.includes('localhost')) {
+      expect(headers['access-control-allow-origin']).not.toBe('*');
+    }
+  });
+});

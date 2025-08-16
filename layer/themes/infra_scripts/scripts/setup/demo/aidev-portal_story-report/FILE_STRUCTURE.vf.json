@@ -1,0 +1,58 @@
+{
+  "metadata": {
+    "level": "demo",
+    "version": "2.1.0",
+    "description": "AIDev Portal Story Report demo structure with demo and release deployment support",
+    "supports_distributed_features": true,
+    "supports_freeze": false
+  },
+  "structure": {
+    "name": ".",
+    "type": "directory",
+    "description": "AIDev Portal Story Report demo project root",
+    "children": [
+      {
+        "name": "src",
+        "type": "directory",
+        "description": "Source code for story reporting application",
+        "children": [
+          { "name": "index.ts", "type": "file", "description": "Main application entry point" },
+          { "name": "story-reporter.ts", "type": "file", "description": "Story reporting logic" },
+          { "name": "portal-integration.ts", "type": "file", "description": "Portal integration layer" }
+        ]
+      },
+      {
+        "name": "test",
+        "type": "directory",
+        "description": "Test files for story reporter",
+        "children": [
+          { "name": "unit", "type": "directory", "description": "Unit tests" },
+          { "name": "integration", "type": "directory", "description": "Integration tests" },
+          { "name": "system", "type": "directory", "description": "System tests" }
+        ]
+      },
+      {
+        "name": "config",
+        "type": "directory",
+        "description": "Configuration files for demo",
+        "children": [
+          { "name": "demo.json", "type": "file", "description": "Demo configuration" },
+          { "name": "portal.json", "type": "file", "description": "Portal configuration" }
+        ]
+      },
+      {
+        "name": "demo",
+        "type": "directory",
+        "description": "Demo artifacts and examples"
+      },
+      {
+        "name": "release",
+        "type": "directory",
+        "description": "Release artifacts and deployments"
+      },
+      { "name": "package.json", "type": "file", "description": "NPM package configuration" },
+      { "name": "README.md", "type": "file", "description": "Project documentation" },
+      { "name": "tsconfig.json", "type": "file", "description": "TypeScript configuration" }
+    ]
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "reportId": "real-story-report-1752991574292",
+  "timestamp": "2025-07-20T06:06:14.292Z",
+  "roomId": "calculator-real-test",
+  "storyId": "US001_Calculator_BasicMath",
+  "storyStatus": "FAILURE",
+  "narrative": "Story US001_Calculator_BasicMath: ❌ FAILURE - 3 test(s) failed.",
+  "systemTests": [
+    {
+      "name": "test_US001_SD001_addition",
+      "storyId": "US001",
+      "diagramId": "SD001",
+      "status": "failed",
+      "coverage": 0,
+      "duration": 8,
+      "error": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 42\nReceived: 43\n    at Object.<anonymous> (/home/ormastes/dev/aidev/demo/cli-chat-room/test/system/calculator/test_US001_SD001_simple.test.ts:18:20)\n    at Promise.finally.In Progress (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1559:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1499:10)\n    at _callCircusTest (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1009:40)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at _runTest (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:949:3)\n    at _runTestsForDescribeBlock (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:839:13)\n    at _runTestsForDescribeBlock (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:829:11)\n    at run (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:757:3)\n    at runAndTransformResultsToJestFormat (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1920:21)\n    at jestAdapter (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/runner.js:101:19)\n    at runTestInternal (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-runner/build/index.js:272:16)\n    at runTest (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-runner/build/index.js:340:7)"
+    },
+    {
+      "name": "test_US001_SD001_multiplication",
+      "storyId": "US001",
+      "diagramId": "SD001",
+      "status": "In Progress",
+      "coverage": 0,
+      "duration": 2
+    },
+    {
+      "name": "test_US001_SD001_division",
+      "storyId": "US001",
+      "diagramId": "SD001",
+      "status": "In Progress",
+      "coverage": 0,
+      "duration": 2
+    },
+    {
+      "name": "test_US001_SD001_subtraction",
+      "storyId": "US001",
+      "diagramId": "SD001",
+      "status": "In Progress",
+      "coverage": 0,
+      "duration": 1
+    },
+    {
+      "name": "test_US001_SD001_string_expressions",
+      "storyId": "US001",
+      "diagramId": "SD001",
+      "status": "failed",
+      "coverage": 0,
+      "duration": 2,
+      "error": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 42\nReceived: 43\n    at Object.<anonymous> (/home/ormastes/dev/aidev/demo/cli-chat-room/test/system/calculator/test_US001_SD001_simple.test.ts:40:45)\n    at Promise.finally.In Progress (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1559:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1499:10)\n    at _callCircusTest (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1009:40)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at _runTest (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:949:3)\n    at _runTestsForDescribeBlock (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:839:13)\n    at _runTestsForDescribeBlock (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:829:11)\n    at run (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:757:3)\n    at runAndTransformResultsToJestFormat (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1920:21)\n    at jestAdapter (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/runner.js:101:19)\n    at runTestInternal (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-runner/build/index.js:272:16)\n    at runTest (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-runner/build/index.js:340:7)"
+    },
+    {
+      "name": "test_US001_SD001_division_by_zero",
+      "storyId": "US001",
+      "diagramId": "SD001",
+      "status": "failed",
+      "coverage": 0,
+      "duration": 2,
+      "error": "Error: expect(received).toThrow(expected)\n\nExpected substring: \"Division by zero\"\n\nReceived function did not throw\n    at Object.<anonymous> (/home/ormastes/dev/aidev/demo/cli-chat-room/test/system/calculator/test_US001_SD001_simple.test.ts:55:44)\n    at Promise.finally.In Progress (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1559:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1499:10)\n    at _callCircusTest (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1009:40)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at _runTest (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:949:3)\n    at _runTestsForDescribeBlock (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:839:13)\n    at _runTestsForDescribeBlock (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:829:11)\n    at run (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:757:3)\n    at runAndTransformResultsToJestFormat (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1920:21)\n    at jestAdapter (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/runner.js:101:19)\n    at runTestInternal (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-runner/build/index.js:272:16)\n    at runTest (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-runner/build/index.js:340:7)"
+    },
+    {
+      "name": "test_US001_SD001_invalid_expressions",
+      "storyId": "US001",
+      "diagramId": "SD001",
+      "status": "In Progress",
+      "coverage": 0,
+      "duration": 26
+    }
+  ],
+  "coverage": {
+    "overall": {
+      "statements": 0,
+      "branches": 0,
+      "functions": 0,
+      "lines": 0
+    }
+  },
+  "events": 50,
+  "failureReasons": [
+    "3 test(s) failed",
+    "test_US001_SD001_addition: Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 42\nReceived: 43\n    at Object.<anonymous> (/home/ormastes/dev/aidev/demo/cli-chat-room/test/system/calculator/test_US001_SD001_simple.test.ts:18:20)\n    at Promise.finally.In Progress (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1559:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1499:10)\n    at _callCircusTest (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1009:40)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at _runTest (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:949:3)\n    at _runTestsForDescribeBlock (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:839:13)\n    at _runTestsForDescribeBlock (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:829:11)\n    at run (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:757:3)\n    at runAndTransformResultsToJestFormat (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1920:21)\n    at jestAdapter (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/runner.js:101:19)\n    at runTestInternal (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-runner/build/index.js:272:16)\n    at runTest (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-runner/build/index.js:340:7)",
+    "test_US001_SD001_string_expressions: Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 42\nReceived: 43\n    at Object.<anonymous> (/home/ormastes/dev/aidev/demo/cli-chat-room/test/system/calculator/test_US001_SD001_simple.test.ts:40:45)\n    at Promise.finally.In Progress (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1559:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1499:10)\n    at _callCircusTest (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1009:40)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at _runTest (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:949:3)\n    at _runTestsForDescribeBlock (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:839:13)\n    at _runTestsForDescribeBlock (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:829:11)\n    at run (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:757:3)\n    at runAndTransformResultsToJestFormat (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1920:21)\n    at jestAdapter (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/runner.js:101:19)\n    at runTestInternal (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-runner/build/index.js:272:16)\n    at runTest (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-runner/build/index.js:340:7)",
+    "test_US001_SD001_division_by_zero: Error: expect(received).toThrow(expected)\n\nExpected substring: \"Division by zero\"\n\nReceived function did not throw\n    at Object.<anonymous> (/home/ormastes/dev/aidev/demo/cli-chat-room/test/system/calculator/test_US001_SD001_simple.test.ts:55:44)\n    at Promise.finally.In Progress (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1559:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1499:10)\n    at _callCircusTest (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1009:40)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at _runTest (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:949:3)\n    at _runTestsForDescribeBlock (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:839:13)\n    at _runTestsForDescribeBlock (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:829:11)\n    at run (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:757:3)\n    at runAndTransformResultsToJestFormat (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/jestAdapterInit.js:1920:21)\n    at jestAdapter (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-circus/build/runner.js:101:19)\n    at runTestInternal (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-runner/build/index.js:272:16)\n    at runTest (/home/ormastes/dev/aidev/demo/cli-chat-room/node_modules/jest-runner/build/index.js:340:7)",
+    "Coverage too low (0% < 80%)"
+  ],
+  "testExecutionLog": {
+    "command": "jest test/system/calculator/test_US001_SD001_simple.test.ts",
+    "executedAt": "2025-07-20T06:06:14.292Z",
+    "realResults": true
+  },
+  "generatedAt": "2025-07-20T06:06:14.292Z"
+}

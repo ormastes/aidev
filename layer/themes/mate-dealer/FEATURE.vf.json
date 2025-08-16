@@ -1,0 +1,127 @@
+{
+  "metadata": {
+    "level": "epic",
+    "path": "/layer/themes/mate-dealer/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.590Z",
+    "updated_at": "2025-08-02T11:10:54.590Z"
+  },
+  "features": {
+    "mate_dealer": [
+      {
+        "id": "mate-dealer-epic-001",
+        "name": "Mate Dealer",
+        "data": {
+          "title": "Mate Dealer Theme",
+          "description": "Core functionality for Mate Dealer",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "mate-dealer",
+            "theme"
+          ],
+          "virtual_path": "/layer/themes/mate-dealer/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.590Z",
+        "updatedAt": "2025-08-02T11:10:54.590Z"
+      },
+      {
+        "id": "mate-dealer-epic-002",
+        "name": "React Native Mobile App",
+        "data": {
+          "title": "React Native Mobile Application Setup",
+          "description": "Mobile app development with React Native, Redux, TypeScript strict mode, supporting iOS and Android",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "mobile",
+            "react-native",
+            "cross-platform"
+          ],
+          "virtual_path": "/layer/themes/mate-dealer/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-03T12:00:00.000Z",
+        "updatedAt": "2025-08-03T12:00:00.000Z"
+      },
+      {
+        "id": "mate-dealer-epic-003",
+        "name": "PostgreSQL Database",
+        "data": {
+          "title": "PostgreSQL Database Integration",
+          "description": "PostgreSQL database setup with connection pooling, migrations, and performance indexes (no SQLite allowed)",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "database",
+            "postgresql",
+            "backend"
+          ],
+          "virtual_path": "/layer/themes/mate-dealer/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-03T12:00:00.000Z",
+        "updatedAt": "2025-08-03T12:00:00.000Z"
+      },
+      {
+        "id": "mate-dealer-epic-004",
+        "name": "100% Test Coverage",
+        "data": {
+          "title": "Comprehensive Testing with 100% Coverage",
+          "description": "Jest testing framework with 100% coverage requirement for all metrics (class, branch, line, function)",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "critical",
+          "tags": [
+            "testing",
+            "quality",
+            "jest"
+          ],
+          "virtual_path": "/layer/themes/mate-dealer/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-03T12:00:00.000Z",
+        "updatedAt": "2025-08-03T12:00:00.000Z"
+      },
+      {
+        "id": "mate-dealer-epic-005",
+        "name": "GUI Design System",
+        "data": {
+          "title": "GUI Design Process with 4 Variants",
+          "description": "ASCII-first design process generating 4 variants (Modern/Professional/Creative/Accessible) with web-based selection",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "gui-design",
+            "ui-ux",
+            "design-system"
+          ],
+          "virtual_path": "/layer/themes/mate-dealer/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-03T12:00:00.000Z",
+        "updatedAt": "2025-08-03T12:00:00.000Z"
+      },
+      {
+        "id": "mate-dealer-epic-006",
+        "name": "Performance Standards",
+        "data": {
+          "title": "Mobile Performance Optimization",
+          "description": "App startup < 3s, screen transitions < 300ms, memory usage < 200MB, battery optimization, offline caching",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "performance",
+            "optimization",
+            "mobile"
+          ],
+          "virtual_path": "/layer/themes/mate-dealer/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-03T12:00:00.000Z",
+        "updatedAt": "2025-08-03T12:00:00.000Z"
+      }
+    ]
+  },
+  "children": []
+}

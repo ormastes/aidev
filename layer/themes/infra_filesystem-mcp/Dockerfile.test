@@ -1,0 +1,38 @@
+# Dockerfile for testing MCP with Bun
+FROM ubuntu:22.04
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    unzip \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Bun
+RUN curl -fsSL https://bun.sh/install | bash
+ENV PATH="/root/.bun/bin:${PATH}"
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package.json bun.lockb* ./
+
+# Install dependencies with Bun
+RUN bun install
+
+# Copy source files
+COPY tsconfig.mcp.json ./
+COPY src/ ./src/
+COPY children/ ./children/
+COPY ../infra_external-log-lib ../infra_external-log-lib
+
+# Build the MCP server
+RUN bun run build:mcp
+
+# Test script
+COPY test-mcp.sh ./
+RUN chmod +x test-mcp.sh
+
+# Run tests
+CMD ["./test-mcp.sh"]

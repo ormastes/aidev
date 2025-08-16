@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "react-native-base-epic-001",
+    "path": "/layer/themes/react-native-base/user-stories/001-basic-architecture/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.600Z",
+    "updated_at": "2025-08-02T11:10:54.600Z"
+  },
+  "features": {
+    "001_basic_architecture": [
+      {
+        "id": "react-native-base-001-basic-architecture",
+        "name": "basic architecture",
+        "data": {
+          "title": "Basic architecture",
+          "description": "Implementation of basic architecture",
+          "level": "user_story",
+          "parent_feature_id": "react-native-base-epic-001",
+          "epic_id": "react-native-base-epic-001",
+          "status": "planned",
+          "priority": "medium",
+          "tags": [
+            "react-native-base",
+            "basic-architecture"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/react-native-base/user-stories/001-basic-architecture/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.600Z",
+        "updatedAt": "2025-08-02T11:10:54.600Z"
+      }
+    ]
+  }
+}

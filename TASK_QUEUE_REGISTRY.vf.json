@@ -1,0 +1,967 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "description": "Registry of all task queues and their parent-child relationships",
+    "created_at": "2025-08-15T08:15:00.000Z",
+    "updated_at": "2025-08-15T08:14:20.587Z",
+    "total_queues": 43
+  },
+  "root_queue": {
+    "path": "/TASK_QUEUE.vf.json",
+    "name": "aidev",
+    "parentPath": null,
+    "children": [
+      "check_code-enhancer",
+      "check_hea-architecture",
+      "check_mock-free-test-oriented",
+      "infra_cucumber",
+      "infra_deployment",
+      "infra_external-log-lib",
+      "infra_filesystem-mcp",
+      "infra_fraud-checker",
+      "infra_python-coverage",
+      "infra_python-support",
+      "infra_scripts",
+      "infra_story-reporter",
+      "infra_test-as-manual",
+      "init_build-environment",
+      "init_docker",
+      "init_env-config",
+      "init_qemu",
+      "init_setup-folder",
+      "init_typescript-config",
+      "lib_react-native-base",
+      "llm-agent_chat-space",
+      "llm-agent_context-transformer",
+      "llm-agent_coordinator-claude",
+      "llm-agent_coordinator-ollama",
+      "llm-agent_coordinator-vllm",
+      "llm-agent_flow-validator",
+      "llm-agent_mcp",
+      "llm-agent_pocketflow",
+      "mate-dealer",
+      "mcp_agent",
+      "mcp_lsp",
+      "mcp_protocol",
+      "portal_aidev",
+      "portal_gui-selector",
+      "portal_security",
+      "shared",
+      "tool_coverage-aggregator",
+      "tool_gui-generator",
+      "tool_web-scraper"
+    ],
+    "childrenPaths": [
+      "/layer/themes/check_code-enhancer/TASK_QUEUE.vf.json",
+      "/layer/themes/check_hea-architecture/TASK_QUEUE.vf.json",
+      "/layer/themes/check_mock-free-test-oriented/TASK_QUEUE.vf.json",
+      "/layer/themes/infra_cucumber/TASK_QUEUE.vf.json",
+      "/layer/themes/infra_deployment/TASK_QUEUE.vf.json",
+      "/layer/themes/infra_external-log-lib/TASK_QUEUE.vf.json",
+      "/layer/themes/infra_filesystem-mcp/TASK_QUEUE.vf.json",
+      "/layer/themes/infra_fraud-checker/TASK_QUEUE.vf.json",
+      "/layer/themes/infra_python-coverage/TASK_QUEUE.vf.json",
+      "/layer/themes/infra_python-support/TASK_QUEUE.vf.json",
+      "/layer/themes/infra_scripts/TASK_QUEUE.vf.json",
+      "/layer/themes/infra_story-reporter/TASK_QUEUE.vf.json",
+      "/layer/themes/infra_test-as-manual/TASK_QUEUE.vf.json",
+      "/layer/themes/init_build-environment/TASK_QUEUE.vf.json",
+      "/layer/themes/init_docker/TASK_QUEUE.vf.json",
+      "/layer/themes/init_env-config/TASK_QUEUE.vf.json",
+      "/layer/themes/init_qemu/TASK_QUEUE.vf.json",
+      "/layer/themes/init_setup-folder/TASK_QUEUE.vf.json",
+      "/layer/themes/init_typescript-config/TASK_QUEUE.vf.json",
+      "/layer/themes/lib_react-native-base/TASK_QUEUE.vf.json",
+      "/layer/themes/llm-agent_chat-space/TASK_QUEUE.vf.json",
+      "/layer/themes/llm-agent_context-transformer/TASK_QUEUE.vf.json",
+      "/layer/themes/llm-agent_coordinator-claude/TASK_QUEUE.vf.json",
+      "/layer/themes/llm-agent_coordinator-ollama/TASK_QUEUE.vf.json",
+      "/layer/themes/llm-agent_coordinator-vllm/TASK_QUEUE.vf.json",
+      "/layer/themes/llm-agent_flow-validator/TASK_QUEUE.vf.json",
+      "/layer/themes/llm-agent_mcp/TASK_QUEUE.vf.json",
+      "/layer/themes/llm-agent_pocketflow/TASK_QUEUE.vf.json",
+      "/layer/themes/mate-dealer/TASK_QUEUE.vf.json",
+      "/layer/themes/mcp_agent/TASK_QUEUE.vf.json",
+      "/layer/themes/mcp_lsp/TASK_QUEUE.vf.json",
+      "/layer/themes/mcp_protocol/TASK_QUEUE.vf.json",
+      "/layer/themes/portal_aidev/TASK_QUEUE.vf.json",
+      "/layer/themes/portal_gui-selector/TASK_QUEUE.vf.json",
+      "/layer/themes/portal_security/TASK_QUEUE.vf.json",
+      "/layer/themes/shared/TASK_QUEUE.vf.json",
+      "/layer/themes/tool_coverage-aggregator/TASK_QUEUE.vf.json",
+      "/layer/themes/tool_gui-generator/TASK_QUEUE.vf.json",
+      "/layer/themes/tool_web-scraper/TASK_QUEUE.vf.json"
+    ],
+    "level": 0,
+    "itemCount": 23
+  },
+  "theme_queues": {
+    "check_code-enhancer": [
+      {
+        "path": "/layer/themes/check_code-enhancer/TASK_QUEUE.vf.json",
+        "name": "check_code-enhancer",
+        "theme": "check_code-enhancer",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "check_hea-architecture": [
+      {
+        "path": "/layer/themes/check_hea-architecture/TASK_QUEUE.vf.json",
+        "name": "check_hea-architecture",
+        "theme": "check_hea-architecture",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "check_mock-free-test-oriented": [
+      {
+        "path": "/layer/themes/check_mock-free-test-oriented/TASK_QUEUE.vf.json",
+        "name": "check_mock-free-test-oriented",
+        "theme": "check_mock-free-test-oriented",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "infra_cucumber": [
+      {
+        "path": "/layer/themes/infra_cucumber/TASK_QUEUE.vf.json",
+        "name": "infra_cucumber",
+        "theme": "infra_cucumber",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "infra_deployment": [
+      {
+        "path": "/layer/themes/infra_deployment/TASK_QUEUE.vf.json",
+        "name": "infra_deployment",
+        "theme": "infra_deployment",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "infra_external-log-lib": [
+      {
+        "path": "/layer/themes/infra_external-log-lib/TASK_QUEUE.vf.json",
+        "name": "infra_external-log-lib",
+        "theme": "infra_external-log-lib",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "infra_filesystem-mcp": [
+      {
+        "path": "/layer/themes/infra_filesystem-mcp/TASK_QUEUE.vf.json",
+        "name": "infra_filesystem-mcp",
+        "theme": "infra_filesystem-mcp",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [
+          "schemas"
+        ],
+        "childrenPaths": [
+          "/layer/themes/infra_filesystem-mcp/schemas/TASK_QUEUE.vf.json"
+        ],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      },
+      {
+        "path": "/layer/themes/infra_filesystem-mcp/schemas/TASK_QUEUE.vf.json",
+        "name": "schemas",
+        "theme": "infra_filesystem-mcp",
+        "parentPath": "/layer/themes/infra_filesystem-mcp/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 2,
+        "itemCount": 23,
+        "parent": "infra_filesystem-mcp"
+      }
+    ],
+    "infra_fraud-checker": [
+      {
+        "path": "/layer/themes/infra_fraud-checker/TASK_QUEUE.vf.json",
+        "name": "infra_fraud-checker",
+        "theme": "infra_fraud-checker",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "infra_python-coverage": [
+      {
+        "path": "/layer/themes/infra_python-coverage/TASK_QUEUE.vf.json",
+        "name": "infra_python-coverage",
+        "theme": "infra_python-coverage",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "infra_python-support": [
+      {
+        "path": "/layer/themes/infra_python-support/TASK_QUEUE.vf.json",
+        "name": "infra_python-support",
+        "theme": "infra_python-support",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "infra_scripts": [
+      {
+        "path": "/layer/themes/infra_scripts/TASK_QUEUE.vf.json",
+        "name": "infra_scripts",
+        "theme": "infra_scripts",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "infra_story-reporter": [
+      {
+        "path": "/layer/themes/infra_story-reporter/TASK_QUEUE.vf.json",
+        "name": "infra_story-reporter",
+        "theme": "infra_story-reporter",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "infra_test-as-manual": [
+      {
+        "path": "/layer/themes/infra_test-as-manual/TASK_QUEUE.vf.json",
+        "name": "infra_test-as-manual",
+        "theme": "infra_test-as-manual",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "init_build-environment": [
+      {
+        "path": "/layer/themes/init_build-environment/TASK_QUEUE.vf.json",
+        "name": "init_build-environment",
+        "theme": "init_build-environment",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "init_docker": [
+      {
+        "path": "/layer/themes/init_docker/TASK_QUEUE.vf.json",
+        "name": "init_docker",
+        "theme": "init_docker",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "init_env-config": [
+      {
+        "path": "/layer/themes/init_env-config/TASK_QUEUE.vf.json",
+        "name": "init_env-config",
+        "theme": "init_env-config",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "init_qemu": [
+      {
+        "path": "/layer/themes/init_qemu/TASK_QUEUE.vf.json",
+        "name": "init_qemu",
+        "theme": "init_qemu",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "init_setup-folder": [
+      {
+        "path": "/layer/themes/init_setup-folder/TASK_QUEUE.vf.json",
+        "name": "init_setup-folder",
+        "theme": "init_setup-folder",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "init_typescript-config": [
+      {
+        "path": "/layer/themes/init_typescript-config/TASK_QUEUE.vf.json",
+        "name": "init_typescript-config",
+        "theme": "init_typescript-config",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "lib_react-native-base": [
+      {
+        "path": "/layer/themes/lib_react-native-base/TASK_QUEUE.vf.json",
+        "name": "lib_react-native-base",
+        "theme": "lib_react-native-base",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "llm-agent_chat-space": [
+      {
+        "path": "/layer/themes/llm-agent_chat-space/TASK_QUEUE.vf.json",
+        "name": "llm-agent_chat-space",
+        "theme": "llm-agent_chat-space",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "llm-agent_context-transformer": [
+      {
+        "path": "/layer/themes/llm-agent_context-transformer/TASK_QUEUE.vf.json",
+        "name": "llm-agent_context-transformer",
+        "theme": "llm-agent_context-transformer",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "llm-agent_coordinator-claude": [
+      {
+        "path": "/layer/themes/llm-agent_coordinator-claude/TASK_QUEUE.vf.json",
+        "name": "llm-agent_coordinator-claude",
+        "theme": "llm-agent_coordinator-claude",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "llm-agent_coordinator-ollama": [
+      {
+        "path": "/layer/themes/llm-agent_coordinator-ollama/TASK_QUEUE.vf.json",
+        "name": "llm-agent_coordinator-ollama",
+        "theme": "llm-agent_coordinator-ollama",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "llm-agent_coordinator-vllm": [
+      {
+        "path": "/layer/themes/llm-agent_coordinator-vllm/TASK_QUEUE.vf.json",
+        "name": "llm-agent_coordinator-vllm",
+        "theme": "llm-agent_coordinator-vllm",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "llm-agent_flow-validator": [
+      {
+        "path": "/layer/themes/llm-agent_flow-validator/TASK_QUEUE.vf.json",
+        "name": "llm-agent_flow-validator",
+        "theme": "llm-agent_flow-validator",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "llm-agent_mcp": [
+      {
+        "path": "/layer/themes/llm-agent_mcp/TASK_QUEUE.vf.json",
+        "name": "llm-agent_mcp",
+        "theme": "llm-agent_mcp",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "llm-agent_pocketflow": [
+      {
+        "path": "/layer/themes/llm-agent_pocketflow/TASK_QUEUE.vf.json",
+        "name": "llm-agent_pocketflow",
+        "theme": "llm-agent_pocketflow",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "mate-dealer": [
+      {
+        "path": "/layer/themes/mate-dealer/TASK_QUEUE.vf.json",
+        "name": "mate-dealer",
+        "theme": "mate-dealer",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "mcp_agent": [
+      {
+        "path": "/layer/themes/mcp_agent/TASK_QUEUE.vf.json",
+        "name": "mcp_agent",
+        "theme": "mcp_agent",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "mcp_lsp": [
+      {
+        "path": "/layer/themes/mcp_lsp/TASK_QUEUE.vf.json",
+        "name": "mcp_lsp",
+        "theme": "mcp_lsp",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "mcp_protocol": [
+      {
+        "path": "/layer/themes/mcp_protocol/TASK_QUEUE.vf.json",
+        "name": "mcp_protocol",
+        "theme": "mcp_protocol",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "portal_aidev": [
+      {
+        "path": "/layer/themes/portal_aidev/TASK_QUEUE.vf.json",
+        "name": "portal_aidev",
+        "theme": "portal_aidev",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "portal_gui-selector": [
+      {
+        "path": "/layer/themes/portal_gui-selector/TASK_QUEUE.vf.json",
+        "name": "portal_gui-selector",
+        "theme": "portal_gui-selector",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "portal_security": [
+      {
+        "path": "/layer/themes/portal_security/TASK_QUEUE.vf.json",
+        "name": "portal_security",
+        "theme": "portal_security",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [
+          "setup-folder"
+        ],
+        "childrenPaths": [
+          "/layer/themes/portal_security/layer/themes/setup-folder/TASK_QUEUE.vf.json"
+        ],
+        "level": 1,
+        "itemCount": 13,
+        "parent": "aidev"
+      },
+      {
+        "path": "/layer/themes/portal_security/layer/themes/setup-folder/TASK_QUEUE.vf.json",
+        "name": "setup-folder",
+        "theme": "portal_security",
+        "parentPath": "/layer/themes/portal_security/TASK_QUEUE.vf.json",
+        "children": [
+          "test-deploy"
+        ],
+        "childrenPaths": [
+          "/layer/themes/portal_security/layer/themes/setup-folder/test-deploy/TASK_QUEUE.vf.json"
+        ],
+        "level": 2,
+        "itemCount": 0,
+        "parent": "portal_security"
+      },
+      {
+        "path": "/layer/themes/portal_security/layer/themes/setup-folder/test-deploy/TASK_QUEUE.vf.json",
+        "name": "test-deploy",
+        "theme": "portal_security",
+        "parentPath": "/layer/themes/portal_security/layer/themes/setup-folder/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 3,
+        "itemCount": 0,
+        "parent": "setup-folder"
+      }
+    ],
+    "shared": [
+      {
+        "path": "/layer/themes/shared/TASK_QUEUE.vf.json",
+        "name": "shared",
+        "theme": "shared",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "tool_coverage-aggregator": [
+      {
+        "path": "/layer/themes/tool_coverage-aggregator/TASK_QUEUE.vf.json",
+        "name": "tool_coverage-aggregator",
+        "theme": "tool_coverage-aggregator",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "tool_gui-generator": [
+      {
+        "path": "/layer/themes/tool_gui-generator/TASK_QUEUE.vf.json",
+        "name": "tool_gui-generator",
+        "theme": "tool_gui-generator",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ],
+    "tool_web-scraper": [
+      {
+        "path": "/layer/themes/tool_web-scraper/TASK_QUEUE.vf.json",
+        "name": "tool_web-scraper",
+        "theme": "tool_web-scraper",
+        "parentPath": "/TASK_QUEUE.vf.json",
+        "children": [],
+        "childrenPaths": [],
+        "level": 1,
+        "itemCount": 0,
+        "parent": "aidev"
+      }
+    ]
+  },
+  "queue_hierarchy": {
+    "path": "/TASK_QUEUE.vf.json",
+    "name": "aidev",
+    "items": 23,
+    "children": {
+      "check_code-enhancer": {
+        "path": "/layer/themes/check_code-enhancer/TASK_QUEUE.vf.json",
+        "name": "check_code-enhancer",
+        "theme": "check_code-enhancer",
+        "items": 0,
+        "children": {}
+      },
+      "check_hea-architecture": {
+        "path": "/layer/themes/check_hea-architecture/TASK_QUEUE.vf.json",
+        "name": "check_hea-architecture",
+        "theme": "check_hea-architecture",
+        "items": 0,
+        "children": {}
+      },
+      "check_mock-free-test-oriented": {
+        "path": "/layer/themes/check_mock-free-test-oriented/TASK_QUEUE.vf.json",
+        "name": "check_mock-free-test-oriented",
+        "theme": "check_mock-free-test-oriented",
+        "items": 0,
+        "children": {}
+      },
+      "infra_cucumber": {
+        "path": "/layer/themes/infra_cucumber/TASK_QUEUE.vf.json",
+        "name": "infra_cucumber",
+        "theme": "infra_cucumber",
+        "items": 0,
+        "children": {}
+      },
+      "infra_deployment": {
+        "path": "/layer/themes/infra_deployment/TASK_QUEUE.vf.json",
+        "name": "infra_deployment",
+        "theme": "infra_deployment",
+        "items": 0,
+        "children": {}
+      },
+      "infra_external-log-lib": {
+        "path": "/layer/themes/infra_external-log-lib/TASK_QUEUE.vf.json",
+        "name": "infra_external-log-lib",
+        "theme": "infra_external-log-lib",
+        "items": 0,
+        "children": {}
+      },
+      "infra_filesystem-mcp": {
+        "path": "/layer/themes/infra_filesystem-mcp/TASK_QUEUE.vf.json",
+        "name": "infra_filesystem-mcp",
+        "theme": "infra_filesystem-mcp",
+        "items": 0,
+        "children": {
+          "schemas": {
+            "path": "/layer/themes/infra_filesystem-mcp/schemas/TASK_QUEUE.vf.json",
+            "name": "schemas",
+            "theme": "infra_filesystem-mcp",
+            "items": 23,
+            "children": {}
+          }
+        }
+      },
+      "infra_fraud-checker": {
+        "path": "/layer/themes/infra_fraud-checker/TASK_QUEUE.vf.json",
+        "name": "infra_fraud-checker",
+        "theme": "infra_fraud-checker",
+        "items": 0,
+        "children": {}
+      },
+      "infra_python-coverage": {
+        "path": "/layer/themes/infra_python-coverage/TASK_QUEUE.vf.json",
+        "name": "infra_python-coverage",
+        "theme": "infra_python-coverage",
+        "items": 0,
+        "children": {}
+      },
+      "infra_python-support": {
+        "path": "/layer/themes/infra_python-support/TASK_QUEUE.vf.json",
+        "name": "infra_python-support",
+        "theme": "infra_python-support",
+        "items": 0,
+        "children": {}
+      },
+      "infra_scripts": {
+        "path": "/layer/themes/infra_scripts/TASK_QUEUE.vf.json",
+        "name": "infra_scripts",
+        "theme": "infra_scripts",
+        "items": 0,
+        "children": {}
+      },
+      "infra_story-reporter": {
+        "path": "/layer/themes/infra_story-reporter/TASK_QUEUE.vf.json",
+        "name": "infra_story-reporter",
+        "theme": "infra_story-reporter",
+        "items": 0,
+        "children": {}
+      },
+      "infra_test-as-manual": {
+        "path": "/layer/themes/infra_test-as-manual/TASK_QUEUE.vf.json",
+        "name": "infra_test-as-manual",
+        "theme": "infra_test-as-manual",
+        "items": 0,
+        "children": {}
+      },
+      "init_build-environment": {
+        "path": "/layer/themes/init_build-environment/TASK_QUEUE.vf.json",
+        "name": "init_build-environment",
+        "theme": "init_build-environment",
+        "items": 0,
+        "children": {}
+      },
+      "init_docker": {
+        "path": "/layer/themes/init_docker/TASK_QUEUE.vf.json",
+        "name": "init_docker",
+        "theme": "init_docker",
+        "items": 0,
+        "children": {}
+      },
+      "init_env-config": {
+        "path": "/layer/themes/init_env-config/TASK_QUEUE.vf.json",
+        "name": "init_env-config",
+        "theme": "init_env-config",
+        "items": 0,
+        "children": {}
+      },
+      "init_qemu": {
+        "path": "/layer/themes/init_qemu/TASK_QUEUE.vf.json",
+        "name": "init_qemu",
+        "theme": "init_qemu",
+        "items": 0,
+        "children": {}
+      },
+      "init_setup-folder": {
+        "path": "/layer/themes/init_setup-folder/TASK_QUEUE.vf.json",
+        "name": "init_setup-folder",
+        "theme": "init_setup-folder",
+        "items": 0,
+        "children": {}
+      },
+      "init_typescript-config": {
+        "path": "/layer/themes/init_typescript-config/TASK_QUEUE.vf.json",
+        "name": "init_typescript-config",
+        "theme": "init_typescript-config",
+        "items": 0,
+        "children": {}
+      },
+      "lib_react-native-base": {
+        "path": "/layer/themes/lib_react-native-base/TASK_QUEUE.vf.json",
+        "name": "lib_react-native-base",
+        "theme": "lib_react-native-base",
+        "items": 0,
+        "children": {}
+      },
+      "llm-agent_chat-space": {
+        "path": "/layer/themes/llm-agent_chat-space/TASK_QUEUE.vf.json",
+        "name": "llm-agent_chat-space",
+        "theme": "llm-agent_chat-space",
+        "items": 0,
+        "children": {}
+      },
+      "llm-agent_context-transformer": {
+        "path": "/layer/themes/llm-agent_context-transformer/TASK_QUEUE.vf.json",
+        "name": "llm-agent_context-transformer",
+        "theme": "llm-agent_context-transformer",
+        "items": 0,
+        "children": {}
+      },
+      "llm-agent_coordinator-claude": {
+        "path": "/layer/themes/llm-agent_coordinator-claude/TASK_QUEUE.vf.json",
+        "name": "llm-agent_coordinator-claude",
+        "theme": "llm-agent_coordinator-claude",
+        "items": 0,
+        "children": {}
+      },
+      "llm-agent_coordinator-ollama": {
+        "path": "/layer/themes/llm-agent_coordinator-ollama/TASK_QUEUE.vf.json",
+        "name": "llm-agent_coordinator-ollama",
+        "theme": "llm-agent_coordinator-ollama",
+        "items": 0,
+        "children": {}
+      },
+      "llm-agent_coordinator-vllm": {
+        "path": "/layer/themes/llm-agent_coordinator-vllm/TASK_QUEUE.vf.json",
+        "name": "llm-agent_coordinator-vllm",
+        "theme": "llm-agent_coordinator-vllm",
+        "items": 0,
+        "children": {}
+      },
+      "llm-agent_flow-validator": {
+        "path": "/layer/themes/llm-agent_flow-validator/TASK_QUEUE.vf.json",
+        "name": "llm-agent_flow-validator",
+        "theme": "llm-agent_flow-validator",
+        "items": 0,
+        "children": {}
+      },
+      "llm-agent_mcp": {
+        "path": "/layer/themes/llm-agent_mcp/TASK_QUEUE.vf.json",
+        "name": "llm-agent_mcp",
+        "theme": "llm-agent_mcp",
+        "items": 0,
+        "children": {}
+      },
+      "llm-agent_pocketflow": {
+        "path": "/layer/themes/llm-agent_pocketflow/TASK_QUEUE.vf.json",
+        "name": "llm-agent_pocketflow",
+        "theme": "llm-agent_pocketflow",
+        "items": 0,
+        "children": {}
+      },
+      "mate-dealer": {
+        "path": "/layer/themes/mate-dealer/TASK_QUEUE.vf.json",
+        "name": "mate-dealer",
+        "theme": "mate-dealer",
+        "items": 0,
+        "children": {}
+      },
+      "mcp_agent": {
+        "path": "/layer/themes/mcp_agent/TASK_QUEUE.vf.json",
+        "name": "mcp_agent",
+        "theme": "mcp_agent",
+        "items": 0,
+        "children": {}
+      },
+      "mcp_lsp": {
+        "path": "/layer/themes/mcp_lsp/TASK_QUEUE.vf.json",
+        "name": "mcp_lsp",
+        "theme": "mcp_lsp",
+        "items": 0,
+        "children": {}
+      },
+      "mcp_protocol": {
+        "path": "/layer/themes/mcp_protocol/TASK_QUEUE.vf.json",
+        "name": "mcp_protocol",
+        "theme": "mcp_protocol",
+        "items": 0,
+        "children": {}
+      },
+      "portal_aidev": {
+        "path": "/layer/themes/portal_aidev/TASK_QUEUE.vf.json",
+        "name": "portal_aidev",
+        "theme": "portal_aidev",
+        "items": 0,
+        "children": {}
+      },
+      "portal_gui-selector": {
+        "path": "/layer/themes/portal_gui-selector/TASK_QUEUE.vf.json",
+        "name": "portal_gui-selector",
+        "theme": "portal_gui-selector",
+        "items": 0,
+        "children": {}
+      },
+      "portal_security": {
+        "path": "/layer/themes/portal_security/TASK_QUEUE.vf.json",
+        "name": "portal_security",
+        "theme": "portal_security",
+        "items": 13,
+        "children": {
+          "setup-folder": {
+            "path": "/layer/themes/portal_security/layer/themes/setup-folder/TASK_QUEUE.vf.json",
+            "name": "setup-folder",
+            "theme": "portal_security",
+            "items": 0,
+            "children": {
+              "test-deploy": {
+                "path": "/layer/themes/portal_security/layer/themes/setup-folder/test-deploy/TASK_QUEUE.vf.json",
+                "name": "test-deploy",
+                "theme": "portal_security",
+                "items": 0,
+                "children": {}
+              }
+            }
+          }
+        }
+      },
+      "shared": {
+        "path": "/layer/themes/shared/TASK_QUEUE.vf.json",
+        "name": "shared",
+        "theme": "shared",
+        "items": 0,
+        "children": {}
+      },
+      "tool_coverage-aggregator": {
+        "path": "/layer/themes/tool_coverage-aggregator/TASK_QUEUE.vf.json",
+        "name": "tool_coverage-aggregator",
+        "theme": "tool_coverage-aggregator",
+        "items": 0,
+        "children": {}
+      },
+      "tool_gui-generator": {
+        "path": "/layer/themes/tool_gui-generator/TASK_QUEUE.vf.json",
+        "name": "tool_gui-generator",
+        "theme": "tool_gui-generator",
+        "items": 0,
+        "children": {}
+      },
+      "tool_web-scraper": {
+        "path": "/layer/themes/tool_web-scraper/TASK_QUEUE.vf.json",
+        "name": "tool_web-scraper",
+        "theme": "tool_web-scraper",
+        "items": 0,
+        "children": {}
+      }
+    }
+  },
+  "orphaned_queues": [],
+  "registry_config": {
+    "auto_discover": true,
+    "validate_parents": true,
+    "update_on_change": true,
+    "excluded_paths": [
+      "node_modules",
+      "release",
+      "demo"
+    ]
+  }
+}

@@ -1,0 +1,187 @@
+# Explorer QA Configuration for AI Dev Platform
+# Target applications and endpoints to test
+
+targets:
+  monitoring_dashboard:
+    name: "Performance Monitoring Dashboard"
+    url: "http://localhost:3000"
+    type: "dashboard"
+    source: "monitoring/performance-dashboard.html"
+    tests:
+      - console_errors
+      - performance_metrics
+      - real_time_updates
+      - data_integrity
+      - accessibility
+    critical: true
+    
+  dashboard_server:
+    name: "Dashboard Server API"
+    url: "http://localhost:3001"
+    type: "api"
+    source: "monitoring/dashboard-server.ts"
+    openapi_spec: "monitoring/openapi.json"
+    tests:
+      - api_schema_validation
+      - security_headers
+      - rate_limiting
+      - error_handling
+      - cors_configuration
+    critical: true
+    
+  system_monitor:
+    name: "System Monitor Service"
+    url: "http://localhost:3002"
+    type: "service"
+    source: "monitoring/system-monitor.ts"
+    tests:
+      - websocket_connections
+      - memory_leaks
+      - event_handling
+      - authentication
+    critical: true
+    
+  test_creator_demo:
+    name: "Test Creator Demo App"
+    url: "http://localhost:8080"
+    type: "demo"
+    source: "demo/test-creator/"
+    tests:
+      - ui_functionality
+      - form_validation
+      - error_messages
+      - session_management
+    critical: false
+    
+  vscode_extension_ui:
+    name: "VSCode Extension Web UI"
+    url: "http://localhost:9000"
+    type: "extension"
+    source: "demo/vscode-extension-cdoctest/"
+    tests:
+      - extension_activation
+      - command_execution
+      - webview_rendering
+      - ipc_communication
+    critical: false
+
+test_profiles:
+  quick:
+    name: "Quick Security Check"
+    duration: "5m"
+    tests:
+      - xss_detection
+      - csrf_protection
+      - authentication_bypass
+      - injection_attacks
+      
+  comprehensive:
+    name: "Full Vulnerability Scan"
+    duration: "30m"
+    tests:
+      - xss_detection
+      - csrf_protection
+      - authentication_bypass
+      - injection_attacks
+      - api_fuzzing
+      - performance_testing
+      - accessibility_audit
+      - security_headers
+      - cors_validation
+      - rate_limiting
+      
+  performance:
+    name: "Performance Testing"
+    duration: "15m"
+    tests:
+      - response_times
+      - memory_usage
+      - cpu_usage
+      - concurrent_users
+      - load_testing
+      
+  api:
+    name: "API Contract Testing"
+    duration: "10m"
+    tests:
+      - schema_validation
+      - required_fields
+      - data_types
+      - error_responses
+      - pagination
+      - filtering
+
+invariants:
+  global:
+    - name: no_console_errors
+      description: "No JavaScript errors in console"
+      severity: high
+      
+    - name: secure_headers
+      description: "Security headers must be present"
+      headers:
+        - X-Frame-Options
+        - X-Content-Type-Options
+        - Strict-Transport-Security
+        - Content-Security-Policy
+      severity: critical
+      
+    - name: response_time
+      description: "All responses under 3 seconds"
+      threshold_ms: 3000
+      severity: medium
+      
+    - name: no_sensitive_data
+      description: "No PII or secrets in responses"
+      patterns:
+        - password
+        - api_key
+        - secret
+        - token
+        - ssn
+      severity: critical
+      
+  api_specific:
+    - name: schema_compliance
+      description: "Responses match OpenAPI schema"
+      severity: high
+      
+    - name: status_codes
+      description: "Appropriate HTTP status codes"
+      severity: medium
+      
+    - name: cors_headers
+      description: "CORS properly configured"
+      severity: high
+
+automation:
+  schedule:
+    - profile: quick
+      cron: "0 */6 * * *"  # Every 6 hours
+      
+    - profile: comprehensive
+      cron: "0 2 * * *"    # Daily at 2 AM
+      
+    - profile: api
+      cron: "0 * * * *"    # Every hour
+      
+  notifications:
+    critical:
+      - type: console
+      - type: file
+        path: "research/explorer/findings/critical.log"
+        
+    high:
+      - type: console
+      - type: file
+        path: "research/explorer/findings/high.log"
+        
+  reporting:
+    format: markdown
+    output_dir: "research/explorer/findings"
+    include:
+      - summary
+      - detailed_findings
+      - reproduction_steps
+      - generated_tests
+      - screenshots

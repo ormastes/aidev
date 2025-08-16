@@ -1,0 +1,3052 @@
+{
+  "reportId": "story-1",
+  "timestamp": "2025-07-20T03:55:03.984Z",
+  "roomId": "calc-demo-1752983672910",
+  "duration": 30000,
+  "events": [
+    {
+      "timestamp": "2025-07-20T03:55:03.926Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 500\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 500 calculations performed. StoryBot was the most active participant with 500 messages. The Calculator assisted with 500 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.926Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 250\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 250 calculations performed. StoryBot was the most active participant with 250 messages. The Calculator assisted with 250 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.926Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 251\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 251 calculations performed. StoryBot was the most active participant with 251 messages. The Calculator assisted with 251 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.926Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 252\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 252 calculations performed. StoryBot was the most active participant with 252 messages. The Calculator assisted with 252 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.926Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 253\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 253 calculations performed. StoryBot was the most active participant with 253 messages. The Calculator assisted with 253 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.927Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 254\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 254 calculations performed. StoryBot was the most active participant with 254 messages. The Calculator assisted with 254 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.927Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 255\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 255 calculations performed. StoryBot was the most active participant with 255 messages. The Calculator assisted with 255 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.927Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 256\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 256 calculations performed. StoryBot was the most active participant with 256 messages. The Calculator assisted with 256 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.927Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 257\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 257 calculations performed. StoryBot was the most active participant with 257 messages. The Calculator assisted with 257 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.927Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 258\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 258 calculations performed. StoryBot was the most active participant with 258 messages. The Calculator assisted with 258 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.927Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 259\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 259 calculations performed. StoryBot was the most active participant with 259 messages. The Calculator assisted with 259 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.927Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 260\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 260 calculations performed. StoryBot was the most active participant with 260 messages. The Calculator assisted with 260 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.927Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 261\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 261 calculations performed. StoryBot was the most active participant with 261 messages. The Calculator assisted with 261 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.928Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 262\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 262 calculations performed. StoryBot was the most active participant with 262 messages. The Calculator assisted with 262 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.928Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 263\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 263 calculations performed. StoryBot was the most active participant with 263 messages. The Calculator assisted with 263 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.928Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 264\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 264 calculations performed. StoryBot was the most active participant with 264 messages. The Calculator assisted with 264 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.928Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 265\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 265 calculations performed. StoryBot was the most active participant with 265 messages. The Calculator assisted with 265 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.928Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 266\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 266 calculations performed. StoryBot was the most active participant with 266 messages. The Calculator assisted with 266 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.928Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 267\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 267 calculations performed. StoryBot was the most active participant with 267 messages. The Calculator assisted with 267 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.928Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 268\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 268 calculations performed. StoryBot was the most active participant with 268 messages. The Calculator assisted with 268 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.928Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 269\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 269 calculations performed. StoryBot was the most active participant with 269 messages. The Calculator assisted with 269 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.929Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 270\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 270 calculations performed. StoryBot was the most active participant with 270 messages. The Calculator assisted with 270 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.929Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 271\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 271 calculations performed. StoryBot was the most active participant with 271 messages. The Calculator assisted with 271 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.929Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 272\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 272 calculations performed. StoryBot was the most active participant with 272 messages. The Calculator assisted with 272 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.929Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 273\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 273 calculations performed. StoryBot was the most active participant with 273 messages. The Calculator assisted with 273 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.929Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 274\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 274 calculations performed. StoryBot was the most active participant with 274 messages. The Calculator assisted with 274 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.929Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 275\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 275 calculations performed. StoryBot was the most active participant with 275 messages. The Calculator assisted with 275 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.929Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 276\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 276 calculations performed. StoryBot was the most active participant with 276 messages. The Calculator assisted with 276 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.929Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 277\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 277 calculations performed. StoryBot was the most active participant with 277 messages. The Calculator assisted with 277 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.930Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 278\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 278 calculations performed. StoryBot was the most active participant with 278 messages. The Calculator assisted with 278 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.930Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 279\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 279 calculations performed. StoryBot was the most active participant with 279 messages. The Calculator assisted with 279 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.930Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 280\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 280 calculations performed. StoryBot was the most active participant with 280 messages. The Calculator assisted with 280 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.930Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 281\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 281 calculations performed. StoryBot was the most active participant with 281 messages. The Calculator assisted with 281 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.930Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 282\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 282 calculations performed. StoryBot was the most active participant with 282 messages. The Calculator assisted with 282 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.930Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 283\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 283 calculations performed. StoryBot was the most active participant with 283 messages. The Calculator assisted with 283 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.930Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 284\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 284 calculations performed. StoryBot was the most active participant with 284 messages. The Calculator assisted with 284 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.930Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 285\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 285 calculations performed. StoryBot was the most active participant with 285 messages. The Calculator assisted with 285 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.931Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 286\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 286 calculations performed. StoryBot was the most active participant with 286 messages. The Calculator assisted with 286 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.931Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 287\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 287 calculations performed. StoryBot was the most active participant with 287 messages. The Calculator assisted with 287 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.931Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 288\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 288 calculations performed. StoryBot was the most active participant with 288 messages. The Calculator assisted with 288 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.931Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 289\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 289 calculations performed. StoryBot was the most active participant with 289 messages. The Calculator assisted with 289 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.931Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 290\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 290 calculations performed. StoryBot was the most active participant with 290 messages. The Calculator assisted with 290 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.931Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 291\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 291 calculations performed. StoryBot was the most active participant with 291 messages. The Calculator assisted with 291 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.931Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 292\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 292 calculations performed. StoryBot was the most active participant with 292 messages. The Calculator assisted with 292 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.931Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 293\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 293 calculations performed. StoryBot was the most active participant with 293 messages. The Calculator assisted with 293 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.932Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 294\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 294 calculations performed. StoryBot was the most active participant with 294 messages. The Calculator assisted with 294 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.932Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 295\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 295 calculations performed. StoryBot was the most active participant with 295 messages. The Calculator assisted with 295 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.932Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 296\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 296 calculations performed. StoryBot was the most active participant with 296 messages. The Calculator assisted with 296 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.932Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 297\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 297 calculations performed. StoryBot was the most active participant with 297 messages. The Calculator assisted with 297 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.932Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 298\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 298 calculations performed. StoryBot was the most active participant with 298 messages. The Calculator assisted with 298 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.932Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 299\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 299 calculations performed. StoryBot was the most active participant with 299 messages. The Calculator assisted with 299 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.932Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 300\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 300 calculations performed. StoryBot was the most active participant with 300 messages. The Calculator assisted with 300 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.932Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 301\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 301 calculations performed. StoryBot was the most active participant with 301 messages. The Calculator assisted with 301 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.932Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 302\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 302 calculations performed. StoryBot was the most active participant with 302 messages. The Calculator assisted with 302 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.933Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 303\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 303 calculations performed. StoryBot was the most active participant with 303 messages. The Calculator assisted with 303 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.933Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 304\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 304 calculations performed. StoryBot was the most active participant with 304 messages. The Calculator assisted with 304 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.933Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 305\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 305 calculations performed. StoryBot was the most active participant with 305 messages. The Calculator assisted with 305 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.933Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 306\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 306 calculations performed. StoryBot was the most active participant with 306 messages. The Calculator assisted with 306 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.933Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 307\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 307 calculations performed. StoryBot was the most active participant with 307 messages. The Calculator assisted with 307 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.933Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 308\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 308 calculations performed. StoryBot was the most active participant with 308 messages. The Calculator assisted with 308 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.933Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 309\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 309 calculations performed. StoryBot was the most active participant with 309 messages. The Calculator assisted with 309 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.934Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 310\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 310 calculations performed. StoryBot was the most active participant with 310 messages. The Calculator assisted with 310 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.934Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 311\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 311 calculations performed. StoryBot was the most active participant with 311 messages. The Calculator assisted with 311 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.934Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 312\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 312 calculations performed. StoryBot was the most active participant with 312 messages. The Calculator assisted with 312 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.934Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 313\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 313 calculations performed. StoryBot was the most active participant with 313 messages. The Calculator assisted with 313 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.934Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 314\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 314 calculations performed. StoryBot was the most active participant with 314 messages. The Calculator assisted with 314 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.934Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 315\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 315 calculations performed. StoryBot was the most active participant with 315 messages. The Calculator assisted with 315 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.934Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 316\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 316 calculations performed. StoryBot was the most active participant with 316 messages. The Calculator assisted with 316 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.934Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 317\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 317 calculations performed. StoryBot was the most active participant with 317 messages. The Calculator assisted with 317 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.934Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 318\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 318 calculations performed. StoryBot was the most active participant with 318 messages. The Calculator assisted with 318 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.935Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 319\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 319 calculations performed. StoryBot was the most active participant with 319 messages. The Calculator assisted with 319 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.935Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 320\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 320 calculations performed. StoryBot was the most active participant with 320 messages. The Calculator assisted with 320 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.935Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 321\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 321 calculations performed. StoryBot was the most active participant with 321 messages. The Calculator assisted with 321 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.935Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 322\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 322 calculations performed. StoryBot was the most active participant with 322 messages. The Calculator assisted with 322 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.935Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 323\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 323 calculations performed. StoryBot was the most active participant with 323 messages. The Calculator assisted with 323 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.935Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 324\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 324 calculations performed. StoryBot was the most active participant with 324 messages. The Calculator assisted with 324 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.935Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 325\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 325 calculations performed. StoryBot was the most active participant with 325 messages. The Calculator assisted with 325 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.935Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 326\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 326 calculations performed. StoryBot was the most active participant with 326 messages. The Calculator assisted with 326 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.936Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 327\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 327 calculations performed. StoryBot was the most active participant with 327 messages. The Calculator assisted with 327 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.936Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 328\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 328 calculations performed. StoryBot was the most active participant with 328 messages. The Calculator assisted with 328 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.936Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 329\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 329 calculations performed. StoryBot was the most active participant with 329 messages. The Calculator assisted with 329 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.936Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 330\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 330 calculations performed. StoryBot was the most active participant with 330 messages. The Calculator assisted with 330 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.936Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 331\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 331 calculations performed. StoryBot was the most active participant with 331 messages. The Calculator assisted with 331 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.936Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 332\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 332 calculations performed. StoryBot was the most active participant with 332 messages. The Calculator assisted with 332 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.936Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 333\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 333 calculations performed. StoryBot was the most active participant with 333 messages. The Calculator assisted with 333 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.936Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 334\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 334 calculations performed. StoryBot was the most active participant with 334 messages. The Calculator assisted with 334 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.936Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 335\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 335 calculations performed. StoryBot was the most active participant with 335 messages. The Calculator assisted with 335 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.937Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 336\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 336 calculations performed. StoryBot was the most active participant with 336 messages. The Calculator assisted with 336 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.937Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 337\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 337 calculations performed. StoryBot was the most active participant with 337 messages. The Calculator assisted with 337 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.937Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 338\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 338 calculations performed. StoryBot was the most active participant with 338 messages. The Calculator assisted with 338 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.937Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 339\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 339 calculations performed. StoryBot was the most active participant with 339 messages. The Calculator assisted with 339 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.937Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 340\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 340 calculations performed. StoryBot was the most active participant with 340 messages. The Calculator assisted with 340 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.937Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 341\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 341 calculations performed. StoryBot was the most active participant with 341 messages. The Calculator assisted with 341 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.937Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 342\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 342 calculations performed. StoryBot was the most active participant with 342 messages. The Calculator assisted with 342 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.937Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 343\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 343 calculations performed. StoryBot was the most active participant with 343 messages. The Calculator assisted with 343 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.938Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 344\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 344 calculations performed. StoryBot was the most active participant with 344 messages. The Calculator assisted with 344 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.938Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 345\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 345 calculations performed. StoryBot was the most active participant with 345 messages. The Calculator assisted with 345 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.938Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 346\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 346 calculations performed. StoryBot was the most active participant with 346 messages. The Calculator assisted with 346 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.938Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 347\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 347 calculations performed. StoryBot was the most active participant with 347 messages. The Calculator assisted with 347 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.938Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 348\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 348 calculations performed. StoryBot was the most active participant with 348 messages. The Calculator assisted with 348 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.938Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 349\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 349 calculations performed. StoryBot was the most active participant with 349 messages. The Calculator assisted with 349 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.938Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 350\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 350 calculations performed. StoryBot was the most active participant with 350 messages. The Calculator assisted with 350 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.938Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 351\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 351 calculations performed. StoryBot was the most active participant with 351 messages. The Calculator assisted with 351 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.939Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 352\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 352 calculations performed. StoryBot was the most active participant with 352 messages. The Calculator assisted with 352 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.939Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 353\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 353 calculations performed. StoryBot was the most active participant with 353 messages. The Calculator assisted with 353 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.939Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 354\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 354 calculations performed. StoryBot was the most active participant with 354 messages. The Calculator assisted with 354 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.939Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 355\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 355 calculations performed. StoryBot was the most active participant with 355 messages. The Calculator assisted with 355 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.939Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 356\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 356 calculations performed. StoryBot was the most active participant with 356 messages. The Calculator assisted with 356 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.939Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 357\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 357 calculations performed. StoryBot was the most active participant with 357 messages. The Calculator assisted with 357 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.939Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 358\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 358 calculations performed. StoryBot was the most active participant with 358 messages. The Calculator assisted with 358 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.939Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 359\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 359 calculations performed. StoryBot was the most active participant with 359 messages. The Calculator assisted with 359 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.940Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 360\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 360 calculations performed. StoryBot was the most active participant with 360 messages. The Calculator assisted with 360 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.940Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 361\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 361 calculations performed. StoryBot was the most active participant with 361 messages. The Calculator assisted with 361 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.940Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 362\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 362 calculations performed. StoryBot was the most active participant with 362 messages. The Calculator assisted with 362 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.940Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 363\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 363 calculations performed. StoryBot was the most active participant with 363 messages. The Calculator assisted with 363 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.940Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 364\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 364 calculations performed. StoryBot was the most active participant with 364 messages. The Calculator assisted with 364 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.940Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 365\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 365 calculations performed. StoryBot was the most active participant with 365 messages. The Calculator assisted with 365 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.940Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 366\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 366 calculations performed. StoryBot was the most active participant with 366 messages. The Calculator assisted with 366 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.940Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 367\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 367 calculations performed. StoryBot was the most active participant with 367 messages. The Calculator assisted with 367 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.941Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 368\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 368 calculations performed. StoryBot was the most active participant with 368 messages. The Calculator assisted with 368 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.941Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 369\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 369 calculations performed. StoryBot was the most active participant with 369 messages. The Calculator assisted with 369 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.941Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 370\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 370 calculations performed. StoryBot was the most active participant with 370 messages. The Calculator assisted with 370 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.941Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 371\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 371 calculations performed. StoryBot was the most active participant with 371 messages. The Calculator assisted with 371 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.941Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 372\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 372 calculations performed. StoryBot was the most active participant with 372 messages. The Calculator assisted with 372 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.941Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 373\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 373 calculations performed. StoryBot was the most active participant with 373 messages. The Calculator assisted with 373 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.941Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 374\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 374 calculations performed. StoryBot was the most active participant with 374 messages. The Calculator assisted with 374 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.941Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 375\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 375 calculations performed. StoryBot was the most active participant with 375 messages. The Calculator assisted with 375 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.942Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 376\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 376 calculations performed. StoryBot was the most active participant with 376 messages. The Calculator assisted with 376 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.942Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 377\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 377 calculations performed. StoryBot was the most active participant with 377 messages. The Calculator assisted with 377 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.942Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 378\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 378 calculations performed. StoryBot was the most active participant with 378 messages. The Calculator assisted with 378 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.942Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 379\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 379 calculations performed. StoryBot was the most active participant with 379 messages. The Calculator assisted with 379 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.942Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 380\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 380 calculations performed. StoryBot was the most active participant with 380 messages. The Calculator assisted with 380 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.942Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 381\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 381 calculations performed. StoryBot was the most active participant with 381 messages. The Calculator assisted with 381 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.942Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 382\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 382 calculations performed. StoryBot was the most active participant with 382 messages. The Calculator assisted with 382 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.942Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 383\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 383 calculations performed. StoryBot was the most active participant with 383 messages. The Calculator assisted with 383 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.943Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 384\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 384 calculations performed. StoryBot was the most active participant with 384 messages. The Calculator assisted with 384 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.943Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 385\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 385 calculations performed. StoryBot was the most active participant with 385 messages. The Calculator assisted with 385 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.943Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 386\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 386 calculations performed. StoryBot was the most active participant with 386 messages. The Calculator assisted with 386 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.943Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 387\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 387 calculations performed. StoryBot was the most active participant with 387 messages. The Calculator assisted with 387 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.943Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 388\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 388 calculations performed. StoryBot was the most active participant with 388 messages. The Calculator assisted with 388 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.943Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 389\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 389 calculations performed. StoryBot was the most active participant with 389 messages. The Calculator assisted with 389 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.943Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 390\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 390 calculations performed. StoryBot was the most active participant with 390 messages. The Calculator assisted with 390 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.943Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 391\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 391 calculations performed. StoryBot was the most active participant with 391 messages. The Calculator assisted with 391 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.944Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 392\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 392 calculations performed. StoryBot was the most active participant with 392 messages. The Calculator assisted with 392 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.944Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 393\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 393 calculations performed. StoryBot was the most active participant with 393 messages. The Calculator assisted with 393 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.944Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 394\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 394 calculations performed. StoryBot was the most active participant with 394 messages. The Calculator assisted with 394 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.944Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 395\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 395 calculations performed. StoryBot was the most active participant with 395 messages. The Calculator assisted with 395 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.944Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 396\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 396 calculations performed. StoryBot was the most active participant with 396 messages. The Calculator assisted with 396 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.944Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 397\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 397 calculations performed. StoryBot was the most active participant with 397 messages. The Calculator assisted with 397 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.944Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 398\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 398 calculations performed. StoryBot was the most active participant with 398 messages. The Calculator assisted with 398 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.944Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 399\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 399 calculations performed. StoryBot was the most active participant with 399 messages. The Calculator assisted with 399 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.945Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 400\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 400 calculations performed. StoryBot was the most active participant with 400 messages. The Calculator assisted with 400 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.945Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 401\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 401 calculations performed. StoryBot was the most active participant with 401 messages. The Calculator assisted with 401 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.945Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 402\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 402 calculations performed. StoryBot was the most active participant with 402 messages. The Calculator assisted with 402 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.945Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 403\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 403 calculations performed. StoryBot was the most active participant with 403 messages. The Calculator assisted with 403 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.945Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 404\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 404 calculations performed. StoryBot was the most active participant with 404 messages. The Calculator assisted with 404 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.945Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 405\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 405 calculations performed. StoryBot was the most active participant with 405 messages. The Calculator assisted with 405 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.945Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 406\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 406 calculations performed. StoryBot was the most active participant with 406 messages. The Calculator assisted with 406 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.946Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 407\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 407 calculations performed. StoryBot was the most active participant with 407 messages. The Calculator assisted with 407 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.946Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 408\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 408 calculations performed. StoryBot was the most active participant with 408 messages. The Calculator assisted with 408 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.946Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 409\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 409 calculations performed. StoryBot was the most active participant with 409 messages. The Calculator assisted with 409 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.946Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 410\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 410 calculations performed. StoryBot was the most active participant with 410 messages. The Calculator assisted with 410 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.946Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 411\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 411 calculations performed. StoryBot was the most active participant with 411 messages. The Calculator assisted with 411 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.946Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 412\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 412 calculations performed. StoryBot was the most active participant with 412 messages. The Calculator assisted with 412 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.946Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 413\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 413 calculations performed. StoryBot was the most active participant with 413 messages. The Calculator assisted with 413 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.946Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 414\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 414 calculations performed. StoryBot was the most active participant with 414 messages. The Calculator assisted with 414 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.947Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 415\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 415 calculations performed. StoryBot was the most active participant with 415 messages. The Calculator assisted with 415 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.947Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 416\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 416 calculations performed. StoryBot was the most active participant with 416 messages. The Calculator assisted with 416 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.947Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 417\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 417 calculations performed. StoryBot was the most active participant with 417 messages. The Calculator assisted with 417 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.947Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 418\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 418 calculations performed. StoryBot was the most active participant with 418 messages. The Calculator assisted with 418 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.947Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 419\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 419 calculations performed. StoryBot was the most active participant with 419 messages. The Calculator assisted with 419 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.947Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 420\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 420 calculations performed. StoryBot was the most active participant with 420 messages. The Calculator assisted with 420 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.947Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 421\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 421 calculations performed. StoryBot was the most active participant with 421 messages. The Calculator assisted with 421 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.947Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 422\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 422 calculations performed. StoryBot was the most active participant with 422 messages. The Calculator assisted with 422 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.948Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 423\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 423 calculations performed. StoryBot was the most active participant with 423 messages. The Calculator assisted with 423 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.948Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 424\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 424 calculations performed. StoryBot was the most active participant with 424 messages. The Calculator assisted with 424 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.948Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 425\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 425 calculations performed. StoryBot was the most active participant with 425 messages. The Calculator assisted with 425 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.948Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 426\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 426 calculations performed. StoryBot was the most active participant with 426 messages. The Calculator assisted with 426 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.948Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 427\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 427 calculations performed. StoryBot was the most active participant with 427 messages. The Calculator assisted with 427 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.948Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 428\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 428 calculations performed. StoryBot was the most active participant with 428 messages. The Calculator assisted with 428 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.948Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 429\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 429 calculations performed. StoryBot was the most active participant with 429 messages. The Calculator assisted with 429 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.948Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 430\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 430 calculations performed. StoryBot was the most active participant with 430 messages. The Calculator assisted with 430 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.949Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 431\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 431 calculations performed. StoryBot was the most active participant with 431 messages. The Calculator assisted with 431 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.949Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 432\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 432 calculations performed. StoryBot was the most active participant with 432 messages. The Calculator assisted with 432 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.949Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 433\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 433 calculations performed. StoryBot was the most active participant with 433 messages. The Calculator assisted with 433 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.949Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 434\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 434 calculations performed. StoryBot was the most active participant with 434 messages. The Calculator assisted with 434 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.949Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 435\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 435 calculations performed. StoryBot was the most active participant with 435 messages. The Calculator assisted with 435 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.949Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 436\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 436 calculations performed. StoryBot was the most active participant with 436 messages. The Calculator assisted with 436 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.949Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 437\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 437 calculations performed. StoryBot was the most active participant with 437 messages. The Calculator assisted with 437 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.950Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 438\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 438 calculations performed. StoryBot was the most active participant with 438 messages. The Calculator assisted with 438 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.950Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 439\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 439 calculations performed. StoryBot was the most active participant with 439 messages. The Calculator assisted with 439 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.950Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 440\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 440 calculations performed. StoryBot was the most active participant with 440 messages. The Calculator assisted with 440 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.950Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 441\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 441 calculations performed. StoryBot was the most active participant with 441 messages. The Calculator assisted with 441 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.950Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 442\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 442 calculations performed. StoryBot was the most active participant with 442 messages. The Calculator assisted with 442 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.950Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 443\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 443 calculations performed. StoryBot was the most active participant with 443 messages. The Calculator assisted with 443 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.950Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 444\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 444 calculations performed. StoryBot was the most active participant with 444 messages. The Calculator assisted with 444 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.950Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 445\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 445 calculations performed. StoryBot was the most active participant with 445 messages. The Calculator assisted with 445 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.951Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 446\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 446 calculations performed. StoryBot was the most active participant with 446 messages. The Calculator assisted with 446 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.951Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 447\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 447 calculations performed. StoryBot was the most active participant with 447 messages. The Calculator assisted with 447 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.951Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 448\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 448 calculations performed. StoryBot was the most active participant with 448 messages. The Calculator assisted with 448 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.951Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 449\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 449 calculations performed. StoryBot was the most active participant with 449 messages. The Calculator assisted with 449 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.951Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 450\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 450 calculations performed. StoryBot was the most active participant with 450 messages. The Calculator assisted with 450 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.951Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 451\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 451 calculations performed. StoryBot was the most active participant with 451 messages. The Calculator assisted with 451 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.951Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 452\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 452 calculations performed. StoryBot was the most active participant with 452 messages. The Calculator assisted with 452 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.952Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 453\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 453 calculations performed. StoryBot was the most active participant with 453 messages. The Calculator assisted with 453 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.952Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 454\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 454 calculations performed. StoryBot was the most active participant with 454 messages. The Calculator assisted with 454 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.952Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 455\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 455 calculations performed. StoryBot was the most active participant with 455 messages. The Calculator assisted with 455 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.952Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 456\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 456 calculations performed. StoryBot was the most active participant with 456 messages. The Calculator assisted with 456 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.952Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 457\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 457 calculations performed. StoryBot was the most active participant with 457 messages. The Calculator assisted with 457 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.952Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 458\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 458 calculations performed. StoryBot was the most active participant with 458 messages. The Calculator assisted with 458 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.952Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 459\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 459 calculations performed. StoryBot was the most active participant with 459 messages. The Calculator assisted with 459 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.952Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 460\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 460 calculations performed. StoryBot was the most active participant with 460 messages. The Calculator assisted with 460 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.953Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 461\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 461 calculations performed. StoryBot was the most active participant with 461 messages. The Calculator assisted with 461 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.953Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 462\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 462 calculations performed. StoryBot was the most active participant with 462 messages. The Calculator assisted with 462 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.953Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 463\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 463 calculations performed. StoryBot was the most active participant with 463 messages. The Calculator assisted with 463 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.953Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 464\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 464 calculations performed. StoryBot was the most active participant with 464 messages. The Calculator assisted with 464 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.953Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 465\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 465 calculations performed. StoryBot was the most active participant with 465 messages. The Calculator assisted with 465 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.953Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 466\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 466 calculations performed. StoryBot was the most active participant with 466 messages. The Calculator assisted with 466 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.953Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 467\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 467 calculations performed. StoryBot was the most active participant with 467 messages. The Calculator assisted with 467 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.953Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 468\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 468 calculations performed. StoryBot was the most active participant with 468 messages. The Calculator assisted with 468 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.954Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 469\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 469 calculations performed. StoryBot was the most active participant with 469 messages. The Calculator assisted with 469 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.954Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 470\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 470 calculations performed. StoryBot was the most active participant with 470 messages. The Calculator assisted with 470 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.954Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 471\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 471 calculations performed. StoryBot was the most active participant with 471 messages. The Calculator assisted with 471 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.954Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 472\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 472 calculations performed. StoryBot was the most active participant with 472 messages. The Calculator assisted with 472 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.954Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 473\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 473 calculations performed. StoryBot was the most active participant with 473 messages. The Calculator assisted with 473 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.954Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 474\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 474 calculations performed. StoryBot was the most active participant with 474 messages. The Calculator assisted with 474 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.954Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 475\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 475 calculations performed. StoryBot was the most active participant with 475 messages. The Calculator assisted with 475 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.955Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 476\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 476 calculations performed. StoryBot was the most active participant with 476 messages. The Calculator assisted with 476 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.955Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 477\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 477 calculations performed. StoryBot was the most active participant with 477 messages. The Calculator assisted with 477 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.955Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 478\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 478 calculations performed. StoryBot was the most active participant with 478 messages. The Calculator assisted with 478 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.955Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 479\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 479 calculations performed. StoryBot was the most active participant with 479 messages. The Calculator assisted with 479 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.955Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 480\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 480 calculations performed. StoryBot was the most active participant with 480 messages. The Calculator assisted with 480 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.955Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 481\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 481 calculations performed. StoryBot was the most active participant with 481 messages. The Calculator assisted with 481 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.955Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 482\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 482 calculations performed. StoryBot was the most active participant with 482 messages. The Calculator assisted with 482 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.955Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 483\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 483 calculations performed. StoryBot was the most active participant with 483 messages. The Calculator assisted with 483 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.956Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 484\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 484 calculations performed. StoryBot was the most active participant with 484 messages. The Calculator assisted with 484 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.956Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 485\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 485 calculations performed. StoryBot was the most active participant with 485 messages. The Calculator assisted with 485 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.956Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 486\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 486 calculations performed. StoryBot was the most active participant with 486 messages. The Calculator assisted with 486 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.956Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 487\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 487 calculations performed. StoryBot was the most active participant with 487 messages. The Calculator assisted with 487 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.956Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 488\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 488 calculations performed. StoryBot was the most active participant with 488 messages. The Calculator assisted with 488 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.956Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 489\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 489 calculations performed. StoryBot was the most active participant with 489 messages. The Calculator assisted with 489 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.956Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 490\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 490 calculations performed. StoryBot was the most active participant with 490 messages. The Calculator assisted with 490 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.957Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 491\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 491 calculations performed. StoryBot was the most active participant with 491 messages. The Calculator assisted with 491 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.957Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 492\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 492 calculations performed. StoryBot was the most active participant with 492 messages. The Calculator assisted with 492 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.957Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 493\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 493 calculations performed. StoryBot was the most active participant with 493 messages. The Calculator assisted with 493 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.957Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 494\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 494 calculations performed. StoryBot was the most active participant with 494 messages. The Calculator assisted with 494 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.957Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 495\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 495 calculations performed. StoryBot was the most active participant with 495 messages. The Calculator assisted with 495 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.957Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 496\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 496 calculations performed. StoryBot was the most active participant with 496 messages. The Calculator assisted with 496 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.957Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 497\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 497 calculations performed. StoryBot was the most active participant with 497 messages. The Calculator assisted with 497 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.958Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 498\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 498 calculations performed. StoryBot was the most active participant with 498 messages. The Calculator assisted with 498 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.958Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 499\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 499 calculations performed. StoryBot was the most active participant with 499 messages. The Calculator assisted with 499 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.958Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 500\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 500 calculations performed. StoryBot was the most active participant with 500 messages. The Calculator assisted with 500 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.958Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 250\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 250 calculations performed. StoryBot was the most active participant with 250 messages. The Calculator assisted with 250 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.958Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 251\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 251 calculations performed. StoryBot was the most active participant with 251 messages. The Calculator assisted with 251 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.958Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 252\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 252 calculations performed. StoryBot was the most active participant with 252 messages. The Calculator assisted with 252 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.958Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 253\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 253 calculations performed. StoryBot was the most active participant with 253 messages. The Calculator assisted with 253 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.958Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 254\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 254 calculations performed. StoryBot was the most active participant with 254 messages. The Calculator assisted with 254 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.959Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 255\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 255 calculations performed. StoryBot was the most active participant with 255 messages. The Calculator assisted with 255 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.959Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 256\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 256 calculations performed. StoryBot was the most active participant with 256 messages. The Calculator assisted with 256 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.959Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 257\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 257 calculations performed. StoryBot was the most active participant with 257 messages. The Calculator assisted with 257 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.959Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 258\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 258 calculations performed. StoryBot was the most active participant with 258 messages. The Calculator assisted with 258 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.959Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 259\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 259 calculations performed. StoryBot was the most active participant with 259 messages. The Calculator assisted with 259 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.959Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 260\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 260 calculations performed. StoryBot was the most active participant with 260 messages. The Calculator assisted with 260 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.959Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 261\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 261 calculations performed. StoryBot was the most active participant with 261 messages. The Calculator assisted with 261 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.959Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 262\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 262 calculations performed. StoryBot was the most active participant with 262 messages. The Calculator assisted with 262 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.960Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 263\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 263 calculations performed. StoryBot was the most active participant with 263 messages. The Calculator assisted with 263 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.960Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 264\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 264 calculations performed. StoryBot was the most active participant with 264 messages. The Calculator assisted with 264 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.960Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 265\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 265 calculations performed. StoryBot was the most active participant with 265 messages. The Calculator assisted with 265 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.960Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 266\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 266 calculations performed. StoryBot was the most active participant with 266 messages. The Calculator assisted with 266 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.960Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 267\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 267 calculations performed. StoryBot was the most active participant with 267 messages. The Calculator assisted with 267 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.960Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 268\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 268 calculations performed. StoryBot was the most active participant with 268 messages. The Calculator assisted with 268 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.960Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 269\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 269 calculations performed. StoryBot was the most active participant with 269 messages. The Calculator assisted with 269 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.960Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 270\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 270 calculations performed. StoryBot was the most active participant with 270 messages. The Calculator assisted with 270 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.961Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 271\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 271 calculations performed. StoryBot was the most active participant with 271 messages. The Calculator assisted with 271 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.961Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 272\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 272 calculations performed. StoryBot was the most active participant with 272 messages. The Calculator assisted with 272 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.961Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 273\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 273 calculations performed. StoryBot was the most active participant with 273 messages. The Calculator assisted with 273 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.961Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 274\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 274 calculations performed. StoryBot was the most active participant with 274 messages. The Calculator assisted with 274 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.961Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 275\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 275 calculations performed. StoryBot was the most active participant with 275 messages. The Calculator assisted with 275 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.961Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 276\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 276 calculations performed. StoryBot was the most active participant with 276 messages. The Calculator assisted with 276 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.961Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 277\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 277 calculations performed. StoryBot was the most active participant with 277 messages. The Calculator assisted with 277 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.962Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 278\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 278 calculations performed. StoryBot was the most active participant with 278 messages. The Calculator assisted with 278 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.962Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 279\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 279 calculations performed. StoryBot was the most active participant with 279 messages. The Calculator assisted with 279 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.962Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 280\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 280 calculations performed. StoryBot was the most active participant with 280 messages. The Calculator assisted with 280 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.962Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 281\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 281 calculations performed. StoryBot was the most active participant with 281 messages. The Calculator assisted with 281 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.963Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 282\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 282 calculations performed. StoryBot was the most active participant with 282 messages. The Calculator assisted with 282 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.963Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 283\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 283 calculations performed. StoryBot was the most active participant with 283 messages. The Calculator assisted with 283 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.963Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 284\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 284 calculations performed. StoryBot was the most active participant with 284 messages. The Calculator assisted with 284 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.963Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 285\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 285 calculations performed. StoryBot was the most active participant with 285 messages. The Calculator assisted with 285 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.963Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 286\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 286 calculations performed. StoryBot was the most active participant with 286 messages. The Calculator assisted with 286 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.963Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 287\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 287 calculations performed. StoryBot was the most active participant with 287 messages. The Calculator assisted with 287 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.963Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 288\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 288 calculations performed. StoryBot was the most active participant with 288 messages. The Calculator assisted with 288 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.963Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 289\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 289 calculations performed. StoryBot was the most active participant with 289 messages. The Calculator assisted with 289 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.964Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 290\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 290 calculations performed. StoryBot was the most active participant with 290 messages. The Calculator assisted with 290 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.964Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 291\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 291 calculations performed. StoryBot was the most active participant with 291 messages. The Calculator assisted with 291 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.964Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 292\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 292 calculations performed. StoryBot was the most active participant with 292 messages. The Calculator assisted with 292 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.964Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 293\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 293 calculations performed. StoryBot was the most active participant with 293 messages. The Calculator assisted with 293 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.964Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 294\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 294 calculations performed. StoryBot was the most active participant with 294 messages. The Calculator assisted with 294 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.964Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 295\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 295 calculations performed. StoryBot was the most active participant with 295 messages. The Calculator assisted with 295 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.964Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 296\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 296 calculations performed. StoryBot was the most active participant with 296 messages. The Calculator assisted with 296 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.964Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 297\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 297 calculations performed. StoryBot was the most active participant with 297 messages. The Calculator assisted with 297 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.965Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 298\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 298 calculations performed. StoryBot was the most active participant with 298 messages. The Calculator assisted with 298 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.965Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 299\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 299 calculations performed. StoryBot was the most active participant with 299 messages. The Calculator assisted with 299 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.965Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 300\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 300 calculations performed. StoryBot was the most active participant with 300 messages. The Calculator assisted with 300 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.965Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 301\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 301 calculations performed. StoryBot was the most active participant with 301 messages. The Calculator assisted with 301 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.965Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 302\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 302 calculations performed. StoryBot was the most active participant with 302 messages. The Calculator assisted with 302 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.965Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 303\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 303 calculations performed. StoryBot was the most active participant with 303 messages. The Calculator assisted with 303 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.965Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 304\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 304 calculations performed. StoryBot was the most active participant with 304 messages. The Calculator assisted with 304 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.965Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 305\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 305 calculations performed. StoryBot was the most active participant with 305 messages. The Calculator assisted with 305 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.966Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 306\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 306 calculations performed. StoryBot was the most active participant with 306 messages. The Calculator assisted with 306 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.966Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 307\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 307 calculations performed. StoryBot was the most active participant with 307 messages. The Calculator assisted with 307 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.966Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 308\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 308 calculations performed. StoryBot was the most active participant with 308 messages. The Calculator assisted with 308 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.966Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 309\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 309 calculations performed. StoryBot was the most active participant with 309 messages. The Calculator assisted with 309 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.966Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 310\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 310 calculations performed. StoryBot was the most active participant with 310 messages. The Calculator assisted with 310 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.966Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 311\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 311 calculations performed. StoryBot was the most active participant with 311 messages. The Calculator assisted with 311 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.966Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 312\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 312 calculations performed. StoryBot was the most active participant with 312 messages. The Calculator assisted with 312 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.966Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 313\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 313 calculations performed. StoryBot was the most active participant with 313 messages. The Calculator assisted with 313 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.967Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 314\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 314 calculations performed. StoryBot was the most active participant with 314 messages. The Calculator assisted with 314 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.967Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 315\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 315 calculations performed. StoryBot was the most active participant with 315 messages. The Calculator assisted with 315 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.967Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 316\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 316 calculations performed. StoryBot was the most active participant with 316 messages. The Calculator assisted with 316 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.967Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 317\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 317 calculations performed. StoryBot was the most active participant with 317 messages. The Calculator assisted with 317 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.967Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 318\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 318 calculations performed. StoryBot was the most active participant with 318 messages. The Calculator assisted with 318 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.967Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 319\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 319 calculations performed. StoryBot was the most active participant with 319 messages. The Calculator assisted with 319 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.967Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 320\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 320 calculations performed. StoryBot was the most active participant with 320 messages. The Calculator assisted with 320 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.967Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 321\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 321 calculations performed. StoryBot was the most active participant with 321 messages. The Calculator assisted with 321 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.968Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 322\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 322 calculations performed. StoryBot was the most active participant with 322 messages. The Calculator assisted with 322 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.968Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 323\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 323 calculations performed. StoryBot was the most active participant with 323 messages. The Calculator assisted with 323 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.968Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 324\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 324 calculations performed. StoryBot was the most active participant with 324 messages. The Calculator assisted with 324 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.968Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 325\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 325 calculations performed. StoryBot was the most active participant with 325 messages. The Calculator assisted with 325 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.968Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 326\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 326 calculations performed. StoryBot was the most active participant with 326 messages. The Calculator assisted with 326 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.968Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 327\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 327 calculations performed. StoryBot was the most active participant with 327 messages. The Calculator assisted with 327 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.968Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 328\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 328 calculations performed. StoryBot was the most active participant with 328 messages. The Calculator assisted with 328 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.968Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 329\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 329 calculations performed. StoryBot was the most active participant with 329 messages. The Calculator assisted with 329 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.969Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 330\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 330 calculations performed. StoryBot was the most active participant with 330 messages. The Calculator assisted with 330 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.969Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 331\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 331 calculations performed. StoryBot was the most active participant with 331 messages. The Calculator assisted with 331 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.969Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 332\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 332 calculations performed. StoryBot was the most active participant with 332 messages. The Calculator assisted with 332 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.969Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 333\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 333 calculations performed. StoryBot was the most active participant with 333 messages. The Calculator assisted with 333 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.969Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 334\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 334 calculations performed. StoryBot was the most active participant with 334 messages. The Calculator assisted with 334 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.969Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 335\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 335 calculations performed. StoryBot was the most active participant with 335 messages. The Calculator assisted with 335 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.969Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 336\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 336 calculations performed. StoryBot was the most active participant with 336 messages. The Calculator assisted with 336 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.969Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 337\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 337 calculations performed. StoryBot was the most active participant with 337 messages. The Calculator assisted with 337 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.970Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 338\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 338 calculations performed. StoryBot was the most active participant with 338 messages. The Calculator assisted with 338 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.970Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 339\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 339 calculations performed. StoryBot was the most active participant with 339 messages. The Calculator assisted with 339 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.970Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 340\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 340 calculations performed. StoryBot was the most active participant with 340 messages. The Calculator assisted with 340 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.970Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 341\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 341 calculations performed. StoryBot was the most active participant with 341 messages. The Calculator assisted with 341 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.970Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 342\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 342 calculations performed. StoryBot was the most active participant with 342 messages. The Calculator assisted with 342 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.970Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 343\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 343 calculations performed. StoryBot was the most active participant with 343 messages. The Calculator assisted with 343 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.970Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 344\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 344 calculations performed. StoryBot was the most active participant with 344 messages. The Calculator assisted with 344 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.970Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 345\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 345 calculations performed. StoryBot was the most active participant with 345 messages. The Calculator assisted with 345 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.971Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 346\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 346 calculations performed. StoryBot was the most active participant with 346 messages. The Calculator assisted with 346 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.971Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 347\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 347 calculations performed. StoryBot was the most active participant with 347 messages. The Calculator assisted with 347 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.971Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 348\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 348 calculations performed. StoryBot was the most active participant with 348 messages. The Calculator assisted with 348 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.971Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 349\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 349 calculations performed. StoryBot was the most active participant with 349 messages. The Calculator assisted with 349 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.971Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 350\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 350 calculations performed. StoryBot was the most active participant with 350 messages. The Calculator assisted with 350 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.971Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 351\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 351 calculations performed. StoryBot was the most active participant with 351 messages. The Calculator assisted with 351 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.971Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 352\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 352 calculations performed. StoryBot was the most active participant with 352 messages. The Calculator assisted with 352 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.971Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 353\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 353 calculations performed. StoryBot was the most active participant with 353 messages. The Calculator assisted with 353 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.972Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 354\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 354 calculations performed. StoryBot was the most active participant with 354 messages. The Calculator assisted with 354 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.972Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 355\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 355 calculations performed. StoryBot was the most active participant with 355 messages. The Calculator assisted with 355 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.972Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 356\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 356 calculations performed. StoryBot was the most active participant with 356 messages. The Calculator assisted with 356 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.972Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 357\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 357 calculations performed. StoryBot was the most active participant with 357 messages. The Calculator assisted with 357 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.972Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 358\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 358 calculations performed. StoryBot was the most active participant with 358 messages. The Calculator assisted with 358 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.972Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 359\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 359 calculations performed. StoryBot was the most active participant with 359 messages. The Calculator assisted with 359 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.972Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 360\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 360 calculations performed. StoryBot was the most active participant with 360 messages. The Calculator assisted with 360 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.972Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 361\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 361 calculations performed. StoryBot was the most active participant with 361 messages. The Calculator assisted with 361 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.973Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 362\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 362 calculations performed. StoryBot was the most active participant with 362 messages. The Calculator assisted with 362 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.973Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 363\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 363 calculations performed. StoryBot was the most active participant with 363 messages. The Calculator assisted with 363 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.973Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 364\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 364 calculations performed. StoryBot was the most active participant with 364 messages. The Calculator assisted with 364 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.973Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 365\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 365 calculations performed. StoryBot was the most active participant with 365 messages. The Calculator assisted with 365 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.973Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 366\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 366 calculations performed. StoryBot was the most active participant with 366 messages. The Calculator assisted with 366 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.973Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 367\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 367 calculations performed. StoryBot was the most active participant with 367 messages. The Calculator assisted with 367 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.973Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 368\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 368 calculations performed. StoryBot was the most active participant with 368 messages. The Calculator assisted with 368 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.974Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 369\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 369 calculations performed. StoryBot was the most active participant with 369 messages. The Calculator assisted with 369 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.974Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 370\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 370 calculations performed. StoryBot was the most active participant with 370 messages. The Calculator assisted with 370 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.974Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 371\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 371 calculations performed. StoryBot was the most active participant with 371 messages. The Calculator assisted with 371 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.974Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 372\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 372 calculations performed. StoryBot was the most active participant with 372 messages. The Calculator assisted with 372 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.974Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 373\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 373 calculations performed. StoryBot was the most active participant with 373 messages. The Calculator assisted with 373 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.974Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 374\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 374 calculations performed. StoryBot was the most active participant with 374 messages. The Calculator assisted with 374 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.974Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 375\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 375 calculations performed. StoryBot was the most active participant with 375 messages. The Calculator assisted with 375 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.974Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 376\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 376 calculations performed. StoryBot was the most active participant with 376 messages. The Calculator assisted with 376 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.975Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 377\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 377 calculations performed. StoryBot was the most active participant with 377 messages. The Calculator assisted with 377 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.975Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 378\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 378 calculations performed. StoryBot was the most active participant with 378 messages. The Calculator assisted with 378 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.975Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 379\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 379 calculations performed. StoryBot was the most active participant with 379 messages. The Calculator assisted with 379 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.975Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 380\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 380 calculations performed. StoryBot was the most active participant with 380 messages. The Calculator assisted with 380 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.975Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 381\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 381 calculations performed. StoryBot was the most active participant with 381 messages. The Calculator assisted with 381 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.975Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 382\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 382 calculations performed. StoryBot was the most active participant with 382 messages. The Calculator assisted with 382 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.975Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 383\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 383 calculations performed. StoryBot was the most active participant with 383 messages. The Calculator assisted with 383 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.975Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 384\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 384 calculations performed. StoryBot was the most active participant with 384 messages. The Calculator assisted with 384 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.976Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 385\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 385 calculations performed. StoryBot was the most active participant with 385 messages. The Calculator assisted with 385 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.976Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 386\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 386 calculations performed. StoryBot was the most active participant with 386 messages. The Calculator assisted with 386 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.976Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 387\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 387 calculations performed. StoryBot was the most active participant with 387 messages. The Calculator assisted with 387 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.976Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 388\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 388 calculations performed. StoryBot was the most active participant with 388 messages. The Calculator assisted with 388 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.976Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 389\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 389 calculations performed. StoryBot was the most active participant with 389 messages. The Calculator assisted with 389 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.976Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 390\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 390 calculations performed. StoryBot was the most active participant with 390 messages. The Calculator assisted with 390 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.976Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 391\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 391 calculations performed. StoryBot was the most active participant with 391 messages. The Calculator assisted with 391 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.976Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 392\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 392 calculations performed. StoryBot was the most active participant with 392 messages. The Calculator assisted with 392 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.977Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 393\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 393 calculations performed. StoryBot was the most active participant with 393 messages. The Calculator assisted with 393 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.977Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 394\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 394 calculations performed. StoryBot was the most active participant with 394 messages. The Calculator assisted with 394 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.977Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 395\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 395 calculations performed. StoryBot was the most active participant with 395 messages. The Calculator assisted with 395 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.977Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 396\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 396 calculations performed. StoryBot was the most active participant with 396 messages. The Calculator assisted with 396 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.977Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 397\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 397 calculations performed. StoryBot was the most active participant with 397 messages. The Calculator assisted with 397 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.977Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 398\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 398 calculations performed. StoryBot was the most active participant with 398 messages. The Calculator assisted with 398 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.977Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 399\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 399 calculations performed. StoryBot was the most active participant with 399 messages. The Calculator assisted with 399 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.978Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 400\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 400 calculations performed. StoryBot was the most active participant with 400 messages. The Calculator assisted with 400 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.978Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 401\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 401 calculations performed. StoryBot was the most active participant with 401 messages. The Calculator assisted with 401 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.978Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 402\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 402 calculations performed. StoryBot was the most active participant with 402 messages. The Calculator assisted with 402 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.978Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 403\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 403 calculations performed. StoryBot was the most active participant with 403 messages. The Calculator assisted with 403 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.978Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 404\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 404 calculations performed. StoryBot was the most active participant with 404 messages. The Calculator assisted with 404 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.978Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 405\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 405 calculations performed. StoryBot was the most active participant with 405 messages. The Calculator assisted with 405 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.978Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 406\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 406 calculations performed. StoryBot was the most active participant with 406 messages. The Calculator assisted with 406 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.978Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 407\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 407 calculations performed. StoryBot was the most active participant with 407 messages. The Calculator assisted with 407 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.979Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 408\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 408 calculations performed. StoryBot was the most active participant with 408 messages. The Calculator assisted with 408 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.979Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 409\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 409 calculations performed. StoryBot was the most active participant with 409 messages. The Calculator assisted with 409 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.979Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 410\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 410 calculations performed. StoryBot was the most active participant with 410 messages. The Calculator assisted with 410 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.979Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 411\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 411 calculations performed. StoryBot was the most active participant with 411 messages. The Calculator assisted with 411 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.979Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 412\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 412 calculations performed. StoryBot was the most active participant with 412 messages. The Calculator assisted with 412 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.979Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 413\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 413 calculations performed. StoryBot was the most active participant with 413 messages. The Calculator assisted with 413 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.979Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 414\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 414 calculations performed. StoryBot was the most active participant with 414 messages. The Calculator assisted with 414 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.979Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 415\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 415 calculations performed. StoryBot was the most active participant with 415 messages. The Calculator assisted with 415 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.980Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 416\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 416 calculations performed. StoryBot was the most active participant with 416 messages. The Calculator assisted with 416 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.980Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 417\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 417 calculations performed. StoryBot was the most active participant with 417 messages. The Calculator assisted with 417 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.980Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 418\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 418 calculations performed. StoryBot was the most active participant with 418 messages. The Calculator assisted with 418 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.980Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 419\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 419 calculations performed. StoryBot was the most active participant with 419 messages. The Calculator assisted with 419 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.980Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 420\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 420 calculations performed. StoryBot was the most active participant with 420 messages. The Calculator assisted with 420 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.980Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 421\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 421 calculations performed. StoryBot was the most active participant with 421 messages. The Calculator assisted with 421 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.980Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 422\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 422 calculations performed. StoryBot was the most active participant with 422 messages. The Calculator assisted with 422 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.980Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 423\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 423 calculations performed. StoryBot was the most active participant with 423 messages. The Calculator assisted with 423 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.981Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 424\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 424 calculations performed. StoryBot was the most active participant with 424 messages. The Calculator assisted with 424 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.981Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 425\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 425 calculations performed. StoryBot was the most active participant with 425 messages. The Calculator assisted with 425 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.981Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 426\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 426 calculations performed. StoryBot was the most active participant with 426 messages. The Calculator assisted with 426 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.981Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 427\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 427 calculations performed. StoryBot was the most active participant with 427 messages. The Calculator assisted with 427 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.981Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 428\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 428 calculations performed. StoryBot was the most active participant with 428 messages. The Calculator assisted with 428 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.981Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 429\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 429 calculations performed. StoryBot was the most active participant with 429 messages. The Calculator assisted with 429 mathematical operations.",
+      "theme": "technical"
+    },
+    {
+      "timestamp": "2025-07-20T03:55:03.981Z",
+      "type": "agent_message",
+      "sender": "StoryBot",
+      "content": "📰 **Story Report**\n\n- Total Events: 430\n- Active Users: 1\n- Dominant Theme: technical\n- Story: A technical session with 430 calculations performed. StoryBot was the most active participant with 430 messages. The Calculator assisted with 430 mathematical operations.",
+      "theme": "technical"
+    }
+  ],
+  "analysis": {
+    "totalEvents": 433,
+    "themes": {
+      "technical": 433
+    },
+    "activeUsers": 1,
+    "userActivity": {
+      "StoryBot": 433
+    },
+    "keyEvents": 433,
+    "averageEventsPerMinute": "866.00"
+  },
+  "narrative": "A technical session with 433 calculations performed. StoryBot was the most active participant with 433 messages. The Calculator assisted with 433 mathematical operations."
+}

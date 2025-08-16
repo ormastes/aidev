@@ -1,0 +1,24 @@
+{
+  "name": "release-env",
+  "type": "release",
+  "port": {
+    "base": 3456,
+    "range": [
+      3401,
+      3499
+    ]
+  },
+  "database": {
+    "type": "postgresql",
+    "connection": "postgresql://localhost:5432/release-env"
+  },
+  "paths": {
+    "root": "environments/release-env",
+    "data": "environments/release-env/data",
+    "logs": "environments/release-env/logs",
+    "temp": "environments/release-env/temp"
+  },
+  "services": [],
+  "created": "2025-08-11T02:04:17.036Z",
+  "updated": "2025-08-11T02:04:17.036Z"
+}

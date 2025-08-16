@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "parent_id": "chat-space-epic-001",
+    "path": "/layer/themes/chat-space/user-stories/007-chat-room-cli/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-02T11:10:54.567Z",
+    "updated_at": "2025-08-02T11:10:54.567Z"
+  },
+  "features": {
+    "007_chat_room_cli": [
+      {
+        "id": "chat-space-007-chat-room-cli",
+        "name": "chat room cli",
+        "data": {
+          "title": "Chat room cli",
+          "description": "Implementation of chat room cli",
+          "level": "user_story",
+          "parent_feature_id": "chat-space-epic-001",
+          "epic_id": "chat-space-epic-001",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "chat-space",
+            "chat-room-cli"
+          ],
+          "components": [],
+          "acceptanceCriteria": [],
+          "virtual_path": "/layer/themes/chat-space/user-stories/007-chat-room-cli/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-02T11:10:54.567Z",
+        "updatedAt": "2025-08-02T11:10:54.567Z"
+      }
+    ]
+  }
+}

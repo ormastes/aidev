@@ -1,0 +1,87 @@
+sequenceDiagram
+    participant User
+    participant CLI
+    participant Platform
+    participant Storage
+    participant Broker
+    participant PocketFlow
+    participant Context
+
+    Note over User,Context: Chat Room CLI Core Flows
+
+    %% User Registration and Authentication Flow
+    rect rgb(240, 248, 255)
+        Note over User,Storage: User Registration Flow
+        User->>CLI: /register username
+        CLI->>Platform: registerUser(username)
+        Platform->>Storage: saveUser(user)
+        Storage-->>Platform: user saved
+        Platform-->>CLI: user object
+        CLI-->>User: Registration successful
+    end
+
+    %% Room Creation and Joining Flow
+    rect rgb(248, 255, 240)
+        Note over User,Broker: Room Creation Flow
+        User->>CLI: /create "Room Name"
+        CLI->>Platform: createRoom(userId, roomName)
+        Platform->>Storage: saveRoom(room)
+        Storage-->>Platform: room saved
+        Platform->>Broker: joinRoom(connectionId, roomId)
+        Broker-->>Platform: joined
+        Platform-->>CLI: room object
+        CLI-->>User: Room created and joined
+    end
+
+    %% Message Sending Flow
+    rect rgb(255, 248, 248)
+        Note over User,Context: Message Sending Flow
+        User->>CLI: "Hello world"
+        CLI->>Platform: sendMessage(userId, roomId, content)
+        Platform->>Storage: saveMessage(message)
+        Storage-->>Platform: message saved
+        Platform->>Broker: broadcastMessage(roomId, message)
+        Broker->>Broker: deliverToConnections()
+        Broker-->>Platform: delivered
+        Platform-->>CLI: message object
+        CLI-->>User: Message sent
+    end
+
+    %% Workflow Integration Flow
+    rect rgb(255, 255, 240)
+        Note over User,PocketFlow: Workflow Command Flow
+        User->>CLI: /review file.ts
+        CLI->>Platform: processCommand("/review file.ts")
+        Platform->>PocketFlow: executeWorkflow("code-review", context)
+        PocketFlow->>Context: getFileContent("file.ts")
+        Context-->>PocketFlow: file content
+        PocketFlow->>PocketFlow: runAnalysis()
+        PocketFlow-->>Platform: workflow results
+        Platform->>Storage: saveMessage(resultMessage)
+        Storage-->>Platform: saved
+        Platform->>Broker: broadcastMessage(roomId, resultMessage)
+        Platform-->>CLI: workflow executed
+        CLI-->>User: Review results displayed
+    end
+
+    %% Context Query Flow  
+    rect rgb(248, 240, 255)
+        Note over User,Context: Context Query Flow
+        User->>CLI: "@file:src/main.ts"
+        CLI->>Platform: processMessage(message)
+        Platform->>Context: getFileContent("src/main.ts")
+        Context-->>Platform: file content
+        Platform->>Platform: enhanceMessage(content)
+        Platform->>Storage: saveMessage(enhancedMessage)
+        Platform->>Broker: broadcastMessage(roomId, enhancedMessage)
+        Platform-->>CLI: enhanced message
+        CLI-->>User: File content displayed
+    end
+
+    %% Real-time Message Reception Flow
+    rect rgb(240, 255, 248)
+        Note over CLI,Broker: Real-time Message Reception
+        Broker->>CLI: onMessage(messageEvent)
+        CLI->>CLI: displayMessage(message)
+        CLI-->>User: Message appears in chat
+    end

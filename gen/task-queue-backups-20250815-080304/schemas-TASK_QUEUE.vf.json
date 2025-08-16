@@ -1,0 +1,753 @@
+{
+  "taskQueues": {
+    "critical": [
+      {
+        "id": "task-test-embedded-apps",
+        "type": "test_implementation",
+        "priority": "critical",
+        "epic": "system-testing",
+        "content": {
+          "title": "Implement System Tests for Embedded Web Applications",
+          "description": "Create comprehensive system tests for iframe embedding functionality, cross-origin messaging, and embedded app lifecycle",
+          "components": [
+            "Test GUI selector embedding in iframe",
+            "Test postMessage communication between portal and embedded apps",
+            "Test embedded app lifecycle (load, reload, close, crash handling)",
+            "Test security sandboxing and permissions"
+          ],
+          "estimated_hours": 8,
+          "feature_covered": "Embedded Web Applications",
+          "test_file": "test/system/embedded-apps-system.spec.ts"
+        },
+        "status": "pending",
+        "createdAt": "2025-08-14T06:00:00.000Z"
+      },
+      {
+        "id": "task-test-mcp-integration",
+        "type": "test_implementation",
+        "priority": "critical",
+        "epic": "system-testing",
+        "content": {
+          "title": "Implement System Tests for MCP Integration",
+          "description": "Create system tests for Model Context Protocol integration, tool delegation, and agent routing",
+          "components": [
+            "Test MCP server connection and handshake",
+            "Test tool discovery and delegation via MCP",
+            "Test agent routing and response aggregation",
+            "Test MCP error handling and recovery"
+          ],
+          "estimated_hours": 10,
+          "feature_covered": "MCP (Model Context Protocol) Integration",
+          "test_file": "test/system/mcp-integration-system.spec.ts"
+        },
+        "status": "pending",
+        "createdAt": "2025-08-14T06:00:00.000Z"
+      }
+    ],
+    "high": [
+      {
+        "id": "task-test-filesystem-mcp",
+        "type": "test_implementation",
+        "priority": "high",
+        "epic": "system-testing",
+        "content": {
+          "title": "Implement System Tests for File System MCP",
+          "description": "Create system tests for virtual file system operations and .vf.json file handling",
+          "components": [
+            "Test virtual file CRUD operations",
+            "Test .vf.json file parsing and validation",
+            "Test metadata handling and versioning",
+            "Test file system hierarchy and navigation"
+          ],
+          "estimated_hours": 6,
+          "feature_covered": "File System MCP Theme",
+          "test_file": "test/system/filesystem-mcp-system.spec.ts"
+        },
+        "status": "pending",
+        "createdAt": "2025-08-14T06:00:00.000Z"
+      },
+      {
+        "id": "task-test-python-environment",
+        "type": "test_implementation",
+        "priority": "high",
+        "epic": "system-testing",
+        "content": {
+          "title": "Implement System Tests for Python Environment",
+          "description": "Create system tests for Python environment management with uv and coverage tools",
+          "components": [
+            "Test virtual environment creation with uv",
+            "Test package installation and dependency management",
+            "Test Python script execution in isolated environment",
+            "Test Python coverage collection and reporting"
+          ],
+          "estimated_hours": 8,
+          "feature_covered": "Python Support Infrastructure",
+          "test_file": "test/system/python-environment-system.spec.ts"
+        },
+        "status": "pending",
+        "createdAt": "2025-08-14T06:00:00.000Z"
+      },
+      {
+        "id": "task-test-docker-integration",
+        "type": "test_implementation",
+        "priority": "high",
+        "epic": "system-testing",
+        "content": {
+          "title": "Implement System Tests for Docker Integration",
+          "description": "Create system tests for Docker container management and VS Code Server deployment",
+          "components": [
+            "Test Docker image building and caching",
+            "Test container lifecycle management",
+            "Test port forwarding and networking",
+            "Test VS Code Server deployment in containers"
+          ],
+          "estimated_hours": 10,
+          "feature_covered": "Docker Development Environment",
+          "test_file": "test/system/docker-integration-system.spec.ts"
+        },
+        "status": "pending",
+        "createdAt": "2025-08-14T06:00:00.000Z"
+      },
+      {
+        "id": "task-test-realtime-updates",
+        "type": "test_implementation",
+        "priority": "high",
+        "epic": "system-testing",
+        "content": {
+          "title": "Implement System Tests for Real-time Updates",
+          "description": "Create system tests for WebSocket connections and real-time UI updates",
+          "components": [
+            "Test WebSocket connection establishment",
+            "Test real-time data synchronization",
+            "Test reconnection and error recovery",
+            "Test multi-tab synchronization"
+          ],
+          "estimated_hours": 8,
+          "feature_covered": "Real-time Updates",
+          "test_file": "test/system/realtime-updates-system.spec.ts"
+        },
+        "status": "pending",
+        "createdAt": "2025-08-14T06:00:00.000Z"
+      },
+      {
+        "content": {
+          "title": "Create centralized log aggregation service",
+          "description": "Added via CLI"
+        },
+        "id": "task-1755242688996-7u5jjhxgu",
+        "createdAt": "2025-08-15T07:24:48.996Z",
+        "priority": "high",
+        "status": "pending"
+      }
+    ],
+    "completed": [
+      {
+        "id": "task-manual-core-engine",
+        "type": "feature_implementation",
+        "priority": "critical",
+        "epic": "test-as-manual",
+        "content": {
+          "title": "Implement Enhanced Manual Generator Core Engine",
+          "description": "Create the core manual generation engine with template support, metadata extraction, and multi-format rendering capabilities",
+          "components": [
+            "ManualGenerator class with test parsing",
+            "TemplateEngine with variable substitution",
+            "MetadataExtractor for test annotations",
+            "DocumentBuilder for structured output"
+          ],
+          "estimated_hours": 16,
+          "dependencies": [
+            "test-as-manual"
+          ]
+        },
+        "status": "completed",
+        "createdAt": "2025-08-12T15:00:00.000Z",
+        "completedAt": "2025-08-13T01:30:00.000Z"
+      },
+      {
+        "id": "task-manual-template-system",
+        "type": "feature_implementation",
+        "priority": "high",
+        "epic": "test-as-manual",
+        "content": {
+          "title": "Create Professional Template System",
+          "description": "Implement customizable template system with multiple professional templates for different use cases",
+          "components": [
+            "Default template with clean layout",
+            "Professional template with branding",
+            "Minimal template for quick reference",
+            "Template inheritance and partials"
+          ],
+          "estimated_hours": 12
+        },
+        "status": "completed",
+        "createdAt": "2025-08-12T15:00:00.000Z",
+        "completedAt": "2025-08-13T01:30:00.000Z"
+      },
+      {
+        "id": "task-manual-format-processors",
+        "type": "feature_implementation",
+        "priority": "high",
+        "epic": "test-as-manual",
+        "content": {
+          "title": "Implement Multi-Format Processors",
+          "description": "Create format processors for HTML, PDF, Markdown, and JSON output with proper styling and structure",
+          "components": [
+            "HTMLProcessor with interactive features",
+            "PDFProcessor with professional layout",
+            "MarkdownProcessor with GitHub compatibility",
+            "JSONProcessor with schema validation"
+          ],
+          "estimated_hours": 20
+        },
+        "status": "completed",
+        "createdAt": "2025-08-12T15:00:00.000Z",
+        "completedAt": "2025-08-13T01:30:00.000Z"
+      },
+      {
+        "id": "task-manual-theme-scanner",
+        "type": "feature_implementation",
+        "priority": "high",
+        "epic": "test-as-manual",
+        "content": {
+          "title": "Implement Theme Scanner and Registry",
+          "description": "Create scanner to discover all themes and their tests, building a registry for batch processing",
+          "components": [
+            "ThemeScanner for directory traversal",
+            "TestDiscovery for finding test files",
+            "ThemeRegistry for cataloging",
+            "TestCategorizer for test types"
+          ],
+          "estimated_hours": 8
+        },
+        "status": "completed",
+        "createdAt": "2025-08-12T15:00:00.000Z",
+        "completedAt": "2025-08-13T01:30:00.000Z"
+      },
+      {
+        "id": "task-manual-batch-processor",
+        "type": "feature_implementation",
+        "priority": "medium",
+        "epic": "test-as-manual",
+        "content": {
+          "title": "Implement Batch Processing System",
+          "description": "Create parallel batch processor for generating manuals for all themes simultaneously",
+          "components": [
+            "BatchProcessor with worker pool",
+            "ProgressReporter for status updates",
+            "ErrorHandler with recovery",
+            "PartialGenerator for incremental updates"
+          ],
+          "estimated_hours": 10
+        },
+        "status": "completed",
+        "createdAt": "2025-08-12T15:00:00.000Z",
+        "completedAt": "2025-08-13T01:30:00.000Z"
+      },
+      {
+        "id": "task-portal-security-auth",
+        "type": "feature_implementation",
+        "priority": "high",
+        "epic": "portal-security",
+        "content": {
+          "title": "Unified Authentication System",
+          "description": "Implemented complete SSO authentication with AuthService, TokenService, SessionManager, and comprehensive tests",
+          "components": [
+            "AuthService - Core authentication logic",
+            "TokenService - JWT token management",
+            "SessionManager - Session lifecycle",
+            "Complete unit and integration tests"
+          ]
+        },
+        "status": "completed",
+        "completedAt": "2025-08-11T12:30:00.000Z"
+      },
+      {
+        "id": "task-portal-security-credentials",
+        "type": "feature_implementation",
+        "priority": "high",
+        "epic": "portal-security",
+        "content": {
+          "title": "Credential Management System",
+          "description": "Implemented secure credential storage with encryption, REST API, audit logging, and automatic rotation",
+          "components": [
+            "CredentialStore - AES-256 encrypted storage",
+            "CredentialAPI - REST endpoints with RBAC",
+            "AuditLogger - Security event tracking",
+            "Automatic credential rotation scheduler"
+          ]
+        },
+        "status": "completed",
+        "completedAt": "2025-08-11T13:00:00.000Z"
+      },
+      {
+        "id": "task-portal-security-middleware",
+        "type": "feature_implementation",
+        "priority": "medium",
+        "epic": "portal-security",
+        "content": {
+          "title": "Security Middleware Suite",
+          "description": "Implemented comprehensive security middleware collection for Express applications",
+          "components": [
+            "SecurityMiddlewareSuite - Unified middleware interface",
+            "Rate limiting with configurable windows",
+            "CORS configuration",
+            "CSRF protection",
+            "XSS and SQL injection protection",
+            "Audit logging middleware",
+            "Complete test coverage"
+          ]
+        },
+        "status": "completed",
+        "completedAt": "2025-08-11T13:30:00.000Z"
+      },
+      {
+        "id": "task-portal-security-crossdomain",
+        "type": "feature_implementation",
+        "priority": "medium",
+        "epic": "portal-security",
+        "content": {
+          "title": "Cross-Domain Session Sharing",
+          "description": "Implemented session sharing across multiple domains/ports with synchronization",
+          "components": [
+            "CrossDomainSessionManager - Main session coordinator",
+            "RedisSessionStorage - Redis-compatible storage",
+            "Session synchronization service",
+            "Cross-domain token validation",
+            "Express middleware for integration"
+          ]
+        },
+        "status": "completed",
+        "completedAt": "2025-08-11T14:00:00.000Z"
+      },
+      {
+        "id": "task-cucumber-cpp-gherkin-parser",
+        "type": "feature_implementation",
+        "priority": "high",
+        "epic": "cucumber-cpp",
+        "content": {
+          "title": "Implement Gherkin Parser for Cucumber-CPP",
+          "description": "Build Gherkin parser from scratch in C++ with lexer, tokenizer, and AST generation. Support features, scenarios, steps, data tables, and doc strings.",
+          "cucumber_step": "Given a custom Gherkin parser implementation in C++",
+          "queue_section": "Infrastructure Implementation Queue",
+          "original_text": "Create Gherkin parser with full syntax support"
+        },
+        "status": "completed",
+        "createdAt": "2025-08-09T12:00:00.000Z",
+        "updatedAt": "2025-08-10T00:35:00.000Z",
+        "completedAt": "2025-08-10T00:35:00.000Z"
+      },
+      {
+        "id": "task-cucumber-cpp-step-registry",
+        "type": "feature_implementation",
+        "priority": "high",
+        "epic": "cucumber-cpp",
+        "content": {
+          "title": "Build Step Definition Registry System",
+          "description": "Create step definition registration system with regex matching, parameter extraction, and execution engine. Include GIVEN/WHEN/THEN macros.",
+          "cucumber_step": "When step definitions can be registered and matched",
+          "queue_section": "Infrastructure Implementation Queue",
+          "original_text": "Implement step definition binding system"
+        },
+        "status": "completed",
+        "createdAt": "2025-08-09T12:00:00.000Z",
+        "updatedAt": "2025-08-10T00:35:00.000Z",
+        "completedAt": "2025-08-10T00:35:00.000Z"
+      },
+      {
+        "id": "task-cucumber-cpp-catch2-integration",
+        "type": "feature_implementation",
+        "priority": "high",
+        "epic": "cucumber-cpp",
+        "content": {
+          "title": "Integrate Cucumber-CPP with Catch2",
+          "description": "Create Catch2 backend for test execution. Convert Gherkin scenarios to Catch2 tests dynamically. Support test reporting and assertions.",
+          "cucumber_step": "Then Cucumber tests run using Catch2 backend",
+          "queue_section": "Infrastructure Implementation Queue",
+          "original_text": "Catch2 integration for test execution"
+        },
+        "status": "completed",
+        "createdAt": "2025-08-09T12:00:00.000Z",
+        "updatedAt": "2025-08-10T00:35:00.000Z",
+        "completedAt": "2025-08-10T00:35:00.000Z"
+      },
+      {
+        "id": "task-cucumber-cpp-manual-generator",
+        "type": "feature_implementation",
+        "priority": "high",
+        "epic": "cucumber-cpp",
+        "content": {
+          "title": "Create Test-as-Manual Documentation Generator",
+          "description": "Build manual test documentation generator supporting markdown, HTML, and JSON output. Include screenshot integration and template system.",
+          "cucumber_step": "When manual test documentation is generated from features",
+          "queue_section": "Infrastructure Implementation Queue",
+          "original_text": "Manual test documentation generator"
+        },
+        "status": "completed",
+        "createdAt": "2025-08-09T12:00:00.000Z",
+        "updatedAt": "2025-08-10T00:35:00.000Z",
+        "completedAt": "2025-08-10T00:35:00.000Z"
+      },
+      {
+        "id": "task-cucumber-cpp-cmake-cli",
+        "type": "feature_implementation",
+        "priority": "high",
+        "epic": "cucumber-cpp",
+        "content": {
+          "title": "Implement CMake Integration and CLI Tool",
+          "description": "Create CMake helper functions for cucumber-cpp tests. Build CLI tool for test execution, manual generation, and watch mode.",
+          "cucumber_step": "Then cucumber-cpp integrates with CMake build system",
+          "queue_section": "Infrastructure Implementation Queue",
+          "original_text": "CMake and CLI implementation"
+        },
+        "status": "completed",
+        "createdAt": "2025-08-09T12:00:00.000Z",
+        "updatedAt": "2025-08-10T00:35:00.000Z",
+        "completedAt": "2025-08-10T00:35:00.000Z"
+      }
+    ],
+    "medium": [
+      {
+        "id": "task-manual-navigation",
+        "type": "feature_implementation",
+        "priority": "medium",
+        "epic": "test-as-manual",
+        "content": {
+          "title": "Build Navigation and Search System",
+          "description": "Create comprehensive navigation with TOC, breadcrumbs, cross-references, and search",
+          "components": [
+            "TOCGenerator with multi-level support",
+            "CrossReferenceBuilder for links",
+            "SearchIndexer for full-text search",
+            "BreadcrumbGenerator for context"
+          ],
+          "estimated_hours": 8
+        },
+        "status": "pending",
+        "createdAt": "2025-08-12T15:00:00.000Z"
+      },
+      {
+        "id": "task-manual-theme-specific",
+        "type": "feature_implementation",
+        "priority": "medium",
+        "epic": "test-as-manual",
+        "content": {
+          "title": "Create Theme-Specific Templates",
+          "description": "Develop specialized templates for different theme categories",
+          "components": [
+            "Portal theme templates",
+            "Infrastructure theme templates",
+            "Tool theme templates",
+            "LLM agent theme templates"
+          ],
+          "estimated_hours": 16
+        },
+        "status": "pending",
+        "createdAt": "2025-08-12T15:00:00.000Z"
+      },
+      {
+        "id": "task-test-coverage-aggregation",
+        "type": "test_implementation",
+        "priority": "medium",
+        "epic": "system-testing",
+        "content": {
+          "title": "Implement System Tests for Coverage Aggregation",
+          "description": "Create system tests for multi-source coverage aggregation and reporting",
+          "components": [
+            "Test coverage collection from TypeScript",
+            "Test coverage collection from Python",
+            "Test unified coverage report generation",
+            "Test coverage threshold enforcement"
+          ],
+          "estimated_hours": 6,
+          "feature_covered": "Coverage Aggregation",
+          "test_file": "test/system/coverage-aggregation-system.spec.ts"
+        },
+        "status": "pending",
+        "createdAt": "2025-08-14T06:00:00.000Z"
+      },
+      {
+        "id": "task-test-llm-coordination",
+        "type": "test_implementation",
+        "priority": "medium",
+        "epic": "system-testing",
+        "content": {
+          "title": "Implement System Tests for LLM Agent Coordination",
+          "description": "Create system tests for LLM agent coordination and routing",
+          "components": [
+            "Test multiple agent initialization",
+            "Test task distribution to agents",
+            "Test response aggregation",
+            "Test agent failure handling"
+          ],
+          "estimated_hours": 8,
+          "feature_covered": "LLM Agent Coordination",
+          "test_file": "test/system/llm-coordination-system.spec.ts"
+        },
+        "status": "pending",
+        "createdAt": "2025-08-14T06:00:00.000Z"
+      },
+      {
+        "id": "task-test-data-import-export",
+        "type": "test_implementation",
+        "priority": "medium",
+        "epic": "system-testing",
+        "content": {
+          "title": "Implement System Tests for Data Import/Export",
+          "description": "Create system tests for project data import and export functionality",
+          "components": [
+            "Test export projects as JSON/CSV",
+            "Test import data validation",
+            "Test conflict resolution",
+            "Test data integrity after import/export"
+          ],
+          "estimated_hours": 6,
+          "feature_covered": "Data Import/Export",
+          "test_file": "test/system/data-import-export-system.spec.ts"
+        },
+        "status": "pending",
+        "createdAt": "2025-08-14T06:00:00.000Z"
+      },
+      {
+        "id": "task-test-qemu-integration",
+        "type": "test_implementation",
+        "priority": "medium",
+        "epic": "system-testing",
+        "content": {
+          "title": "Implement System Tests for QEMU Development Environment",
+          "description": "Create system tests for QEMU VM management and kernel development",
+          "components": [
+            "Test VM creation and lifecycle",
+            "Test SSH connection to VMs",
+            "Test kernel debugging with GDB",
+            "Test NVMe device emulation"
+          ],
+          "estimated_hours": 10,
+          "feature_covered": "QEMU Development Environment",
+          "test_file": "test/system/qemu-development-system.spec.ts"
+        },
+        "status": "pending",
+        "createdAt": "2025-08-14T06:00:00.000Z"
+      },
+      {
+        "content": {
+          "title": "Implement log rotation policy",
+          "description": "Added via CLI"
+        },
+        "id": "task-1755242695735-9wxy23euz",
+        "createdAt": "2025-08-15T07:24:55.735Z",
+        "priority": "medium",
+        "status": "pending"
+      }
+    ],
+    "low": [
+      {
+        "id": "task-manual-ci-integration",
+        "type": "feature_implementation",
+        "priority": "low",
+        "epic": "test-as-manual",
+        "content": {
+          "title": "Add CI/CD Integration",
+          "description": "Integrate manual generation with GitHub Actions and CI/CD pipeline",
+          "components": [
+            "GitHub Actions workflow",
+            "Automatic generation triggers",
+            "Artifact storage configuration",
+            "Version control integration"
+          ],
+          "estimated_hours": 6
+        },
+        "status": "pending",
+        "createdAt": "2025-08-12T15:00:00.000Z"
+      },
+      {
+        "id": "task-manual-validation",
+        "type": "feature_implementation",
+        "priority": "low",
+        "epic": "test-as-manual",
+        "content": {
+          "title": "Implement Validation System",
+          "description": "Create validators for manual completeness and accuracy",
+          "components": [
+            "ManualValidator for completeness",
+            "LinkChecker for broken references",
+            "FormatCompliance checker",
+            "ScreenshotVerifier for images"
+          ],
+          "estimated_hours": 8
+        },
+        "status": "pending",
+        "createdAt": "2025-08-12T15:00:00.000Z"
+      },
+      {
+        "id": "task-manual-dashboard",
+        "type": "feature_implementation",
+        "priority": "low",
+        "epic": "test-as-manual",
+        "content": {
+          "title": "Create Reporting Dashboard",
+          "description": "Build dashboard for manual generation metrics and coverage",
+          "components": [
+            "Coverage metrics display",
+            "Generation history tracker",
+            "Trend analysis charts",
+            "Export functionality"
+          ],
+          "estimated_hours": 10
+        },
+        "status": "pending",
+        "createdAt": "2025-08-12T15:00:00.000Z"
+      },
+      {
+        "id": "task-test-gui-generation",
+        "type": "test_implementation",
+        "priority": "low",
+        "epic": "system-testing",
+        "content": {
+          "title": "Implement System Tests for GUI Generation",
+          "description": "Create system tests for UI component generation from specifications",
+          "components": [
+            "Test component specification parsing",
+            "Test HTML/CSS/JS generation",
+            "Test multiple design candidate generation",
+            "Test component rendering and functionality"
+          ],
+          "estimated_hours": 6,
+          "feature_covered": "GUI Generation",
+          "test_file": "test/system/gui-generation-system.spec.ts"
+        },
+        "status": "pending",
+        "createdAt": "2025-08-14T06:00:00.000Z"
+      },
+      {
+        "id": "task-test-chat-space",
+        "type": "test_implementation",
+        "priority": "low",
+        "epic": "system-testing",
+        "content": {
+          "title": "Implement System Tests for Chat Space Integration",
+          "description": "Create system tests for chat functionality and LLM interaction",
+          "components": [
+            "Test chat interface functionality",
+            "Test message sending and receiving",
+            "Test LLM agent communication",
+            "Test chat history management"
+          ],
+          "estimated_hours": 6,
+          "feature_covered": "Chat Space Integration",
+          "test_file": "test/system/chat-space-system.spec.ts"
+        },
+        "status": "pending",
+        "createdAt": "2025-08-14T06:00:00.000Z"
+      },
+      {
+        "id": "task-test-web-scraping",
+        "type": "test_implementation",
+        "priority": "low",
+        "epic": "system-testing",
+        "content": {
+          "title": "Implement System Tests for Web Scraping Tool",
+          "description": "Create system tests for web scraping functionality",
+          "components": [
+            "Test web page fetching",
+            "Test data extraction",
+            "Test pagination handling",
+            "Test error recovery and rate limiting"
+          ],
+          "estimated_hours": 6,
+          "feature_covered": "Web Scraping Tool",
+          "test_file": "test/system/web-scraping-system.spec.ts"
+        },
+        "status": "pending",
+        "createdAt": "2025-08-14T06:00:00.000Z"
+      },
+      {
+        "id": "task-test-cucumber-frameworks",
+        "type": "test_implementation",
+        "priority": "low",
+        "epic": "system-testing",
+        "content": {
+          "title": "Implement System Tests for Cucumber BDD Frameworks",
+          "description": "Create system tests for Cucumber-CPP and Cucumber-Python frameworks",
+          "components": [
+            "Test Gherkin file parsing",
+            "Test step definition execution",
+            "Test test report generation",
+            "Test manual documentation generation"
+          ],
+          "estimated_hours": 8,
+          "feature_covered": "Cucumber BDD Frameworks",
+          "test_file": "test/system/cucumber-frameworks-system.spec.ts"
+        },
+        "status": "pending",
+        "createdAt": "2025-08-14T06:00:00.000Z"
+      },
+      {
+        "id": "task-test-profile-management",
+        "type": "test_implementation",
+        "priority": "low",
+        "epic": "system-testing",
+        "content": {
+          "title": "Implement System Tests for Profile Management",
+          "description": "Create comprehensive system tests for user profile management",
+          "components": [
+            "Test profile information updates",
+            "Test preference management",
+            "Test avatar upload and display",
+            "Test role-based permissions"
+          ],
+          "estimated_hours": 4,
+          "feature_covered": "Profile Management",
+          "test_file": "test/system/profile-management-system.spec.ts"
+        },
+        "status": "pending",
+        "createdAt": "2025-08-14T06:00:00.000Z"
+      },
+      {
+        "content": {
+          "title": "Build log analysis dashboard",
+          "description": "Added via CLI"
+        },
+        "id": "task-1755242702613-j88vt5fso",
+        "createdAt": "2025-08-15T07:25:02.613Z",
+        "priority": "low",
+        "status": "pending"
+      }
+    ]
+  },
+  "working": [],
+  "allTasks": [],
+  "cucumberSteps": [],
+  "sections": [
+    {
+      "name": "Working Item Queue (Only One Item, Currently working on, Delete when In Progress)",
+      "priority": "critical",
+      "itemCount": 0
+    },
+    {
+      "name": "Adhoc Temp User Request Queue",
+      "priority": "critical",
+      "itemCount": 0
+    },
+    {
+      "name": "System Test Implementation Queue",
+      "priority": "critical",
+      "itemCount": 2
+    },
+    {
+      "name": "Completed Features Queue",
+      "priority": "high",
+      "itemCount": 1
+    }
+  ],
+  "metadata": {
+    "totalTasks": 37,
+    "workingTasks": 0,
+    "pendingTasks": 23,
+    "completedTasks": 14,
+    "systemTestTasks": 16,
+    "cucumberStepCount": 0,
+    "lastUpdated": "2025-08-15T07:25:31.194Z",
+    "conversionSource": "TASK_QUEUE.vf.json"
+  }
+}

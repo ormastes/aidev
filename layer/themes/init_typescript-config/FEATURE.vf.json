@@ -1,0 +1,43 @@
+{
+  "metadata": {
+    "level": "theme",
+    "path": "/layer/themes/init_typescript-config/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-03T15:00:00.000Z",
+    "updated_at": "2025-08-03T15:00:00.000Z"
+  },
+  "features": {
+    "typescript_config": [
+      {
+        "id": "init-typescript-config-001",
+        "name": "TypeScript Configuration Theme",
+        "data": {
+          "title": "TypeScript Configuration Management",
+          "description": "Provides centralized TypeScript configuration templates and migration tools for consistent type safety across the platform",
+          "level": "theme",
+          "status": "active",
+          "priority": "high",
+          "tags": [
+            "init",
+            "typescript",
+            "configuration",
+            "types"
+          ],
+          "components": [
+            "Strict TypeScript configurations",
+            "Migration tools and scripts",
+            "Base configuration templates",
+            "Type safety patterns",
+            "Configuration verification tools"
+          ],
+          "virtual_path": "/layer/themes/init_typescript-config/FEATURE.vf.json"
+        },
+        "createdAt": "2025-08-03T15:00:00.000Z",
+        "updatedAt": "2025-08-03T15:00:00.000Z"
+      }
+    ]
+  },
+  "children": [
+    "/layer/themes/init_typescript-config/user-stories/004-strict-typescript/FEATURE.vf.json"
+  ]
+}
