@@ -18,7 +18,7 @@ interface TaskItem {
   id: string;
   title: string;
   description: string;
-  status: 'pending' | 'in_progress' | 'completed';
+  status: 'pending' | 'in_progress' | "completed";
   priority: 'low' | 'medium' | 'high';
   userId: string;
   createdAt: Date;
@@ -45,7 +45,7 @@ const { authService, sessionManager, appRegistry } = setupWebSecurity(app, {
     publicPaths: ['/', '/health', '/api/auth/*']
   },
   sessionConfig: {
-    cookieDomain: 'localhost',
+    cookieDomain: "localhost",
     cookieName: SecurityConstants.SESSION.COOKIE_NAME
   }
 });
@@ -54,7 +54,7 @@ const { authService, sessionManager, appRegistry } = setupWebSecurity(app, {
 app.get('/health', (req: Request, res: Response) => {
   res.json({ 
     status: 'healthy', 
-    service: 'PocketFlow',
+    service: "PocketFlow",
     port: PORT,
     taskCount: tasks.size
   });
@@ -191,7 +191,7 @@ app.delete('/api/tasks/:id', async (req: AuthRequest, res: Response) => {
 
 // Serve the PocketFlow app
 app.get('/', async (req: Request, res: Response) => {
-  const navigation = await NavigationHelper.generateNavigationHTML('pocketflow', authService, req);
+  const navigation = await NavigationHelper.generateNavigationHTML("pocketflow", authService, req);
   
   res.send(`
 <!DOCTYPE html>
@@ -370,23 +370,23 @@ app.get('/', async (req: Request, res: Response) => {
         const response = await fetch('/api/auth/check');
         const data = await response.json();
         
-        const authStatus = document.getElementById('authStatus');
+        const authStatus = document.getElementById("authStatus");
         if (data.authenticated) {
           isAuthenticated = true;
           authStatus.innerHTML = \`
             <span>Welcome, \${data.user.username}!</span>
             <button class="btn btn-secondary" onclick="location.href='http://localhost:3400/dashboard'">Dashboard</button>
           \`;
-          document.getElementById('appContent').style.display = 'block';
-          document.getElementById('loginPrompt').style.display = 'none';
+          document.getElementById("appContent").style.display = 'block';
+          document.getElementById("loginPrompt").style.display = 'none';
           loadTasks();
         } else {
           authStatus.innerHTML = \`
             <span>Not logged in</span>
             <button class="btn btn-primary" onclick="login()">Login</button>
           \`;
-          document.getElementById('appContent').style.display = 'none';
-          document.getElementById('loginPrompt').style.display = 'block';
+          document.getElementById("appContent").style.display = 'none';
+          document.getElementById("loginPrompt").style.display = 'block';
         }
       } catch (error) {
         console.error('Auth check error:', error);
@@ -398,7 +398,7 @@ app.get('/', async (req: Request, res: Response) => {
     }
     
     function toggleTaskForm() {
-      const form = document.getElementById('taskForm');
+      const form = document.getElementById("taskForm");
       form.classList.toggle('active');
     }
     
@@ -418,7 +418,7 @@ app.get('/', async (req: Request, res: Response) => {
     }
     
     function renderTasks() {
-      const taskList = document.getElementById('taskList');
+      const taskList = document.getElementById("taskList");
       
       if (tasks.length === 0) {
         taskList.innerHTML = '<p>No tasks yet. Create your first task!</p>';
@@ -438,9 +438,9 @@ app.get('/', async (req: Request, res: Response) => {
           </div>
           <div class="task-actions">
             <select onchange="updateTaskStatus('\${task.id}', this.value)">
-              <option value="pending" \${task.status === 'pending' ? 'selected' : ''}>Pending</option>
-              <option value="in_progress" \${task.status === 'in_progress' ? 'selected' : ''}>In Progress</option>
-              <option value="completed" \${task.status === 'completed' ? 'selected' : ''}>Completed</option>
+              <option value="pending" \${task.status === 'pending' ? "selected" : ''}>Pending</option>
+              <option value="in_progress" \${task.status === 'in_progress' ? "selected" : ''}>In Progress</option>
+              <option value="completed" \${task.status === "completed" ? "selected" : ''}>Completed</option>
             </select>
             <button class="btn btn-danger" onclick="deleteTask('\${task.id}')">Delete</button>
           </div>
@@ -449,9 +449,9 @@ app.get('/', async (req: Request, res: Response) => {
     }
     
     async function createTask() {
-      const title = document.getElementById('taskTitle').value;
-      const description = document.getElementById('taskDescription').value;
-      const priority = document.getElementById('taskPriority').value;
+      const title = document.getElementById("taskTitle").value;
+      const description = document.getElementById("taskDescription").value;
+      const priority = document.getElementById("taskPriority").value;
       
       if (!title) {
         alert('Please enter a task title');
@@ -471,9 +471,9 @@ app.get('/', async (req: Request, res: Response) => {
         }
         
         if (response.ok) {
-          document.getElementById('taskTitle').value = '';
-          document.getElementById('taskDescription').value = '';
-          document.getElementById('taskPriority').value = 'medium';
+          document.getElementById("taskTitle").value = '';
+          document.getElementById("taskDescription").value = '';
+          document.getElementById("taskPriority").value = 'medium';
           toggleTaskForm();
           loadTasks();
         }

@@ -68,7 +68,7 @@ export class LogSchemaValidator {
     if (this.schema.additionalProperties === false && this.schema.properties) {
       const allowedFields = Object.keys(this.schema.properties);
       for (const field of Object.keys(log)) {
-        if (!allowedFields.includes(field) && field !== 'source' && field !== 'metadata') {
+        if (!allowedFields.includes(field) && field !== 'source' && field !== "metadata") {
           errors.push(`Additional property "${field}" is not allowed`);
         }
       }
@@ -91,7 +91,7 @@ export class LogSchemaValidator {
       timestamp: new Date(),
       level: 'error',
       message: `Invalid log format: ${result.errors.join('; ')}`,
-      source: 'validation' as any,
+      source: "validation" as any,
       metadata: {
         validationErrors: result.errors,
         originalLog: invalidLog

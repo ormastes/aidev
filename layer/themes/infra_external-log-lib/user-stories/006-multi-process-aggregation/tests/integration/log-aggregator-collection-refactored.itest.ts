@@ -30,7 +30,7 @@ describe('LogAggregator Collection Integration Test (Refactored)', () => {
     
     // Start multiple processes using command templates
     const webServerProcess = await logMonitor.startRealTimeMonitoring(
-      TestProcessCommands.timedProcess('WebServer', 400, [
+      TestProcessCommands.timedProcess("WebServer", 400, [
         '[WebServer] Starting',
         '[WebServer] Ready', 
         '[WebServer] Processing'
@@ -44,7 +44,7 @@ describe('LogAggregator Collection Integration Test (Refactored)', () => {
     );
 
     const schedulerProcess = await logMonitor.startRealTimeMonitoring(
-      TestProcessCommands.crashingProcess('Scheduler', 'Config error'),
+      TestProcessCommands.crashingProcess("Scheduler", 'Config error'),
       {}
     );
 
@@ -76,8 +76,8 @@ describe('LogAggregator Collection Integration Test (Refactored)', () => {
     const workerMeta = logAggregator.getProcessMetadata(workerProcess);
     const schedulerMeta = logAggregator.getProcessMetadata(schedulerProcess);
 
-    expect(webServerMeta?.status).toBe('In Progress');
-    expect(workerMeta?.status).toBe('In Progress');
+    expect(webServerMeta?.status).toBe("completed");
+    expect(workerMeta?.status).toBe("completed");
     expect(schedulerMeta?.status).toBe('crashed');
 
     // Clean up listeners
@@ -94,7 +94,7 @@ describe('LogAggregator Collection Integration Test (Refactored)', () => {
 
     // Use command template for timed logging
     const processId = await logMonitor.startRealTimeMonitoring(
-      TestProcessCommands.timedProcess('TimedProcess', 500, [
+      TestProcessCommands.timedProcess("TimedProcess", 500, [
         '[TimedProcess] Log 1',
         '[TimedProcess] Log 2',
         '[TimedProcess] Log 3'

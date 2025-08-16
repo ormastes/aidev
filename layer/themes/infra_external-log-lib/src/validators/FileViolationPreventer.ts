@@ -6,8 +6,8 @@
  * Supports strict mode (throws exceptions) and non-strict mode (logs warnings)
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as path from 'node:path';
 import { getFileAPI, FileType } from '../../pipe';
 
 const fileAPI = getFileAPI();
@@ -26,7 +26,7 @@ interface FileStructureDefinition {
 
 interface TemplateDefinition {
   id: string;
-  type: 'directory' | 'file';
+  type: "directory" | 'file';
   freeze?: boolean;
   freeze_message?: string;
   required_children?: ChildDefinition[];
@@ -36,7 +36,7 @@ interface TemplateDefinition {
 
 interface ChildDefinition {
   name: string;
-  type: 'directory' | 'file' | 'feature_file';
+  type: "directory" | 'file' | 'feature_file';
   required?: boolean;
   children?: ChildDefinition[];
   freeze?: boolean;
@@ -56,7 +56,7 @@ export class FileViolationError extends Error {
     public readonly violationType: string
   ) {
     super(message);
-    this.name = 'FileViolationError';
+    this.name = "FileViolationError";
   }
 }
 
@@ -104,7 +104,7 @@ export class FileViolationPreventer {
     }
 
     try {
-      const content = fs.readFileSync(structurePath, 'utf8');
+      const content = fileAPI.readFileSync(structurePath, 'utf8');
       this.fileStructure = JSON.parse(content);
     } catch (error) {
       this.logWarn(`Failed to load FILE_STRUCTURE.vf.json: ${error}`);
@@ -296,9 +296,9 @@ export class FileViolationPreventer {
 
     // Check for proper directory structure
     const allowedThemeDirs = [
-      'src', 'tests', 'pipe', 'children', 'common', 'research',
-      'resources', 'user-stories', 'docs', 'gen', 'dist', 'coverage',
-      'examples', 'scripts', 'node_modules', 'logs', 'utils'
+      'src', 'tests', 'pipe', "children", 'common', "research",
+      "resources", 'user-stories', 'docs', 'gen', 'dist', "coverage",
+      "examples", 'scripts', 'node_modules', 'logs', 'utils'
     ];
 
     const relativePath = path.relative(this.themePath, targetPath);

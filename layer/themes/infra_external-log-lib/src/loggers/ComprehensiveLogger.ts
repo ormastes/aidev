@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * ComprehensiveLogger
  * 
@@ -5,9 +6,9 @@
  * Provides a unified interface for all logging needs
  */
 
-import * as path from 'path';
+import * as path from 'node:path';
 import * as os from 'os';
-import { EventEmitter } from 'events';
+import { EventEmitter } from 'node:events';
 import { EventLogger, LogEventType, LogEntry, EventLoggerConfig } from './EventLogger';
 import { VfJsonWatcher, VfJsonChange, VfJsonWatcherConfig } from './VfJsonWatcher';
 import { RejectionTracker, Rejection, RejectionType, RejectionTrackerConfig } from './RejectionTracker';
@@ -96,8 +97,8 @@ export class ComprehensiveLogger extends EventEmitter {
         ...this.config.rejectionTrackerConfig
       });
       
-      this.rejectionTracker.on('rejection', this.handleRejection.bind(this));
-      this.rejectionTracker.on('resolved', this.handleRejectionResolved.bind(this));
+      this.rejectionTracker.on("rejection", this.handleRejection.bind(this));
+      this.rejectionTracker.on("resolved", this.handleRejectionResolved.bind(this));
     }
     
     // Setup FileViolationPreventer integration
@@ -185,7 +186,7 @@ export class ComprehensiveLogger extends EventEmitter {
    * Log task queue change
    */
   logTaskChange(
-    action: 'created' | 'updated' | 'completed' | 'deleted',
+    action: 'created' | 'updated' | "completed" | 'deleted',
     taskId: string,
     taskData?: any
   ): void {
@@ -197,7 +198,7 @@ export class ComprehensiveLogger extends EventEmitter {
    * Log feature change
    */
   logFeatureChange(
-    action: 'created' | 'updated' | 'completed' | 'deleted',
+    action: 'created' | 'updated' | "completed" | 'deleted',
     featureId: string,
     featureData?: any
   ): void {
@@ -221,7 +222,7 @@ export class ComprehensiveLogger extends EventEmitter {
    * Log file operation
    */
   logFileOperation(
-    operation: 'created' | 'modified' | 'deleted' | 'moved',
+    operation: 'created' | "modified" | 'deleted' | 'moved',
     filePath: string,
     details?: any
   ): void {
@@ -298,7 +299,7 @@ export class ComprehensiveLogger extends EventEmitter {
     
     // Try to get log file size
     try {
-      const fs = require('fs');
+      const fs = require('../../layer/themes/infra_external-log-lib/src');
       const stats = fs.statSync(summary.currentLogPath);
       summary.logSizeBytes = stats.size;
     } catch (error) {
@@ -377,21 +378,21 @@ export class ComprehensiveLogger extends EventEmitter {
    */
   private handleVfJsonChange(change: VfJsonChange): void {
     this.vfJsonChangeCount++;
-    this.emit('vfJsonChange', change);
+    this.emit("vfJsonChange", change);
   }
   
   /**
    * Handle rejection event
    */
   private handleRejection(rejection: Rejection): void {
-    this.emit('rejection', rejection);
+    this.emit("rejection", rejection);
   }
   
   /**
    * Handle rejection resolved event
    */
   private handleRejectionResolved(rejection: Rejection): void {
-    this.emit('rejectionResolved', rejection);
+    this.emit("rejectionResolved", rejection);
   }
   
   /**
@@ -400,16 +401,16 @@ export class ComprehensiveLogger extends EventEmitter {
   private setupFileViolationIntegration(): void {
     try {
       // Hook into FileViolationPreventer if available
-      const originalWriteFile = require('fs').writeFileSync;
+      const originalWriteFile = require('../../layer/themes/infra_external-log-lib/src').writeFileSync;
       const self = this;
       
-      require('fs').writeFileSync = function(path: string, ...args: any[]) {
+      require('node:fs').writeFileSync = function(path: string, ...args: any[]) {
         try {
           // Attempt write
           return originalWriteFile.call(this, path, ...args);
         } catch (error) {
           // Log if it's a violation
-          if (error && (error as any).name === 'FileViolationError') {
+          if (error && (error as any).name === "FileViolationError") {
             self.trackFileViolation(error as FileViolationError, 'write');
           }
           throw error;
@@ -441,7 +442,7 @@ export class ComprehensiveLogger extends EventEmitter {
     this.config.detail = enabled;
     this.eventLogger.setDetailMode(enabled);
     
-    this.logSystemEvent('config', `Detail mode ${enabled ? 'enabled' : 'disabled'}`);
+    this.logSystemEvent('config', `Detail mode ${enabled ? 'enabled' : "disabled"}`);
   }
   
   /**

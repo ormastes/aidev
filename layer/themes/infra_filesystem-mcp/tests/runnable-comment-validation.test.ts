@@ -182,7 +182,7 @@ describe('Runnable Comment Validation Tests', () => {
       // Register a scenario item with runnable comment
       const scenarioItem = {
         id: 'scenario-001',
-        type: 'scenarios',
+        type: "scenarios",
         content: 'Scenario: User uploads file and processes it',
         parent: 'user-story-file-processing',
         metadata: {
@@ -197,13 +197,13 @@ describe('Runnable Comment Validation Tests', () => {
       expect(insertResult.success).toBe(true);
       
       // Check if artifacts were registered
-      const artifacts = await nameIdWrapper.getEntitiesByType('artifacts');
+      const artifacts = await nameIdWrapper.getEntitiesByType("artifacts");
       expect(artifacts).toHaveLength(2);
       expect(artifacts.map(a => a.name)).toContain('uploaded-file');
       expect(artifacts.map(a => a.name)).toContain('processed-result');
       
       // Check if entities were registered
-      const entities = await nameIdWrapper.getEntitiesByType('entities');
+      const entities = await nameIdWrapper.getEntitiesByType("entities");
       expect(entities).toHaveLength(2);
       expect(entities.map(e => e.name)).toContain('file-processor');
       expect(entities.map(e => e.name)).toContain('storage-service');
@@ -323,7 +323,7 @@ describe('Runnable Comment Validation Tests', () => {
       const queueData = await taskQueueWrapper.read(taskQueuePath);
       queueData.queues.scenarios.items = [{
         id: 'scenario-002',
-        type: 'scenarios',
+        type: "scenarios",
         content: 'Scenario: Test message display',
         parent: 'story-test'
       }];
@@ -382,7 +382,7 @@ describe('Runnable Comment Validation Tests', () => {
       commentExecutor.registerFunction('check_dependencies_parameterized', 
         async (testName: string, environment: string) => {
           expect(testName).toBe('redis-test');
-          expect(environment).toBe('development');
+          expect(environment).toBe("development");
           return { success: true };
         }
       );

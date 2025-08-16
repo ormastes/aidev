@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { TestResult, createDefaultTestResult } from '../domain/test-result';
 import { TestConfiguration } from '../domain/test-configuration';
 

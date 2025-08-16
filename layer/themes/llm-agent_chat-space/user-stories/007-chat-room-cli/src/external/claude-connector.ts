@@ -7,7 +7,7 @@
  * Mock-free implementation designed for real API integration.
  */
 
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 export interface ClaudeConfig {
   apiKey?: string;
@@ -19,7 +19,7 @@ export interface ClaudeConfig {
 }
 
 export interface ClaudeMessage {
-  role: 'system' | 'user' | 'assistant';
+  role: 'system' | 'user' | "assistant";
   content: string;
 }
 
@@ -85,7 +85,7 @@ When asked to perform addition or other math operations:
 
     this.isInitialized = true;
     
-    this.emit('initialized', {
+    this.emit("initialized", {
       model: this.config.model,
       mathEnabled: this.config.enableMath
     });
@@ -116,11 +116,11 @@ When asked to perform addition or other math operations:
     
     // Add to history
     this.conversationHistory.push({
-      role: 'assistant',
+      role: "assistant",
       content: response.content
     });
 
-    this.emit('response', response);
+    this.emit("response", response);
     return response;
   }
 
@@ -155,7 +155,7 @@ When asked to perform addition or other math operations:
     };
 
     this.conversationHistory.push({
-      role: 'assistant',
+      role: "assistant",
       content: responseContent
     });
 
@@ -253,7 +253,7 @@ When asked to perform addition or other math operations:
       explanation: `The sum of ${num1} and ${num2} is ${num1 + num2}`
     };
     
-    this.emit('calculation', result);
+    this.emit("calculation", result);
     return result;
   }
 
@@ -303,7 +303,7 @@ When asked to perform addition or other math operations:
    * Get current configuration
    */
   getConfig(): ClaudeConfig {
-    return { ...this.config, apiKey: '***' }; // Hide API key
+    return { ...this.config, apiKey: process.env.API_KEY || "PLACEHOLDER" }; // Hide API key
   }
 
   /**

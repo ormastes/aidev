@@ -5,7 +5,7 @@
 
 import { http } from '../../../infra_external-log-lib/src';
 import * as WebSocket from 'ws';
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface MCPServerConfig {
@@ -36,7 +36,7 @@ export class MCPServer extends EventEmitter {
       name: config?.name || 'mcp-server',
       version: config?.version || '1.0.0',
       port: config?.port || 3456,
-      host: config?.host || 'localhost',
+      host: config?.host || "localhost",
       capabilities: config?.capabilities || {
         tools: true,
         streaming: true,
@@ -76,11 +76,11 @@ export class MCPServer extends EventEmitter {
       // Create WebSocket server
       this.wsServer = new WebSocket.Server({ server: this.httpServer });
 
-      this.wsServer.on('connection', (ws: WebSocket, req: http.IncomingMessage) => {
+      this.wsServer.on("connection", (ws: WebSocket, req: http.IncomingMessage) => {
         const connectionId = uuidv4();
         this.connections.set(connectionId, ws);
         
-        this.emit('connection', { connectionId, request: req });
+        this.emit("connection", { connectionId, request: req });
 
         ws.on('message', (data: WebSocket.Data) => {
           try {
@@ -93,7 +93,7 @@ export class MCPServer extends EventEmitter {
 
         ws.on('close', () => {
           this.connections.delete(connectionId);
-          this.emit('disconnection', { connectionId });
+          this.emit("disconnection", { connectionId });
         });
 
         ws.on('error', (error) => {
@@ -103,7 +103,7 @@ export class MCPServer extends EventEmitter {
         // Send initialization message
         this.sendMessage(connectionId, {
           jsonrpc: '2.0',
-          method: 'initialize',
+          method: "initialize",
           params: {
             protocolVersion: '2024-11-05',
             capabilities: this.config.capabilities,
@@ -239,7 +239,7 @@ export class MCPServer extends EventEmitter {
    * Handle MCP response
    */
   private handleResponse(connectionId: string, response: any): void {
-    this.emit('response', { connectionId, response });
+    this.emit("response", { connectionId, response });
   }
 
   /**

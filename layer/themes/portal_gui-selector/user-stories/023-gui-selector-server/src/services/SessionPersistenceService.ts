@@ -43,7 +43,7 @@ export class SessionPersistenceService {
     this.defaultOptions = {
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
       rolling: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === "production",
       httpOnly: true,
       sameSite: 'lax',
       path: '/',
@@ -577,7 +577,7 @@ export class SessionPersistenceService {
                 req.session.data
               );
               req.session.id = newSession.sessionId;
-              res.cookie('sessionId', newSession.sessionId, {
+              res.cookie("sessionId", newSession.sessionId, {
                 maxAge: this.defaultOptions.maxAge,
                 httpOnly: this.defaultOptions.httpOnly,
                 secure: this.defaultOptions.secure,

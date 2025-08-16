@@ -39,7 +39,7 @@ export interface QemuSharedFolder {
   hostPath: string;
   guestPath: string;
   readonly?: boolean;
-  protocol?: '9p' | 'virtiofs';
+  protocol?: '9p' | "virtiofs";
 }
 
 export interface QemuDebugConfig {

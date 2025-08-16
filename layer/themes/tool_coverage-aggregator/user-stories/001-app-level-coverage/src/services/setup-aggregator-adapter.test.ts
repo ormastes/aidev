@@ -1,7 +1,7 @@
 import { SetupAggregatorAdapter } from './setup-aggregator-adapter';
 
-describe('SetupAggregatorAdapter', () => {
-  describe('convertThemeMetrics', () => {
+describe("SetupAggregatorAdapter", () => {
+  describe("convertThemeMetrics", () => {
     it('should convert setup theme metrics to aggregated coverage format', () => {
       const setupMetrics = {
         name: 'test-theme',
@@ -88,7 +88,7 @@ describe('SetupAggregatorAdapter', () => {
     });
   });
 
-  describe('convertMultipleThemes', () => {
+  describe("convertMultipleThemes", () => {
     it('should convert multiple theme metrics', () => {
       const setupThemes = [
         {
@@ -149,7 +149,7 @@ describe('SetupAggregatorAdapter', () => {
     });
   });
 
-  describe('createAppCoverageFromSetup', () => {
+  describe("createAppCoverageFromSetup", () => {
     it('should create aggregated app coverage from setup themes', () => {
       const setupThemes = [
         {

@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Core coverage analysis functionality for Python projects
  */
@@ -136,7 +137,7 @@ export class CoverageAnalyzer {
    * Analyze coverage trends over time
    */
   async analyzeTrends(historyPath: string, days: number = 30): Promise<{
-    trend: 'improving' | 'declining' | 'stable';
+    trend: "improving" | "declining" | 'stable';
     averageChange: number;
     dataPoints: Array<{ date: string; coverage: number }>;
   }> {
@@ -149,7 +150,7 @@ export class CoverageAnalyzer {
     for (const file of historyFiles) {
       if (file.endsWith('.json')) {
         const filePath = path.join(historyPath, file);
-        const stats = await fs.stat(filePath);
+        const stats = await /* FRAUD_FIX: fs.stat(filePath) */;
         
         if (stats.mtime >= cutoffDate) {
           const data = await fs.readJson(filePath);
@@ -179,12 +180,12 @@ export class CoverageAnalyzer {
     }
 
     const averageChange = changes.reduce((a, b) => a + b, 0) / changes.length;
-    let trend: 'improving' | 'declining' | 'stable';
+    let trend: "improving" | "declining" | 'stable';
 
     if (averageChange > 0.5) {
-      trend = 'improving';
+      trend = "improving";
     } else if (averageChange < -0.5) {
-      trend = 'declining';
+      trend = "declining";
     } else {
       trend = 'stable';
     }

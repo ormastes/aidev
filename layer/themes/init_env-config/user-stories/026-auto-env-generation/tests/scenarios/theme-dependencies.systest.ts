@@ -31,7 +31,7 @@ describe('Scenario: Service discovery URLs are automatically included when theme
     ];
     
     for (const service of services) {
-      for (const env of ['development', 'test', 'release', 'shared']) {
+      for (const env of ["development", 'test', 'release', 'shared']) {
         try {
           await serviceDiscovery.unregisterService(service, env);
         } catch (e) {
@@ -46,7 +46,7 @@ describe('Scenario: Service discovery URLs are automatically included when theme
     await serviceDiscovery.registerService({
       name: 'auth-theme',
       port: 4000,
-      environment: 'development',
+      environment: "development",
       healthCheckPath: '/health'
     });
     
@@ -54,13 +54,13 @@ describe('Scenario: Service discovery URLs are automatically included when theme
     await serviceDiscovery.registerService({
       name: 'user-theme',
       port: 4001,
-      environment: 'development',
+      environment: "development",
       dependencies: ['auth-theme']
     });
     
     // When: Generating env file for user theme
     const config: EnvGeneratorConfig = {
-      environment: 'development',
+      environment: "development",
       serviceName: 'user-theme',
       servicePort: 4001
     };
@@ -77,32 +77,32 @@ describe('Scenario: Service discovery URLs are automatically included when theme
     await serviceDiscovery.registerService({
       name: 'auth-theme',
       port: 4000,
-      environment: 'development'
+      environment: "development"
     });
     
     await serviceDiscovery.registerService({
       name: 'user-theme',
       port: 4001,
-      environment: 'development'
+      environment: "development"
     });
     
     await serviceDiscovery.registerService({
       name: 'api-gateway-theme',
       port: 8080,
-      environment: 'development',
+      environment: "development",
       dependencies: ['auth-theme', 'user-theme']
     });
     
     await serviceDiscovery.registerService({
       name: 'frontend-theme',
       port: 3000,
-      environment: 'development',
+      environment: "development",
       dependencies: ['api-gateway-theme']
     });
     
     // When: Generating env file for frontend theme
     const config: EnvGeneratorConfig = {
-      environment: 'development',
+      environment: "development",
       serviceName: 'frontend-theme',
       servicePort: 3000
     };
@@ -124,17 +124,17 @@ describe('Scenario: Service discovery URLs are automatically included when theme
       healthCheckPath: '/health'
     });
     
-    // And: API service in 'development' that depends on shared cache
+    // And: API service in "development" that depends on shared cache
     await serviceDiscovery.registerService({
       name: 'api-theme',
       port: 5000,
-      environment: 'development',
+      environment: "development",
       dependencies: ['shared-cache-theme']
     });
     
     // When: Generating env file for API theme
     const config: EnvGeneratorConfig = {
-      environment: 'development',
+      environment: "development",
       serviceName: 'api-theme',
       servicePort: 5000
     };
@@ -151,27 +151,27 @@ describe('Scenario: Service discovery URLs are automatically included when theme
     await serviceDiscovery.registerService({
       name: 'service-a',
       port: 7001,
-      environment: 'development',
+      environment: "development",
       dependencies: ['service-b']
     });
     
     await serviceDiscovery.registerService({
       name: 'service-b',
       port: 7002,
-      environment: 'development',
+      environment: "development",
       dependencies: ['service-c']
     });
     
     await serviceDiscovery.registerService({
       name: 'service-c',
       port: 7003,
-      environment: 'development',
+      environment: "development",
       dependencies: ['service-a'] // Creates circular dependency
     });
     
     // When: Generating env file for service-a
     const config: EnvGeneratorConfig = {
-      environment: 'development',
+      environment: "development",
       serviceName: 'service-a',
       servicePort: 7001
     };
@@ -195,28 +195,28 @@ describe('Scenario: Service discovery URLs are automatically included when theme
     await serviceDiscovery.registerService({
       name: 'healthy-service',
       port: 8001,
-      environment: 'development'
+      environment: "development"
     });
     
     await serviceDiscovery.registerService({
       name: 'unhealthy-service',
       port: 8002,
-      environment: 'development'
+      environment: "development"
     });
     
     // Mark one service as unhealthy
-    await serviceDiscovery.updateServiceStatus('unhealthy-service', 'development', 'unhealthy');
+    await serviceDiscovery.updateServiceStatus('unhealthy-service', "development", "unhealthy");
     
     await serviceDiscovery.registerService({
       name: 'consumer-service',
       port: 8003,
-      environment: 'development',
+      environment: "development",
       dependencies: ['healthy-service', 'unhealthy-service']
     });
     
     // When: Generating env file for consumer service
     const config: EnvGeneratorConfig = {
-      environment: 'development',
+      environment: "development",
       serviceName: 'consumer-service',
       servicePort: 8003
     };
@@ -331,32 +331,32 @@ describe('Scenario: Service discovery URLs are automatically included when theme
     await serviceDiscovery.registerService({
       name: 'service-x',
       port: 9001,
-      environment: 'development',
+      environment: "development",
       dependencies: ['service-y']
     });
     
     await serviceDiscovery.registerService({
       name: 'service-y',
       port: 9002,
-      environment: 'development'
+      environment: "development"
     });
     
     // When: Service X is re-registered with new dependencies
     await serviceDiscovery.registerService({
       name: 'service-x',
       port: 9001,
-      environment: 'development',
+      environment: "development",
       dependencies: ['service-y', 'service-z']
     });
     
     await serviceDiscovery.registerService({
       name: 'service-z',
       port: 9003,
-      environment: 'development'
+      environment: "development"
     });
     
     const config: EnvGeneratorConfig = {
-      environment: 'development',
+      environment: "development",
       serviceName: 'service-x',
       servicePort: 9001
     };

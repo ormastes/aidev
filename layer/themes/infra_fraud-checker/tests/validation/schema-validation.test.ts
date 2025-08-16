@@ -15,7 +15,7 @@ describe('Schema Validation Tests', () => {
   describe('FraudCheckResult Schema Validation', () => {
     const fraudCheckResultSchema = {
       type: 'object',
-      required: ['passed', 'score', 'violations', 'metrics'],
+      required: ['passed', 'score', "violations", 'metrics'],
       properties: {
         passed: { type: 'boolean' },
         score: { type: 'number', minimum: 0, maximum: 100 },
@@ -23,7 +23,7 @@ describe('Schema Validation Tests', () => {
           type: 'array',
           items: {
             type: 'object',
-            required: ['type', 'severity', 'message', 'location'],
+            required: ['type', "severity", 'message', "location"],
             properties: {
               type: { 
                 type: 'string',
@@ -31,7 +31,7 @@ describe('Schema Validation Tests', () => {
               },
               severity: {
                 type: 'string',
-                enum: ['critical', 'high', 'medium', 'low']
+                enum: ["critical", 'high', 'medium', 'low']
               },
               message: { type: 'string', minLength: 1 },
               location: { type: 'string', minLength: 1 },
@@ -59,7 +59,7 @@ describe('Schema Validation Tests', () => {
         },
         metrics: {
           type: 'object',
-          required: ['filesChecked', 'totalTests', 'skippedTests', 'emptyTests', 'suspiciousPatterns'],
+          required: ["filesChecked", "totalTests", "skippedTests", "emptyTests", "suspiciousPatterns"],
           properties: {
             filesChecked: { type: 'number', minimum: 0 },
             totalTests: { type: 'number', minimum: 0 },
@@ -110,7 +110,7 @@ describe('Schema Validation Tests', () => {
           },
           {
             type: 'fake-assertions',
-            severity: 'critical',
+            severity: "critical",
             message: 'Always-true assertion found',
             location: 'test.ts:15:8'
           }
@@ -146,7 +146,7 @@ describe('Schema Validation Tests', () => {
       
       const errors = validate.errors || [];
       expect(errors.length).toBeGreaterThan(0);
-      expect(errors.some(e => e.keyword === 'required')).toBe(true);
+      expect(errors.some(e => e.keyword === "required")).toBe(true);
     });
 
     it('should reject invalid fraud check result - invalid score range', () => {
@@ -202,11 +202,11 @@ describe('Schema Validation Tests', () => {
   describe('TestAnalysis Schema Validation', () => {
     const testAnalysisSchema = {
       type: 'object',
-      required: ['metrics', 'quality', 'suspicious'],
+      required: ['metrics', 'quality', "suspicious"],
       properties: {
         metrics: {
           type: 'object',
-          required: ['totalTests', 'passedTests', 'failedTests', 'skippedTests', 'testDuration', 'averageTestTime'],
+          required: ["totalTests", "passedTests", "failedTests", "skippedTests", "testDuration", "averageTestTime"],
           properties: {
             totalTests: { type: 'number', minimum: 0 },
             passedTests: { type: 'number', minimum: 0 },
@@ -218,7 +218,7 @@ describe('Schema Validation Tests', () => {
         },
         quality: {
           type: 'object',
-          required: ['hasEnoughTests', 'testCoverageRatio', 'skipRatio', 'failureRatio'],
+          required: ["hasEnoughTests", "testCoverageRatio", "skipRatio", "failureRatio"],
           properties: {
             hasEnoughTests: { type: 'boolean' },
             testCoverageRatio: { type: 'number', minimum: 0 },
@@ -228,7 +228,7 @@ describe('Schema Validation Tests', () => {
         },
         suspicious: {
           type: 'object',
-          required: ['tooFastTests', 'identicalTests', 'noAssertionTests'],
+          required: ["tooFastTests", "identicalTests", "noAssertionTests"],
           properties: {
             tooFastTests: { type: 'number', minimum: 0 },
             identicalTests: { type: 'number', minimum: 0 },
@@ -302,12 +302,12 @@ describe('Schema Validation Tests', () => {
   describe('FraudReport Schema Validation', () => {
     const fraudReportSchema = {
       type: 'object',
-      required: ['timestamp', 'summary', 'details', 'violations'],
+      required: ["timestamp", 'summary', 'details', "violations"],
       properties: {
         timestamp: { type: 'string', format: 'date-time' },
         summary: {
           type: 'object',
-          required: ['overallScore', 'passed', 'totalViolations', 'criticalViolations', 'recommendation'],
+          required: ["overallScore", 'passed', "totalViolations", "criticalViolations", "recommendation"],
           properties: {
             overallScore: { type: 'number', minimum: 0, maximum: 100 },
             passed: { type: 'boolean' },
@@ -318,7 +318,7 @@ describe('Schema Validation Tests', () => {
         },
         details: {
           type: 'object',
-          required: ['fraudCheck'],
+          required: ["fraudCheck"],
           properties: {
             fraudCheck: { 
               // Reference to FraudCheckResult schema
@@ -332,11 +332,11 @@ describe('Schema Validation Tests', () => {
         },
         violations: {
           type: 'object',
-          required: ['bySeverity', 'byType'],
+          required: ["bySeverity", 'byType'],
           properties: {
             bySeverity: {
               type: 'object',
-              required: ['critical', 'high', 'medium', 'low'],
+              required: ["critical", 'high', 'medium', 'low'],
               properties: {
                 critical: { type: 'array' },
                 high: { type: 'array' },
@@ -376,7 +376,7 @@ describe('Schema Validation Tests', () => {
             violations: [
               {
                 type: 'fake-assertions',
-                severity: 'critical',
+                severity: "critical",
                 message: 'Always-true assertion',
                 location: 'test.ts:5:2'
               }
@@ -395,7 +395,7 @@ describe('Schema Validation Tests', () => {
             critical: [
               {
                 type: 'fake-assertions',
-                severity: 'critical',
+                severity: "critical",
                 message: 'Always-true assertion',
                 location: 'test.ts:5:2'
               }
@@ -410,7 +410,7 @@ describe('Schema Validation Tests', () => {
             'fake-assertions': [
               {
                 type: 'fake-assertions',
-                severity: 'critical',
+                severity: "critical",
                 message: 'Always-true assertion',
                 location: 'test.ts:5:2'
               }
@@ -498,7 +498,7 @@ describe('Schema Validation Tests', () => {
       const isValid = validate(invalidReport);
 
       expect(isValid).toBe(false);
-      expect(validate.errors?.some(error => error.keyword === 'required')).toBe(true);
+      expect(validate.errors?.some(error => error.keyword === "required")).toBe(true);
     });
   });
 
@@ -516,7 +516,7 @@ describe('Schema Validation Tests', () => {
           },
           {
             type: 'fake-assertions',
-            severity: 'critical',
+            severity: "critical",
             message: 'Always true',
             location: 'test.ts:2:1'
           }
@@ -531,7 +531,7 @@ describe('Schema Validation Tests', () => {
       };
 
       // Simulate report generation logic
-      const criticalViolations = fraudCheckResult.violations.filter(v => v.severity === 'critical').length;
+      const criticalViolations = fraudCheckResult.violations.filter(v => v.severity === "critical").length;
       const totalViolations = fraudCheckResult.violations.length;
 
       expect(criticalViolations).toBe(1);
@@ -543,14 +543,14 @@ describe('Schema Validation Tests', () => {
     it('should validate violation categorization consistency', () => {
       const violations = [
         { type: 'test-manipulation', severity: 'high', message: 'High violation', location: 'test1.ts' },
-        { type: 'fake-assertions', severity: 'critical', message: 'Critical violation', location: 'test2.ts' },
+        { type: 'fake-assertions', severity: "critical", message: 'Critical violation', location: 'test2.ts' },
         { type: 'disabled-tests', severity: 'medium', message: 'Medium violation', location: 'test3.ts' },
         { type: 'coverage-bypass', severity: 'low', message: 'Low violation', location: 'test4.ts' }
       ];
 
       // Simulate categorization logic
       const bySeverity = {
-        critical: violations.filter(v => v.severity === 'critical'),
+        critical: violations.filter(v => v.severity === "critical"),
         high: violations.filter(v => v.severity === 'high'),
         medium: violations.filter(v => v.severity === 'medium'),
         low: violations.filter(v => v.severity === 'low')
@@ -619,14 +619,14 @@ describe('Schema Validation Tests', () => {
 
       const fraudCheckResultSchema = {
         type: 'object',
-        required: ['passed', 'score', 'violations', 'metrics'],
+        required: ['passed', 'score', "violations", 'metrics'],
         properties: {
           passed: { type: 'boolean' },
           score: { type: 'number', minimum: 0, maximum: 100 },
           violations: { type: 'array' },
           metrics: {
             type: 'object',
-            required: ['filesChecked', 'totalTests', 'skippedTests', 'emptyTests', 'suspiciousPatterns'],
+            required: ["filesChecked", "totalTests", "skippedTests", "emptyTests", "suspiciousPatterns"],
             properties: {
               filesChecked: { type: 'number', minimum: 0 },
               totalTests: { type: 'number', minimum: 0 },
@@ -668,7 +668,7 @@ describe('Schema Validation Tests', () => {
 
       const fraudCheckResultSchema = {
         type: 'object',
-        required: ['passed', 'score', 'violations', 'metrics'],
+        required: ['passed', 'score', "violations", 'metrics'],
         properties: {
           passed: { type: 'boolean' },
           score: { type: 'number', minimum: 0, maximum: 100 },

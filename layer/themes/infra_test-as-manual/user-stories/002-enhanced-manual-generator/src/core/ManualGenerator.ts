@@ -196,7 +196,7 @@ export class ManualGenerator {
    */
   async export(
     document: TestDocument, 
-    format: 'html' | 'pdf' | 'markdown' | 'json'
+    format: 'html' | 'pdf' | "markdown" | 'json'
   ): Promise<string> {
     return this.documentBuilder.export(document, format);
   }

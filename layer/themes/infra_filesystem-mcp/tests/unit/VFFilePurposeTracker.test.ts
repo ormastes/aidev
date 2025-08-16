@@ -6,14 +6,14 @@ import { VFFilePurposeTracker, FilePurpose, PurposeSearchParams } from '../../ch
 import { VFNameIdWrapper } from '../../children/VFNameIdWrapper';
 import * as fs from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
-import { createHash } from 'crypto';
+import { createHash } from 'node:crypto';
 
 // Mock dependencies
 jest.mock('../../children/VFNameIdWrapper');
 jest.mock('fs/promises');
 jest.mock('crypto');
 
-describe('VFFilePurposeTracker', () => {
+describe("VFFilePurposeTracker", () => {
   let tracker: VFFilePurposeTracker;
   let mockNameIdWrapper: jest.Mocked<VFNameIdWrapper>;
   const basePath = '/test/base/path';
@@ -24,7 +24,7 @@ describe('VFFilePurposeTracker', () => {
     mockNameIdWrapper = (VFNameIdWrapper as jest.MockedClass<typeof VFNameIdWrapper>).mock.instances[0] as any;
   });
 
-  describe('registerFile', () => {
+  describe("registerFile", () => {
     it('should successfully register a file with purpose', async () => {
       // Mock file existence
       (fs.stat as jest.Mock).mockResolvedValue({
@@ -35,7 +35,7 @@ describe('VFFilePurposeTracker', () => {
       // Mock content hash
       (createHash as jest.Mock).mockReturnValue({
         update: jest.fn().mockReturnThis(),
-        digest: jest.fn().mockReturnValue('abc123hash')
+        digest: jest.fn().mockReturnValue("abc123hash")
       });
 
       // Mock file reading for hash
@@ -85,7 +85,7 @@ describe('VFFilePurposeTracker', () => {
       // Mock content hash
       (createHash as jest.Mock).mockReturnValue({
         update: jest.fn().mockReturnThis(),
-        digest: jest.fn().mockReturnValue('abc123hash')
+        digest: jest.fn().mockReturnValue("abc123hash")
       });
 
       (fs.readFile as jest.Mock).mockResolvedValue(Buffer.from('file content'));
@@ -97,7 +97,7 @@ describe('VFFilePurposeTracker', () => {
         purpose: 'test file for unit testing',
         theme: 'test-theme',
         metadata: {
-          contentHash: 'abc123hash',
+          contentHash: "abc123hash",
           size: 1024,
           createdAt: '2025-08-13T10:00:00.000Z',
           updatedAt: '2025-08-13T10:00:00.000Z'
@@ -148,7 +148,7 @@ describe('VFFilePurposeTracker', () => {
 
       (createHash as jest.Mock).mockReturnValue({
         update: jest.fn().mockReturnThis(),
-        digest: jest.fn().mockReturnValue('abc123hash')
+        digest: jest.fn().mockReturnValue("abc123hash")
       });
 
       (fs.readFile as jest.Mock).mockResolvedValue(Buffer.from('file content'));
@@ -193,7 +193,7 @@ describe('VFFilePurposeTracker', () => {
     });
   });
 
-  describe('searchByPurpose', () => {
+  describe("searchByPurpose", () => {
     const mockPurposes: FilePurpose[] = [
       {
         id: 'file-001',
@@ -213,7 +213,7 @@ describe('VFFilePurposeTracker', () => {
         id: 'file-002',
         filePath: 'src/config.ts',
         purpose: 'Configuration management',
-        theme: 'platform',
+        theme: "platform",
         directory: 'src',
         metadata: {
           contentHash: 'hash2',
@@ -310,7 +310,7 @@ describe('VFFilePurposeTracker', () => {
     });
   });
 
-  describe('validateFileCreation', () => {
+  describe("validateFileCreation", () => {
     it('should prevent file creation without registration', async () => {
       mockNameIdWrapper.read.mockResolvedValue({});
 
@@ -357,7 +357,7 @@ describe('VFFilePurposeTracker', () => {
     });
   });
 
-  describe('getHierarchy', () => {
+  describe("getHierarchy", () => {
     it('should build hierarchy tree from parent-child relationships', async () => {
       const purposes: FilePurpose[] = [
         {
@@ -400,7 +400,7 @@ describe('VFFilePurposeTracker', () => {
         {
           id: 'grandchild-001',
           filePath: 'grandchild.ts',
-          purpose: 'Grandchild',
+          purpose: "Grandchild",
           theme: 'test',
           parentId: 'child-001',
           metadata: {
@@ -487,7 +487,7 @@ describe('VFFilePurposeTracker', () => {
     });
   });
 
-  describe('validateAllFiles', () => {
+  describe("validateAllFiles", () => {
     it('should validate all registered files', async () => {
       const purposes: FilePurpose[] = [
         {

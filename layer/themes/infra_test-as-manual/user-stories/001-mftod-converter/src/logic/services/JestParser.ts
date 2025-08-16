@@ -4,7 +4,7 @@
  */
 
 import { TestScenario, TestStep, TestSuite } from '../entities/TestScenario';
-import * as ts from 'typescript';
+import * as ts from "typescript";
 
 export class JestParser {
   private scenarioCounter = 0;
@@ -75,7 +75,7 @@ export class JestParser {
       const callExpr = node as ts.CallExpression;
       const fnName = this.getCallExpressionName(callExpr);
       
-      if (fnName === 'describe' || fnName === 'context' || fnName === 'suite') {
+      if (fnName === "describe" || fnName === 'context' || fnName === 'suite') {
         const describeTitle = this.extractStringArgument(callExpr, 0);
         const fullDescribe = parentDescribe 
           ? `${parentDescribe} > ${describeTitle}`
@@ -132,7 +132,7 @@ export class JestParser {
       tags,
       isLeaf: true,
       isStartup: title.toLowerCase().includes('setup') || 
-                 title.toLowerCase().includes('initialize'),
+                 title.toLowerCase().includes("initialize"),
       parent: undefined,
       children: [],
       externalInteractions: []
@@ -253,7 +253,7 @@ export class JestParser {
     if (ts.isExpressionStatement(statement) && ts.isCallExpression(statement.expression)) {
       const callName = this.getCallExpressionName(statement.expression);
       
-      if (callName === 'beforeEach' || callName === 'beforeAll') {
+      if (callName === "beforeEach" || callName === "beforeAll") {
         return {
           id: `step-${++this.stepCounter}`,
           keyword: 'Given',
@@ -319,7 +319,7 @@ export class JestParser {
       'focus': 'Focus on',
       'blur': 'Blur',
       'submit': 'Submit',
-      'navigate': 'Navigate to',
+      "navigate": 'Navigate to',
       'goto': 'Go to',
       'waitFor': 'Wait for',
       'find': 'Find',
@@ -349,9 +349,9 @@ export class JestParser {
   private isActionCall(name: string): boolean {
     const actions = [
       'click', 'type', 'fill', 'select', 'check', 'uncheck',
-      'hover', 'focus', 'blur', 'submit', 'navigate', 'goto',
+      'hover', 'focus', 'blur', 'submit', "navigate", 'goto',
       'waitFor', 'find', 'get', 'query', 'press', 'clear',
-      'upload', 'download', 'scroll', 'drag', 'drop'
+      'upload', "download", 'scroll', 'drag', 'drop'
     ];
     
     return actions.includes(name.toLowerCase());
@@ -362,8 +362,8 @@ export class JestParser {
    */
   private isExternalAction(name: string): boolean {
     const externalActions = [
-      'navigate', 'goto', 'fetch', 'request', 'post', 'put',
-      'delete', 'upload', 'download', 'submit'
+      "navigate", 'goto', 'fetch', 'request', 'post', 'put',
+      'delete', 'upload', "download", 'submit'
     ];
     
     return externalActions.includes(name.toLowerCase());
@@ -450,13 +450,13 @@ export class JestParser {
     }
     
     // Add category based on common patterns
-    if (title.includes('API') || title.includes('endpoint')) {
+    if (title.includes('API') || title.includes("endpoint")) {
       tags.push('@api');
     }
-    if (title.includes('UI') || title.includes('component')) {
+    if (title.includes('UI') || title.includes("component")) {
       tags.push('@ui');
     }
-    if (title.includes('integration')) {
+    if (title.includes("integration")) {
       tags.push('@integration');
     }
     
@@ -471,24 +471,24 @@ export class JestParser {
       'toBe': 'is',
       'toEqual': 'equals',
       'toMatch': 'matches',
-      'toBeTruthy': 'is truthy',
-      'toBeFalsy': 'is falsy',
-      'toBeNull': 'is null',
-      'toBeUndefined': 'is undefined',
-      'toBeDefined': 'is defined',
-      'toContain': 'contains',
-      'toHaveLength': 'has length',
-      'toBeGreaterThan': 'is greater than',
-      'toBeLessThan': 'is less than',
-      'toHaveBeenCalled': 'was called',
-      'toHaveBeenCalledWith': 'was called with',
+      "toBeTruthy": 'is truthy',
+      "toBeFalsy": 'is falsy',
+      "toBeNull": 'is null',
+      "toBeUndefined": 'is undefined',
+      "toBeDefined": 'is defined',
+      "toContain": "contains",
+      "toHaveLength": 'has length',
+      "toBeGreaterThan": 'is greater than',
+      "toBeLessThan": 'is less than',
+      "toHaveBeenCalled": 'was called',
+      "toHaveBeenCalledWith": 'was called with',
       'toThrow': 'throws',
-      'toBeVisible': 'is visible',
-      'toBeDisabled': 'is disabled',
-      'toBeEnabled': 'is enabled',
-      'toHaveClass': 'has class',
-      'toHaveText': 'has text',
-      'toHaveValue': 'has value'
+      "toBeVisible": 'is visible',
+      "toBeDisabled": 'is disabled',
+      "toBeEnabled": 'is enabled',
+      "toHaveClass": 'has class',
+      "toHaveText": 'has text',
+      "toHaveValue": 'has value'
     };
     
     return matchers[matcher] || matcher.replace(/^to/, '').toLowerCase();

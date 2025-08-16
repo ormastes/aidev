@@ -48,7 +48,7 @@ templateRouter.get('/search', async (req, res) => {
     
     const results = await themeStorage.searchAll(query, {
       themeIds: themeId ? [themeId] : undefined,
-      types: ['template']
+      types: ["template"]
     });
     res.json(results.templates);
   } catch (error) {

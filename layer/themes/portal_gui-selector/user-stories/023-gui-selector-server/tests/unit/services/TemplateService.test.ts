@@ -5,7 +5,7 @@ import { logger } from '../../../src/utils/logger';
 // Mock dependencies
 jest.mock('../../../src/utils/logger');
 
-describe('TemplateService', () => {
+describe("TemplateService", () => {
   let service: TemplateService;
   // Logger is mocked globally
 
@@ -20,7 +20,7 @@ describe('TemplateService', () => {
     jest.useRealTimers();
   });
 
-  describe('listTemplates', () => {
+  describe("listTemplates", () => {
     it('should return all available templates', async () => {
       const templatesPromise = service.listTemplates();
       jest.runAllTimers();
@@ -64,21 +64,21 @@ describe('TemplateService', () => {
       templates.forEach(template => {
         expect(template).toHaveProperty('id');
         expect(template).toHaveProperty('name');
-        expect(template).toHaveProperty('description');
-        expect(template).toHaveProperty('category');
-        expect(template).toHaveProperty('previewUrl');
-        expect(template).toHaveProperty('thumbnailUrl');
-        expect(template).toHaveProperty('features');
-        expect(template).toHaveProperty('metadata');
+        expect(template).toHaveProperty("description");
+        expect(template).toHaveProperty("category");
+        expect(template).toHaveProperty("previewUrl");
+        expect(template).toHaveProperty("thumbnailUrl");
+        expect(template).toHaveProperty("features");
+        expect(template).toHaveProperty("metadata");
         expect(template.metadata).toHaveProperty('author');
         expect(template.metadata).toHaveProperty('version');
-        expect(template.metadata).toHaveProperty('lastUpdated');
+        expect(template.metadata).toHaveProperty("lastUpdated");
         expect(template.metadata).toHaveProperty('tags');
       });
     });
   });
 
-  describe('getTemplate', () => {
+  describe("getTemplate", () => {
     it('should return template by id', async () => {
       const templatePromise = service.getTemplate('modern-01');
       jest.runAllTimers();
@@ -113,7 +113,7 @@ describe('TemplateService', () => {
     });
   });
 
-  describe('getTemplatePreview', () => {
+  describe("getTemplatePreview", () => {
     it('should return preview data for existing template', async () => {
       const previewPromise = service.getTemplatePreview('modern-01');
       jest.runAllTimers();
@@ -163,7 +163,7 @@ describe('TemplateService', () => {
     });
   });
 
-  describe('searchTemplates', () => {
+  describe("searchTemplates", () => {
     it('should find templates by name', async () => {
       const searchPromise = service.searchTemplates('modern');
       jest.runAllTimers();
@@ -174,7 +174,7 @@ describe('TemplateService', () => {
     });
 
     it('should find templates by description', async () => {
-      const searchPromise = service.searchTemplates('minimalist');
+      const searchPromise = service.searchTemplates("minimalist");
       jest.runAllTimers();
       const results = await searchPromise;
       
@@ -183,7 +183,7 @@ describe('TemplateService', () => {
     });
 
     it('should find templates by tags', async () => {
-      const searchPromise = service.searchTemplates('portfolio');
+      const searchPromise = service.searchTemplates("portfolio");
       jest.runAllTimers();
       const results = await searchPromise;
       
@@ -204,7 +204,7 @@ describe('TemplateService', () => {
     });
 
     it('should return empty array for no matches', async () => {
-      const searchPromise = service.searchTemplates('nonexistent');
+      const searchPromise = service.searchTemplates("nonexistent");
       jest.runAllTimers();
       const results = await searchPromise;
       
@@ -231,7 +231,7 @@ describe('TemplateService', () => {
     });
   });
 
-  describe('getTemplatesByCategory', () => {
+  describe("getTemplatesByCategory", () => {
     it('should return templates for modern category', async () => {
       const templatesPromise = service.getTemplatesByCategory('modern');
       jest.runAllTimers();
@@ -242,7 +242,7 @@ describe('TemplateService', () => {
     });
 
     it('should return templates for professional category', async () => {
-      const templatesPromise = service.getTemplatesByCategory('professional');
+      const templatesPromise = service.getTemplatesByCategory("professional");
       jest.runAllTimers();
       const templates = await templatesPromise;
       
@@ -251,7 +251,7 @@ describe('TemplateService', () => {
     });
 
     it('should return templates for creative category', async () => {
-      const templatesPromise = service.getTemplatesByCategory('creative');
+      const templatesPromise = service.getTemplatesByCategory("creative");
       jest.runAllTimers();
       const templates = await templatesPromise;
       
@@ -260,7 +260,7 @@ describe('TemplateService', () => {
     });
 
     it('should return templates for accessible category', async () => {
-      const templatesPromise = service.getTemplatesByCategory('accessible');
+      const templatesPromise = service.getTemplatesByCategory("accessible");
       jest.runAllTimers();
       const templates = await templatesPromise;
       
@@ -333,7 +333,7 @@ describe('TemplateService', () => {
     });
   });
 
-  describe('simulateDelay', () => {
+  describe("simulateDelay", () => {
     it('should add consistent delay to all operations', async () => {
       const operations = [
         service.listTemplates(),

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
 import { Coordinator, CoordinatorConfig } from '../../src/core/coordinator';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import * as fs from 'fs/promises';
 import { path } from '../../../../../infra_external-log-lib/src';
 
@@ -15,7 +15,7 @@ describe('Coordinator Unit Tests', () => {
     await fs.mkdir(tempDir, { recursive: true });
 
     config = {
-      apiKey: 'test-api-key',
+      api_key: process.env.API_KEY || "PLACEHOLDER",
       sessionStorageDir: tempDir,
       taskQueuePath: path.join(tempDir, 'TASK_QUEUE.md'),
       autoStart: false,
@@ -82,7 +82,7 @@ describe('Coordinator Unit Tests', () => {
       await coordinator.start();
       
       const interruptedHandler = jest.fn();
-      coordinator.on('interrupted', interruptedHandler);
+      coordinator.on("interrupted", interruptedHandler);
 
       await coordinator.interrupt();
 
@@ -212,7 +212,7 @@ describe('Coordinator Unit Tests', () => {
     });
   });
 
-  describe('integrations', () => {
+  describe("integrations", () => {
     it('should handle missing chat-space gracefully', async () => {
       const warningHandler = jest.fn();
       coordinator.on('warning', warningHandler);

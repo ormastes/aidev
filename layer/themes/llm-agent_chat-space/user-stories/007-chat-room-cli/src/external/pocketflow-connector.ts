@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 // Interface definitions based on integration contracts
 export interface WorkflowDefinition {
@@ -6,7 +6,7 @@ export interface WorkflowDefinition {
   name: string;
   description: string;
   trigger: {
-    type: 'chat_command' | 'file_change' | 'schedule' | 'manual';
+    type: 'chat_command' | 'file_change' | "schedule" | 'manual';
     config: Record<string, any>;
   };
   steps: WorkflowStep[];
@@ -17,7 +17,7 @@ export interface WorkflowDefinition {
 export interface WorkflowStep {
   id: string;
   name: string;
-  type: 'action' | 'condition' | 'loop';
+  type: 'action' | "condition" | 'loop';
   action?: string;
   condition?: string;
   params?: Record<string, any>;
@@ -33,7 +33,7 @@ export interface WorkflowOutput {
 export interface WorkflowExecution {
   id: string;
   workflowId: string;
-  status: 'pending' | 'running' | 'In Progress' | 'failed';
+  status: 'pending' | 'running' | "completed" | 'failed';
   startTime: Date;
   endTime?: Date;
   context: Record<string, any>;
@@ -76,7 +76,7 @@ export class PocketFlowConnector {
           name: 'Analyze Changes',
           type: 'action',
           action: 'code_analysis',
-          params: { rules: ['style', 'security', 'performance'] },
+          params: { rules: ['style', "security", "performance"] },
           next: ['generate-report']
         },
         {
@@ -169,7 +169,7 @@ export class PocketFlowConnector {
       ],
       outputs: [
         {
-          name: 'documentation',
+          name: "documentation",
           type: 'file',
           destination: 'docs/'
         }
@@ -272,7 +272,7 @@ export class PocketFlowConnector {
         });
       }
 
-      execution.status = 'In Progress';
+      execution.status = "completed";
       execution.endTime = new Date();
 
       // Process outputs
@@ -315,7 +315,7 @@ export class PocketFlowConnector {
         execution.results[step.id] = {
           issues: [
             { file: 'src/app.ts', line: 23, type: 'style', message: 'Missing semicolon' },
-            { file: 'src/utils.ts', line: 45, type: 'performance', message: 'Inefficient loop' }
+            { file: 'src/utils.ts', line: 45, type: "performance", message: 'Inefficient loop' }
           ]
         };
         break;

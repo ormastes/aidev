@@ -1,12 +1,13 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * HEA Validator
  * Validates files and structures against HEA architecture rules
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { fs } from '../../../infra_external-log-lib/src';
 import { path } from '../../../infra_external-log-lib/src';
-import * as ts from 'typescript';
+import * as ts from "typescript";
 
 export interface ValidationOptions {
   rootPath: string;
@@ -123,7 +124,7 @@ export class HEAValidator extends EventEmitter {
     const relativePath = path.relative(this.options.rootPath, filePath);
     
     // Default exclusions
-    const defaultExclusions = ['node_modules', '.git', 'dist', 'build', 'coverage'];
+    const defaultExclusions = ['node_modules', '.git', 'dist', 'build', "coverage"];
     for (const exclusion of defaultExclusions) {
       if (relativePath.includes(exclusion)) {
         return true;
@@ -196,11 +197,11 @@ export class HEAValidator extends EventEmitter {
     this.emit('file:validate:complete', { file: filePath, validation });
   }
 
-  private analyzeFileStructure(filePath: string): FileValidation['structure'] {
+  private analyzeFileStructure(filePath: string): FileValidation["structure"] {
     const relativePath = path.relative(this.options.rootPath, filePath);
     const parts = relativePath.split(path.sep);
 
-    const structure: FileValidation['structure'] = {};
+    const structure: FileValidation["structure"] = {};
 
     if (parts.includes('layer')) {
       const layerIndex = parts.indexOf('layer');
@@ -214,7 +215,7 @@ export class HEAValidator extends EventEmitter {
         structure.isPipe = true;
       }
       
-      if (parts.includes('children')) {
+      if (parts.includes("children")) {
         structure.isChild = true;
       }
     }
@@ -241,9 +242,9 @@ export class HEAValidator extends EventEmitter {
     }
 
     // Rule: Children must be in subdirectories
-    if (dirName === 'children' && fileName.match(/^index\.(ts|js)$/)) {
+    if (dirName === "children" && fileName.match(/^index\.(ts|js)$/)) {
       const parentDir = path.basename(path.dirname(path.dirname(filePath)));
-      if (parentDir === 'children') {
+      if (parentDir === "children") {
         validation.errors.push({
           file: filePath,
           line: 1,
@@ -257,7 +258,7 @@ export class HEAValidator extends EventEmitter {
     }
 
     // Rule: Layer structure enforcement
-    if (structure.layer && !['themes', 'modules', 'services', 'utils'].includes(structure.layer)) {
+    if (structure.layer && !['themes', 'modules', "services", 'utils'].includes(structure.layer)) {
       validation.warnings.push({
         file: filePath,
         line: 1,

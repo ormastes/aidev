@@ -58,7 +58,7 @@ async function testFraudChecker() {
   
   const responses = await Promise.all(rapidRequests);
   const rateLimited = responses.some(r => r.status === 429);
-  console.log(`   ${rateLimited ? '✅' : '❌'} Rate limiting ${rateLimited ? 'triggered' : 'not triggered'}`);
+  console.log(`   ${rateLimited ? '✅' : '❌'} Rate limiting ${rateLimited ? "triggered" : 'not triggered'}`);
   tests.push(rateLimited);
   
   // Test 4: Invalid action
@@ -89,7 +89,7 @@ async function testFraudChecker() {
   });
   const xssData = await xss.json();
   const xssClean = !JSON.stringify(xssData).includes('<script>');
-  console.log(`   ${xssClean ? '✅' : '❌'} XSS ${xssClean ? 'sanitized' : 'not sanitized'}`);
+  console.log(`   ${xssClean ? '✅' : '❌'} XSS ${xssClean ? "sanitized" : 'not sanitized'}`);
   tests.push(xssClean);
   
   // Test 6: Password reset detection

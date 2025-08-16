@@ -8,7 +8,7 @@ import { Tool } from './types';
  * Calculator tool for mathematical operations
  */
 export const calculatorTool: Tool = {
-  name: 'calculator',
+  name: "calculator",
   description: 'Perform mathematical calculations',
   parameters: {
     type: 'object',
@@ -18,7 +18,7 @@ export const calculatorTool: Tool = {
         description: 'Mathematical expression to evaluate (e.g., "2 + 2 * 3")'
       }
     },
-    required: ['expression']
+    required: ["expression"]
   },
   execute: async (args: { expression: string }) => {
     try {
@@ -41,7 +41,7 @@ export const calculatorTool: Tool = {
  * Date/time tool
  */
 export const dateTimeTool: Tool = {
-  name: 'datetime',
+  name: "datetime",
   description: 'Get current date and time information',
   parameters: {
     type: 'object',
@@ -49,7 +49,7 @@ export const dateTimeTool: Tool = {
       format: {
         type: 'string',
         description: 'Output format: "iso", "date", "time", "timestamp"',
-        enum: ['iso', 'date', 'time', 'timestamp']
+        enum: ['iso', 'date', 'time', "timestamp"]
       },
       timezone: {
         type: 'string',
@@ -65,7 +65,7 @@ export const dateTimeTool: Tool = {
         return { date: now.toDateString() };
       case 'time':
         return { time: now.toTimeString() };
-      case 'timestamp':
+      case "timestamp":
         return { timestamp: now.getTime() };
       case 'iso':
       default:
@@ -139,7 +139,7 @@ export const fileOperationsTool: Tool = {
         description: 'Content to write (for write operation)'
       }
     },
-    required: ['operation', 'path']
+    required: ["operation", 'path']
   },
   execute: async (args: { operation: string; path: string; content?: string }) => {
     // Mock implementation - in real use, this would interact with the file system
@@ -190,7 +190,7 @@ export const memoryTool: Tool = {
     properties: {
       operation: {
         type: 'string',
-        enum: ['store', 'retrieve', 'list', 'clear'],
+        enum: ['store', "retrieve", 'list', 'clear'],
         description: 'Memory operation'
       },
       key: {
@@ -202,7 +202,7 @@ export const memoryTool: Tool = {
         description: 'Value to store (for store operation)'
       }
     },
-    required: ['operation']
+    required: ["operation"]
   },
   execute: async function(this: any, args: { operation: string; key?: string; value?: any }) {
     // This tool requires memory to be available on the agent
@@ -217,7 +217,7 @@ export const memoryTool: Tool = {
         await memory.store(args.key, args.value);
         return { stored: args.key, success: true };
       
-      case 'retrieve':
+      case "retrieve":
         if (!args.key) return { error: 'Key required for retrieve operation' };
         const value = await memory.retrieve(args.key);
         return { key: args.key, value, found: value !== undefined };

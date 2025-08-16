@@ -24,7 +24,7 @@ export default class PlaywrightCapturePlugin extends BaseCapturePlugin {
   async initialize(): Promise<void> {
     try {
       // Dynamically import playwright to avoid dependency issues
-      this.playwright = await import('playwright');
+      this.playwright = await import("playwright");
       console.log('Playwright capture plugin initialized');
     } catch (error) {
       console.warn('Playwright not available. Install with: npm install playwright');
@@ -59,7 +59,7 @@ export default class PlaywrightCapturePlugin extends BaseCapturePlugin {
 
       // Launch browser if not already running
       if (!this.browser) {
-        const browserType = options.browserName || 'chromium';
+        const browserType = options.browserName || "chromium";
         this.browser = await this.playwright[browserType].launch({
           headless: options.headless !== false
         });
@@ -84,7 +84,7 @@ export default class PlaywrightCapturePlugin extends BaseCapturePlugin {
 
       // Navigate to URL
       await page.goto(options.url, {
-        waitUntil: options.waitUntil || 'networkidle',
+        waitUntil: options.waitUntil || "networkidle",
         timeout: options.timeout || 30000
       });
 
@@ -162,7 +162,7 @@ export default class PlaywrightCapturePlugin extends BaseCapturePlugin {
       timestamp: new Date().toISOString(),
       viewport: page.viewportSize(),
       platform: 'web',
-      browser: options.browserName || 'chromium'
+      browser: options.browserName || "chromium"
     };
 
     // Capture console logs if requested
@@ -188,7 +188,7 @@ export default class PlaywrightCapturePlugin extends BaseCapturePlugin {
     // Capture performance metrics
     if (options.captureMetrics) {
       metadata.metrics = await page.evaluate(() => {
-        const navigation = performance.getEntriesByType('navigation')[0] as any;
+        const navigation = performance.getEntriesByType("navigation")[0] as any;
         return {
           domContentLoaded: navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
           loadComplete: navigation.loadEventEnd - navigation.loadEventStart,
@@ -205,7 +205,7 @@ export default class PlaywrightCapturePlugin extends BaseCapturePlugin {
 // Extended capture options for Playwright
 export interface PlaywrightCaptureOptions extends CaptureOptions {
   url: string;
-  browserName?: 'chromium' | 'firefox' | 'webkit';
+  browserName?: "chromium" | 'firefox' | 'webkit';
   headless?: boolean;
   viewport?: { width: number; height: number };
   deviceScaleFactor?: number;
@@ -214,7 +214,7 @@ export interface PlaywrightCaptureOptions extends CaptureOptions {
   locale?: string;
   timezoneId?: string;
   headers?: Record<string, string>;
-  waitUntil?: 'load' | 'domcontentloaded' | 'networkidle';
+  waitUntil?: 'load' | "domcontentloaded" | "networkidle";
   timeout?: number;
   waitForSelector?: string;
   waitTimeout?: number;

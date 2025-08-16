@@ -1,7 +1,7 @@
-import { Command } from 'commander';
+import { Command } from "commander";
 import chalk from 'chalk';
 import * as fs from 'fs-extra';
-import { path } from '../../../../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import ora from 'ora';
 
 export const initCommand = new Command('init')

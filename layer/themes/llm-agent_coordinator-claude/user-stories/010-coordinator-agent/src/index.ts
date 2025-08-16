@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import { Coordinator, CoordinatorConfig } from './core/coordinator';
-import { Command } from 'commander';
-import { path } from '../../../../infra_external-log-lib/src';
-import { fs } from '../../../../infra_external-log-lib/src';
+import { Command } from "commander";
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 import * as dotenv from 'dotenv';
 
 // Load environment variables
@@ -86,7 +86,7 @@ program
       
       for(const file of files) {
         const sessionPath = path.join(storageDir, file);
-        const data = JSON.parse(fs.readFileSync(sessionPath, 'utf-8'));
+        const data = JSON.parse(fileAPI.readFileSync(sessionPath, 'utf-8'));
         const sessionId = file.replace('.session.json', '');
         
         const lastUpdated = new Date(data.lastUpdated);
@@ -131,7 +131,7 @@ program
         process.exit(1);
       }
       
-      const data = fs.readFileSync(sessionPath, 'utf-8');
+      const data = fileAPI.readFileSync(sessionPath, 'utf-8');
       
       if(options.output) {
         await fileAPI.createFile(options.output, data, { type: FileType.TEMPORARY });
@@ -171,7 +171,7 @@ async function buildConfig(options: any): Promise<CoordinatorConfig> {
     config.chatSpaceConfig = {
       chatSpacePath: process.env.CHAT_SPACE_PATH,
       autoJoinRooms: options.chatRoom ? [options.chatRoom] : undefined,
-      botUsername: process.env.COORDINATOR_BOT_NAME || 'CoordinatorBot'
+      botUsername: process.env.COORDINATOR_BOT_NAME || "CoordinatorBot"
     };
   }
   
@@ -238,7 +238,7 @@ async function setupEventHandlers(coordinator: Coordinator): void {
     console.log(`📊 Stats:`, stats);
   });
   
-  coordinator.on('interrupted', () => {
+  coordinator.on("interrupted", () => {
     console.log('\n⚡ Session interrupted - saving state...');
   });
   
@@ -284,7 +284,7 @@ async function runInteractiveMode(coordinator: Coordinator): Promise<void> {
   console.log('  /quit               - Stop and save session');
   console.log('  [message]           - Send to Claude\n');
   
-  const readline = await import('readline');
+  const readline = await import("readline");
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -300,7 +300,7 @@ async function runInteractiveMode(coordinator: Coordinator): Promise<void> {
       const [command, ...args] = input.slice(1).split(' ');
       
       switch (command) {
-        case 'dangerous':
+        case "dangerous":
           if (args[0] === 'on') {
             await coordinator.enableDangerousMode('User command');
           } else if (args[0] === 'off') {

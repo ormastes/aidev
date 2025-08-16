@@ -85,7 +85,7 @@ export class PythonLogParserImpl implements PythonLogParser {
       'WARNING': 'warn',
       'WARN': 'warn',
       'ERROR': 'error',
-      'CRITICAL': 'error',
+      "CRITICAL": 'error',
       'FATAL': 'error'
     };
 

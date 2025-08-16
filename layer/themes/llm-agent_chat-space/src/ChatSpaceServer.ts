@@ -1,5 +1,5 @@
 import express, { Express, Request, Response } from 'express';
-import { Server as HTTPServer } from 'http';
+import { Server as HTTPServer } from '../utils/http-wrapper';
 import { Server as SocketIOServer } from 'socket.io';
 import { ChatSpace, ChatMessage } from './ChatSpace';
 import { ChatSpaceMCPBridge } from './mcp/ChatSpaceMCPBridge';
@@ -156,7 +156,7 @@ export class ChatSpaceServer {
    * Setup Socket.IO handlers
    */
   private setupSocketHandlers(): void {
-    this.io.on('connection', (socket) => {
+    this.io.on("connection", (socket) => {
       console.log(`User connected: ${socket.id}`);
 
       // Handle join space
@@ -206,7 +206,7 @@ export class ChatSpaceServer {
       });
 
       // Handle disconnect
-      socket.on('disconnect', () => {
+      socket.on("disconnect", () => {
         console.log(`User disconnected: ${socket.id}`);
       });
 
@@ -344,7 +344,7 @@ export class ChatSpaceServer {
     // Start HTTP server
     this.server.listen(this.port, () => {
       console.log(`Chat Space Server running on http://localhost:${this.port}`);
-      console.log(`MCP Integration: ${this.mcpBridge ? 'Enabled' : 'Disabled'}`);
+      console.log(`MCP Integration: ${this.mcpBridge ? 'Enabled' : "Disabled"}`);
       
       if (this.mcpBridge) {
         console.log(`MCP Server: ${this.config.mcpServerUrl || 'ws://localhost:8080'}`);

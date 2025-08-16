@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * RunnableCommentExecutor - Executes runnable comments with script matching
  */

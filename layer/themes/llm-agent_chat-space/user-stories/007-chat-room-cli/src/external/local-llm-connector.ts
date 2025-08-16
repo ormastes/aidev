@@ -7,8 +7,8 @@
  * Mock-free implementation using real HTTP connections.
  */
 
-import axios, { AxiosInstance } from 'axios';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import axios, { AxiosInstance } from '../utils/http-wrapper';
+import { EventEmitter } from 'node:events';
 
 export interface LocalLLMConfig {
   provider: 'ollama' | 'vllm' | 'auto';
@@ -23,7 +23,7 @@ export interface LocalLLMConfig {
 }
 
 export interface LLMMessage {
-  role: 'system' | 'user' | 'assistant';
+  role: 'system' | 'user' | "assistant";
   content: string;
 }
 
@@ -120,7 +120,7 @@ export class LocalLLMConnector extends EventEmitter {
       });
     }
 
-    this.emit('initialized', {
+    this.emit("initialized", {
       provider: this.activeProvider,
       model: this.config.model,
       endpoint: this.config.endpoint
@@ -163,11 +163,11 @@ export class LocalLLMConnector extends EventEmitter {
 
     // Add assistant response to history
     this.conversationHistory.push({
-      role: 'assistant',
+      role: "assistant",
       content: response.content
     });
 
-    this.emit('response', response);
+    this.emit("response", response);
     return response;
   }
 
@@ -249,7 +249,7 @@ export class LocalLLMConnector extends EventEmitter {
         prompt += `System: ${msg.content}\\n\\n`;
       } else if (msg.role === 'user') {
         prompt += `User: ${msg.content}\\n`;
-      } else if (msg.role === 'assistant') {
+      } else if (msg.role === "assistant") {
         prompt += `Assistant: ${msg.content}\\n`;
       }
     }
@@ -327,7 +327,7 @@ export class LocalLLMConnector extends EventEmitter {
         response.data.on('end', () => {
           // Add to conversation history
           this.conversationHistory.push({
-            role: 'assistant',
+            role: "assistant",
             content: fullContent
           });
           resolve();

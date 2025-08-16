@@ -71,11 +71,11 @@ describe('useAuth', () => {
 
   describe('login', () => {
     it('should successfully login user', async () => {
-      const mockUser = { id: '1', email: 'test@example.com', username: 'testuser' };
+      const mockUser = { id: '1', email: 'test@example.com', username: "testuser" };
       const mockResponse = {
         user: mockUser,
-        token: 'access-token',
-        refreshToken: 'refresh-token',
+        token: process.env.TOKEN || "PLACEHOLDER",
+        refreshtoken: process.env.TOKEN || "PLACEHOLDER",
       };
 
       (authService.login as jest.Mock).mockResolvedValue(mockResponse);
@@ -83,10 +83,10 @@ describe('useAuth', () => {
       const { result, waitForNextUpdate } = renderHook(() => useAuth(), { wrapper });
 
       await act(async () => {
-        await result.current.login('test@example.com', 'password123');
+        await result.current.login('test@example.com', "password123");
       });
 
-      expect(authService.login).toHaveBeenCalledWith('test@example.com', 'password123');
+      expect(authService.login).toHaveBeenCalledWith('test@example.com', "password123");
       expect(result.current.isAuthenticated).toBe(true);
       expect(result.current.user).toEqual(mockUser);
     });
@@ -136,13 +136,13 @@ describe('useAuth', () => {
     });
   });
 
-  describe('register', () => {
+  describe("register", () => {
     it('should successfully register user', async () => {
       const mockUser = { id: '2', email: 'new@example.com', username: 'newuser' };
       const mockResponse = {
         user: mockUser,
-        token: 'access-token',
-        refreshToken: 'refresh-token',
+        token: process.env.TOKEN || "PLACEHOLDER",
+        refreshtoken: process.env.TOKEN || "PLACEHOLDER",
       };
 
       (authService.register as jest.Mock).mockResolvedValue(mockResponse);
@@ -150,10 +150,10 @@ describe('useAuth', () => {
       const { result } = renderHook(() => useAuth(), { wrapper });
 
       await act(async () => {
-        await result.current.register('new@example.com', 'password123', 'newuser');
+        await result.current.register('new@example.com', "password123", 'newuser');
       });
 
-      expect(authService.register).toHaveBeenCalledWith('new@example.com', 'password123', 'newuser');
+      expect(authService.register).toHaveBeenCalledWith('new@example.com', "password123", 'newuser');
       expect(result.current.isAuthenticated).toBe(true);
       expect(result.current.user).toEqual(mockUser);
     });
@@ -166,7 +166,7 @@ describe('useAuth', () => {
 
       await act(async () => {
         try {
-          await result.current.register('existing@example.com', 'password123', 'user');
+          await result.current.register('existing@example.com', "password123", 'user');
         } catch (e) {
           // Expected to throw
         }
@@ -177,13 +177,13 @@ describe('useAuth', () => {
     });
   });
 
-  describe('refreshToken', () => {
+  describe("refreshToken", () => {
     it('should successfully refresh token', async () => {
-      const mockUser = { id: '1', email: 'test@example.com', username: 'testuser' };
+      const mockUser = { id: '1', email: 'test@example.com', username: "testuser" };
       const mockResponse = {
         user: mockUser,
-        token: 'new-access-token',
-        refreshToken: 'new-refresh-token',
+        token: process.env.TOKEN || "PLACEHOLDER",
+        refreshtoken: process.env.TOKEN || "PLACEHOLDER",
       };
 
       (authService.refreshToken as jest.Mock).mockResolvedValue(mockResponse);

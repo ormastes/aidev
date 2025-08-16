@@ -26,7 +26,7 @@ describe('ReportGenerator Statistics Formatting Unit Test', () => {
           name: 'Login Test',
           status: 'In Progress',
           steps: [
-            { name: 'Navigate', status: 'In Progress', duration: 100 },
+            { name: "Navigate", status: 'In Progress', duration: 100 },
             { name: 'Enter credentials', status: 'In Progress', duration: 200 }
           ],
           duration: 300,
@@ -313,7 +313,7 @@ function formatStatisticsForHTML(stats: BasicStatistics): string {
   <h2>Test Statistics</h2>
   <ul>
     <li>Total Scenarios: ${stats.totalScenarios}</li>
-    <li>In Progress: ${stats.passedScenarios}</li>
+    <li>success: ${stats.passedScenarios}</li>
     <li>Failed: ${stats.failedScenarios}</li>
     <li>Pass Rate: ${formatPercentage(stats.passRate)}</li>
     <li>Average Duration: ${stats.averageScenarioDuration}ms</li>

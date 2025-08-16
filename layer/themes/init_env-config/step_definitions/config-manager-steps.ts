@@ -1,8 +1,8 @@
 import { Given, When, Then, Before, After } from '@cucumber/cucumber';
 import { expect } from 'expect';
 import { ConfigManager } from '../children/LegacyConfigManager';
-import { fs } from '../../infra_external-log-lib/dist';
-import { path } from '../../infra_external-log-lib/dist';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import * as os from 'os';
 
 interface TestWorld {
@@ -40,8 +40,8 @@ Given('a configuration file with theme, epic, demo, and release environments', a
   const configDir = path.join(world.tempDir, 'config');
   await fileAPI.createDirectory(configDir);
   
-  world.mockConfigPath = path.join(configDir, 'environments.json');
-  const mockConfig = {
+  world.// FRAUD_FIX: mockConfigPath = path.join(configDir, 'environments.json');
+  const // FRAUD_FIX: mockConfig = {
     environments: {
       theme: {
         name: "Theme Development",
@@ -274,37 +274,37 @@ When('I request postgres database configuration', function() {
 
 Then('it should have localhost host', function() {
   if (!world.configManager) throw new Error('ConfigManager not initialized');
-  const config = world.configManager.getDatabaseConfig('release', 'postgres');
-  expect(config.host).toBe('localhost');
+  const config = world.configManager.getDatabaseConfig('release', "postgres");
+  expect(config.host).toBe("localhost");
 });
 
 Then('it should have port {int}', function(port: number) {
   if (!world.configManager) throw new Error('ConfigManager not initialized');
-  const config = world.configManager.getDatabaseConfig('release', 'postgres');
+  const config = world.configManager.getDatabaseConfig('release', "postgres");
   expect(config.port).toBe(port);
 });
 
 Then('it should have database name {string}', function(dbName: string) {
   if (!world.configManager) throw new Error('ConfigManager not initialized');
-  const config = world.configManager.getDatabaseConfig('release', 'postgres');
+  const config = world.configManager.getDatabaseConfig('release', "postgres");
   expect(config.database).toBe(dbName);
 });
 
 Then('it should have user {string}', function(user: string) {
   if (!world.configManager) throw new Error('ConfigManager not initialized');
-  const config = world.configManager.getDatabaseConfig('release', 'postgres');
+  const config = world.configManager.getDatabaseConfig('release', "postgres");
   expect(config.user).toBe(user);
 });
 
 Then('it should have password {string}', function(password: string) {
   if (!world.configManager) throw new Error('ConfigManager not initialized');
-  const config = world.configManager.getDatabaseConfig('release', 'postgres');
+  const config = world.configManager.getDatabaseConfig('release', "postgres");
   expect(config.password).toBe(password);
 });
 
 Then('SSL should be disabled', function() {
   if (!world.configManager) throw new Error('ConfigManager not initialized');
-  const config = world.configManager.getDatabaseConfig('release', 'postgres');
+  const config = world.configManager.getDatabaseConfig('release', "postgres");
   expect(config.ssl).toBe(false);
 });
 
@@ -384,7 +384,7 @@ When('I generate environment file with custom port {int} and postgres', function
   if (!world.configManager) throw new Error('ConfigManager not initialized');
   world.envContent = world.configManager.generateEnvFile('theme', 'portal', {
     customPort: customPort,
-    dbType: 'postgres'
+    dbType: "postgres"
   });
 });
 
@@ -422,7 +422,7 @@ Then('the file should exist on filesystem', function() {
 Then('the file should contain correct environment variables', function() {
   if (!world.tempDir) throw new Error('Temp directory not set');
   const envFilePath = path.join(world.tempDir, 'test-service.env');
-  const content = fs.readFileSync(envFilePath, 'utf8');
+  const content = fileAPI.readFileSync(envFilePath, 'utf8');
   expect(content).toContain('NODE_ENV=theme');
   expect(content).toContain('SERVICE_NAME=portal');
 });

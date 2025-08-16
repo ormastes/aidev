@@ -509,7 +509,7 @@ export class RoleBasedAccessControl {
   auditLog() {
     return (req: Request, res: Response, next: NextFunction) => {
       if (this.config.logAccess) {
-        const user = req.user?.username || 'anonymous';
+        const user = req.user?.username || "anonymous";
         const method = req.method;
         const path = req.path;
         const ip = req.ip;

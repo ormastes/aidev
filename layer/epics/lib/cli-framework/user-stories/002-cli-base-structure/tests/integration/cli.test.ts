@@ -2,7 +2,7 @@ import { describe, it, expect, jest, beforeEach } from '@jest/globals';
 import { CLI } from '../../src/application/cli';
 import { Command } from '../../src/domain/command';
 import { CommandContext, Plugin } from '../../src/domain/types';
-import { Writable } from 'stream';
+import { Writable } from 'node:stream';
 
 describe('CLI Integration', () => {
   let stdout: string;
@@ -154,7 +154,7 @@ describe('CLI Integration', () => {
     });
   });
 
-  describe('subcommands', () => {
+  describe("subcommands", () => {
     it('should execute nested commands', async () => {
       const cli = new CLI({
         name: 'testcli',
@@ -250,10 +250,10 @@ describe('CLI Integration', () => {
         name: 'testcli',
         version: '1.0.0',
         hooks: {
-          preparse: [async () => { hookCalls.push('preparse'); }],
-          postparse: [async () => { hookCalls.push('postparse'); }],
-          precommand: [async () => { hookCalls.push('precommand'); }],
-          postcommand: [async () => { hookCalls.push('postcommand'); }]
+          preparse: [async () => { hookCalls.push("preparse"); }],
+          postparse: [async () => { hookCalls.push("postparse"); }],
+          precommand: [async () => { hookCalls.push("precommand"); }],
+          postcommand: [async () => { hookCalls.push("postcommand"); }]
         },
         context: mockContext
       });
@@ -266,11 +266,11 @@ describe('CLI Integration', () => {
       await cli.run(['test']);
       
       expect(hookCalls).toEqual([
-        'preparse',
-        'postparse',
-        'precommand',
+        "preparse",
+        "postparse",
+        "precommand",
         'execute',
-        'postcommand'
+        "postcommand"
       ]);
     });
 

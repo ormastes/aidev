@@ -9,7 +9,7 @@ import { ThemeScanner } from '../src/scanner/ThemeScanner';
 import { ThemeRegistry } from '../src/scanner/ThemeRegistry';
 import { TestDiscovery } from '../src/scanner/TestDiscovery';
 import { TestCategorizer } from '../src/scanner/TestCategorizer';
-import { path } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 async function testScanner() {
   console.log('🔍 Testing Theme Scanner and Registry\n');

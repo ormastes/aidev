@@ -68,7 +68,7 @@ export interface Credentials {
   username?: string;
   password?: string;
   apiKey?: string;
-  type: 'password' | 'apiKey' | 'oauth';
+  type: "password" | 'apiKey' | 'oauth';
 }
 
 export interface AuthResult {
@@ -138,7 +138,7 @@ export interface SessionInfo {
 
 export interface Message {
   id?: string;
-  role: 'user' | 'assistant' | 'system';
+  role: 'user' | "assistant" | 'system';
   content: string;
   timestamp?: Date;
   metadata?: Record<string, any>;

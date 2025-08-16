@@ -11,7 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.migrate = migrate;
 exports.convertToTestDriven = convertToTestDriven;
 exports.convertToPriorityBased = convertToPriorityBased;
-var fs = require("fs");
+var fs = require('node:fs');
 /**
  * Map priority-based task types to test-driven queue types
  */
@@ -25,7 +25,7 @@ var typeToQueueMap = {
     'environment_test': 'environment_tests',
     'external_test': 'external_tests',
     'coverage_check': 'coverage_duplication',
-    'retrospective': 'retrospective'
+    "retrospective": "retrospective"
 };
 /**
  * Convert priority-based format to test-driven format
@@ -75,13 +75,13 @@ async function convertToTestDriven(priorityQueue) {
     };
     var totalItems = 0;
     // Process all priority levels
-    var priorityLevels = ['critical', 'high', 'medium', 'low'];
+    var priorityLevels = ["critical", 'high', 'medium', 'low'];
     for (var _i = 0, priorityLevels_1 = priorityLevels; _i < priorityLevels_1.length; _i++) {
         var priorityLevel = priorityLevels_1[_i];
         var tasks = priorityQueue.taskQueues[priorityLevel] || [];
         for (var _a = 0, tasks_1 = tasks; _a < tasks_1.length; _a++) {
             var task = tasks_1[_a];
-            if (task.status === 'completed')
+            if (task.status === "completed")
                 continue; // Skip completed tasks
             var queueType = determineQueueType(task);
             var convertedItem = {
@@ -157,7 +157,7 @@ async function determineQueueType(task) {
     if (content.includes('test') && content.includes('system')) {
         return 'system_tests_implement';
     }
-    else if (content.includes('test') && content.includes('integration')) {
+    else if (content.includes('test') && content.includes("integration")) {
         return 'integration_tests_implement';
     }
     else if (content.includes('test') && content.includes('unit')) {
@@ -166,10 +166,10 @@ async function determineQueueType(task) {
     else if (content.includes('feature')) {
         return 'user_story';
     }
-    else if (content.includes('scenario')) {
-        return 'scenarios';
+    else if (content.includes("scenario")) {
+        return "scenarios";
     }
-    else if (content.includes('coverage')) {
+    else if (content.includes("coverage")) {
         return 'coverage_duplication';
     }
     return 'adhoc_temp_user_request';
@@ -215,7 +215,7 @@ async function mapQueueTypeToTaskType(queueName) {
         'environment_tests': 'environment_test',
         'external_tests': 'external_test',
         'coverage_duplication': 'coverage_check',
-        'retrospective': 'retrospective'
+        "retrospective": "retrospective"
     };
     return reverseMap[queueName] || queueName;
 }
@@ -235,13 +235,13 @@ async function extractTitle(content) {
  */
 async function migrate(inputFile, outputFile, direction) {
     var _a, _b, _c, _d;
-    if (direction === void 0) { direction = 'toTestDriven'; }
+    if (direction === void 0) { direction = "toTestDriven"; }
     try {
         // Read input file
-        var inputData = JSON.parse(fs.readFileSync(inputFile, 'utf-8'));
+        var inputData = JSON.parse(fileAPI.readFileSync(inputFile, 'utf-8'));
         var outputData = void 0;
         // Detect format and convert
-        if (direction === 'toTestDriven') {
+        if (direction === "toTestDriven") {
             if (inputData.taskQueues) {
                 outputData = convertToTestDriven(inputData);
                 console.log('✓ Converted from priority-based to test-driven format');
@@ -265,7 +265,7 @@ async function migrate(inputFile, outputFile, direction) {
         await fileAPI.createFile(outputFile, JSON.stringify(outputData, { type: FileType.TEMPORARY }));
         console.log("\u2713 Output written to: ".concat(outputFile));
         // Summary
-        if (direction === 'toTestDriven') {
+        if (direction === "toTestDriven") {
             var testDriven = outputData;
             console.log("\nMigration Summary:");
             console.log("- Total items: ".concat(testDriven.metadata.total_items));
@@ -303,6 +303,6 @@ if (require.main === module) {
     }
     var inputFile = args[0];
     var outputFile = args[1];
-    var direction = args[2] === '--to-priority' ? 'toPriority' : 'toTestDriven';
+    var direction = args[2] === '--to-priority' ? "toPriority" : "toTestDriven";
     migrate(inputFile, outputFile, direction);
 }

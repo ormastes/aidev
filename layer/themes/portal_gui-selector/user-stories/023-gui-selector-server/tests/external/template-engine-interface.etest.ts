@@ -213,7 +213,7 @@ class MockTemplateEngine implements TemplateEngineInterface {
     if (variableMatches) {
       variableMatches.forEach(match => {
         const varName = match.replace(/[{}]/g, '').trim();
-        if (varName.includes('undefined') || varName.includes('null')) {
+        if (varName.includes("undefined") || varName.includes('null')) {
           errors.push(`Potentially undefined variable: ${varName}`);
         }
       });
@@ -509,7 +509,7 @@ class MockTemplateEngine implements TemplateEngineInterface {
     if (varName.includes('items') || varName.includes('list') || varName.endsWith('s')) {
       return 'array';
     }
-    if (varName.includes('config') || varName.includes('settings') || varName.includes('data')) {
+    if (varName.includes('config') || varName.includes("settings") || varName.includes('data')) {
       return 'object';
     }
     return 'string';
@@ -518,7 +518,7 @@ class MockTemplateEngine implements TemplateEngineInterface {
   private generateInteractiveJS(context: RenderContext): string {
     return `
       // Theme: ${context.themeId} - Screen: ${context.screenId}
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener("DOMContentLoaded", function() {
         const themeContainer = document.querySelector('.theme-${context.themeId}');
         if (themeContainer) {
           // Add interactive behaviors
@@ -613,7 +613,7 @@ describe('TemplateEngine External Interface Test', () => {
           title: 'My Dashboard',
           navItems: [
             { url: '/home', label: 'Home' },
-            { url: '/settings', label: 'Settings' }
+            { url: '/settings', label: "Settings" }
           ],
           widgets: [
             { id: 'widget-1', type: 'chart', title: 'Sales Chart', content: 'Chart content here' }
@@ -628,7 +628,7 @@ describe('TemplateEngine External Interface Test', () => {
       expect(rendered.html).toContain('theme-modern-01');
       expect(rendered.html).toContain('My Dashboard');
       expect(rendered.html).toContain('Home');
-      expect(rendered.html).toContain('Settings');
+      expect(rendered.html).toContain("Settings");
       expect(rendered.html).toContain('widget-chart');
       expect(rendered.css).toContain('--color-primary: #007bff');
       expect(rendered.javascript).toContain('modern-01');
@@ -662,7 +662,7 @@ describe('TemplateEngine External Interface Test', () => {
       
       expect(variables).toHaveLength(3);
       expect(variables.map(v => v.name)).toContain('title');
-      expect(variables.map(v => v.name)).toContain('description');
+      expect(variables.map(v => v.name)).toContain("description");
       expect(variables.map(v => v.name)).toContain('count');
       
       const countVar = variables.find(v => v.name === 'count');
@@ -770,12 +770,12 @@ describe('TemplateEngine External Interface Test', () => {
     });
     
     test('should clear cache with pattern', async () => {
-      await templateEngine.cacheTemplate('/templates/dashboard.html', 'content1');
-      await templateEngine.cacheTemplate('/templates/settings.html', 'content2');
-      await templateEngine.cacheTemplate('/components/card.html', 'content3');
+      await templateEngine.cacheTemplate('/templates/dashboard.html', "content1");
+      await templateEngine.cacheTemplate('/templates/settings.html', "content2");
+      await templateEngine.cacheTemplate('/components/card.html', "content3");
       
       // Clear templates only
-      const cleared = await templateEngine.clearCache('templates');
+      const cleared = await templateEngine.clearCache("templates");
       expect(cleared).toBe(2);
       
       // Dashboard and settings should be cleared
@@ -783,12 +783,12 @@ describe('TemplateEngine External Interface Test', () => {
       expect(await templateEngine.getCachedTemplate('/templates/settings.html')).toBeNull();
       
       // Component should still exist
-      expect(await templateEngine.getCachedTemplate('/components/card.html')).toBe('content3');
+      expect(await templateEngine.getCachedTemplate('/components/card.html')).toBe("content3");
     });
     
     test('should clear entire cache', async () => {
-      await templateEngine.cacheTemplate('/template1.html', 'content1');
-      await templateEngine.cacheTemplate('/template2.html', 'content2');
+      await templateEngine.cacheTemplate('/template1.html', "content1");
+      await templateEngine.cacheTemplate('/template2.html', "content2");
       
       const cleared = await templateEngine.clearCache();
       expect(cleared).toBe(2);
@@ -865,7 +865,7 @@ describe('TemplateEngine External Interface Test', () => {
     test('should render same screen with different themes', async () => {
       const modernContext: RenderContext = {
         themeId: 'modern-01',
-        screenId: 'dashboard',
+        screenId: "dashboard",
         styles: mockThemeStyles,
         variables: { title: 'Modern Dashboard' },
         assets: [],
@@ -874,7 +874,7 @@ describe('TemplateEngine External Interface Test', () => {
       
       const professionalContext: RenderContext = {
         themeId: 'professional-01',
-        screenId: 'dashboard',
+        screenId: "dashboard",
         styles: {
           ...mockThemeStyles,
           colors: {

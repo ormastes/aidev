@@ -5,11 +5,11 @@
  * Converted to TypeScript for better security and maintainability
  */
 
-import { existsSync, rmSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, rmSync, readFileSync, writeFileSync } from '../../layer/themes/infra_external-log-lib/src';
 import { execSync } from 'child_process';
-import { join } from 'path';
+import { join } from 'node:path';
 import { glob } from 'glob';
-import readline from 'readline';
+import readline from "readline";
 
 // Colors for output
 const colors = {

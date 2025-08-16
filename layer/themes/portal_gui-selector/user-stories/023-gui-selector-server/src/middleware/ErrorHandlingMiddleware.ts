@@ -12,14 +12,14 @@ export enum ErrorSeverity {
   LOW = 'low',
   MEDIUM = 'medium',
   HIGH = 'high',
-  CRITICAL = 'critical'
+  CRITICAL = "critical"
 }
 
 export enum ErrorCategory {
-  VALIDATION = 'validation',
-  AUTHENTICATION = 'authentication',
-  AUTHORIZATION = 'authorization',
-  DATABASE = 'database',
+  VALIDATION = "validation",
+  AUTHENTICATION = "authentication",
+  AUTHORIZATION = "authorization",
+  DATABASE = "database",
   NETWORK = 'network',
   BUSINESS_LOGIC = 'business_logic',
   SYSTEM = 'system',
@@ -95,7 +95,7 @@ export class ApplicationError extends Error {
     }
   ) {
     super(message);
-    this.name = 'ApplicationError';
+    this.name = "ApplicationError";
     this.statusCode = statusCode;
     this.code = options?.code;
     this.severity = options?.severity || ErrorSeverity.MEDIUM;
@@ -114,7 +114,7 @@ export class ValidationError extends ApplicationError {
       category: ErrorCategory.VALIDATION,
       context
     });
-    this.name = 'ValidationError';
+    this.name = "ValidationError";
   }
 }
 
@@ -125,7 +125,7 @@ export class AuthenticationError extends ApplicationError {
       severity: ErrorSeverity.MEDIUM,
       category: ErrorCategory.AUTHENTICATION
     });
-    this.name = 'AuthenticationError';
+    this.name = "AuthenticationError";
   }
 }
 
@@ -136,7 +136,7 @@ export class AuthorizationError extends ApplicationError {
       severity: ErrorSeverity.MEDIUM,
       category: ErrorCategory.AUTHORIZATION
     });
-    this.name = 'AuthorizationError';
+    this.name = "AuthorizationError";
   }
 }
 
@@ -147,18 +147,18 @@ export class NotFoundError extends ApplicationError {
       severity: ErrorSeverity.LOW,
       category: ErrorCategory.BUSINESS_LOGIC
     });
-    this.name = 'NotFoundError';
+    this.name = "NotFoundError";
   }
 }
 
 export class ConflictError extends ApplicationError {
   constructor(message: string) {
     super(message, 409, {
-      code: 'CONFLICT',
+      code: "CONFLICT",
       severity: ErrorSeverity.LOW,
       category: ErrorCategory.BUSINESS_LOGIC
     });
-    this.name = 'ConflictError';
+    this.name = "ConflictError";
   }
 }
 
@@ -170,7 +170,7 @@ export class RateLimitError extends ApplicationError {
       category: ErrorCategory.NETWORK,
       context: { retryAfter }
     });
-    this.name = 'RateLimitError';
+    this.name = "RateLimitError";
   }
 }
 
@@ -182,7 +182,7 @@ export class DatabaseError extends ApplicationError {
       category: ErrorCategory.DATABASE,
       context: { originalError: originalError?.message }
     });
-    this.name = 'DatabaseError';
+    this.name = "DatabaseError";
   }
 }
 
@@ -194,7 +194,7 @@ export class NetworkError extends ApplicationError {
       category: ErrorCategory.NETWORK,
       context: { originalError: originalError?.message }
     });
-    this.name = 'NetworkError';
+    this.name = "NetworkError";
   }
 }
 
@@ -212,7 +212,7 @@ export class ErrorHandlingMiddleware {
     this.options = {
       logErrors: true,
       persistErrors: true,
-      includeStackTrace: process.env.NODE_ENV !== 'production',
+      includeStackTrace: process.env.NODE_ENV !== "production",
       notifyOnCritical: true,
       customErrorPages: false,
       maxErrorHistorySize: 100,
@@ -274,7 +274,7 @@ export class ErrorHandlingMiddleware {
     // Database connection recovery
     this.registerRecoveryStrategy({
       name: 'database_reconnect',
-      condition: (error) => error.message.includes('database') || error.message.includes('SQLITE'),
+      condition: (error) => error.message.includes("database") || error.message.includes('SQLITE'),
       recover: async (error, req, res) => {
         try {
           await this.dbService.init();
@@ -554,10 +554,10 @@ export class ErrorHandlingMiddleware {
   private determineCategory(err: Error): ErrorCategory {
     const message = err.message.toLowerCase();
     
-    if (message.includes('validation')) return ErrorCategory.VALIDATION;
+    if (message.includes("validation")) return ErrorCategory.VALIDATION;
     if (message.includes('auth')) return ErrorCategory.AUTHENTICATION;
-    if (message.includes('permission') || message.includes('forbidden')) return ErrorCategory.AUTHORIZATION;
-    if (message.includes('database') || message.includes('sql')) return ErrorCategory.DATABASE;
+    if (message.includes("permission") || message.includes("forbidden")) return ErrorCategory.AUTHORIZATION;
+    if (message.includes("database") || message.includes('sql')) return ErrorCategory.DATABASE;
     if (message.includes('network') || message.includes('timeout')) return ErrorCategory.NETWORK;
     
     return ErrorCategory.UNKNOWN;
@@ -610,7 +610,7 @@ export class ErrorHandlingMiddleware {
       }
 
       // Add debug info in development
-      if (process.env.NODE_ENV !== 'production') {
+      if (process.env.NODE_ENV !== "production") {
         response.error.path = error.path;
         response.error.method = error.method;
         

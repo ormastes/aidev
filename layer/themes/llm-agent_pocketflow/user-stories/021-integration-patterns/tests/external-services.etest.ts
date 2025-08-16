@@ -89,7 +89,7 @@ describe('External Services Tests', () => {
 
     beforeEach(() => {
       const config: ProviderConfig = {
-        name: 'anthropic',
+        name: "anthropic",
         apiKey: process.env.ANTHROPIC_API_KEY || 'test-key',
         baseURL: 'https://api.anthropic.com/v1',
         timeout: 30000
@@ -234,7 +234,7 @@ describe('External Services Tests', () => {
     beforeEach(() => {
       registry = new ProviderRegistry({
         defaultProvider: 'openai',
-        fallbackProviders: ['anthropic', 'ollama'],
+        fallbackProviders: ["anthropic", 'ollama'],
         loadBalancing: 'round-robin',
         healthCheckInterval: 10000
       });
@@ -250,8 +250,8 @@ describe('External Services Tests', () => {
       }
 
       if (process.env.ANTHROPIC_API_KEY) {
-        registry.createProvider('anthropic', {
-          name: 'anthropic',
+        registry.createProvider("anthropic", {
+          name: "anthropic",
           apiKey: process.env.ANTHROPIC_API_KEY
         });
       }
@@ -326,7 +326,7 @@ describe('External Services Tests', () => {
       // Setup provider with invalid endpoint
       registry.createProvider('openai', {
         name: 'outage-test',
-        apiKey: 'test-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         baseURL: 'https://httpstat.us/503'
       });
 
@@ -364,10 +364,10 @@ describe('External Services Tests', () => {
       });
 
       const testCases = [
-        { input: 'Explain photosynthesis briefly', type: 'educational' },
-        { input: 'Write a haiku about coding', type: 'creative' },
-        { input: 'What is 15 * 23?', type: 'mathematical' },
-        { input: 'List 3 benefits of exercise', type: 'informational' }
+        { input: 'Explain photosynthesis briefly', type: "educational" },
+        { input: 'Write a haiku about coding', type: "creative" },
+        { input: 'What is 15 * 23?', type: "mathematical" },
+        { input: 'List 3 benefits of exercise', type: "informational" }
       ];
 
       for (const testCase of testCases) {

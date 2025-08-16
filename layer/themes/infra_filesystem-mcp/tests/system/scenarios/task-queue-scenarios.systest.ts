@@ -7,8 +7,8 @@
 
 import { VFTaskQueueWrapper, Task, TaskExecutor } from '../../../children/VFTaskQueueWrapper';
 import * as fs from 'fs/promises';
-import { path } from '../../../../infra_external-log-lib/src';
-import { os } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { os } from '../../layer/themes/infra_external-log-lib/src';
 
 describe('Task Queue Management System Test Scenarios', () => {
   let tempDir: string;
@@ -36,13 +36,13 @@ describe('Task Queue Management System Test Scenarios', () => {
     test('Should immediately process critical security vulnerabilities', async () => {
       // Given: A DevOps engineer monitoring for critical issues
       // When: They check for critical priority tasks
-      const criticalTask = await wrapper.peek('critical', queueFile);
+      const criticalTask = await wrapper.peek("critical", queueFile);
       
       // Then: They should see the security vulnerability
       expect(criticalTask).toBeTruthy();
-      expect(criticalTask!.priority).toBe('critical');
+      expect(criticalTask!.priority).toBe("critical");
       expect(criticalTask!.content.title).toBe('Security Vulnerability Fix');
-      expect(criticalTask!.content.severity).toBe('critical');
+      expect(criticalTask!.content.severity).toBe("critical");
       
       // And: Task should have detailed remediation steps
       expect(criticalTask!.content.steps).toContain('Analyze vulnerability report');
@@ -66,7 +66,7 @@ describe('Task Queue Management System Test Scenarios', () => {
       wrapper.setTaskExecutor(criticalExecutor);
       
       // When: Processing the critical task
-      const task = await wrapper.pop('critical', queueFile);
+      const task = await wrapper.pop("critical", queueFile);
       await new Promise(resolve => setTimeout(resolve, 100)); // Wait for async execution
       
       // Then: Task should be executed with proper results
@@ -88,10 +88,10 @@ describe('Task Queue Management System Test Scenarios', () => {
       const nextTask = await wrapper.peek(undefined, queueFile);
       
       // Then: They should get the critical task first
-      expect(nextTask!.priority).toBe('critical');
+      expect(nextTask!.priority).toBe("critical");
       
       // When: After critical task is handled, they get the next task
-      await wrapper.pop('critical', queueFile);
+      await wrapper.pop("critical", queueFile);
       const nextDevTask = await wrapper.peek(undefined, queueFile);
       
       // Then: They should get a high priority development task
@@ -262,10 +262,10 @@ describe('Task Queue Management System Test Scenarios', () => {
       // Given: A scrum master adjusting sprint priorities
       const urgentTask: Task = {
         id: 'urgent-001',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {
-          command: 'implement',
+          command: "implement",
           title: 'Emergency Bug Fix',
           description: 'Critical bug affecting production users',
           estimated_time: '1 hour',
@@ -362,7 +362,7 @@ describe('Task Queue Management System Test Scenarios', () => {
       // Given: An organization with custom priority levels
       const customTask: Task = {
         id: 'custom-001',
-        type: 'runnable',
+        type: "runnable",
         priority: 'urgent-hotfix',
         content: {
           command: 'deploy',
@@ -413,7 +413,7 @@ describe('Task Queue Management System Test Scenarios', () => {
       await Promise.all(addPromises);
       const endTime = Date.now();
       
-      // Then: Operations should In Progress efficiently
+      // Then: Operations should complete efficiently
       expect(endTime - startTime).toBeLessThan(5000); // Less than 5 seconds
       
       const status = await wrapper.getQueueStatus(highVolumeQueue);
@@ -475,7 +475,7 @@ describe('Task Queue Management System Test Scenarios', () => {
       // Then: Analytics should provide actionable insights
       expect(priorityDistribution.critical).toBe(1);
       expect(priorityDistribution.high).toBe(2);
-      expect(taskTypes['runnable']).toBe(5); // Most tasks are runnable
+      expect(taskTypes["runnable"]).toBe(5); // Most tasks are runnable
       expect(taskTypes['data']).toBe(2);
       
       console.log('🔄 Business analyst can access comprehensive queue analytics');

@@ -18,7 +18,7 @@ import type {
 
 export interface FileAccessFraud {
   type: FileAccessFraudType;
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  severity: 'low' | 'medium' | 'high' | "critical";
   description: string;
   evidence: FileAccessEvent[];
   recommendations: string[];
@@ -76,7 +76,7 @@ export class FileAccessFraudDetector extends BaseDetector {
       this.auditor = fileAccessAuditor;
       
       // Set up real-time monitoring
-      this.auditor.on('violation', (event: FileAccessEvent) => {
+      this.auditor.on("violation", (event: FileAccessEvent) => {
         this.handleViolation(event);
       });
       
@@ -124,7 +124,7 @@ export class FileAccessFraudDetector extends BaseDetector {
     if (unauthorizedEvents.length > 0) {
       frauds.push({
         type: 'unauthorized_access',
-        severity: 'critical',
+        severity: "critical",
         description: `${unauthorizedEvents.length} unauthorized file access attempts detected`,
         evidence: unauthorizedEvents.slice(0, 10),
         recommendations: [
@@ -197,7 +197,7 @@ export class FileAccessFraudDetector extends BaseDetector {
       if (event.path.includes('../') || event.path.includes('..\\')) {
         frauds.push({
           type: 'directory_traversal',
-          severity: 'critical',
+          severity: "critical",
           description: `Directory traversal attempt detected: ${event.path}`,
           evidence: [event],
           recommendations: [
@@ -311,7 +311,7 @@ export class FileAccessFraudDetector extends BaseDetector {
     if (largeReads.length > 10 || sensitiveReads.length > 5) {
       return {
         type: 'data_exfiltration',
-        severity: 'critical',
+        severity: "critical",
         description: `Potential data exfiltration detected: ${largeReads.length} large reads, ${sensitiveReads.length} sensitive reads`,
         evidence: [...largeReads.slice(0, 5), ...sensitiveReads.slice(0, 5)],
         recommendations: [
@@ -343,7 +343,7 @@ export class FileAccessFraudDetector extends BaseDetector {
     if (privilegedEvents.length > 0) {
       return {
         type: 'privilege_escalation',
-        severity: 'critical',
+        severity: "critical",
         description: `${privilegedEvents.length} attempts to modify privileged files/directories`,
         evidence: privilegedEvents.slice(0, 10),
         recommendations: [
@@ -367,7 +367,7 @@ export class FileAccessFraudDetector extends BaseDetector {
     // Add points based on fraud severity
     for (const fraud of frauds) {
       switch (fraud.severity) {
-        case 'critical': score += 25; break;
+        case "critical": score += 25; break;
         case 'high': score += 15; break;
         case 'medium': score += 8; break;
         case 'low': score += 3; break;
@@ -397,7 +397,7 @@ export class FileAccessFraudDetector extends BaseDetector {
       recommendations.push('Continue monitoring for anomalies');
     } else {
       // High-level recommendations
-      if (frauds.some(f => f.severity === 'critical')) {
+      if (frauds.some(f => f.severity === "critical")) {
         recommendations.push('URGENT: Critical security issues detected - immediate action required');
       }
       
@@ -437,7 +437,7 @@ export class FileAccessFraudDetector extends BaseDetector {
     console.warn(`File access violation detected: ${event.operation} on ${event.path}`);
     
     // Could trigger alerts, notifications, or automated responses here
-    if (event.validation?.severity === 'critical') {
+    if (event.validation?.severity === "critical") {
       // Critical violations could trigger immediate action
       this.blockAccess(event);
     }
@@ -450,7 +450,7 @@ export class FileAccessFraudDetector extends BaseDetector {
     console.warn(`Suspicious pattern detected: ${pattern.type} - ${pattern.description}`);
     
     // Could trigger security alerts or automated investigation
-    if (pattern.severity === 'critical') {
+    if (pattern.severity === "critical") {
       this.triggerSecurityAlert(pattern);
     }
   }

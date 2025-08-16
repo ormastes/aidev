@@ -36,7 +36,7 @@ export class FileSystemWrapper {
     
     try {
       this.log('info', `Reading file: ${absolutePath}`);
-      const content = await fs.readFile(absolutePath, encoding);
+      const content = await fileAPI.readFile(absolutePath, encoding);
       
       this.metrics.readCount++;
       this.metrics.totalBytesRead += Buffer.byteLength(content);
@@ -86,7 +86,7 @@ export class FileSystemWrapper {
     
     try {
       this.log('debug', `Getting stats for: ${absolutePath}`);
-      return await fs.stat(absolutePath);
+      return await /* FRAUD_FIX: fs.stat(absolutePath) */;
     } catch (error) {
       this.metrics.errors.push(error as Error);
       this.log('error', `Failed to stat ${absolutePath}: ${error.message}`);

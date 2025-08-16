@@ -3,7 +3,7 @@ import { ApiService } from '../../services/api';
 // Mock setTimeout to avoid delays in tests
 jest.useFakeTimers();
 
-describe('ApiService', () => {
+describe("ApiService", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     // Reset random to be predictable for error simulation
@@ -15,7 +15,7 @@ describe('ApiService', () => {
     jest.restoreAllMocks();
   });
 
-  describe('getProducts', () => {
+  describe("getProducts", () => {
     it('should return products successfully', async () => {
       const promise = ApiService.getProducts();
       jest.advanceTimersByTime(800); // Advance by mockDelay time
@@ -63,7 +63,7 @@ describe('ApiService', () => {
     });
   });
 
-  describe('getProduct', () => {
+  describe("getProduct", () => {
     it('should return single product by id', async () => {
       const promise = ApiService.getProduct('1');
       jest.advanceTimersByTime(500);
@@ -82,7 +82,7 @@ describe('ApiService', () => {
     });
   });
 
-  describe('getFeaturedProducts', () => {
+  describe("getFeaturedProducts", () => {
     it('should return featured products', async () => {
       const promise = ApiService.getFeaturedProducts();
       jest.advanceTimersByTime(600);
@@ -109,14 +109,14 @@ describe('ApiService', () => {
     });
 
     it('should throw error with invalid credentials', async () => {
-      const promise = ApiService.login('wrong@email.com', 'wrongpass');
+      const promise = ApiService.login('wrong@email.com', "wrongpass");
       jest.advanceTimersByTime(1200);
 
       await expect(promise).rejects.toThrow('Invalid credentials');
     });
   });
 
-  describe('createOrder', () => {
+  describe("createOrder", () => {
     const mockOrderData = {
       userId: 'user-1',
       items: [
@@ -153,7 +153,7 @@ describe('ApiService', () => {
       const order = await promise;
 
       expect(order).toHaveProperty('id');
-      expect(order).toHaveProperty('orderNumber');
+      expect(order).toHaveProperty("orderNumber");
       expect(order).toHaveProperty('status', 'pending');
       expect(order.userId).toBe(mockOrderData.userId);
       expect(order.totalAmount).toBe(mockOrderData.totalAmount);
@@ -161,7 +161,7 @@ describe('ApiService', () => {
     });
   });
 
-  describe('processPayment', () => {
+  describe("processPayment", () => {
     const mockPaymentData = {
       orderId: 'order-1',
       amount: 27.59,
@@ -174,10 +174,10 @@ describe('ApiService', () => {
       const transaction = await promise;
 
       expect(transaction).toHaveProperty('id');
-      expect(transaction).toHaveProperty('status', 'completed');
+      expect(transaction).toHaveProperty('status', "completed");
       expect(transaction.orderId).toBe(mockPaymentData.orderId);
       expect(transaction.amount).toBe(mockPaymentData.amount);
-      expect(transaction).toHaveProperty('transactionId');
+      expect(transaction).toHaveProperty("transactionId");
     });
   });
 });

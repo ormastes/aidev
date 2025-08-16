@@ -13,7 +13,7 @@ test('debug: check app rendering and console errors', async ({ page }) => {
 
   // Listen for page errors
   const pageErrors: string[] = [];
-  page.on('pageerror', error => {
+  page.on("pageerror", error => {
     pageErrors.push(error.message);
   });
 

@@ -6,8 +6,8 @@
  * selector builder, preview mode, and comprehensive export options
  */
 
-import { Command } from 'commander';
-import * as readline from 'readline';
+import { Command } from "commander";
+import * as readline from "readline";
 import * as fs from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 import chalk from 'chalk';
@@ -19,7 +19,7 @@ const scraper = new WebScraper();
 
 // Version and description
 program
-  .name('webscraper')
+  .name("webscraper")
   .description('AI Development Platform Web Scraper CLI')
   .version('1.0.0');
 
@@ -114,7 +114,7 @@ program
 
 // Interactive mode
 program
-  .command('interactive')
+  .command("interactive")
   .alias('i')
   .description('start interactive scraping session')
   .action(async () => {
@@ -131,7 +131,7 @@ schemaCmd
   .command('list')
   .description('list available schemas')
   .action(() => {
-    const schemas = scraper['extractor'].listSchemas();
+    const schemas = scraper["extractor"].listSchemas();
     console.log(chalk.blue('Available schemas:'));
     schemas.forEach(schema => console.log(`  - ${schema}`));
   });
@@ -148,7 +148,7 @@ schemaCmd
   .description('import schema from JSON file')
   .action(async (file: string) => {
     try {
-      const schemaData = await fs.readFile(file, 'utf-8');
+      const schemaData = await fileAPI.readFile(file, 'utf-8');
       const schema: ExtractionSchema = JSON.parse(schemaData);
       scraper.addSchema(schema);
       console.log(chalk.green(`✅ Schema "${schema.name}" imported successfully`));
@@ -244,7 +244,7 @@ program
         options: options.dbConfig ? JSON.parse(options.dbConfig) : undefined
       };
       
-      const exporter = scraper['exporter'];
+      const exporter = scraper["exporter"];
       const result = await exporter.export(data, exportConfig);
       
       if(result.success) {
@@ -266,7 +266,7 @@ async function buildScrapingOptions(options: any): Promise<ScrapingOptions> {
     extractionOptions: {},
     cacheOptions: { enabled: !options.noCache },
     browserOptions: options.browser ? {
-      engine: 'puppeteer',
+      engine: "puppeteer",
       headless: options.headless !== false
     } : undefined,
     parseOptions: {}
@@ -418,7 +418,7 @@ async function saveBatchResults(results: ScrapingResult[], outputDir: string, fo
 }
 
 async function loadUrlsFromFile(filePath: string): Promise<string[]> {
-  const content = await fs.readFile(filePath, 'utf-8');
+  const content = await fileAPI.readFile(filePath, 'utf-8');
   const lines = content.split('\n').map(line => line.trim()).filter(line => line && !line.startsWith('#'));
   
   // Validate URLs
@@ -436,7 +436,7 @@ async function loadUrlsFromFile(filePath: string): Promise<string[]> {
 }
 
 async function loadDataFromFile(filePath: string, format: string): Promise<any[]> {
-  const content = await fs.readFile(filePath, 'utf-8');
+  const content = await fileAPI.readFile(filePath, 'utf-8');
   
   switch(format) {
     case 'json':
@@ -606,12 +606,12 @@ async function createSchemaInteractively(name: string): Promise<void> {
 }
 
 // Error handling
-process.on('uncaughtException', (error) => {
+process.on("uncaughtException", (error) => {
   console.error(chalk.red(`💥 Uncaught exception: ${error.message}`));
   process.exit(1);
 });
 
-process.on('unhandledRejection', (reason) => {
+process.on("unhandledRejection", (reason) => {
   console.error(chalk.red(`💥 Unhandled rejection: ${reason}`));
   process.exit(1);
 });

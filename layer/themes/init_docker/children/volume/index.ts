@@ -3,7 +3,7 @@
  * Manages Docker volume mounting and caching strategies
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { path } from '../../../infra_external-log-lib/src';
 import { fs } from '../../../infra_external-log-lib/src';
 import { spawn } from 'child_process';
@@ -15,10 +15,10 @@ export type VolumeType =
   | 'cache';    // Cache volume for build artifacts
 
 export type CacheStrategy = 
-  | 'persistent'  // Keep cache between builds
-  | 'ephemeral'   // Clear cache after each build
+  | "persistent"  // Keep cache between builds
+  | "ephemeral"   // Clear cache after each build
   | 'shared'      // Share cache between projects
-  | 'isolated';   // Isolated cache per project
+  | "isolated";   // Isolated cache per project
 
 export interface VolumePermissions {
   uid?: number;
@@ -140,14 +140,14 @@ export class VolumeManager extends EventEmitter {
     const volumeName = this.getCacheVolumeName(mount);
     
     switch (this.config.cacheStrategy) {
-      case 'persistent':
+      case "persistent":
         // Keep existing cache
         if (!(await this.volumeExists(volumeName))) {
           await this.createVolume(volumeName);
         }
         break;
         
-      case 'ephemeral':
+      case "ephemeral":
         // Always recreate cache
         await this.removeVolume(volumeName);
         await this.createVolume(volumeName);
@@ -161,7 +161,7 @@ export class VolumeManager extends EventEmitter {
         }
         break;
         
-      case 'isolated':
+      case "isolated":
       default:
         // Create project-specific cache
         if (!(await this.volumeExists(volumeName))) {
@@ -342,7 +342,7 @@ export class VolumeManager extends EventEmitter {
   }
 
   async cleanupCaches(): Promise<void> {
-    if(this.config.cacheStrategy === 'ephemeral') {
+    if(this.config.cacheStrategy === "ephemeral") {
       for (const mount of this.volumes.values()) {
         if (mount.type === 'cache') {
           const volumeName = this.getCacheVolumeName(mount);

@@ -67,11 +67,11 @@ export class TestPortManager {
    */
   async registerTestSuite(options: {
     suiteName: string;
-    testType: 'unit' | 'integration' | 'e2e';
+    testType: 'unit' | "integration" | 'e2e';
     deployType?: DeployType;
-    framework?: 'playwright' | 'jest' | 'mocha' | 'cypress';
+    framework?: "playwright" | 'jest' | 'mocha' | 'cypress';
   }): Promise<TestPortAllocation> {
-    const { suiteName, testType, deployType = 'release', framework = 'playwright' } = options;
+    const { suiteName, testType, deployType = 'release', framework = "playwright" } = options;
     
     // Generate unique test app ID
     const testAppId = `test-${testType}-${suiteName}`.toLowerCase().replace(/\s+/g, '-');
@@ -105,7 +105,7 @@ export class TestPortManager {
       baseUrl: this.buildTestUrl(result.port),
       appId: testAppId,
       createdAt: new Date(),
-      status: 'allocated',
+      status: "allocated",
       securityRegistered: true
     };
     
@@ -166,7 +166,7 @@ export class TestPortManager {
     const allocation = this.testRegistrations.get(testAppId);
     
     if (allocation) {
-      allocation.status = 'released';
+      allocation.status = "released";
       this.saveTestConfiguration();
       console.log(`🔓 Test Theme: Released port ${allocation.port} for ${allocation.suiteName}`);
     }
@@ -177,7 +177,7 @@ export class TestPortManager {
    */
   async getActiveAllocations(): TestPortAllocation[] {
     return Array.from(this.testRegistrations.values())
-      .filter(alloc => alloc.status === 'allocated');
+      .filter(alloc => alloc.status === "allocated");
   }
   
   /**
@@ -190,7 +190,7 @@ export class TestPortManager {
     for (const [appId, allocation] of this.testRegistrations.entries()) {
       const age = now.getTime() - allocation.createdAt.getTime();
       
-      if (age > maxAge && allocation.status === 'allocated') {
+      if (age > maxAge && allocation.status === "allocated") {
         this.releaseTestPort(appId);
         this.testRegistrations.delete(appId);
       }
@@ -242,7 +242,7 @@ export class TestPortManager {
   async getTestDomain(): string {
     // All test domains come from test-as-manual theme
     // This ensures no hardcoded localhost in tests
-    return 'localhost';
+    return "localhost";
   }
   
   /**
@@ -339,7 +339,7 @@ export class TestPortManager {
   private async loadTestConfiguration(): void {
     if (fs.existsSync(this.testConfigFile)) {
       try {
-        const config = JSON.parse(fs.readFileSync(this.testConfigFile, 'utf-8'));
+        const config = JSON.parse(fileAPI.readFileSync(this.testConfigFile, 'utf-8'));
         
         if (config.registrations) {
           const registrations = config.registrations.map(([key, value]: [string, any]) => {
@@ -363,14 +363,14 @@ export class TestPortManager {
  */
 export interface TestPortAllocation {
   suiteName: string;
-  testType: 'unit' | 'integration' | 'e2e';
+  testType: 'unit' | "integration" | 'e2e';
   deployType: DeployType;
-  framework: 'playwright' | 'jest' | 'mocha' | 'cypress';
+  framework: "playwright" | 'jest' | 'mocha' | 'cypress';
   port: number;
   baseUrl: string;
   appId: string;
   createdAt: Date;
-  status: 'allocated' | 'released';
+  status: "allocated" | "released";
   securityRegistered: boolean;
 }
 

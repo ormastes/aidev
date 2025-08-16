@@ -8,7 +8,7 @@ import { Database } from 'sqlite3';
 import { Pool } from 'pg';
 
 export interface DatabaseConfig {
-  type: 'memory' | 'sqlite' | 'postgresql';
+  type: 'memory' | 'sqlite' | "postgresql";
   connection?: {
     host?: string;
     port?: number;
@@ -48,7 +48,7 @@ export interface TestExecution {
   userId: string;
   startedAt: Date;
   completedAt?: Date;
-  status: 'pending' | 'running' | 'completed' | 'failed';
+  status: 'pending' | 'running' | "completed" | 'failed';
   results?: any; // JSON results
   notes?: string;
 }
@@ -73,14 +73,14 @@ export abstract class DatabaseAdapter {
   abstract disconnect(): Promise<void>;
   
   // User management
-  abstract createUser(user: Omit<User, 'id' | 'createdAt'>): Promise<User>;
+  abstract createUser(user: Omit<User, 'id' | "createdAt">): Promise<User>;
   abstract getUser(id: string): Promise<User | null>;
   abstract getUserByUsername(username: string): Promise<User | null>;
   abstract updateUser(id: string, updates: Partial<User>): Promise<User>;
   abstract deleteUser(id: string): Promise<void>;
 
   // Test history
-  abstract createTestHistory(history: Omit<TestHistory, 'id' | 'createdAt'>): Promise<TestHistory>;
+  abstract createTestHistory(history: Omit<TestHistory, 'id' | "createdAt">): Promise<TestHistory>;
   abstract getTestHistory(id: string): Promise<TestHistory | null>;
   abstract getTestHistoryBySuite(suiteId: string): Promise<TestHistory[]>;
   abstract getLatestVersion(suiteId: string): Promise<TestHistory | null>;
@@ -94,7 +94,7 @@ export abstract class DatabaseAdapter {
   abstract getExecutionsByUser(userId: string, limit?: number): Promise<TestExecution[]>;
 
   // Session management
-  abstract createSession(session: Omit<UserSession, 'id' | 'createdAt'>): Promise<UserSession>;
+  abstract createSession(session: Omit<UserSession, 'id' | "createdAt">): Promise<UserSession>;
   abstract getSession(token: string): Promise<UserSession | null>;
   abstract updateSession(id: string, updates: Partial<UserSession>): Promise<UserSession>;
   abstract deleteSession(id: string): Promise<void>;
@@ -126,7 +126,7 @@ export class MemoryDatabaseAdapter extends DatabaseAdapter {
     console.log('Memory database disconnected');
   }
 
-  async createUser(userData: Omit<User, 'id' | 'createdAt'>): Promise<User> {
+  async createUser(userData: Omit<User, 'id' | "createdAt">): Promise<User> {
     const user: User = {
       ...userData,
       id: `user-${Date.now()}`,
@@ -159,7 +159,7 @@ export class MemoryDatabaseAdapter extends DatabaseAdapter {
     this.users.delete(id);
   }
 
-  async createTestHistory(historyData: Omit<TestHistory, 'id' | 'createdAt'>): Promise<TestHistory> {
+  async createTestHistory(historyData: Omit<TestHistory, 'id' | "createdAt">): Promise<TestHistory> {
     const history: TestHistory = {
       ...historyData,
       id: `history-${Date.now()}`,
@@ -254,7 +254,7 @@ export class MemoryDatabaseAdapter extends DatabaseAdapter {
       .slice(0, limit);
   }
 
-  async createSession(sessionData: Omit<UserSession, 'id' | 'createdAt'>): Promise<UserSession> {
+  async createSession(sessionData: Omit<UserSession, 'id' | "createdAt">): Promise<UserSession> {
     const session: UserSession = {
       ...sessionData,
       id: `session-${Date.now()}`,
@@ -322,7 +322,7 @@ export class MemoryDatabaseAdapter extends DatabaseAdapter {
           totalTime += exec.completedAt.getTime() - exec.startedAt.getTime();
         }
         
-        if (exec.status === 'completed') {
+        if (exec.status === "completed") {
           successCount++;
         }
       }

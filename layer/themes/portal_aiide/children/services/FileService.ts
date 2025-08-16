@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../utils/http-wrapper';
 import { FileNode } from '../types';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3457';
@@ -42,7 +42,7 @@ export class FileService {
   async createDirectory(path: string): Promise<void> {
     await axios.post(`${this.baseUrl}/api/files/create`, {
       path,
-      type: 'directory',
+      type: "directory",
     });
   }
 

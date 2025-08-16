@@ -1,6 +1,6 @@
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 
 /**
@@ -44,8 +44,8 @@ describe('Distributed Feature Schema Validation', () => {
               description: 'Complete platform for AI-assisted development',
               level: 'root',
               status: 'in-progress',
-              priority: 'critical',
-              tags: ['platform', 'ai'],
+              priority: "critical",
+              tags: ["platform", 'ai'],
               virtual_path: '/FEATURE.vf.json'
             },
             createdAt: '2025-01-24T10:00:00Z',
@@ -62,7 +62,7 @@ describe('Distributed Feature Schema Validation', () => {
               description: 'Complete platform',
               level: 'root',
               status: 'in-progress',
-              priority: 'critical',
+              priority: "critical",
               virtual_path: '/FEATURE.vf.json'
             },
             createdAt: '2025-01-24T10:00:00Z',
@@ -101,7 +101,7 @@ describe('Distributed Feature Schema Validation', () => {
               parent_feature_id: 'root-001',
               status: 'in-progress',
               priority: 'high',
-              tags: ['filesystem', 'mcp'],
+              tags: ["filesystem", 'mcp'],
               child_features: ['story-001', 'story-002'],
               virtual_path: '/layer/themes/filesystem_mcp/FEATURE.vf.json'
             },
@@ -143,7 +143,7 @@ describe('Distributed Feature Schema Validation', () => {
               level: 'user_story',
               parent_feature_id: 'epic-001',
               epic_id: 'epic-001',
-              status: 'completed',
+              status: "completed",
               priority: 'high',
               tags: ['wrapper', 'file-operations'],
               components: ['VFFileWrapper.ts'],
@@ -203,7 +203,7 @@ describe('Distributed Feature Schema Validation', () => {
       const valid = validate(invalidFeature);
 
       expect(valid).toBe(false);
-      expect(validate.errors?.some(error => error.keyword === 'required')).toBe(true);
+      expect(validate.errors?.some(error => error.keyword === "required")).toBe(true);
     });
 
     test('should reject invalid status values', () => {
@@ -303,7 +303,7 @@ describe('Distributed Feature Schema Validation', () => {
               epic_id: 'epic-filesystem-001',
               status: 'in-progress',
               priority: 'high',
-              tags: ['filesystem', 'mcp', 'integration'],
+              tags: ["filesystem", 'mcp', "integration"],
               assignee: 'filesystem-team',
               dueDate: '2025-02-01',
               dependencies: ['root-001'],
@@ -364,19 +364,19 @@ describe('Distributed Feature Schema Validation', () => {
         },
         templates: {
           workspace: {
-            id: 'workspace',
-            type: 'directory',
+            id: "workspace",
+            type: "directory",
             feature_level: 'root',
             has_feature_file: true,
             description: 'Root workspace template',
             required_children: [
               { name: 'FEATURE.vf.json', type: 'feature_file', feature_level: 'root' },
-              { name: 'config', type: 'directory' }
+              { name: 'config', type: "directory" }
             ]
           },
           theme: {
             id: 'theme',
-            type: 'directory',
+            type: "directory",
             feature_level: 'epic',
             has_feature_file: true,
             description: 'Theme folder template',
@@ -387,8 +387,8 @@ describe('Distributed Feature Schema Validation', () => {
         },
         structure: {
           name: '.',
-          type: 'directory',
-          template: 'workspace',
+          type: "directory",
+          template: "workspace",
           feature_level: 'root',
           children: [
             {
@@ -423,13 +423,13 @@ describe('Distributed Feature Schema Validation', () => {
     test('should validate template with feature_level', () => {
       const templateWithFeatureLevel = {
         id: 'user_story',
-        type: 'directory',
+        type: "directory",
         feature_level: 'user_story',
         has_feature_file: true,
         description: 'User story template',
         required_children: [
           { name: 'FEATURE.vf.json', type: 'feature_file', feature_level: 'user_story' },
-          { name: 'src', type: 'directory' }
+          { name: 'src', type: "directory" }
         ],
         constraints: {
           requires_parent_epic: true,

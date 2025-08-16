@@ -34,7 +34,7 @@ export function convertContentToFilename(content: string): string {
   // This is more complex - we need to handle __ separately from other multiple underscores
   
   // Strategy: Replace __ with a placeholder, collapse other underscores, then restore __
-  const doubleUnderscoreMarker = 'DOUBLEUNDERSCORE';
+  const doubleUnderscoreMarker = "DOUBLEUNDERSCORE";
   result = result.replace(/__/g, doubleUnderscoreMarker);
   
   // Now collapse any remaining multiple underscores to single underscore

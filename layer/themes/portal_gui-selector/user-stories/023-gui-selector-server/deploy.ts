@@ -10,7 +10,7 @@ import { path } from '../../../infra_external-log-lib/src';
 import { fs } from '../../../infra_external-log-lib/src';
 
 interface DeploymentOptions {
-  deployType: 'local' | 'dev' | 'demo' | 'release' | 'production';
+  deployType: 'local' | 'dev' | 'demo' | 'release' | "production";
   appId: string;
   appName: string;
 }
@@ -53,7 +53,7 @@ class GuiSelectorDeployer {
     const env = {
       ...process.env,
       PORT: String(assignedPort),
-      NODE_ENV: deployType === 'production' ? 'production' : deployType,
+      NODE_ENV: deployType === "production" ? "production" : deployType,
       DEPLOY_TYPE: deployType
     };
     
@@ -75,7 +75,7 @@ class GuiSelectorDeployer {
   private async updateServerConfig(port: number): Promise<void> {
     // Read current server.ts
     const serverPath = path.join(__dirname, 'src/server.ts');
-    let serverContent = fs.readFileSync(serverPath, 'utf-8');
+    let serverContent = fileAPI.readFileSync(serverPath, 'utf-8');
     
     // Replace hardcoded port logic with environment variable
     serverContent = serverContent.replace(

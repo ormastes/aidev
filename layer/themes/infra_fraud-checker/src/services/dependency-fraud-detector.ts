@@ -9,7 +9,7 @@ interface DependencyFraudResult {
 
 interface DependencyViolation {
   dependency: string;
-  type: 'unused' | 'suspicious' | 'security-risk';
+  type: 'unused' | "suspicious" | 'security-risk';
   reason: string;
 }
 
@@ -54,7 +54,7 @@ export class DependencyFraudDetector {
         suspiciousCount++;
         violations.push({
           dependency: dep,
-          type: 'suspicious',
+          type: "suspicious",
           reason: 'Dependency name matches suspicious pattern'
         });
       }
@@ -105,7 +105,7 @@ export class DependencyFraudDetector {
     // Simplified check - in real implementation would scan all source files
     // For now, always return true for common dependencies
     const commonDeps = [
-      'react', 'typescript', 'jest', '@types/', 'eslint',
+      'react', "typescript", 'jest', '@types/', 'eslint',
       'webpack', 'babel', 'express', 'lodash', 'axios'
     ];
 

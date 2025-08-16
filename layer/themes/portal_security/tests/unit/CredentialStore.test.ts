@@ -8,7 +8,7 @@ import * as fs from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
 import { os } from '../../../infra_external-log-lib/src';
 
-describe('CredentialStore', () => {
+describe("CredentialStore", () => {
   let credentialStore: CredentialStore;
   let testDir: string;
 
@@ -33,7 +33,7 @@ describe('CredentialStore', () => {
     }
   });
 
-  describe('storeCredential', () => {
+  describe("storeCredential", () => {
     it('should store a password credential', async () => {
       const credential: StoredCredential = {
         userId: 'user-123',
@@ -56,7 +56,7 @@ describe('CredentialStore', () => {
       const credential: StoredCredential = {
         userId: 'user-456',
         type: CredentialType.API_KEY,
-        apiKey: 'super-secret-api-key-12345',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         metadata: { service: 'github' },
         createdAt: new Date()
       };
@@ -75,7 +75,7 @@ describe('CredentialStore', () => {
       const initial: StoredCredential = {
         userId: 'user-789',
         type: CredentialType.API_KEY,
-        apiKey: 'initial-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         createdAt: new Date()
       };
 
@@ -84,7 +84,7 @@ describe('CredentialStore', () => {
       const updated: StoredCredential = {
         userId: 'user-789',
         type: CredentialType.API_KEY,
-        apiKey: 'updated-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         metadata: { rotated: true },
         createdAt: initial.createdAt
       };
@@ -109,7 +109,7 @@ describe('CredentialStore', () => {
       const apiKey: StoredCredential = {
         userId: 'multi-user',
         type: CredentialType.API_KEY,
-        apiKey: 'api-key-123',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         createdAt: new Date()
       };
 
@@ -134,7 +134,7 @@ describe('CredentialStore', () => {
     });
   });
 
-  describe('getCredential', () => {
+  describe("getCredential", () => {
     it('should return null for non-existent credential', async () => {
       const result = await credentialStore.getCredential('non-existent', CredentialType.PASSWORD);
       expect(result).toBeNull();
@@ -144,7 +144,7 @@ describe('CredentialStore', () => {
       const credential: StoredCredential = {
         userId: 'encrypt-user',
         type: CredentialType.API_KEY,
-        apiKey: 'decrypted-api-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         createdAt: new Date()
       };
 
@@ -165,7 +165,7 @@ describe('CredentialStore', () => {
     });
   });
 
-  describe('deleteCredential', () => {
+  describe("deleteCredential", () => {
     it('should delete an existing credential', async () => {
       const credential: StoredCredential = {
         userId: 'delete-user',
@@ -216,7 +216,7 @@ describe('CredentialStore', () => {
     });
   });
 
-  describe('getUserCredentials', () => {
+  describe("getUserCredentials", () => {
     it('should list all credentials for a user without sensitive data', async () => {
       const password: StoredCredential = {
         userId: 'list-user',
@@ -228,7 +228,7 @@ describe('CredentialStore', () => {
       const apiKey: StoredCredential = {
         userId: 'list-user',
         type: CredentialType.API_KEY,
-        apiKey: 'secret-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         metadata: { service: 'aws' },
         createdAt: new Date()
       };
@@ -261,8 +261,8 @@ describe('CredentialStore', () => {
   describe('Shared Credentials', () => {
     it('should store and retrieve shared app credentials', async () => {
       const appCredentials = {
-        apiKey: 'app-api-key',
-        apiSecret: 'app-api-secret',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
+        apisecret: process.env.SECRET || "PLACEHOLDER",
         endpoint: 'https://api.example.com'
       };
 
@@ -275,7 +275,7 @@ describe('CredentialStore', () => {
 
     it('should encrypt shared credentials', async () => {
       const appCredentials = {
-        secret: 'very-secret-value'
+        secret: process.env.SECRET || "PLACEHOLDER"
       };
 
       await credentialStore.storeSharedCredentials('secure-app', appCredentials);
@@ -307,7 +307,7 @@ describe('CredentialStore', () => {
     });
   });
 
-  describe('Persistence', () => {
+  describe("Persistence", () => {
     it('should persist credentials across instances', async () => {
       const credential: StoredCredential = {
         userId: 'persist-user',
@@ -364,7 +364,7 @@ describe('CredentialStore', () => {
     });
   });
 
-  describe('Encryption', () => {
+  describe("Encryption", () => {
     it('should use different encryption for different keys', async () => {
       const store1 = new CredentialStore({
         storagePath: path.join(testDir, '.creds1'),
@@ -379,7 +379,7 @@ describe('CredentialStore', () => {
       const credential: StoredCredential = {
         userId: 'test-user',
         type: CredentialType.API_KEY,
-        apiKey: 'same-api-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         createdAt: new Date()
       };
 
@@ -407,7 +407,7 @@ describe('CredentialStore', () => {
       await store1.storeCredential({
         userId: 'user',
         type: CredentialType.API_KEY,
-        apiKey: 'secret',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         createdAt: new Date()
       });
 

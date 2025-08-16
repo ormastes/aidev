@@ -2,18 +2,18 @@
  * AlertManager - Alert rules configuration, notifications, and escalation
  */
 
-import { EventEmitter } from 'events';
-import { path } from '../../../../../themes/infra_external-log-lib/dist';
-import { fs } from '../../../../../themes/infra_external-log-lib/dist';
-import { promisify } from 'util';
+import { EventEmitter } from 'node:events';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { promisify } from 'node:util';
 import winston from 'winston';
 import * as cron from 'node-cron';
 
 const writeFileAsync = promisify(fs.writeFile);
 const readFileAsync = promisify(fs.readFile);
 
-export type AlertSeverity = 'info' | 'warning' | 'critical';
-export type AlertStatus = 'active' | 'acknowledged' | 'resolved' | 'suppressed';
+export type AlertSeverity = 'info' | 'warning' | "critical";
+export type AlertStatus = 'active' | "acknowledged" | "resolved" | "suppressed";
 
 export interface AlertRule {
   id: string;
@@ -43,7 +43,7 @@ export interface AlertCondition {
 }
 
 export interface AlertAction {
-  type: 'email' | 'webhook' | 'slack' | 'pagerduty' | 'sms' | 'custom';
+  type: 'email' | 'webhook' | 'slack' | "pagerduty" | 'sms' | 'custom';
   config: {
     recipients?: string[];
     url?: string;
@@ -236,7 +236,7 @@ export class AlertManager extends EventEmitter {
           retryDelayMinutes: 5
         }],
         cooldownMinutes: 15,
-        tags: ['system', 'performance'],
+        tags: ['system', "performance"],
         createdAt: Date.now(),
         updatedAt: Date.now()
       },
@@ -244,7 +244,7 @@ export class AlertManager extends EventEmitter {
         id: 'high-memory-usage',
         name: 'High Memory Usage',
         description: 'Memory usage is critically high',
-        severity: 'critical',
+        severity: "critical",
         enabled: true,
         conditions: [{
           type: 'metric_threshold',
@@ -265,7 +265,7 @@ export class AlertManager extends EventEmitter {
           retryDelayMinutes: 2
         }],
         cooldownMinutes: 10,
-        tags: ['system', 'critical'],
+        tags: ['system', "critical"],
         createdAt: Date.now(),
         updatedAt: Date.now()
       },
@@ -273,7 +273,7 @@ export class AlertManager extends EventEmitter {
         id: 'service-down',
         name: 'Service Down',
         description: 'A monitored service is not responding',
-        severity: 'critical',
+        severity: "critical",
         enabled: true,
         conditions: [{
           type: 'health_status',
@@ -303,7 +303,7 @@ export class AlertManager extends EventEmitter {
           }
         ],
         cooldownMinutes: 5,
-        tags: ['service', 'critical'],
+        tags: ['service', "critical"],
         createdAt: Date.now(),
         updatedAt: Date.now()
       },
@@ -332,7 +332,7 @@ export class AlertManager extends EventEmitter {
           retryDelayMinutes: 2
         }],
         cooldownMinutes: 20,
-        tags: ['application', 'errors'],
+        tags: ["application", 'errors'],
         createdAt: Date.now(),
         updatedAt: Date.now()
       }
@@ -620,7 +620,7 @@ export class AlertManager extends EventEmitter {
     this.addToHistory(alert);
 
     this.logger.info(`Alert triggered: ${alert.title} (${alert.severity})`);
-    this.emit('alertTriggered', alert);
+    this.emit("alertTriggered", alert);
 
     // Execute alert actions
     for (const action of rule.actions) {
@@ -696,7 +696,7 @@ export class AlertManager extends EventEmitter {
     };
     
     alert.notificationsSent.push(notification);
-    this.emit('notificationSent', { alert, notification });
+    this.emit("notificationSent", { alert, notification });
   }
 
   /**
@@ -722,7 +722,7 @@ export class AlertManager extends EventEmitter {
     };
     
     alert.notificationsSent.push(notification);
-    this.emit('notificationSent', { alert, notification });
+    this.emit("notificationSent", { alert, notification });
   }
 
   /**
@@ -742,7 +742,7 @@ export class AlertManager extends EventEmitter {
     };
     
     alert.notificationsSent.push(notification);
-    this.emit('notificationSent', { alert, notification });
+    this.emit("notificationSent", { alert, notification });
   }
 
   /**
@@ -762,7 +762,7 @@ export class AlertManager extends EventEmitter {
     };
     
     alert.notificationsSent.push(notification);
-    this.emit('notificationSent', { alert, notification });
+    this.emit("notificationSent", { alert, notification });
   }
 
   /**
@@ -785,7 +785,7 @@ export class AlertManager extends EventEmitter {
     };
     
     alert.notificationsSent.push(notification);
-    this.emit('notificationSent', { alert, notification });
+    this.emit("notificationSent", { alert, notification });
   }
 
   /**
@@ -822,12 +822,12 @@ export class AlertManager extends EventEmitter {
       return false;
     }
 
-    alert.status = 'acknowledged';
+    alert.status = "acknowledged";
     alert.acknowledgedAt = Date.now();
     alert.acknowledgedBy = acknowledgedBy || 'unknown';
 
     this.logger.info(`Alert acknowledged: ${alert.title} by ${acknowledgedBy}`);
-    this.emit('alertAcknowledged', alert);
+    this.emit("alertAcknowledged", alert);
 
     return true;
   }
@@ -841,7 +841,7 @@ export class AlertManager extends EventEmitter {
       return false;
     }
 
-    alert.status = 'resolved';
+    alert.status = "resolved";
     alert.resolvedAt = Date.now();
     alert.resolvedBy = resolvedBy || 'system';
 
@@ -849,7 +849,7 @@ export class AlertManager extends EventEmitter {
     this.addToHistory(alert);
 
     this.logger.info(`Alert resolved: ${alert.title} by ${resolvedBy}`);
-    this.emit('alertResolved', alert);
+    this.emit("alertResolved", alert);
 
     return true;
   }
@@ -863,11 +863,11 @@ export class AlertManager extends EventEmitter {
       return false;
     }
 
-    alert.status = 'suppressed';
+    alert.status = "suppressed";
     alert.suppressedUntil = Date.now() + (durationMinutes * 60 * 1000);
 
     this.logger.info(`Alert suppressed: ${alert.title} for ${durationMinutes} minutes`);
-    this.emit('alertSuppressed', alert);
+    this.emit("alertSuppressed", alert);
 
     return true;
   }
@@ -905,9 +905,9 @@ export class AlertManager extends EventEmitter {
     const stats: AlertStatistics = {
       total: allAlerts.length,
       active: Array.from(this.activeAlerts.values()).filter(a => a.status === 'active').length,
-      acknowledged: Array.from(this.activeAlerts.values()).filter(a => a.status === 'acknowledged').length,
-      resolved: this.alertHistory.filter(a => a.status === 'resolved').length,
-      suppressed: Array.from(this.activeAlerts.values()).filter(a => a.status === 'suppressed').length,
+      acknowledged: Array.from(this.activeAlerts.values()).filter(a => a.status === "acknowledged").length,
+      resolved: this.alertHistory.filter(a => a.status === "resolved").length,
+      suppressed: Array.from(this.activeAlerts.values()).filter(a => a.status === "suppressed").length,
       bySeverity: { info: 0, warning: 0, critical: 0 },
       byService: {},
       averageResolutionTime: 0,
@@ -1067,10 +1067,10 @@ export class AlertManager extends EventEmitter {
     
     // Check for suppressed alerts that should be reactivated
     for (const [id, alert] of this.activeAlerts) {
-      if (alert.status === 'suppressed' && alert.suppressedUntil && alert.suppressedUntil <= now) {
+      if (alert.status === "suppressed" && alert.suppressedUntil && alert.suppressedUntil <= now) {
         alert.status = 'active';
         delete alert.suppressedUntil;
-        this.emit('alertReactivated', alert);
+        this.emit("alertReactivated", alert);
       }
     }
 

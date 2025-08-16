@@ -36,7 +36,7 @@ export class PortManager {
       { appId: 'portal', id: 1, internalPort: 4001 },
       { appId: 'gui-selector', id: 56, internalPort: 4056 },
       { appId: 'chat-space', id: 10, internalPort: 4010 },
-      { appId: 'pocketflow', id: 20, internalPort: 4020 },
+      { appId: "pocketflow", id: 20, internalPort: 4020 },
       { appId: 'coordinator-agent', id: 30, internalPort: 4030 },
       { appId: 'external-log', id: 40, internalPort: 4040 }
     ];
@@ -123,14 +123,14 @@ export class PortManager {
   }
 
   getCurrentEnvironment(): 'dev-local' | 'dev' | 'demo' | 'release' {
-    const env = process.env.NODE_ENV || 'development';
+    const env = process.env.NODE_ENV || "development";
     
     // Check for explicit dev-local flag
     if (process.env.DEV_LOCAL === 'true' || env === 'dev-local') return 'dev-local';
     
-    if (env === 'production' || env === 'release') return 'release';
+    if (env === "production" || env === 'release') return 'release';
     if (env === 'demo') return 'demo';
-    if (env === 'dev' || env === 'development') return 'dev';
+    if (env === 'dev' || env === "development") return 'dev';
     
     // Default to dev-local for local development
     return 'dev-local';

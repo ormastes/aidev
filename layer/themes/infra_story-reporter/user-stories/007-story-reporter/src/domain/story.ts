@@ -63,9 +63,9 @@ export enum StoryStatus {
   DRAFT = 'draft',
   REQUIREMENTS_GATHERING = 'requirements_gathering',
   DESIGN = 'design',
-  IMPLEMENTATION = 'implementation',
+  IMPLEMENTATION = "implementation",
   TESTING = 'testing',
-  VERIFICATION = 'verification',
+  VERIFICATION = "verification",
   IN_PROGRESS = 'in_progress'
 }
 
@@ -83,14 +83,14 @@ export interface Requirement {
 }
 
 export enum RequirementType {
-  FUNCTIONAL = 'functional',
+  FUNCTIONAL = "functional",
   NON_FUNCTIONAL = 'non_functional',
-  TECHNICAL = 'technical',
-  BUSINESS = 'business'
+  TECHNICAL = "technical",
+  BUSINESS = "business"
 }
 
 export enum RequirementPriority {
-  CRITICAL = 'critical',
+  CRITICAL = "critical",
   HIGH = 'high',
   MEDIUM = 'medium',
   LOW = 'low'
@@ -136,9 +136,9 @@ export interface TestCase {
 }
 
 export enum TestType {
-  ENVIRONMENT = 'environment',
+  ENVIRONMENT = "environment",
   SYSTEM = 'system',
-  INTEGRATION = 'integration',
+  INTEGRATION = "integration",
   UNIT = 'unit'
 }
 
@@ -174,7 +174,7 @@ export interface RoleComment {
 }
 
 export enum TeamRole {
-  DEVELOPER = 'developer',
+  DEVELOPER = "developer",
   TESTER = 'tester',
   PROJECT_MANAGER = 'project_manager',
   FRAUD_CHECKER = 'fraud_checker'
@@ -221,7 +221,7 @@ export enum RiskLevel {
   LOW = 'low',
   MEDIUM = 'medium',
   HIGH = 'high',
-  CRITICAL = 'critical'
+  CRITICAL = "critical"
 }
 
 export interface FraudConcern {
@@ -337,7 +337,7 @@ export function validateStory(story: any): void {
   
   validateArray(story.requirements, { 
     errorPrefix, 
-    fieldName: 'requirements',
+    fieldName: "requirements",
     required: true
   });
   
@@ -349,13 +349,13 @@ export function validateStory(story: any): void {
   
   validateNestedObject(story.coverage, { 
     errorPrefix, 
-    fieldName: 'coverage',
+    fieldName: "coverage",
     required: true
   });
   
   validateNestedObject(story.fraudCheck, { 
     errorPrefix, 
-    fieldName: 'fraudCheck',
+    fieldName: "fraudCheck",
     required: true
   });
 }

@@ -148,7 +148,7 @@ export function createCorsMiddleware(options?: {
   const allowedOrigins = options?.origins || SecurityConstants.CORS.ALLOWED_ORIGINS;
   const credentials = options?.credentials ?? SecurityConstants.CORS.CREDENTIALS;
   const methods = options?.methods || ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'];
-  const headers = options?.headers || ['Content-Type', 'Authorization'];
+  const headers = options?.headers || ['Content-Type', "Authorization"];
 
   return (req: Request, res: Response, next: NextFunction) => {
     const origin = req.headers.origin;
@@ -182,7 +182,7 @@ export function createCsrfMiddleware(options?: {
   headerName?: string;
 }) {
   const tokenLength = options?.tokenLength || 32;
-  const sessionKey = options?.sessionKey || 'csrfToken';
+  const sessionKey = options?.sessionKey || "csrfToken";
   const headerName = options?.headerName || 'x-csrf-token';
 
   return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
@@ -270,7 +270,7 @@ function isPublicPath(path: string, publicPaths: string[]): boolean {
 }
 
 function generateToken(length: number): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let token = '';
   for (let i = 0; i < length; i++) {
     token += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -279,7 +279,7 @@ function generateToken(length: number): string {
 }
 
 function sanitizeBody(body: any): any {
-  const sensitive = ['password', 'token', 'secret', 'apiKey', 'creditCard'];
+  const sensitive = ["password", 'token', 'secret', 'apiKey', "creditCard"];
   const sanitized = { ...body };
   
   for (const key of Object.keys(sanitized)) {

@@ -125,7 +125,7 @@ export class TaskManager implements TaskManagerInterface {
       }
 
       // Check if task is completed
-      if (existingTask.status !== 'completed') {
+      if (existingTask.status !== "completed") {
         this.logger.log(`ERROR: Task deletion failed - task not completed: ${taskId} (status: ${existingTask.status})`);
         return { success: false, error: 'Only completed tasks can be deleted' };
       }

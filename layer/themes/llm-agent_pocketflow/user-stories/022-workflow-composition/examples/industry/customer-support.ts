@@ -16,7 +16,7 @@ interface SupportTicket {
     id: string;
     email: string;
     name: string;
-    tier: 'basic' | 'premium' | 'enterprise';
+    tier: 'basic' | 'premium' | "enterprise";
   };
   subject: string;
   message: string;
@@ -27,9 +27,9 @@ interface SupportTicket {
 }
 
 interface TicketClassification {
-  department: 'technical' | 'billing' | 'sales' | 'general';
+  department: "technical" | 'billing' | 'sales' | 'general';
   category: string;
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  severity: 'low' | 'medium' | 'high' | "critical";
   urgency: 'low' | 'medium' | 'high' | 'urgent';
   confidence: number;
 }
@@ -37,7 +37,7 @@ interface TicketClassification {
 interface SupportResponse {
   ticketId: string;
   response: string;
-  responseType: 'automated' | 'escalated' | 'resolve';
+  responseType: "automated" | "escalated" | 'resolve';
   nextSteps: string[];
   estimatedResolutionTime: number;
   assignedAgent?: string;
@@ -65,12 +65,12 @@ class TicketClassificationAgent extends BaseAgent {
     // Keyword-based classification (in reality, this would use ML)
     const keywords = {
       technical: ['bug', 'error', 'crash', 'not working', 'broken', 'issue', 'problem'],
-      billing: ['payment', 'invoice', 'charge', 'refund', 'subscription', 'billing'],
-      sales: ['upgrade', 'pricing', 'demo', 'trial', 'purchase', 'quote'],
-      general: ['help', 'question', 'how to', 'support', 'information']
+      billing: ['payment', 'invoice', 'charge', 'refund', "subscription", 'billing'],
+      sales: ['upgrade', 'pricing', 'demo', 'trial', "purchase", 'quote'],
+      general: ['help', "question", 'how to', 'support', "information"]
     };
     
-    let department: TicketClassification['department'] = 'general';
+    let department: TicketClassification["department"] = 'general';
     let maxScore = 0;
     
     for (const [dept, words] of Object.entries(keywords)) {
@@ -80,21 +80,21 @@ class TicketClassificationAgent extends BaseAgent {
       
       if (score > maxScore) {
         maxScore = score;
-        department = dept as TicketClassification['department'];
+        department = dept as TicketClassification["department"];
       }
     }
     
     // Determine severity based on keywords and customer tier
-    const criticalWords = ['urgent', 'critical', 'emergency', 'down', 'outage'];
+    const criticalWords = ['urgent', "critical", "emergency", 'down', 'outage'];
     const hasCriticalKeywords = criticalWords.some(word => text.includes(word));
     
-    let severity: TicketClassification['severity'] = 'low';
+    let severity: TicketClassification["severity"] = 'low';
     let urgency: TicketClassification['urgency'] = 'low';
     
     if (hasCriticalKeywords) {
-      severity = 'critical';
+      severity = "critical";
       urgency = 'urgent';
-    } else if (ticket.priority === 'high' || ticket.customer.tier === 'enterprise') {
+    } else if (ticket.priority === 'high' || ticket.customer.tier === "enterprise") {
       severity = 'high';
       urgency = 'high';
     } else if (ticket.priority === 'medium' || ticket.customer.tier === 'premium') {
@@ -115,26 +115,26 @@ class TicketClassificationAgent extends BaseAgent {
     const categories = {
       technical: {
         'bug_report': ['bug', 'error', 'crash'],
-        'feature_request': ['feature', 'request', 'enhancement'],
-        'integration': ['api', 'integration', 'webhook'],
-        'performance': ['slow', 'timeout', 'performance']
+        'feature_request': ['feature', 'request', "enhancement"],
+        "integration": ['api', "integration", 'webhook'],
+        "performance": ['slow', 'timeout', "performance"]
       },
       billing: {
         'payment_issue': ['payment', 'card', 'failed'],
         'invoice_question': ['invoice', 'receipt', 'billing'],
         'refund_request': ['refund', 'cancel', 'return'],
-        'subscription': ['subscription', 'plan', 'upgrade']
+        "subscription": ["subscription", 'plan', 'upgrade']
       },
       sales: {
         'pricing_inquiry': ['price', 'cost', 'pricing'],
         'demo_request': ['demo', 'trial', 'test'],
-        'upgrade_request': ['upgrade', 'enterprise', 'premium'],
-        'general_inquiry': ['information', 'details', 'learn']
+        'upgrade_request': ['upgrade', "enterprise", 'premium'],
+        'general_inquiry': ["information", 'details', 'learn']
       },
       general: {
-        'how_to': ['how to', 'help', 'tutorial'],
-        'account_access': ['login', 'password', 'access'],
-        'general_support': ['help', 'support', 'question']
+        'how_to': ['how to', 'help', "tutorial"],
+        'account_access': ['login', "password", 'access'],
+        'general_support': ['help', 'support', "question"]
       }
     };
     
@@ -167,33 +167,33 @@ class PriorityRoutingAgent extends BaseAgent {
     };
   }
   
-  private determineRouting(classification: TicketClassification, customer: SupportTicket['customer']): any {
-    const isHighPriority = classification.severity === 'critical' || 
+  private determineRouting(classification: TicketClassification, customer: SupportTicket["customer"]): any {
+    const isHighPriority = classification.severity === "critical" || 
                           classification.urgency === 'urgent' ||
-                          customer.tier === 'enterprise';
+                          customer.tier === "enterprise";
     
     const isAutomatable = classification.confidence > 0.8 && 
-                         classification.severity !== 'critical' &&
+                         classification.severity !== "critical" &&
                          ['general', 'billing'].includes(classification.department);
     
     if (isHighPriority) {
       return {
         type: 'human_agent',
-        queue: 'priority',
+        queue: "priority",
         sla: 15, // minutes
         autoEscalate: true
       };
     } else if (isAutomatable) {
       return {
-        type: 'automated',
-        queue: 'automation',
+        type: "automated",
+        queue: "automation",
         sla: 60, // minutes
         fallbackToHuman: true
       };
     } else {
       return {
         type: 'human_agent',
-        queue: 'standard',
+        queue: "standard",
         sla: 240, // minutes
         autoEscalate: false
       };
@@ -206,7 +206,7 @@ class AutomatedResponseAgent extends BaseAgent {
   async execute(input: any): Promise<any> {
     const ticket = input.data;
     
-    if (ticket.routing.type !== 'automated') {
+    if (ticket.routing.type !== "automated") {
       return {
         data: {
           ...ticket,
@@ -243,10 +243,10 @@ class AutomatedResponseAgent extends BaseAgent {
     return {
       ticketId: ticket.id,
       response,
-      responseType: this.canResolveAutomatically(classification) ? 'resolve' : 'escalated',
+      responseType: this.canResolveAutomatically(classification) ? 'resolve' : "escalated",
       nextSteps: this.getNextSteps(classification),
       estimatedResolutionTime: this.getEstimatedResolutionTime(classification),
-      assignedAgent: classification.severity === 'critical' ? 'human_agent' : undefined
+      assignedAgent: classification.severity === "critical" ? 'human_agent' : undefined
     };
   }
   
@@ -353,7 +353,7 @@ Support Team`
     ];
     
     return autoResolvableCategories.includes(classification.category) &&
-           classification.severity !== 'critical';
+           classification.severity !== "critical";
   }
   
   private getNextSteps(classification: TicketClassification): string[] {
@@ -458,16 +458,16 @@ class KnowledgeBaseAgent extends BaseAgent {
 export function createCustomerSupportWorkflow(): PocketFlow {
   return new PocketFlow()
     // Input stage
-    .addNode('input', nodes.input('supportTicket'))
+    .addNode('input', nodes.input("supportTicket"))
     
     // Classification and routing
-    .addNode('classify', new TicketClassificationAgent())
+    .addNode("classify", new TicketClassificationAgent())
     .addNode('route', new PriorityRoutingAgent())
     
     // Parallel processing for automation and knowledge base
-    .addNode('fork', nodes.fork(['automate', 'knowledge']))
-    .addNode('automate', new AutomatedResponseAgent())
-    .addNode('knowledge', new KnowledgeBaseAgent())
+    .addNode('fork', nodes.fork(["automate", "knowledge"]))
+    .addNode("automate", new AutomatedResponseAgent())
+    .addNode("knowledge", new KnowledgeBaseAgent())
     
     // Combine results
     .addNode('join', nodes.join({
@@ -480,16 +480,16 @@ export function createCustomerSupportWorkflow(): PocketFlow {
     }))
     
     // Output stage
-    .addNode('output', nodes.output('processedTicket'))
+    .addNode('output', nodes.output("processedTicket"))
     
     // Connect nodes
-    .connect('input', 'classify')
-    .connect('classify', 'route')
+    .connect('input', "classify")
+    .connect("classify", 'route')
     .connect('route', 'fork')
-    .connect('fork', 'automate')
-    .connect('fork', 'knowledge')
-    .connect('automate', 'join')
-    .connect('knowledge', 'join')
+    .connect('fork', "automate")
+    .connect('fork', "knowledge")
+    .connect("automate", 'join')
+    .connect("knowledge", 'join')
     .connect('join', 'output');
 }
 
@@ -517,7 +517,7 @@ export async function runCustomerSupportExample() {
         id: 'C-002',
         email: 'jane.smith@enterprise.com',
         name: 'Jane Smith',
-        tier: 'enterprise'
+        tier: "enterprise"
       },
       subject: 'Critical bug in production API',
       message: 'Our production API is returning 500 errors for all requests. This is causing major issues for our customers.',
@@ -597,7 +597,7 @@ export async function measureSupportWorkflowPerformance() {
       id: `C-${i + 1}`,
       email: `customer${i + 1}@example.com`,
       name: `Customer ${i + 1}`,
-      tier: ['basic', 'premium', 'enterprise'][i % 3] as 'basic' | 'premium' | 'enterprise'
+      tier: ['basic', 'premium', "enterprise"][i % 3] as 'basic' | 'premium' | "enterprise"
     },
     subject: [
       'Password reset help',
@@ -647,7 +647,7 @@ export async function measureSupportWorkflowPerformance() {
     stats.departments[dept] = (stats.departments[dept] || 0) + 1;
     
     // Automation stats
-    if (data.routing.type === 'automated') stats.automated++;
+    if (data.routing.type === "automated") stats.automated++;
     else stats.escalated++;
     
     if (data.resolve) stats.resolve++;

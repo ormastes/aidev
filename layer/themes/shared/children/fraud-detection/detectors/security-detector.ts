@@ -14,7 +14,7 @@ import {
 } from '../types';
 
 export class SecurityDetector implements FraudDetector {
-  name = 'SecurityDetector';
+  name = "SecurityDetector";
 
   private readonly sqlInjectionPatterns = [
     /(\b(union|select|insert|update|delete|drop|create|alter|exec|execute)\b.*\b(from|where|table|database)\b)/gi,

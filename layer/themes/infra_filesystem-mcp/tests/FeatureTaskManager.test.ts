@@ -1,11 +1,11 @@
 import { FeatureTaskManager, createFeatureTaskManager } from '../children/FeatureTaskManager';
 import { VFDistributedFeatureWrapper } from '../children/VFDistributedFeatureWrapper';
 import { VFTaskQueueWrapper } from '../children/VFTaskQueueWrapper';
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 import { tmpdir } from 'os';
 
-describe('FeatureTaskManager', () => {
+describe("FeatureTaskManager", () => {
   let tempDir: string;
   let manager: FeatureTaskManager;
 
@@ -75,7 +75,7 @@ describe('FeatureTaskManager', () => {
     }
   });
 
-  describe('addFeature', () => {
+  describe("addFeature", () => {
     it('should add a feature and auto-create tasks', async () => {
       const feature = {
         name: 'Test Feature',
@@ -85,7 +85,7 @@ describe('FeatureTaskManager', () => {
           level: 'theme' as const,
           status: 'planned' as const,
           priority: 'high' as const,
-          tags: ['test', 'validation'],
+          tags: ['test', "validation"],
           components: [
             'Component A',
             'Component B',
@@ -98,7 +98,7 @@ describe('FeatureTaskManager', () => {
         }
       };
 
-      const result = await manager.addFeature('infrastructure', feature);
+      const result = await manager.addFeature("infrastructure", feature);
 
       expect(result.featureId).toBeTruthy();
       expect(result.taskIds).toHaveLength(6); // 1 main + 4 components + 1 criteria
@@ -123,7 +123,7 @@ describe('FeatureTaskManager', () => {
         }
       };
 
-      const result = await manager.addFeature('platform', feature, false);
+      const result = await manager.addFeature("platform", feature, false);
 
       expect(result.featureId).toBeTruthy();
       expect(result.taskIds).toHaveLength(0);
@@ -134,7 +134,7 @@ describe('FeatureTaskManager', () => {
     });
   });
 
-  describe('updateFeatureStatus', () => {
+  describe("updateFeatureStatus", () => {
     it('should prevent feature completion with pending tasks', async () => {
       // Add a feature with tasks
       const feature = {
@@ -150,10 +150,10 @@ describe('FeatureTaskManager', () => {
         }
       };
 
-      const { featureId } = await manager.addFeature('infrastructure', feature);
+      const { featureId } = await manager.addFeature("infrastructure", feature);
 
       // Try to complete the feature
-      const validation = await manager.updateFeatureStatus(featureId, 'completed');
+      const validation = await manager.updateFeatureStatus(featureId, "completed");
 
       expect(validation.isValid).toBe(false);
       expect(validation.errors).toContain(expect.stringContaining('still pending or in progress'));
@@ -174,7 +174,7 @@ describe('FeatureTaskManager', () => {
         }
       };
 
-      const { featureId, taskIds } = await manager.addFeature('infrastructure', feature);
+      const { featureId, taskIds } = await manager.addFeature("infrastructure", feature);
 
       // Complete all tasks
       const taskQueue = JSON.parse(await fs.readFile(path.join(tempDir, 'TASK_QUEUE.vf.json'), 'utf-8'));
@@ -182,7 +182,7 @@ describe('FeatureTaskManager', () => {
         if (Array.isArray(taskQueue.taskQueues[priority])) {
           taskQueue.taskQueues[priority] = taskQueue.taskQueues[priority].map((task: any) => {
             if (taskIds.includes(task.id)) {
-              task.status = 'completed';
+              task.status = "completed";
               task.completedAt = new Date().toISOString();
             }
             return task;
@@ -192,7 +192,7 @@ describe('FeatureTaskManager', () => {
       await fs.writeFile(path.join(tempDir, 'TASK_QUEUE.vf.json'), JSON.stringify(taskQueue, null, 2));
 
       // Now complete the feature (with skip validation since we don't have full status manager setup)
-      const validation = await manager.updateFeatureStatus(featureId, 'completed', true);
+      const validation = await manager.updateFeatureStatus(featureId, "completed", true);
 
       expect(validation.isValid).toBe(true);
     });
@@ -212,7 +212,7 @@ describe('FeatureTaskManager', () => {
         }
       };
 
-      const { featureId, taskIds } = await manager.addFeature('infrastructure', feature);
+      const { featureId, taskIds } = await manager.addFeature("infrastructure", feature);
 
       // Complete all tasks
       const taskQueue = JSON.parse(await fs.readFile(path.join(tempDir, 'TASK_QUEUE.vf.json'), 'utf-8'));
@@ -220,7 +220,7 @@ describe('FeatureTaskManager', () => {
         if (Array.isArray(taskQueue.taskQueues[priority])) {
           taskQueue.taskQueues[priority] = taskQueue.taskQueues[priority].map((task: any) => {
             if (taskIds.includes(task.id)) {
-              task.status = 'completed';
+              task.status = "completed";
               task.completedAt = new Date().toISOString();
             }
             return task;
@@ -230,7 +230,7 @@ describe('FeatureTaskManager', () => {
       await fs.writeFile(path.join(tempDir, 'TASK_QUEUE.vf.json'), JSON.stringify(taskQueue, null, 2));
 
       // Complete the feature (skip validation for test)
-      await manager.updateFeatureStatus(featureId, 'completed', true);
+      await manager.updateFeatureStatus(featureId, "completed", true);
 
       // Verify tasks were deleted
       const remainingTasks = await manager.getFeatureTasks(featureId);
@@ -238,7 +238,7 @@ describe('FeatureTaskManager', () => {
     });
   });
 
-  describe('validateFeatureTasks', () => {
+  describe("validateFeatureTasks", () => {
     it('should validate pending tasks correctly', async () => {
       const feature = {
         name: 'Test Feature',
@@ -253,7 +253,7 @@ describe('FeatureTaskManager', () => {
         }
       };
 
-      const { featureId } = await manager.addFeature('infrastructure', feature);
+      const { featureId } = await manager.addFeature("infrastructure", feature);
 
       const validation = await manager.validateFeatureTasks(featureId);
 
@@ -276,7 +276,7 @@ describe('FeatureTaskManager', () => {
         }
       };
 
-      const { featureId, taskIds } = await manager.addFeature('infrastructure', feature);
+      const { featureId, taskIds } = await manager.addFeature("infrastructure", feature);
 
       // Block the task
       const taskQueue = JSON.parse(await fs.readFile(path.join(tempDir, 'TASK_QUEUE.vf.json'), 'utf-8'));
@@ -299,7 +299,7 @@ describe('FeatureTaskManager', () => {
     });
   });
 
-  describe('getFeatureTasks', () => {
+  describe("getFeatureTasks", () => {
     it('should retrieve all tasks for a feature', async () => {
       const feature = {
         name: 'Test Feature',
@@ -314,7 +314,7 @@ describe('FeatureTaskManager', () => {
         }
       };
 
-      const { featureId } = await manager.addFeature('infrastructure', feature);
+      const { featureId } = await manager.addFeature("infrastructure", feature);
 
       const tasks = await manager.getFeatureTasks(featureId);
 
@@ -323,7 +323,7 @@ describe('FeatureTaskManager', () => {
     });
   });
 
-  describe('linkTasksToFeature', () => {
+  describe("linkTasksToFeature", () => {
     it('should manually link existing tasks to a feature', async () => {
       // Create a feature without auto-creating tasks
       const feature = {
@@ -338,7 +338,7 @@ describe('FeatureTaskManager', () => {
         }
       };
 
-      const { featureId } = await manager.addFeature('platform', feature, false);
+      const { featureId } = await manager.addFeature("platform", feature, false);
 
       // Create manual tasks
       const taskQueueWrapper = new VFTaskQueueWrapper(tempDir);
@@ -377,7 +377,7 @@ describe('FeatureTaskManager', () => {
     });
   });
 
-  describe('getFeatureTaskSummary', () => {
+  describe("getFeatureTaskSummary", () => {
     it('should generate comprehensive feature-task summary', async () => {
       // Add multiple features with tasks
       const feature1 = {
@@ -406,8 +406,8 @@ describe('FeatureTaskManager', () => {
         }
       };
 
-      await manager.addFeature('infrastructure', feature1);
-      await manager.addFeature('platform', feature2);
+      await manager.addFeature("infrastructure", feature1);
+      await manager.addFeature("platform", feature2);
 
       const summary = await manager.getFeatureTaskSummary();
 
@@ -419,7 +419,7 @@ describe('FeatureTaskManager', () => {
     });
   });
 
-  describe('syncFeatureTasks', () => {
+  describe("syncFeatureTasks", () => {
     it('should sync tasks when feature deliverables change', async () => {
       // Add a feature with initial deliverables
       const feature = {
@@ -435,7 +435,7 @@ describe('FeatureTaskManager', () => {
         }
       };
 
-      const { featureId } = await manager.addFeature('infrastructure', feature);
+      const { featureId } = await manager.addFeature("infrastructure", feature);
 
       // Update the feature to add new deliverables
       const featureWrapper = new VFDistributedFeatureWrapper(tempDir);

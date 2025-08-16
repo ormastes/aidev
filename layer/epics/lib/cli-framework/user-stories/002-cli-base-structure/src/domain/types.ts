@@ -70,10 +70,10 @@ export interface CLIInstance {
 }
 
 export type HookEvent = 
-  | 'preparse'
-  | 'postparse'
-  | 'precommand'
-  | 'postcommand'
+  | "preparse"
+  | "postparse"
+  | "precommand"
+  | "postcommand"
   | 'error';
 
 export interface CommandDefinition {
@@ -96,7 +96,7 @@ export class CLIError extends Error {
     public exitCode: number = 1
   ) {
     super(message);
-    this.name = 'CLIError';
+    this.name = "CLIError";
   }
 }
 
@@ -127,7 +127,7 @@ export type InferOptions<T extends OptionsSchema> = {
     T[K]['type'] extends 'count' ? number :
     never;
 } & {
-  [K in keyof T as T[K]['required'] extends true ? never : K]?: 
+  [K in keyof T as T[K]["required"] extends true ? never : K]?: 
     T[K]['type'] extends 'string' ? string :
     T[K]['type'] extends 'number' ? number :
     T[K]['type'] extends 'boolean' ? boolean :

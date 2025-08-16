@@ -1,5 +1,5 @@
-import { fs } from '../../../../infra_external-log-lib/src';
-import { path } from '../../../../infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 describe('Architecture Documentation', () => {
   const docsDir = path.join(__dirname, '../docs');

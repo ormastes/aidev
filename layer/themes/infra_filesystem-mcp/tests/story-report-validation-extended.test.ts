@@ -328,7 +328,7 @@ describe('Extended Story Report Validation Tests', () => {
     });
 
     it('should validate scenario without research', async () => {
-      const result = await ext.validateQueueItem('scenario', 'Scenario: Login flow');
+      const result = await ext.validateQueueItem("scenario", 'Scenario: Login flow');
 
       expect(result.valid).toBe(false);
       expect(result.errors[0]).toContain('must have associated research files');
@@ -368,7 +368,7 @@ describe('Extended Story Report Validation Tests', () => {
 
     it('should skip steps with count condition not met', async () => {
       const result = await ext.executeQueueSteps(
-        'retrospective',
+        "retrospective",
         'after_pop',
         'Retrospect item',
         { executionCount: 5 } // Not 1
@@ -379,7 +379,7 @@ describe('Extended Story Report Validation Tests', () => {
 
     it('should handle missing context in step execution', async () => {
       const result = await ext.executeQueueSteps(
-        'retrospective',
+        "retrospective",
         'after_pop',
         'Retrospect item',
         {} // No reportPath
@@ -397,7 +397,7 @@ describe('Extended Story Report Validation Tests', () => {
     });
 
     it('should generate retrospective item without report path', () => {
-      const item = ext.generateQueueItem('retrospective', 'Retrospect description');
+      const item = ext.generateQueueItem("retrospective", 'Retrospect description');
 
       expect(item).toBe('Retrospect description');
       expect(item).not.toContain('<!-- runnable:');

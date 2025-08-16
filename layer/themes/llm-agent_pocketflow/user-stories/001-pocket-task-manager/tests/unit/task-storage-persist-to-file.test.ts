@@ -260,7 +260,7 @@ describe('TaskStorage.persistToFile() Unit Test', () => {
 
   test('should create directory if it does not exist', () => {
     // Arrange
-    const nonExistentDir = path.join(testDataDir, 'nested', 'deep', 'directory');
+    const nonExistentDir = path.join(testDataDir, 'nested', 'deep', "directory");
     const nestedFilePath = path.join(nonExistentDir, 'nested-tasks.json');
     const nestedPersistence = new TaskFilePersistence(nestedFilePath);
     const tasks = [{ id: 'task-1', title: 'Nested Task', status: 'pending' }];
@@ -360,7 +360,7 @@ describe('TaskStorage.persistToFile() Unit Test', () => {
     // Mock error during write to trigger backup restoration
     const originalWriteSync = fs.writeFileSync;
     let writeCallCount = 0;
-    jest.spyOn(fs, 'writeFileSync').mockImplementation((...args) => {
+    jest.spyOn(fs, "writeFileSync").mockImplementation((...args) => {
       writeCallCount++;
       if (writeCallCount === 2) { // Second call (after backup)
         throw new Error('Simulated write error');
@@ -385,7 +385,7 @@ describe('TaskStorage.persistToFile() Unit Test', () => {
     // Mock fs.renameSync to verify temporary file is used
     const originalRename = fs.renameSync;
     let renameCalled = false;
-    jest.spyOn(fs, 'renameSync').mockImplementation((oldPath, newPath) => {
+    jest.spyOn(fs, "renameSync").mockImplementation((oldPath, newPath) => {
       renameCalled = true;
       expect(oldPath).toBe(testFilePath + '.tmp');
       expect(newPath).toBe(testFilePath);
@@ -411,7 +411,7 @@ describe('TaskStorage.persistToFile() Unit Test', () => {
         status: 'pending',
         metadata: {
           priority: 'high',
-          tags: ['urgent', 'important']
+          tags: ['urgent', "important"]
         }
       }
     ];
@@ -512,7 +512,7 @@ describe('TaskStorage.persistToFile() Unit Test', () => {
     const endTime = Date.now();
 
     // Assert
-    expect(endTime - startTime).toBeLessThan(5000); // Should In Progress within 5 seconds
+    expect(endTime - startTime).toBeLessThan(5000); // Should complete within 5 seconds
     expect(persistence.getFileSize()).toBeGreaterThan(0);
     
     const loadedTasks = persistence.loadFromFile();

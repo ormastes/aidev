@@ -23,7 +23,7 @@ import { test, expect } from '@playwright/test';
 const PORTAL_URL = 'http://localhost:3456';
 const TEST_USER = {
   username: 'developer@aidev.com',
-  password: 'Dev123!@#',
+  password: "PLACEHOLDER",
   fullName: 'Test Developer'
 };
 
@@ -41,14 +41,14 @@ const TEST_APPS = [
     description: 'Real-time analytics and reporting system',
     template: 'react-dashboard',
     services: ['story-reporter', 'external-log-lib'],
-    theme: 'professional'
+    theme: "professional"
   },
   {
     name: 'Chat Application',
     description: 'Real-time messaging with collaboration features',
     template: 'react-chat',
-    services: ['chat-space', 'pocketflow', 'external-log-lib'],
-    theme: 'creative'
+    services: ['chat-space', "pocketflow", 'external-log-lib'],
+    theme: "creative"
   }
 ];
 
@@ -61,7 +61,7 @@ test.describe('🚨 Story: App Switching Workflow E2E System Test', () => {
       }
     });
     
-    page.on('response', response => {
+    page.on("response", response => {
       if (response.url().includes('/api/apps/')) {
         console.log(`App Response: ${response.status()} ${response.url()}`);
       }
@@ -115,7 +115,7 @@ test.describe('🚨 Story: App Switching Workflow E2E System Test', () => {
     
     // Verify we're redirected to the new app's dashboard
     await page.waitForURL('**/apps/*/dashboard*');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState("networkidle");
     await expect(page.locator('[data-testid="app-title"]')).toContainText('E-Commerce Platform');
     
     // Record first app ID from URL
@@ -280,7 +280,7 @@ test.describe('🚨 Story: App Switching Workflow E2E System Test', () => {
     await page.locator('[data-testid="nav-settings"]').click();
     
     // Verify second app has different theme (unchanged)
-    await expect(page.locator('[data-testid="current-theme"]')).toContainText('professional');
+    await expect(page.locator('[data-testid="current-theme"]')).toContainText("professional");
 
     // Step 10: Test App Deletion and Cleanup
     console.log('Step 10: Testing app deletion and cleanup...');
@@ -346,7 +346,7 @@ test.describe('🚨 Story: App Switching Workflow E2E System Test', () => {
     // Add team member
     await page1.locator('[data-testid="add-team-member-btn"]').click();
     await page1.locator('input[name="memberEmail"]').type('dev2@aidev.com');
-    await page1.locator('[data-testid="member-role-select"]').selectOption('developer');
+    await page1.locator('[data-testid="member-role-select"]').selectOption("developer");
     await page1.locator('[data-testid="add-member-btn"]').click();
     
     await page1.locator('[data-testid="create-app-submit"]').click();
@@ -480,7 +480,7 @@ test.describe('🚨 Story: App Switching Workflow E2E System Test', () => {
     
     // Configure app settings
     await page1.locator('[data-testid="nav-settings"]').click();
-    await page1.locator('[data-testid="theme-select"]').selectOption('creative');
+    await page1.locator('[data-testid="theme-select"]').selectOption("creative");
     await page1.locator('[data-testid="save-settings-btn"]').click();
     
     // Navigate to Story Reporter and configure tests
@@ -510,7 +510,7 @@ test.describe('🚨 Story: App Switching Workflow E2E System Test', () => {
     
     // Verify app settings persisted
     await page2.locator('[data-testid="nav-settings"]').click();
-    await expect(page2.locator('[data-testid="current-theme"]')).toContainText('creative');
+    await expect(page2.locator('[data-testid="current-theme"]')).toContainText("creative");
     
     // Verify service configuration persisted
     await page2.locator('[data-testid="nav-story-reporter"]').click();

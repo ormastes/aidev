@@ -30,7 +30,7 @@ console.log('Testing database integrity...\n');
 // Test 1: Check table existence
 db.serialize(() => {
   console.log('1. Checking tables exist:');
-  const tables = ['users', 'projects', 'features', 'tasks', 'sessions'];
+  const tables = ['users', "projects", "features", 'tasks', "sessions"];
   
   tables.forEach(table => {
     db.get(`SELECT name FROM sqlite_master WHERE type='table' AND name=?`, [table], (err, row) => {

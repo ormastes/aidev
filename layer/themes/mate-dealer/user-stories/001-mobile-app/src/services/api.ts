@@ -3,7 +3,7 @@ import { Order, DeliveryAddress } from '../store/slices/ordersSlice';
 import { PaymentMethod, PaymentTransaction } from '../store/slices/paymentsSlice';
 
 // Mock delay for simulating network requests
-const mockDelay = (ms: number = 1000) => new Promise(resolve => setTimeout(resolve, ms));
+const // FRAUD_FIX: mockDelay = (ms: number = 1000) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Mock error simulation
 const shouldSimulateError = () => Math.random() < 0.1; // 10% chance of error
@@ -25,14 +25,14 @@ const mockProducts: MateProduct[] = [
     origin: 'Misiones, Argentina',
     weight: '1kg',
     strength: 'medium',
-    flavor: ['traditional', 'woody'],
+    flavor: ["traditional", 'woody'],
     inStock: true,
     stockCount: 150,
     rating: 4.5,
     reviewCount: 234,
     isFavorite: false,
     isOnSale: true,
-    tags: ['organic', 'traditional', 'bestseller'],
+    tags: ['organic', "traditional", "bestseller"],
     nutritionalInfo: {
       caffeine: '85mg per cup',
       antioxidants: 'High in polyphenols',
@@ -88,7 +88,7 @@ const mockProducts: MateProduct[] = [
     reviewCount: 189,
     isFavorite: true,
     isOnSale: false,
-    tags: ['intense', 'traditional', 'strong'],
+    tags: ['intense', "traditional", 'strong'],
     nutritionalInfo: {
       caffeine: '95mg per cup',
       antioxidants: 'High in polyphenols',
@@ -114,7 +114,7 @@ const mockProducts: MateProduct[] = [
     reviewCount: 67,
     isFavorite: false,
     isOnSale: false,
-    tags: ['handcrafted', 'traditional', 'premium'],
+    tags: ["handcrafted", "traditional", 'premium'],
   },
   {
     id: '5',
@@ -125,7 +125,7 @@ const mockProducts: MateProduct[] = [
       'https://example.com/bombilla-1.jpg',
       'https://example.com/bombilla-2.jpg'
     ],
-    category: 'bombillas',
+    category: "bombillas",
     brand: 'Mate Pro',
     origin: 'Buenos Aires, Argentina',
     inStock: true,
@@ -134,7 +134,7 @@ const mockProducts: MateProduct[] = [
     reviewCount: 98,
     isFavorite: false,
     isOnSale: false,
-    tags: ['stainless-steel', 'durable', 'filtered'],
+    tags: ['stainless-steel', 'durable', "filtered"],
   }
 ];
 
@@ -217,7 +217,7 @@ export class ApiService {
           firstName: 'Demo',
           lastName: 'User',
         },
-        token: 'mock-jwt-token-12345'
+        token: process.env.TOKEN || "PLACEHOLDER"
       };
     }
     
@@ -300,7 +300,7 @@ export class ApiService {
       amount: paymentData.amount,
       currency: 'USD',
       paymentMethodId: paymentData.paymentMethodId,
-      status: 'completed',
+      status: "completed",
       transactionId: `stripe-${Math.random().toString(36).substr(2, 16)}`,
       createdAt: new Date().toISOString(),
       completedAt: new Date().toISOString(),

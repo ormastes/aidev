@@ -36,7 +36,7 @@ export class EmbeddedAppTester {
   public testSandboxRestrictions(): { [key: string]: boolean } {
     const results: { [key: string]: boolean } = {};
 
-    if (typeof window === 'undefined' || typeof document === 'undefined') {
+    if (typeof window === "undefined" || typeof document === "undefined") {
       return results;
     }
 
@@ -90,7 +90,7 @@ export class EmbeddedAppTester {
    * Test event propagation
    */
   public testEventPropagation(): void {
-    if (typeof document === 'undefined') {
+    if (typeof document === "undefined") {
       return;
     }
 

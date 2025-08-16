@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Database Wrapper for External Log Library
  * 
@@ -10,12 +11,12 @@ import { config } from 'dotenv';
 import { Client as PostgresClient } from 'pg';
 import mysql from 'mysql2/promise';
 import sqlite3 from 'sqlite3';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 
 config();
 
 export interface DatabaseConfig {
-  type: 'sqlite' | 'postgres' | 'mysql';
+  type: 'sqlite' | "postgres" | 'mysql';
   host?: string;
   port?: number;
   user?: string;
@@ -64,20 +65,20 @@ export class DatabaseWrapper {
    * Create database wrapper from environment variables
    */
   static fromEnvironment(): DatabaseWrapper {
-    const dbType = (process.env.DB_TYPE || 'sqlite').toLowerCase() as 'sqlite' | 'postgres' | 'mysql';
+    const dbType = (process.env.DB_TYPE || 'sqlite').toLowerCase() as 'sqlite' | "postgres" | 'mysql';
     
     let config: DatabaseConfig = { type: dbType };
 
     switch (dbType) {
-      case 'postgres':
+      case "postgres":
         config = {
-          type: 'postgres',
-          host: process.env.DB_HOST || 'localhost',
+          type: "postgres",
+          host: process.env.DB_HOST || "localhost",
           port: parseInt(process.env.DB_PORT || '5432'),
-          user: process.env.DB_USER || 'postgres',
+          user: process.env.DB_USER || "postgres",
           password: process.env.DB_PASSWORD || '',
           database: process.env.DB_NAME || 'ai_dev_portal',
-          ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+          ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
           timeout: parseInt(process.env.DB_TIMEOUT || '30000')
         };
         break;
@@ -85,7 +86,7 @@ export class DatabaseWrapper {
       case 'mysql':
         config = {
           type: 'mysql',
-          host: process.env.DB_HOST || 'localhost',
+          host: process.env.DB_HOST || "localhost",
           port: parseInt(process.env.DB_PORT || '3306'),
           user: process.env.DB_USER || 'root',
           password: process.env.DB_PASSWORD || '',
@@ -114,7 +115,7 @@ export class DatabaseWrapper {
   async connect(): Promise<void> {
     try {
       switch (this.config.type) {
-        case 'postgres':
+        case "postgres":
           await this.connectPostgres();
           break;
         case 'mysql':
@@ -191,7 +192,7 @@ export class DatabaseWrapper {
 
     try {
       switch (this.config.type) {
-        case 'postgres':
+        case "postgres":
           return await this.queryPostgres(sql, params);
         case 'mysql':
           return await this.queryMySQL(sql, params);
@@ -285,7 +286,7 @@ export class DatabaseWrapper {
       let version = 'Unknown';
       
       switch (this.config.type) {
-        case 'postgres':
+        case "postgres":
           const pgResult = await this.query('SELECT version()');
           version = pgResult.rows[0]?.version || 'Unknown';
           break;
@@ -336,7 +337,7 @@ export class DatabaseWrapper {
 
     try {
       switch (this.config.type) {
-        case 'postgres':
+        case "postgres":
           const pgTables = await this.query(`
             SELECT table_name 
             FROM information_schema.tables 
@@ -382,7 +383,7 @@ export class DatabaseWrapper {
           
           // Get file size for SQLite
           try {
-            const fs = require('fs');
+            const fs = require('../../layer/themes/infra_external-log-lib/src');
             const stats = fs.statSync(this.config.path!);
             size = `${Math.round(stats.size / 1024)} KB`;
           } catch (e) {
@@ -435,7 +436,7 @@ export class DatabaseWrapper {
       try {
         let createTableSQL: string;
         switch (this.config.type) {
-          case 'postgres':
+          case "postgres":
             createTableSQL = `CREATE TABLE ${testTableName} (id SERIAL PRIMARY KEY, test_value TEXT)`;
             break;
           case 'mysql':
@@ -508,7 +509,7 @@ export class DatabaseWrapper {
 
     try {
       switch (this.config.type) {
-        case 'postgres':
+        case "postgres":
           await (this.connection as PostgresClient).end();
           break;
         case 'mysql':

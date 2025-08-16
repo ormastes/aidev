@@ -27,12 +27,12 @@ describe('MockFreeTestRunner Event Emission Coverage Tests', () => {
       const scenarioStartSpy = jest.fn();
       const scenarioCompleteSpy = jest.fn();
       
-      mockFreeTestRunner.on('scenarioStart', scenarioStartSpy);
-      mockFreeTestRunner.on('scenarioComplete', scenarioCompleteSpy);
+      mockFreeTestRunner.on("scenarioStart", scenarioStartSpy);
+      mockFreeTestRunner.on("scenarioComplete", scenarioCompleteSpy);
       
       // Verify listeners are registered
-      expect(mockFreeTestRunner.listenerCount('scenarioStart')).toBeGreaterThan(0);
-      expect(mockFreeTestRunner.listenerCount('scenarioComplete')).toBeGreaterThan(0);
+      expect(mockFreeTestRunner.listenerCount("scenarioStart")).toBeGreaterThan(0);
+      expect(mockFreeTestRunner.listenerCount("scenarioComplete")).toBeGreaterThan(0);
     });
 
     it('should allow registration of step event listeners', () => {
@@ -41,12 +41,12 @@ describe('MockFreeTestRunner Event Emission Coverage Tests', () => {
       const stepStartSpy = jest.fn();
       const stepCompleteSpy = jest.fn();
       
-      mockFreeTestRunner.on('stepStart', stepStartSpy);
-      mockFreeTestRunner.on('stepComplete', stepCompleteSpy);
+      mockFreeTestRunner.on("stepStart", stepStartSpy);
+      mockFreeTestRunner.on("stepComplete", stepCompleteSpy);
       
       // Verify listeners are registered
-      expect(mockFreeTestRunner.listenerCount('stepStart')).toBeGreaterThan(0);
-      expect(mockFreeTestRunner.listenerCount('stepComplete')).toBeGreaterThan(0);
+      expect(mockFreeTestRunner.listenerCount("stepStart")).toBeGreaterThan(0);
+      expect(mockFreeTestRunner.listenerCount("stepComplete")).toBeGreaterThan(0);
     });
 
     it('should allow registration of test execution event listeners', () => {
@@ -57,15 +57,15 @@ describe('MockFreeTestRunner Event Emission Coverage Tests', () => {
       const progressSpy = jest.fn();
       const errorSpy = jest.fn();
       
-      mockFreeTestRunner.on('testStart', testStartSpy);
-      mockFreeTestRunner.on('testComplete', testCompleteSpy);
-      mockFreeTestRunner.on('progress', progressSpy);
+      mockFreeTestRunner.on("testStart", testStartSpy);
+      mockFreeTestRunner.on("testComplete", testCompleteSpy);
+      mockFreeTestRunner.on("progress", progressSpy);
       mockFreeTestRunner.on('error', errorSpy);
       
       // Verify listeners are registered
-      expect(mockFreeTestRunner.listenerCount('testStart')).toBeGreaterThan(0);
-      expect(mockFreeTestRunner.listenerCount('testComplete')).toBeGreaterThan(0);
-      expect(mockFreeTestRunner.listenerCount('progress')).toBeGreaterThan(0);
+      expect(mockFreeTestRunner.listenerCount("testStart")).toBeGreaterThan(0);
+      expect(mockFreeTestRunner.listenerCount("testComplete")).toBeGreaterThan(0);
+      expect(mockFreeTestRunner.listenerCount("progress")).toBeGreaterThan(0);
       expect(mockFreeTestRunner.listenerCount('error')).toBeGreaterThan(0);
     });
 
@@ -91,16 +91,16 @@ describe('MockFreeTestRunner Event Emission Coverage Tests', () => {
       const progressSpy = jest.fn();
       
       mockFreeTestRunner.on('log', logSpy);
-      mockFreeTestRunner.on('progress', progressSpy);
+      mockFreeTestRunner.on("progress", progressSpy);
       
       expect(mockFreeTestRunner.listenerCount('log')).toBeGreaterThan(0);
-      expect(mockFreeTestRunner.listenerCount('progress')).toBeGreaterThan(0);
+      expect(mockFreeTestRunner.listenerCount("progress")).toBeGreaterThan(0);
       
       // Remove specific listener
       mockFreeTestRunner.removeListener('log', logSpy);
       
       expect(mockFreeTestRunner.listenerCount('log')).toBe(0);
-      expect(mockFreeTestRunner.listenerCount('progress')).toBeGreaterThan(0);
+      expect(mockFreeTestRunner.listenerCount("progress")).toBeGreaterThan(0);
     });
 
     it('should handle once listeners correctly', () => {
@@ -148,15 +148,15 @@ describe('MockFreeTestRunner Event Emission Coverage Tests', () => {
       mockFreeTestRunner.configure(testConfig);
       
       const progressSpy = jest.fn();
-      mockFreeTestRunner.on('progress', progressSpy);
+      mockFreeTestRunner.on("progress", progressSpy);
       
       // This should not crash the event system
       expect(() => {
-        (mockFreeTestRunner as any).emit('progress', null);
+        (mockFreeTestRunner as any).emit("progress", null);
       }).not.toThrow();
       
       expect(() => {
-        (mockFreeTestRunner as any).emit('progress', undefined);
+        (mockFreeTestRunner as any).emit("progress", undefined);
       }).not.toThrow();
       
       expect(progressSpy).toHaveBeenCalledTimes(2);
@@ -170,12 +170,12 @@ describe('MockFreeTestRunner Event Emission Coverage Tests', () => {
       const scenarioStartSpy = jest.fn();
       const scenarioCompleteSpy = jest.fn();
       
-      mockFreeTestRunner.on('scenarioStart', scenarioStartSpy);
-      mockFreeTestRunner.on('scenarioComplete', scenarioCompleteSpy);
+      mockFreeTestRunner.on("scenarioStart", scenarioStartSpy);
+      mockFreeTestRunner.on("scenarioComplete", scenarioCompleteSpy);
       
       // Verify event listeners are ready to receive expected data structure
-      expect(typeof scenarioStartSpy).toBe('function');
-      expect(typeof scenarioCompleteSpy).toBe('function');
+      expect(typeof scenarioStartSpy).toBe("function");
+      expect(typeof scenarioCompleteSpy).toBe("function");
     });
 
     it('should prepare for step event data validation', () => {
@@ -184,12 +184,12 @@ describe('MockFreeTestRunner Event Emission Coverage Tests', () => {
       const stepStartSpy = jest.fn();
       const stepCompleteSpy = jest.fn();
       
-      mockFreeTestRunner.on('stepStart', stepStartSpy);
-      mockFreeTestRunner.on('stepComplete', stepCompleteSpy);
+      mockFreeTestRunner.on("stepStart", stepStartSpy);
+      mockFreeTestRunner.on("stepComplete", stepCompleteSpy);
       
       // Verify event listeners are ready to receive expected data structure
-      expect(typeof stepStartSpy).toBe('function');
-      expect(typeof stepCompleteSpy).toBe('function');
+      expect(typeof stepStartSpy).toBe("function");
+      expect(typeof stepCompleteSpy).toBe("function");
     });
 
     it('should prepare for test execution event data validation', () => {
@@ -199,14 +199,14 @@ describe('MockFreeTestRunner Event Emission Coverage Tests', () => {
       const testCompleteSpy = jest.fn();
       const progressSpy = jest.fn();
       
-      mockFreeTestRunner.on('testStart', testStartSpy);
-      mockFreeTestRunner.on('testComplete', testCompleteSpy);
-      mockFreeTestRunner.on('progress', progressSpy);
+      mockFreeTestRunner.on("testStart", testStartSpy);
+      mockFreeTestRunner.on("testComplete", testCompleteSpy);
+      mockFreeTestRunner.on("progress", progressSpy);
       
       // Verify event listeners are ready to receive expected data structure
-      expect(typeof testStartSpy).toBe('function');
-      expect(typeof testCompleteSpy).toBe('function');
-      expect(typeof progressSpy).toBe('function');
+      expect(typeof testStartSpy).toBe("function");
+      expect(typeof testCompleteSpy).toBe("function");
+      expect(typeof progressSpy).toBe("function");
     });
   });
 

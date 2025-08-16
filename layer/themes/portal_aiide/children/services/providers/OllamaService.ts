@@ -6,7 +6,7 @@ import { LLMProvider, ChatMessage, ChatSettings } from '../../types';
 import { ChatResponse } from '../ChatService';
 
 interface OllamaMessage {
-  role: 'system' | 'user' | 'assistant';
+  role: 'system' | 'user' | "assistant";
   content: string;
 }
 
@@ -205,7 +205,7 @@ export class OllamaService {
 
   private convertMessages(messages: ChatMessage[]): OllamaMessage[] {
     return messages.map(msg => ({
-      role: msg.role as 'system' | 'user' | 'assistant',
+      role: msg.role as 'system' | 'user' | "assistant",
       content: msg.content
     }));
   }

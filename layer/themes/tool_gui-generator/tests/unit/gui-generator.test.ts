@@ -40,13 +40,13 @@ describe('gui-generator theme', () => {
       // Placeholder for design style support
       const designStyles = [
         'modern',
-        'professional',
-        'creative',
-        'accessible'
+        "professional",
+        "creative",
+        "accessible"
       ];
       
       expect(designStyles).toHaveLength(4);
-      expect(designStyles).toContain('accessible');
+      expect(designStyles).toContain("accessible");
     });
 
     it('should generate responsive layouts when implemented', () => {
@@ -68,8 +68,8 @@ describe('gui-generator theme', () => {
       // Placeholder for form generation
       const form = {
         fields: [
-          { type: 'text', name: 'username' },
-          { type: 'password', name: 'password' },
+          { type: 'text', name: "username" },
+          { type: "password", name: "password" },
           { type: 'submit', text: 'Login' }
         ]
       };
@@ -93,7 +93,7 @@ describe('gui-generator theme', () => {
     });
   });
 
-  describe('validation', () => {
+  describe("validation", () => {
     it('should validate component structure', () => {
       // Placeholder for validation
       const isValidComponent = (component: any) => {

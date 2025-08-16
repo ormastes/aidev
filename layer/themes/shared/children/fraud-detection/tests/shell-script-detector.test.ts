@@ -5,7 +5,7 @@
 import { shellScriptDetector } from '../detectors/shell-script-detector';
 import { FraudSeverity, ViolationType } from '../types';
 
-describe('ShellScriptDetector', () => {
+describe("ShellScriptDetector", () => {
   describe('detect', () => {
     it('should pass for short shell scripts (10 lines or less)', async () => {
       const shortScript = `#!/bin/bash

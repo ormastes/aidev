@@ -64,7 +64,7 @@ describe('Runner - Simple Tests', () => {
     launchDebugSessionWithCloseHandler = runnerModule.launchDebugSessionWithCloseHandler;
   });
 
-  describe('initRunner', () => {
+  describe("initRunner", () => {
     test('should initialize runner with context', () => {
       const mockContext = {
         subscriptions: [],
@@ -78,7 +78,7 @@ describe('Runner - Simple Tests', () => {
     });
   });
 
-  describe('runProgramWithLibPaths', () => {
+  describe("runProgramWithLibPaths", () => {
     test('should create a spawn process', async () => {
       const mockSpawn = spawn as jest.MockedFunction<typeof spawn>;
       const mockProcess = {
@@ -222,9 +222,9 @@ describe('Runner - Simple Tests', () => {
     });
   });
 
-  describe('launchDebugSessionWithCloseHandler', () => {
+  describe("launchDebugSessionWithCloseHandler", () => {
     test('should be a function', () => {
-      expect(typeof launchDebugSessionWithCloseHandler).toBe('function');
+      expect(typeof launchDebugSessionWithCloseHandler).toBe("function");
     });
 
     test('should return a promise', () => {

@@ -16,7 +16,7 @@ export class CoverageReporter {
   private templatesDir: string;
 
   constructor() {
-    this.templatesDir = path.join(__dirname, '..', 'templates');
+    this.templatesDir = path.join(__dirname, '..', "templates");
   }
 
   /**
@@ -24,7 +24,7 @@ export class CoverageReporter {
    */
   async generate(
     coverageData: CoverageResult,
-    format: 'html' | 'json' | 'xml' | 'markdown' | 'console',
+    format: 'html' | 'json' | 'xml' | "markdown" | 'console',
     outputPath?: string
   ): Promise<CoverageReport> {
     const summary = this.generateSummary(coverageData);
@@ -40,7 +40,7 @@ export class CoverageReporter {
       case 'xml':
         content = this.generateXmlReport(coverageData, summary);
         break;
-      case 'markdown':
+      case "markdown":
         content = this.generateMarkdownReport(coverageData, summary);
         break;
       case 'console':
@@ -70,13 +70,13 @@ export class CoverageReporter {
       style?: 'flat' | 'flat-square' | 'plastic';
     }
   ): Promise<void> {
-    const label = options?.label || 'coverage';
+    const label = options?.label || "coverage";
     const style = options?.style || 'flat';
     let color = options?.color;
 
     // Auto-determine color based on coverage
     if (!color) {
-      if (coverage >= 90) color = 'brightgreen';
+      if (coverage >= 90) color = "brightgreen";
       else if (coverage >= 80) color = 'green';
       else if (coverage >= 70) color = 'yellow';
       else if (coverage >= 60) color = 'orange';

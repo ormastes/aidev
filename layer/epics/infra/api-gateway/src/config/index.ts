@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const config = {
-  env: process.env.NODE_ENV || 'development',
+  env: process.env.NODE_ENV || "development",
   port: parseInt(process.env.GATEWAY_PORT || '8080'),
   version: '1.0.0',
   
@@ -21,7 +21,7 @@ export const config = {
 
   // Redis Configuration
   redis: {
-    host: process.env.REDIS_HOST || 'localhost',
+    host: process.env.REDIS_HOST || "localhost",
     port: parseInt(process.env.REDIS_PORT || '6379'),
     password: process.env.REDIS_PASSWORD,
     db: parseInt(process.env.REDIS_DB || '0'),
@@ -102,7 +102,7 @@ export const config = {
   serviceDiscovery: {
     enabled: process.env.SERVICE_DISCOVERY_ENABLED === 'true',
     type: process.env.SERVICE_DISCOVERY_TYPE || 'static', // static, consul, eureka, kubernetes
-    consulHost: process.env.CONSUL_HOST || 'localhost',
+    consulHost: process.env.CONSUL_HOST || "localhost",
     consulPort: parseInt(process.env.CONSUL_PORT || '8500'),
   },
 
@@ -117,7 +117,7 @@ export const config = {
     contentSecurityPolicy: process.env.CSP_ENABLED !== 'false',
     hsts: {
       enabled: process.env.HSTS_ENABLED !== 'false',
-      maxAge: parseInt(process.env.HSTS_MAX_AGE || '31536000'),
+      maxAge: parseInt(process.env.HSTS_MAX_AGE || "31536000"),
       includeSubDomains: true,
       preload: true,
     },

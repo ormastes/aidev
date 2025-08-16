@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
 import { ArtifactManager } from '../../children/ArtifactManager';
 import { TaskQueueValidator } from '../../children/TaskQueueValidator';
 import { VFTaskQueueWrapper } from '../../children/VFTaskQueueWrapper';
-import { fsPromises as fs } from '../../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
 import { tmpdir } from 'os';
 
@@ -113,7 +113,7 @@ describe('Artifact Pattern Detection System Tests', () => {
     it('should detect retrospect file pattern', async () => {
       const result = await artifactManager.saveArtifact({
         content: '# Retrospective\n\n## Lessons Learned\n\n## Improvements',
-        type: 'documentation',
+        type: "documentation",
         variables: {
           user_story: 'login-feature'
         },
@@ -125,17 +125,17 @@ describe('Artifact Pattern Detection System Tests', () => {
       expect(result.success).toBe(true);
       
       // Should suggest retrospect path
-      const artifacts = await artifactManager.listArtifactsByType('documentation');
+      const artifacts = await artifactManager.listArtifactsByType("documentation");
       expect(artifacts.length).toBeGreaterThan(0);
     });
 
     it('should detect research file pattern', async () => {
       const result = await artifactManager.saveArtifact({
         content: '# Research: OAuth Implementation\n\n## Analysis',
-        type: 'documentation',
+        type: "documentation",
         variables: {
           epic: 'portal',
-          theme: 'security',
+          theme: "security",
           user_story: 'oauth'
         },
         metadata: {
@@ -159,7 +159,7 @@ describe('Artifact Pattern Detection System Tests', () => {
           type: 'sequence_diagram',
           variables: {
             epic: 'portal',
-            theme: 'security',
+            theme: "security",
             user_story: 'login',
             story: '001-login'
           }
@@ -215,7 +215,7 @@ describe('Artifact Pattern Detection System Tests', () => {
 
       const validation = await taskValidator.validateTaskPush(taskC);
       
-      expect(validation.errors.some(e => e.includes('Circular'))).toBe(true);
+      expect(validation.errors.some(e => e.includes("Circular"))).toBe(true);
     });
 
     it('should validate task requirements', async () => {
@@ -310,9 +310,9 @@ describe('Artifact Pattern Detection System Tests', () => {
       expect(artifact?.state).toBe('review');
 
       // Transition: review -> approved
-      await artifactManager.updateArtifactState(artifactId, 'approved');
+      await artifactManager.updateArtifactState(artifactId, "approved");
       artifact = await artifactManager.getArtifact(artifactId);
-      expect(artifact?.state).toBe('approved');
+      expect(artifact?.state).toBe("approved");
 
       // Invalid transition: approved -> draft (should fail)
       await expect(
@@ -346,7 +346,7 @@ describe('Artifact Pattern Detection System Tests', () => {
         type: 'source_code',
         variables: {
           epic: 'tool',
-          theme: 'calculator',
+          theme: "calculator",
           ext: 'ts'
         }
       });
@@ -356,7 +356,7 @@ describe('Artifact Pattern Detection System Tests', () => {
       // Check if test stubs were suggested
       expect(result.validation.requiredTests).toBeDefined();
       expect(result.validation.requiredTests).toContain('unit');
-      expect(result.validation.requiredTests).toContain('integration');
+      expect(result.validation.requiredTests).toContain("integration");
     });
 
     it('should validate artifact patterns against rules', async () => {
@@ -364,7 +364,7 @@ describe('Artifact Pattern Detection System Tests', () => {
       const artifacts = [
         { type: 'source_code', content: 'class A {}', path: 'src/a.ts' },
         { type: 'test_code', content: 'test("a", () => {})', path: 'tests/a.test.ts' },
-        { type: 'documentation', content: '# Docs', path: 'docs/readme.md' }
+        { type: "documentation", content: '# Docs', path: 'docs/readme.md' }
       ];
 
       for (const artifact of artifacts) {
@@ -406,7 +406,7 @@ describe('Artifact Pattern Detection System Tests', () => {
       
       // Check artifact is archived
       const artifact = await artifactManager.getArtifact(result.id!);
-      expect(artifact?.state).toBe('archived');
+      expect(artifact?.state).toBe("archived");
     });
   });
 
@@ -418,7 +418,7 @@ describe('Artifact Pattern Detection System Tests', () => {
         type: 'data',
         content: { 
           title: 'Create authentication component',
-          artifacts_to_create: ['source_code', 'test_code', 'documentation']
+          artifacts_to_create: ['source_code', 'test_code', "documentation"]
         },
         status: 'pending'
       };
@@ -442,7 +442,7 @@ describe('Artifact Pattern Detection System Tests', () => {
       // Verify artifacts were created
       const sourceArtifacts = await artifactManager.listArtifactsByType('source_code');
       const testArtifacts = await artifactManager.listArtifactsByType('test_code');
-      const docArtifacts = await artifactManager.listArtifactsByType('documentation');
+      const docArtifacts = await artifactManager.listArtifactsByType("documentation");
       
       expect(sourceArtifacts.length).toBeGreaterThan(0);
       expect(testArtifacts.length).toBeGreaterThan(0);
@@ -471,7 +471,7 @@ describe('Artifact Pattern Detection System Tests', () => {
         const parts = path.split('/');
         let artifactType = 'source_code';
         if (path.includes('.test.')) artifactType = 'test_code';
-        if (path.includes('.md')) artifactType = 'documentation';
+        if (path.includes('.md')) artifactType = "documentation";
         
         const result = await artifactManager.saveArtifact({
           content: '// Content',

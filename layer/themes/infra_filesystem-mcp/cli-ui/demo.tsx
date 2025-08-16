@@ -6,7 +6,7 @@ import { FileSystemSelector } from './FileSystemSelector';
 import { TaskQueueViewer } from './TaskQueueViewer';
 import { VFFileEditor } from './VFFileEditor';
 
-type AppMode = 'menu' | 'filesystem' | 'taskqueue' | 'vfeditor';
+type AppMode = 'menu' | "filesystem" | "taskqueue" | "vfeditor";
 
 const App = () => {
   const [mode, setMode] = useState<AppMode>('menu');
@@ -16,8 +16,8 @@ const App = () => {
   const sampleFiles = [
     { id: '1', name: 'TASK_QUEUE.vf.json', type: 'file' as const, path: '/home/project/', status: 'active' },
     { id: '2', name: 'FEATURE.vf.json', type: 'file' as const, path: '/home/project/', status: 'active' },
-    { id: '3', name: 'src', type: 'directory' as const, path: '/home/project/', status: 'active' },
-    { id: '4', name: 'tests', type: 'directory' as const, path: '/home/project/', status: 'active' },
+    { id: '3', name: 'src', type: "directory" as const, path: '/home/project/', status: 'active' },
+    { id: '4', name: 'tests', type: "directory" as const, path: '/home/project/', status: 'active' },
     { id: '5', name: 'README.md', type: 'file' as const, path: '/home/project/', status: 'active' }
   ];
 
@@ -36,14 +36,14 @@ const App = () => {
       type: 'bug', 
       name: 'Fix VF file validation', 
       status: 'pending' as const,
-      priority: 'critical' as const,
+      priority: "critical" as const,
       dependencies: ['t1']
     },
     { 
       id: 't3', 
-      type: 'documentation', 
+      type: "documentation", 
       name: 'Update Ink library documentation', 
-      status: 'completed' as const,
+      status: "completed" as const,
       priority: 'low' as const,
       progress: 100
     },
@@ -94,9 +94,9 @@ const App = () => {
   });
 
   const menuItems = [
-    { label: '📁 File System Browser', value: 'filesystem' },
-    { label: '📋 Task Queue Viewer', value: 'taskqueue' },
-    { label: '✏️  VF File Editor', value: 'vfeditor' },
+    { label: '📁 File System Browser', value: "filesystem" },
+    { label: '📋 Task Queue Viewer', value: "taskqueue" },
+    { label: '✏️  VF File Editor', value: "vfeditor" },
     { label: '❌ Exit', value: 'exit' }
   ];
 
@@ -139,7 +139,7 @@ const App = () => {
     );
   }
 
-  if (mode === 'filesystem') {
+  if (mode === "filesystem") {
     return (
       <FileSystemSelector
         title="File System Browser"
@@ -154,7 +154,7 @@ const App = () => {
     );
   }
 
-  if (mode === 'taskqueue') {
+  if (mode === "taskqueue") {
     return (
       <TaskQueueViewer
         tasks={sampleTasks}
@@ -166,7 +166,7 @@ const App = () => {
     );
   }
 
-  if (mode === 'vfeditor') {
+  if (mode === "vfeditor") {
     return (
       <VFFileEditor
         file={sampleVFFile}

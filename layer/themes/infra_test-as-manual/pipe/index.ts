@@ -144,7 +144,7 @@ export {
 } from '../children/TestCredentialProvider';
 
 // Helper function to get credentials directly
-export function getTestCredentials(role: 'admin' | 'user' | 'moderator' | 'developer' = 'admin') {
+export function getTestCredentials(role: 'admin' | 'user' | "moderator" | "developer" = 'admin') {
   const provider = TestCredentialProvider.getInstance();
   return provider.getCredentialsByRole(role);
 }

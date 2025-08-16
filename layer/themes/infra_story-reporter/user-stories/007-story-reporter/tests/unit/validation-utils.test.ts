@@ -11,7 +11,7 @@ import {
 } from '../../s../utils/validation-utils';
 
 describe('Validation Utils', () => {
-  describe('validateObject', () => {
+  describe("validateObject", () => {
     it('should pass for valid objects', () => {
       expect(() => validateObject({})).not.toThrow();
       expect(() => validateObject({ key: 'value' })).not.toThrow();
@@ -28,12 +28,12 @@ describe('Validation Utils', () => {
     it('should use custom error prefix and field name', () => {
       expect(() => validateObject(null, { 
         errorPrefix: 'Custom error', 
-        fieldName: 'CustomField' 
+        fieldName: "CustomField" 
       })).toThrow('Custom error: CustomField must be an object');
     });
   });
 
-  describe('validateString', () => {
+  describe("validateString", () => {
     it('should pass for valid strings', () => {
       expect(() => validateString('valid string')).not.toThrow();
       expect(() => validateString('')).not.toThrow();
@@ -64,7 +64,7 @@ describe('Validation Utils', () => {
     });
   });
 
-  describe('validateBoolean', () => {
+  describe("validateBoolean", () => {
     it('should pass for valid booleans', () => {
       expect(() => validateBoolean(true)).not.toThrow();
       expect(() => validateBoolean(false)).not.toThrow();
@@ -85,7 +85,7 @@ describe('Validation Utils', () => {
     });
   });
 
-  describe('validateNumber', () => {
+  describe("validateNumber", () => {
     it('should pass for valid numbers', () => {
       expect(() => validateNumber(42)).not.toThrow();
       expect(() => validateNumber(0)).not.toThrow();
@@ -127,7 +127,7 @@ describe('Validation Utils', () => {
     });
   });
 
-  describe('validateArray', () => {
+  describe("validateArray", () => {
     it('should pass for valid arrays', () => {
       expect(() => validateArray([])).not.toThrow();
       expect(() => validateArray([1, 2, 3])).not.toThrow();
@@ -155,7 +155,7 @@ describe('Validation Utils', () => {
     });
   });
 
-  describe('validateEnum', () => {
+  describe("validateEnum", () => {
     const allowedValues = ['option1', 'option2', 'option3'];
 
     it('should pass for valid enum values', () => {
@@ -177,7 +177,7 @@ describe('Validation Utils', () => {
     });
   });
 
-  describe('validateDate', () => {
+  describe("validateDate", () => {
     it('should pass for valid Date objects', () => {
       expect(() => validateDate(new Date())).not.toThrow();
       expect(() => validateDate(new Date('2023-01-01'))).not.toThrow();
@@ -199,7 +199,7 @@ describe('Validation Utils', () => {
     });
   });
 
-  describe('validateNestedObject', () => {
+  describe("validateNestedObject", () => {
     it('should pass for valid objects', () => {
       expect(() => validateNestedObject({})).not.toThrow();
       expect(() => validateNestedObject({ key: 'value' })).not.toThrow();
@@ -242,7 +242,7 @@ describe('Validation Utils', () => {
     });
   });
 
-  describe('ErrorPrefixes', () => {
+  describe("ErrorPrefixes", () => {
     it('should have consistent error prefixes', () => {
       expect(ErrorPrefixes.TEST_CONFIGURATION).toBe('Invalid configuration');
       expect(ErrorPrefixes.REPORT_CONFIG).toBe('Invalid report config');

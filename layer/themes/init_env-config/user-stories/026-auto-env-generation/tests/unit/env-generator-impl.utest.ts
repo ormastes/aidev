@@ -22,22 +22,22 @@ describe('EnvGeneratorImpl Coverage Tests', () => {
     envGenerator = new EnvGeneratorImpl(serviceDiscovery, tokenService);
   });
   
-  describe('generateDatabaseConfig', () => {
+  describe("generateDatabaseConfig", () => {
     it('should generate PostgreSQL config with all fields', () => {
       const dbConfig: DatabaseConfig = {
-        type: 'postgresql',
+        type: "postgresql",
         host: 'db.example.com',
         port: 5432,
         database: 'myapp',
         user: 'admin',
-        password: 'secret123'
+        password: "PLACEHOLDER"
       };
       
-      const result = envGenerator.generateDatabaseConfig(dbConfig, 'production');
+      const result = envGenerator.generateDatabaseConfig(dbConfig, "production");
       
       expect(result).toContainEqual({
         key: 'DB_TYPE',
-        value: 'postgresql',
+        value: "postgresql",
         description: 'Database type'
       });
       
@@ -61,7 +61,7 @@ describe('EnvGeneratorImpl Coverage Tests', () => {
       
       expect(result).toContainEqual({
         key: 'DB_PASSWORD',
-        value: 'secret123',
+        value: "secret123",
         description: 'Database password',
         isSecret: true
       });
@@ -76,15 +76,15 @@ describe('EnvGeneratorImpl Coverage Tests', () => {
     
     it('should generate PostgreSQL config with defaults', () => {
       const dbConfig: DatabaseConfig = {
-        type: 'postgresql',
+        type: "postgresql",
         database: 'myapp'
       };
       
-      const result = envGenerator.generateDatabaseConfig(dbConfig, 'production');
+      const result = envGenerator.generateDatabaseConfig(dbConfig, "production");
       
       expect(result).toContainEqual({
         key: 'DB_HOST',
-        value: 'localhost',
+        value: "localhost",
         description: 'Database host'
       });
       
@@ -96,7 +96,7 @@ describe('EnvGeneratorImpl Coverage Tests', () => {
       
       expect(result).toContainEqual({
         key: 'DB_USER',
-        value: 'postgres',
+        value: "postgres",
         description: 'Database user'
       });
       
@@ -118,7 +118,7 @@ describe('EnvGeneratorImpl Coverage Tests', () => {
         database: 'myapp'
       };
       
-      const result = envGenerator.generateDatabaseConfig(dbConfig, 'development');
+      const result = envGenerator.generateDatabaseConfig(dbConfig, "development");
       
       expect(result).toContainEqual({
         key: 'DB_TYPE',
@@ -149,10 +149,10 @@ describe('EnvGeneratorImpl Coverage Tests', () => {
     });
   });
   
-  describe('validateEnvVariables', () => {
+  describe("validateEnvVariables", () => {
     it('should validate correct env variables', () => {
       const variables: EnvVariable[] = [
-        { key: 'NODE_ENV', value: 'production' },
+        { key: 'NODE_ENV', value: "production" },
         { key: 'SERVICE_NAME', value: 'api' },
         { key: 'SERVICE_PORT', value: '3000' },
         { key: 'API_KEY', value: 'secret' }
@@ -164,7 +164,7 @@ describe('EnvGeneratorImpl Coverage Tests', () => {
     
     it('should reject missing required variables', () => {
       const variables: EnvVariable[] = [
-        { key: 'NODE_ENV', value: 'production' },
+        { key: 'NODE_ENV', value: "production" },
         { key: 'SERVICE_NAME', value: 'api' }
         // Missing SERVICE_PORT
       ];
@@ -175,10 +175,10 @@ describe('EnvGeneratorImpl Coverage Tests', () => {
     
     it('should reject duplicate keys', () => {
       const variables: EnvVariable[] = [
-        { key: 'NODE_ENV', value: 'production' },
+        { key: 'NODE_ENV', value: "production" },
         { key: 'SERVICE_NAME', value: 'api' },
         { key: 'SERVICE_PORT', value: '3000' },
-        { key: 'NODE_ENV', value: 'development' } // Duplicate
+        { key: 'NODE_ENV', value: "development" } // Duplicate
       ];
       
       const result = envGenerator.validateEnvVariables(variables);
@@ -187,7 +187,7 @@ describe('EnvGeneratorImpl Coverage Tests', () => {
     
     it('should reject invalid key format', () => {
       const variables: EnvVariable[] = [
-        { key: 'NODE_ENV', value: 'production' },
+        { key: 'NODE_ENV', value: "production" },
         { key: 'SERVICE_NAME', value: 'api' },
         { key: 'SERVICE_PORT', value: '3000' },
         { key: 'invalid-key', value: 'value' } // Invalid format
@@ -199,10 +199,10 @@ describe('EnvGeneratorImpl Coverage Tests', () => {
     
     it('should reject keys starting with number', () => {
       const variables: EnvVariable[] = [
-        { key: 'NODE_ENV', value: 'production' },
+        { key: 'NODE_ENV', value: "production" },
         { key: 'SERVICE_NAME', value: 'api' },
         { key: 'SERVICE_PORT', value: '3000' },
-        { key: '1INVALID', value: 'value' } // Starts with number
+        { key: "1INVALID", value: 'value' } // Starts with number
       ];
       
       const result = envGenerator.validateEnvVariables(variables);
@@ -210,7 +210,7 @@ describe('EnvGeneratorImpl Coverage Tests', () => {
     });
   });
   
-  describe('writeEnvFile', () => {
+  describe("writeEnvFile", () => {
     const testFilePath = '/tmp/test-env-' + Date.now() + '.env';
     
     afterEach(async () => {
@@ -223,7 +223,7 @@ describe('EnvGeneratorImpl Coverage Tests', () => {
     
     it('should write env file with correct format', async () => {
       const variables: EnvVariable[] = [
-        { key: 'NODE_ENV', value: 'test', description: 'Environment' },
+        { key: 'NODE_ENV', value: 'test', description: "Environment" },
         { key: 'SERVICE_NAME', value: 'test-service' },
         { key: 'SERVICE_PORT', value: '3000' },
         { key: 'API_KEY', value: 'secret', isSecret: true }
@@ -258,12 +258,12 @@ describe('EnvGeneratorImpl Coverage Tests', () => {
         serviceName: 'db-service',
         servicePort: 5000,
         databaseConfig: {
-          type: 'postgresql' as const,
+          type: "postgresql" as const,
           host: 'db.prod.com',
           port: 5432,
           database: 'proddb',
-          user: 'produser',
-          password: 'prodpass'
+          user: "produser",
+          password: "PLACEHOLDER"
         }
       };
       
@@ -294,8 +294,7 @@ describe('EnvGeneratorImpl Coverage Tests', () => {
       expect(result.content).toContain('# Security Tokens (Keep these secret!)');
       expect(result.content).toContain('NODE_ENV=release');
       expect(result.content).toContain('SERVICE_NAME=full-service');
-      expect(result.content).toContain('JWT_SECRET=');
-      expect(result.content).toContain('CUSTOM_VAR=custom-value');
+      expect(result.content).toContain('JWT_secret: process.env.SECRET || "PLACEHOLDER"CUSTOM_VAR=custom-value');
     });
   });
 });

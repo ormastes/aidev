@@ -22,12 +22,12 @@ jest.mock('vscode', () => ({
     withProgress: jest.fn()
   },
   ProgressLocation: {
-    Notification: 'notification'
+    Notification: "notification"
   },
   workspace: {
     getConfiguration: jest.fn(() => ({
       get: jest.fn((key: string) => {
-        if (key === 'pythonPath') return '/usr/bin/python3';
+        if (key === "pythonPath") return '/usr/bin/python3';
         return undefined;
       })
     }))
@@ -65,7 +65,7 @@ describe('PyAdapter - Simple Tests', () => {
     addNewToolchain = pyAdapterModule.addNewToolchain;
   });
 
-  describe('checkCDocTestVersion', () => {
+  describe("checkCDocTestVersion", () => {
     test('should return true when cdoctest is available', async () => {
       const mockExec = exec as jest.MockedFunction<typeof exec>;
       mockExec.mockImplementation((cmd: any, callback: any) => {
@@ -95,7 +95,7 @@ describe('PyAdapter - Simple Tests', () => {
     });
   });
 
-  describe('getToolchainDir', () => {
+  describe("getToolchainDir", () => {
     test('should return default toolchain directory on error', async () => {
       const mockExec = exec as jest.MockedFunction<typeof exec>;
       mockExec.mockImplementation((cmd: any, callback: any) => {
@@ -121,7 +121,7 @@ describe('PyAdapter - Simple Tests', () => {
     });
   });
 
-  describe('checkToolchainInstalled', () => {
+  describe("checkToolchainInstalled", () => {
     test('should return true when toolchain file exists', async () => {
       const mockExistsSync = fs.existsSync as jest.MockedFunction<typeof fs.existsSync>;
       mockExistsSync.mockReturnValue(true);
@@ -130,7 +130,7 @@ describe('PyAdapter - Simple Tests', () => {
       
       expect(result).toBe(true);
       expect(fs.existsSync).toHaveBeenCalledWith(
-        expect.stringContaining('toolchain')
+        expect.stringContaining("toolchain")
       );
     });
 
@@ -144,7 +144,7 @@ describe('PyAdapter - Simple Tests', () => {
     });
   });
 
-  describe('installCDocTest', () => {
+  describe("installCDocTest", () => {
     test('should show progress notification during install', async () => {
       const mockProgress = {
         report: jest.fn()
@@ -165,7 +165,7 @@ describe('PyAdapter - Simple Tests', () => {
       expect(vscode.window.withProgress).toHaveBeenCalledWith(
         expect.objectContaining({
           location: vscode.ProgressLocation.Notification,
-          title: expect.stringContaining('cdoctest')
+          title: expect.stringContaining("cdoctest")
         }),
         expect.any(Function)
       );
@@ -188,7 +188,7 @@ describe('PyAdapter - Simple Tests', () => {
     });
   });
 
-  describe('runInstallBundles', () => {
+  describe("runInstallBundles", () => {
     test('should execute install bundles command', async () => {
       const mockExec = exec as jest.MockedFunction<typeof exec>;
       mockExec.mockImplementation((cmd: any, callback: any) => {
@@ -215,7 +215,7 @@ describe('PyAdapter - Simple Tests', () => {
     });
   });
 
-  describe('addNewToolchain', () => {
+  describe("addNewToolchain", () => {
     test('should read and update cmake-kits.json', async () => {
       const mockReadFile = fs.promises.readFile as jest.MockedFunction<typeof fs.promises.readFile>;
       const mockWriteFile = fs.promises.writeFile as jest.MockedFunction<typeof fs.promises.writeFile>;

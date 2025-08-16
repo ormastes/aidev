@@ -10,7 +10,7 @@ import {
 } from '../../children/utils/validation';
 
 describe('Validation Utils', () => {
-  describe('validateNonEmptyString', () => {
+  describe("validateNonEmptyString", () => {
     it('should validate non-empty string', () => {
       const result = validateNonEmptyString('hello', 'name');
       expect(result.isValid).toBe(true);
@@ -54,7 +54,7 @@ describe('Validation Utils', () => {
     });
   });
 
-  describe('validateRange', () => {
+  describe("validateRange", () => {
     it('should validate number within range', () => {
       const result = validateRange(5, 1, 10, 'score');
       expect(result.isValid).toBe(true);
@@ -96,7 +96,7 @@ describe('Validation Utils', () => {
     });
 
     it('should handle negative ranges', () => {
-      const result = validateRange(-5, -10, -1, 'temperature');
+      const result = validateRange(-5, -10, -1, "temperature");
       expect(result.isValid).toBe(true);
     });
 
@@ -106,7 +106,7 @@ describe('Validation Utils', () => {
     });
   });
 
-  describe('validateEmail', () => {
+  describe("validateEmail", () => {
     it('should validate correct email addresses', () => {
       const validEmails = [
         'test@example.com',
@@ -155,7 +155,7 @@ describe('Validation Utils', () => {
     });
   });
 
-  describe('validateArrayLength', () => {
+  describe("validateArrayLength", () => {
     it('should validate array within length bounds', () => {
       const result = validateArrayLength([1, 2, 3], 1, 5, 'items');
       expect(result.isValid).toBe(true);
@@ -201,7 +201,7 @@ describe('Validation Utils', () => {
     });
   });
 
-  describe('validateUrl', () => {
+  describe("validateUrl", () => {
     it('should validate correct URLs', () => {
       const validUrls = [
         'https://example.com',
@@ -245,7 +245,7 @@ describe('Validation Utils', () => {
     });
   });
 
-  describe('validatePort', () => {
+  describe("validatePort", () => {
     it('should validate valid port numbers', () => {
       const validPorts = [80, 443, 3000, 8080, 1, 65535];
 
@@ -273,7 +273,7 @@ describe('Validation Utils', () => {
     });
   });
 
-  describe('validateFilePath', () => {
+  describe("validateFilePath", () => {
     it('should validate correct file paths', () => {
       const validPaths = [
         '/path/to/file.txt',
@@ -334,7 +334,7 @@ describe('Validation Utils', () => {
     });
   });
 
-  describe('validateRequiredFields', () => {
+  describe("validateRequiredFields", () => {
     it('should validate object with all required fields', () => {
       const obj = { name: 'John', age: 30, email: 'john@example.com' };
       const result = validateRequiredFields(obj, ['name', 'age', 'email']);
@@ -388,7 +388,7 @@ describe('Validation Utils', () => {
         user: { name: 'John' },
         settings: { theme: 'dark' }
       };
-      const result = validateRequiredFields(obj, ['user', 'settings']);
+      const result = validateRequiredFields(obj, ['user', "settings"]);
       
       expect(result.isValid).toBe(true);
     });
@@ -408,7 +408,7 @@ describe('Validation Utils', () => {
   describe('edge cases', () => {
     it('should handle very long strings in validateNonEmptyString', () => {
       const longString = 'a'.repeat(10000);
-      const result = validateNonEmptyString(longString, 'longField');
+      const result = validateNonEmptyString(longString, "longField");
       expect(result.isValid).toBe(true);
     });
 
@@ -422,7 +422,7 @@ describe('Validation Utils', () => {
 
     it('should handle very long arrays in validateArrayLength', () => {
       const bigArray = Array(1000).fill(0);
-      const result = validateArrayLength(bigArray, 0, 10000, 'bigArray');
+      const result = validateArrayLength(bigArray, 0, 10000, "bigArray");
       expect(result.isValid).toBe(true);
     });
 

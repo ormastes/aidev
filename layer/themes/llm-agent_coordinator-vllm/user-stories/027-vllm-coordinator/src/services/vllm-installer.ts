@@ -1,10 +1,11 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * vLLM Installer Service
  * Handles automatic installation and management of vLLM server
  */
 
 import { exec, spawn, ChildProcess } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import { os } from '../../../../../infra_external-log-lib/src';
 import { fs } from '../../../../../infra_external-log-lib/src';
 import { path } from '../../../../../infra_external-log-lib/src';

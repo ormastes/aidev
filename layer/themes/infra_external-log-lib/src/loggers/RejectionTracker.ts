@@ -5,7 +5,7 @@
  * Integrates with FileViolationPreventer to capture all rejections
  */
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from 'node:events';
 import { EventLogger, LogEventType } from './EventLogger';
 import { FileViolationError } from '../validators/FileViolationPreventer';
 import { getFileAPI, FileType } from '../../pipe';
@@ -17,7 +17,7 @@ export interface Rejection {
   id: string;
   timestamp: Date;
   type: RejectionType;
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  severity: 'low' | 'medium' | 'high' | "critical";
   path?: string;
   operation?: string;
   reason: string;
@@ -150,7 +150,7 @@ export class RejectionTracker extends EventEmitter {
     );
     
     // Emit event
-    this.emit('rejection', rejection);
+    this.emit("rejection", rejection);
     
     // Setup auto-resolve if configured
     if (this.config.autoResolveTimeout > 0) {
@@ -215,7 +215,7 @@ export class RejectionTracker extends EventEmitter {
     );
     
     // Emit event
-    this.emit('resolved', rejection);
+    this.emit("resolved", rejection);
     
     // Persist if enabled
     if (this.config.persistRejections) {
@@ -407,12 +407,12 @@ export class RejectionTracker extends EventEmitter {
   /**
    * Determine severity based on rejection type
    */
-  private async determineSeverity(type: RejectionType): Rejection['severity'] {
+  private async determineSeverity(type: RejectionType): Rejection["severity"] {
     switch (type) {
       case RejectionType.FREEZE_VIOLATION:
       case RejectionType.PERMISSION_DENIED:
       case RejectionType.SYSTEM_ERROR:
-        return 'critical';
+        return "critical";
         
       case RejectionType.FILE_VIOLATION:
       case RejectionType.VALIDATION_FAILED:
@@ -541,8 +541,8 @@ export class RejectionTracker extends EventEmitter {
    */
   private async persistRejections(): void {
     try {
-      const fs = require('fs');
-      const path = require('path');
+      const fs = require('../../layer/themes/infra_external-log-lib/src');
+      const path = require('node:path');
       
       const dir = path.dirname(this.config.rejectionFilePath);
       if (!fs.existsSync(dir)) {
@@ -567,14 +567,14 @@ export class RejectionTracker extends EventEmitter {
    */
   private async loadPersistedRejections(): void {
     try {
-      const fs = require('fs');
+      const fs = require('../../layer/themes/infra_external-log-lib/src');
       
       if (!fs.existsSync(this.config.rejectionFilePath)) {
         return;
       }
       
       const data = JSON.parse(
-        fs.readFileSync(this.config.rejectionFilePath, 'utf8')
+        fileAPI.readFileSync(this.config.rejectionFilePath, 'utf8')
       );
       
       if (data.rejections) {
@@ -616,7 +616,7 @@ export class RejectionTracker extends EventEmitter {
     });
     
     // Handle uncaught rejections
-    process.on('unhandledRejection', (reason, promise) => {
+    process.on("unhandledRejection", (reason, promise) => {
       this.trackRejection(
         RejectionType.SYSTEM_ERROR,
         'Unhandled promise rejection',

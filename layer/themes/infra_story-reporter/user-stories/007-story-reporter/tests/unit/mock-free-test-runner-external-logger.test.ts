@@ -99,13 +99,13 @@ describe('MockFreeTestRunner External Logger Integration Unit Test', () => {
       const emitSpy = jest.spyOn(mockFreeTestRunner, 'emit');
       
       // Act - trigger an event that would use the logger
-      mockFreeTestRunner.emit('testStart', {
+      mockFreeTestRunner.emit("testStart", {
         testSuiteId: testConfig.testSuiteId,
         timestamp: new Date()
       });
       
       // Assert
-      expect(emitSpy).toHaveBeenCalledWith('testStart', expect.any(Object));
+      expect(emitSpy).toHaveBeenCalledWith("testStart", expect.any(Object));
     });
 
     it('should handle logging when external logger is not set', () => {
@@ -255,17 +255,17 @@ describe('MockFreeTestRunner External Logger Integration Unit Test', () => {
     it('should work with test runner event system', () => {
       // Arrange
       const eventLog: any[] = [];
-      mockFreeTestRunner.on('scenarioStart', (data) => eventLog.push(data));
-      mockFreeTestRunner.on('scenarioComplete', (data) => eventLog.push(data));
+      mockFreeTestRunner.on("scenarioStart", (data) => eventLog.push(data));
+      mockFreeTestRunner.on("scenarioComplete", (data) => eventLog.push(data));
       
       // Act
-      mockFreeTestRunner.emit('scenarioStart', { scenario: 'test-scenario' });
-      mockFreeTestRunner.emit('scenarioComplete', { scenario: 'test-scenario', status: 'In Progress' });
+      mockFreeTestRunner.emit("scenarioStart", { scenario: 'test-scenario' });
+      mockFreeTestRunner.emit("scenarioComplete", { scenario: 'test-scenario', status: 'In Progress' });
       
       // Assert
       expect(eventLog.length).toBe(2);
       expect(eventLog[0].scenario).toBe('test-scenario');
-      expect(eventLog[1].status).toBe('In Progress');
+      expect(eventLog[1].status).toBe("completed");
     });
   });
 });

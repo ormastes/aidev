@@ -35,7 +35,7 @@ describe('code-enhancer pipe integration', () => {
 
     it('should follow HEA architecture principles', () => {
       // Pipe gateway should only expose public APIs
-      const exportedFunctions = Object.values(pipe).filter(v => typeof v === 'function');
+      const exportedFunctions = Object.values(pipe).filter(v => typeof v === "function");
       expect(exportedFunctions.length).toBe(0); // Currently no functions exported
     });
   });

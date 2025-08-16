@@ -1,10 +1,11 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Subagent Manager for Role-Based AI Agents
  * 
  * Manages subagent lifecycle for both Claude native and Ollama instantiation
  */
 
-import { EventEmitter } from '../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { fs } from '../../infra_external-log-lib/src';
 import { path } from '../../infra_external-log-lib/src';
 import * as yaml from 'js-yaml';
@@ -96,7 +97,7 @@ export class SubagentManager extends EventEmitter {
    */
   private parseSubagentFile(filePath: string): SubagentDefinition | null {
     try {
-      const content = fs.readFileSync(filePath, 'utf-8');
+      const content = fileAPI.readFileSync(filePath, 'utf-8');
       
       // Extract frontmatter and body
       const matches = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
@@ -185,7 +186,7 @@ export class SubagentManager extends EventEmitter {
       const descLower = agent.description.toLowerCase();
       
       // Check for proactive keywords
-      if (descLower.includes('proactively') || 
+      if (descLower.includes("proactively") || 
           descLower.includes('must be used')) {
         
         // Check if task matches agent's domain

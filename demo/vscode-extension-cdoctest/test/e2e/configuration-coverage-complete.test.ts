@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { VSCodeAutomationHelper } from './helpers/vscode-automation-helper';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 /**
  * Complete E2E tests for configuration UI, multi-workspace support, and coverage functionality
@@ -100,7 +100,7 @@ test.describe('Configuration & Coverage - Complete Coverage', () => {
     
     // Test invalid configuration scenarios
     const invalidConfigs = [
-      { setting: 'cdoctest.parallelJobs', value: '-1', expectedError: 'negative' },
+      { setting: 'cdoctest.parallelJobs', value: '-1', expectedError: "negative" },
       { setting: 'cdoctest.timeout', value: 'invalid', expectedError: 'number' },
       { setting: 'cdoctest.exe_executable', value: '/nonexistent/path', expectedError: 'not found' }
     ];
@@ -148,7 +148,7 @@ test.describe('Configuration & Coverage - Complete Coverage', () => {
     
     // Configure workspace-specific settings
     const searchBox = page.locator('.settings-header input[placeholder*="Search"]');
-    await searchBox.fill('cdoctest');
+    await searchBox.fill("cdoctest");
     await page.waitForTimeout(2000);
     
     // Verify workspace scope is active
@@ -290,8 +290,8 @@ test.describe('Configuration & Coverage - Complete Coverage', () => {
     const outputContent = page.locator('.output-view, .monaco-editor');
     const outputText = await outputContent.textContent();
     
-    const hasCoverageReport = outputText.includes('coverage') ||
-                             outputText.includes('Coverage') ||
+    const hasCoverageReport = outputText.includes("coverage") ||
+                             outputText.includes("Coverage") ||
                              outputText.includes('%') ||
                              outputText.includes('lines covered');
     
@@ -393,7 +393,7 @@ test.describe('Configuration & Coverage - Complete Coverage', () => {
     await page.keyboard.press('Control+Shift+P');
     await page.waitForSelector('.quick-input-widget input', { timeout: 5000 });
     
-    await page.type('.quick-input-widget input', 'coverage');
+    await page.type('.quick-input-widget input', "coverage");
     await page.waitForTimeout(2000);
     
     // Look for coverage-related commands
@@ -531,7 +531,7 @@ async function setupConfigurationCoverageWorkspace(): Promise<void> {
     "cdoctest.listTestArgPattern": "GetTcList:",
     "cdoctest.testRunArgPattern": "TC/${test_suite_name}::${test_case_name}",
     "cdoctest.exe_resultFile": path.join(TEST_WORKSPACE, 'build', 'results.xml'),
-    "cdoctest.coverageOutputDir": path.join(TEST_WORKSPACE, 'coverage'),
+    "cdoctest.coverageOutputDir": path.join(TEST_WORKSPACE, "coverage"),
     "cdoctest.enableMarkdownParsing": true,
     "cdoctest.autoRefresh": true
   };
@@ -655,8 +655,8 @@ function getExeConfigTestValue(configName: string): string {
  */
 async function createMultiWorkspaceEnvironment(): Promise<void> {
   // Create additional workspace folders
-  const workspace2Dir = path.join(TEST_WORKSPACE, 'workspace2');
-  const workspace3Dir = path.join(TEST_WORKSPACE, 'workspace3');
+  const workspace2Dir = path.join(TEST_WORKSPACE, "workspace2");
+  const workspace3Dir = path.join(TEST_WORKSPACE, "workspace3");
   
   fs.mkdirSync(workspace2Dir, { recursive: true });
   fs.mkdirSync(workspace3Dir, { recursive: true });
@@ -715,7 +715,7 @@ async function createMultiWorkspaceEnvironment(): Promise<void> {
  * Create coverage test files
  */
 async function createCoverageTestFiles(): Promise<void> {
-  const coverageDir = path.join(TEST_WORKSPACE, 'coverage');
+  const coverageDir = path.join(TEST_WORKSPACE, "coverage");
   fs.mkdirSync(coverageDir, { recursive: true });
   
   // Create coverage data files
@@ -1029,7 +1029,7 @@ async function launchVSCodeWithConfigWorkspace(page: any): Promise<void> {
       
       // Context menu
       document.querySelectorAll('[role="treeitem"][aria-level="2"]').forEach(item => {
-        item.addEventListener('contextmenu', (e) => {
+        item.addEventListener("contextmenu", (e) => {
           e.preventDefault();
           const contextMenu = document.querySelector('.context-view');
           contextMenu.style.display = 'block';
@@ -1061,7 +1061,7 @@ async function launchVSCodeWithConfigWorkspace(page: any): Promise<void> {
           const output = document.querySelector('.output-view');
           output.innerHTML += \`<div>Opening file: \${fileName}</div>\`;
           
-          if (fileName.includes('coverage')) {
+          if (fileName.includes("coverage")) {
             output.innerHTML += '<div>Coverage file loaded in editor</div>';
           }
         });

@@ -37,7 +37,7 @@ const CartScreen: React.FC = () => {
         { text: 'Cancel', style: 'cancel' },
         {
           text: 'Remove',
-          style: 'destructive',
+          style: "destructive",
           onPress: () => dispatch(removeFromCart({ id: itemId }))
         }
       ]
@@ -52,7 +52,7 @@ const CartScreen: React.FC = () => {
         { text: 'Cancel', style: 'cancel' },
         {
           text: 'Clear',
-          style: 'destructive',
+          style: "destructive",
           onPress: () => dispatch(clearCart())
         }
       ]
@@ -64,7 +64,7 @@ const CartScreen: React.FC = () => {
       Alert.alert('Empty Cart', 'Please add some items to your cart before checking out.');
       return;
     }
-    navigation.navigate('Checkout' as never);
+    navigation.navigate("Checkout" as never);
   };
 
   const renderCartItem = (item: any) => (

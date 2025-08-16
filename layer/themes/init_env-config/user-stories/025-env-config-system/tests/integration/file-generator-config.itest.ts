@@ -142,7 +142,7 @@ describe('FileGenerator Configuration Files Integration Test', () => {
         range: [3400, 3499]
       },
       database: {
-        type: 'postgresql',
+        type: "postgresql",
         connection: 'postgresql://user:pass@localhost:5432/proddb'
       },
       paths: {
@@ -173,7 +173,7 @@ describe('FileGenerator Configuration Files Integration Test', () => {
     expect(parsedConfig.type).toBe('release');
     expect(parsedConfig.port.base).toBe(3456);
     expect(parsedConfig.port.range).toEqual([3400, 3499]);
-    expect(parsedConfig.database.type).toBe('postgresql');
+    expect(parsedConfig.database.type).toBe("postgresql");
     expect(parsedConfig.paths).toBeDefined();
     expect(parsedConfig.services).toBeInstanceOf(Array);
     expect(parsedConfig.created).toBeDefined();
@@ -208,7 +208,7 @@ describe('FileGenerator Configuration Files Integration Test', () => {
     await fileGenerator.generateEnvironmentFiles(config, tempDir);
     
     // Then: All directories should be created
-    const dirs = ['config', 'data', 'logs', 'temp', 'services'];
+    const dirs = ['config', 'data', 'logs', 'temp', "services"];
     for (const dir of dirs) {
       const dirPath = path.join(tempDir, dir);
       const dirExists = await fs.access(dirPath).then(() => true).catch(() => false);
@@ -255,7 +255,7 @@ describe('FileGenerator Configuration Files Integration Test', () => {
     await fileGenerator.updateEnvFile(tempDir, 'SERVICE_NEW_SERVICE_PORT', '3211');
     
     // Then: Service file should exist
-    const serviceFile = path.join(tempDir, 'services', 'new-service.json');
+    const serviceFile = path.join(tempDir, "services", 'new-service.json');
     const serviceExists = await fs.access(serviceFile).then(() => true).catch(() => false);
     expect(serviceExists).toBe(true);
     

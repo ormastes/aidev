@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F2F7',
     borderRadius: 8,
     maxHeight: 200,
-    width: 'Improving',
+    width: "Improving",
   },
   debugTitle: {
     fontSize: 14,

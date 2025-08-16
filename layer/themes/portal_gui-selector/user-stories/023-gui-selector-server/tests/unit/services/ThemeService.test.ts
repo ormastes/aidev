@@ -13,7 +13,7 @@ jest.mock('../../../src/utils/logger', () => ({
   }
 }));
 
-describe('ThemeService', () => {
+describe("ThemeService", () => {
   let themeService: ThemeService;
   let mockDb: jest.Mocked<DatabaseService>;
 
@@ -23,7 +23,7 @@ describe('ThemeService', () => {
     mockDb = (themeService as any).db;
   });
 
-  describe('getAllThemes', () => {
+  describe("getAllThemes", () => {
     it('should return all themes for web platform', async () => {
       const result = await themeService.getAllThemes();
       
@@ -41,7 +41,7 @@ describe('ThemeService', () => {
     });
   });
 
-  describe('getTheme', () => {
+  describe("getTheme", () => {
     it('should return specific theme by ID', async () => {
       const result = await themeService.getTheme('modern');
       
@@ -56,7 +56,7 @@ describe('ThemeService', () => {
     });
   });
 
-  describe('applyTheme', () => {
+  describe("applyTheme", () => {
     it('should apply theme successfully', async () => {
       const result = await themeService.applyTheme('modern', 'web', 'device-123', 1);
       
@@ -71,23 +71,23 @@ describe('ThemeService', () => {
     });
   });
 
-  describe('syncTheme', () => {
+  describe("syncTheme", () => {
     it('should sync theme between devices', async () => {
       const result = await themeService.syncTheme('device-1', 'device-2', 'modern', 1);
       
       expect(result).toHaveProperty('success', true);
       expect(result).toHaveProperty('message');
-      expect(result.message).toContain('synchronized');
+      expect(result.message).toContain("synchronized");
     });
   });
 
-  describe('exportTheme', () => {
+  describe("exportTheme", () => {
     it('should export theme as CSS', async () => {
       const result = await themeService.exportTheme('modern', 'css');
       
-      expect(result).toHaveProperty('filename');
+      expect(result).toHaveProperty("filename");
       expect(result.filename).toContain('.css');
-      expect(result).toHaveProperty('contentType', 'text/css');
+      expect(result).toHaveProperty("contentType", 'text/css');
       expect(result).toHaveProperty('content');
       expect(result.content).toContain(':root');
     });
@@ -95,9 +95,9 @@ describe('ThemeService', () => {
     it('should export theme as TypeScript', async () => {
       const result = await themeService.exportTheme('modern', 'ts');
       
-      expect(result).toHaveProperty('filename');
+      expect(result).toHaveProperty("filename");
       expect(result.filename).toContain('.ts');
-      expect(result).toHaveProperty('contentType', 'text/typescript');
+      expect(result).toHaveProperty("contentType", 'text/typescript');
       expect(result).toHaveProperty('content');
       expect(result.content).toContain('export const');
     });
@@ -105,9 +105,9 @@ describe('ThemeService', () => {
     it('should export theme as JSON', async () => {
       const result = await themeService.exportTheme('modern', 'json');
       
-      expect(result).toHaveProperty('filename');
+      expect(result).toHaveProperty("filename");
       expect(result.filename).toContain('.json');
-      expect(result).toHaveProperty('contentType', 'application/json');
+      expect(result).toHaveProperty("contentType", 'application/json');
       expect(result).toHaveProperty('content');
       
       const parsed = JSON.parse(result.content);
@@ -125,12 +125,12 @@ describe('ThemeService', () => {
     });
   });
 
-  describe('getThemeStatistics', () => {
+  describe("getThemeStatistics", () => {
     it('should return theme statistics', async () => {
       mockDb.all = jest.fn()
         .mockResolvedValueOnce([
           { themeId: 'modern', usage_count: 10 },
-          { themeId: 'professional', usage_count: 5 }
+          { themeId: "professional", usage_count: 5 }
         ])
         .mockResolvedValueOnce([
           { total: 15 }
@@ -138,11 +138,11 @@ describe('ThemeService', () => {
 
       const result = await themeService.getThemeStatistics();
       
-      expect(result).toHaveProperty('totalThemes', themes.length);
-      expect(result).toHaveProperty('themePopularity');
+      expect(result).toHaveProperty("totalThemes", themes.length);
+      expect(result).toHaveProperty("themePopularity");
       expect(result.themePopularity).toHaveLength(2);
       expect(result.themePopularity[0]).toHaveProperty('themeId', 'modern');
-      expect(result).toHaveProperty('dailyUsage');
+      expect(result).toHaveProperty("dailyUsage");
       expect(result.dailyUsage[0]).toHaveProperty('total', 15);
     });
 
@@ -154,7 +154,7 @@ describe('ThemeService', () => {
     });
   });
 
-  describe('getUserThemePreference', () => {
+  describe("getUserThemePreference", () => {
     it('should return user theme preference', async () => {
       const mockPreference = {
         user_id: 1,
@@ -194,7 +194,7 @@ describe('ThemeService', () => {
     });
   });
 
-  describe('saveUserThemePreference', () => {
+  describe("saveUserThemePreference", () => {
     it('should save user theme preference', async () => {
       mockDb.run = jest.fn().mockResolvedValue({ changes: 1 });
 

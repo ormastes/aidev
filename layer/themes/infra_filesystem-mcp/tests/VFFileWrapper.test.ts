@@ -7,7 +7,7 @@ import * as fs from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 import { os } from '../../infra_external-log-lib/src';
 
-describe('VFFileWrapper', () => {
+describe("VFFileWrapper", () => {
   let tempDir: string;
   let wrapper: VFFileWrapper;
 
@@ -22,7 +22,7 @@ describe('VFFileWrapper', () => {
     await fs.rm(tempDir, { recursive: true, force: true });
   });
 
-  describe('parseQueryParams', () => {
+  describe("parseQueryParams", () => {
     test('should parse simple query parameters', () => {
       const result = (wrapper as any).parseQueryParams('/path/to/file?name=test&type=json');
       
@@ -206,8 +206,8 @@ describe('VFFileWrapper', () => {
 
   describe('list', () => {
     test('should list files in directory', async () => {
-      await fs.writeFile(path.join(tempDir, 'file1.txt'), 'content1');
-      await fs.writeFile(path.join(tempDir, 'file2.txt'), 'content2');
+      await fs.writeFile(path.join(tempDir, 'file1.txt'), "content1");
+      await fs.writeFile(path.join(tempDir, 'file2.txt'), "content2");
       await fs.mkdir(path.join(tempDir, 'subdir'));
       
       const result = await wrapper.list('.');
@@ -224,7 +224,7 @@ describe('VFFileWrapper', () => {
     });
   });
 
-  describe('resolvePath', () => {
+  describe("resolvePath", () => {
     test('should resolve relative paths correctly', () => {
       const resolved = (wrapper as any).resolvePath('subdir/file.txt');
       

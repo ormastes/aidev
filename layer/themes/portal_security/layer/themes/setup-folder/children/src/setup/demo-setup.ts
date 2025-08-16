@@ -67,7 +67,7 @@ MODE=${this.mode.toUpperCase()}
   async createDeploymentConfig(): Promise<boolean> {
     try {
       // Create package.json based on language
-      if (this.language === 'typescript' || this.language === 'javascript') {
+      if (this.language === "typescript" || this.language === "javascript") {
         await this.createNodeProject();
       } else if (this.language === 'python') {
         await this.createPythonProject();
@@ -99,14 +99,14 @@ MODE=${this.mode.toUpperCase()}
       name: this.appName,
       version: '1.0.0',
       description: this.setupConfig.description || `${this.appName} demo project`,
-      main: this.language === 'typescript' ? 'dist/index.js' : 'src/index.js',
+      main: this.language === "typescript" ? 'dist/index.js' : 'src/index.js',
       scripts: {
-        start: this.language === 'typescript' ? 'node dist/index.js' : 'node src/index.js',
-        dev: this.language === 'typescript' ? 'ts-node src/index.ts' : 'node src/index.js',
-        build: this.language === 'typescript' ? 'tsc' : 'echo "No build needed"',
+        start: this.language === "typescript" ? 'node dist/index.js' : 'node src/index.js',
+        dev: this.language === "typescript" ? 'ts-node src/index.ts' : 'node src/index.js',
+        build: this.language === "typescript" ? 'tsc' : 'echo "No build needed"',
         test: 'jest',
-        lint: this.language === 'typescript' ? 'eslint src/**/*.ts' : 'eslint src/**/*.js',
-        format: this.language === 'typescript' ? 'prettier --write src/**/*.ts' : 'prettier --write src/**/*.js'
+        lint: this.language === "typescript" ? 'eslint src/**/*.ts' : 'eslint src/**/*.js',
+        format: this.language === "typescript" ? 'prettier --write src/**/*.ts' : 'prettier --write src/**/*.js'
       },
       keywords: this.setupConfig.keywords || [this.appName, 'demo'],
       author: this.setupConfig.author || 'AI Dev Portal',
@@ -119,11 +119,11 @@ MODE=${this.mode.toUpperCase()}
       } as any
     };
 
-    if (this.language === 'typescript') {
+    if (this.language === "typescript") {
       packageJson.devDependencies = {
         ...packageJson.devDependencies,
         '@types/node': '^20.0.0',
-        'typescript': '^5.0.0',
+        "typescript": '^5.0.0',
         'ts-node': '^10.9.0',
         '@types/jest': '^29.5.0',
         '@typescript-eslint/eslint-plugin': '^6.0.0',
@@ -134,7 +134,7 @@ MODE=${this.mode.toUpperCase()}
       const tsConfig = {
         compilerOptions: {
           target: 'ES2022',
-          module: 'commonjs',
+          module: "commonjs",
           lib: ['ES2022'],
           outDir: './dist',
           rootDir: './src',
@@ -214,7 +214,7 @@ So that [benefit]
     
     let installCmd, runCmd, devCmd, testCmd;
     
-    if (this.language === 'typescript' || this.language === 'javascript') {
+    if (this.language === "typescript" || this.language === "javascript") {
       installCmd = 'npm install';
       runCmd = 'npm start';
       devCmd = 'npm run dev';

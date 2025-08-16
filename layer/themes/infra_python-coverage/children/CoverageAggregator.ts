@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Aggregate coverage from multiple test runs and sources
  */

@@ -9,7 +9,7 @@ jest.mock('sqlite3');
 jest.mock('fs');
 jest.mock('../../../src/utils/logger');
 
-describe('DatabaseService', () => {
+describe("DatabaseService", () => {
   let service: DatabaseService;
   let mockDb: any;
   const mockFs = fs as jest.Mocked<typeof fs>;
@@ -22,7 +22,7 @@ describe('DatabaseService', () => {
     // Mock database instance
     mockDb = {
       run: jest.fn((sql: string, params: any, callback: any) => {
-        if (typeof params === 'function') {
+        if (typeof params === "function") {
           callback = params;
           params = [];
         }
@@ -35,9 +35,9 @@ describe('DatabaseService', () => {
         if (callback) {
           callback(null, {
             id: 1,
-            username: 'testuser',
+            username: "testuser",
             email: 'test@example.com',
-            password: 'hashedPassword',
+            password: "PLACEHOLDER",
             role: 'user'
           });
         }
@@ -68,7 +68,7 @@ describe('DatabaseService', () => {
     service = new DatabaseService();
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should create data directory if it does not exist', () => {
       expect(mockFs.existsSync).toHaveBeenCalledWith(
         expect.stringContaining('data')
@@ -94,7 +94,7 @@ describe('DatabaseService', () => {
     });
   });
 
-  describe('initialize', () => {
+  describe("initialize", () => {
     it('should create all required tables', async () => {
       await service.initialize();
       
@@ -144,7 +144,7 @@ describe('DatabaseService', () => {
     it('should handle initialization errors', async () => {
       const error = new Error('Database error');
       mockDb.run.mockImplementation((sql: string, params: any, callback: any) => {
-        if (typeof params === 'function') {
+        if (typeof params === "function") {
           callback = params;
         }
         if (callback) {
@@ -162,17 +162,17 @@ describe('DatabaseService', () => {
   });
 
   describe('User operations', () => {
-    describe('createUser', () => {
+    describe("createUser", () => {
       it('should create a user with default role', async () => {
         const result = await service.createUser(
-          'testuser',
+          "testuser",
           'test@example.com',
-          'hashedPassword'
+          "hashedPassword"
         );
 
         expect(mockDb.run).toHaveBeenCalledWith(
           'INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)',
-          ['testuser', 'test@example.com', 'hashedPassword', 'user'],
+          ["testuser", 'test@example.com', "hashedPassword", 'user'],
           expect.any(Function)
         );
         expect(result).toEqual({ lastID: 1, changes: 1 });
@@ -182,13 +182,13 @@ describe('DatabaseService', () => {
         await service.createUser(
           'admin',
           'admin@example.com',
-          'hashedPassword',
+          "hashedPassword",
           'admin'
         );
 
         expect(mockDb.run).toHaveBeenCalledWith(
           'INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)',
-          ['admin', 'admin@example.com', 'hashedPassword', 'admin'],
+          ['admin', 'admin@example.com', "hashedPassword", 'admin'],
           expect.any(Function)
         );
       });
@@ -201,25 +201,25 @@ describe('DatabaseService', () => {
         });
 
         await expect(
-          service.createUser('testuser', 'test@example.com', 'password')
+          service.createUser("testuser", 'test@example.com', "password")
         ).rejects.toThrow('Unique constraint failed');
       });
     });
 
-    describe('getUserByUsername', () => {
+    describe("getUserByUsername", () => {
       it('should retrieve user by username', async () => {
-        const user = await service.getUserByUsername('testuser');
+        const user = await service.getUserByUsername("testuser");
 
         expect(mockDb.get).toHaveBeenCalledWith(
           'SELECT * FROM users WHERE username = ?',
-          ['testuser'],
+          ["testuser"],
           expect.any(Function)
         );
         expect(user).toEqual({
           id: 1,
-          username: 'testuser',
+          username: "testuser",
           email: 'test@example.com',
-          password: 'hashedPassword',
+          password: "PLACEHOLDER",
           role: 'user'
         });
       });
@@ -230,12 +230,12 @@ describe('DatabaseService', () => {
           return mockDb;
         });
 
-        const user = await service.getUserByUsername('nonexistent');
+        const user = await service.getUserByUsername("nonexistent");
         expect(user).toBeUndefined();
       });
     });
 
-    describe('getUserById', () => {
+    describe("getUserById", () => {
       it('should retrieve user by id', async () => {
         const user = await service.getUserById(1);
 
@@ -250,7 +250,7 @@ describe('DatabaseService', () => {
   });
 
   describe('App operations', () => {
-    describe('createApp', () => {
+    describe("createApp", () => {
       it('should create an app with all fields', async () => {
         const result = await service.createApp(
           'Test App',
@@ -283,7 +283,7 @@ describe('DatabaseService', () => {
       });
     });
 
-    describe('getAppsByOwner', () => {
+    describe("getAppsByOwner", () => {
       it('should retrieve apps by owner id', async () => {
         const apps = await service.getAppsByOwner(1);
 
@@ -297,7 +297,7 @@ describe('DatabaseService', () => {
       });
     });
 
-    describe('getAppById', () => {
+    describe("getAppById", () => {
       it('should retrieve app by id', async () => {
         mockDb.get.mockImplementation((sql: string, params: any[], callback: any) => {
           callback(null, {
@@ -322,14 +322,14 @@ describe('DatabaseService', () => {
       });
     });
 
-    describe('getAllApps', () => {
+    describe("getAllApps", () => {
       it('should retrieve all apps with owner information', async () => {
         mockDb.all.mockImplementation((sql: string, params: any[], callback: any) => {
           callback(null, [{
             id: 1,
             name: 'Test App',
             owner_id: 1,
-            owner_name: 'testuser'
+            owner_name: "testuser"
           }]);
           return mockDb;
         });
@@ -341,15 +341,15 @@ describe('DatabaseService', () => {
           [],
           expect.any(Function)
         );
-        expect(apps[0].owner_name).toBe('testuser');
+        expect(apps[0].owner_name).toBe("testuser");
       });
     });
   });
 
   describe('Selection operations', () => {
-    describe('createSelection', () => {
+    describe("createSelection", () => {
       it('should create a selection with metadata', async () => {
-        const metadata = { theme: 'dark', features: ['responsive'] };
+        const metadata = { theme: 'dark', features: ["responsive"] };
         const result = await service.createSelection(
           1, 1, 'modern', 'My Project', 'Test selection', metadata
         );
@@ -363,17 +363,17 @@ describe('DatabaseService', () => {
       });
 
       it('should create a selection without optional fields', async () => {
-        await service.createSelection(1, 1, 'professional', 'Basic Project');
+        await service.createSelection(1, 1, "professional", 'Basic Project');
 
         expect(mockDb.run).toHaveBeenCalledWith(
           expect.stringContaining('INSERT INTO selections'),
-          [1, 1, 'professional', 'Basic Project', undefined, '{}'],
+          [1, 1, "professional", 'Basic Project', undefined, '{}'],
           expect.any(Function)
         );
       });
     });
 
-    describe('getSelectionsByUser', () => {
+    describe("getSelectionsByUser", () => {
       it('should retrieve selections by user with app names', async () => {
         mockDb.all.mockImplementation((sql: string, params: any[], callback: any) => {
           callback(null, [{
@@ -395,7 +395,7 @@ describe('DatabaseService', () => {
       });
     });
 
-    describe('getSelectionsByApp', () => {
+    describe("getSelectionsByApp", () => {
       it('should retrieve selections by app id', async () => {
         mockDb.all.mockImplementation((sql: string, params: any[], callback: any) => {
           callback(null, [{
@@ -423,7 +423,7 @@ describe('DatabaseService', () => {
   });
 
   describe('Requirements operations', () => {
-    describe('createRequirement', () => {
+    describe("createRequirement", () => {
       it('should create a requirement with custom priority', async () => {
         const result = await service.createRequirement(
           1, 1, 'feature', 'Add dark mode', 'high'
@@ -450,7 +450,7 @@ describe('DatabaseService', () => {
       });
     });
 
-    describe('getRequirementsByUser', () => {
+    describe("getRequirementsByUser", () => {
       it('should retrieve requirements by user id', async () => {
         mockDb.all.mockImplementation((sql: string, params: any[], callback: any) => {
           callback(null, [{
@@ -475,7 +475,7 @@ describe('DatabaseService', () => {
       });
     });
 
-    describe('getRequirementsBySelection', () => {
+    describe("getRequirementsBySelection", () => {
       it('should retrieve requirements by selection id ordered by priority', async () => {
         mockDb.all.mockImplementation((sql: string, params: any[], callback: any) => {
           callback(null, [{
@@ -503,9 +503,9 @@ describe('DatabaseService', () => {
 
   describe('Session operations', () => {
     const mockDate = new Date('2024-01-01T00:00:00Z');
-    const mockToken = 'mock-refresh-token';
+    const mocktoken: process.env.TOKEN || "PLACEHOLDER";
 
-    describe('createSession', () => {
+    describe("createSession", () => {
       it('should create a session with expiration', async () => {
         const result = await service.createSession(1, mockToken, mockDate);
 
@@ -518,7 +518,7 @@ describe('DatabaseService', () => {
       });
     });
 
-    describe('getSession', () => {
+    describe("getSession", () => {
       it('should retrieve valid session by refresh token', async () => {
         mockDb.get.mockImplementation((sql: string, params: any[], callback: any) => {
           callback(null, {
@@ -551,7 +551,7 @@ describe('DatabaseService', () => {
       });
     });
 
-    describe('deleteSession', () => {
+    describe("deleteSession", () => {
       it('should delete session by refresh token', async () => {
         await service.deleteSession(mockToken);
 
@@ -563,7 +563,7 @@ describe('DatabaseService', () => {
       });
     });
 
-    describe('deleteExpiredSessions', () => {
+    describe("deleteExpiredSessions", () => {
       it('should delete all expired sessions', async () => {
         await service.deleteExpiredSessions();
 
@@ -601,7 +601,7 @@ describe('DatabaseService', () => {
       });
 
       await expect(
-        service.createUser('test', 'test@example.com', 'password')
+        service.createUser('test', 'test@example.com', "password")
       ).rejects.toThrow('Database locked');
     });
 

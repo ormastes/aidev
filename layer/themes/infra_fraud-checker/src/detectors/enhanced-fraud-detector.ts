@@ -8,7 +8,7 @@
  * - Comprehensive logging and reporting
  */
 
-import * as crypto from 'crypto';
+import * as crypto from 'node:crypto';
 import { JavaScriptSkipChecker } from '../utils/js-skip-patterns';
 
 // Enhanced Types
@@ -19,13 +19,13 @@ export interface ViolationContext {
   userAgent?: string;
   requestId?: string;
   timestamp: number;
-  environment?: 'development' | 'staging' | 'production';
+  environment?: "development" | 'staging' | "production";
 }
 
 export interface EnhancedViolation {
   id: string;
-  type: 'error' | 'warning' | 'info' | 'critical';
-  severity: 'critical' | 'high' | 'medium' | 'low';
+  type: 'error' | 'warning' | 'info' | "critical";
+  severity: "critical" | 'high' | 'medium' | 'low';
   category: string;
   rule: string;
   confidence: number; // 0-100 confidence score
@@ -82,7 +82,7 @@ export interface EnhancedFraudCheckResult {
   trends?: {
     improvementRate: number;
     commonIssues: string[];
-    riskLevel: 'low' | 'medium' | 'high' | 'critical';
+    riskLevel: 'low' | 'medium' | 'high' | "critical";
   };
 }
 
@@ -91,7 +91,7 @@ export interface EnhancedFraudRule {
   name: string;
   description: string;
   category: string;
-  severity: 'critical' | 'high' | 'medium' | 'low';
+  severity: "critical" | 'high' | 'medium' | 'low';
   enabled: boolean;
   weight: number; // Impact on overall score
   check: (context: any) => Promise<EnhancedViolation | null>;
@@ -169,8 +169,8 @@ export class EnhancedFraudChecker {
       id: 'sec_adv_001',
       name: 'Advanced SQL Injection Detection',
       description: 'Detects sophisticated SQL injection attempts including blind and time-based',
-      category: 'security',
-      severity: 'critical',
+      category: "security",
+      severity: "critical",
       enabled: true,
       weight: 10,
       patterns: [
@@ -212,9 +212,9 @@ export class EnhancedFraudChecker {
         if (confidence > 0) {
           return {
             id: this.generateViolationId('sec_adv_001'),
-            type: 'critical',
-            severity: 'critical',
-            category: 'security',
+            type: "critical",
+            severity: "critical",
+            category: "security",
             rule: 'sec_adv_001',
             confidence: Math.min(confidence, 100),
             message: `Advanced SQL injection pattern detected with ${confidence}% confidence`,
@@ -250,7 +250,7 @@ export class EnhancedFraudChecker {
       id: 'sec_xss_001',
       name: 'Context-Aware XSS Detection',
       description: 'Detects XSS attempts with context-specific validation',
-      category: 'security',
+      category: "security",
       severity: 'high',
       enabled: true,
       weight: 8,
@@ -290,7 +290,7 @@ export class EnhancedFraudChecker {
             id: this.generateViolationId('sec_xss_001'),
             type: 'error',
             severity: 'high',
-            category: 'security',
+            category: "security",
             rule: 'sec_xss_001',
             confidence: Math.min(confidence, 100),
             message: `XSS vulnerability detected in ${Object.keys(contexts).filter(k => contexts[k as keyof typeof contexts].detected).join(', ')} context`,
@@ -320,7 +320,7 @@ export class EnhancedFraudChecker {
       id: 'behav_001',
       name: 'Behavioral Anomaly Detection',
       description: 'Detects unusual user behavior patterns',
-      category: 'behavioral',
+      category: "behavioral",
       severity: 'medium',
       enabled: true,
       weight: 6,
@@ -370,7 +370,7 @@ export class EnhancedFraudChecker {
             id: this.generateViolationId('behav_001'),
             type: 'warning',
             severity: 'medium',
-            category: 'behavioral',
+            category: "behavioral",
             rule: 'behav_001',
             confidence,
             message: `Behavioral anomalies detected for user ${context.userId}`,
@@ -414,7 +414,7 @@ export class EnhancedFraudChecker {
             remediation: {
               automatic: true,
               steps: ['Apply temporary IP ban', 'Send rate limit warning to user'],
-              estimatedTime: 'Immediate'
+              estimatedTime: "Immediate"
             },
             timestamp: new Date(),
             metadata: { key, violations, limit: limiter.maxRequests },
@@ -640,7 +640,7 @@ export class EnhancedFraudChecker {
       userAgent: context.userAgent,
       requestId: context.requestId || crypto.randomBytes(8).toString('hex'),
       timestamp: Date.now(),
-      environment: context.environment || 'production'
+      environment: context.environment || "production"
     };
 
     // Run all enabled rules
@@ -656,7 +656,7 @@ export class EnhancedFraudChecker {
           totalConfidence += violation.confidence;
           
           switch (violation.type) {
-            case 'critical':
+            case "critical":
             case 'error':
               violations.push(violation);
               break;
@@ -698,7 +698,7 @@ export class EnhancedFraudChecker {
         totalChecks,
         passedChecks,
         failedChecks,
-        criticalViolations: violations.filter(v => v.severity === 'critical').length,
+        criticalViolations: violations.filter(v => v.severity === "critical").length,
         highViolations: violations.filter(v => v.severity === 'high').length,
         mediumViolations: violations.filter(v => v.severity === 'medium').length,
         lowViolations: violations.filter(v => v.severity === 'low').length,
@@ -733,7 +733,7 @@ export class EnhancedFraudChecker {
     for (const violation of violations) {
       const category = violation.category as keyof typeof categoryScores;
       if (category in categoryScores) {
-        const deduction = violation.severity === 'critical' ? 40 :
+        const deduction = violation.severity === "critical" ? 40 :
                          violation.severity === 'high' ? 25 :
                          violation.severity === 'medium' ? 15 : 5;
         categoryScores[category] = Math.max(0, categoryScores[category] - deduction);
@@ -808,14 +808,14 @@ export class EnhancedFraudChecker {
     const recommendations = new Set<string>();
     
     // Security recommendations
-    if (violations.some(v => v.category === 'security')) {
+    if (violations.some(v => v.category === "security")) {
       recommendations.add('Implement Web Application Firewall (WAF)');
       recommendations.add('Enable security headers (CSP, X-Frame-Options, etc.)');
       recommendations.add('Conduct regular security audits');
     }
     
     // Behavioral recommendations
-    if (violations.some(v => v.category === 'behavioral')) {
+    if (violations.some(v => v.category === "behavioral")) {
       recommendations.add('Implement multi-factor authentication');
       recommendations.add('Enable anomaly detection monitoring');
       recommendations.add('Set up user behavior analytics');
@@ -829,7 +829,7 @@ export class EnhancedFraudChecker {
     }
     
     // Performance recommendations
-    if (warnings.some(w => w.category === 'performance')) {
+    if (warnings.some(w => w.category === "performance")) {
       recommendations.add('Optimize database queries');
       recommendations.add('Implement caching strategies');
       recommendations.add('Use CDN for static resources');
@@ -857,7 +857,7 @@ export class EnhancedFraudChecker {
       .slice(0, 3)
       .map(([category]) => category);
     
-    const currentRisk = violations.filter(v => v.severity === 'critical').length > 0 ? 'critical' :
+    const currentRisk = violations.filter(v => v.severity === "critical").length > 0 ? "critical" :
                        violations.filter(v => v.severity === 'high').length > 2 ? 'high' :
                        violations.length > 5 ? 'medium' : 'low';
     

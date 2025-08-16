@@ -67,7 +67,7 @@ export interface CoordinatorEvents {
   'task:complete': (task: any) => void;
   'task:error': (error: Error) => void;
   'stream:chunk': (chunk: StreamChunk) => void;
-  'interrupt': () => void;
+  "interrupt": () => void;
 }
 
 export interface ICoordinator {

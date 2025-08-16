@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * VFTaskQueueVWrapper - Virtual Task Queue V with recursive embedding
  * 
@@ -109,7 +110,7 @@ export class VFTaskQueueVWrapper extends VFFileWrapper {
     let queueData: any;
     
     try {
-      const content = await fs.readFile(realPath, 'utf8');
+      const content = await fileAPI.readFile(realPath, 'utf8');
       queueData = JSON.parse(content);
       this.taskQueueCache.set(realPath, queueData);
       this.updateMap.set(queuePath, realPath);
@@ -222,7 +223,7 @@ export class VFTaskQueueVWrapper extends VFFileWrapper {
     const registryPath = path.join(path.dirname(parentPath), '..', 'TASK_QUEUE_REGISTRY.vf.json');
     
     try {
-      const registryContent = await fs.readFile(registryPath.replace('.vf.json', '.vf.json'), 'utf8');
+      const registryContent = await fileAPI.readFile(registryPath.replace('.vf.json', '.vf.json'), 'utf8');
       const registry = JSON.parse(registryContent);
       
       // Find children for this queue
@@ -293,7 +294,7 @@ export class VFTaskQueueVWrapper extends VFFileWrapper {
     const realPath = this.updateMap.get(virtualPath) || virtualPath.replace('.vf.json', '.vf.json');
     
     // Read the real file
-    const content = await fs.readFile(realPath, 'utf8');
+    const content = await fileAPI.readFile(realPath, 'utf8');
     const queueData = JSON.parse(content);
     
     // Find and update the task
@@ -333,7 +334,7 @@ export class VFTaskQueueVWrapper extends VFFileWrapper {
       queueData.metadata.updated_at = new Date().toISOString();
       
       // Write back to real file
-      await fs.writeFile(realPath, JSON.stringify(queueData, null, 2));
+      await fileAPI.writeFile(realPath, JSON.stringify(queueData, null, 2));
     } else {
       throw new Error(`Task ${taskId} not found in ${virtualPath}`);
     }
@@ -387,7 +388,7 @@ export class VFTaskQueueVWrapper extends VFFileWrapper {
     const realPath = this.updateMap.get(virtualPath) || virtualPath.replace('.vf.json', '.vf.json');
     
     // Read the real file
-    const content = await fs.readFile(realPath, 'utf8');
+    const content = await fileAPI.readFile(realPath, 'utf8');
     const queueData = JSON.parse(content);
     
     // Remove the task
@@ -414,7 +415,7 @@ export class VFTaskQueueVWrapper extends VFFileWrapper {
       queueData.metadata.total_items = (queueData.metadata.total_items || 0) - 1;
       
       // Write back to real file
-      await fs.writeFile(realPath, JSON.stringify(queueData, null, 2));
+      await fileAPI.writeFile(realPath, JSON.stringify(queueData, null, 2));
     }
   }
 

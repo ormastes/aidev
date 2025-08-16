@@ -1,6 +1,6 @@
 import { LogStream } from '../../src/external/log-stream';
 import { LogEntry } from '../../src/domain/log-entry';
-import { Readable } from 'stream';
+import { Readable } from 'node:stream';
 
 describe('LogStream Real-time Log Processing Integration Test', () => {
   let logStream: LogStream;

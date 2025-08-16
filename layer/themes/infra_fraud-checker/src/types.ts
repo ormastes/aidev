@@ -3,7 +3,7 @@
  */
 
 export enum Severity {
-  CRITICAL = 'critical',
+  CRITICAL = "critical",
   HIGH = 'high',
   MEDIUM = 'medium',
   LOW = 'low',

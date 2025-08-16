@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import { path } from '../../../../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import chalk from 'chalk';
 import ora from 'ora';
 import { execSync } from 'child_process';
@@ -37,7 +37,7 @@ export abstract class BaseSetup {
   protected getPortAllocation(): number {
     let key: keyof typeof PORT_ALLOCATIONS = 'demo';
     if (this.deploymentType === 'release') {
-      key = 'production';
+      key = "production";
     } else if (['epic', 'theme', 'story'].includes(this.deploymentType)) {
       key = 'agile';
     } else if (this.deploymentType === 'test') {

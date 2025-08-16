@@ -1,18 +1,18 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from 'node:events';
 import { ChildProcess } from 'child_process';
 import { LogEntry } from '../domain/log-entry';
 import { ProcessManager } from './process-manager';
 import { LogStream } from './log-stream';
 
 export interface MonitoringOptions {
-  format?: 'auto' | 'json' | 'structured' | 'plain';
+  format?: 'auto' | 'json' | "structured" | 'plain';
   logLevelFilter?: string[];
 }
 
 export interface ProcessInfo {
   processId: string;
   command: string;
-  status: 'starting' | 'running' | 'stopped' | 'crashed';
+  status: "starting" | 'running' | 'stopped' | 'crashed';
   startTime: Date;
   endTime?: Date;
 }
@@ -41,7 +41,7 @@ export class LogMonitor extends EventEmitter {
     const processInfo: ProcessInfo = {
       processId,
       command,
-      status: 'starting',
+      status: "starting",
       startTime: new Date()
     };
 

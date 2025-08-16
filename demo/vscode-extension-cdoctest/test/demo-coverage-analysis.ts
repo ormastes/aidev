@@ -5,8 +5,8 @@
  * Demonstrates how to measure class coverage without running actual tests
  */
 
-import { fs } from '../../../layer/themes/infra_external-log-lib/dist';
-import { path } from '../../../layer/themes/infra_external-log-lib/dist';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 interface ClassInfo {
   name: string;
@@ -155,7 +155,7 @@ class SystemTestClassAnalyzer {
       
       while ((methodMatch = methodPattern.exec(classBody)) !== null) {
         const methodName = methodMatch[1];
-        if (methodName !== 'constructor' && methodName !== className) {
+        if (methodName !== "constructor" && methodName !== className) {
           methods.push(methodName);
         }
       }
@@ -175,14 +175,14 @@ class SystemTestClassAnalyzer {
     
     // High coverage for core files likely tested by E2E
     if (fileName.includes('extension.ts')) coverageRatio = 0.9;
-    else if (fileName.includes('controller')) coverageRatio = 0.8;
+    else if (fileName.includes("controller")) coverageRatio = 0.8;
     else if (fileName.includes('config')) coverageRatio = 0.7;
     else if (fileName.includes('runner')) coverageRatio = 0.8;
     else if (fileDir.includes('ctest')) coverageRatio = 0.6;
-    else if (fileName.includes('pyAdapter')) coverageRatio = 0.5;
+    else if (fileName.includes("pyAdapter")) coverageRatio = 0.5;
     else if (fileDir.includes('tclist_parser')) coverageRatio = 0.3; // Less likely to be tested by E2E
     else if (fileName.includes('util')) coverageRatio = 0.4;
-    else if (fileName.includes('coverage')) coverageRatio = 0.1; // Coverage features not tested
+    else if (fileName.includes("coverage")) coverageRatio = 0.1; // Coverage features not tested
     else coverageRatio = 0.4; // Default coverage
     
     const covered = Math.round(classes.length * coverageRatio);
@@ -245,7 +245,7 @@ ${Array.from(analysis.coverageByFile.entries()).map(([filePath, fileCov]) => {
 Based on the analysis, these classes are critical but may not be fully covered:
 
 ${uncoveredClasses
-  .filter(cls => cls.file.includes('controller') || cls.file.includes('config') || cls.file.includes('handler') || cls.file.includes('extension'))
+  .filter(cls => cls.file.includes("controller") || cls.file.includes('config') || cls.file.includes('handler') || cls.file.includes("extension"))
   .slice(0, 5)
   .map(cls => `- **${cls.name}** (${cls.file}) - Core functionality`)
   .join('\n')}
@@ -267,7 +267,7 @@ ${uncoveredClasses
     // Print summary to console
     console.log('\n🎯 High Priority Classes for E2E Testing:');
     uncoveredClasses
-      .filter(cls => cls.file.includes('controller') || cls.file.includes('config') || cls.file.includes('handler'))
+      .filter(cls => cls.file.includes("controller") || cls.file.includes('config') || cls.file.includes('handler'))
       .slice(0, 5)
       .forEach(cls => console.log(`   - ${cls.name} (${cls.file})`));
   }

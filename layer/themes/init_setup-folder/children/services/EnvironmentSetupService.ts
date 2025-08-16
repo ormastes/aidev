@@ -5,9 +5,9 @@
 
 import * as fs from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { spawn, exec } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 
 const execAsync = promisify(exec);
 
@@ -97,7 +97,7 @@ export class EnvironmentSetupService extends EventEmitter {
     // Load environment configurations
     await this.loadConfigurations();
     
-    this.emit('initialized', { setupDir: this.setupDir });
+    this.emit("initialized", { setupDir: this.setupDir });
   }
 
   /**
@@ -106,7 +106,7 @@ export class EnvironmentSetupService extends EventEmitter {
   private async loadConfigurations(): Promise<void> {
     const configPath = path.join(this.configDir, 'environments.json');
     try {
-      const content = await fs.readFile(configPath, 'utf-8');
+      const content = await fileAPI.readFile(configPath, 'utf-8');
       const config = JSON.parse(content);
       
       for (const [env, settings] of Object.entries(config.environments)) {
@@ -317,7 +317,7 @@ export class EnvironmentSetupService extends EventEmitter {
     }
 
     // Volume mounts
-    const workspacePath = path.join(this.setupDir, 'workspace');
+    const workspacePath = path.join(this.setupDir, "workspace");
     await fileAPI.createDirectory(workspacePath);
     dockerSetup.args.push('-v', `${workspacePath}:/workspace`);
     
@@ -373,7 +373,7 @@ export class EnvironmentSetupService extends EventEmitter {
     const uvConfig = this.environments.get('uv');
     const pythonVersion = config.version || uvConfig.defaultVersion;
     
-    const envPath = path.join(this.setupDir, 'environments', config.name);
+    const envPath = path.join(this.setupDir, "environments", config.name);
     await fileAPI.createDirectory(envPath);
 
     // Create UV project
@@ -795,7 +795,7 @@ if __name__ == "__main__":
       },
       dependencies: {
         development: ['build-essential', 'git', 'vim', 'gdb'],
-        debugging: ['gdbserver', 'lldb', 'valgrind'],
+        debugging: ["gdbserver", 'lldb', "valgrind"],
         networking: ['curl', 'wget', 'netcat', 'openssh-server']
       }
     };
@@ -840,7 +840,7 @@ echo "Container: docker exec -it \${CONTAINER_NAME} bash"
 
   private async generateEnhancedDockerBuildScript(name: string, platform: string): Promise<string> {
     const scriptPath = path.join(this.setupDir, 'scripts', `build-docker-${name}.sh`);
-    const dockerfilePath = path.join(this.setupDir, 'dockerfiles', `Dockerfile.${name}`);
+    const dockerfilePath = path.join(this.setupDir, "dockerfiles", `Dockerfile.${name}`);
     
     // Generate Dockerfile with all development tools
     const dockerfile = `FROM ubuntu:22.04
@@ -879,7 +879,7 @@ WORKDIR /workspace
 EXPOSE 22 8080 1234 3000 5000 8000 9229
 
 # Entrypoint script
-COPY <<'ENTRYPOINT' /entrypoint.sh
+COPY <<"ENTRYPOINT" /entrypoint.sh
 #!/bin/bash
 service ssh start
 code-server --bind-addr 0.0.0.0:8080 --auth password &

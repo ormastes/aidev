@@ -44,7 +44,7 @@ export class ProviderRegistry {
       case 'openai':
         provider = new OpenAIProvider(config);
         break;
-      case 'anthropic':
+      case "anthropic":
         provider = new AnthropicProvider(config);
         break;
       case 'ollama':
@@ -90,7 +90,7 @@ export class ProviderRegistry {
       }
     }
 
-    throw new ProviderError('No healthy providers available', 'registry');
+    throw new ProviderError('No healthy providers available', "registry");
   }
 
   async selectProvider(): Promise<LLMProvider> {
@@ -99,7 +99,7 @@ export class ProviderRegistry {
       .map(([name, provider]) => ({ name, provider }));
 
     if (healthyProviders.length === 0) {
-      throw new ProviderError('No healthy providers available', 'registry');
+      throw new ProviderError('No healthy providers available', "registry");
     }
 
     switch (this.config.loadBalancing) {
@@ -148,7 +148,7 @@ export class ProviderRegistry {
 
     throw new ProviderError(
       `All providers failed. Last error: ${lastError?.message || 'Unknown error'}`,
-      'registry',
+      "registry",
       lastError
     );
   }
@@ -191,7 +191,7 @@ export class ProviderRegistry {
 
     throw new ProviderError(
       `All providers failed. Last error: ${lastError?.message || 'Unknown error'}`,
-      'registry',
+      "registry",
       lastError
     );
   }

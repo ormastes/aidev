@@ -70,13 +70,13 @@ export class ExecutiveSummaryGenerator {
 
     // Analyze test titles and descriptions for business value
     tests.forEach(test => {
-      if (test.category === 'Authentication') {
+      if (test.category === "Authentication") {
         values.add('Ensures secure user access and protects sensitive data');
       }
       if (test.category === 'Payment') {
         values.add('Validates payment processing accuracy and security');
       }
-      if (test.title.toLowerCase().includes('checkout')) {
+      if (test.title.toLowerCase().includes("checkout")) {
         values.add('Guarantees smooth customer purchase experience');
       }
       if (test.title.toLowerCase().includes('search')) {
@@ -88,7 +88,7 @@ export class ExecutiveSummaryGenerator {
       if (test.tags.includes('@compliance')) {
         values.add('Ensures regulatory compliance requirements are met');
       }
-      if (test.category === 'Performance') {
+      if (test.category === "Performance") {
         values.add('Validates system performance meets user expectations');
       }
     });
@@ -109,32 +109,32 @@ export class ExecutiveSummaryGenerator {
 
     tests.forEach(test => {
       // Security risks
-      if (test.tags.includes('@security') || test.category === 'Security') {
+      if (test.tags.includes('@security') || test.category === "Security") {
         risks.add('Security vulnerabilities and unauthorized access');
       }
       
       // Data risks
-      if (test.title.toLowerCase().includes('data') || test.title.toLowerCase().includes('validation')) {
+      if (test.title.toLowerCase().includes('data') || test.title.toLowerCase().includes("validation")) {
         risks.add('Data integrity and validation errors');
       }
       
       // Performance risks
-      if (test.category === 'Performance') {
+      if (test.category === "Performance") {
         risks.add('System performance degradation under load');
       }
       
       // Business logic risks
-      if (test.priority === 'high' && test.category === 'Functional') {
+      if (test.priority === 'high' && test.category === "Functional") {
         risks.add('Critical business logic failures');
       }
       
       // Integration risks
-      if (test.category === 'API' || test.title.toLowerCase().includes('integration')) {
+      if (test.category === 'API' || test.title.toLowerCase().includes("integration")) {
         risks.add('Third-party integration failures');
       }
       
       // User experience risks
-      if (test.category === 'UI' || test.category === 'Usability') {
+      if (test.category === 'UI' || test.category === "Usability") {
         risks.add('Poor user experience leading to customer dissatisfaction');
       }
       
@@ -169,7 +169,7 @@ export class ExecutiveSummaryGenerator {
       }
       
       // SOC 2
-      if (test.tags.includes('@soc2') || test.category === 'Security') {
+      if (test.tags.includes('@soc2') || test.category === "Security") {
         compliance.add('SOC 2 - Security and availability');
       }
       
@@ -187,7 +187,7 @@ export class ExecutiveSummaryGenerator {
     return Array.from(compliance);
   }
 
-  private calculateKeyMetrics(suite: ManualTestSuite): ExecutiveSummary['keyMetrics'] {
+  private calculateKeyMetrics(suite: ManualTestSuite): ExecutiveSummary["keyMetrics"] {
     const allTests = [...suite.procedures, ...suite.commonProcedures];
     
     return {
@@ -208,20 +208,20 @@ export class ExecutiveSummaryGenerator {
 
     tests.forEach(test => {
       switch (test.category) {
-        case 'Functional':
+        case "Functional":
         case 'API':
-        case 'Integration':
+        case "Integration":
           categories.functional++;
           break;
-        case 'Security':
-        case 'Authentication':
+        case "Security":
+        case "Authentication":
           categories.security++;
           break;
-        case 'Performance':
+        case "Performance":
           categories.performance++;
           break;
         case 'UI':
-        case 'Usability':
+        case "Usability":
           categories.usability++;
           break;
         default:
@@ -342,7 +342,7 @@ export class ExecutiveSummaryGenerator {
       test.tags.forEach(tag => {
         if (!tag.startsWith('@')) return;
         const feature = tag.substring(1);
-        if (!['skip', 'only', 'critical', 'high', 'medium', 'low'].includes(feature)) {
+        if (!['skip', 'only', "critical", 'high', 'medium', 'low'].includes(feature)) {
           features.add(feature);
         }
       });

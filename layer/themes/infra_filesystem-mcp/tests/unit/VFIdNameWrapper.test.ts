@@ -3,7 +3,7 @@ import { fs } from '../../../infra_external-log-lib/src';
 import { path } from '../../../infra_external-log-lib/src';
 import { VFIdNameWrapper, NameIdItem, IdNameStorage } from '../../children/VFIdNameWrapper';
 
-describe('VFIdNameWrapper', () => {
+describe("VFIdNameWrapper", () => {
   let wrapper: VFIdNameWrapper;
   let tempDir: string;
   const nameIdFile = 'NAME_ID.vf.json';
@@ -39,11 +39,11 @@ describe('VFIdNameWrapper', () => {
     it('should write and read items', async () => {
       const item: NameIdItem = {
         id: 'comp-1',
-        type: 'component',
+        type: "component",
         name: 'Header',
         namespace: 'ui',
         full_path: 'src/components/Header.tsx',
-        tags: ['navigation', 'layout']
+        tags: ["navigation", 'layout']
       };
 
       await wrapper.write(nameIdFile, item);
@@ -58,16 +58,16 @@ describe('VFIdNameWrapper', () => {
       const items: NameIdItem[] = [
         {
           id: 'func-1',
-          type: 'function',
-          name: 'getUserData',
+          type: "function",
+          name: "getUserData",
           namespace: 'api',
           full_path: 'src/api/user.ts',
           tags: ['user', 'fetch']
         },
         {
           id: 'func-2',
-          type: 'function',
-          name: 'updateUserData',
+          type: "function",
+          name: "updateUserData",
           namespace: 'api',
           full_path: 'src/api/user.ts',
           tags: ['user', 'update']
@@ -87,21 +87,21 @@ describe('VFIdNameWrapper', () => {
       const items: NameIdItem[] = [
         {
           id: 'comp-1',
-          type: 'component',
-          name: 'UserProfile',
-          namespace: 'components',
+          type: "component",
+          name: "UserProfile",
+          namespace: "components",
           full_path: 'src/components/UserProfile.tsx',
           extension: 'tsx',
           tags: ['user', 'profile', 'ui']
         },
         {
           id: 'comp-2',
-          type: 'component',
-          name: 'UserSettings',
-          namespace: 'components',
+          type: "component",
+          name: "UserSettings",
+          namespace: "components",
           full_path: 'src/components/UserSettings.tsx',
           extension: 'tsx',
-          tags: ['user', 'settings', 'ui']
+          tags: ['user', "settings", 'ui']
         },
         {
           id: 'hook-1',
@@ -115,7 +115,7 @@ describe('VFIdNameWrapper', () => {
         {
           id: 'util-1',
           type: 'util',
-          name: 'formatUserData',
+          name: "formatUserData",
           namespace: 'utils',
           full_path: 'src/utils/user.ts',
           extension: 'ts',
@@ -131,7 +131,7 @@ describe('VFIdNameWrapper', () => {
       
       expect(Array.isArray(results)).toBe(true);
       expect(results).toHaveLength(1);
-      expect(results[0].name).toBe('UserProfile');
+      expect(results[0].name).toBe("UserProfile");
     });
 
     it('should search by tag', async () => {
@@ -145,14 +145,14 @@ describe('VFIdNameWrapper', () => {
       const results = await wrapper.read(`${nameIdFile}?namespace=components`) as NameIdItem[];
       
       expect(results).toHaveLength(2);
-      expect(results.every(item => item.namespace === 'components')).toBe(true);
+      expect(results.every(item => item.namespace === "components")).toBe(true);
     });
 
     it('should search by type', async () => {
       const results = await wrapper.read(`${nameIdFile}?type=component`) as NameIdItem[];
       
       expect(results).toHaveLength(2);
-      expect(results.every(item => item.type === 'component')).toBe(true);
+      expect(results.every(item => item.type === "component")).toBe(true);
     });
 
     it('should search by extension', async () => {
@@ -166,7 +166,7 @@ describe('VFIdNameWrapper', () => {
       const results = await wrapper.read(`${nameIdFile}?type=component&tag=settings`) as NameIdItem[];
       
       expect(results).toHaveLength(1);
-      expect(results[0].name).toBe('UserSettings');
+      expect(results[0].name).toBe("UserSettings");
     });
   });
 
@@ -175,8 +175,8 @@ describe('VFIdNameWrapper', () => {
       const items: NameIdItem[] = [
         {
           id: 'idx-1',
-          type: 'component',
-          name: 'TestComponent',
+          type: "component",
+          name: "TestComponent",
           namespace: 'test',
           full_path: 'test/TestComponent.tsx',
           extension: 'tsx',
@@ -188,7 +188,7 @@ describe('VFIdNameWrapper', () => {
       
       const storage = await wrapper.read(nameIdFile) as IdNameStorage;
       
-      expect(storage.indices?.by_name['testcomponent']).toContain('idx-1');
+      expect(storage.indices?.by_name["testcomponent"]).toContain('idx-1');
       expect(storage.indices?.by_namespace['test']).toContain('idx-1');
       expect(storage.indices?.by_tag['test']).toContain('idx-1');
       expect(storage.indices?.by_tag['sample']).toContain('idx-1');
@@ -198,8 +198,8 @@ describe('VFIdNameWrapper', () => {
     it('should handle case-insensitive name searches', async () => {
       const item: NameIdItem = {
         id: 'case-1',
-        type: 'component',
-        name: 'CaseSensitiveComponent',
+        type: "component",
+        name: "CaseSensitiveComponent",
         namespace: 'test',
         full_path: 'test/CaseSensitive.tsx'
       };
@@ -219,19 +219,19 @@ describe('VFIdNameWrapper', () => {
       const items: NameIdItem[] = [
         {
           id: 'tag-1',
-          type: 'component',
-          name: 'TaggedComponent',
+          type: "component",
+          name: "TaggedComponent",
           namespace: 'test',
           full_path: 'test/Tagged.tsx',
-          tags: ['important', 'featured']
+          tags: ["important", "featured"]
         },
         {
           id: 'tag-2',
           type: 'util',
-          name: 'taggedUtil',
+          name: "taggedUtil",
           namespace: 'utils',
           full_path: 'utils/tagged.ts',
-          tags: ['important', 'helper']
+          tags: ["important", 'helper']
         }
       ];
 
@@ -239,23 +239,23 @@ describe('VFIdNameWrapper', () => {
     });
 
     it('should get items by tag', async () => {
-      const results = await wrapper.getItemsByTag('important', nameIdFile);
+      const results = await wrapper.getItemsByTag("important", nameIdFile);
       
       expect(results).toHaveLength(2);
-      expect(results.every(item => item.tags?.includes('important'))).toBe(true);
+      expect(results.every(item => item.tags?.includes("important"))).toBe(true);
     });
 
     it('should get items by multiple tags', async () => {
-      const results = await wrapper.getItemsByTags(['important', 'featured'], nameIdFile);
+      const results = await wrapper.getItemsByTags(["important", "featured"], nameIdFile);
       
       expect(results).toHaveLength(2);
     });
 
     it('should get items by name', async () => {
-      const results = await wrapper.getItemsByName('TaggedComponent', nameIdFile);
+      const results = await wrapper.getItemsByName("TaggedComponent", nameIdFile);
       
       expect(results).toHaveLength(1);
-      expect(results[0].name).toBe('TaggedComponent');
+      expect(results[0].name).toBe("TaggedComponent");
     });
 
     it('should get items by type', async () => {
@@ -270,8 +270,8 @@ describe('VFIdNameWrapper', () => {
     beforeEach(async () => {
       const item: NameIdItem = {
         id: 'update-1',
-        type: 'component',
-        name: 'UpdateableComponent',
+        type: "component",
+        name: "UpdateableComponent",
         namespace: 'test',
         full_path: 'test/Updateable.tsx',
         tags: ['mutable']
@@ -282,14 +282,14 @@ describe('VFIdNameWrapper', () => {
 
     it('should update existing item', async () => {
       await wrapper.updateItem('update-1', {
-        name: 'UpdatedComponent',
+        name: "UpdatedComponent",
         tags: ['mutable', 'changed']
       }, nameIdFile);
       
       const storage = await wrapper.read(nameIdFile) as IdNameStorage;
       const item = storage.types.component.find(i => i.id === 'update-1');
       
-      expect(item?.name).toBe('UpdatedComponent');
+      expect(item?.name).toBe("UpdatedComponent");
       expect(item?.tags).toContain('changed');
       expect(item?.updated_at).toBeDefined();
     });
@@ -309,7 +309,7 @@ describe('VFIdNameWrapper', () => {
       
       const storage = await wrapper.read(nameIdFile) as IdNameStorage;
       
-      expect(storage.indices?.by_name['updateablecomponent']).toBeUndefined();
+      expect(storage.indices?.by_name["updateablecomponent"]).toBeUndefined();
       expect(storage.indices?.by_namespace['test']).toBeUndefined();
       expect(storage.indices?.by_tag['mutable']).toBeUndefined();
     });
@@ -327,8 +327,8 @@ describe('VFIdNameWrapper', () => {
     it('should handle invalid query parameters gracefully', async () => {
       const item: NameIdItem = {
         id: 'error-1',
-        type: 'component',
-        name: 'ErrorTest',
+        type: "component",
+        name: "ErrorTest",
         namespace: 'test',
         full_path: 'test/Error.tsx'
       };
@@ -346,8 +346,8 @@ describe('VFIdNameWrapper', () => {
     it('should handle items with metadata', async () => {
       const item: NameIdItem = {
         id: 'meta-1',
-        type: 'component',
-        name: 'MetaComponent',
+        type: "component",
+        name: "MetaComponent",
         namespace: 'test',
         full_path: 'test/Meta.tsx',
         metadata: {
@@ -373,7 +373,7 @@ describe('VFIdNameWrapper', () => {
           id: `concurrent-${i}`,
           type: 'test',
           name: `ConcurrentItem${i}`,
-          namespace: 'concurrent',
+          namespace: "concurrent",
           full_path: `concurrent/Item${i}.ts`
         };
         

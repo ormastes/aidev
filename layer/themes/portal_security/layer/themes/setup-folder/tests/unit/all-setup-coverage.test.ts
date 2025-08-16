@@ -33,7 +33,7 @@ describe('All Setup Classes - Maximum Coverage', () => {
     });
 
     it('should create story documentation', async () => {
-      await story['createStoryDocumentation']();
+      await story["createStoryDocumentation"]();
       
       expect(fs.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('STORY.md'),
@@ -46,7 +46,7 @@ describe('All Setup Classes - Maximum Coverage', () => {
     });
 
     it('should create story structure', async () => {
-      await story['createStoryStructure']();
+      await story["createStoryStructure"]();
       
       const expectedDirs = ['src', 'tests', 'docs', 'assets'];
       expectedDirs.forEach(dir => {
@@ -55,7 +55,7 @@ describe('All Setup Classes - Maximum Coverage', () => {
     });
 
     it('should create story package.json', async () => {
-      await story['createStoryPackageJson']();
+      await story["createStoryPackageJson"]();
       
       expect(fs.writeJson).toHaveBeenCalledWith(
         expect.stringContaining('package.json'),
@@ -68,7 +68,7 @@ describe('All Setup Classes - Maximum Coverage', () => {
     });
 
     it('should create development artifacts', async () => {
-      await story['createDevelopmentArtifacts']();
+      await story["createDevelopmentArtifacts"]();
       
       // Should create TASKS.md
       expect(fs.writeFile).toHaveBeenCalledWith(
@@ -85,7 +85,7 @@ describe('All Setup Classes - Maximum Coverage', () => {
       // Should create implementation stub
       expect(fs.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('index.ts'),
-        expect.stringContaining('Implementation')
+        expect.stringContaining("Implementation")
       );
       
       // Should create README
@@ -100,11 +100,11 @@ describe('All Setup Classes - Maximum Coverage', () => {
     const demo = new DemoSetup({
       appName: 'full-demo',
       mode: 'vf',
-      language: 'typescript',
+      language: "typescript",
     });
 
     it('should create node project', async () => {
-      await demo['createNodeProject']();
+      await demo["createNodeProject"]();
       
       expect(fs.writeJson).toHaveBeenCalledWith(
         expect.stringContaining('package.json'),
@@ -128,7 +128,7 @@ describe('All Setup Classes - Maximum Coverage', () => {
         language: 'python',
       });
       
-      await pythonDemo['createPythonProject']();
+      await pythonDemo["createPythonProject"]();
       
       expect(fs.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('setup.py'),
@@ -142,7 +142,7 @@ describe('All Setup Classes - Maximum Coverage', () => {
     });
 
     it('should create TypeScript config within createNodeProject', async () => {
-      await demo['createNodeProject']();
+      await demo["createNodeProject"]();
       
       expect(fs.writeJson).toHaveBeenCalledWith(
         expect.stringContaining('tsconfig.json'),
@@ -154,7 +154,7 @@ describe('All Setup Classes - Maximum Coverage', () => {
     });
 
     it('should create README', async () => {
-      await demo['createReadme']();
+      await demo["createReadme"]();
       
       expect(fs.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('README.md'),
@@ -163,7 +163,7 @@ describe('All Setup Classes - Maximum Coverage', () => {
     });
 
     it('should create FEATURE.md', async () => {
-      await demo['createFeatureMd']();
+      await demo["createFeatureMd"]();
       
       expect(fs.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('FEATURE.md'),
@@ -178,7 +178,7 @@ describe('All Setup Classes - Maximum Coverage', () => {
       const demoWithConfig = new DemoSetup({
         appName: 'demo-with-config',
         mode: 'vf',
-        language: 'typescript',
+        language: "typescript",
         configFile: 'test-config.json'
       });
       
@@ -192,22 +192,22 @@ describe('All Setup Classes - Maximum Coverage', () => {
         language: 'python',
       });
       
-      pythonDemo['createPythonProject'] = jest.fn().mockResolvedValue(undefined);
-      pythonDemo['createNodeProject'] = jest.fn().mockResolvedValue(undefined);
-      pythonDemo['createFeatureMd'] = jest.fn().mockResolvedValue(undefined);
-      pythonDemo['createReadme'] = jest.fn().mockResolvedValue(undefined);
+      pythonDemo["createPythonProject"] = jest.fn().mockResolvedValue(undefined);
+      pythonDemo["createNodeProject"] = jest.fn().mockResolvedValue(undefined);
+      pythonDemo["createFeatureMd"] = jest.fn().mockResolvedValue(undefined);
+      pythonDemo["createReadme"] = jest.fn().mockResolvedValue(undefined);
       
       await pythonDemo.createDeploymentConfig();
       
-      expect(pythonDemo['createPythonProject']).toHaveBeenCalled();
-      expect(pythonDemo['createNodeProject']).not.toHaveBeenCalled();
+      expect(pythonDemo["createPythonProject"]).toHaveBeenCalled();
+      expect(pythonDemo["createNodeProject"]).not.toHaveBeenCalled();
     });
 
     it('should handle JavaScript demo', async () => {
       const jsDemo = new DemoSetup({
         appName: 'js-demo',
         mode: 'vf',
-        language: 'javascript',
+        language: "javascript",
       });
 
       const result = await jsDemo.createDeploymentConfig();

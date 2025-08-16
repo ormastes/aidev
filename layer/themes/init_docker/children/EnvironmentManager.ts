@@ -4,7 +4,7 @@ import { DockerBuilder } from './DockerBuilder';
 import { ComposeManager } from './ComposeManager';
 import { ContainerRunner } from './ContainerRunner';
 
-export type Environment = 'local' | 'dev' | 'dev-demo' | 'demo' | 'release' | 'production';
+export type Environment = 'local' | 'dev' | 'dev-demo' | 'demo' | 'release' | "production";
 
 export interface EnvironmentConfig {
   name: Environment;
@@ -50,7 +50,7 @@ export interface HealthCheckConfig {
 export interface EnvironmentDeployment {
   environment: Environment;
   services: string[];
-  status: 'running' | 'stopped' | 'building' | 'error';
+  status: 'running' | 'stopped' | "building" | 'error';
   url?: string;
   startTime?: Date;
   containerId?: string;
@@ -110,7 +110,7 @@ export class EnvironmentManager {
           ],
           env: {
             ...baseConfig.env,
-            NODE_ENV: 'development',
+            NODE_ENV: "development",
             DEBUG: '*',
             WATCH_MODE: 'true'
           }
@@ -138,7 +138,7 @@ export class EnvironmentManager {
           ],
           env: {
             ...baseConfig.env,
-            NODE_ENV: 'development',
+            NODE_ENV: "development",
             ENABLE_HOT_RELOAD: 'true'
           },
           healthcheck: {
@@ -199,7 +199,7 @@ export class EnvironmentManager {
         };
 
       case 'release':
-      case 'production':
+      case "production":
         return {
           ...baseConfig,
           ports: [
@@ -208,7 +208,7 @@ export class EnvironmentManager {
           ],
           env: {
             ...baseConfig.env,
-            NODE_ENV: 'production',
+            NODE_ENV: "production",
             ENABLE_MONITORING: 'true',
             LOG_LEVEL: 'info'
           },
@@ -252,7 +252,7 @@ export class EnvironmentManager {
     const deployment: EnvironmentDeployment = {
       environment: env,
       services: themes,
-      status: 'building',
+      status: "building",
       startTime: new Date()
     };
 
@@ -269,7 +269,7 @@ export class EnvironmentManager {
       );
 
       // Build images if needed
-      if (options?.rebuild || env === 'release' || env === 'production') {
+      if (options?.rebuild || env === 'release' || env === "production") {
         for (const theme of themes) {
           await this.buildEnvironmentImage(env, theme);
         }
@@ -330,7 +330,7 @@ export class EnvironmentManager {
    * Generate environment-specific Dockerfile
    */
   private generateEnvironmentDockerfile(env: Environment, config: EnvironmentConfig): string {
-    const isProduction = env === 'release' || env === 'production';
+    const isProduction = env === 'release' || env === "production";
     const isDevelopment = env === 'local' || env === 'dev';
 
     if (isDevelopment) {
@@ -357,7 +357,7 @@ COPY . .
 EXPOSE 3000 9229
 
 # Environment variables
-ENV NODE_ENV=${config.env?.NODE_ENV || 'development'}
+ENV NODE_ENV=${config.env?.NODE_ENV || "development"}
 ENV ENVIRONMENT=${env}
 
 # Development command with hot reload
@@ -472,7 +472,7 @@ CMD ["npm", "start"]
           return `${v.source}:${v.target}`;
         }),
         networks: config.networks || [`${env}-network`],
-        restart: env === 'production' ? 'always' : 'unless-stopped',
+        restart: env === "production" ? 'always' : 'unless-stopped',
         deploy: config.replicas ? {
           replicas: config.replicas,
           resources: {
@@ -524,7 +524,7 @@ CMD ["npm", "start"]
       });
     }
 
-    if (env === 'release' || env === 'production') {
+    if (env === 'release' || env === "production") {
       // Add data volumes for production
       volumes['app-data'] = {
         driver: 'local',
@@ -558,10 +558,10 @@ CMD ["npm", "start"]
       'dev-demo': 3001,
       'demo': 3002,
       'release': 80,
-      'production': 443
+      "production": 443
     };
 
-    const protocol = (env === 'release' || env === 'production') ? 'https' : 'http';
+    const protocol = (env === 'release' || env === "production") ? 'https' : 'http';
     const port = portMap[env];
     
     return `${protocol}://localhost${port !== 80 && port !== 443 ? `:${port}` : ''}`;
@@ -574,15 +574,15 @@ CMD ["npm", "start"]
     switch(env) {
       case 'local':
       case 'dev':
-        return 'development';
+        return "development";
       case 'dev-demo':
       case 'demo':
         return 'staging';
       case 'release':
-      case 'production':
-        return 'production';
+      case "production":
+        return "production";
       default:
-        return 'development';
+        return "development";
     }
   }
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { chromium } = require('playwright');
+const { chromium } = require("playwright");
 
 async function testRealNavigation() {
     console.log('🎭 PLAYWRIGHT: Testing REAL navigation\n');
@@ -51,7 +51,7 @@ async function testRealNavigation() {
         const selectors = [
             '#screenRequestsComment',  // GUI Design Studio
             '#commentText',           // Profile pages
-            'textarea',               // Any textarea
+            "textarea",               // Any textarea
             'input[type="text"]'      // Text inputs
         ];
         
@@ -66,7 +66,7 @@ async function testRealNavigation() {
                 
                 // Try to trigger any validation
                 await element.press('Space');
-                await element.press('Backspace');
+                await element.press("Backspace");
                 await page.waitForTimeout(500);
                 
                 // Look for submit button nearby

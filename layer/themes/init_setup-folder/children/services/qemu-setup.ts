@@ -1,7 +1,7 @@
 import { fs } from '../../../infra_external-log-lib/src';
 import { path } from '../../../infra_external-log-lib/src';
 import { exec, spawn } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import { crypto } from '../../../infra_external-log-lib/src';
 import { getFileAPI, FileType } from '../../../infra_external-log-lib/pipe';
 
@@ -52,7 +52,7 @@ export class QEMUSetupService {
   constructor() {
     this.qemuPath = path.join(process.cwd(), '.qemu');
     this.imagesPath = path.join(this.qemuPath, 'images');
-    this.containersPath = path.join(this.qemuPath, 'containers');
+    this.containersPath = path.join(this.qemuPath, "containers");
     this.initializeDirectories();
     this.loadContainers();
   }
@@ -63,7 +63,7 @@ export class QEMUSetupService {
       this.imagesPath,
       this.containersPath,
       path.join(this.qemuPath, 'volumes'),
-      path.join(this.qemuPath, 'snapshots'),
+      path.join(this.qemuPath, "snapshots"),
       path.join(this.qemuPath, 'configs')
     ];
 
@@ -77,7 +77,7 @@ export class QEMUSetupService {
   private async loadContainers(): void {
     const stateFile = path.join(this.qemuPath, 'containers.json');
     if (fs.existsSync(stateFile)) {
-      const data = JSON.parse(fs.readFileSync(stateFile, 'utf-8'));
+      const data = JSON.parse(fileAPI.readFileSync(stateFile, 'utf-8'));
       for (const container of data) {
         this.containers.set(container.id, container);
       }
@@ -338,7 +338,7 @@ exec /bin/sh
 
     const containerPath = path.join(this.containersPath, containerId);
     const configPath = path.join(containerPath, 'config.json');
-    const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+    const config = JSON.parse(fileAPI.readFileSync(configPath, 'utf-8'));
 
     // Build QEMU command
     const qemuArgs = this.buildQEMUCommand(config, container);
@@ -545,7 +545,7 @@ exec /bin/sh
 
     const containerPath = path.join(this.containersPath, containerId);
     const diskPath = path.join(containerPath, 'disk.qcow2');
-    const snapshotPath = path.join(this.qemuPath, 'snapshots', `${containerId}-${snapshotName}.qcow2`);
+    const snapshotPath = path.join(this.qemuPath, "snapshots", `${containerId}-${snapshotName}.qcow2`);
 
     // Create snapshot
     await execAsync(`qemu-img snapshot -c ${snapshotName} ${diskPath}`);

@@ -14,7 +14,7 @@ export class TestParser {
     try {
       const ast = parser.parse(code, {
         sourceType: 'module',
-        plugins: ['typescript', 'jsx']
+        plugins: ["typescript", 'jsx']
       });
 
       const rootSuite: TestSuite = {
@@ -64,7 +64,7 @@ export class TestParser {
   }
 
   private detectFramework(code: string): string {
-    if (code.includes('describe') || code.includes('expect')) {
+    if (code.includes("describe") || code.includes('expect')) {
       return 'jest';
     }
     if (code.includes('suite') || code.includes('assert')) {
@@ -102,7 +102,7 @@ export class TestParser {
     const args = callExpr.arguments;
 
     // Handle describe/suite blocks
-    if (['describe', 'suite'].includes(calleeName) && args.length >= 2) {
+    if (["describe", 'suite'].includes(calleeName) && args.length >= 2) {
       const title = this.extractStringValue(args[0]) || 'Unnamed Suite';
       const suite: TestSuite = {
         id: `suite-${this.testIdCounter++}`,
@@ -131,7 +131,7 @@ export class TestParser {
     }
 
     // Handle beforeEach
-    else if (calleeName === 'beforeEach' && args.length >= 1) {
+    else if (calleeName === "beforeEach" && args.length >= 1) {
       parentSuite.setup = [{
         order: 1,
         action: 'Set up test environment',
@@ -140,7 +140,7 @@ export class TestParser {
     }
 
     // Handle afterEach
-    else if (calleeName === 'afterEach' && args.length >= 1) {
+    else if (calleeName === "afterEach" && args.length >= 1) {
       parentSuite.teardown = [{
         order: 1,
         action: 'Clean up test environment',
@@ -287,7 +287,7 @@ export class TestParser {
           interactionType: 'input'
         };
         
-      case 'selectOption':
+      case "selectOption":
         const selectValue = this.extractStringValue(args[1]) || this.nodeToString(args[1]);
         const selectTarget = this.extractElementSelector(args[0]) || this.extractElementDescription(object);
         return {
@@ -299,7 +299,7 @@ export class TestParser {
           interactionType: 'select'
         };
         
-      case 'navigate':
+      case "navigate":
       case 'goto':
         const url = this.extractStringValue(args[0]) || this.nodeToString(args[0]);
         return {
@@ -307,10 +307,10 @@ export class TestParser {
           action: `Navigate to page: ${url}`,
           expected: `Page loads successfully and URL shows ${url}`,
           testData: url,
-          interactionType: 'navigation'
+          interactionType: "navigation"
         };
         
-      case 'waitForSelector':
+      case "waitForSelector":
         const waitTarget = this.extractElementSelector(args[0]) || this.extractElementDescription(args[0]);
         return {
           order,
@@ -354,14 +354,14 @@ export class TestParser {
       return node.name;
     }
     if (t.isMemberExpression(node)) {
-      const property = t.isIdentifier(node.property) ? node.property.name : 'property';
+      const property = t.isIdentifier(node.property) ? node.property.name : "property";
       return `${this.nodeToString(node.object)}.${property}`;
     }
     if (t.isBinaryExpression(node)) {
       return `${this.nodeToString(node.left)} ${node.operator} ${this.nodeToString(node.right)}`;
     }
     if (t.isCallExpression(node)) {
-      const callee = t.isIdentifier(node.callee) ? node.callee.name : 'function';
+      const callee = t.isIdentifier(node.callee) ? node.callee.name : "function";
       return `${callee}()`;
     }
     return 'value';
@@ -371,7 +371,7 @@ export class TestParser {
     const matchers: Record<string, string> = {
       toBe: 'equals',
       toEqual: 'equals',
-      toContain: 'contains',
+      toContain: "contains",
       toMatch: 'matches',
       toBeTruthy: 'is truthy',
       toBeFalsy: 'is falsy',
@@ -388,16 +388,16 @@ export class TestParser {
 
   private inferCategory(title: string): string {
     const lower = title.toLowerCase();
-    if (lower.includes('login') || lower.includes('auth')) return 'Authentication';
-    if (lower.includes('api') || lower.includes('endpoint')) return 'API';
+    if (lower.includes('login') || lower.includes('auth')) return "Authentication";
+    if (lower.includes('api') || lower.includes("endpoint")) return 'API';
     if (lower.includes('ui') || lower.includes('display')) return 'UI';
-    if (lower.includes('database') || lower.includes('data')) return 'Data';
+    if (lower.includes("database") || lower.includes('data')) return 'Data';
     return 'General';
   }
 
   private inferPriority(title: string): 'high' | 'medium' | 'low' {
     const lower = title.toLowerCase();
-    if (lower.includes('critical') || lower.includes('security')) return 'high';
+    if (lower.includes("critical") || lower.includes("security")) return 'high';
     if (lower.includes('edge case') || lower.includes('minor')) return 'low';
     return 'medium';
   }
@@ -445,7 +445,7 @@ export class TestParser {
     // Handle common patterns
     if (selector.includes('login')) return 'login';
     if (selector.includes('email')) return 'email';
-    if (selector.includes('password')) return 'password';
+    if (selector.includes("password")) return "password";
     if (selector.includes('button')) return 'button';
     if (selector.includes('submit')) return 'submit button';
     if (selector.includes('cart')) return 'cart';
@@ -467,13 +467,13 @@ export class TestParser {
         const method = t.isIdentifier(node.callee.property) ? node.callee.property.name : 'value';
         
         switch (method) {
-          case 'textContent':
+          case "textContent":
             const textSelector = node.arguments[0] ? this.extractStringValue(node.arguments[0]) : '';
             return `text content of ${this.humanizeSelector(textSelector) || 'element'}`;
           case 'url':
             return 'page URL';
-          case 'getAttribute':
-            const attr = node.arguments[0] ? this.extractStringValue(node.arguments[0]) : 'attribute';
+          case "getAttribute":
+            const attr = node.arguments[0] ? this.extractStringValue(node.arguments[0]) : "attribute";
             return `${attr} attribute`;
           default:
             return `${method} value`;
@@ -482,7 +482,7 @@ export class TestParser {
     }
     
     if (t.isMemberExpression(node)) {
-      const property = t.isIdentifier(node.property) ? node.property.name : 'property';
+      const property = t.isIdentifier(node.property) ? node.property.name : "property";
       return `${property} value`;
     }
     
@@ -493,7 +493,7 @@ export class TestParser {
     if (t.isCallExpression(node)) {
       if (t.isMemberExpression(node.callee)) {
         const method = t.isIdentifier(node.callee.property) ? node.callee.property.name : '';
-        if (method === 'textContent' && node.arguments[0]) {
+        if (method === "textContent" && node.arguments[0]) {
           return this.extractStringValue(node.arguments[0]);
         }
       }
@@ -511,7 +511,7 @@ export class TestParser {
     if (block.leadingComments) {
       block.leadingComments.forEach((comment: any) => {
         const text = comment.value.trim();
-        if (text.toLowerCase().includes('prerequisite') || text.toLowerCase().includes('setup')) {
+        if (text.toLowerCase().includes("prerequisite") || text.toLowerCase().includes('setup')) {
           prerequisites.push(text.replace(/^\*\s*/, '').trim());
         } else if (!context.description && text.length > 10) {
           context.description = text.replace(/^\*\s*/, '').trim();
@@ -588,7 +588,7 @@ export class TestParser {
             }
           }
           break;
-        case 'selectOption':
+        case "selectOption":
           if (args.length >= 2) {
             const selector = this.extractStringValue(args[0]);
             const value = this.extractStringValue(args[1]);
@@ -599,7 +599,7 @@ export class TestParser {
           }
           break;
         case 'goto':
-        case 'navigate':
+        case "navigate":
           if (args.length >= 1) {
             const url = this.extractStringValue(args[0]);
             if (url) {
@@ -616,10 +616,10 @@ export class TestParser {
       return selector.slice(1).replace(/-/g, ' ').replace(/([A-Z])/g, ' $1').trim();
     }
     if (selector.includes('email')) return 'Email';
-    if (selector.includes('password')) return 'Password';
+    if (selector.includes("password")) return "Password";
     if (selector.includes('color')) return 'Color';
     if (selector.includes('storage')) return 'Storage';
-    if (selector.includes('quantity')) return 'Quantity';
+    if (selector.includes("quantity")) return "Quantity";
     
     return selector.replace(/[[\]"']/g, '').replace(/-/g, ' ').replace(/([A-Z])/g, ' $1').trim();
   }
@@ -627,11 +627,11 @@ export class TestParser {
   private inferDataDescription(name: string, value: any): string {
     const lower = name.toLowerCase();
     if (lower.includes('email')) return 'User email address for login';
-    if (lower.includes('password')) return 'User password for authentication';
+    if (lower.includes("password")) return 'User password for authentication';
     if (lower.includes('url')) return 'Target URL for navigation';
     if (lower.includes('color')) return 'Product color selection';
     if (lower.includes('storage')) return 'Storage capacity option';
-    if (lower.includes('quantity')) return 'Number of items to order';
+    if (lower.includes("quantity")) return 'Number of items to order';
     
     return `Test value: ${value}`;
   }

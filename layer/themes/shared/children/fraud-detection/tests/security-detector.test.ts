@@ -5,7 +5,7 @@
 import { SecurityDetector } from '../detectors/security-detector';
 import { FraudSeverity, ViolationType } from '../types';
 
-describe('SecurityDetector', () => {
+describe("SecurityDetector", () => {
   let detector: SecurityDetector;
 
   beforeEach(() => {

@@ -42,7 +42,7 @@ class MockSMSService implements SMSService {
   }
 }
 
-describe('MFAManager', () => {
+describe("MFAManager", () => {
   let mfaManager: MFAManager;
   let mockEmailService: MockEmailService;
   let mockSMSService: MockSMSService;
@@ -80,7 +80,7 @@ describe('MFAManager', () => {
       const mfaSecret = await mfaManager.generateTOTPSecret(userId, userEmail);
       
       // Generate a TOTP token using speakeasy (simulate authenticator app)
-      const speakeasy = require('speakeasy');
+      const speakeasy = require("speakeasy");
       const token = speakeasy.totp({
         secret: mfaSecret.secret,
         encoding: 'base32'
@@ -113,7 +113,7 @@ describe('MFAManager', () => {
 
       const mfaSecret = await mfaManager.generateTOTPSecret(userId, userEmail);
       
-      const speakeasy = require('speakeasy');
+      const speakeasy = require("speakeasy");
       const token = speakeasy.totp({
         secret: mfaSecret.secret,
         encoding: 'base32'
@@ -133,7 +133,7 @@ describe('MFAManager', () => {
 
       const mfaSecret = await mfaManager.generateTOTPSecret(userId, userEmail);
       
-      const speakeasy = require('speakeasy');
+      const speakeasy = require("speakeasy");
       const token = speakeasy.totp({
         secret: mfaSecret.secret,
         encoding: 'base32'
@@ -289,7 +289,7 @@ describe('MFAManager', () => {
     test('should fail with invalid backup code', async () => {
       const userId = 'test-user';
 
-      const verification = await mfaManager.verifyBackupCode(userId, 'INVALID1');
+      const verification = await mfaManager.verifyBackupCode(userId, "INVALID1");
       expect(verification.success).toBe(false);
       expect(verification.error).toBe('User MFA settings not found');
     });
@@ -366,14 +366,14 @@ describe('MFAManager', () => {
       const userId = 'test-user';
       const events: string[] = [];
 
-      mfaManager.on('totpEnabled', () => events.push('totpEnabled'));
-      mfaManager.on('totpDisabled', () => events.push('totpDisabled'));
-      mfaManager.on('emailCodeSent', () => events.push('emailCodeSent'));
-      mfaManager.on('emailVerified', () => events.push('emailVerified'));
+      mfaManager.on("totpEnabled", () => events.push("totpEnabled"));
+      mfaManager.on("totpDisabled", () => events.push("totpDisabled"));
+      mfaManager.on("emailCodeSent", () => events.push("emailCodeSent"));
+      mfaManager.on("emailVerified", () => events.push("emailVerified"));
 
       // Enable TOTP
       const mfaSecret = await mfaManager.generateTOTPSecret(userId, 'test@example.com');
-      const speakeasy = require('speakeasy');
+      const speakeasy = require("speakeasy");
       const token = speakeasy.totp({
         secret: mfaSecret.secret,
         encoding: 'base32'
@@ -389,10 +389,10 @@ describe('MFAManager', () => {
       // Disable TOTP
       await mfaManager.disableTOTP(userId);
 
-      expect(events).toContain('totpEnabled');
-      expect(events).toContain('totpDisabled');
-      expect(events).toContain('emailCodeSent');
-      expect(events).toContain('emailVerified');
+      expect(events).toContain("totpEnabled");
+      expect(events).toContain("totpDisabled");
+      expect(events).toContain("emailCodeSent");
+      expect(events).toContain("emailVerified");
     });
   });
 

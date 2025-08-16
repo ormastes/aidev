@@ -95,18 +95,18 @@ describe('ConfigManager External Interface Test', () => {
     };
     
     // Verify all methods exist
-    expect(typeof mockConfigManager.createEnvironment).toBe('function');
-    expect(typeof mockConfigManager.getEnvironment).toBe('function');
-    expect(typeof mockConfigManager.updateEnvironment).toBe('function');
-    expect(typeof mockConfigManager.deleteEnvironment).toBe('function');
-    expect(typeof mockConfigManager.listEnvironments).toBe('function');
-    expect(typeof mockConfigManager.addService).toBe('function');
-    expect(typeof mockConfigManager.removeService).toBe('function');
-    expect(typeof mockConfigManager.environmentExists).toBe('function');
-    expect(typeof mockConfigManager.validateConfig).toBe('function');
-    expect(typeof mockConfigManager.exportAsEnv).toBe('function');
-    expect(typeof mockConfigManager.exportAsDockerCompose).toBe('function');
-    expect(typeof mockConfigManager.suggestEnvironmentName).toBe('function');
+    expect(typeof mockConfigManager.createEnvironment).toBe("function");
+    expect(typeof mockConfigManager.getEnvironment).toBe("function");
+    expect(typeof mockConfigManager.updateEnvironment).toBe("function");
+    expect(typeof mockConfigManager.deleteEnvironment).toBe("function");
+    expect(typeof mockConfigManager.listEnvironments).toBe("function");
+    expect(typeof mockConfigManager.addService).toBe("function");
+    expect(typeof mockConfigManager.removeService).toBe("function");
+    expect(typeof mockConfigManager.environmentExists).toBe("function");
+    expect(typeof mockConfigManager.validateConfig).toBe("function");
+    expect(typeof mockConfigManager.exportAsEnv).toBe("function");
+    expect(typeof mockConfigManager.exportAsDockerCompose).toBe("function");
+    expect(typeof mockConfigManager.suggestEnvironmentName).toBe("function");
   });
   
   test('should verify EnvironmentConfig structure', () => {
@@ -245,10 +245,10 @@ describe('ConfigManager External Interface Test', () => {
   });
   
   test('should verify database type constraints', () => {
-    const validDatabaseTypes: EnvironmentConfig['database']['type'][] = ['postgresql', 'sqlite'];
+    const validDatabaseTypes: EnvironmentConfig["database"]['type'][] = ["postgresql", 'sqlite'];
     
     validDatabaseTypes.forEach(dbType => {
-      const db: Pick<EnvironmentConfig['database'], 'type'> = { type: dbType };
+      const db: Pick<EnvironmentConfig["database"], 'type'> = { type: dbType };
       expect(validDatabaseTypes).toContain(db.type);
     });
   });

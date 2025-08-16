@@ -456,7 +456,7 @@ describe('FlowManager-FlowValidator Integration Test', () => {
     // Act
     const result = await flowManager.defineFlow(
       'Duplicate Flow Name',
-      'Description',
+      "Description",
       { type: 'manual' },
       [{ type: 'command', command: 'echo "test"' }]
     );

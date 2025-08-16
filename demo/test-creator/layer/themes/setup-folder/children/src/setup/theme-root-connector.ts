@@ -1,4 +1,4 @@
-import { path } from '../../../../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import * as fs from 'fs-extra';
 import chalk from 'chalk';
 
@@ -38,7 +38,7 @@ export class ThemeRootConnector {
       path: config.themePath,
       testScript: 'npm test',
       coverageScript: 'npm test -- --coverage',
-      coverageOutput: path.join(config.themePath, 'coverage'),
+      coverageOutput: path.join(config.themePath, "coverage"),
       connected: true,
       rootPath: config.rootPath
     };
@@ -154,7 +154,7 @@ echo "Coverage link created for $THEME_NAME"
     '!src/**/*.d.ts',
     '!src/**/index.ts'
   ],
-  coverageDirectory: 'coverage',
+  coverageDirectory: "coverage",
   coverageReporters: ['text', 'lcov', 'html', 'json-summary', 'json'],
   coverageThreshold: {
     global: {

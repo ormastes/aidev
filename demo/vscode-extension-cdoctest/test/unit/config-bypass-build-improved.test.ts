@@ -52,37 +52,37 @@ describe('Bypass Build Configuration Tests', () => {
     mockGetConfiguration.mockReturnValue({
       get: jest.fn((key: string) => {
         const config: Record<string, any> = {
-          'pythonExePath': 'python3',
-          'buildDirectory': '/test/build',
-          'srcDirectory': '/test/src',
-          'useCmakeTarget': false,
-          'configName': 'test-config',
-          'executable': '/test/build/test_exe',
+          "pythonExePath": 'python3',
+          "buildDirectory": '/test/build',
+          "srcDirectory": '/test/src',
+          "useCmakeTarget": false,
+          "configName": 'test-config',
+          "executable": '/test/build/test_exe',
           'exe_executable': '/test/build/test_exe',
           'bin_executable': '/test/build/test_bin',
-          'listTestArgPattern': 'python3 -m cdoctest --list',
-          'testRunArgPattern': 'python3 -m cdoctest --run',
+          "listTestArgPattern": 'python3 -m cdoctest --list',
+          "testRunArgPattern": 'python3 -m cdoctest --run',
           'exe_listTestArgPattern': 'GetTcList:',
           'exe_testRunArgPattern': 'TC/${test_suite_name}::${test_case_name}',
           'bin_listTestArgPattern': 'GetTcList:',
           'bin_testRunArgPattern': 'TC/${test_suite_name}::${test_case_name}',
-          'resultFile': '/test/build/output.xml',
+          "resultFile": '/test/build/output.xml',
           'exe_resultFile': '/test/build/output.vsc',
           'bin_resultFile': '/test/build/output.vsc',
-          'testRunUseFile': true,
-          'listTestUseFile': false,
+          "testRunUseFile": true,
+          "listTestUseFile": false,
           'exe_testRunUseFile': true,
           'exe_listTestUseFile': false,
           'bin_testRunUseFile': true,
           'bin_listTestUseFile': false,
-          'libPaths': '',
-          'testcaseSeparator': '::',
+          "libPaths": '',
+          "testcaseSeparator": '::',
           'exe_testcaseSeparator': '::',
           'bin_testcaseSeparator': '::',
-          'resultSuccessRgex': 'failedtests="0"',
-          'parallelJobs': 1,
+          "resultSuccessRgex": 'failedtests="0"',
+          "parallelJobs": 1,
           // Build before test settings with defaults
-          'buildBeforeTest': true,
+          "buildBeforeTest": true,
           'exe_buildBeforeTest': true,
           'bin_buildBeforeTest': true
         };
@@ -103,11 +103,11 @@ describe('Bypass Build Configuration Tests', () => {
       // Override the mock to return false for buildBeforeTest
       mockGetConfiguration.mockReturnValue({
         get: jest.fn((key: string) => {
-          if (key === 'buildBeforeTest') return false;
-          if (key === 'pythonExePath') return 'python3';
-          if (key === 'buildDirectory') return '/test/build';
-          if (key === 'srcDirectory') return '/test/src';
-          if (key === 'useCmakeTarget') return false;
+          if (key === "buildBeforeTest") return false;
+          if (key === "pythonExePath") return 'python3';
+          if (key === "buildDirectory") return '/test/build';
+          if (key === "srcDirectory") return '/test/src';
+          if (key === "useCmakeTarget") return false;
           // Return reasonable defaults for other keys
           return undefined;
         })
@@ -122,11 +122,11 @@ describe('Bypass Build Configuration Tests', () => {
       // Mock returns undefined for buildBeforeTest
       mockGetConfiguration.mockReturnValue({
         get: jest.fn((key: string) => {
-          if (key === 'buildBeforeTest') return undefined;
-          if (key === 'pythonExePath') return 'python3';
-          if (key === 'buildDirectory') return '/test/build';
-          if (key === 'srcDirectory') return '/test/src';
-          if (key === 'useCmakeTarget') return false;
+          if (key === "buildBeforeTest") return undefined;
+          if (key === "pythonExePath") return 'python3';
+          if (key === "buildDirectory") return '/test/build';
+          if (key === "srcDirectory") return '/test/src';
+          if (key === "useCmakeTarget") return false;
           return undefined;
         })
       });
@@ -149,10 +149,10 @@ describe('Bypass Build Configuration Tests', () => {
       mockGetConfiguration.mockReturnValue({
         get: jest.fn((key: string) => {
           if (key === 'exe_buildBeforeTest') return false;
-          if (key === 'pythonExePath') return 'python3';
-          if (key === 'buildDirectory') return '/test/build';
-          if (key === 'srcDirectory') return '/test/src';
-          if (key === 'useCmakeTarget') return false;
+          if (key === "pythonExePath") return 'python3';
+          if (key === "buildDirectory") return '/test/build';
+          if (key === "srcDirectory") return '/test/src';
+          if (key === "useCmakeTarget") return false;
           if (key === 'exe_executable') return '/test/build/test_exe';
           return undefined;
         })
@@ -183,10 +183,10 @@ describe('Bypass Build Configuration Tests', () => {
       mockGetConfiguration.mockReturnValue({
         get: jest.fn((key: string) => {
           if (key === 'bin_buildBeforeTest') return false;
-          if (key === 'pythonExePath') return 'python3';
-          if (key === 'buildDirectory') return '/test/build';
-          if (key === 'srcDirectory') return '/test/src';
-          if (key === 'useCmakeTarget') return false;
+          if (key === "pythonExePath") return 'python3';
+          if (key === "buildDirectory") return '/test/build';
+          if (key === "srcDirectory") return '/test/src';
+          if (key === "useCmakeTarget") return false;
           if (key === 'bin_executable') return '/test/build/test_bin';
           return undefined;
         })
@@ -223,13 +223,13 @@ describe('Bypass Build Configuration Tests', () => {
       mockGetConfiguration.mockReturnValue({
         get: jest.fn((key: string) => {
           const mixedConfig: Record<string, any> = {
-            'pythonExePath': 'python3',
-            'buildDirectory': '/test/build',
-            'srcDirectory': '/test/src',
-            'useCmakeTarget': false,
+            "pythonExePath": 'python3',
+            "buildDirectory": '/test/build',
+            "srcDirectory": '/test/src',
+            "useCmakeTarget": false,
             'exe_executable': '/test/build/test_exe',
             'bin_executable': '/test/build/test_bin',
-            'buildBeforeTest': true,      // cdoctest builds
+            "buildBeforeTest": true,      // cdoctest builds
             'exe_buildBeforeTest': false, // exe doesn't build
             'bin_buildBeforeTest': true,  // bin builds
           };
@@ -265,8 +265,8 @@ describe('Bypass Build Configuration Tests', () => {
     test('should handle missing pythonExePath gracefully', () => {
       mockGetConfiguration.mockReturnValue({
         get: jest.fn((key: string) => {
-          if (key === 'pythonExePath') return '';
-          if (key === 'buildBeforeTest') return false;
+          if (key === "pythonExePath") return '';
+          if (key === "buildBeforeTest") return false;
           return undefined;
         })
       });
@@ -292,13 +292,13 @@ describe('Bypass Build Configuration Tests', () => {
     test('should call vscode.workspace.getConfiguration correctly', () => {
       new Config(mockContext as any, mockWorkspaceFolder as any, mockActiveWorkspace, false);
       
-      expect(mockGetConfiguration).toHaveBeenCalledWith('cdoctest');
+      expect(mockGetConfiguration).toHaveBeenCalledWith("cdoctest");
     });
 
     test('should retrieve all buildBeforeTest configurations', () => {
       const mockGet = jest.fn((key: string) => {
-        if (key.includes('buildBeforeTest')) return true;
-        if (key === 'pythonExePath') return 'python3';
+        if (key.includes("buildBeforeTest")) return true;
+        if (key === "pythonExePath") return 'python3';
         return undefined;
       });
       
@@ -306,7 +306,7 @@ describe('Bypass Build Configuration Tests', () => {
 
       new Config(mockContext as any, mockWorkspaceFolder as any, mockActiveWorkspace, false);
 
-      expect(mockGet).toHaveBeenCalledWith('buildBeforeTest');
+      expect(mockGet).toHaveBeenCalledWith("buildBeforeTest");
       expect(mockGet).toHaveBeenCalledWith('exe_buildBeforeTest');
       expect(mockGet).toHaveBeenCalledWith('bin_buildBeforeTest');
     });

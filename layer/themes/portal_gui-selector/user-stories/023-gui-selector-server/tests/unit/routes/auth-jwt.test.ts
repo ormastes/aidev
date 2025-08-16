@@ -1,4 +1,4 @@
-import request from 'supertest';
+import request from "supertest";
 import express from 'express';
 import { authJWTRouter } from '../../../src/routes/auth-jwt';
 import { DatabaseService } from '../../../src/services/DatabaseService';
@@ -29,11 +29,11 @@ describe('JWT Auth Routes', () => {
 
   describe('POST /api/v2/auth/token', () => {
     it('should generate tokens for valid credentials', async () => {
-      const hashedPassword = await bcrypt.hash('password123', 10);
+      const hashedPassword = await bcrypt.hash("password123", 10);
       
       mockDb.getUserByUsername = jest.fn().mockResolvedValue({
         id: 1,
-        username: 'testuser',
+        username: "testuser",
         password: hashedPassword,
         email: 'test@example.com',
         role: 'user'
@@ -46,14 +46,14 @@ describe('JWT Auth Routes', () => {
       const response = await request(app)
         .post('/api/v2/auth/token')
         .send({
-          username: 'testuser',
-          password: 'password123'
+          username: "testuser",
+          password: "PLACEHOLDER"
         });
 
       expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('accessToken');
-      expect(response.body).toHaveProperty('refreshToken');
-      expect(response.body.user).toHaveProperty('username', 'testuser');
+      expect(response.body).toHaveProperty("accessToken");
+      expect(response.body).toHaveProperty("refreshToken");
+      expect(response.body.user).toHaveProperty("username", "testuser");
     });
 
     it('should reject invalid credentials', async () => {
@@ -63,7 +63,7 @@ describe('JWT Auth Routes', () => {
         .post('/api/v2/auth/token')
         .send({
           username: 'invalid',
-          password: 'wrong'
+          password: "PLACEHOLDER"
         });
 
       expect(response.status).toBe(401);
@@ -71,11 +71,11 @@ describe('JWT Auth Routes', () => {
     });
 
     it('should reject wrong password', async () => {
-      const hashedPassword = await bcrypt.hash('correctpassword', 10);
+      const hashedPassword = await bcrypt.hash("correctpassword", 10);
       
       mockDb.getUserByUsername = jest.fn().mockResolvedValue({
         id: 1,
-        username: 'testuser',
+        username: "testuser",
         password: hashedPassword,
         email: 'test@example.com',
         role: 'user'
@@ -84,8 +84,8 @@ describe('JWT Auth Routes', () => {
       const response = await request(app)
         .post('/api/v2/auth/token')
         .send({
-          username: 'testuser',
-          password: 'wrongpassword'
+          username: "testuser",
+          password: "PLACEHOLDER"
         });
 
       expect(response.status).toBe(401);
@@ -107,8 +107,8 @@ describe('JWT Auth Routes', () => {
       const response = await request(app)
         .post('/api/v2/auth/token')
         .send({
-          username: 'testuser',
-          password: 'password'
+          username: "testuser",
+          password: "PLACEHOLDER"
         });
 
       expect(response.status).toBe(500);
@@ -120,20 +120,20 @@ describe('JWT Auth Routes', () => {
     it('should refresh tokens with valid refresh token', async () => {
       mockJwtService.verifyRefreshToken = jest.fn().mockReturnValue({
         userId: 1,
-        username: 'testuser',
+        username: "testuser",
         role: 'user'
       });
 
       mockDb.getRefreshToken = jest.fn().mockResolvedValue({
         id: 1,
         user_id: 1,
-        token: 'valid-refresh-token',
+        token: process.env.TOKEN || "PLACEHOLDER",
         expires_at: new Date(Date.now() + 86400000)
       });
 
       mockDb.getUserById = jest.fn().mockResolvedValue({
         id: 1,
-        username: 'testuser',
+        username: "testuser",
         email: 'test@example.com',
         role: 'user'
       });
@@ -145,12 +145,12 @@ describe('JWT Auth Routes', () => {
       const response = await request(app)
         .post('/api/v2/auth/refresh')
         .send({
-          refreshToken: 'valid-refresh-token'
+          refreshtoken: process.env.TOKEN || "PLACEHOLDER"
         });
 
       expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('accessToken');
-      expect(response.body).toHaveProperty('refreshToken');
+      expect(response.body).toHaveProperty("accessToken");
+      expect(response.body).toHaveProperty("refreshToken");
     });
 
     it('should reject missing refresh token', async () => {
@@ -170,7 +170,7 @@ describe('JWT Auth Routes', () => {
       const response = await request(app)
         .post('/api/v2/auth/refresh')
         .send({
-          refreshToken: 'invalid-token'
+          refreshtoken: process.env.TOKEN || "PLACEHOLDER"
         });
 
       expect(response.status).toBe(403);
@@ -180,21 +180,21 @@ describe('JWT Auth Routes', () => {
     it('should reject expired refresh token', async () => {
       mockJwtService.verifyRefreshToken = jest.fn().mockReturnValue({
         userId: 1,
-        username: 'testuser',
+        username: "testuser",
         role: 'user'
       });
 
       mockDb.getRefreshToken = jest.fn().mockResolvedValue({
         id: 1,
         user_id: 1,
-        token: 'expired-token',
+        token: process.env.TOKEN || "PLACEHOLDER",
         expires_at: new Date(Date.now() - 86400000) // Expired
       });
 
       const response = await request(app)
         .post('/api/v2/auth/refresh')
         .send({
-          refreshToken: 'expired-token'
+          refreshtoken: process.env.TOKEN || "PLACEHOLDER"
         });
 
       expect(response.status).toBe(403);
@@ -206,7 +206,7 @@ describe('JWT Auth Routes', () => {
     it('should verify valid access token', async () => {
       const mockUser = {
         userId: 1,
-        username: 'testuser',
+        username: "testuser",
         role: 'user'
       };
 
@@ -218,11 +218,11 @@ describe('JWT Auth Routes', () => {
 
       const response = await request(app)
         .get('/api/v2/auth/verify')
-        .set('Authorization', 'Bearer valid-token');
+        .set("Authorization", 'Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
 
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('valid', true);
-      expect(response.body.user).toHaveProperty('username', 'testuser');
+      expect(response.body.user).toHaveProperty("username", "testuser");
     });
 
     it('should reject request without token', async () => {
@@ -235,7 +235,7 @@ describe('JWT Auth Routes', () => {
 
   describe('POST /api/v2/auth/logout', () => {
     it('should logout and invalidate refresh token', async () => {
-      const mockUser = { userId: 1, username: 'testuser', role: 'user' };
+      const mockUser = { userId: 1, username: "testuser", role: 'user' };
 
       // Create a mock middleware that adds user to request
       app.use((req: any, res, next) => {
@@ -247,9 +247,9 @@ describe('JWT Auth Routes', () => {
 
       const response = await request(app)
         .post('/api/v2/auth/logout')
-        .set('Authorization', 'Bearer valid-token')
+        .set("Authorization", 'Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}')
         .send({
-          refreshToken: 'refresh-token'
+          refreshtoken: process.env.TOKEN || "PLACEHOLDER"
         });
 
       expect(response.status).toBe(200);
@@ -257,7 +257,7 @@ describe('JWT Auth Routes', () => {
     });
 
     it('should handle logout without refresh token', async () => {
-      const mockUser = { userId: 1, username: 'testuser', role: 'user' };
+      const mockUser = { userId: 1, username: "testuser", role: 'user' };
 
       app.use((req: any, res, next) => {
         req.user = mockUser;
@@ -266,7 +266,7 @@ describe('JWT Auth Routes', () => {
 
       const response = await request(app)
         .post('/api/v2/auth/logout')
-        .set('Authorization', 'Bearer valid-token')
+        .set("Authorization", 'Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}')
         .send({});
 
       expect(response.status).toBe(200);
@@ -284,26 +284,26 @@ describe('JWT Auth Routes', () => {
         .post('/api/v2/auth/register')
         .send({
           username: 'newuser',
-          password: 'password123',
+          password: "PLACEHOLDER",
           email: 'new@example.com'
         });
 
       expect(response.status).toBe(201);
       expect(response.body).toHaveProperty('message', 'Registration successful');
-      expect(response.body.user).toHaveProperty('username', 'newuser');
+      expect(response.body.user).toHaveProperty("username", 'newuser');
     });
 
     it('should reject duplicate username', async () => {
       mockDb.getUserByUsername = jest.fn().mockResolvedValue({
         id: 1,
-        username: 'existing'
+        username: "existing"
       });
 
       const response = await request(app)
         .post('/api/v2/auth/register')
         .send({
-          username: 'existing',
-          password: 'password123',
+          username: "existing",
+          password: "PLACEHOLDER",
           email: 'new@example.com'
         });
 
@@ -322,7 +322,7 @@ describe('JWT Auth Routes', () => {
         .post('/api/v2/auth/register')
         .send({
           username: 'newuser',
-          password: 'password123',
+          password: "PLACEHOLDER",
           email: 'existing@example.com'
         });
 
@@ -335,7 +335,7 @@ describe('JWT Auth Routes', () => {
         .post('/api/v2/auth/register')
         .send({
           username: 'newuser',
-          password: 'short',
+          password: "PLACEHOLDER",
           email: 'new@example.com'
         });
 
@@ -348,7 +348,7 @@ describe('JWT Auth Routes', () => {
         .post('/api/v2/auth/register')
         .send({
           username: 'newuser',
-          password: 'password123',
+          password: "PLACEHOLDER",
           email: 'invalid-email'
         });
 

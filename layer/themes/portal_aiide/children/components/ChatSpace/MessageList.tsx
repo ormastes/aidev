@@ -38,7 +38,7 @@ export const MessageList: React.FC<MessageListProps> = ({ messages, loading }) =
             }
             title={
               <Space>
-                <Text strong>{message.role === 'user' ? 'You' : 'Assistant'}</Text>
+                <Text strong>{message.role === 'user' ? 'You' : "Assistant"}</Text>
                 {message.provider && <Tag color="blue">{message.provider}</Tag>}
                 {message.model && <Tag color="green">{message.model}</Tag>}
                 <Text type="secondary" className="message-time">

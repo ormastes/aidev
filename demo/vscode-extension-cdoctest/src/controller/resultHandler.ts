@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import { Config } from '../config';
 import { MarkdownFileCoverage } from '../coverage';
 import { getConfigByController } from './controller';

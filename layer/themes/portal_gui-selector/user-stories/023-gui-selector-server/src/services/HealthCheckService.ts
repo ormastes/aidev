@@ -12,8 +12,8 @@ import { execSync } from 'child_process';
 
 export enum HealthStatus {
   HEALTHY = 'healthy',
-  DEGRADED = 'degraded',
-  UNHEALTHY = 'unhealthy'
+  DEGRADED = "degraded",
+  UNHEALTHY = "unhealthy"
 }
 
 export interface HealthCheck {
@@ -60,7 +60,7 @@ export interface SystemMetrics {
 
 export interface DependencyCheck {
   name: string;
-  type: 'database' | 'service' | 'api' | 'file' | 'network';
+  type: "database" | 'service' | 'api' | 'file' | 'network';
   check: () => Promise<HealthCheck>;
   critical?: boolean;
 }
@@ -91,22 +91,22 @@ export class HealthCheckService {
   private initializeDefaultChecks(): void {
     // Database check
     this.registerDependency({
-      name: 'database',
-      type: 'database',
+      name: "database",
+      type: "database",
       critical: true,
       check: async () => {
         const start = Date.now();
         try {
           await this.dbService.get('SELECT 1');
           return {
-            name: 'database',
+            name: "database",
             status: HealthStatus.HEALTHY,
             responseTime: Date.now() - start,
             message: 'Database connection is healthy'
           };
         } catch (error: any) {
           return {
-            name: 'database',
+            name: "database",
             status: HealthStatus.UNHEALTHY,
             responseTime: Date.now() - start,
             message: `Database error: ${error.message}`
@@ -118,7 +118,7 @@ export class HealthCheckService {
     // Session storage check
     this.registerDependency({
       name: 'session_storage',
-      type: 'database',
+      type: "database",
       critical: false,
       check: async () => {
         const start = Date.now();
@@ -281,7 +281,7 @@ export class HealthCheckService {
       checks,
       system: systemMetrics,
       version: process.env.APP_VERSION || '1.0.0',
-      environment: process.env.NODE_ENV || 'development'
+      environment: process.env.NODE_ENV || "development"
     };
 
     // Cache the result
@@ -304,9 +304,9 @@ export class HealthCheckService {
       case HealthStatus.HEALTHY:
         return { status: 'OK', code: 200 };
       case HealthStatus.DEGRADED:
-        return { status: 'DEGRADED', code: 200 };
+        return { status: "DEGRADED", code: 200 };
       case HealthStatus.UNHEALTHY:
-        return { status: 'UNHEALTHY', code: 503 };
+        return { status: "UNHEALTHY", code: 503 };
       default:
         return { status: 'UNKNOWN', code: 503 };
     }

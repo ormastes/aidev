@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 #!/usr/bin/env ts-node
 
 /**
@@ -10,8 +11,8 @@
  * - Query capabilities
  */
 
-import * as path from 'path';
-import * as fs from 'fs';
+import * as path from 'node:path';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
 import {
   startComprehensiveLogging,
   ComprehensiveLogger,
@@ -64,7 +65,7 @@ async function demo() {
   });
   console.log('   ✅ Task updated');
   
-  logger.logTaskChange('completed', 'DEMO-001', {
+  logger.logTaskChange("completed", 'DEMO-001', {
     completionTime: new Date()
   });
   console.log('   ✅ Task completed');
@@ -205,11 +206,11 @@ async function demo() {
   
   logger.logFileOperation('created', '/demo/new-file.ts', {
     size: 1024,
-    type: 'typescript'
+    type: "typescript"
   });
   console.log('   ✅ File creation logged');
   
-  logger.logFileOperation('modified', '/demo/existing-file.ts', {
+  logger.logFileOperation("modified", '/demo/existing-file.ts', {
     changedLines: 42
   });
   console.log('   ✅ File modification logged');

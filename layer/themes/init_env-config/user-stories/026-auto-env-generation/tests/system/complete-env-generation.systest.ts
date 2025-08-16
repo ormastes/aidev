@@ -9,8 +9,8 @@
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
 import { fs } from '../../../../../infra_external-log-lib/src';
 import { path } from '../../../../../infra_external-log-lib/src';
-import { childProcess } from '../../../../../infra_external-log-lib/dist';
-import { promisify } from 'util';
+import { childProcess } from '../../layer/themes/infra_external-log-lib/src';
+import { promisify } from 'node:util';
 
 const exec = promisify(child_process.exec);
 
@@ -43,11 +43,11 @@ describe('In Progress Environment Generation System Test', () => {
     const cliScript = path.join(testDir, 'generate-env.js');
     const cliContent = `#!/usr/bin/env node
 const { fs } = require('../../../../../infra_external-log-lib/src');
-const crypto = require('crypto');
+const crypto = require('node:crypto');
 const { path } = require('../../../../../infra_external-log-lib/src');
 
 async function generateEnv() {
-  const environment = process.argv[2] || 'development';
+  const environment = process.argv[2] || "development";
   const serviceName = process.argv[3] || 'test-service';
   const servicePort = parseInt(process.argv[4] || '3000');
   
@@ -57,7 +57,7 @@ async function generateEnv() {
   variables.push({ key: 'NODE_ENV', value: environment });
   variables.push({ key: 'SERVICE_NAME', value: serviceName });
   variables.push({ key: 'PORT', value: servicePort.toString() });
-  variables.push({ key: 'HOST', value: 'localhost' });
+  variables.push({ key: 'HOST', value: "localhost" });
   
   // Security tokens
   variables.push({
@@ -72,7 +72,7 @@ async function generateEnv() {
   });
   variables.push({
     key: 'SESSION_SECRET',
-    value: crypto.randomBytes(48).toString('base64url'),
+    value: crypto.randomBytes(48).toString("base64url"),
     isSecret: true
   });
   variables.push({
@@ -83,12 +83,12 @@ async function generateEnv() {
   
   // Database configuration
   if (environment === 'release') {
-    variables.push({ key: 'DB_TYPE', value: 'postgresql' });
-    variables.push({ key: 'DB_HOST', value: 'localhost' });
+    variables.push({ key: 'DB_TYPE', value: "postgresql" });
+    variables.push({ key: 'DB_HOST', value: "localhost" });
     variables.push({ key: 'DB_PORT', value: '5432' });
     variables.push({ key: 'DB_NAME', value: 'testdb' });
-    variables.push({ key: 'DB_USER', value: 'testuser', isSecret: true });
-    variables.push({ key: 'DB_PASSWORD', value: 'testpass', isSecret: true });
+    variables.push({ key: 'DB_USER', value: "testuser", isSecret: true });
+    variables.push({ key: 'DB_PASSWORD', value: "testpass", isSecret: true });
   } else {
     variables.push({ key: 'DB_TYPE', value: 'sqlite' });
     variables.push({ key: 'DB_PATH', value: './data/' + environment + '-testdb.sqlite' });
@@ -151,10 +151,10 @@ generateEnv().catch(error => {
     const envVars = parseEnvFile(envContent);
     
     // Verify required variables
-    expect(envVars['NODE_ENV']).toBe('development');
+    expect(envVars['NODE_ENV']).toBe("development");
     expect(envVars['SERVICE_NAME']).toBe('my-app');
     expect(envVars['PORT']).toBe('3456');
-    expect(envVars['HOST']).toBe('localhost');
+    expect(envVars['HOST']).toBe("localhost");
     
     // Verify database configuration
     expect(envVars['DB_TYPE']).toBe('sqlite');
@@ -176,7 +176,7 @@ generateEnv().catch(error => {
     // Given: The system is in a valid state
     // When: generate different configs for different environments
     // Then: The expected behavior occurs
-    const environments = ['development', 'test', 'release'];
+    const environments = ["development", 'test', 'release'];
     const generatedFiles: Record<string, any> = {};
     
     for (const env of environments) {
@@ -185,11 +185,11 @@ generateEnv().catch(error => {
       // Create inline generator script
       const scriptContent = `
 const { fs } = require('../../../../../infra_external-log-lib/src');
-const crypto = require('crypto');
+const crypto = require('node:crypto');
 
 function generateEnvFile(environment) {
   const isRelease = environment === 'release';
-  const environments = ['development', 'test', 'release'];
+  const environments = ["development", 'test', 'release'];
   
   let content = '# Generated environment file\\n';
   content += '# Environment: ' + environment + '\\n\\n';
@@ -208,7 +208,7 @@ function generateEnvFile(environment) {
     content += 'DB_PORT=5432\\n';
     content += 'DB_NAME=prod_db\\n';
     content += 'DB_USER=prod_user\\n';
-    content += 'DB_PASSWORD=' + crypto.randomBytes(16).toString('hex') + '\\n\\n';
+    content += 'DB_password: "PLACEHOLDER"hex') + '\\n\\n';
   } else {
     content += '# Database Configuration\\n';
     content += 'DB_TYPE=sqlite\\n';
@@ -217,12 +217,12 @@ function generateEnvFile(environment) {
   
   // Security tokens
   content += '# Security Tokens\\n';
-  content += 'JWT_SECRET=' + crypto.randomBytes(64).toString('base64') + '\\n';
+  content += 'JWT_secret: process.env.SECRET || "PLACEHOLDER"base64') + '\\n';
   content += 'API_KEY=sk_' + (isRelease ? 'live' : environment) + '_' + crypto.randomBytes(32).toString('hex') + '\\n';
-  content += 'SESSION_SECRET=' + crypto.randomBytes(48).toString('base64url') + '\\n';
+  content += 'SESSION_secret: process.env.SECRET || "PLACEHOLDER"base64url') + '\\n';
   
   if (isRelease) {
-    content += 'OAUTH_CLIENT_SECRET=' + crypto.randomBytes(48).toString('base64') + '\\n';
+    content += 'OAUTH_CLIENT_secret: process.env.SECRET || "PLACEHOLDER"base64') + '\\n';
   }
   
   return content;
@@ -251,7 +251,7 @@ console.log('Generated ' + env + ' config');
     // Verify differences between environments
     
     // All should have different NODE_ENV
-    expect(generatedFiles.development['NODE_ENV']).toBe('development');
+    expect(generatedFiles.development['NODE_ENV']).toBe("development");
     expect(generatedFiles.test['NODE_ENV']).toBe('test');
     expect(generatedFiles.release['NODE_ENV']).toBe('release');
     
@@ -262,7 +262,7 @@ console.log('Generated ' + env + ' config');
     
     // Database differences
     expect(generatedFiles.development['DB_TYPE']).toBe('sqlite');
-    expect(generatedFiles.release['DB_TYPE']).toBe('postgresql');
+    expect(generatedFiles.release['DB_TYPE']).toBe("postgresql");
     expect(generatedFiles.release['DB_HOST']).toBe('db.production.com');
     
     // API key prefixes
@@ -296,7 +296,7 @@ console.log('Generated ' + env + ' config');
     // Simulate a microservices setup
     const scriptContent = `
 const { fs } = require('../../../../../infra_external-log-lib/src');
-const crypto = require('crypto');
+const crypto = require('node:crypto');
 
 // Simulate service registry
 const services = {
@@ -325,15 +325,15 @@ function generateEnvWithDependencies(serviceName, dependencies) {
   }
   
   content += '# Security\\n';
-  content += 'JWT_SECRET=' + crypto.randomBytes(32).toString('base64') + '\\n';
-  content += 'SERVICE_API_KEY=' + crypto.randomBytes(24).toString('hex') + '\\n';
+  content += 'JWT_secret: process.env.SECRET || "PLACEHOLDER"base64') + '\\n';
+  content += 'SERVICE_apiKey = process.env.API_KEY || 'PLACEHOLDER_API_KEY'hex') + '\\n';
   
   return content;
 }
 
 const result = generateEnvWithDependencies('order-service', ['auth-service', 'user-service', 'payment-service']);
 fs.writeFileSync('${path.join(testDir, '.env.deps')}', result);
-console.log('Generated');
+console.log("Generated");
 `;
     
     const scriptFile = path.join(testDir, 'generate-deps.js');

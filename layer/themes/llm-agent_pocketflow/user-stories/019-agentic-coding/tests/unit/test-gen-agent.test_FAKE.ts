@@ -2,7 +2,7 @@ import { TestGenAgent } from '../../src/agents/test-gen-agent';
 import { TestGenRequest, AgentContext } from '../../src/types';
 import { InMemoryStorage } from '../../../016-agent-abstraction/src/memory';
 
-describe('TestGenAgent', () => {
+describe("TestGenAgent", () => {
   let agent: TestGenAgent;
   let context: AgentContext;
 
@@ -19,7 +19,7 @@ describe('TestGenAgent', () => {
     };
   });
 
-  describe('generatePrompt', () => {
+  describe("generatePrompt", () => {
     it.todo("Implementation needed"); })',
         framework: 'jest',
         mocks: [],
@@ -78,7 +78,7 @@ export function validateEmail(email: string): boolean {
       const result = await agent.execute(request, context);
       
       expect(result.success).toBe(true);
-      expect(result.data.testCode).toContain('validateEmail');
+      expect(result.data.testCode).toContain("validateEmail");
       expect(result.data.testCode).toContain('valid email addresses');
       expect(result.data.testCode).toContain('invalid email addresses');
     });
@@ -96,7 +96,7 @@ export function sortArrayByKey<T>(array: T[], key: keyof T): T[] {
       const result = await agent.execute(request, context);
       
       expect(result.success).toBe(true);
-      expect(result.data.testCode).toContain('sortArrayByKey');
+      expect(result.data.testCode).toContain("sortArrayByKey");
       expect(result.data.testCode).toContain('should sort');
     });
 
@@ -115,7 +115,7 @@ export async function fetchData(url: string): Promise<any> {
       const result = await agent.execute(request, context);
       
       expect(result.success).toBe(true);
-      expect(result.data.testCode).toContain('fetchData');
+      expect(result.data.testCode).toContain("fetchData");
       expect(result.data.testCode).toContain('mock');
       expect(result.data.mocks).toBeDefined();
       expect(result.data.mocks!.length).toBeGreaterThan(0);

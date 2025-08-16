@@ -41,11 +41,11 @@ export class ASTParserWrapper {
       const ast = parser.parse(code, {
         sourceType: 'module',
         plugins: [
-          'typescript',
+          "typescript",
           'jsx',
           'decorators-legacy',
-          'classProperties',
-          'asyncGenerators'
+          "classProperties",
+          "asyncGenerators"
         ]
       });
       
@@ -77,7 +77,7 @@ export class ASTParserWrapper {
           if (
             t.isMemberExpression(node.callee) &&
             t.isIdentifier(node.callee.object) &&
-            ['test', 'it', 'describe'].includes(node.callee.object.name) &&
+            ['test', 'it', "describe"].includes(node.callee.object.name) &&
             t.isIdentifier(node.callee.property) &&
             node.callee.property.name === 'skip'
           ) {
@@ -96,7 +96,7 @@ export class ASTParserWrapper {
           if (
             t.isMemberExpression(node.callee) &&
             t.isIdentifier(node.callee.object) &&
-            ['test', 'it', 'describe'].includes(node.callee.object.name) &&
+            ['test', 'it', "describe"].includes(node.callee.object.name) &&
             t.isIdentifier(node.callee.property) &&
             node.callee.property.name === 'only'
           ) {

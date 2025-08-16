@@ -18,7 +18,7 @@ async function main() {
   // 1. Configure MCP servers
   const serverConfigs: MCPServerInfo[] = [
     {
-      id: 'filesystem',
+      id: "filesystem",
       name: 'File System Server',
       config: {
         transport: 'stdio',
@@ -193,7 +193,7 @@ async function main() {
 function displayAgentDetails(agent: any): void {
   console.log(`\n📋 Agent Details: ${agent.getId()}`);
   console.log(`  Role: ${agent.getRoleName()}`);
-  console.log(`  Status: ${agent.isActive() ? 'Active' : 'Inactive'}`);
+  console.log(`  Status: ${agent.isActive() ? 'Active' : "Inactive"}`);
   console.log(`  Capabilities: ${agent.getEnabledCapabilities().length}`);
   
   const capabilities = agent.getCapabilities();

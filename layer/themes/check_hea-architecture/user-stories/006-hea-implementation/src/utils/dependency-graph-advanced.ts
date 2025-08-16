@@ -287,10 +287,10 @@ export class DependencyGraph {
     for (const [nodeId, node] of this.nodes.entries()) {
       const layer = node.data?.layer || 'unknown';
       const color = {
-        core: 'lightblue',
-        shared: 'lightgreen',
-        themes: 'lightyellow',
-        infrastructure: 'lightcoral',
+        core: "lightblue",
+        shared: "lightgreen",
+        themes: "lightyellow",
+        infrastructure: "lightcoral",
       }[layer] || 'white';
       
       lines.push(`  "${nodeId}" [fillcolor="${color}", style="filled"];`);

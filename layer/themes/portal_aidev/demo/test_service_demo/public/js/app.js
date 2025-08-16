@@ -2,7 +2,7 @@
 const state = {
     user: null,
     token: null,
-    currentView: 'projects',
+    currentView: "projects",
     projects: [],
     features: [],
     tasks: []
@@ -14,7 +14,7 @@ async function apiCall(endpoint, options = {}) {
         ...options,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': state.token ? `Bearer ${state.token}` : '',
+            "Authorization": state.token ? `Bearer ${state.token}` : '',
             ...options.headers
         }
     });
@@ -31,8 +31,8 @@ async function apiCall(endpoint, options = {}) {
 document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
     
     try {
         const response = await apiCall('/login', {
@@ -71,13 +71,13 @@ document.getElementById('logout-link').addEventListener('click', async (e) => {
 // Navigation
 document.getElementById('projects-link').addEventListener('click', (e) => {
     e.preventDefault();
-    showView('projects');
+    showView("projects");
     loadProjects();
 });
 
 document.getElementById('features-link').addEventListener('click', (e) => {
     e.preventDefault();
-    showView('features');
+    showView("features");
     loadFeatures();
 });
 
@@ -145,7 +145,7 @@ async function selectProject(project) {
     state.selectedProject = project;
     const features = await apiCall(`/projects/${project.id}/features`);
     state.features = features;
-    showView('features');
+    showView("features");
     renderFeatures();
 }
 

@@ -9,7 +9,7 @@ import { path } from '../../../../../infra_external-log-lib/src';
 
 jest.mock('fs');
 
-describe('TemplateManager', () => {
+describe("TemplateManager", () => {
   let templateManager: TemplateManager;
   let mockFs: jest.Mocked<typeof fs>;
 
@@ -19,10 +19,10 @@ describe('TemplateManager', () => {
     jest.clearAllMocks();
   });
 
-  describe('loadTemplate', () => {
+  describe("loadTemplate", () => {
     it('should load TypeScript template', async () => {
       const mockTemplate = {
-        name: 'typescript',
+        name: "typescript",
         files: {
           'App.tsx': 'import React from "react";',
           'tsconfig.json': '{}'
@@ -33,9 +33,9 @@ describe('TemplateManager', () => {
         readFile: jest.fn().mockResolvedValue(JSON.stringify(mockTemplate))
       } as any;
 
-      const template = await templateManager.loadTemplate('typescript');
+      const template = await templateManager.loadTemplate("typescript");
 
-      expect(template.name).toBe('typescript');
+      expect(template.name).toBe("typescript");
       expect(template.files).toHaveProperty('App.tsx');
       expect(template.files).toHaveProperty('tsconfig.json');
     });
@@ -49,10 +49,10 @@ describe('TemplateManager', () => {
     });
   });
 
-  describe('applyTemplate', () => {
+  describe("applyTemplate", () => {
     it('should write all template files', async () => {
       const template: Template = {
-        name: 'typescript',
+        name: "typescript",
         type: TemplateType.TYPESCRIPT,
         files: {
           'App.tsx': 'export default App;',
@@ -76,7 +76,7 @@ describe('TemplateManager', () => {
 
     it('should replace template variables', async () => {
       const template: Template = {
-        name: 'typescript',
+        name: "typescript",
         type: TemplateType.TYPESCRIPT,
         files: {
           'package.json': '{"name": "{{PROJECT_NAME}}"}'
@@ -99,7 +99,7 @@ describe('TemplateManager', () => {
     });
   });
 
-  describe('getAvailableTemplates', () => {
+  describe("getAvailableTemplates", () => {
     it('should return list of available templates', async () => {
       mockFs.promises = {
         readdir: jest.fn().mockResolvedValue([
@@ -111,12 +111,12 @@ describe('TemplateManager', () => {
 
       const templates = await templateManager.getAvailableTemplates();
 
-      expect(templates).toEqual(['typescript', 'javascript']);
+      expect(templates).toEqual(["typescript", "javascript"]);
       expect(templates).not.toContain('README');
     });
   });
 
-  describe('validateTemplate', () => {
+  describe("validateTemplate", () => {
     it('should validate correct template structure', () => {
       const validTemplate: Template = {
         name: 'test',
@@ -151,7 +151,7 @@ describe('TemplateManager', () => {
     });
   });
 
-  describe('mergeTemplates', () => {
+  describe("mergeTemplates", () => {
     it('should merge multiple templates', () => {
       const base: Template = {
         name: 'base',

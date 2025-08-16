@@ -3,7 +3,7 @@
  * Language Server Protocol client with MCP integration
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { MCPMessage, MCPRequest, MCPResponse, MCPNotification } from '../protocol';
 import { Transport } from '../transport';
 
@@ -79,7 +79,7 @@ export interface ClientOptions {
   rootUri?: string;
   workspaceFolders?: WorkspaceFolder[];
   capabilities?: ClientCapabilities;
-  trace?: 'off' | 'messages' | 'verbose';
+  trace?: 'off' | "messages" | 'verbose';
   locale?: string;
 }
 
@@ -89,11 +89,11 @@ export interface ClientConfig {
 }
 
 export type ConnectionState = 
-  | 'disconnected'
-  | 'connecting'
-  | 'connected'
-  | 'initializing'
-  | 'initialized'
+  | "disconnected"
+  | "connecting"
+  | "connected"
+  | "initializing"
+  | "initialized"
   | 'shutting_down'
   | 'error';
 
@@ -120,7 +120,7 @@ export class LSPClient extends EventEmitter {
   constructor(config: ClientConfig) {
     super();
     this.config = config;
-    this.state = 'disconnected';
+    this.state = "disconnected";
     this.requestCounter = 0;
     this.pendingRequests = new Map();
     this.openDocuments = new Map();
@@ -129,16 +129,16 @@ export class LSPClient extends EventEmitter {
   }
 
   async connect(): Promise<void> {
-    if (this.state !== 'disconnected') {
+    if (this.state !== "disconnected") {
       throw new Error(`Client is already ${this.state}`);
     }
 
-    this.state = 'connecting';
+    this.state = "connecting";
     
     try {
       await this.config.transport.connect();
-      this.state = 'connected';
-      this.emit('connected');
+      this.state = "connected";
+      this.emit("connected");
       
       // Initialize the connection
       await this.initialize();
@@ -149,16 +149,16 @@ export class LSPClient extends EventEmitter {
   }
 
   async disconnect(): Promise<void> {
-    if (this.state === 'disconnected') {
+    if (this.state === "disconnected") {
       return;
     }
 
-    if (this.state === 'initialized') {
+    if (this.state === "initialized") {
       await this.shutdown();
     }
 
     await this.config.transport.close();
-    this.state = 'disconnected';
+    this.state = "disconnected";
     
     // Cancel all pending requests
     for (const [id, request] of this.pendingRequests) {
@@ -167,7 +167,7 @@ export class LSPClient extends EventEmitter {
     }
     this.pendingRequests.clear();
     
-    this.emit('disconnected');
+    this.emit("disconnected");
   }
 
   private setupTransportHandlers(): void {
@@ -176,8 +176,8 @@ export class LSPClient extends EventEmitter {
     });
     
     this.config.transport.on('close', () => {
-      this.state = 'disconnected';
-      this.emit('disconnected');
+      this.state = "disconnected";
+      this.emit("disconnected");
     });
     
     this.config.transport.on('error', (error: Error) => {
@@ -188,11 +188,11 @@ export class LSPClient extends EventEmitter {
   private handleMessage(message: MCPMessage): void {
     this.emit('message', message);
     
-    if (message.type === 'response') {
+    if (message.type === "response") {
       this.handleResponse(message as MCPResponse);
     } else if (message.type === 'request') {
       this.handleServerRequest(message as MCPRequest);
-    } else if (message.type === 'notification') {
+    } else if (message.type === "notification") {
       this.handleServerNotification(message as MCPNotification);
     }
   }
@@ -221,13 +221,13 @@ export class LSPClient extends EventEmitter {
           result = await this.handleApplyEdit(request.params);
           break;
         case 'window/showMessage':
-          this.emit('showMessage', request.params);
+          this.emit("showMessage", request.params);
           break;
         case 'window/showMessageRequest':
           result = await this.handleShowMessageRequest(request.params);
           break;
         case 'window/logMessage':
-          this.emit('logMessage', request.params);
+          this.emit("logMessage", request.params);
           break;
         default:
           throw new Error(`Unknown server request: ${request.method}`);
@@ -245,24 +245,24 @@ export class LSPClient extends EventEmitter {
   private handleServerNotification(notification: MCPNotification): void {
     switch (notification.method) {
       case 'textDocument/publishDiagnostics':
-        this.emit('diagnostics', notification.params);
+        this.emit("diagnostics", notification.params);
         break;
       case 'window/showMessage':
-        this.emit('showMessage', notification.params);
+        this.emit("showMessage", notification.params);
         break;
       case 'window/logMessage':
-        this.emit('logMessage', notification.params);
+        this.emit("logMessage", notification.params);
         break;
       case 'telemetry/event':
-        this.emit('telemetry', notification.params);
+        this.emit("telemetry", notification.params);
         break;
       default:
-        this.emit('notification', notification);
+        this.emit("notification", notification);
     }
   }
 
   private async initialize(): Promise<void> {
-    this.state = 'initializing';
+    this.state = "initializing";
     
     const params = {
       processId: process.pid,
@@ -277,19 +277,19 @@ export class LSPClient extends EventEmitter {
       trace: this.config.options?.trace || 'off',
     };
     
-    const result = await this.sendRequest('initialize', params);
+    const result = await this.sendRequest("initialize", params);
     this.serverCapabilities = result.capabilities;
     
     // Send initialized notification
-    await this.sendNotification('initialized', {});
+    await this.sendNotification("initialized", {});
     
-    this.state = 'initialized';
-    this.emit('initialized', this.serverCapabilities);
+    this.state = "initialized";
+    this.emit("initialized", this.serverCapabilities);
   }
 
   private async shutdown(): Promise<void> {
     this.state = 'shutting_down';
-    await this.sendRequest('shutdown', null);
+    await this.sendRequest("shutdown", null);
     await this.sendNotification('exit', null);
   }
 
@@ -322,7 +322,7 @@ export class LSPClient extends EventEmitter {
 
   async sendNotification(method: string, params?: any): Promise<void> {
     const notification: MCPNotification = {
-      type: 'notification',
+      type: "notification",
       method,
       params,
     };
@@ -332,7 +332,7 @@ export class LSPClient extends EventEmitter {
 
   private async sendResponse(id: number, result: any): Promise<void> {
     const response: MCPResponse = {
-      type: 'response',
+      type: "response",
       id,
       result,
     };
@@ -342,7 +342,7 @@ export class LSPClient extends EventEmitter {
 
   private async sendError(id: number, error: any): Promise<void> {
     const response: MCPResponse = {
-      type: 'response',
+      type: "response",
       id,
       error,
     };
@@ -493,13 +493,13 @@ export class LSPClient extends EventEmitter {
 
   private async handleApplyEdit(params: any): Promise<{ applied: boolean }> {
     // Implement workspace edit application
-    this.emit('applyEdit', params);
+    this.emit("applyEdit", params);
     return { applied: true };
   }
 
   private async handleShowMessageRequest(params: any): Promise<any> {
     // Implement message request handling
-    this.emit('showMessageRequest', params);
+    this.emit("showMessageRequest", params);
     return null;
   }
 
@@ -552,7 +552,7 @@ export class LSPClient extends EventEmitter {
           completionItem: {
             snippetSupport: true,
             commitCharactersSupport: true,
-            documentationFormat: ['markdown', 'plaintext'],
+            documentationFormat: ["markdown", "plaintext"],
             deprecatedSupport: true,
             preselectSupport: true,
           },
@@ -560,7 +560,7 @@ export class LSPClient extends EventEmitter {
         },
         hover: {
           dynamicRegistration: true,
-          contentFormat: ['markdown', 'plaintext'],
+          contentFormat: ["markdown", "plaintext"],
         },
         definition: { dynamicRegistration: true, linkSupport: true },
         references: { dynamicRegistration: true },
@@ -571,7 +571,7 @@ export class LSPClient extends EventEmitter {
         codeAction: {
           dynamicRegistration: true,
           codeActionLiteralSupport: {
-            codeActionKind: { valueSet: ['quickfix', 'refactor', 'source'] },
+            codeActionKind: { valueSet: ["quickfix", "refactor", 'source'] },
           },
           isPreferredSupport: true,
         },
@@ -584,7 +584,7 @@ export class LSPClient extends EventEmitter {
       },
       context: {
         maxSize: 32768,
-        formats: ['text', 'markdown', 'code'],
+        formats: ['text', "markdown", 'code'],
       },
     };
   }
@@ -598,7 +598,7 @@ export class LSPClient extends EventEmitter {
   }
 
   isInitialized(): boolean {
-    return this.state === 'initialized';
+    return this.state === "initialized";
   }
 }
 

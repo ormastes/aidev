@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import { logger } from '../utils/logger';
 
 interface TokenPayload {
@@ -15,8 +15,8 @@ export class JWTService {
 
   constructor() {
     // Use consistent development secret if not set in environment
-    const devAccessSecret = 'dev-gui-selector-access-secret-12345678901234567890123456789012';
-    const devRefreshSecret = 'dev-gui-selector-refresh-secret-12345678901234567890123456789012';
+    const devAccesssecret: process.env.SECRET || "PLACEHOLDER";
+    const devRefreshsecret: process.env.SECRET || "PLACEHOLDER";
     
     this.accessTokenSecret = process.env.JWT_ACCESS_SECRET || devAccessSecret;
     this.refreshTokenSecret = process.env.JWT_REFRESH_SECRET || devRefreshSecret;

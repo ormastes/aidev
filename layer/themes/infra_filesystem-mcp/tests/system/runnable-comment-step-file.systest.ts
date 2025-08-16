@@ -278,7 +278,7 @@ process.exit(0);
       // Note: Actual step execution would need to be implemented in VFTaskQueueWrapper
       // This test documents the expected behavior
       expect(queueData.queues.test_queue.before_insert_steps).toHaveLength(1);
-      expect(queueData.queues.test_queue.before_insert_steps[0].type).toBe('runnable');
+      expect(queueData.queues.test_queue.before_insert_steps[0].type).toBe("runnable");
     });
   });
 });

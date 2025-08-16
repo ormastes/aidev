@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Environment Validator - Part of Fraud Checker Theme
  * Validates that environment is properly setup by test-as-manual
@@ -48,7 +49,7 @@ export class EnvironmentValidator {
     if (!process.env.TEST_DOMAIN) {
       validation.issues.push('TEST_DOMAIN not set by test-as-manual');
       validation.isValid = false;
-    } else if (process.env.TEST_DOMAIN !== 'localhost') {
+    } else if (process.env.TEST_DOMAIN !== "localhost") {
       validation.issues.push(`Unexpected TEST_DOMAIN: ${process.env.TEST_DOMAIN}`);
     }
 
@@ -66,8 +67,8 @@ export class EnvironmentValidator {
    * Check if a specific test file will have proper environment
    */
   checkTestFileCompliance(filePath: string): boolean {
-    const fs = require('fs');
-    const content = fs.readFileSync(filePath, 'utf-8');
+    const fs = require('../../layer/themes/infra_external-log-lib/src');
+    const content = fileAPI.readFileSync(filePath, 'utf-8');
 
     // Check if file imports test-as-manual BEFORE any test execution
     const lines = content.split('\n');

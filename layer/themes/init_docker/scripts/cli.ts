@@ -1,6 +1,7 @@
+import { fileAPI } from '../utils/file-api';
 #!/usr/bin/env node
 
-import { Command } from 'commander';
+import { Command } from "commander";
 import { containerEnv } from '../pipe';
 import chalk from 'chalk';
 import ora from 'ora';
@@ -117,7 +118,7 @@ program
     try {
       const release = await containerEnv.deployRelease({
         themes: options.themes,
-        environment: 'production',
+        environment: "production",
         replicas: parseInt(options.replicas),
         ssl: options.ssl,
         domain: options.domain,

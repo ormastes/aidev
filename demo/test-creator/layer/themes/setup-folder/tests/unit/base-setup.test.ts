@@ -1,7 +1,7 @@
 import { BaseSetup } from '../../children/src/setup/base-setup';
 import { BaseSetupOptions, Mode, DeploymentType, PORT_ALLOCATIONS } from '../../children/src/types';
 import * as fs from 'fs-extra';
-import { path } from '../../../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import { execSync } from 'child_process';
 
 // Mocks are configured in jest.setup.js
@@ -29,7 +29,7 @@ class TestSetup extends BaseSetup {
   }
 }
 
-describe('BaseSetup', () => {
+describe("BaseSetup", () => {
   let setup: TestSetup;
   const mockOptions: BaseSetupOptions = {
     appName: 'test-app',
@@ -42,15 +42,15 @@ describe('BaseSetup', () => {
     setup = new TestSetup(mockOptions, 'demo');
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with correct properties', () => {
       expect(setup['appName']).toBe('test-app');
       expect(setup['mode']).toBe('vf');
       expect(setup['skipDb']).toBe(false);
-      expect(setup['deploymentType']).toBe('demo');
+      expect(setup["deploymentType"]).toBe('demo');
       expect(setup['dbName']).toBe('test-app_demo');
       expect(setup['dbUser']).toBe('test-app_user');
-      expect(setup['dbPassword']).toBe('test-password');
+      expect(setup["dbPassword"]).toBe('test-password');
     });
 
     it('should handle skipDb option', () => {
@@ -59,15 +59,15 @@ describe('BaseSetup', () => {
     });
   });
 
-  describe('getPortAllocation', () => {
+  describe("getPortAllocation", () => {
     it('should return correct port for demo deployment', () => {
-      const port = setup['getPortAllocation']();
+      const port = setup["getPortAllocation"]();
       expect(port).toBe(PORT_ALLOCATIONS.demo.main);
     });
 
     it('should return correct port for production deployment', () => {
       const prodSetup = new TestSetup(mockOptions, 'release');
-      const port = prodSetup['getPortAllocation']();
+      const port = prodSetup["getPortAllocation"]();
       expect(port).toBe(PORT_ALLOCATIONS.production.main);
     });
 
@@ -75,37 +75,37 @@ describe('BaseSetup', () => {
       const agileTypes: DeploymentType[] = ['epic', 'theme', 'story'];
       agileTypes.forEach(type => {
         const agileSetup = new TestSetup(mockOptions, type);
-        const port = agileSetup['getPortAllocation']();
+        const port = agileSetup["getPortAllocation"]();
         expect(port).toBe(PORT_ALLOCATIONS.agile.main);
       });
     });
 
     it('should return correct port for test deployment', () => {
       const testSetup = new TestSetup(mockOptions, 'test');
-      const port = testSetup['getPortAllocation']();
+      const port = testSetup["getPortAllocation"]();
       expect(port).toBe(PORT_ALLOCATIONS.test.main);
     });
   });
 
-  describe('checkPortAvailability', () => {
+  describe("checkPortAvailability", () => {
     it('should return true when port is available', async () => {
       (execSync as jest.Mock).mockImplementation(() => {
         throw new Error('Port not in use');
       });
 
-      const isAvailable = await setup['checkPortAvailability'](3000);
+      const isAvailable = await setup["checkPortAvailability"](3000);
       expect(isAvailable).toBe(true);
     });
 
     it('should return false when port is in use', async () => {
       (execSync as jest.Mock).mockReturnValue('');
 
-      const isAvailable = await setup['checkPortAvailability'](3000);
+      const isAvailable = await setup["checkPortAvailability"](3000);
       expect(isAvailable).toBe(false);
     });
   });
 
-  describe('checkRequirements', () => {
+  describe("checkRequirements", () => {
     it('should return true when all requirements are met', async () => {
       (execSync as jest.Mock).mockImplementation((command: string) => {
         if (command.includes('node')) return 'v18.0.0\n';
@@ -114,7 +114,7 @@ describe('BaseSetup', () => {
         return '';
       });
 
-      const result = await setup['checkRequirements']();
+      const result = await setup["checkRequirements"]();
       expect(result).toBe(true);
     });
 
@@ -125,7 +125,7 @@ describe('BaseSetup', () => {
         return '';
       });
 
-      const result = await setup['checkRequirements']();
+      const result = await setup["checkRequirements"]();
       expect(result).toBe(false);
     });
 
@@ -137,17 +137,17 @@ describe('BaseSetup', () => {
         return '';
       });
 
-      const result = await setup['checkRequirements']();
+      const result = await setup["checkRequirements"]();
       expect(result).toBe(true);
     });
   });
 
-  describe('createDirectoryStructure', () => {
+  describe("createDirectoryStructure", () => {
     it('should create all required directories', async () => {
       (fs.ensureDir as jest.Mock).mockResolvedValue(undefined);
       (fs.writeFile as unknown as jest.Mock).mockResolvedValue(undefined);
 
-      const result = await setup['createDirectoryStructure']();
+      const result = await setup["createDirectoryStructure"]();
       
       expect(result).toBe(true);
       
@@ -177,17 +177,17 @@ describe('BaseSetup', () => {
     it('should return false on directory creation failure', async () => {
       (fs.ensureDir as jest.Mock).mockRejectedValue(new Error('Permission denied'));
 
-      const result = await setup['createDirectoryStructure']();
+      const result = await setup["createDirectoryStructure"]();
       
       expect(result).toBe(false);
     });
   });
 
-  describe('createPipeGateways', () => {
+  describe("createPipeGateways", () => {
     it('should create pipe gateway files for all layers', async () => {
       (fs.writeFile as unknown as jest.Mock).mockResolvedValue(undefined);
 
-      await setup['createPipeGateways']();
+      await setup["createPipeGateways"]();
 
       // Check that pipe files were created for each layer
       const layers = ['core', 'feature', 'external_interface', 'user_interface'];
@@ -206,11 +206,11 @@ describe('BaseSetup', () => {
     });
   });
 
-  describe('createEnvFile', () => {
+  describe("createEnvFile", () => {
     it('should create environment file with correct content', async () => {
       (fs.writeFile as unknown as jest.Mock).mockResolvedValue(undefined);
 
-      const result = await setup['createEnvFile']();
+      const result = await setup["createEnvFile"]();
       
       expect(result).toBe(true);
       expect(fs.writeFile).toHaveBeenCalledWith(
@@ -222,17 +222,17 @@ describe('BaseSetup', () => {
     it('should return false on file creation failure', async () => {
       (fs.writeFile as unknown as jest.Mock).mockRejectedValue(new Error('Write failed'));
 
-      const result = await setup['createEnvFile']();
+      const result = await setup["createEnvFile"]();
       
       expect(result).toBe(false);
     });
   });
 
-  describe('createTaskQueue', () => {
+  describe("createTaskQueue", () => {
     it('should create VF mode task queue', async () => {
       (fs.writeFile as unknown as jest.Mock).mockResolvedValue(undefined);
 
-      const result = await setup['createTaskQueue']();
+      const result = await setup["createTaskQueue"]();
       
       expect(result).toBe(true);
       expect(fs.writeFile).toHaveBeenCalledWith(
@@ -245,7 +245,7 @@ describe('BaseSetup', () => {
       const mdSetup = new TestSetup({ ...mockOptions, mode: 'md' as Mode }, 'demo');
       (fs.writeFile as unknown as jest.Mock).mockResolvedValue(undefined);
 
-      const result = await mdSetup['createTaskQueue']();
+      const result = await mdSetup["createTaskQueue"]();
       
       expect(result).toBe(true);
       expect(fs.writeFile).toHaveBeenCalledWith(
@@ -257,17 +257,17 @@ describe('BaseSetup', () => {
     it('should handle task queue creation failure', async () => {
       (fs.writeFile as unknown as jest.Mock).mockRejectedValue(new Error('Write failed'));
 
-      const result = await setup['createTaskQueue']();
+      const result = await setup["createTaskQueue"]();
       
       expect(result).toBe(false);
     });
   });
 
-  describe('createMcpConfig', () => {
+  describe("createMcpConfig", () => {
     it('should create MCP configuration', async () => {
       (fs.writeJson as jest.Mock).mockResolvedValue(undefined);
 
-      const result = await setup['createMcpConfig']();
+      const result = await setup["createMcpConfig"]();
       
       expect(result).toBe(true);
       expect(fs.writeJson).toHaveBeenCalledWith(
@@ -280,7 +280,7 @@ describe('BaseSetup', () => {
     it('should handle MCP config creation failure', async () => {
       (fs.writeJson as jest.Mock).mockRejectedValue(new Error('Write failed'));
 
-      const result = await setup['createMcpConfig']();
+      const result = await setup["createMcpConfig"]();
       
       expect(result).toBe(false);
     });
@@ -288,44 +288,44 @@ describe('BaseSetup', () => {
 
   describe('run', () => {
     beforeEach(() => {
-      jest.spyOn(setup, 'checkRequirements' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createDirectoryStructure' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createEnvFile' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createTaskQueue' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createMcpConfig' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createDeploymentConfig').mockResolvedValue(true);
-      jest.spyOn(setup, 'printSuccessMessage').mockImplementation(() => {});
+      jest.spyOn(setup, "checkRequirements" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createDirectoryStructure" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createEnvFile" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createTaskQueue" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createMcpConfig" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createDeploymentConfig").mockResolvedValue(true);
+      jest.spyOn(setup, "printSuccessMessage").mockImplementation(() => {});
     });
 
     it('should run all setup steps successfully', async () => {
       const result = await setup.run();
       
       expect(result).toBe(true);
-      expect(setup['checkRequirements']).toHaveBeenCalled();
-      expect(setup['createDirectoryStructure']).toHaveBeenCalled();
-      expect(setup['createEnvFile']).toHaveBeenCalled();
-      expect(setup['createTaskQueue']).toHaveBeenCalled();
-      expect(setup['createMcpConfig']).toHaveBeenCalled();
+      expect(setup["checkRequirements"]).toHaveBeenCalled();
+      expect(setup["createDirectoryStructure"]).toHaveBeenCalled();
+      expect(setup["createEnvFile"]).toHaveBeenCalled();
+      expect(setup["createTaskQueue"]).toHaveBeenCalled();
+      expect(setup["createMcpConfig"]).toHaveBeenCalled();
       expect(setup.createDeploymentConfig).toHaveBeenCalled();
       expect(setup.printSuccessMessage).toHaveBeenCalled();
     });
 
     it('should stop if requirements check fails', async () => {
-      jest.spyOn(setup, 'checkRequirements' as any).mockResolvedValue(false);
+      jest.spyOn(setup, "checkRequirements" as any).mockResolvedValue(false);
 
       const result = await setup.run();
       
       expect(result).toBe(false);
-      expect(setup['createDirectoryStructure']).not.toHaveBeenCalled();
+      expect(setup["createDirectoryStructure"]).not.toHaveBeenCalled();
     });
 
     it('should stop if directory creation fails', async () => {
-      jest.spyOn(setup, 'createDirectoryStructure' as any).mockResolvedValue(false);
+      jest.spyOn(setup, "createDirectoryStructure" as any).mockResolvedValue(false);
 
       const result = await setup.run();
       
       expect(result).toBe(false);
-      expect(setup['createEnvFile']).not.toHaveBeenCalled();
+      expect(setup["createEnvFile"]).not.toHaveBeenCalled();
     });
   });
 });

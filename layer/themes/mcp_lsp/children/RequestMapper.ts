@@ -83,7 +83,7 @@ export class RequestMapper {
     if (!result || !Array.isArray(result)) return [];
     
     // Handle both DocumentSymbol[] and SymbolInformation[]
-    if (result.length > 0 && 'location' in result[0]) {
+    if (result.length > 0 && "location" in result[0]) {
       // SymbolInformation[]
       return result.map((sym: LSPSymbolInformation) => this.mapLSPSymbolInformation(sym));
     } else {
@@ -210,11 +210,11 @@ export class RequestMapper {
     if (!kind) return 'text';
     
     const kinds = [
-      'text', 'method', 'function', 'constructor', 'field',
-      'variable', 'class', 'interface', 'module', 'property',
+      'text', 'method', "function", "constructor", 'field',
+      "variable", 'class', "interface", 'module', "property",
       'unit', 'value', 'enum', 'keyword', 'snippet',
-      'color', 'file', 'reference', 'folder', 'enumMember',
-      'constant', 'struct', 'event', 'operator', 'typeParameter'
+      'color', 'file', "reference", 'folder', "enumMember",
+      "constant", 'struct', 'event', "operator", "typeParameter"
     ];
     
     return kinds[kind - 1] || 'text';
@@ -231,12 +231,12 @@ export class RequestMapper {
   
   private mapSymbolKind(kind: SymbolKind): string {
     const kinds = [
-      'file', 'module', 'namespace', 'package', 'class',
-      'method', 'property', 'field', 'constructor', 'enum',
-      'interface', 'function', 'variable', 'constant', 'string',
+      'file', 'module', "namespace", 'package', 'class',
+      'method', "property", 'field', "constructor", 'enum',
+      "interface", "function", "variable", "constant", 'string',
       'number', 'boolean', 'array', 'object', 'key',
-      'null', 'enumMember', 'struct', 'event', 'operator',
-      'typeParameter'
+      'null', "enumMember", 'struct', 'event', "operator",
+      "typeParameter"
     ];
     
     return kinds[kind - 1] || 'unknown';
@@ -276,7 +276,7 @@ export class RequestMapper {
   private mapLSPCodeAction = (action: LSPCodeAction): CodeAction => {
     return {
       title: action.title,
-      kind: action.kind || 'quickfix',
+      kind: action.kind || "quickfix",
       diagnostics: action.diagnostics?.map((d: any) => this.mapLSPDiagnostic(d, '')),
       edit: action.edit ? this.mapLSPWorkspaceEdit(action.edit) : undefined
     };

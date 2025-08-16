@@ -31,7 +31,7 @@ export class CircularDependencyDetector {
    */
   async detectFraud(projectPath: string): Promise<CircularDependencyFraudIssue[]> {
     const options: AnalysisOptions = {
-      exclude_patterns: ['node_modules', 'dist', 'build', '.git', 'coverage'],
+      exclude_patterns: ['node_modules', 'dist', 'build', '.git', "coverage"],
       cache_enabled: true
     };
 
@@ -52,7 +52,7 @@ export class CircularDependencyDetector {
    */
   async generateDetailedReport(projectPath: string): Promise<string> {
     const options: AnalysisOptions = {
-      exclude_patterns: ['node_modules', 'dist', 'build', '.git', 'coverage'],
+      exclude_patterns: ['node_modules', 'dist', 'build', '.git', "coverage"],
       cache_enabled: true,
       visualization: {
         format: 'svg',

@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from '@jest/globals';
 import { spawn, ChildProcess } from 'child_process';
-import { chromium, Browser, Page, BrowserContext } from 'playwright';
+import { chromium, Browser, Page, BrowserContext } from "playwright";
 import { path } from '../../../../../infra_external-log-lib/src';
 import * as fs from 'fs/promises';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 // Real-time system tests using Playwright browser automation
 describe('Coordinator Real-time System Tests', () => {
@@ -18,7 +18,7 @@ describe('Coordinator Real-time System Tests', () => {
     // Create test directory structure
     testDir = path.join(process.cwd(), '.realtime-test-' + Date.now());
     await fs.mkdir(testDir, { recursive: true });
-    await fs.mkdir(path.join(testDir, 'sessions'), { recursive: true });
+    await fs.mkdir(path.join(testDir, "sessions"), { recursive: true });
     await fs.mkdir(path.join(testDir, 'web'), { recursive: true });
     
     // Create test task queue
@@ -249,8 +249,8 @@ describe('Coordinator Real-time System Tests', () => {
         
         document.getElementById('register-agents').addEventListener('click', async () => {
             const agents = [
-                { id: 'agent-1', role: 'developer', capabilities: ['coding', 'testing'] },
-                { id: 'agent-2', role: 'designer', capabilities: ['ui', 'ux'] },
+                { id: 'agent-1', role: "developer", capabilities: ['coding', 'testing'] },
+                { id: 'agent-2', role: "designer", capabilities: ['ui', 'ux'] },
                 { id: 'agent-3', role: 'tester', capabilities: ['testing', 'qa'] }
             ];
             
@@ -346,9 +346,9 @@ describe('Coordinator Real-time System Tests', () => {
     const serverScript = path.join(testDir, 'web', 'server.js');
     await fs.writeFile(serverScript, `
       const express = require('express');
-      const http = require('http');
+      const http = require('node:http');
       const WebSocket = require('ws');
-      const path = require('path');
+      const path = require('node:path');
       
       const app = express();
       const server = http.createServer(app);
@@ -361,7 +361,7 @@ describe('Coordinator Real-time System Tests', () => {
       let streamActive = false;
       
       // WebSocket for real-time events
-      wss.on('connection', function connection(ws) {
+      wss.on("connection", function connection(ws) {
         console.log('Client connected for real-time events');
         
         ws.on('message', function incoming(message) {
@@ -612,7 +612,7 @@ describe('Coordinator Real-time System Tests', () => {
       
       // Verify progress reached Improving
       const finalProgress = await page.locator('#progress-percent').textContent();
-      expect(finalProgress).toBe('Improving');
+      expect(finalProgress).toBe("Improving");
     });
 
     it('should handle message streaming', async () => {

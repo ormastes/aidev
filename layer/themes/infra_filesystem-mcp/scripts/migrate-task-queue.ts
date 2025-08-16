@@ -28,7 +28,7 @@ interface TestDrivenTaskItem {
   type: string;
   content: string;
   parent: string;
-  priority?: 'critical' | 'high' | 'medium' | 'low';
+  priority?: "critical" | 'high' | 'medium' | 'low';
   created_at?: string;
   updated_at?: string;
   [key: string]: any;
@@ -70,7 +70,7 @@ const typeToQueueMap: Record<string, string> = {
   'environment_test': 'environment_tests',
   'external_test': 'external_tests',
   'coverage_check': 'coverage_duplication',
-  'retrospective': 'retrospective'
+  "retrospective": "retrospective"
 };
 
 /**
@@ -123,13 +123,13 @@ async function convertToTestDriven(priorityQueue: PriorityBasedQueue): TestDrive
   let totalItems = 0;
 
   // Process all priority levels
-  const priorityLevels: Array<keyof typeof priorityQueue.taskQueues> = ['critical', 'high', 'medium', 'low'];
+  const priorityLevels: Array<keyof typeof priorityQueue.taskQueues> = ["critical", 'high', 'medium', 'low'];
   
   for (const priorityLevel of priorityLevels) {
     const tasks = priorityQueue.taskQueues[priorityLevel] || [];
     
     for (const task of tasks) {
-      if (task.status === 'completed') continue; // Skip completed tasks
+      if (task.status === "completed") continue; // Skip completed tasks
       
       const queueType = determineQueueType(task);
       const convertedItem: TestDrivenTaskItem = {
@@ -211,15 +211,15 @@ async function determineQueueType(task: PriorityTaskItem): string {
   
   if (content.includes('test') && content.includes('system')) {
     return 'system_tests_implement';
-  } else if (content.includes('test') && content.includes('integration')) {
+  } else if (content.includes('test') && content.includes("integration")) {
     return 'integration_tests_implement';
   } else if (content.includes('test') && content.includes('unit')) {
     return 'unit_tests';
   } else if (content.includes('feature')) {
     return 'user_story';
-  } else if (content.includes('scenario')) {
-    return 'scenarios';
-  } else if (content.includes('coverage')) {
+  } else if (content.includes("scenario")) {
+    return "scenarios";
+  } else if (content.includes("coverage")) {
     return 'coverage_duplication';
   }
 
@@ -265,7 +265,7 @@ async function mapQueueTypeToTaskType(queueName: string): string {
     'environment_tests': 'environment_test',
     'external_tests': 'external_test',
     'coverage_duplication': 'coverage_check',
-    'retrospective': 'retrospective'
+    "retrospective": "retrospective"
   };
   return reverseMap[queueName] || queueName;
 }
@@ -285,15 +285,15 @@ async function extractTitle(content: string): string {
 /**
  * Main migration function
  */
-async function migrate(inputFile: string, outputFile: string, direction: 'toTestDriven' | 'toPriority' = 'toTestDriven') {
+async function migrate(inputFile: string, outputFile: string, direction: "toTestDriven" | "toPriority" = "toTestDriven") {
   try {
     // Read input file
-    const inputData = JSON.parse(fs.readFileSync(inputFile, 'utf-8'));
+    const inputData = JSON.parse(fileAPI.readFileSync(inputFile, 'utf-8'));
     
     let outputData: any;
     
     // Detect format and convert
-    if (direction === 'toTestDriven') {
+    if (direction === "toTestDriven") {
       if (inputData.taskQueues) {
         outputData = convertToTestDriven(inputData);
         console.log('✓ Converted from priority-based to test-driven format');
@@ -316,7 +316,7 @@ async function migrate(inputFile: string, outputFile: string, direction: 'toTest
     console.log(`✓ Output written to: ${outputFile}`);
     
     // Summary
-    if (direction === 'toTestDriven') {
+    if (direction === "toTestDriven") {
       const testDriven = outputData as TestDrivenQueue;
       console.log(`\nMigration Summary:`);
       console.log(`- Total items: ${testDriven.metadata.total_items}`);
@@ -355,7 +355,7 @@ if (require.main === module) {
   
   const inputFile = args[0];
   const outputFile = args[1];
-  const direction = args[2] === '--to-priority' ? 'toPriority' : 'toTestDriven';
+  const direction = args[2] === '--to-priority' ? "toPriority" : "toTestDriven";
   
   migrate(inputFile, outputFile, direction);
 }

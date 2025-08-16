@@ -16,13 +16,13 @@ export type { JSONOutput } from './JSONProcessor';
  * Format processor factory
  */
 export class ProcessorFactory {
-  static createProcessor(format: 'html' | 'pdf' | 'markdown' | 'json', options?: any) {
+  static createProcessor(format: 'html' | 'pdf' | "markdown" | 'json', options?: any) {
     switch (format) {
       case 'html':
         const { HTMLProcessor } = require('./HTMLProcessor');
         return new HTMLProcessor(options);
       
-      case 'markdown':
+      case "markdown":
         const { MarkdownProcessor } = require('./MarkdownProcessor');
         return new MarkdownProcessor(options);
       

@@ -3,9 +3,9 @@
  * Real-time monitoring and reporting of compliance status
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
-import { EventEmitter } from 'events';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as path from 'node:path';
+import { EventEmitter } from 'node:events';
 import { execSync } from 'child_process';
 import { getFileAPI, FileType } from '../file-manager/FileCreationAPI';
 import { strictEnforcement, isDirectFSAllowed } from '../config/enforcement-config';
@@ -26,7 +26,7 @@ export interface ComplianceMetrics {
     weekly: number[];
   };
   components: ComponentMetrics[];
-  riskLevel: 'low' | 'medium' | 'high' | 'critical';
+  riskLevel: 'low' | 'medium' | 'high' | "critical";
 }
 
 export interface ComponentMetrics {
@@ -42,8 +42,8 @@ export interface ComponentMetrics {
 export interface ComplianceAlert {
   id: string;
   timestamp: Date;
-  severity: 'info' | 'warning' | 'error' | 'critical';
-  type: 'violation' | 'regression' | 'threshold' | 'fraud';
+  severity: 'info' | 'warning' | 'error' | "critical";
+  type: "violation" | "regression" | "threshold" | 'fraud';
   message: string;
   details: {
     file?: string;
@@ -146,7 +146,7 @@ export class ComplianceDashboard extends EventEmitter {
       
     } catch (error: any) {
       console.error('❌ Failed to update metrics:', error.message);
-      this.createAlert('error', 'violation', 'Failed to update compliance metrics', {
+      this.createAlert('error', "violation", 'Failed to update compliance metrics', {
         violationType: 'scan_failure'
       });
       throw error;
@@ -256,8 +256,8 @@ export class ComplianceDashboard extends EventEmitter {
   /**
    * Calculate risk level
    */
-  private calculateRiskLevel(metrics: ComplianceMetrics): 'low' | 'medium' | 'high' | 'critical' {
-    if (metrics.complianceRate < this.thresholds.critical) return 'critical';
+  private calculateRiskLevel(metrics: ComplianceMetrics): 'low' | 'medium' | 'high' | "critical" {
+    if (metrics.complianceRate < this.thresholds.critical) return "critical";
     if (metrics.complianceRate < this.thresholds.warning) return 'high';
     if (metrics.nonExemptViolations > 50) return 'medium';
     if (metrics.nonExemptViolations > 10) return 'low';
@@ -272,13 +272,13 @@ export class ComplianceDashboard extends EventEmitter {
     
     // Check compliance rate threshold
     if (this.metrics.complianceRate < this.thresholds.critical) {
-      this.createAlert('critical', 'threshold', 
+      this.createAlert("critical", "threshold", 
         `Compliance rate critically low: ${this.metrics.complianceRate.toFixed(1)}%`, {
           threshold: this.thresholds.critical,
           actual: this.metrics.complianceRate
         });
     } else if (this.metrics.complianceRate < this.thresholds.warning) {
-      this.createAlert('warning', 'threshold',
+      this.createAlert('warning', "threshold",
         `Compliance rate below warning threshold: ${this.metrics.complianceRate.toFixed(1)}%`, {
           threshold: this.thresholds.warning,
           actual: this.metrics.complianceRate
@@ -291,7 +291,7 @@ export class ComplianceDashboard extends EventEmitter {
       const current = this.metrics.complianceRate;
       
       if (current < previous) {
-        this.createAlert('warning', 'regression',
+        this.createAlert('warning', "regression",
           `Compliance regression detected: ${previous.toFixed(1)}% → ${current.toFixed(1)}%`, {
             threshold: previous,
             actual: current
@@ -301,7 +301,7 @@ export class ComplianceDashboard extends EventEmitter {
     
     // Check non-exempt violations
     if (this.metrics.nonExemptViolations > 20) {
-      this.createAlert('error', 'violation',
+      this.createAlert('error', "violation",
         `High number of violations in non-exempt themes: ${this.metrics.nonExemptViolations}`, {
           violationType: 'non_exempt_violations',
           actual: this.metrics.nonExemptViolations
@@ -331,7 +331,7 @@ export class ComplianceDashboard extends EventEmitter {
     // Check for components with zero compliance
     for (const component of this.metrics.components) {
       if (!component.isExempt && component.complianceRate === 0) {
-        this.createAlert('critical', 'violation',
+        this.createAlert("critical", "violation",
           `Component has zero compliance: ${component.name}`, {
             component: component.name,
             violationType: 'zero_compliance'
@@ -344,8 +344,8 @@ export class ComplianceDashboard extends EventEmitter {
    * Create alert
    */
   private createAlert(
-    severity: 'info' | 'warning' | 'error' | 'critical',
-    type: 'violation' | 'regression' | 'threshold' | 'fraud',
+    severity: 'info' | 'warning' | 'error' | "critical",
+    type: "violation" | "regression" | "threshold" | 'fraud',
     message: string,
     details: any = {}
   ): void {
@@ -363,7 +363,7 @@ export class ComplianceDashboard extends EventEmitter {
     this.emit('alert:created', alert);
     
     // Send webhooks for critical alerts
-    if (severity === 'critical') {
+    if (severity === "critical") {
       this.sendWebhooks(alert);
     }
     
@@ -666,7 +666,7 @@ export class ComplianceDashboard extends EventEmitter {
    */
   private getComplianceClass(): string {
     if (!this.metrics) return '';
-    if (this.metrics.complianceRate < this.thresholds.critical) return 'critical';
+    if (this.metrics.complianceRate < this.thresholds.critical) return "critical";
     if (this.metrics.complianceRate < this.thresholds.warning) return 'warning';
     return '';
   }
@@ -722,7 +722,7 @@ export class ComplianceDashboard extends EventEmitter {
    */
   private getAlertIcon(severity: string): string {
     switch (severity) {
-      case 'critical': return '🚨';
+      case "critical": return '🚨';
       case 'error': return '❌';
       case 'warning': return '⚠️';
       default: return 'ℹ️';

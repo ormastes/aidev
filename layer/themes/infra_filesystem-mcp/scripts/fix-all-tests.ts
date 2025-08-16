@@ -50,7 +50,7 @@ const fixes: TestFix[] = [
   {
     file: 'tests/system/scenarios/name-id-scenarios.systest.ts',
     pattern: /status: 'In Progress'/g,
-    replacement: "status: 'completed'"
+    replacement: "status: "completed""
   },
   // Fix task-queue-scenarios test
   {
@@ -90,7 +90,7 @@ for (const fix of fixes) {
     continue;
   }
   
-  let content = fs.readFileSync(filePath, 'utf8');
+  let content = fileAPI.readFileSync(filePath, 'utf8');
   const originalContent = content;
   
   content = content.replace(fix.pattern, fix.replacement);

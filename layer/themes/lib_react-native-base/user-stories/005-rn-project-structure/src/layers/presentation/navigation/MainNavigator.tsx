@@ -25,8 +25,8 @@ export const MainNavigator: React.FC = () => {
             case 'Profile':
               iconName = focused ? 'person' : 'person-outline';
               break;
-            case 'Settings':
-              iconName = focused ? 'settings' : 'settings-outline';
+            case "Settings":
+              iconName = focused ? "settings" : 'settings-outline';
               break;
             default:
               iconName = 'alert-circle-outline';

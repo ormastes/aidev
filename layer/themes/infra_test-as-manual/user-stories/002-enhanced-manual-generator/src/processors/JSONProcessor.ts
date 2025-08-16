@@ -162,7 +162,7 @@ export class JSONProcessor {
   /**
    * Calculate statistics from document
    */
-  private calculateStatistics(document: TestDocument): JSONOutput['statistics'] {
+  private calculateStatistics(document: TestDocument): JSONOutput["statistics"] {
     let totalSuites = 0;
     let totalTestCases = 0;
     let totalSteps = 0;

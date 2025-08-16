@@ -3,7 +3,7 @@
  * Manages QEMU VM lifecycle, building, and remote debugging
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { spawn, ChildProcess } from 'child_process';
 import * as fs from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
@@ -21,7 +21,7 @@ export interface QEMUInstance {
   pid?: number;
   config: EnvironmentConfig;
   ports: Record<string, number>;
-  status: 'stopped' | 'starting' | 'running' | 'debugging' | 'error';
+  status: 'stopped' | "starting" | 'running' | "debugging" | 'error';
   startTime?: Date;
   logs: string[];
 }
@@ -40,7 +40,7 @@ export interface DebugSession {
   pid?: number;
   binary: string;
   breakpoints: string[];
-  status: 'inactive' | 'connected' | 'running' | 'paused';
+  status: "inactive" | "connected" | 'running' | 'paused';
 }
 
 export class QEMURuntimeManager extends EventEmitter {
@@ -61,7 +61,7 @@ export class QEMURuntimeManager extends EventEmitter {
   async initialize(): Promise<void> {
     await this.setupService.initialize();
     await this.loadSavedInstances();
-    this.emit('initialized');
+    this.emit("initialized");
   }
 
   /**
@@ -103,7 +103,7 @@ export class QEMURuntimeManager extends EventEmitter {
       throw new Error(`Instance ${instanceId} is already running`);
     }
 
-    instance.status = 'starting';
+    instance.status = "starting";
     this.emit('instance:starting', instance);
 
     // Build command from saved config
@@ -220,19 +220,19 @@ export class QEMURuntimeManager extends EventEmitter {
       port: debugPort,
       binary,
       breakpoints: ['main'],
-      status: 'inactive'
+      status: "inactive"
     };
 
     this.debugSessions.set(instanceId, session);
 
     // Start GDB server in QEMU if needed
     if (instance.status === 'running') {
-      instance.status = 'debugging';
+      instance.status = "debugging";
       
       // Connect to GDB stub
       const connected = await this.connectToGDBStub(debugPort);
       if (connected) {
-        session.status = 'connected';
+        session.status = "connected";
       }
     }
 
@@ -259,7 +259,7 @@ export class QEMURuntimeManager extends EventEmitter {
     if (command === 'break main') {
       session.breakpoints.push('main');
       return response + 'Breakpoint 1 at main';
-    } else if (command === 'continue') {
+    } else if (command === "continue") {
       session.status = 'running';
       return response + 'Continuing...';
     } else if (command === 'next' || command === 'step') {
@@ -320,7 +320,7 @@ export class QEMURuntimeManager extends EventEmitter {
       console.log('\n5️⃣ Executing debug commands...');
       const commands = [
         'break main',
-        'continue',
+        "continue",
         'next',
         'print x'
       ];
@@ -354,7 +354,7 @@ export class QEMURuntimeManager extends EventEmitter {
     if (!sshPort) return;
 
     while (Date.now() - startTime < timeout) {
-      const connected = await this.checkPort('localhost', sshPort);
+      const connected = await this.checkPort("localhost", sshPort);
       if (connected) {
         this.emit('instance:network-ready', { instanceId: instance.id });
         return;
@@ -383,7 +383,7 @@ export class QEMURuntimeManager extends EventEmitter {
   }
 
   private async connectToGDBStub(port: number): Promise<boolean> {
-    return await this.checkPort('localhost', port);
+    return await this.checkPort("localhost", port);
   }
 
   private async executeInVM(instance: QEMUInstance, command: string): Promise<string> {
@@ -393,7 +393,7 @@ export class QEMURuntimeManager extends EventEmitter {
   }
 
   private async saveInstance(instance: QEMUInstance): Promise<void> {
-    const instancePath = path.join(this.setupDir, 'instances', `${instance.id}.json`);
+    const instancePath = path.join(this.setupDir, "instances", `${instance.id}.json`);
     await fileAPI.createDirectory(path.dirname(instancePath));
     
     const data = {
@@ -405,7 +405,7 @@ export class QEMURuntimeManager extends EventEmitter {
   }
 
   private async loadSavedInstances(): Promise<void> {
-    const instancesDir = path.join(this.setupDir, 'instances');
+    const instancesDir = path.join(this.setupDir, "instances");
     
     try {
       await fileAPI.createDirectory(instancesDir);
@@ -413,7 +413,7 @@ export class QEMURuntimeManager extends EventEmitter {
       
       for (const file of files) {
         if (file.endsWith('.json')) {
-          const data = await fs.readFile(path.join(instancesDir, file), 'utf-8');
+          const data = await fileAPI.readFile(path.join(instancesDir, file), 'utf-8');
           const instance = JSON.parse(data);
           instance.status = 'stopped'; // Reset status
           this.instances.set(instance.id, instance);

@@ -1,4 +1,4 @@
-import { Command } from 'commander';
+import { Command } from "commander";
 import chalk from 'chalk';
 import { TestSetupOptions } from '../types';
 import { TestSetup } from '../setup/test-setup';

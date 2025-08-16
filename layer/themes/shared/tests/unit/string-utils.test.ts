@@ -16,36 +16,36 @@ import {
   wrapText
 } from '../../children/utils/string-utils';
 
-describe('StringUtils', () => {
+describe("StringUtils", () => {
   describe('case conversion functions', () => {
-    describe('toCamelCase', () => {
+    describe("toCamelCase", () => {
       it('should convert hyphenated string to camelCase', () => {
-        expect(toCamelCase('hello-world')).toBe('helloWorld');
-        expect(toCamelCase('test-case-conversion')).toBe('testCaseConversion');
+        expect(toCamelCase('hello-world')).toBe("helloWorld");
+        expect(toCamelCase('test-case-conversion')).toBe("testCaseConversion");
       });
 
       it('should convert snake_case to camelCase', () => {
-        expect(toCamelCase('hello_world')).toBe('helloWorld');
-        expect(toCamelCase('test_case_conversion')).toBe('testCaseConversion');
+        expect(toCamelCase('hello_world')).toBe("helloWorld");
+        expect(toCamelCase('test_case_conversion')).toBe("testCaseConversion");
       });
 
       it('should convert space-separated string to camelCase', () => {
-        expect(toCamelCase('hello world')).toBe('helloWorld');
-        expect(toCamelCase('test case conversion')).toBe('testCaseConversion');
+        expect(toCamelCase('hello world')).toBe("helloWorld");
+        expect(toCamelCase('test case conversion')).toBe("testCaseConversion");
       });
 
       it('should handle already camelCase strings', () => {
-        expect(toCamelCase('helloWorld')).toBe('helloWorld');
-        expect(toCamelCase('testCaseConversion')).toBe('testCaseConversion');
+        expect(toCamelCase("helloWorld")).toBe("helloWorld");
+        expect(toCamelCase("testCaseConversion")).toBe("testCaseConversion");
       });
 
       it('should handle mixed separators', () => {
-        expect(toCamelCase('hello-world_test case')).toBe('helloWorldTestCase');
+        expect(toCamelCase('hello-world_test case')).toBe("helloWorldTestCase");
       });
 
       it('should handle numbers in strings', () => {
-        expect(toCamelCase('test-123-case')).toBe('test123Case');
-        expect(toCamelCase('version_2_beta')).toBe('version2Beta');
+        expect(toCamelCase('test-123-case')).toBe("test123Case");
+        expect(toCamelCase('version_2_beta')).toBe("version2Beta");
       });
 
       it('should handle empty strings', () => {
@@ -58,25 +58,25 @@ describe('StringUtils', () => {
       });
     });
 
-    describe('toPascalCase', () => {
+    describe("toPascalCase", () => {
       it('should convert hyphenated string to PascalCase', () => {
-        expect(toPascalCase('hello-world')).toBe('HelloWorld');
-        expect(toPascalCase('test-case-conversion')).toBe('TestCaseConversion');
+        expect(toPascalCase('hello-world')).toBe("HelloWorld");
+        expect(toPascalCase('test-case-conversion')).toBe("TestCaseConversion");
       });
 
       it('should convert snake_case to PascalCase', () => {
-        expect(toPascalCase('hello_world')).toBe('HelloWorld');
-        expect(toPascalCase('test_case_conversion')).toBe('TestCaseConversion');
+        expect(toPascalCase('hello_world')).toBe("HelloWorld");
+        expect(toPascalCase('test_case_conversion')).toBe("TestCaseConversion");
       });
 
       it('should convert camelCase to PascalCase', () => {
-        expect(toPascalCase('helloWorld')).toBe('HelloWorld');
-        expect(toPascalCase('testCaseConversion')).toBe('TestCaseConversion');
+        expect(toPascalCase("helloWorld")).toBe("HelloWorld");
+        expect(toPascalCase("testCaseConversion")).toBe("TestCaseConversion");
       });
 
       it('should handle already PascalCase strings', () => {
-        expect(toPascalCase('HelloWorld')).toBe('HelloWorld');
-        expect(toPascalCase('TestCaseConversion')).toBe('TestCaseConversion');
+        expect(toPascalCase("HelloWorld")).toBe("HelloWorld");
+        expect(toPascalCase("TestCaseConversion")).toBe("TestCaseConversion");
       });
 
       it('should handle single word', () => {
@@ -85,15 +85,15 @@ describe('StringUtils', () => {
       });
     });
 
-    describe('toKebabCase', () => {
+    describe("toKebabCase", () => {
       it('should convert camelCase to kebab-case', () => {
-        expect(toKebabCase('helloWorld')).toBe('hello-world');
-        expect(toKebabCase('testCaseConversion')).toBe('test-case-conversion');
+        expect(toKebabCase("helloWorld")).toBe('hello-world');
+        expect(toKebabCase("testCaseConversion")).toBe('test-case-conversion');
       });
 
       it('should convert PascalCase to kebab-case', () => {
-        expect(toKebabCase('HelloWorld')).toBe('hello-world');
-        expect(toKebabCase('TestCaseConversion')).toBe('test-case-conversion');
+        expect(toKebabCase("HelloWorld")).toBe('hello-world');
+        expect(toKebabCase("TestCaseConversion")).toBe('test-case-conversion');
       });
 
       it('should convert snake_case to kebab-case', () => {
@@ -107,20 +107,20 @@ describe('StringUtils', () => {
       });
 
       it('should handle numbers', () => {
-        expect(toKebabCase('version2Beta')).toBe('version2-beta');
-        expect(toKebabCase('test123Case')).toBe('test123-case');
+        expect(toKebabCase("version2Beta")).toBe('version2-beta');
+        expect(toKebabCase("test123Case")).toBe('test123-case');
       });
     });
 
-    describe('toSnakeCase', () => {
+    describe("toSnakeCase", () => {
       it('should convert camelCase to snake_case', () => {
-        expect(toSnakeCase('helloWorld')).toBe('hello_world');
-        expect(toSnakeCase('testCaseConversion')).toBe('test_case_conversion');
+        expect(toSnakeCase("helloWorld")).toBe('hello_world');
+        expect(toSnakeCase("testCaseConversion")).toBe('test_case_conversion');
       });
 
       it('should convert PascalCase to snake_case', () => {
-        expect(toSnakeCase('HelloWorld')).toBe('hello_world');
-        expect(toSnakeCase('TestCaseConversion')).toBe('test_case_conversion');
+        expect(toSnakeCase("HelloWorld")).toBe('hello_world');
+        expect(toSnakeCase("TestCaseConversion")).toBe('test_case_conversion');
       });
 
       it('should convert kebab-case to snake_case', () => {
@@ -134,16 +134,16 @@ describe('StringUtils', () => {
       });
     });
 
-    describe('toConstantCase', () => {
+    describe("toConstantCase", () => {
       it('should convert to CONSTANT_CASE', () => {
-        expect(toConstantCase('helloWorld')).toBe('HELLO_WORLD');
+        expect(toConstantCase("helloWorld")).toBe('HELLO_WORLD');
         expect(toConstantCase('test-case')).toBe('TEST_CASE');
       });
     });
   });
 
   describe('text manipulation functions', () => {
-    describe('truncate', () => {
+    describe("truncate", () => {
       it('should truncate long strings', () => {
         expect(truncate('This is a very long string', 10)).toBe('This is...');
         expect(truncate('Hello World', 5)).toBe('He...');
@@ -168,20 +168,20 @@ describe('StringUtils', () => {
       });
     });
 
-    describe('padString', () => {
+    describe("padString", () => {
       it('should pad string to the end by default', () => {
         expect(padString('hello', 10)).toBe('hello     ');
-        expect(padString('test', 8, '0')).toBe('test0000');
+        expect(padString('test', 8, '0')).toBe("test0000");
       });
 
       it('should pad string to the start', () => {
         expect(padString('hello', 10, ' ', 'start')).toBe('     hello');
-        expect(padString('test', 8, '0', 'start')).toBe('0000test');
+        expect(padString('test', 8, '0', 'start')).toBe("0000test");
       });
 
       it('should pad string on both sides', () => {
         expect(padString('hi', 6, '-', 'both')).toBe('--hi--');
-        expect(padString('test', 8, '0', 'both')).toBe('00test00');
+        expect(padString('test', 8, '0', 'both')).toBe("00test00");
       });
 
       it('should not pad if string is already long enough', () => {
@@ -223,7 +223,7 @@ line 2`;
       });
     });
 
-    describe('wrapText', () => {
+    describe("wrapText", () => {
       it('should wrap text to specified width', () => {
         const text = 'This is a long line that should be wrapped';
         const wrapped = wrapText(text, 20);
@@ -240,7 +240,7 @@ line 2`;
       });
 
       it('should handle single long word', () => {
-        const longWord = 'verylongwordthatcannotbewrapped';
+        const longWord = "verylongwordthatcannotbewrapped";
         const wrapped = wrapText(longWord, 10);
         expect(wrapped).toBe(longWord);
       });
@@ -248,7 +248,7 @@ line 2`;
   });
 
   describe('utility functions', () => {
-    describe('capitalize', () => {
+    describe("capitalize", () => {
       it('should capitalize first letter', () => {
         expect(capitalize('hello')).toBe('Hello');
         expect(capitalize('world')).toBe('World');
@@ -274,7 +274,7 @@ line 2`;
       });
     });
 
-    describe('normalizeWhitespace', () => {
+    describe("normalizeWhitespace", () => {
       it('should normalize multiple spaces', () => {
         expect(normalizeWhitespace('hello    world')).toBe('hello world');
         expect(normalizeWhitespace('  test  case  ')).toBe('test case');
@@ -290,23 +290,23 @@ line 2`;
       });
     });
 
-    describe('isValidIdentifier', () => {
+    describe("isValidIdentifier", () => {
       it('should validate correct identifiers', () => {
-        expect(isValidIdentifier('validName')).toBe(true);
+        expect(isValidIdentifier("validName")).toBe(true);
         expect(isValidIdentifier('_private')).toBe(true);
         expect(isValidIdentifier('$variable')).toBe(true);
         expect(isValidIdentifier('name123')).toBe(true);
       });
 
       it('should reject invalid identifiers', () => {
-        expect(isValidIdentifier('123invalid')).toBe(false);
+        expect(isValidIdentifier("123invalid")).toBe(false);
         expect(isValidIdentifier('with-hyphen')).toBe(false);
         expect(isValidIdentifier('with space')).toBe(false);
         expect(isValidIdentifier('')).toBe(false);
       });
     });
 
-    describe('pluralize', () => {
+    describe("pluralize", () => {
       it('should not pluralize singular count', () => {
         expect(pluralize('cat', 1)).toBe('cat');
         expect(pluralize('dog', 1)).toBe('dog');
@@ -326,7 +326,7 @@ line 2`;
         expect(pluralize('class', 2)).toBe('classes');
         expect(pluralize('box', 2)).toBe('boxes');
         expect(pluralize('buzz', 2)).toBe('buzzes');
-        expect(pluralize('church', 2)).toBe('churches');
+        expect(pluralize('church', 2)).toBe("churches");
         expect(pluralize('dish', 2)).toBe('dishes');
       });
 
@@ -336,7 +336,7 @@ line 2`;
       });
     });
 
-    describe('generateRandomString', () => {
+    describe("generateRandomString", () => {
       it('should generate string of specified length', () => {
         const result = generateRandomString(10);
         expect(result).toHaveLength(10);
@@ -360,7 +360,7 @@ line 2`;
       });
     });
 
-    describe('escapeRegex', () => {
+    describe("escapeRegex", () => {
       it('should escape special regex characters', () => {
         expect(escapeRegex('hello.world')).toBe('hello\\.world');
         expect(escapeRegex('test*case')).toBe('test\\*case');
@@ -400,7 +400,7 @@ line 2`;
 
     it('should handle numbers as strings', () => {
       expect(toCamelCase('123-456')).toBe('123456');
-      expect(toKebabCase('test123Case')).toBe('test123-case');
+      expect(toKebabCase("test123Case")).toBe('test123-case');
     });
   });
 });

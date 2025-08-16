@@ -4,7 +4,7 @@
 
 import { crypto } from '../../../../../infra_external-log-lib/src';
 import fetch from 'node-fetch';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 export interface OAuthConfig {
   providers: {
@@ -92,11 +92,11 @@ export class OAuthManager extends EventEmitter {
     
     // Add PKCE parameters if enabled
     if (providerConfig.pkce) {
-      codeVerifier = crypto.randomBytes(32).toString('base64url');
+      codeVerifier = crypto.randomBytes(32).toString("base64url");
       const codeChallenge = crypto
         .createHash('sha256')
         .update(codeVerifier)
-        .digest('base64url');
+        .digest("base64url");
       
       params.append('code_challenge', codeChallenge);
       params.append('code_challenge_method', 'S256');
@@ -116,7 +116,7 @@ export class OAuthManager extends EventEmitter {
 
     this.pendingStates.set(state, stateData);
     
-    this.emit('authUrlGenerated', { provider, state, userId });
+    this.emit("authUrlGenerated", { provider, state, userId });
 
     return { url: authUrl, state };
   }
@@ -176,7 +176,7 @@ export class OAuthManager extends EventEmitter {
       // Clean up state
       this.pendingStates.delete(state);
 
-      this.emit('authSuccess', { provider, userInfo, userId: stateData.userId });
+      this.emit("authSuccess", { provider, userInfo, userId: stateData.userId });
 
       return {
         success: true,
@@ -187,7 +187,7 @@ export class OAuthManager extends EventEmitter {
 
     } catch (error: any) {
       this.pendingStates.delete(state);
-      this.emit('authError', { provider, error: error.message, userId: stateData.userId });
+      this.emit("authError", { provider, error: error.message, userId: stateData.userId });
       
       return {
         success: false,
@@ -238,14 +238,14 @@ export class OAuthManager extends EventEmitter {
       // Update stored tokens
       this.storeUserTokens(userId, provider, tokenData);
 
-      this.emit('tokenRefreshed', { provider, userId });
+      this.emit("tokenRefreshed", { provider, userId });
 
       return {
         accessToken: tokenData.access_token
       };
 
     } catch (error: any) {
-      this.emit('tokenRefreshError', { provider, userId, error: error.message });
+      this.emit("tokenRefreshError", { provider, userId, error: error.message });
       return { error: error.message || 'Token refresh failed' };
     }
   }
@@ -264,7 +264,7 @@ export class OAuthManager extends EventEmitter {
         this.userTokens.set(userId, userTokens);
       }
 
-      this.emit('tokensRevoked', { provider, userId });
+      this.emit("tokensRevoked", { provider, userId });
       return true;
     }
 
@@ -343,7 +343,7 @@ export class OAuthManager extends EventEmitter {
     
     const response = await fetch(providerConfig.userInfoUrl, {
       headers: {
-        'Authorization': `Bearer ${accessToken}`,
+        "Authorization": `Bearer ${accessToken}`,
         'Accept': 'application/json'
       }
     });
@@ -381,7 +381,7 @@ export class OAuthManager extends EventEmitter {
           verified_email: true // GitHub emails are generally verified
         };
       
-      case 'microsoft':
+      case "microsoft":
         return {
           id: userData.id,
           email: userData.mail || userData.userPrincipalName,
@@ -433,7 +433,7 @@ export class OAuthManager extends EventEmitter {
     expiredStates.forEach(state => this.pendingStates.delete(state));
     
     if (expiredStates.length > 0) {
-      this.emit('statesCleanedUp', { count: expiredStates.length });
+      this.emit("statesCleanedUp", { count: expiredStates.length });
     }
   }
 }

@@ -41,8 +41,8 @@ async function testSingleApp() {
       'http://localhost:3456/api/health' // Depends on portal
     ],
     envVariables: {
-      NODE_ENV: 'development',
-      JWT_SECRET: 'test-secret'
+      NODE_ENV: "development",
+      JWT_secret: process.env.SECRET || "PLACEHOLDER"
     }
   };
   
@@ -74,7 +74,7 @@ async function customTestSuite() {
   const customTests: DeploymentTest[] = [
     {
       name: 'GUI Selector Variant Selection',
-      type: 'functional',
+      type: "functional",
       critical: true,
       test: async (ctx: TestContext): Promise<TestResult> => {
         try {
@@ -99,7 +99,7 @@ async function customTestSuite() {
     },
     {
       name: 'Cross-Origin Communication',
-      type: 'integration',
+      type: "integration",
       test: async (ctx: TestContext): Promise<TestResult> => {
         try {
           // Test if GUI selector can communicate with portal
@@ -139,7 +139,7 @@ async function customTestSuite() {
     },
     {
       name: 'Mobile Responsive Test',
-      type: 'functional',
+      type: "functional",
       test: async (ctx: TestContext): Promise<TestResult> => {
         try {
           // Set mobile viewport
@@ -196,7 +196,7 @@ async function compareEnvironments() {
   // Run tests across all environments
   const report = await webAppDeploymentTester.runDeploymentTests(
     'ai-dev-portal',
-    ['local-dev', 'local-release', 'staging', 'production']
+    ['local-dev', 'local-release', 'staging', "production"]
   );
   
   // Analyze differences between environments
@@ -251,7 +251,7 @@ async function verifyProductionDeployment() {
       'Page Load Performance'
     ],
     maxResponseTime: 2000, // 2 seconds max
-    requiredEnvironments: ['staging', 'production']
+    requiredEnvironments: ['staging', "production"]
   };
   
   // Run comprehensive tests
@@ -289,7 +289,7 @@ async function verifyProductionDeployment() {
   }
   
   // Check performance
-  const prodEnv = report.environments.find(e => e.environment === 'production');
+  const prodEnv = report.environments.find(e => e.environment === "production");
   if (prodEnv) {
     const perfTest = prodEnv.tests.find(t => t.name === 'Page Load Performance');
     if (perfTest && perfTest.result.details?.loadTime > productionCriteria.maxResponseTime) {
@@ -317,10 +317,10 @@ async function deploymentPipeline() {
   console.log('\nExample 5: Deployment pipeline integration\n');
   
   const stages = [
-    { name: 'Development', environments: ['local-dev'], stopOnFailure: false },
-    { name: 'Integration', environments: ['local-release'], stopOnFailure: true },
+    { name: "Development", environments: ['local-dev'], stopOnFailure: false },
+    { name: "Integration", environments: ['local-release'], stopOnFailure: true },
     { name: 'Staging', environments: ['staging'], stopOnFailure: true },
-    { name: 'Production', environments: ['production'], stopOnFailure: true }
+    { name: "Production", environments: ["production"], stopOnFailure: true }
   ];
   
   for (const stage of stages) {

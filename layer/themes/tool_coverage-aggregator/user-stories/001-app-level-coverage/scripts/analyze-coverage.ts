@@ -1,7 +1,8 @@
+import { fileAPI } from '../utils/file-api';
 #!/usr/bin/env node
 
-import { fs } from '../../../../infra_external-log-lib/src';
-import { path } from '../../../../infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import { execSync } from 'child_process';
 
 interface ModuleCoverage {
@@ -31,7 +32,7 @@ function findSourceFiles(dir: string): string[] {
       const fullPath = path.join(dir, entry.name);
       
       if (entry.isDirectory()) {
-        if (!['node_modules', 'dist', 'coverage', 'build', '.git'].includes(entry.name)) {
+        if (!['node_modules', 'dist', "coverage", 'build', '.git'].includes(entry.name)) {
           files.push(...findSourceFiles(fullPath));
         }
       } else if (entry.isFile() && entry.name.endsWith('.ts') && 
@@ -58,7 +59,7 @@ function findTestFiles(dir: string): string[] {
       const fullPath = path.join(dir, entry.name);
       
       if (entry.isDirectory()) {
-        if (!['node_modules', 'dist', 'coverage', 'build', '.git'].includes(entry.name)) {
+        if (!['node_modules', 'dist', "coverage", 'build', '.git'].includes(entry.name)) {
           files.push(...findTestFiles(fullPath));
         }
       } else if (entry.isFile() && 
@@ -75,7 +76,7 @@ function findTestFiles(dir: string): string[] {
 
 function readCoverageSummary(coverageFile: string): any {
   try {
-    const content = fs.readFileSync(coverageFile, 'utf-8');
+    const content = fileAPI.readFileSync(coverageFile, 'utf-8');
     return JSON.parse(content);
   } catch (error) {
     return null;
@@ -88,7 +89,7 @@ function analyzeModule(modulePath: string): ModuleCoverage {
   const testFiles = findTestFiles(modulePath);
   
   // Look for coverage report
-  const coverageSummaryPath = path.join(modulePath, 'coverage', 'coverage-summary.json');
+  const coverageSummaryPath = path.join(modulePath, "coverage", 'coverage-summary.json');
   const coverageData = readCoverageSummary(coverageSummaryPath);
   
   let coverage;

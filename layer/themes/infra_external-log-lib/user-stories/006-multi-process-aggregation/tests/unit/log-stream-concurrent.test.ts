@@ -1,5 +1,5 @@
 import { LogStream } from '../../../004-real-time-streaming/src/external/log-stream';
-import { Readable } from 'stream';
+import { Readable } from 'node:stream';
 
 describe('LogStream Concurrent Handling Unit Test', () => {
   let logStream: LogStream;
@@ -256,7 +256,7 @@ describe('LogStream Concurrent Handling Unit Test', () => {
   it('should maintain thread safety during concurrent log processing', (done) => {
     const receivedLogs: any[] = [];
     const logCounts = new Map<string, number>();
-    const expectedSources = ['Process1', 'Process2', 'Process3'];
+    const expectedSources = ["Process1", "Process2", "Process3"];
     const logsPerSource = 10;
     const totalExpected = expectedSources.length * logsPerSource;
     let processedCount = 0;

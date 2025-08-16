@@ -10,7 +10,7 @@ const fileAPI = getFileAPI();
 
 
 export interface EnvConfig {
-  environment: 'development' | 'demo' | 'release' | 'test';
+  environment: "development" | 'demo' | 'release' | 'test';
   outputPath?: string;
   includeSecrets?: boolean;
   includeServiceUrls?: boolean;
@@ -118,7 +118,7 @@ export class EnvGenerator {
     vars.SESSION_TIMEOUT = environment === 'release' ? '3600' : '7200';
 
     // Security configuration
-    vars.CORS_ENABLED = environment === 'development' ? 'true' : 'false';
+    vars.CORS_ENABLED = environment === "development" ? 'true' : 'false';
     vars.SECURE_COOKIES = environment === 'release' ? 'true' : 'false';
     vars.HTTPS_ONLY = environment === 'release' ? 'true' : 'false';
 
@@ -174,8 +174,8 @@ export class EnvGenerator {
 
     if (environment === 'release') {
       // PostgreSQL for production/release
-      vars.DB_TYPE = 'postgresql';
-      vars.DB_HOST = process.env.POSTGRES_HOST || 'localhost';
+      vars.DB_TYPE = "postgresql";
+      vars.DB_HOST = process.env.POSTGRES_HOST || "localhost";
       vars.DB_PORT = process.env.POSTGRES_PORT || '5432';
       vars.DB_NAME = process.env.POSTGRES_DB || 'portal_security_prod';
       vars.DB_USER = process.env.POSTGRES_USER || 'portal_user';
@@ -197,11 +197,11 @@ export class EnvGenerator {
     
     // Group variables by category
     const categories: Record<string, string[]> = {
-      'Environment': ['NODE_ENV', 'APP_ENV'],
-      'Security': ['JWT_SECRET', 'JWT_ACCESS_SECRET', 'JWT_REFRESH_SECRET', 'API_KEY', 'INTERNAL_API_KEY', 'SESSION_SECRET', 'SESSION_TIMEOUT', 'CORS_ENABLED', 'SECURE_COOKIES', 'HTTPS_ONLY'],
-      'Services': [],
+      "Environment": ['NODE_ENV', 'APP_ENV'],
+      "Security": ['JWT_SECRET', 'JWT_ACCESS_SECRET', 'JWT_REFRESH_SECRET', 'API_KEY', 'INTERNAL_API_KEY', 'SESSION_SECRET', 'SESSION_TIMEOUT', 'CORS_ENABLED', 'SECURE_COOKIES', 'HTTPS_ONLY'],
+      "Services": [],
       'Ports': [],
-      'Database': ['DB_TYPE', 'DB_HOST', 'DB_PORT', 'DB_NAME', 'DB_USER', 'DB_PASSWORD', 'DB_PATH', 'DB_IN_MEMORY', 'DB_SSL', 'DB_CONNECTION_POOL_SIZE'],
+      "Database": ['DB_TYPE', 'DB_HOST', 'DB_PORT', 'DB_NAME', 'DB_USER', 'DB_PASSWORD', 'DB_PATH', 'DB_IN_MEMORY', 'DB_SSL', 'DB_CONNECTION_POOL_SIZE'],
       'URLs': ['BASE_URL', 'API_BASE_URL', 'AUTH_BASE_URL'],
       'Custom': []
     };
@@ -262,7 +262,7 @@ export class EnvGenerator {
         return 'https://portal.production.com';
       case 'demo':
         return 'https://portal.demo.com';
-      case 'development':
+      case "development":
         return 'http://localhost:3456';
       case 'test':
         return 'http://localhost:3456';
@@ -281,7 +281,7 @@ export class EnvGenerator {
     // Read existing env file if it exists
     let existingVars: Record<string, string> = {};
     if (fs.existsSync(filePath)) {
-      const content = fs.readFileSync(filePath, 'utf-8');
+      const content = fileAPI.readFileSync(filePath, 'utf-8');
       existingVars = this.parseEnvContent(content);
     }
 

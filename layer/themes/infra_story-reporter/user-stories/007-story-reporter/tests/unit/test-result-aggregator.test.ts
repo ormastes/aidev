@@ -1,14 +1,14 @@
 import { TestResultAggregator } from '../../src/services/test-result-aggregator';
 import { HierarchicalBuildResult } from '../../src/domain/hierarchical-build-config';
 
-describe('TestResultAggregator', () => {
+describe("TestResultAggregator", () => {
   let aggregator: TestResultAggregator;
   
   beforeEach(() => {
     aggregator = new TestResultAggregator();
   });
 
-  describe('aggregateResults', () => {
+  describe("aggregateResults", () => {
     it('should aggregate simple build results without children', () => {
       const buildResult: HierarchicalBuildResult = {
         buildId: 'test-build',
@@ -35,8 +35,8 @@ describe('TestResultAggregator', () => {
       
       const aggregationStartSpy = jest.fn();
       const aggregationCompleteSpy = jest.fn();
-      aggregator.on('aggregationStart', aggregationStartSpy);
-      aggregator.on('aggregationComplete', aggregationCompleteSpy);
+      aggregator.on("aggregationStart", aggregationStartSpy);
+      aggregator.on("aggregationComplete", aggregationCompleteSpy);
       
       const result = aggregator.aggregateResults(buildResult);
       
@@ -265,7 +265,7 @@ describe('TestResultAggregator', () => {
 
     it('should collect test errors from all levels', () => {
       const grandchild: HierarchicalBuildResult = {
-        buildId: 'grandchild',
+        buildId: "grandchild",
         buildType: 'story',
         status: 'failed',
         testResults: {
@@ -323,7 +323,7 @@ describe('TestResultAggregator', () => {
     });
   });
 
-  describe('generateSummaryReport', () => {
+  describe("generateSummaryReport", () => {
     it('should generate comprehensive summary report', () => {
       const buildResult: HierarchicalBuildResult = {
         buildId: 'test-build',
@@ -355,7 +355,7 @@ describe('TestResultAggregator', () => {
       const aggregatedResult = aggregator.aggregateResults(buildResult);
       
       const summaryGeneratedSpy = jest.fn();
-      aggregator.on('summaryGenerated', summaryGeneratedSpy);
+      aggregator.on("summaryGenerated", summaryGeneratedSpy);
       
       const report = aggregator.generateSummaryReport(aggregatedResult);
       
@@ -490,7 +490,7 @@ describe('TestResultAggregator', () => {
     });
   });
 
-  describe('exportResults', () => {
+  describe("exportResults", () => {
     it('should export results as JSON', async () => {
       const buildResult: HierarchicalBuildResult = {
         buildId: 'test',
@@ -547,7 +547,7 @@ describe('TestResultAggregator', () => {
       };
       
       const aggregatedResult = aggregator.aggregateResults(buildResult);
-      const markdown = await aggregator.exportResults(aggregatedResult, 'markdown');
+      const markdown = await aggregator.exportResults(aggregatedResult, "markdown");
       
       expect(markdown).toContain('# Test Results Summary');
       expect(markdown).toContain('## Overview');
@@ -603,7 +603,7 @@ describe('TestResultAggregator', () => {
       
       const aggregatedResult = aggregator.aggregateResults(buildResult);
       
-      await expect(aggregator.exportResults(aggregatedResult, 'unsupported' as any))
+      await expect(aggregator.exportResults(aggregatedResult, "unsupported" as any))
         .rejects.toThrow('Unsupported export format: unsupported');
     });
   });

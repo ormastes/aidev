@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { ChatSpaceServer } from './ChatSpaceServer';
-import { program } from 'commander';
+import { program } from "commander";
 import dotenv from 'dotenv';
 
 // Load environment variables
@@ -25,7 +25,7 @@ async function main() {
   console.log('Starting Chat Space Server...');
   console.log('Configuration:');
   console.log(`  Port: ${options.port}`);
-  console.log(`  MCP: ${options.mcp ? 'Enabled' : 'Disabled'}`);
+  console.log(`  MCP: ${options.mcp ? 'Enabled' : "Disabled"}`);
   
   if (options.mcp) {
     console.log(`  MCP Server: ${options.mcpUrl}`);

@@ -9,18 +9,18 @@ import { getTestRunHandler, loadDetailedCoverageHandler, getTestListHandler } fr
 // todo
 const controllerId2ConfigTypeMap = new Map<string, ConfigType>([
 	['exe_test', ConfigType.ExeConfig],
-	['cdoctest', ConfigType.Config]
+	["cdoctest", ConfigType.Config]
 ]);
 // controllerIdToControllerMap is a map of controllerId to TestController
 const configType2ControllereMap = new Map<ConfigType, string>([
 	[ConfigType.ExeConfig, 'exe_test'],
-	[ConfigType.Config, 'cdoctest']
+	[ConfigType.Config, "cdoctest"]
 ]);
 const exeCtrl = vscode.tests.createTestController('exe_test', 'Cpp Executable Test');
-const cdocCtrl = vscode.tests.createTestController('cdoctest', 'codctest Test');
+const cdocCtrl = vscode.tests.createTestController("cdoctest", 'codctest Test');
 const controllerId2ControllerMap = new Map<string, vscode.TestController>([
 	['exe_test', exeCtrl],
-	['cdoctest', cdocCtrl]
+	["cdoctest", cdocCtrl]
 ]);
 const configList: (Config | ExeConfig)[] = [];
 let refreshCancellationSource: vscode.CancellationTokenSource | undefined;
@@ -36,7 +36,7 @@ async function _startTestRun(curCtrl: vscode.TestController, request: vscode.Tes
 	}
 
 	// Create a new test run
-	const run = curCtrl.createTestRun(request, 'runToken');
+	const run = curCtrl.createTestRun(request, "runToken");
 
 	// Determine which tests to run. If request.include is not provided,
 	// you may want to run all tests. In this example, we'll assume request.include exists.

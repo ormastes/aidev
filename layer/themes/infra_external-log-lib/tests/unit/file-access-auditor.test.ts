@@ -4,11 +4,11 @@
 
 import { FileAccessAuditor } from '../../children/file-access-auditor';
 import { AuditedFS } from '../../children/audited-fs';
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import * as os from 'os';
 
-describe('FileAccessAuditor', () => {
+describe("FileAccessAuditor", () => {
   let auditor: FileAccessAuditor;
   let tempDir: string;
   
@@ -126,7 +126,7 @@ describe('FileAccessAuditor', () => {
     });
   });
   
-  describe('generateReport', () => {
+  describe("generateReport", () => {
     it('should generate markdown report', async () => {
       const testFile = path.join(tempDir, 'report-test.txt');
       
@@ -222,15 +222,15 @@ describe('FileAccessAuditor', () => {
       
       // Simulate a violation by manually triggering
       const event = await auditorWithHooks.audit('write', '/etc/passwd');
-      event.validation = { authorized: false, violations: ['Unauthorized'] };
-      auditorWithHooks['handleViolation'](event);
+      event.validation = { authorized: false, violations: ["Unauthorized"] };
+      auditorWithHooks["handleViolation"](event);
       
       expect(violationEvent).toBeDefined();
     });
   });
 });
 
-describe('AuditedFS', () => {
+describe("AuditedFS", () => {
   let auditedFs: AuditedFS;
   let auditor: FileAccessAuditor;
   let tempDir: string;

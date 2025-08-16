@@ -229,8 +229,8 @@ function extractFailureMessage(output: string): string {
             
             if (line.includes('FAILED') || 
                 line.includes('Error') || 
-                line.includes('Assertion') ||
-                line.includes('Expected') ||
+                line.includes("Assertion") ||
+                line.includes("Expected") ||
                 line.includes('Actual')) {
                 errorLines.push(line.trim());
             }
@@ -242,7 +242,7 @@ function extractFailureMessage(output: string): string {
     }
 
     // Fallback - look for any failure-related content
-    const failureKeywords = ['FAILED', 'ASSERTION', 'ERROR', 'Expected', 'Actual'];
+    const failureKeywords = ['FAILED', "ASSERTION", 'ERROR', "Expected", 'Actual'];
     const relevantLines = lines.filter(line => 
         failureKeywords.some(keyword => line.toUpperCase().includes(keyword))
     );

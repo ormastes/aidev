@@ -8,8 +8,8 @@
 
 import { VFNameIdWrapper, VFTaskQueueWrapper, VFFileWrapper } from '../../../pipe/index';
 import * as fs from 'fs/promises';
-import { path } from '../../../../infra_external-log-lib/src';
-import { os } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { os } from '../../layer/themes/infra_external-log-lib/src';
 
 describe('Filesystem MCP End-to-End Integration Tests', () => {
   let tempDir: string;
@@ -34,15 +34,15 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
       console.log('📋 Phase 1: Feature Planning');
       
       // Product manager creates new feature
-      const featureId = await nameIdWrapper.addEntity('userAuth', {
+      const featureId = await nameIdWrapper.addEntity("userAuth", {
         title: 'User Authentication System',
         description: 'JWT-based user authentication with login/logout',
         priority: 'high',
         status: 'pending',
-        category: 'security',
-        complexity: 'intermediate',
+        category: "security",
+        complexity: "intermediate",
         estimated_hours: 8,
-        tags: ['auth', 'jwt', 'security'],
+        tags: ['auth', 'jwt', "security"],
         active: true
       }, 'features.vf.json');
 
@@ -52,9 +52,9 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
       // Break down feature into implementation tasks
       const implementationTasks = [
         {
-          type: 'runnable' as const,
+          type: "runnable" as const,
           content: {
-            command: 'implement',
+            command: "implement",
             title: 'Create User Model',
             description: 'Design and implement user data model',
             featureId: featureId,
@@ -63,9 +63,9 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
           }
         },
         {
-          type: 'runnable' as const,
+          type: "runnable" as const,
           content: {
-            command: 'implement', 
+            command: "implement", 
             title: 'JWT Token Service',
             description: 'Implement JWT token generation and validation',
             featureId: featureId,
@@ -74,9 +74,9 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
           }
         },
         {
-          type: 'runnable' as const,
+          type: "runnable" as const,
           content: {
-            command: 'implement',
+            command: "implement",
             title: 'Auth Endpoints',
             description: 'Create login/logout API endpoints',
             featureId: featureId,
@@ -115,11 +115,11 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
               description: 'JWT-based user authentication with login/logout',
               priority: 'high',
               status: 'In Progress',
-              category: 'security',
-              complexity: 'intermediate',
+              category: "security",
+              complexity: "intermediate",
               estimated_hours: 8,
               actual_hours: 8,
-              tags: ['auth', 'jwt', 'security'],
+              tags: ['auth', 'jwt', "security"],
               active: true,
               completed_at: new Date().toISOString()
             }
@@ -143,7 +143,7 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
       
       // Verify feature completion
       const completedFeature = await nameIdWrapper.read(`features.vf.json?id=${featureId}`) as any[];
-      expect(completedFeature[0].data.status).toBe('In Progress');
+      expect(completedFeature[0].data.status).toBe("completed");
       expect(completedFeature[0].data.actual_hours).toBe(8);
 
       // Verify all tasks In Progress
@@ -156,7 +156,7 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
 
     test('Should handle feature modification and task re-prioritization', async () => {
       // Given: An existing feature with tasks
-      const featureId = await nameIdWrapper.addEntity('apiIntegration', {
+      const featureId = await nameIdWrapper.addEntity("apiIntegration", {
         title: 'Payment API Integration',
         priority: 'medium',
         status: 'in-progress',
@@ -165,7 +165,7 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
 
       // Add related tasks
       await taskQueueWrapper.push({
-        type: 'runnable',
+        type: "runnable",
         content: {
           title: 'Payment Gateway Setup',
           featureId: featureId,
@@ -177,7 +177,7 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
       await nameIdWrapper.updateEntity(featureId, {
         data: {
           title: 'Payment API Integration',
-          priority: 'critical',
+          priority: "critical",
           status: 'in-progress',
           estimated_hours: 12,
           urgency_reason: 'Customer payment issues affecting revenue'
@@ -186,19 +186,19 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
 
       // Add urgent task
       await taskQueueWrapper.push({
-        type: 'runnable',
+        type: "runnable",
         content: {
           title: 'Emergency Payment Fix',
           featureId: featureId,
           estimated_time: '2 hours'
         }
-      }, 'critical', 'tasks.vf.json');
+      }, "critical", 'tasks.vf.json');
 
       // Then: System should reflect updated priorities
       const updatedFeature = await nameIdWrapper.read(`features.vf.json?id=${featureId}`) as any[];
-      expect(updatedFeature[0].data.priority).toBe('critical');
+      expect(updatedFeature[0].data.priority).toBe("critical");
 
-      const urgentTask = await taskQueueWrapper.peek('critical', 'tasks.vf.json');
+      const urgentTask = await taskQueueWrapper.peek("critical", 'tasks.vf.json');
       expect(urgentTask!.content.title).toBe('Emergency Payment Fix');
 
       console.log('🔄 Feature modification and re-prioritization handled correctly');
@@ -209,10 +209,10 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
     test('Should generate comprehensive project status reports', async () => {
       // Setup: Create multiple features and tasks
       const features = [
-        { name: 'frontend', title: 'User Dashboard', priority: 'high', status: 'In Progress', hours: 16 },
+        { name: "frontend", title: 'User Dashboard', priority: 'high', status: 'In Progress', hours: 16 },
         { name: 'backend', title: 'API Gateway', priority: 'high', status: 'in-progress', hours: 20 },
-        { name: 'database', title: 'Data Migration', priority: 'medium', status: 'pending', hours: 8 },
-        { name: 'security', title: 'Security Audit', priority: 'low', status: 'pending', hours: 12 }
+        { name: "database", title: 'Data Migration', priority: 'medium', status: 'pending', hours: 8 },
+        { name: "security", title: 'Security Audit', priority: 'low', status: 'pending', hours: 12 }
       ];
 
       const featureIds = [];
@@ -231,7 +231,7 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
       const taskPriorities = { 'high': 'high', 'medium': 'medium', 'low': 'low' };
       for (let i = 0; i < features.length; i++) {
         await taskQueueWrapper.push({
-          type: 'runnable',
+          type: "runnable",
           content: {
             title: `Implement ${features[i].title}`,
             featureId: featureIds[i],
@@ -274,7 +274,7 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
 
     test('Should correlate features with task execution metrics', async () => {
       // Create feature with detailed tracking
-      const featureId = await nameIdWrapper.addEntity('monitoring', {
+      const featureId = await nameIdWrapper.addEntity("monitoring", {
         title: 'System Monitoring Dashboard',
         priority: 'high',
         status: 'in-progress',
@@ -325,7 +325,7 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
 
       for (const taskTitle of tasks) {
         await taskQueueWrapper.push({
-          type: 'runnable',
+          type: "runnable",
           content: {
             title: taskTitle,
             featureId: featureId,
@@ -344,7 +344,7 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
       const finalFeature = await nameIdWrapper.read(`tracking-features.vf.json?id=${featureId}`);
       const feature = finalFeature[0].data;
 
-      expect(feature.status).toBe('In Progress');
+      expect(feature.status).toBe("completed");
       expect(feature.tasks_completed).toBe(3);
       expect(feature.actual_hours).toBeGreaterThan(0);
       expect(feature.efficiency_ratio).toBeDefined();
@@ -362,17 +362,17 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
       
       // Define microservices architecture
       const microservices = [
-        { name: 'userService', dependencies: [] },
-        { name: 'authService', dependencies: ['userService'] },
-        { name: 'orderService', dependencies: ['userService', 'authService'] },
-        { name: 'paymentService', dependencies: ['orderService'] },
-        { name: 'notificationService', dependencies: ['orderService', 'paymentService'] }
+        { name: "userService", dependencies: [] },
+        { name: "authService", dependencies: ["userService"] },
+        { name: "orderService", dependencies: ["userService", "authService"] },
+        { name: "paymentService", dependencies: ["orderService"] },
+        { name: "notificationService", dependencies: ["orderService", "paymentService"] }
       ];
 
       // Create features for each microservice
       const serviceFeatures = {};
       for (const service of microservices) {
-        const featureId = await nameIdWrapper.addEntity('microservices', {
+        const featureId = await nameIdWrapper.addEntity("microservices", {
           title: `${service.name} Implementation`,
           service_name: service.name,
           dependencies: service.dependencies,
@@ -415,17 +415,17 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
           }
         }, 'microservices.vf.json');
 
-        return { service: serviceName, status: 'deployed' };
+        return { service: serviceName, status: "deployed" };
       };
 
       taskQueueWrapper.setTaskExecutor(dependencyExecutor);
 
       // Add tasks in dependency order and execute
-      const executionOrder = ['userService', 'authService', 'orderService', 'paymentService', 'notificationService'];
+      const executionOrder = ["userService", "authService", "orderService", "paymentService", "notificationService"];
       
       for (const serviceName of executionOrder) {
         await taskQueueWrapper.push({
-          type: 'runnable',
+          type: "runnable",
           content: {
             title: `Deploy ${serviceName}`,
             service_name: serviceName,
@@ -459,14 +459,14 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
       const pipelineStages = [
         { stage: 'build', title: 'Build Application', duration: 5 },
         { stage: 'test', title: 'Run Test Suite', duration: 10 },
-        { stage: 'security', title: 'Security Scan', duration: 8 },
+        { stage: "security", title: 'Security Scan', duration: 8 },
         { stage: 'deploy-staging', title: 'Deploy to Staging', duration: 3 },
         { stage: 'integration-test', title: 'Integration Testing', duration: 15 },
         { stage: 'deploy-production', title: 'Deploy to Production', duration: 5 }
       ];
 
       // Create pipeline execution
-      const pipelineId = await nameIdWrapper.addEntity('pipeline', {
+      const pipelineId = await nameIdWrapper.addEntity("pipeline", {
         title: 'Release Pipeline v2.1.0',
         version: '2.1.0',
         status: 'running',
@@ -478,7 +478,7 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
       // Add pipeline tasks
       for (const stage of pipelineStages) {
         await taskQueueWrapper.push({
-          type: 'runnable',
+          type: "runnable",
           content: {
             title: stage.title,
             stage: stage.stage,
@@ -526,7 +526,7 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
 
       // Verify pipeline completion
       const completedPipeline = await nameIdWrapper.read(`pipelines.vf.json?id=${pipelineId}`);
-      expect(completedPipeline[0].data.status).toBe('In Progress');
+      expect(completedPipeline[0].data.status).toBe("completed");
       expect(completedPipeline[0].data.stages_completed).toBe(6);
 
       const pipelineStatus = await taskQueueWrapper.getQueueStatus('pipeline-queue.vf.json');
@@ -541,10 +541,10 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
       // Scenario: System resilience testing
       
       // Create critical data that must remain consistent
-      const criticalFeatureId = await nameIdWrapper.addEntity('critical', {
+      const criticalFeatureId = await nameIdWrapper.addEntity("critical", {
         title: 'Payment Processing System',
         status: 'in-progress',
-        data_integrity: 'critical',
+        data_integrity: "critical",
         backup_required: true
       }, 'critical-features.vf.json');
 
@@ -570,18 +570,18 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
       // Add tasks that might fail
       for (let i = 0; i < 3; i++) {
         await taskQueueWrapper.push({
-          type: 'runnable',
+          type: "runnable",
           content: {
             title: `Critical Operation ${i + 1}`,
             feature_id: criticalFeatureId
           }
-        }, 'critical', 'critical-queue.vf.json');
+        }, "critical", 'critical-queue.vf.json');
       }
 
       // Execute tasks (second one will fail)
       try {
-        await taskQueueWrapper.pop('critical', 'critical-queue.vf.json'); // In Progress
-        await taskQueueWrapper.pop('critical', 'critical-queue.vf.json'); // Will fail
+        await taskQueueWrapper.pop("critical", 'critical-queue.vf.json'); // In Progress
+        await taskQueueWrapper.pop("critical", 'critical-queue.vf.json'); // Will fail
       } catch (error) {
         // Expected failure
       }
@@ -597,7 +597,7 @@ describe('Filesystem MCP End-to-End Integration Tests', () => {
       const backupData2 = await fileWrapper.read('backup-critical-features.json');
       
       // Critical feature should still exist and be unchanged
-      expect(criticalData).toHaveProperty('critical');
+      expect(criticalData).toHaveProperty("critical");
       expect(criticalData.critical[0].id).toBe(criticalFeatureId);
 
       // Backup should be available for recovery

@@ -63,7 +63,7 @@ test.describe('GUI Selector - Real E2E Tests', () => {
     });
     
     // Monitor network failures
-    page.on('requestfailed', request => {
+    page.on("requestfailed", request => {
       console.error('Request failed:', request.url(), request.failure()?.errorText);
     });
   });
@@ -96,7 +96,7 @@ test.describe('GUI Selector - Real E2E Tests', () => {
     
     // Step 2: Login with real credentials
     await page.click('text=Login');
-    await page.fill('input[name="username"]', 'developer');
+    await page.fill('input[name="username"]', "developer");
     await page.fill('input[name="password"]', 'dev123');
     await page.click('button[type="submit"]');
     
@@ -164,7 +164,7 @@ test.describe('GUI Selector - Real E2E Tests', () => {
     
     // Download report
     const [download] = await Promise.all([
-      page.waitForEvent('download'),
+      page.waitForEvent("download"),
       page.click('a:has-text("Download Report")')
     ]);
     
@@ -184,9 +184,9 @@ test.describe('GUI Selector - Real E2E Tests', () => {
   test('should handle concurrent users selecting GUIs', async () => {
     // Create multiple browser contexts for different users
     const users = [
-      { username: 'admin', password: 'admin123' },
-      { username: 'user1', password: 'user123' },
-      { username: 'developer', password: 'dev123' }
+      { username: 'admin', password: "PLACEHOLDER" },
+      { username: 'user1', password: "PLACEHOLDER" },
+      { username: "developer", password: "PLACEHOLDER" }
     ];
     
     const contexts: BrowserContext[] = [];
@@ -250,7 +250,7 @@ test.describe('GUI Selector - Real E2E Tests', () => {
     
     // Create app with specific requirements
     await page.click('button:has-text("New App")');
-    await page.fill('input[name="appName"]', 'RequirementsTest');
+    await page.fill('input[name="appName"]', "RequirementsTest");
     await page.selectOption('select[name="theme"]', 'portal_gui-selector');
     
     // Add requirements
@@ -272,7 +272,7 @@ test.describe('GUI Selector - Real E2E Tests', () => {
     // Verify requirements are displayed
     await expect(page.locator('.requirements-list')).toBeVisible();
     await expect(page.locator('.requirements-list')).toContainText('dark mode');
-    await expect(page.locator('.requirements-list')).toContainText('responsive');
+    await expect(page.locator('.requirements-list')).toContainText("responsive");
     
     // Select option
     await page.click('.gui-option:first-child');
@@ -293,7 +293,7 @@ test.describe('GUI Selector - Real E2E Tests', () => {
     // Verify requirements were saved
     const app = await testDb.db.get(
       'SELECT * FROM apps WHERE name = ?',
-      'RequirementsTest'
+      "RequirementsTest"
     );
     
     const config = JSON.parse(app.config);
@@ -319,7 +319,7 @@ test.describe('GUI Selector - Real E2E Tests', () => {
     
     // Get real performance metrics from browser
     const metrics = await page.evaluate(() => {
-      const perfData = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+      const perfData = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming;
       return {
         domContentLoaded: perfData.domContentLoadedEventEnd - perfData.fetchStart,
         loadComplete: perfData.loadEventEnd - perfData.fetchStart,
@@ -345,7 +345,7 @@ test.describe('GUI Selector - Real E2E Tests', () => {
     
     // Test network error handling
     await page.route('**/api/themes/**', route => {
-      route.abort('connectionfailed');
+      route.abort("connectionfailed");
     });
     
     await page.click('button:has-text("Select GUI")');
@@ -384,7 +384,7 @@ test.describe('GUI Selector - Real E2E Tests', () => {
     
     // Track events
     const events: any[] = [];
-    await page.exposeFunction('trackEvent', (event: any) => {
+    await page.exposeFunction("trackEvent", (event: any) => {
       events.push(event);
     });
     
@@ -428,7 +428,7 @@ async function setupGuiTestData(testDb: TestDatabase) {
     { name: 'Modern', style: 'modern', preview: '<div class="modern">Modern Design</div>' },
     { name: 'Classic', style: 'classic', preview: '<div class="classic">Classic Design</div>' },
     { name: 'Minimal', style: 'minimal', preview: '<div class="minimal">Minimal Design</div>' },
-    { name: 'Creative', style: 'creative', preview: '<div class="creative">Creative Design</div>' }
+    { name: "Creative", style: "creative", preview: '<div class="creative">Creative Design</div>' }
   ];
   
   for (const template of templates) {
@@ -493,7 +493,7 @@ async function setupGuiRoutes(testServer: TestServer) {
 
 async function loginUser(page: Page) {
   await page.click('text=Login');
-  await page.fill('input[name="username"]', 'developer');
+  await page.fill('input[name="username"]', "developer");
   await page.fill('input[name="password"]', 'dev123');
   await page.click('button[type="submit"]');
   await page.waitForSelector('.user-menu', { timeout: 5000 });

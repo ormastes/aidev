@@ -25,7 +25,7 @@ export interface TestStep {
   // Enhanced properties for better manual test generation
   element?: string;
   testData?: string;
-  interactionType?: 'click' | 'input' | 'select' | 'navigation' | 'wait' | 'generic';
+  interactionType?: 'click' | 'input' | 'select' | "navigation" | 'wait' | 'generic';
   verificationElement?: string;
   expectedValue?: string;
   matcher?: string;
@@ -65,7 +65,7 @@ export interface DocumentMetadata {
 
 export interface ConversionOptions {
   format?: string;
-  template?: 'simple' | 'detailed' | 'compliance';
+  template?: 'simple' | "detailed" | "compliance";
   includeCodeSnippets?: boolean;
   includeScreenshots?: boolean;
   groupByFeature?: boolean;
@@ -83,7 +83,7 @@ export interface FormatOptions {
   includeTableOfContents?: boolean;
   includeIndex?: boolean;
   includeGlossary?: boolean;
-  styling?: 'default' | 'corporate' | 'minimal';
+  styling?: 'default' | "corporate" | 'minimal';
 }
 
 export interface DocumentFormatter {

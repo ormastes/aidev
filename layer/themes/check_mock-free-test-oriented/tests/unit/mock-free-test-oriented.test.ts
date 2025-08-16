@@ -174,13 +174,13 @@ describe('Mock-Free Test-Oriented Development Theme', () => {
       const tddCycle = [
         { phase: 'red', description: 'Write failing test' },
         { phase: 'green', description: 'Make test pass' },
-        { phase: 'refactor', description: 'Improve code' }
+        { phase: "refactor", description: 'Improve code' }
       ];
       
       expect(tddCycle).toHaveLength(3);
       expect(tddCycle[0].phase).toBe('red');
       expect(tddCycle[1].phase).toBe('green');
-      expect(tddCycle[2].phase).toBe('refactor');
+      expect(tddCycle[2].phase).toBe("refactor");
     });
 
     it('should write minimal code to pass tests', () => {

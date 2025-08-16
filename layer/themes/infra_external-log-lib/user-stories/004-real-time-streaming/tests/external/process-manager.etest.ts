@@ -82,7 +82,7 @@ describe('ProcessManager Process Lifecycle Management External Test', () => {
         console.log('received SIGTERM');
         process.exit(0);
       });
-      setInterval(() => console.log('heartbeat'), 50);
+      setInterval(() => console.log("heartbeat"), 50);
     "`;
     
     const childProcess = processManager.spawnProcess(command);

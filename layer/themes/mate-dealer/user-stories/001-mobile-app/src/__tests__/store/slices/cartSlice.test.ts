@@ -6,7 +6,7 @@ import cartReducer, {
   CartItem,
 } from '../../store/slices/cartSlice';
 
-describe('cartSlice', () => {
+describe("cartSlice", () => {
   const initialState = {
     items: [],
     totalItems: 0,

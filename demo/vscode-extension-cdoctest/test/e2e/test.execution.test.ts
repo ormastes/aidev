@@ -1,6 +1,6 @@
 import { test, expect } from './setup';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 test.describe('Test Execution', () => {
   test('should run a single test and show results', async ({ page, workspacePath }) => {

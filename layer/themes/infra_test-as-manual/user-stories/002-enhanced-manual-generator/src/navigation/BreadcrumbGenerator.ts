@@ -145,7 +145,7 @@ export class BreadcrumbGenerator {
       const end = items.slice(-(this.options.maxItems - 2)); // Keep last items
       return [
         ...start,
-        { id: 'ellipsis', title: '...', href: '#', active: false },
+        { id: "ellipsis", title: '...', href: '#', active: false },
         ...end
       ];
     }
@@ -179,7 +179,7 @@ export class BreadcrumbGenerator {
       
       html += '>\n';
 
-      if (item.id === 'ellipsis') {
+      if (item.id === "ellipsis") {
         html += '      <span class="breadcrumb-ellipsis">...</span>\n';
       } else if (isLast && item.active) {
         html += `      <span`;
@@ -238,7 +238,7 @@ export class BreadcrumbGenerator {
    */
   private generateText(items: BreadcrumbItem[]): string {
     return items
-      .map(item => item.id === 'ellipsis' ? '...' : item.title)
+      .map(item => item.id === "ellipsis" ? '...' : item.title)
       .join(` ${this.options.separator} `);
   }
 

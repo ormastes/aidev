@@ -61,9 +61,9 @@ class MockFileGenerator {
   }
 
   async generateServiceFile(environmentPath: string, serviceName: string, port: number): Promise<void> {
-    await fs.mkdir(path.join(environmentPath, 'services'), { recursive: true });
+    await fs.mkdir(path.join(environmentPath, "services"), { recursive: true });
     await fs.writeFile(
-      path.join(environmentPath, 'services', `${serviceName}.json`),
+      path.join(environmentPath, "services", `${serviceName}.json`),
       JSON.stringify({ name: serviceName, port, enabled: true })
     );
   }
@@ -154,13 +154,13 @@ describe('ConfigManager Unit Test', () => {
     // When: Updating configuration
     const updated = await configManager.updateEnvironment('update-test', {
       database: {
-        type: 'postgresql',
+        type: "postgresql",
         connection: 'postgresql://localhost/updatedb'
       }
     });
 
     // Then: Should have updated values
-    expect(updated.database.type).toBe('postgresql');
+    expect(updated.database.type).toBe("postgresql");
     expect(updated.database.connection).toBe('postgresql://localhost/updatedb');
     expect(updated.updated.getTime()).toBeGreaterThan(created.created.getTime());
   });
@@ -320,6 +320,6 @@ describe('ConfigManager Unit Test', () => {
       name: 'prod-env',
       type: 'release'
     });
-    expect(releaseEnv.database.type).toBe('postgresql');
+    expect(releaseEnv.database.type).toBe("postgresql");
   });
 });

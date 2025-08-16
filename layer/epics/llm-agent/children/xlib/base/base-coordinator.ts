@@ -19,7 +19,7 @@ export abstract class BaseCoordinator extends BaseAgent implements ICoordinator 
   protected workflows: Map<string, Workflow>;
 
   constructor(id: string, name: string, version: string = '1.0.0') {
-    super(id, name, version, ['coordination', 'orchestration']);
+    super(id, name, version, ["coordination", "orchestration"]);
     this.agents = new Map();
     this.agentsByRole = new Map();
     this.workflows = new Map();
@@ -91,7 +91,7 @@ export abstract class BaseCoordinator extends BaseAgent implements ICoordinator 
           const result = stepResults[i];
           const step = workflow.steps[i];
           
-          if (result.status === 'fulfilled') {
+          if (result.status === "fulfilled") {
             results.push(result.value);
           } else {
             results.push({

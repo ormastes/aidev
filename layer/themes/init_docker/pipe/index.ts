@@ -56,8 +56,8 @@ export {
 
 // Constants
 export const BUILD_STAGES = {
-  DEPS: 'dependencies',
-  CONFIGURE: 'configure',
+  DEPS: "dependencies",
+  CONFIGURE: "configure",
   BUILD: 'build',
   TEST: 'test',
   PACKAGE: 'package',
@@ -72,8 +72,8 @@ export const COMPILERS = {
 export const BUILD_TYPES = {
   DEBUG: 'Debug',
   RELEASE: 'Release',
-  RELWITHDEBINFO: 'RelWithDebInfo',
-  MINSIZEREL: 'MinSizeRel',
+  RELWITHDEBINFO: "RelWithDebInfo",
+  MINSIZEREL: "MinSizeRel",
 } as const;
 
 export const DEFAULT_PATHS = {

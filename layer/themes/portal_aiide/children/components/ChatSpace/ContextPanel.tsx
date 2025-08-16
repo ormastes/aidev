@@ -34,7 +34,7 @@ export const ContextPanel: React.FC<ContextPanelProps> = ({
         return 'blue';
       case 'code':
         return 'green';
-      case 'selection':
+      case "selection":
         return 'orange';
       default:
         return 'default';

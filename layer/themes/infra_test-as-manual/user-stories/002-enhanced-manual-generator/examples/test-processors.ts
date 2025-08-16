@@ -9,7 +9,7 @@ import { ManualGenerator } from '../src/core/ManualGenerator';
 import { TestParser } from '../src/core/TestParser';
 import { HTMLProcessor, MarkdownProcessor, JSONProcessor, PDFProcessor } from '../src/processors';
 import * as fs from 'fs/promises';
-import { path } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import { getFileAPI, FileType } from '../../../../infra_external-log-lib/pipe';
 
 const fileAPI = getFileAPI();
@@ -62,7 +62,7 @@ Feature: E-Commerce Shopping Cart
     return;
   }
   
-  const outputDir = path.join(__dirname, 'output', 'processors');
+  const outputDir = path.join(__dirname, 'output', "processors");
   await fileAPI.createDirectory(outputDir);
   
   // Test HTML Processor
@@ -140,7 +140,7 @@ Feature: E-Commerce Shopping Cart
   console.log('-'.repeat(40));
   const { ProcessorFactory } = await import('../src/processors');
   
-  const formats: Array<'html' | 'markdown' | 'json' | 'pdf'> = ['html', { type: FileType.TEMPORARY }) {
+  const formats: Array<'html' | "markdown" | 'json' | 'pdf'> = ['html', { type: FileType.TEMPORARY }) {
     try {
       const processor = ProcessorFactory.createProcessor(format, {});
       console.log(`✅ Created ${format} processor via factory`);

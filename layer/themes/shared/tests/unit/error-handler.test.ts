@@ -6,7 +6,7 @@ import {
   ErrorResult 
 } from '../../src/utils/error-handler';
 
-describe('ErrorHandler', () => {
+describe("ErrorHandler", () => {
   let handler: ErrorHandler;
 
   beforeEach(() => {
@@ -20,7 +20,7 @@ describe('ErrorHandler', () => {
     jest.restoreAllMocks();
   });
 
-  describe('getInstance', () => {
+  describe("getInstance", () => {
     it('should return singleton instance', () => {
       const instance1 = ErrorHandler.getInstance();
       const instance2 = ErrorHandler.getInstance();
@@ -44,7 +44,7 @@ describe('ErrorHandler', () => {
       const error = new Error('Test error');
       const result = handler.handle(
         () => { throw error; },
-        { operation: 'test-op', component: 'TestComponent' }
+        { operation: 'test-op', component: "TestComponent" }
       );
 
       expect(result.success).toBe(false);
@@ -54,7 +54,7 @@ describe('ErrorHandler', () => {
     });
   });
 
-  describe('handleAsync', () => {
+  describe("handleAsync", () => {
     it('should handle successful async operation', async () => {
       const result = await handler.handleAsync(
         async () => 'async-success',
@@ -110,7 +110,7 @@ describe('ErrorHandler', () => {
     });
   });
 
-  describe('createSafeWrapper', () => {
+  describe("createSafeWrapper", () => {
     it('should wrap function and catch errors', () => {
       const unsafeFunc = (x: number) => {
         if (x < 0) throw new Error('Negative not allowed');

@@ -31,7 +31,7 @@ TIMESTAMP=${Date.now()}`;
   async createDeploymentConfig(): Promise<boolean> {
     const configPath = path.join(this.getDeployDir(), 'deployment.json');
     const config = {
-      deployment: this['deploymentType'],
+      deployment: this["deploymentType"],
       appName: this['appName'],
       mode: this['mode'],
       timestamp: Date.now()
@@ -78,7 +78,7 @@ describe('BaseSetup - Mock Free Tests', () => {
 
       // Get a truly available port
       const port = await getAvailablePort();
-      const isAvailable = await setup['checkPortAvailability'](port);
+      const isAvailable = await setup["checkPortAvailability"](port);
       expect(isAvailable).toBe(true);
     });
 
@@ -99,7 +99,7 @@ describe('BaseSetup - Mock Free Tests', () => {
       });
 
       // Check if occupied port is detected
-      const isAvailable = await setup['checkPortAvailability'](port);
+      const isAvailable = await setup["checkPortAvailability"](port);
       expect(isAvailable).toBe(false);
 
       // Clean up
@@ -116,7 +116,7 @@ describe('BaseSetup - Mock Free Tests', () => {
       }, 'demo');
 
       // Create real directories
-      const result = await setup['createDirectoryStructure']();
+      const result = await setup["createDirectoryStructure"]();
       expect(result).toBe(true);
 
       // Verify directories actually exist
@@ -143,10 +143,10 @@ describe('BaseSetup - Mock Free Tests', () => {
         appName: 'env-test-app',
         mode: 'vf' as Mode,
         skipDb: false
-      }, 'development' as DeploymentType);
+      }, "development" as DeploymentType);
 
       // Create real .env file
-      const result = await setup['createEnvFile']();
+      const result = await setup["createEnvFile"]();
       expect(result).toBe(true);
 
       // Verify file exists and has content
@@ -178,7 +178,7 @@ describe('BaseSetup - Mock Free Tests', () => {
       }, 'demo');
 
       // Create real task queue file
-      const result = await setup['createTaskQueue']();
+      const result = await setup["createTaskQueue"]();
       expect(result).toBe(true);
 
       // Verify file exists
@@ -189,7 +189,7 @@ describe('BaseSetup - Mock Free Tests', () => {
       // Read and parse real JSON
       const content = await fs.readJson(queuePath);
       expect(content).toHaveProperty('tasks');
-      expect(content).toHaveProperty('metadata');
+      expect(content).toHaveProperty("metadata");
       expect(content.metadata.mode).toBe('vf');
     });
 
@@ -201,7 +201,7 @@ describe('BaseSetup - Mock Free Tests', () => {
       }, 'demo');
 
       // Create real task queue file
-      const result = await setup['createTaskQueue']();
+      const result = await setup["createTaskQueue"]();
       expect(result).toBe(true);
 
       // Verify file exists
@@ -225,7 +225,7 @@ describe('BaseSetup - Mock Free Tests', () => {
       }, 'demo');
 
       // Check real requirements
-      const result = await setup['checkRequirements']();
+      const result = await setup["checkRequirements"]();
       
       // Should pass because we have node and npm
       expect(result).toBe(true);

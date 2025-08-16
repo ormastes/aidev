@@ -4,7 +4,7 @@ import {
   Credentials, 
   AuthResult 
 } from '../../children/xlib/interfaces/infrastructure.interfaces';
-import * as crypto from 'crypto';
+import * as crypto from 'node:crypto';
 
 // Mock crypto module
 let mockTokenCounter = 0;
@@ -15,7 +15,7 @@ jest.mock('crypto', () => ({
   }))
 }));
 
-describe('AuthService', () => {
+describe("AuthService", () => {
   let authService: AuthService;
 
   beforeEach(() => {
@@ -23,28 +23,28 @@ describe('AuthService', () => {
     jest.clearAllMocks();
   });
 
-  describe('authenticate', () => {
+  describe("authenticate", () => {
     it('should authenticate admin user with password', async () => {
       const credentials: Credentials = {
-        type: 'password',
+        type: "password",
         username: 'admin',
-        password: 'admin123'
+        password: "PLACEHOLDER"
       };
 
       const result = await authService.authenticate(credentials);
 
       expect(result).toHaveProperty('token');
-      expect(result).toHaveProperty('refreshToken');
-      expect(result).toHaveProperty('expiresIn');
+      expect(result).toHaveProperty("refreshToken");
+      expect(result).toHaveProperty("expiresIn");
       expect(result.user.username).toBe('admin');
       expect(result.user.roles).toContain('admin');
     });
 
     it('should fail authentication with wrong password', async () => {
       const credentials: Credentials = {
-        type: 'password',
+        type: "password",
         username: 'admin',
-        password: 'wrongpassword'
+        password: "PLACEHOLDER"
       };
 
       await expect(authService.authenticate(credentials))
@@ -53,8 +53,8 @@ describe('AuthService', () => {
 
     it('should fail authentication with missing username', async () => {
       const credentials: Credentials = {
-        type: 'password',
-        password: 'admin123'
+        type: "password",
+        password: "PLACEHOLDER"
       };
 
       await expect(authService.authenticate(credentials))
@@ -63,7 +63,7 @@ describe('AuthService', () => {
 
     it('should fail authentication with missing password', async () => {
       const credentials: Credentials = {
-        type: 'password',
+        type: "password",
         username: 'admin'
       };
 
@@ -73,15 +73,15 @@ describe('AuthService', () => {
 
     it('should authenticate developer user', async () => {
       const credentials: Credentials = {
-        type: 'password',
-        username: 'developer',
-        password: 'dev123'
+        type: "password",
+        username: "developer",
+        password: "PLACEHOLDER"
       };
 
       const result = await authService.authenticate(credentials);
 
-      expect(result.user.username).toBe('developer');
-      expect(result.user.roles).toContain('developer');
+      expect(result.user.username).toBe("developer");
+      expect(result.user.roles).toContain("developer");
     });
 
     it('should fail OAuth authentication (not implemented)', async () => {
@@ -94,12 +94,12 @@ describe('AuthService', () => {
     });
   });
 
-  describe('validateToken', () => {
+  describe("validateToken", () => {
     it('should validate a valid token', async () => {
       const credentials: Credentials = {
-        type: 'password',
+        type: "password",
         username: 'admin',
-        password: 'admin123'
+        password: "PLACEHOLDER"
       };
 
       const authResult = await authService.authenticate(credentials);
@@ -114,23 +114,23 @@ describe('AuthService', () => {
       const tokenInfo = await authService.validateToken('invalid-token');
 
       expect(tokenInfo.valid).toBe(false);
-      expect(tokenInfo.user.username).toBe('anonymous');
+      expect(tokenInfo.user.username).toBe("anonymous");
     });
   });
 
   describe('refresh', () => {
     it('should refresh token with valid refresh token', async () => {
       const credentials: Credentials = {
-        type: 'password',
+        type: "password",
         username: 'admin',
-        password: 'admin123'
+        password: "PLACEHOLDER"
       };
 
       const authResult = await authService.authenticate(credentials);
       const refreshResult = await authService.refresh(authResult.refreshToken);
 
       expect(refreshResult).toHaveProperty('token');
-      expect(refreshResult).toHaveProperty('refreshToken');
+      expect(refreshResult).toHaveProperty("refreshToken");
       expect(refreshResult.user.username).toBe('admin');
     });
 
@@ -143,9 +143,9 @@ describe('AuthService', () => {
   describe('logout', () => {
     it('should logout and invalidate token', async () => {
       const credentials: Credentials = {
-        type: 'password',
+        type: "password",
         username: 'admin',
-        password: 'admin123'
+        password: "PLACEHOLDER"
       };
 
       const authResult = await authService.authenticate(credentials);
@@ -156,12 +156,12 @@ describe('AuthService', () => {
     });
   });
 
-  describe('hasPermission', () => {
+  describe("hasPermission", () => {
     it('should return true for admin with any permission', async () => {
       const credentials: Credentials = {
-        type: 'password',
+        type: "password",
         username: 'admin',
-        password: 'admin123'
+        password: "PLACEHOLDER"
       };
 
       const authResult = await authService.authenticate(credentials);
@@ -178,9 +178,9 @@ describe('AuthService', () => {
 
     it('should check specific permissions for developer', async () => {
       const credentials: Credentials = {
-        type: 'password',
-        username: 'developer',
-        password: 'dev123'
+        type: "password",
+        username: "developer",
+        password: "PLACEHOLDER"
       };
 
       const authResult = await authService.authenticate(credentials);
@@ -194,9 +194,9 @@ describe('AuthService', () => {
   describe('getUser', () => {
     it('should get user info with valid token', async () => {
       const credentials: Credentials = {
-        type: 'password',
+        type: "password",
         username: 'admin',
-        password: 'admin123'
+        password: "PLACEHOLDER"
       };
 
       const authResult = await authService.authenticate(credentials);
@@ -213,12 +213,12 @@ describe('AuthService', () => {
     });
   });
 
-  describe('updateUser', () => {
+  describe("updateUser", () => {
     it('should update user email', async () => {
       const credentials: Credentials = {
-        type: 'password',
-        username: 'developer',
-        password: 'dev123'
+        type: "password",
+        username: "developer",
+        password: "PLACEHOLDER"
       };
 
       const authResult = await authService.authenticate(credentials);
@@ -227,14 +227,14 @@ describe('AuthService', () => {
       });
 
       expect(updatedUser.email).toBe('newemail@example.com');
-      expect(updatedUser.username).toBe('developer');
+      expect(updatedUser.username).toBe("developer");
     });
 
     it('should update user metadata', async () => {
       const credentials: Credentials = {
-        type: 'password',
-        username: 'developer',
-        password: 'dev123'
+        type: "password",
+        username: "developer",
+        password: "PLACEHOLDER"
       };
 
       const authResult = await authService.authenticate(credentials);
@@ -264,7 +264,7 @@ describe('AuthService', () => {
     it('should fail with invalid API key', async () => {
       const credentials: Credentials = {
         type: 'apiKey',
-        apiKey: 'invalid-api-key'
+        api_key: process.env.API_KEY || "PLACEHOLDER"
       };
 
       await expect(authService.authenticate(credentials))
@@ -272,33 +272,33 @@ describe('AuthService', () => {
     });
   });
 
-  describe('createUser', () => {
+  describe("createUser", () => {
     it('should create a new user with default role', async () => {
-      const user = await authService.createUser('testuser', 'password123', 'test@example.com');
+      const user = await authService.createUser("testuser", "password123", 'test@example.com');
 
-      expect(user.username).toBe('testuser');
+      expect(user.username).toBe("testuser");
       expect(user.email).toBe('test@example.com');
       expect(user.roles).toEqual(['user']);
-      expect(user).not.toHaveProperty('passwordHash');
+      expect(user).not.toHaveProperty("passwordHash");
       expect(user).not.toHaveProperty('apiKeys');
     });
 
     it('should create a user with custom roles', async () => {
-      const user = await authService.createUser('adminuser', 'pass123', 'admin@example.com', ['admin', 'developer']);
+      const user = await authService.createUser("adminuser", 'pass123', 'admin@example.com', ['admin', "developer"]);
 
-      expect(user.username).toBe('adminuser');
-      expect(user.roles).toEqual(['admin', 'developer']);
+      expect(user.username).toBe("adminuser");
+      expect(user.roles).toEqual(['admin', "developer"]);
       expect(user.permissions).toContain('*');  // Admin has wildcard permissions
       expect(user.permissions).toContain('agent:create');
     });
 
     it('should authenticate created user', async () => {
-      await authService.createUser('newuser', 'mypassword', 'new@example.com');
+      await authService.createUser('newuser', "mypassword", 'new@example.com');
 
       const credentials: Credentials = {
-        type: 'password',
+        type: "password",
         username: 'newuser',
-        password: 'mypassword'
+        password: "PLACEHOLDER"
       };
 
       const result = await authService.authenticate(credentials);
@@ -307,7 +307,7 @@ describe('AuthService', () => {
     });
   });
 
-  describe('createApiKey', () => {
+  describe("createApiKey", () => {
     it('should create API key for existing user', async () => {
       const user = await authService.createUser('apiuser', 'pass123', 'api@example.com');
       const apiKey = await authService.createApiKey(user.id);
@@ -317,7 +317,7 @@ describe('AuthService', () => {
     });
 
     it('should authenticate with created API key', async () => {
-      const user = await authService.createUser('apiuser2', 'pass123', 'api2@example.com');
+      const user = await authService.createUser("apiuser2", 'pass123', 'api2@example.com');
       const apiKey = await authService.createApiKey(user.id);
 
       const credentials: Credentials = {
@@ -326,7 +326,7 @@ describe('AuthService', () => {
       };
 
       const result = await authService.authenticate(credentials);
-      expect(result.user.username).toBe('apiuser2');
+      expect(result.user.username).toBe("apiuser2");
     });
 
     it('should throw error for non-existent user', async () => {
@@ -335,7 +335,7 @@ describe('AuthService', () => {
     });
 
     it('should handle multiple API keys for same user', async () => {
-      const user = await authService.createUser('multikey', 'pass123', 'multi@example.com');
+      const user = await authService.createUser("multikey", 'pass123', 'multi@example.com');
       const apiKey1 = await authService.createApiKey(user.id);
       const apiKey2 = await authService.createApiKey(user.id);
 
@@ -345,8 +345,8 @@ describe('AuthService', () => {
       const result1 = await authService.authenticate({ type: 'apiKey', apiKey: apiKey1 });
       const result2 = await authService.authenticate({ type: 'apiKey', apiKey: apiKey2 });
       
-      expect(result1.user.username).toBe('multikey');
-      expect(result2.user.username).toBe('multikey');
+      expect(result1.user.username).toBe("multikey");
+      expect(result2.user.username).toBe("multikey");
     });
   });
 });

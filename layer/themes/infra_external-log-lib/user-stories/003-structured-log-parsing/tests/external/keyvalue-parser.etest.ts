@@ -7,7 +7,7 @@ describe('Key-Value Log Parser External Test', () => {
     parser = new KeyValueLogParser();
   });
 
-  describe('parseKeyValueLog', () => {
+  describe("parseKeyValueLog", () => {
     it('should parse basic key-value pairs', () => {
       const line = 'timestamp=2025-01-15T10:00:00Z level=info message="Server started" port=3000';
       
@@ -188,7 +188,7 @@ describe('Key-Value Log Parser External Test', () => {
     });
   });
 
-  describe('isKeyValueFormat', () => {
+  describe("isKeyValueFormat", () => {
     it('should detect valid key-value format', () => {
       expect(parser.isKeyValueFormat('key=value')).toBe(true);
       expect(parser.isKeyValueFormat('key1=value1 key2=value2')).toBe(true);
@@ -203,7 +203,7 @@ describe('Key-Value Log Parser External Test', () => {
     });
   });
 
-  describe('parseValue', () => {
+  describe("parseValue", () => {
     it('should parse different value types correctly', () => {
       expect(parser.parseValue('42')).toBe(42);
       expect(parser.parseValue('3.14')).toBe(3.14);
@@ -211,7 +211,7 @@ describe('Key-Value Log Parser External Test', () => {
       expect(parser.parseValue('false')).toBe(false);
       expect(parser.parseValue('null')).toBe(null);
       expect(parser.parseValue('"quoted"')).toBe('quoted');
-      expect(parser.parseValue('unquoted')).toBe('unquoted');
+      expect(parser.parseValue("unquoted")).toBe("unquoted");
       expect(parser.parseValue('')).toBe('');
     });
   });

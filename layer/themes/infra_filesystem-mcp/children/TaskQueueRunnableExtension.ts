@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 import { RunnableCommentProcessor } from './RunnableCommentProcessor';
 import { StoryReportValidator } from './StoryReportValidator';
 import * as fs from 'fs/promises';
@@ -59,7 +60,7 @@ export class TaskQueueRunnableExtension {
         {
           type: 'before_insert',
           action: 'validate-test-coverage',
-          params: { required: ['environment', 'external', 'integration'] }
+          params: { required: ["environment", "external", "integration"] }
         },
         {
           type: 'after_pop',
@@ -71,7 +72,7 @@ export class TaskQueueRunnableExtension {
     });
 
     // Scenario Queue validations
-    this.validations.set('scenario', {
+    this.validations.set("scenario", {
       queueName: 'Scenarios Queue',
       itemPattern: /scenario/i,
       validations: [
@@ -113,7 +114,7 @@ export class TaskQueueRunnableExtension {
               // Check if registered in NAME_ID.vf.json
               try {
                 const nameIdPath = path.join(process.cwd(), 'NAME_ID.vf.json');
-                const content = await fs.readFile(nameIdPath, 'utf8');
+                const content = await fileAPI.readFile(nameIdPath, 'utf8');
                 const nameId = JSON.parse(content);
                 
                 if (nameId.entities && nameId.entities[storyId]) {
@@ -140,7 +141,7 @@ export class TaskQueueRunnableExtension {
     });
 
     // Retrospective Queue validations
-    this.validations.set('retrospective', {
+    this.validations.set("retrospective", {
       queueName: 'Retrospective Queue',
       itemPattern: /retrospect/i,
       validations: [
@@ -227,7 +228,7 @@ export class TaskQueueRunnableExtension {
           suggestions.push('Ensure your system test references all required test types');
           suggestions.push('Example: "System test for login flow (env, ext, int tests included)"');
           break;
-        case 'scenario':
+        case "scenario":
           suggestions.push('Add research reference: "Scenario: Login flow - research/domain/auth.md"');
           break;
         case 'user-story':
@@ -325,7 +326,7 @@ export class TaskQueueRunnableExtension {
 
     // Add runnable comment based on queue type
     switch (queueType) {
-      case 'retrospective':
+      case "retrospective":
         if (options?.reportPath && options?.criteria) {
           const comment = this.processor.constructor.generateComments.storyReportValidation(
             options.reportPath,

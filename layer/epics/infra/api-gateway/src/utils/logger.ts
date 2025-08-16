@@ -35,7 +35,7 @@ export const logger = winston.createLogger({
   transports: [
     // Console transport
     new winston.transports.Console({
-      format: config.env === 'development' ? consoleFormat : logFormat,
+      format: config.env === "development" ? consoleFormat : logFormat,
     }),
     // File transport
     new winston.transports.File({

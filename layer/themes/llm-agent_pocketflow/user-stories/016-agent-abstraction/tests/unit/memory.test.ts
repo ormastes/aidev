@@ -5,7 +5,7 @@ import {
   CompositeMemory
 } from '../../src/memory';
 
-describe('InMemoryStorage', () => {
+describe("InMemoryStorage", () => {
   let memory: InMemoryStorage;
 
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe('InMemoryStorage', () => {
     
     expect(await memory.retrieve('key1')).toBe('value1');
     expect(await memory.retrieve('key2')).toEqual({ data: 'value2' });
-    expect(await memory.retrieve('nonexistent')).toBeUndefined();
+    expect(await memory.retrieve("nonexistent")).toBeUndefined();
   });
 
   it('should forget specific keys', async () => {
@@ -42,7 +42,7 @@ describe('InMemoryStorage', () => {
   });
 });
 
-describe('ConversationMemory', () => {
+describe("ConversationMemory", () => {
   let memory: ConversationMemory;
 
   beforeEach(() => {
@@ -52,17 +52,17 @@ describe('ConversationMemory', () => {
   it('should store and retrieve messages', async () => {
     const messages = [
       { role: 'user', content: 'Hello' },
-      { role: 'assistant', content: 'Hi there!' }
+      { role: "assistant", content: 'Hi there!' }
     ];
     
-    await memory.store('messages', messages);
+    await memory.store("messages", messages);
     
-    expect(await memory.retrieve('messages')).toEqual(messages);
+    expect(await memory.retrieve("messages")).toEqual(messages);
   });
 
   it('should add individual messages', () => {
     memory.addMessage({ role: 'user', content: 'Message 1' });
-    memory.addMessage({ role: 'assistant', content: 'Reply 1' });
+    memory.addMessage({ role: "assistant", content: 'Reply 1' });
     
     expect(memory.getMessages()).toHaveLength(2);
     expect(memory.getMessages()[0].content).toBe('Message 1');
@@ -99,7 +99,7 @@ describe('ConversationMemory', () => {
   });
 });
 
-describe('SummaryMemory', () => {
+describe("SummaryMemory", () => {
   let memory: SummaryMemory;
 
   beforeEach(() => {
@@ -122,8 +122,8 @@ describe('SummaryMemory', () => {
 
   it('should retrieve all facts and summaries', async () => {
     memory.addFact('weather', 'Sunny');
-    memory.addFact('temperature', '72F');
-    memory.addSummary('conversation', 'Talked about weather');
+    memory.addFact("temperature", '72F');
+    memory.addSummary("conversation", 'Talked about weather');
     
     const allFacts = await memory.retrieve('all_facts');
     expect(allFacts).toEqual({
@@ -149,7 +149,7 @@ describe('SummaryMemory', () => {
 
   it('should clear all data', async () => {
     memory.addFact('fact1', 'value1');
-    memory.addSummary('summary1', 'value2');
+    memory.addSummary("summary1", 'value2');
     
     await memory.clear();
     
@@ -158,7 +158,7 @@ describe('SummaryMemory', () => {
   });
 });
 
-describe('CompositeMemory', () => {
+describe("CompositeMemory", () => {
   let memory: CompositeMemory;
   let conversationStore: ConversationMemory;
   let summaryStore: SummaryMemory;
@@ -168,7 +168,7 @@ describe('CompositeMemory', () => {
     conversationStore = new ConversationMemory();
     summaryStore = new SummaryMemory();
     
-    memory.addStore('conversation', conversationStore);
+    memory.addStore("conversation", conversationStore);
     memory.addStore('summary', summaryStore);
     memory.addStore('default', new InMemoryStorage());
   });
@@ -184,7 +184,7 @@ describe('CompositeMemory', () => {
     await memory.store('general_key', 'general_value');
     
     // Verify routing
-    expect(await conversationStore.retrieve('messages')).toHaveLength(1);
+    expect(await conversationStore.retrieve("messages")).toHaveLength(1);
     expect(await summaryStore.retrieve('fact:weather')).toBe('Sunny');
     expect(await memory.retrieve('general_key')).toBe('general_value');
   });

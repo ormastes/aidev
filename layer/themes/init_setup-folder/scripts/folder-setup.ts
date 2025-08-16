@@ -4,8 +4,8 @@
  * Converted from shell script to TypeScript for better maintainability and security
  */
 
-import { existsSync, mkdirSync, copyFileSync, writeFileSync, chmodSync, readdirSync, statSync } from 'fs';
-import { join, dirname, basename } from 'path';
+import { existsSync, mkdirSync, copyFileSync, writeFileSync, chmodSync, readdirSync, statSync } from '../../layer/themes/infra_external-log-lib/src';
+import { join, dirname, basename } from 'node:path';
 import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 
@@ -82,15 +82,15 @@ class FolderSetup {
       join(this.targetDir, 'scripts', 'utils'),
       join(this.targetDir, 'config'),
       join(this.targetDir, 'config', 'mcp'),
-      join(this.targetDir, 'config', 'typescript'),
+      join(this.targetDir, 'config', "typescript"),
       join(this.targetDir, 'config', 'testing'),
       join(this.targetDir, 'docs'),
       join(this.targetDir, 'llm_rules'),
-      join(this.targetDir, 'templates'),
-      join(this.targetDir, 'templates', 'llm_rules'),
+      join(this.targetDir, "templates"),
+      join(this.targetDir, "templates", 'llm_rules'),
       join(this.targetDir, 'gen'),
       join(this.targetDir, 'gen', 'doc'),
-      join(this.targetDir, 'gen', 'history', 'retrospect'),
+      join(this.targetDir, 'gen', 'history', "retrospect"),
       join(this.targetDir, 'layer'),
       join(this.targetDir, 'layer', 'themes'),
       join(this.targetDir, 'src'),
@@ -165,9 +165,9 @@ class FolderSetup {
     }
     
     // Copy templates
-    const templatesPath = join(this.projectRoot, 'templates');
+    const templatesPath = join(this.projectRoot, "templates");
     if (existsSync(templatesPath)) {
-      this.copyDirRecursive(templatesPath, join(this.targetDir, 'templates'));
+      this.copyDirRecursive(templatesPath, join(this.targetDir, "templates"));
       log.success('Copied templates');
     }
     
@@ -217,23 +217,23 @@ class FolderSetup {
       agents: {
         architect: {
           description: 'System architecture and design',
-          capabilities: ['design', 'architecture', 'patterns'],
-          tools: ['filesystem', 'search', 'edit']
+          capabilities: ['design', "architecture", "patterns"],
+          tools: ["filesystem", 'search', 'edit']
         },
         developer: {
           description: 'Implementation and coding',
-          capabilities: ['coding', 'testing', 'debugging'],
-          tools: ['filesystem', 'edit', 'bash', 'git']
+          capabilities: ['coding', 'testing', "debugging"],
+          tools: ["filesystem", 'edit', 'bash', 'git']
         },
         tester: {
           description: 'Testing and quality assurance',
-          capabilities: ['testing', 'coverage', 'e2e'],
-          tools: ['filesystem', 'bash', 'playwright']
+          capabilities: ['testing', "coverage", 'e2e'],
+          tools: ["filesystem", 'bash', "playwright"]
         },
         gui: {
           description: 'GUI design and implementation',
           capabilities: ['ui', 'ux', 'design'],
-          tools: ['filesystem', 'edit', 'preview']
+          tools: ["filesystem", 'edit', 'preview']
         }
       }
     };

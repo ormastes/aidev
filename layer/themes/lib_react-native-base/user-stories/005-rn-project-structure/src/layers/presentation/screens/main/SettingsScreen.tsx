@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Switch } from 'react-native';
 import { useTheme } from '@hooks/useTheme';
 import type { MainTabScreenProps } from '@types/navigation';
 
-type Props = MainTabScreenProps<'Settings'>;
+type Props = MainTabScreenProps<"Settings">;
 
 export const SettingsScreen: React.FC<Props> = () => {
   const { colors, dark, setThemeMode } = useTheme();

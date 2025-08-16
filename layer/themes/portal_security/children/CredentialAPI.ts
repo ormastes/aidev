@@ -558,7 +558,7 @@ export class CredentialAPI {
    * Generate a secure API key
    */
   private generateSecureApiKey(): string {
-    const crypto = require('crypto');
+    const crypto = require('node:crypto');
     return crypto.randomBytes(32).toString('hex');
   }
 

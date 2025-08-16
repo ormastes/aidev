@@ -8,7 +8,7 @@ import { OllamaClient } from '../children/client';
 // Mock OllamaClient
 jest.mock('../children/client');
 
-describe('OllamaCoordinator', () => {
+describe("OllamaCoordinator", () => {
   let coordinator: OllamaCoordinator;
   let mockClient: jest.Mocked<OllamaClient>;
 
@@ -36,7 +36,7 @@ describe('OllamaCoordinator', () => {
     await coordinator.shutdown();
   });
 
-  describe('initialization', () => {
+  describe("initialization", () => {
     it('should initialize successfully', async () => {
       await expect(coordinator.initialize()).resolves.not.toThrow();
       expect(mockClient.isAvailable).toHaveBeenCalled();
@@ -113,7 +113,7 @@ describe('OllamaCoordinator', () => {
     });
   });
 
-  describe('embeddings', () => {
+  describe("embeddings", () => {
     beforeEach(async () => {
       await coordinator.initialize();
     });
@@ -159,7 +159,7 @@ describe('OllamaCoordinator', () => {
     });
   });
 
-  describe('capabilities', () => {
+  describe("capabilities", () => {
     it('should provide capabilities', () => {
       const capabilities = coordinator.getCapabilities();
       

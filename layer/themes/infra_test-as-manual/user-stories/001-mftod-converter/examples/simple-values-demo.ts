@@ -4,8 +4,8 @@
  */
 
 import { TestAsManualConverter } from '../src/converter';
-import { fs } from '../../../../infra_external-log-lib/src';
-import { path } from '../../../../infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import { getFileAPI, FileType } from '../../../../infra_external-log-lib/pipe';
 
 const fileAPI = getFileAPI();
@@ -58,13 +58,13 @@ async function runSimpleDemo() {
   await converter.convert({
     inputPath: featureFile,
     outputPath: path.join(tempDir, 'output'),
-    format: 'markdown'
+    format: "markdown"
   });
   
   // Read the output
   const outputFile = path.join(tempDir, 'output', 'manual-test-suite.md');
   if (fs.existsSync(outputFile)) {
-    const content = fs.readFileSync(outputFile, 'utf-8');
+    const content = fileAPI.readFileSync(outputFile, 'utf-8');
     
     console.log('2. Generated Documentation Preview:\n');
     
@@ -88,7 +88,7 @@ async function runSimpleDemo() {
   
   console.log('\n3. Value Preservation Examples:');
   console.log('   ✓ Email: "john.doe@example.com" (not <email>)');
-  console.log('   ✓ Password: "SecurePass123!" (preserved securely)');
+  console.log('   ✓ password: "PLACEHOLDER" (preserved securely)');
   console.log('   ✓ URLs: "https://app.example.com/login" (full URLs)');
   console.log('   ✓ Prices: "$299.99", "-$60.00", "$239.99" (exact amounts)');
   console.log('   ✓ Product: "Premium Wireless Headphones" (actual name)');

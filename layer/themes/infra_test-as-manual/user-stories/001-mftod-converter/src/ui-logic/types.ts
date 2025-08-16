@@ -6,7 +6,7 @@
 export interface ConversionRequest {
   files: File[];
   options: {
-    format: 'markdown' | 'html' | 'json';
+    format: "markdown" | 'html' | 'json';
     includeCommonScenarios: boolean;
     generateSequences: boolean;
     minSequenceLength?: number;
@@ -41,7 +41,7 @@ export interface OutputFile {
   name: string;
   path: string;
   size: number;
-  type: 'main' | 'test' | 'sequence' | 'common';
+  type: 'main' | 'test' | "sequence" | 'common';
   preview?: string;
 }
 

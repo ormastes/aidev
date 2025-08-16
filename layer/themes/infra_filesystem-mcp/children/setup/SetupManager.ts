@@ -3,10 +3,10 @@
  * Migrated from standalone setup folder to theme integration
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as path from 'node:path';
 import { exec } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 
 const execAsync = promisify(exec);
 
@@ -57,7 +57,7 @@ export class SetupManager {
       throw new Error(`Template not found: ${templatePath}`);
     }
     
-    return JSON.parse(fs.readFileSync(templatePath, 'utf-8'));
+    return JSON.parse(fileAPI.readFileSync(templatePath, 'utf-8'));
   }
 
   /**

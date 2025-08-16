@@ -15,7 +15,7 @@ jest.mock('vscode', () => ({
 import { parseMarkdown } from '../../../src/tclist_parser/parser';
 import * as vscode from 'vscode';
 
-describe('parseMarkdown', () => {
+describe("parseMarkdown", () => {
   let mockEvents: {
     onTest: jest.Mock;
     onHeading: jest.Mock;
@@ -149,7 +149,7 @@ describe('parseMarkdown', () => {
       
       expect(mockEvents.onHeading).toHaveBeenCalledWith(
         expect.any(vscode.Range),
-        'Subsection',
+        "Subsection",
         2
       );
     });

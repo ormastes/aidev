@@ -4,7 +4,7 @@
  * NO MOCKS - Following Mock Free Test Oriented Development
  */
 
-import request from 'supertest';
+import request from "supertest";
 import express from 'express';
 import { path } from '../../../../../infra_external-log-lib/src';
 import * as fs from 'fs-extra';
@@ -353,7 +353,7 @@ describe('Messages Routes - Mock Free Tests', () => {
         .delete('/api/messages');
 
       expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('deletedCount', 10);
+      expect(response.body).toHaveProperty("deletedCount", 10);
 
       // Verify all deleted
       const count = await db.get('SELECT COUNT(*) as count FROM messages');
@@ -425,7 +425,7 @@ describe('Messages Routes - Mock Free Tests', () => {
       
       // Verify table still exists
       const tableExists = await db.get(
-        "SELECT name FROM sqlite_master WHERE type='table' AND name='messages'"
+        "SELECT name FROM sqlite_master WHERE type='table' AND name="messages""
       );
       expect(tableExists).toBeTruthy();
     });

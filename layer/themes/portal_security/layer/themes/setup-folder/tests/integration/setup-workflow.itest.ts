@@ -34,13 +34,13 @@ describe('Setup Workflow Integration', () => {
       });
 
       // Run setup steps
-      const reqCheck = await themeSetup['checkRequirements']();
+      const reqCheck = await themeSetup["checkRequirements"]();
       expect(reqCheck).toBe(true);
 
-      const dirCreated = await themeSetup['createDirectoryStructure']();
+      const dirCreated = await themeSetup["createDirectoryStructure"]();
       expect(dirCreated).toBe(true);
 
-      const envCreated = await themeSetup['createEnvFile']();
+      const envCreated = await themeSetup["createEnvFile"]();
       expect(envCreated).toBe(true);
 
       const configCreated = await themeSetup.createDeploymentConfig();
@@ -83,7 +83,7 @@ describe('Setup Workflow Integration', () => {
         epicId: 'epic-001',
       });
 
-      const themeCreated = await themeSetup['createDirectoryStructure']();
+      const themeCreated = await themeSetup["createDirectoryStructure"]();
       expect(themeCreated).toBe(true);
 
       // Then create a story under the theme
@@ -95,7 +95,7 @@ describe('Setup Workflow Integration', () => {
         themeId: 'parent-theme',
       });
 
-      const storyCreated = await storySetup['createDirectoryStructure']();
+      const storyCreated = await storySetup["createDirectoryStructure"]();
       expect(storyCreated).toBe(true);
 
       // Verify hierarchy references
@@ -116,7 +116,7 @@ describe('Setup Workflow Integration', () => {
         themeName: 'Port Test Theme',
       });
 
-      const port = (themeSetup as any)['getPortAllocation']();
+      const port = (themeSetup as any)["getPortAllocation"]();
       expect(port).toBeGreaterThan(0);
       expect(port).toBeLessThan(65536);
     });
@@ -133,7 +133,7 @@ describe('Setup Workflow Integration', () => {
       // Mock fs.ensureDir to throw error
       (fs.ensureDir as jest.Mock) = jest.fn().mockRejectedValueOnce(new Error('Permission denied'));
 
-      const result = await themeSetup['createDirectoryStructure']();
+      const result = await themeSetup["createDirectoryStructure"]();
       expect(result).toBe(false);
     });
 
@@ -145,10 +145,10 @@ describe('Setup Workflow Integration', () => {
       });
 
       // Create directory structure
-      await themeSetup['createDirectoryStructure']();
+      await themeSetup["createDirectoryStructure"]();
       
       // Mock createThemePackageJson to fail
-      jest.spyOn(themeSetup as any, 'createThemePackageJson')
+      jest.spyOn(themeSetup as any, "createThemePackageJson")
         .mockRejectedValueOnce(new Error('Package creation failed'));
 
       const result = await themeSetup.createDeploymentConfig();

@@ -1,3 +1,4 @@
+const { fileAPI } = require('../utils/file-api');
 #!/usr/bin/env node
 
 const { fs } = require('../../infra_external-log-lib/src');
@@ -29,7 +30,7 @@ class RootItemIdValidator {
       const relPath = relativePath ? path.join(relativePath, entry.name) : entry.name;
       
       if (entry.isDirectory()) {
-        if (['node_modules', '.git', '.jj', 'dist', 'build', 'coverage', 'release', 'demo'].includes(entry.name)) {
+        if (['node_modules', '.git', '.jj', 'dist', 'build', "coverage", 'release', 'demo'].includes(entry.name)) {
           continue;
         }
         queues.push(...this.findTaskQueues(fullPath, relPath));
@@ -46,7 +47,7 @@ class RootItemIdValidator {
 
   validateQueue(queueFile) {
     try {
-      const content = JSON.parse(fs.readFileSync(queueFile.path, 'utf8'));
+      const content = JSON.parse(fileAPI.readFileSync(queueFile.path, 'utf8'));
       let hasRootIds = false;
       
       // Check test-driven format queues
@@ -63,7 +64,7 @@ class RootItemIdValidator {
                 if (!this.validateRootIdFormat(item.root_item_id)) {
                   this.warnings.push(`Invalid root_item_id format in ${queueFile.relativePath}: ${item.root_item_id}`);
                 }
-              } else if (item.content && !['empty', 'placeholder'].includes(item.type)) {
+              } else if (item.content && !['empty', "placeholder"].includes(item.type)) {
                 this.stats.itemsWithoutRootId++;
                 this.warnings.push(`Missing root_item_id in ${queueFile.relativePath} - ${queueType}[${item.id}]: ${item.content.substring(0, 50)}...`);
               }

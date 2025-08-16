@@ -1,6 +1,6 @@
 import { LogSchemaValidator, LogSchema, PropertySchema } from '../../src/external/schema-validator';
 
-describe('LogSchemaValidator', () => {
+describe("LogSchemaValidator", () => {
   let validator: LogSchemaValidator;
 
   beforeEach(() => {
@@ -25,7 +25,7 @@ describe('LogSchemaValidator', () => {
     });
   });
 
-  describe('validate', () => {
+  describe("validate", () => {
     it('should return valid when no schema is defined', () => {
       const result = validator.validate({ anything: 'goes' });
       expect(result.valid).toBe(true);
@@ -349,7 +349,7 @@ describe('LogSchemaValidator', () => {
 
       it('should pass custom validation', () => {
         const result = validator.validate({
-          password: 'Password123'
+          password: "PLACEHOLDER"
         });
 
         expect(result.valid).toBe(true);
@@ -357,7 +357,7 @@ describe('LogSchemaValidator', () => {
 
       it('should fail custom validation with custom message', () => {
         const result = validator.validate({
-          password: 'weak'
+          password: "PLACEHOLDER"
         });
 
         expect(result.valid).toBe(false);
@@ -400,7 +400,7 @@ describe('LogSchemaValidator', () => {
     });
   });
 
-  describe('validateLog', () => {
+  describe("validateLog", () => {
     it('should validate structured log entries', () => {
       validator.defineSchema({
         required: ['level', 'message'],

@@ -3,7 +3,7 @@
  * Model Context Protocol client for connecting to MCP servers
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import WebSocket from 'ws';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -48,7 +48,7 @@ export interface MCPContextInfo {
 }
 
 export class MCPClient extends EventEmitter {
-  private config: Required<Omit<MCPClientConfig, 'authentication'>> & Pick<MCPClientConfig, 'authentication'>;
+  private config: Required<Omit<MCPClientConfig, "authentication">> & Pick<MCPClientConfig, "authentication">;
   private ws?: WebSocket;
   private connected: boolean = false;
   private authenticated: boolean = false;
@@ -110,7 +110,7 @@ export class MCPClient extends EventEmitter {
             
             // Fetch initial data
             await this.fetchInitialData();
-            this.emit('connected', params);
+            this.emit("connected", params);
           });
         });
 
@@ -166,7 +166,7 @@ export class MCPClient extends EventEmitter {
     this.pendingRequests.clear();
     
     this.log('info', 'Disconnected from MCP server');
-    this.emit('disconnected');
+    this.emit("disconnected");
   }
 
   /**
@@ -177,7 +177,7 @@ export class MCPClient extends EventEmitter {
       throw new Error('No authentication credentials provided');
     }
 
-    const result = await this.request('authenticate', {
+    const result = await this.request("authenticate", {
       token: this.config.authentication.token,
       credentials: this.config.authentication.credentials
     });
@@ -185,7 +185,7 @@ export class MCPClient extends EventEmitter {
     this.authenticated = true;
     this.permissions = result.permissions || [];
     this.log('info', 'Authentication successful');
-    this.emit('authenticated', result);
+    this.emit("authenticated", result);
   }
 
   /**
@@ -252,7 +252,7 @@ export class MCPClient extends EventEmitter {
 
     this.sendMessage({
       id: uuidv4(),
-      type: 'notification',
+      type: "notification",
       method,
       params,
       timestamp: new Date()
@@ -270,7 +270,7 @@ export class MCPClient extends EventEmitter {
       throw new Error(`Tool '${name}' not found`);
     }
 
-    return await this.request('executeTool', { name, input });
+    return await this.request("executeTool", { name, input });
   }
 
   /**
@@ -278,7 +278,7 @@ export class MCPClient extends EventEmitter {
    */
   async getContext(): Promise<MCPContextInfo> {
     if (!this.context) {
-      this.context = await this.request('getContext');
+      this.context = await this.request("getContext");
     }
     return this.context!;
   }
@@ -287,10 +287,10 @@ export class MCPClient extends EventEmitter {
    * Update the context
    */
   async updateContext(updates: { metadata?: Record<string, any>; resources?: any[] }): Promise<void> {
-    const result = await this.request('updateContext', updates);
+    const result = await this.request("updateContext", updates);
     if (result.success) {
       this.context = result.context;
-      this.emit('contextUpdated', this.context);
+      this.emit("contextUpdated", this.context);
     }
   }
 
@@ -298,7 +298,7 @@ export class MCPClient extends EventEmitter {
    * List available tools
    */
   async listTools(): Promise<MCPToolDefinition[]> {
-    const tools = await this.request('listTools');
+    const tools = await this.request("listTools");
     
     // Cache tools locally
     this.tools.clear();
@@ -331,11 +331,11 @@ export class MCPClient extends EventEmitter {
       const message = JSON.parse(data.toString());
       this.log('debug', `Received message: ${message.type} ${message.method || ''}`);
 
-      if (message.type === 'response') {
+      if (message.type === "response") {
         this.handleResponse(message);
       } else if (message.type === 'error') {
         this.handleErrorMessage(message);
-      } else if (message.type === 'notification') {
+      } else if (message.type === "notification") {
         this.handleNotification(message);
       }
     } catch (error) {
@@ -382,7 +382,7 @@ export class MCPClient extends EventEmitter {
     if (message.method === 'welcome') {
       this.emit('welcome', message.params);
     } else {
-      this.emit('notification', message.method, message.params);
+      this.emit("notification", message.method, message.params);
       this.emit(`notification:${message.method}`, message.params);
     }
   }
@@ -408,7 +408,7 @@ export class MCPClient extends EventEmitter {
       this.scheduleReconnect();
     }
     
-    this.emit('disconnected', code, reason);
+    this.emit("disconnected", code, reason);
   }
 
   /**
@@ -476,7 +476,7 @@ export class MCPClient extends EventEmitter {
    */
   private startHeartbeat(): void {
     this.heartbeatTimer = setInterval(() => {
-      this.notify('heartbeat', { timestamp: new Date() });
+      this.notify("heartbeat", { timestamp: new Date() });
     }, 30000);
   }
 

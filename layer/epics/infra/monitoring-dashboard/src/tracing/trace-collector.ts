@@ -2,9 +2,9 @@
  * TraceCollector - Distributed tracing and performance analysis
  */
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from 'node:events';
 import winston from 'winston';
-import * as crypto from 'crypto';
+import * as crypto from 'node:crypto';
 
 export interface Span {
   traceId: string;
@@ -27,13 +27,13 @@ export interface SpanLog {
 }
 
 export interface SpanReference {
-  type: 'childOf' | 'followsFrom';
+  type: 'childOf' | "followsFrom";
   traceId: string;
   spanId: string;
 }
 
 export interface SpanStatus {
-  code: 'ok' | 'error' | 'timeout' | 'cancelled';
+  code: 'ok' | 'error' | 'timeout' | "cancelled";
   message?: string;
 }
 
@@ -159,7 +159,7 @@ export class TraceCollector extends EventEmitter {
     this.spans.set(span.spanId, span);
     this.activeSpans.set(span.spanId, span);
 
-    this.emit('spanStarted', span);
+    this.emit("spanStarted", span);
     return span;
   }
 
@@ -180,7 +180,7 @@ export class TraceCollector extends EventEmitter {
     this.activeSpans.delete(spanObj.spanId);
     this.processFinishedSpan(spanObj);
 
-    this.emit('spanFinished', spanObj);
+    this.emit("spanFinished", spanObj);
   }
 
   /**
@@ -284,7 +284,7 @@ export class TraceCollector extends EventEmitter {
 
     // Check if trace is complete
     if (this.isTraceComplete(trace)) {
-      this.emit('traceCompleted', trace);
+      this.emit("traceCompleted", trace);
       this.updatePerformanceMetrics(trace);
     }
 

@@ -1,4 +1,4 @@
-import { Command } from 'commander';
+import { Command } from "commander";
 import chalk from 'chalk';
 import { DemoSetupOptions, LanguageSchema } from '../types';
 import { DemoSetup } from '../setup/demo-setup';
@@ -8,7 +8,7 @@ export const demoCommand = new Command('demo')
   .description('Setup general demo environment (ports 3300-3399)')
   .argument('[app-name]', 'Application name', 'ai_dev_portal')
   .option('--skip-db', 'Skip database setup')
-  .option('--language <lang>', 'Programming language (typescript, javascript, python)', 'typescript')
+  .option('--language <lang>', 'Programming language (typescript, javascript, python)', "typescript")
   .option('--config <path>', 'Path to setup.json configuration file')
   .option('--md-mode', 'Use MD mode instead of VF mode')
   .action(async (appName: string, options: any) => {

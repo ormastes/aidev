@@ -2,8 +2,8 @@ import { describe, test, expect, beforeEach, afterEach, jest } from '@jest/globa
 import { ClaudeAPIClient, ClaudeMessage, StreamEvent, APIError } from '../../src/core/claude-api-client';
 import { https } from '../../../../../infra_external-log-lib/src';
 import { http } from '../../../../../infra_external-log-lib/src';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
-import { IncomingMessage } from 'http';
+import { EventEmitter } from 'node:events';
+import { IncomingMessage } from 'node:http';
 
 // Mock ClientRequest class
 class MockClientRequest extends EventEmitter {
@@ -13,7 +13,7 @@ class MockClientRequest extends EventEmitter {
   write(chunk: string | Buffer, encoding?: BufferEncoding | ((error?: Error) => void), cb?: (error?: Error) => void): boolean {
     const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk, encoding as BufferEncoding);
     this.writeBuffer.push(buffer);
-    if (typeof encoding === 'function') encoding();
+    if (typeof encoding === "function") encoding();
     if (cb) cb();
     return true;
   }
@@ -22,7 +22,7 @@ class MockClientRequest extends EventEmitter {
     if (data) {
       this.write(data, encoding as BufferEncoding);
     }
-    if (typeof encoding === 'function') {
+    if (typeof encoding === "function") {
       cb = encoding;
     }
     if (cb) cb();
@@ -77,7 +77,7 @@ describe('ClaudeAPIClient Unit Tests', () => {
     mockHttpsRequest = jest.spyOn(https, 'request') as any;
     
     client = new ClaudeAPIClient({
-      apiKey: 'test-api-key',
+      api_key: process.env.API_KEY || "PLACEHOLDER",
       model: 'claude-opus-4',
       maxTokens: 1000
     });
@@ -194,7 +194,7 @@ describe('ClaudeAPIClient Unit Tests', () => {
 
       // Create client with short timeout
       const timeoutClient = new ClaudeAPIClient({
-        apiKey: 'test-api-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         model: 'claude-opus-4',
         maxTokens: 1000,
         timeout: 100

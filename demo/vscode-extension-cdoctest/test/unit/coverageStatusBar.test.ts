@@ -5,7 +5,7 @@ import { CoverageStatusBarItem } from '../../src/coverageStatusBar';
 // Mock vscode module
 jest.mock('vscode');
 
-describe('CoverageStatusBarItem', () => {
+describe("CoverageStatusBarItem", () => {
     let statusBarItem: CoverageStatusBarItem;
     let mockStatusBarItem: any;
     let mockCreateStatusBarItem: jest.MockedFunction<typeof vscode.window.createStatusBarItem>;
@@ -38,7 +38,7 @@ describe('CoverageStatusBarItem', () => {
         }
     });
 
-    describe('Constructor', () => {
+    describe("Constructor", () => {
         test('should create status bar item with correct properties', () => {
             expect(mockCreateStatusBarItem).toHaveBeenCalledWith(
                 vscode.StatusBarAlignment.Right,
@@ -49,7 +49,7 @@ describe('CoverageStatusBarItem', () => {
         });
     });
 
-    describe('updateCoverage', () => {
+    describe("updateCoverage", () => {
         test('should update with line coverage only', () => {
             const fileCoverages = [{
                 uri: { fsPath: 'test.cpp' } as vscode.Uri,

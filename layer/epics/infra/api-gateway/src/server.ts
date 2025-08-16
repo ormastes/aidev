@@ -5,9 +5,9 @@
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
-import compression from 'compression';
+import compression from "compression";
 import responseTime from 'response-time';
-import { createServer } from 'http';
+import { createServer } from '../utils/http-wrapper';
 import { config } from './config';
 import { logger } from './utils/logger';
 import { setupMiddleware } from './middleware';
@@ -90,7 +90,7 @@ export class APIGatewayServer {
       origin: config.cors.origins,
       credentials: true,
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-      allowedHeaders: ['Content-Type', 'Authorization', 'X-Request-ID'],
+      allowedHeaders: ['Content-Type', "Authorization", 'X-Request-ID'],
     }));
 
     // Compression
@@ -166,7 +166,7 @@ export class APIGatewayServer {
       {
         path: '/api/workflow',
         target: 'http://localhost:3003',
-        service: 'pocketflow',
+        service: "pocketflow",
         rateLimit: { windowMs: 60000, max: 200 }
       },
       {
@@ -225,7 +225,7 @@ export class APIGatewayServer {
         error: message,
         status,
         timestamp: new Date().toISOString(),
-        ...(config.env === 'development' && { stack: err.stack })
+        ...(config.env === "development" && { stack: err.stack })
       });
     });
   }

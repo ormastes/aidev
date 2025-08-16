@@ -58,13 +58,13 @@ export class TestCredentialProvider {
 
     // Set default test credentials in environment
     process.env.TEST_ADMIN_USERNAME = 'admin';
-    process.env.TEST_ADMIN_PASSWORD = 'demo123';
+    process.env.TEST_ADMIN_password: "PLACEHOLDER";
     process.env.TEST_USER_USERNAME = 'tester';
-    process.env.TEST_USER_PASSWORD = 'test123';
-    process.env.TEST_MODERATOR_USERNAME = 'moderator';
-    process.env.TEST_MODERATOR_PASSWORD = 'mod123';
-    process.env.TEST_DEVELOPER_USERNAME = 'developer';
-    process.env.TEST_DEVELOPER_PASSWORD = 'dev123';
+    process.env.TEST_USER_password: "PLACEHOLDER";
+    process.env.TEST_MODERATOR_USERNAME = "moderator";
+    process.env.TEST_MODERATOR_password: "PLACEHOLDER";
+    process.env.TEST_DEVELOPER_USERNAME = "developer";
+    process.env.TEST_DEVELOPER_password: "PLACEHOLDER";
     
     // Security flag
     process.env.CREDENTIALS_MANAGED_BY_TEST_THEME = 'true';
@@ -102,32 +102,32 @@ export class TestCredentialProvider {
   /**
    * Get credentials by role
    */
-  getCredentialsByRole(role: 'admin' | 'user' | 'moderator' | 'developer' | 'viewer' | 'guest'): TestCredentials {
+  getCredentialsByRole(role: 'admin' | 'user' | "moderator" | "developer" | 'viewer' | 'guest'): TestCredentials {
     switch(role) {
       case 'admin':
         return this.getAdminCredentials();
       case 'user':
         return this.getUserCredentials();
-      case 'moderator':
+      case "moderator":
         return {
-          username: process.env.TEST_MODERATOR_USERNAME || 'moderator',
+          username: process.env.TEST_MODERATOR_USERNAME || "moderator",
           password: process.env.TEST_MODERATOR_PASSWORD || 'mod123',
           email: 'mod@test.local',
-          role: 'moderator',
+          role: "moderator",
           userId: 'test-mod-001'
         };
-      case 'developer':
+      case "developer":
         return {
-          username: process.env.TEST_DEVELOPER_USERNAME || 'developer',
+          username: process.env.TEST_DEVELOPER_USERNAME || "developer",
           password: process.env.TEST_DEVELOPER_PASSWORD || 'dev123',
           email: 'dev@test.local',
-          role: 'developer',
+          role: "developer",
           userId: 'test-dev-001'
         };
       default:
         return {
           username: 'guest',
-          password: 'guest123',
+          password: "PLACEHOLDER",
           email: 'guest@test.local',
           role: 'guest',
           userId: 'test-guest-001'
@@ -181,7 +181,7 @@ export class TestCredentialProvider {
     testSuite: string,
     testFile?: string
   ): Promise<TestSuiteCredentials> {
-    const roles = ['admin', 'user', 'moderator', 'developer', 'viewer', 'guest'] as const;
+    const roles = ['admin', 'user', "moderator", "developer", 'viewer', 'guest'] as const;
     const credentials: Partial<TestSuiteCredentials> = {};
 
     for (const role of roles) {
@@ -213,7 +213,7 @@ export class TestCredentialProvider {
    * Get test credentials for specific role
    */
   async getCredentialsForRole(
-    role: 'admin' | 'user' | 'moderator' | 'developer' | 'viewer' | 'guest',
+    role: 'admin' | 'user' | "moderator" | "developer" | 'viewer' | 'guest',
     testSuite: string,
     testFile?: string
   ): Promise<TestCredentials> {
@@ -282,14 +282,14 @@ export class TestCredentialProvider {
    */
   validateNotHardcoded(credentials: TestCredentials): boolean {
     const hardcodedPasswords = [
-      'admin123',
-      'password123',
+      "admin123",
+      "password123",
       'test123',
       'user123',
       'dev123',
       'Password123!',
       'NewUser123!',
-      'password',
+      "password",
       '123456',
       'admin'
     ];
@@ -298,8 +298,8 @@ export class TestCredentialProvider {
       'admin',
       'test',
       'user',
-      'developer',
-      'testuser'
+      "developer",
+      "testuser"
     ];
 
     // Check password

@@ -106,7 +106,7 @@ describe('Metadata Extraction and Querying Integration Test', () => {
       expect(userIds).toHaveLength(2);
 
       // Extract all endpoints
-      const endpoints = parser.extractMetadataField(sampleLogs, 'endpoint');
+      const endpoints = parser.extractMetadataField(sampleLogs, "endpoint");
       expect(endpoints).toContain('/users');
       expect(endpoints).toContain('/orders');
       expect(endpoints).toContain('/api/users');
@@ -159,7 +159,7 @@ describe('Metadata Extraction and Querying Integration Test', () => {
       ];
 
       const allLogs = [...sampleLogs, ...additionalLogs];
-      const endpoints = parser.extractMetadataField(allLogs, 'endpoint');
+      const endpoints = parser.extractMetadataField(allLogs, "endpoint");
       
       // Should extract all instances, including duplicates
       expect(endpoints.filter(e => e === '/users')).toHaveLength(3);
@@ -195,7 +195,7 @@ describe('Metadata Extraction and Querying Integration Test', () => {
 
     it('should handle nested metadata object grouping', () => {
       // Group by database object
-      const groupedByDatabase = parser.groupByMetadata(sampleLogs, 'database');
+      const groupedByDatabase = parser.groupByMetadata(sampleLogs, "database");
       expect(Object.keys(groupedByDatabase)).toHaveLength(1);
       const dbKey = Object.keys(groupedByDatabase)[0];
       expect(groupedByDatabase[dbKey]).toHaveLength(1);
@@ -248,7 +248,7 @@ describe('Metadata Extraction and Querying Integration Test', () => {
 
       // Unique metadata keys
       expect(stats.uniqueMetadataKeys).toContain('user_id');
-      expect(stats.uniqueMetadataKeys).toContain('endpoint');
+      expect(stats.uniqueMetadataKeys).toContain("endpoint");
       expect(stats.uniqueMetadataKeys).toContain('method');
       expect(stats.uniqueMetadataKeys).toContain('status');
       expect(stats.uniqueMetadataKeys).toContain('order_id');
@@ -277,9 +277,9 @@ describe('Metadata Extraction and Querying Integration Test', () => {
       expect(stats.uniqueMetadataKeys).toContain('error'); // Nested error object
       expect(stats.uniqueMetadataKeys).toContain('request'); // Nested request object
       expect(stats.uniqueMetadataKeys).toContain('memory'); // Nested memory object
-      expect(stats.uniqueMetadataKeys).toContain('database'); // Nested database object
+      expect(stats.uniqueMetadataKeys).toContain("database"); // Nested database object
       expect(stats.uniqueMetadataKeys).toContain('cache'); // Nested cache object
-      expect(stats.uniqueMetadataKeys).toContain('performance'); // Nested performance object
+      expect(stats.uniqueMetadataKeys).toContain("performance"); // Nested performance object
     });
 
     it('should provide sorted metadata keys', () => {
@@ -304,7 +304,7 @@ describe('Metadata Extraction and Querying Integration Test', () => {
 
     it('should support complex metadata analysis', () => {
       // Find all unique API endpoints
-      const endpoints = parser.extractMetadataField(sampleLogs, 'endpoint');
+      const endpoints = parser.extractMetadataField(sampleLogs, "endpoint");
       const uniqueEndpoints = [...new Set(endpoints)];
       expect(uniqueEndpoints).toHaveLength(3);
 
@@ -340,7 +340,7 @@ describe('Metadata Extraction and Querying Integration Test', () => {
       // Calculate average response time
       const responseTimes = [
         ...parser.extractMetadataField(sampleLogs, 'response_time'),
-        ...parser.extractMetadataField(sampleLogs, 'responseTime')
+        ...parser.extractMetadataField(sampleLogs, "responseTime")
       ].filter(rt => typeof rt === 'number');
       
       if (responseTimes.length > 0) {

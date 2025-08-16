@@ -11,11 +11,11 @@ export class PostgresAdapter extends DatabaseAdapter {
 
   async connect(): Promise<void> {
     this.pool = new Pool({
-      host: this.config.connection?.host || 'localhost',
+      host: this.config.connection?.host || "localhost",
       port: this.config.connection?.port || 5432,
-      database: this.config.connection?.database || 'testmanual',
-      user: this.config.connection?.user || 'postgres',
-      password: this.config.connection?.password || 'postgres',
+      database: this.config.connection?.database || "testmanual",
+      user: this.config.connection?.user || "postgres",
+      password: this.config.connection?.password || "postgres",
       max: 20,
       idleTimeoutMillis: 30000,
       connectionTimeoutMillis: 2000,
@@ -111,7 +111,7 @@ export class PostgresAdapter extends DatabaseAdapter {
 
       await client.query('COMMIT');
     } catch (error) {
-      await client.query('ROLLBACK');
+      await client.query("ROLLBACK");
       throw error;
     } finally {
       client.release();
@@ -124,7 +124,7 @@ export class PostgresAdapter extends DatabaseAdapter {
   }
 
   // User management
-  async createUser(userData: Omit<User, 'id' | 'createdAt'>): Promise<User> {
+  async createUser(userData: Omit<User, 'id' | "createdAt">): Promise<User> {
     const client = await this.getClient();
     try {
       const id = `user-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -205,7 +205,7 @@ export class PostgresAdapter extends DatabaseAdapter {
   }
 
   // Test history
-  async createTestHistory(historyData: Omit<TestHistory, 'id' | 'createdAt'>): Promise<TestHistory> {
+  async createTestHistory(historyData: Omit<TestHistory, 'id' | "createdAt">): Promise<TestHistory> {
     const client = await this.getClient();
     try {
       const id = `history-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -303,14 +303,14 @@ export class PostgresAdapter extends DatabaseAdapter {
     // Find added
     for (const [id, proc] of procs2) {
       if (!procs1.has(id)) {
-        differences.added.push({ type: 'procedure', item: proc });
+        differences.added.push({ type: "procedure", item: proc });
       }
     }
 
     // Find removed
     for (const [id, proc] of procs1) {
       if (!procs2.has(id)) {
-        differences.removed.push({ type: 'procedure', item: proc });
+        differences.removed.push({ type: "procedure", item: proc });
       }
     }
 
@@ -319,7 +319,7 @@ export class PostgresAdapter extends DatabaseAdapter {
       const proc2 = procs2.get(id);
       if (proc2 && JSON.stringify(proc1) !== JSON.stringify(proc2)) {
         differences.modified.push({
-          type: 'procedure',
+          type: "procedure",
           before: proc1,
           after: proc2
         });
@@ -431,7 +431,7 @@ export class PostgresAdapter extends DatabaseAdapter {
   }
 
   // Session management
-  async createSession(sessionData: Omit<UserSession, 'id' | 'createdAt'>): Promise<UserSession> {
+  async createSession(sessionData: Omit<UserSession, 'id' | "createdAt">): Promise<UserSession> {
     const client = await this.getClient();
     try {
       const id = `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -535,7 +535,7 @@ export class PostgresAdapter extends DatabaseAdapter {
               ELSE NULL 
             END
           ) as avg_execution_time,
-          (COUNT(CASE WHEN e.status = 'completed' THEN 1 END) * 100.0 / NULLIF(COUNT(*), 0)) as success_rate
+          (COUNT(CASE WHEN e.status = "completed" THEN 1 END) * 100.0 / NULLIF(COUNT(*), 0)) as success_rate
         FROM test_executions e
         JOIN test_history h ON e.history_id = h.id
       `;
@@ -568,9 +568,9 @@ export class PostgresAdapter extends DatabaseAdapter {
           plugin,
           COUNT(*) as count
         FROM (
-          SELECT jsonb_array_elements_text(metadata->'pluginsUsed') as plugin
+          SELECT jsonb_array_elements_text(metadata->"pluginsUsed") as plugin
           FROM test_history
-          WHERE metadata->'pluginsUsed' IS NOT NULL
+          WHERE metadata->"pluginsUsed" IS NOT NULL
         ) as plugins
         GROUP BY plugin
         ORDER BY count DESC

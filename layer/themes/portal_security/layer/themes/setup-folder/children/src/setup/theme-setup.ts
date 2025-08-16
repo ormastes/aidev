@@ -150,7 +150,7 @@ ${this.epicId ? `- **Parent Epic**: ${this.epicId}` : '- **Parent Epic**: None (
         stories: [],
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-        status: 'planning'
+        status: "planning"
       }
     };
 
@@ -180,7 +180,7 @@ ${this.epicId ? `- **Parent Epic**: ${this.epicId}` : '- **Parent Epic**: None (
       },
       devDependencies: {
         '@types/node': '^20.0.0',
-        'typescript': '^5.0.0'
+        "typescript": '^5.0.0'
       }
     };
 

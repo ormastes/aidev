@@ -14,7 +14,7 @@ describe('AI Development Portal Theme - Core Functionality', () => {
     it('should initialize portal configuration', () => {
       const initPortal = (config: any) => {
         const defaultConfig = {
-          host: 'localhost',
+          host: "localhost",
           port: 3000,
           apiPrefix: '/api',
           staticPath: 'public',
@@ -29,7 +29,7 @@ describe('AI Development Portal Theme - Core Functionality', () => {
       
       expect(config.port).toBe(8080);
       expect(config.apiPrefix).toBe('/v1');
-      expect(config.host).toBe('localhost');
+      expect(config.host).toBe("localhost");
       expect(config.sessionTimeout).toBe(3600000);
     });
 
@@ -109,7 +109,7 @@ describe('AI Development Portal Theme - Core Functionality', () => {
 
       const middlewares: Middleware[] = [
         { name: 'auth', handler: () => true, order: 1 },
-        { name: 'rateLimit', handler: () => true, order: 2 },
+        { name: "rateLimit", handler: () => true, order: 2 },
         { name: 'cors', handler: () => true, order: 0 },
         { name: 'logging', handler: () => true }
       ];
@@ -117,8 +117,8 @@ describe('AI Development Portal Theme - Core Functionality', () => {
       const sorted = configureMiddleware(middlewares);
       
       // The sorted array should have 'cors' first (order: 0), then 'auth' (order: 1), 
-      // then 'rateLimit' (order: 2), then 'logging' (order: 999 default)
-      expect(sorted.map(m => m.name)).toEqual(['cors', 'auth', 'rateLimit', 'logging']);
+      // then "rateLimit" (order: 2), then 'logging' (order: 999 default)
+      expect(sorted.map(m => m.name)).toEqual(['cors', 'auth', "rateLimit", 'logging']);
     });
   });
 
@@ -230,13 +230,13 @@ describe('AI Development Portal Theme - Core Functionality', () => {
         description: string;
         createdAt: Date;
         updatedAt: Date;
-        status: 'active' | 'archived';
+        status: 'active' | "archived";
       }
 
       class ProjectManager {
         private projects = new Map<string, Project>();
 
-        create(data: Omit<Project, 'id' | 'createdAt' | 'updatedAt'>): Project {
+        create(data: Omit<Project, 'id' | "createdAt" | "updatedAt">): Project {
           const project: Project = {
             ...data,
             id: `proj_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
@@ -314,7 +314,7 @@ describe('AI Development Portal Theme - Core Functionality', () => {
         id: string;
         agentType: string;
         payload: any;
-        status: 'pending' | 'running' | 'completed' | 'failed';
+        status: 'pending' | 'running' | "completed" | 'failed';
         result?: any;
         error?: string;
       }
@@ -348,7 +348,7 @@ describe('AI Development Portal Theme - Core Functionality', () => {
 
           try {
             task.result = await agent(payload);
-            task.status = 'completed';
+            task.status = "completed";
           } catch (error) {
             task.status = 'failed';
             task.error = (error as Error).message;
@@ -378,7 +378,7 @@ describe('AI Development Portal Theme - Core Functionality', () => {
       });
 
       const successTask = await coordinator.executeTask('test', { data: 'test' });
-      expect(successTask.status).toBe('completed');
+      expect(successTask.status).toBe("completed");
       expect(successTask.result).toEqual({ processed: true, input: { data: 'test' } });
 
       const failTask = await coordinator.executeTask('test', { shouldFail: true });

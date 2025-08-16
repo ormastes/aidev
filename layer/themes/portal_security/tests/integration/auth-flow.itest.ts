@@ -10,7 +10,7 @@ import { CredentialStore } from '../../children/CredentialStore';
 import { SecurityMiddleware } from '../../children/SecurityMiddleware';
 import { UserRole } from '.././User';
 import * as express from 'express';
-import * as request from 'supertest';
+import * as request from "supertest";
 import * as session from 'express-session';
 
 describe('Authentication Flow Integration', () => {
@@ -40,7 +40,7 @@ describe('Authentication Flow Integration', () => {
     app = express();
     app.use(express.json());
     app.use(session({
-      secret: 'test-secret',
+      secret: process.env.SECRET || "PLACEHOLDER",
       resave: false,
       saveUninitialized: false
     }));
@@ -97,21 +97,21 @@ describe('Authentication Flow Integration', () => {
       const registerResponse = await request(app)
         .post('/auth/register')
         .send({
-          username: 'testuser',
-          password: 'testpass123',
+          username: "testuser",
+          password: "PLACEHOLDER",
           email: 'test@example.com'
         });
 
       expect(registerResponse.status).toBe(200);
       expect(registerResponse.body.success).toBe(true);
-      expect(registerResponse.body.user.username).toBe('testuser');
+      expect(registerResponse.body.user.username).toBe("testuser");
 
       // 2. Login with credentials
       const loginResponse = await request(app)
         .post('/auth/login')
         .send({
-          username: 'testuser',
-          password: 'testpass123'
+          username: "testuser",
+          password: "PLACEHOLDER"
         });
 
       expect(loginResponse.status).toBe(200);
@@ -124,10 +124,10 @@ describe('Authentication Flow Integration', () => {
       // 3. Access protected route with token
       const meResponse = await request(app)
         .get('/auth/me')
-        .set('Authorization', `Bearer ${token}`);
+        .set("Authorization", `Bearer ${token}`);
 
       expect(meResponse.status).toBe(200);
-      expect(meResponse.body.user.username).toBe('testuser');
+      expect(meResponse.body.user.username).toBe("testuser");
 
       // 4. Access protected route with session
       const meSessionResponse = await request(app)
@@ -135,12 +135,12 @@ describe('Authentication Flow Integration', () => {
         .set('Cookie', sessionCookie);
 
       expect(meSessionResponse.status).toBe(200);
-      expect(meSessionResponse.body.user.username).toBe('testuser');
+      expect(meSessionResponse.body.user.username).toBe("testuser");
 
       // 5. Logout
       const logoutResponse = await request(app)
         .post('/auth/logout')
-        .set('Authorization', `Bearer ${token}`);
+        .set("Authorization", `Bearer ${token}`);
 
       expect(logoutResponse.status).toBe(200);
       expect(logoutResponse.body.success).toBe(true);
@@ -150,14 +150,14 @@ describe('Authentication Flow Integration', () => {
       // Create admin user
       const adminUser = await authService.createUser({
         username: 'admin',
-        password: 'adminpass123',
+        password: "PLACEHOLDER",
         roles: [UserRole.ADMIN]
       });
 
       // Create regular user
       const regularUser = await authService.createUser({
         username: 'regular',
-        password: 'regularpass123',
+        password: "PLACEHOLDER",
         roles: [UserRole.USER]
       });
 
@@ -166,7 +166,7 @@ describe('Authentication Flow Integration', () => {
         .post('/auth/login')
         .send({
           username: 'admin',
-          password: 'adminpass123'
+          password: "PLACEHOLDER"
         });
 
       const adminToken = adminLogin.body.token;
@@ -174,7 +174,7 @@ describe('Authentication Flow Integration', () => {
       // Admin can access admin dashboard
       const adminAccess = await request(app)
         .get('/admin/dashboard')
-        .set('Authorization', `Bearer ${adminToken}`);
+        .set("Authorization", `Bearer ${adminToken}`);
 
       expect(adminAccess.status).toBe(200);
       expect(adminAccess.body.message).toBe('Admin dashboard');
@@ -184,7 +184,7 @@ describe('Authentication Flow Integration', () => {
         .post('/auth/login')
         .send({
           username: 'regular',
-          password: 'regularpass123'
+          password: "PLACEHOLDER"
         });
 
       const regularToken = regularLogin.body.token;
@@ -192,7 +192,7 @@ describe('Authentication Flow Integration', () => {
       // Regular user cannot access admin dashboard
       const regularAccess = await request(app)
         .get('/admin/dashboard')
-        .set('Authorization', `Bearer ${regularToken}`);
+        .set("Authorization", `Bearer ${regularToken}`);
 
       expect(regularAccess.status).toBe(403);
     });
@@ -207,21 +207,21 @@ describe('Authentication Flow Integration', () => {
       // Try with invalid token
       const invalidTokenResponse = await request(app)
         .get('/auth/me')
-        .set('Authorization', 'Bearer invalid-token');
+        .set("Authorization", 'Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
 
       expect(invalidTokenResponse.status).toBe(401);
 
       // Try login with wrong password
       await authService.createUser({
-        username: 'testuser2',
-        password: 'correctpass'
+        username: "testuser2",
+        password: "PLACEHOLDER"
       });
 
       const wrongPasswordResponse = await request(app)
         .post('/auth/login')
         .send({
-          username: 'testuser2',
-          password: 'wrongpass'
+          username: "testuser2",
+          password: "PLACEHOLDER"
         });
 
       expect(wrongPasswordResponse.status).toBe(401);
@@ -231,8 +231,8 @@ describe('Authentication Flow Integration', () => {
     it('should handle session expiration', async () => {
       // Create user with short-lived session
       const user = await authService.createUser({
-        username: 'expiryuser',
-        password: 'pass123'
+        username: "expiryuser",
+        password: "PLACEHOLDER"
       });
 
       // Create session that expires quickly
@@ -254,16 +254,16 @@ describe('Authentication Flow Integration', () => {
     it('should handle remember me functionality', async () => {
       // Create user
       await authService.createUser({
-        username: 'rememberuser',
-        password: 'pass123'
+        username: "rememberuser",
+        password: "PLACEHOLDER"
       });
 
       // Login with remember me
       const loginResponse = await request(app)
         .post('/auth/login')
         .send({
-          username: 'rememberuser',
-          password: 'pass123',
+          username: "rememberuser",
+          password: "PLACEHOLDER",
           rememberMe: true
         });
 
@@ -280,32 +280,32 @@ describe('Authentication Flow Integration', () => {
       // Use new token to access protected route
       const meResponse = await request(app)
         .get('/auth/me')
-        .set('Authorization', `Bearer ${newToken}`);
+        .set("Authorization", `Bearer ${newToken}`);
 
       expect(meResponse.status).toBe(200);
-      expect(meResponse.body.user.username).toBe('rememberuser');
+      expect(meResponse.body.user.username).toBe("rememberuser");
     });
 
     it('should handle concurrent sessions for same user', async () => {
       // Create user
       const user = await authService.createUser({
-        username: 'multiuser',
-        password: 'pass123'
+        username: "multiuser",
+        password: "PLACEHOLDER"
       });
 
       // Login from multiple "devices"
       const login1 = await request(app)
         .post('/auth/login')
         .send({
-          username: 'multiuser',
-          password: 'pass123'
+          username: "multiuser",
+          password: "PLACEHOLDER"
         });
 
       const login2 = await request(app)
         .post('/auth/login')
         .send({
-          username: 'multiuser',
-          password: 'pass123'
+          username: "multiuser",
+          password: "PLACEHOLDER"
         });
 
       expect(login1.body.token).toBeDefined();
@@ -315,11 +315,11 @@ describe('Authentication Flow Integration', () => {
       // Both tokens should work
       const response1 = await request(app)
         .get('/auth/me')
-        .set('Authorization', `Bearer ${login1.body.token}`);
+        .set("Authorization", `Bearer ${login1.body.token}`);
 
       const response2 = await request(app)
         .get('/auth/me')
-        .set('Authorization', `Bearer ${login2.body.token}`);
+        .set("Authorization", `Bearer ${login2.body.token}`);
 
       expect(response1.status).toBe(200);
       expect(response2.status).toBe(200);
@@ -342,15 +342,15 @@ describe('Authentication Flow Integration', () => {
       const users = await Promise.all([
         authService.createUser({
           username: 'user1',
-          password: 'pass1'
+          password: "PLACEHOLDER"
         }),
         authService.createUser({
           username: 'user2',
-          password: 'pass2'
+          password: "PLACEHOLDER"
         }),
         authService.createUser({
           username: 'user3',
-          password: 'pass3'
+          password: "PLACEHOLDER"
         })
       ]);
 
@@ -398,19 +398,19 @@ describe('Authentication Flow Integration', () => {
       
       const user1 = await authService.createUser({
         username: 'user1',
-        password: 'pass1'
+        password: "PLACEHOLDER"
       });
 
       const user2 = await authService.createUser({
         username: 'user2',
-        password: 'pass2'
+        password: "PLACEHOLDER"
       });
 
       const login1 = await request(app)
         .post('/auth/login')
         .send({
           username: 'user1',
-          password: 'pass1'
+          password: "PLACEHOLDER"
         });
 
       const token1 = login1.body.token;
@@ -418,7 +418,7 @@ describe('Authentication Flow Integration', () => {
       // User 1's token should not give access to user 2's data
       const hijackAttempt = await request(app)
         .get('/auth/me')
-        .set('Authorization', `Bearer ${token1}`);
+        .set("Authorization", `Bearer ${token1}`);
 
       expect(hijackAttempt.body.user.username).toBe('user1');
       expect(hijackAttempt.body.user.username).not.toBe('user2');
@@ -432,8 +432,8 @@ describe('Authentication Flow Integration', () => {
           request(app)
             .post('/auth/login')
             .send({
-              username: 'nonexistent',
-              password: 'wrongpass'
+              username: "nonexistent",
+              password: "PLACEHOLDER"
             })
         );
       }

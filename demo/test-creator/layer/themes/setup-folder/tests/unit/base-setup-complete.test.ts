@@ -1,7 +1,7 @@
 import { BaseSetup } from '../../children/src/setup/base-setup';
 import { BaseSetupOptions, Mode, DeploymentType, PORT_ALLOCATIONS } from '../../children/src/types';
 import * as fs from 'fs-extra';
-import { path } from '../../../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import { execSync } from 'child_process';
 
 // Create comprehensive test implementation
@@ -53,7 +53,7 @@ describe('BaseSetup - Complete Coverage', () => {
       (fs.writeFile as jest.Mock).mockRejectedValueOnce(new Error('Write failed'));
       
       // This should not throw but log error
-      await expect(setup['createPipeGateways']()).resolves.not.toThrow();
+      await expect(setup["createPipeGateways"]()).resolves.not.toThrow();
     });
   });
 
@@ -61,7 +61,7 @@ describe('BaseSetup - Complete Coverage', () => {
     it('should handle directory creation error and return false', async () => {
       (fs.ensureDir as jest.Mock).mockRejectedValueOnce(new Error('Permission denied'));
       
-      const result = await setup['createDirectoryStructure']();
+      const result = await setup["createDirectoryStructure"]();
       expect(result).toBe(false);
     });
   });
@@ -70,7 +70,7 @@ describe('BaseSetup - Complete Coverage', () => {
     it('should create MD format task queue', async () => {
       const mdSetup = new TestSetup({ ...mockOptions, mode: 'md' as Mode }, 'demo');
       
-      const result = await mdSetup['createTaskQueue']();
+      const result = await mdSetup["createTaskQueue"]();
       
       expect(result).toBe(true);
       expect(fs.writeFile).toHaveBeenCalledWith(
@@ -80,18 +80,18 @@ describe('BaseSetup - Complete Coverage', () => {
     });
   });
 
-  describe('createMcpConfig', () => {
+  describe("createMcpConfig", () => {
     it('should skip MCP config for MD mode', async () => {
       const mdSetup = new TestSetup({ ...mockOptions, mode: 'md' as Mode }, 'demo');
       
-      const result = await mdSetup['createMcpConfig']();
+      const result = await mdSetup["createMcpConfig"]();
       
       expect(result).toBe(true);
       expect(fs.writeJson).not.toHaveBeenCalled();
     });
 
     it('should create MCP config for VF mode', async () => {
-      const result = await setup['createMcpConfig']();
+      const result = await setup["createMcpConfig"]();
       
       expect(result).toBe(true);
       expect(fs.ensureDir).toHaveBeenCalledWith(expect.stringContaining('config'));
@@ -110,19 +110,19 @@ describe('BaseSetup - Complete Coverage', () => {
     it('should handle env file write error', async () => {
       (fs.writeFile as jest.Mock).mockRejectedValueOnce(new Error('Disk full'));
       
-      const result = await setup['createEnvFile']();
+      const result = await setup["createEnvFile"]();
       expect(result).toBe(false);
     });
   });
 
   describe('run method - complete flow', () => {
     it('should handle deployment config failure', async () => {
-      jest.spyOn(setup, 'checkRequirements' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createDirectoryStructure' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createEnvFile' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createTaskQueue' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createMcpConfig' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createDeploymentConfig').mockResolvedValue(false);
+      jest.spyOn(setup, "checkRequirements" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createDirectoryStructure" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createEnvFile" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createTaskQueue" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createMcpConfig" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createDeploymentConfig").mockResolvedValue(false);
       
       const result = await setup.run();
       
@@ -131,34 +131,34 @@ describe('BaseSetup - Complete Coverage', () => {
     });
 
     it('should handle env file creation failure', async () => {
-      jest.spyOn(setup, 'checkRequirements' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createDirectoryStructure' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createEnvFile' as any).mockResolvedValue(false);
+      jest.spyOn(setup, "checkRequirements" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createDirectoryStructure" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createEnvFile" as any).mockResolvedValue(false);
       
       const result = await setup.run();
       
       expect(result).toBe(false);
-      expect(setup['createTaskQueue']).not.toHaveBeenCalled();
+      expect(setup["createTaskQueue"]).not.toHaveBeenCalled();
     });
 
     it('should handle task queue creation failure', async () => {
-      jest.spyOn(setup, 'checkRequirements' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createDirectoryStructure' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createEnvFile' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createTaskQueue' as any).mockResolvedValue(false);
+      jest.spyOn(setup, "checkRequirements" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createDirectoryStructure" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createEnvFile" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createTaskQueue" as any).mockResolvedValue(false);
       
       const result = await setup.run();
       
       expect(result).toBe(false);
-      expect(setup['createMcpConfig']).not.toHaveBeenCalled();
+      expect(setup["createMcpConfig"]).not.toHaveBeenCalled();
     });
 
     it('should handle MCP config creation failure', async () => {
-      jest.spyOn(setup, 'checkRequirements' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createDirectoryStructure' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createEnvFile' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createTaskQueue' as any).mockResolvedValue(true);
-      jest.spyOn(setup, 'createMcpConfig' as any).mockResolvedValue(false);
+      jest.spyOn(setup, "checkRequirements" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createDirectoryStructure" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createEnvFile" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createTaskQueue" as any).mockResolvedValue(true);
+      jest.spyOn(setup, "createMcpConfig" as any).mockResolvedValue(false);
       
       const result = await setup.run();
       
@@ -174,7 +174,7 @@ describe('BaseSetup - Complete Coverage', () => {
         return 'v18.0.0\n';
       });
       
-      const result = await setup['checkRequirements']();
+      const result = await setup["checkRequirements"]();
       expect(result).toBe(true);
     });
 
@@ -184,16 +184,16 @@ describe('BaseSetup - Complete Coverage', () => {
         return 'v18.0.0\n';
       });
       
-      const result = await setup['checkRequirements']();
+      const result = await setup["checkRequirements"]();
       expect(result).toBe(false);
     });
   });
 
   describe('port checking', () => {
     it('should detect port in use', async () => {
-      (execSync as jest.Mock).mockReturnValueOnce('LISTENING');
+      (execSync as jest.Mock).mockReturnValueOnce("LISTENING");
       
-      const available = await setup['checkPortAvailability'](3000);
+      const available = await setup["checkPortAvailability"](3000);
       expect(available).toBe(false);
     });
 
@@ -202,7 +202,7 @@ describe('BaseSetup - Complete Coverage', () => {
         throw new Error('Not found');
       });
       
-      const available = await setup['checkPortAvailability'](3000);
+      const available = await setup["checkPortAvailability"](3000);
       expect(available).toBe(true);
     });
   });

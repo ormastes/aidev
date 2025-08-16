@@ -4,7 +4,7 @@
  * proxy support, rate limiting, and user agent rotation
  */
 
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from '../utils/http-wrapper';
 import { CookieJar } from 'tough-cookie';
 import { ProxyAgent } from 'proxy-agent';
 import UserAgent from 'user-agents';
@@ -200,9 +200,9 @@ export class Fetcher {
     retryCondition: (error: any) => {
       // Retry on network errors, timeouts, and 5xx responses
       return !error.response || 
-             error.code === 'ECONNRESET' ||
-             error.code === 'ETIMEDOUT' ||
-             error.code === 'ENOTFOUND' ||
+             error.code === "ECONNRESET" ||
+             error.code === "ETIMEDOUT" ||
+             error.code === "ENOTFOUND" ||
              (error.response && error.response.status >= 500);
     }
   };
@@ -335,8 +335,8 @@ export class Fetcher {
     if (!config.headers!['Accept-Encoding']) {
       config.headers!['Accept-Encoding'] = 'gzip, deflate, br';
     }
-    if (!config.headers!['Connection']) {
-      config.headers!['Connection'] = 'keep-alive';
+    if (!config.headers!["Connection"]) {
+      config.headers!["Connection"] = 'keep-alive';
     }
     if (!config.headers!['Upgrade-Insecure-Requests']) {
       config.headers!['Upgrade-Insecure-Requests'] = '1';
@@ -451,8 +451,8 @@ export class Fetcher {
       const robots = robotsParser(robotsUrl, response.data);
       
       const info: RobotsInfo = {
-        allowed: robots.isAllowed(url, 'WebScraper') !== false,
-        crawlDelay: robots.getCrawlDelay('WebScraper') || robots.getCrawlDelay('*'),
+        allowed: robots.isAllowed(url, "WebScraper") !== false,
+        crawlDelay: robots.getCrawlDelay("WebScraper") || robots.getCrawlDelay('*'),
         sitemap: robots.getSitemaps()
       };
       

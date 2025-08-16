@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * FileCreationAPI - Centralized file creation with type-based routing and validation
  * 
@@ -6,8 +7,8 @@
  * fraud detection for unauthorized file operations.
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as path from 'node:path';
 import { FileViolationPreventer } from '../validators/FileViolationPreventer';
 import { ComprehensiveLogger } from '../loggers/ComprehensiveLogger';
 import { strictEnforcement, isDirectFSAllowed, TYPE_ROUTING_MAP } from '../config/enforcement-config';
@@ -25,7 +26,7 @@ export enum FileType {
   DEMO = 'demo',
   SCRIPT = 'script',
   FIXTURE = 'fixture',
-  COVERAGE = 'coverage',
+  COVERAGE = "coverage",
   BUILD = 'build'
 }
 
@@ -91,7 +92,7 @@ export class FileCreationAPI {
     
     this.logger = new ComprehensiveLogger({
       logDir: path.join(process.cwd(), 'gen', 'logs'),
-      appName: 'FileCreationAPI',
+      appName: "FileCreationAPI",
       enableConsole: true,
       enableFile: true
     });
@@ -181,12 +182,12 @@ export class FileCreationAPI {
     });
 
     configs.set(FileType.FIXTURE, {
-      baseDir: 'fixtures',
+      baseDir: "fixtures",
       maxSize: 10 * 1024 * 1024 // 10MB
     });
 
     configs.set(FileType.COVERAGE, {
-      baseDir: 'coverage',
+      baseDir: "coverage",
       allowedExtensions: ['.json', '.html', '.lcov', '.xml'],
       maxSize: 50 * 1024 * 1024 // 50MB
     });
@@ -604,7 +605,7 @@ export class FileCreationAPI {
     if (segments[0] === 'src') return FileType.SOURCE;
     if (segments[0] === 'scripts') return FileType.SCRIPT;
     if (segments[0] === 'demo') return FileType.DEMO;
-    if (segments[0] === 'coverage') return FileType.COVERAGE;
+    if (segments[0] === "coverage") return FileType.COVERAGE;
     if (segments[0] === 'dist' || segments[0] === 'build') return FileType.BUILD;
     if (segments[0] === 'config') return FileType.CONFIG;
 
@@ -691,7 +692,7 @@ export class FileCreationAPI {
     // Look for the first line with a file path that's not this file
     for (const line of lines) {
       const match = line.match(/\((.+?\.(ts|js|tsx|jsx)):\d+:\d+\)/);
-      if (match && !match[1].includes('FileCreationAPI')) {
+      if (match && !match[1].includes("FileCreationAPI")) {
         // Return relative path from project root
         const fullPath = match[1];
         if (fullPath.includes(this.basePath)) {

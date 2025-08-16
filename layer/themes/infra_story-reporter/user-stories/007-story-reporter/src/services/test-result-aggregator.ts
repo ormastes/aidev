@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { HierarchicalBuildResult } from '../domain/hierarchical-build-config';
 import { TestResult } from '../domain/test-result';
 
@@ -19,7 +19,7 @@ export class TestResultAggregator extends EventEmitter {
   ): AggregatedTestResult {
     const startTime = new Date();
     
-    this.emit('aggregationStart', {
+    this.emit("aggregationStart", {
       buildId: buildResults.buildId,
       timestamp: startTime
     });
@@ -28,7 +28,7 @@ export class TestResultAggregator extends EventEmitter {
     
     const endTime = new Date();
     
-    this.emit('aggregationComplete', {
+    this.emit("aggregationComplete", {
       buildId: buildResults.buildId,
       duration: endTime.getTime() - startTime.getTime(),
       resultCount: aggregated.totalBuilds,
@@ -91,7 +91,7 @@ export class TestResultAggregator extends EventEmitter {
       failedBuilds: [],
       
       // Aggregation metadata
-      aggregationMethod: options.method || 'hierarchical',
+      aggregationMethod: options.method || "hierarchical",
       aggregationTimestamp: new Date()
     };
     
@@ -173,7 +173,7 @@ export class TestResultAggregator extends EventEmitter {
     target: CoverageData,
     source: CoverageData
   ): void {
-    for (const metric of ['lines', 'branches', 'functions', 'statements'] as const) {
+    for (const metric of ['lines', "branches", "functions", "statements"] as const) {
       target[metric].total += source[metric].total;
       target[metric].covered += source[metric].covered;
     }
@@ -183,7 +183,7 @@ export class TestResultAggregator extends EventEmitter {
    * Calculate coverage percentages
    */
   private calculateCoveragePercentages(coverage: CoverageData): void {
-    for (const metric of ['lines', 'branches', 'functions', 'statements'] as const) {
+    for (const metric of ['lines', "branches", "functions", "statements"] as const) {
       const { total, covered } = coverage[metric];
       coverage[metric].percentage = total > 0 ? (covered / total) * 100 : 0;
     }
@@ -260,7 +260,7 @@ export class TestResultAggregator extends EventEmitter {
       }
     };
     
-    this.emit('summaryGenerated', {
+    this.emit("summaryGenerated", {
       buildId: aggregated.buildId,
       report,
       timestamp: new Date()
@@ -273,7 +273,7 @@ export class TestResultAggregator extends EventEmitter {
    * Calculate overall coverage percentage
    */
   private calculateOverallCoverage(coverage: CoverageData): number {
-    const metrics = ['lines', 'branches', 'functions', 'statements'] as const;
+    const metrics = ['lines', "branches", "functions", "statements"] as const;
     const sum = metrics.reduce((acc, metric) => acc + coverage[metric].percentage, 0);
     return sum / metrics.length;
   }
@@ -373,7 +373,7 @@ export class TestResultAggregator extends EventEmitter {
    */
   async exportResults(
     aggregated: AggregatedTestResult,
-    format: 'json' | 'html' | 'markdown' | 'csv'
+    format: 'json' | 'html' | "markdown" | 'csv'
   ): Promise<string> {
     switch (format) {
       case 'json':
@@ -382,7 +382,7 @@ export class TestResultAggregator extends EventEmitter {
       case 'html':
         return this.generateHtmlReport(aggregated);
         
-      case 'markdown':
+      case "markdown":
         return this.generateMarkdownReport(aggregated);
         
       case 'csv':
@@ -535,7 +535,7 @@ export class TestResultAggregator extends EventEmitter {
 // Type definitions
 
 interface AggregationOptions {
-  method?: 'hierarchical' | 'flat' | 'grouped';
+  method?: "hierarchical" | 'flat' | 'grouped';
   aggregateCoverage?: boolean;
   includeArtifacts?: boolean;
   filter?: ResultFilter;
@@ -592,7 +592,7 @@ interface AggregatedTestResult {
   failedBuilds: BuildSummary[];
   
   // Metadata
-  aggregationMethod: 'hierarchical' | 'flat' | 'grouped';
+  aggregationMethod: "hierarchical" | 'flat' | 'grouped';
   aggregationTimestamp: Date;
 }
 

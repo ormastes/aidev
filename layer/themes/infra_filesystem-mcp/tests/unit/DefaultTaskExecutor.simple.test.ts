@@ -17,12 +17,12 @@ describe('DefaultTaskExecutor Basic Tests', () => {
 
     it('should return task executor function', () => {
       const taskExecutor = executor.getExecutor();
-      expect(typeof taskExecutor).toBe('function');
+      expect(typeof taskExecutor).toBe("function");
     });
 
     it('should register and store functions', () => {
       const testFn = jest.fn();
-      executor.registerFunction('testFunc', testFn);
+      executor.registerFunction("testFunc", testFn);
       
       // Test that function is registered (will be called when we fix the executor)
       expect(executor).toBeDefined();
@@ -48,7 +48,7 @@ describe('DefaultTaskExecutor Basic Tests', () => {
     it('should throw error for missing runnable config', async () => {
       const task: Task = {
         id: 'test-2',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {},
         status: 'pending',

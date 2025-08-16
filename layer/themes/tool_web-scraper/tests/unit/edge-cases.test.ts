@@ -68,7 +68,7 @@ describe('Edge Cases and Security Tests', () => {
         queue.markJobCompleted(jobId, TestDataFactory.createMockScrapingResult());
 
         const job = queue.getJob(jobId);
-        expect(job?.status).toBe('completed');
+        expect(job?.status).toBe("completed");
       });
     });
 
@@ -381,7 +381,7 @@ describe('Edge Cases and Security Tests', () => {
         new Error('ENOTFOUND: DNS lookup failed')
       );
 
-      await expect(scraper.scrape('https://nonexistent.domain')).rejects.toThrow('ENOTFOUND');
+      await expect(scraper.scrape('https://nonexistent.domain')).rejects.toThrow("ENOTFOUND");
     });
 
     it('should handle connection timeouts', async () => {
@@ -389,7 +389,7 @@ describe('Edge Cases and Security Tests', () => {
         new Error('ETIMEDOUT: Connection timeout')
       );
 
-      await expect(scraper.scrape('https://timeout.com')).rejects.toThrow('ETIMEDOUT');
+      await expect(scraper.scrape('https://timeout.com')).rejects.toThrow("ETIMEDOUT");
     });
 
     it('should handle SSL certificate errors', async () => {
@@ -405,7 +405,7 @@ describe('Edge Cases and Security Tests', () => {
         new Error('ECONNRESET: Connection reset by peer')
       );
 
-      await expect(scraper.scrape('https://reset.com')).rejects.toThrow('ECONNRESET');
+      await expect(scraper.scrape('https://reset.com')).rejects.toThrow("ECONNRESET");
     });
   });
 

@@ -5,9 +5,9 @@
  * with automatic auditing and validation through external-log-lib
  */
 
-import * as fs from 'fs';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
 import * as fsPromises from 'fs/promises';
-import * as path from 'path';
+import * as path from 'node:path';
 import { FileAccessAuditor, fileAccessAuditor } from '../file-access-auditor';
 import { getFileAPI, FileType } from '../../pipe';
 
@@ -68,7 +68,7 @@ export class AuditedFS {
       this.auditor.audit('read', filePath, { options, sync: true });
       
       // Perform the actual read
-      const data = fs.readFileSync(filePath, options);
+      const data = fileAPI.readFileSync(filePath, options);
       
       // Log successful read
       this.auditor.audit('read', filePath, {

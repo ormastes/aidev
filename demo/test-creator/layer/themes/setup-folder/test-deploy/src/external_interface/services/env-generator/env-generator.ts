@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import { path } from '../../../../../../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 export interface EnvConfig {
   [key: string]: string | number | boolean;
@@ -7,7 +7,7 @@ export interface EnvConfig {
 
 export interface EnvGeneratorOptions {
   outputPath: string;
-  environment: 'development' | 'test' | 'demo' | 'staging' | 'production' | 'release';
+  environment: "development" | 'test' | 'demo' | 'staging' | "production" | 'release';
   includeTokens?: boolean;
   includeServiceUrls?: boolean;
   includeDependencies?: boolean;
@@ -148,7 +148,7 @@ export class EnvGenerator {
         envContent.push('# Database Configuration');
         envContent.push(`DB_TYPE=${dbConfig.type}`);
         
-        if (dbConfig.type === 'postgres' || dbConfig.type === 'mysql') {
+        if (dbConfig.type === "postgres" || dbConfig.type === 'mysql') {
           if (dbConfig.host) envContent.push(`DB_HOST=${dbConfig.host}`);
           if (dbConfig.port) envContent.push(`DB_PORT=${dbConfig.port}`);
           if (dbConfig.database) envContent.push(`DB_NAME=${dbConfig.database}`);

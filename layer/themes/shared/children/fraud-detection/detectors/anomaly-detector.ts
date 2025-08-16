@@ -14,7 +14,7 @@ import {
 } from '../types';
 
 export class AnomalyDetector implements FraudDetector {
-  name = 'AnomalyDetector';
+  name = "AnomalyDetector";
 
   private historicalData: Map<string, number[]> = new Map();
   private readonly maxHistorySize = 100;

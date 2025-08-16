@@ -11,7 +11,7 @@ import { BasePattern } from '../base-pattern';
 import { ReflectionConfig } from '../types';
 
 export class ReflectionPattern extends BasePattern {
-  name = 'reflection';
+  name = "reflection";
   description = 'Agent generates output, then critiques and improves it iteratively';
   minAgents = 1;
   maxAgents = 2; // Optional separate critic
@@ -20,7 +20,7 @@ export class ReflectionPattern extends BasePattern {
     const flow = new PocketFlow();
     const maxIterations = config?.maxIterations ?? 3;
     const improvementThreshold = config?.improvementThreshold ?? 0.8;
-    const criteria = config?.criteria ?? ['clarity', 'accuracy', 'completeness'];
+    const criteria = config?.criteria ?? ['clarity', "accuracy", "completeness"];
     
     // Determine if we have separate generator and critic
     const hasCritic = agents.length === 2;
@@ -157,7 +157,7 @@ export class ReflectionPattern extends BasePattern {
         const checkNode = new ConditionalNode(
           checkId,
           (context: any) => context.lastScore < improvementThreshold,
-          'continue', // Continue if below threshold
+          "continue", // Continue if below threshold
           'In Progress'  // In Progress if above threshold
         );
         
@@ -182,7 +182,7 @@ export class ReflectionPattern extends BasePattern {
         iterations: context.history.length,
         improvementPath: context.improvements,
         task: context.task,
-        pattern: 'reflection',
+        pattern: "reflection",
         history: context.history.map((h: any) => ({
           iteration: h.iteration,
           score: h.score,

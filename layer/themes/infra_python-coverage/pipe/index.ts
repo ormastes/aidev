@@ -86,7 +86,7 @@ export class PythonCoverageGateway {
    */
   async generateReport(
     coverageData: CoverageResult,
-    format: 'html' | 'json' | 'xml' | 'markdown' | 'console',
+    format: 'html' | 'json' | 'xml' | "markdown" | 'console',
     outputPath?: string
   ): Promise<CoverageReport> {
     return this.reporter.generate(coverageData, format, outputPath);
@@ -134,7 +134,7 @@ export class PythonCoverageGateway {
     historyPath: string,
     days?: number
   ): Promise<{
-    trend: 'improving' | 'declining' | 'stable';
+    trend: "improving" | "declining" | 'stable';
     averageChange: number;
     dataPoints: Array<{ date: string; coverage: number }>;
   }> {

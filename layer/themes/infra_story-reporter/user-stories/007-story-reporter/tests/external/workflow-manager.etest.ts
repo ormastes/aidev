@@ -1,6 +1,6 @@
 import { spawn, ChildProcess } from 'child_process';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join } from 'path';
+import { fsPromises as fs } from 'fs/promises';
+import { join } from 'node:path';
 import { os } from '../../../../../infra_external-log-lib/src';
 
 describe('Workflow Manager External Interface Test', () => {
@@ -85,7 +85,7 @@ describe('Workflow Manager External Interface Test', () => {
   describe('Feature File Discovery External Interface', () => {
     it('should discover feature files from specified directory', async () => {
       // Create test feature files
-      const featuresDir = join(testDir, 'features');
+      const featuresDir = join(testDir, "features");
       await fs.mkdir(featuresDir, { recursive: true });
 
       const featureFiles = [
@@ -234,7 +234,7 @@ Given('I am on the {string} page', (pageName: string) => {
     it('should interface with external logging system', async () => {
       // Create mock logger configuration
       const loggerConfig = {
-        type: 'external',
+        type: "external",
         name: 'test-logger',
         endpoint: 'http://localhost:3000/logs',
         format: 'json',
@@ -248,7 +248,7 @@ Given('I am on the {string} page', (pageName: string) => {
       const configContent = await fs.readFile(loggerPath, 'utf8');
       const parsedConfig = JSON.parse(configContent);
 
-      expect(parsedConfig.type).toBe('external');
+      expect(parsedConfig.type).toBe("external");
       expect(parsedConfig.name).toBe('test-logger');
       expect(parsedConfig.levels).toContain('info');
       expect(parsedConfig.levels).toContain('warn');
@@ -260,7 +260,7 @@ Given('I am on the {string} page', (pageName: string) => {
         loggerId: 'workflow-test-logger',
         configuration: {
           level: 'debug',
-          format: 'structured',
+          format: "structured",
           metadata: {
             workflow: 'test-workflow',
             version: '1.0.0'

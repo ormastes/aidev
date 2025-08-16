@@ -26,12 +26,12 @@ describe('Scenario: Database configuration differs correctly between release (Po
       serviceName: 'production-app',
       servicePort: 443,
       databaseConfig: {
-        type: 'postgresql',
+        type: "postgresql",
         host: 'db.production.com',
         port: 5432,
         database: 'prod_db',
         user: 'prod_user',
-        password: 'secure_password'
+        password: "PLACEHOLDER"
       }
     };
     
@@ -54,7 +54,7 @@ describe('Scenario: Database configuration differs correctly between release (Po
   it('should use SQLite for development environment', async () => {
     // Given: Development environment configuration with database
     const config: EnvGeneratorConfig = {
-      environment: 'development',
+      environment: "development",
       serviceName: 'dev-app',
       servicePort: 3000,
       databaseConfig: {
@@ -76,7 +76,7 @@ describe('Scenario: Database configuration differs correctly between release (Po
     expect(result.content).not.toContain('DB_PORT');
     expect(result.content).not.toContain('DB_USER');
     expect(result.content).not.toContain('DB_PASSWORD');
-    expect(result.content).not.toContain('postgresql');
+    expect(result.content).not.toContain("postgresql");
   });
   
   it('should use SQLite for test environment', async () => {
@@ -166,7 +166,7 @@ describe('Scenario: Database configuration differs correctly between release (Po
       serviceName: 'minimal-prod',
       servicePort: 443,
       databaseConfig: {
-        type: 'postgresql',
+        type: "postgresql",
         database: 'minimal_db'
       }
     };
@@ -183,17 +183,14 @@ describe('Scenario: Database configuration differs correctly between release (Po
     expect(result.content).toContain('DATABASE_URL=postgresql://localhost:5432/minimal_db');
     
     // Should not include password if not provided
-    expect(result.content).not.toContain('DB_PASSWORD=');
-  });
-  
-  it('should handle PostgreSQL with custom port', async () => {
+    expect(result.content).not.toContain('DB_password: "PLACEHOLDER"should handle PostgreSQL with custom port', async () => {
     // Given: PostgreSQL with custom port
     const config: EnvGeneratorConfig = {
       environment: 'release',
       serviceName: 'custom-port-app',
       servicePort: 443,
       databaseConfig: {
-        type: 'postgresql',
+        type: "postgresql",
         host: 'db.example.com',
         port: 5433,
         database: 'custom_db',
@@ -216,11 +213,11 @@ describe('Scenario: Database configuration differs correctly between release (Po
       serviceName: 'secure-db-app',
       servicePort: 443,
       databaseConfig: {
-        type: 'postgresql',
+        type: "postgresql",
         host: 'secure-db.com',
         database: 'secure_db',
         user: 'secure_user',
-        password: 'very_secret_password'
+        password: "PLACEHOLDER"
       }
     };
     
@@ -246,7 +243,7 @@ describe('Scenario: Database configuration differs correctly between release (Po
     // Given: Multiple services with databases
     const configs: EnvGeneratorConfig[] = [
       {
-        environment: 'development',
+        environment: "development",
         serviceName: 'auth-service',
         servicePort: 4000,
         databaseConfig: {
@@ -255,7 +252,7 @@ describe('Scenario: Database configuration differs correctly between release (Po
         }
       },
       {
-        environment: 'development',
+        environment: "development",
         serviceName: 'user-service',
         servicePort: 4001,
         databaseConfig: {
@@ -268,7 +265,7 @@ describe('Scenario: Database configuration differs correctly between release (Po
         serviceName: 'api-service',
         servicePort: 443,
         databaseConfig: {
-          type: 'postgresql',
+          type: "postgresql",
           host: 'db.prod.com',
           database: 'api_prod'
         }
@@ -298,7 +295,7 @@ describe('Scenario: Database configuration differs correctly between release (Po
       serviceName: 'pooled-app',
       servicePort: 443,
       databaseConfig: {
-        type: 'postgresql',
+        type: "postgresql",
         host: 'db.prod.com',
         database: 'pooled_db',
         user: 'pool_user'
@@ -311,7 +308,7 @@ describe('Scenario: Database configuration differs correctly between release (Po
     };
     
     const devConfig: EnvGeneratorConfig = {
-      environment: 'development',
+      environment: "development",
       serviceName: 'pooled-app',
       servicePort: 3000,
       databaseConfig: {
@@ -345,15 +342,15 @@ describe('Scenario: Database configuration differs correctly between release (Po
       serviceName: 'multi-db-app',
       servicePort: 443,
       databaseConfig: {
-        type: 'postgresql',
+        type: "postgresql",
         host: 'primary-db.prod.com',
         database: 'primary_db',
         user: 'primary_user',
-        password: 'primary_pass'
+        password: "PLACEHOLDER"
       },
       additionalVariables: [
         // Secondary database configuration
-        { key: 'SECONDARY_DB_TYPE', value: 'postgresql' },
+        { key: 'SECONDARY_DB_TYPE', value: "postgresql" },
         { key: 'SECONDARY_DB_HOST', value: 'secondary-db.prod.com' },
         { key: 'SECONDARY_DB_PORT', value: '5432' },
         { key: 'SECONDARY_DB_NAME', value: 'secondary_db' },

@@ -67,7 +67,7 @@ export async function loginUser(
   
   // Get real token from localStorage
   const token = await page.evaluate(() => {
-    return localStorage.getItem('authToken');
+    return localStorage.getItem("authToken");
   });
   
   return token || '';
@@ -217,7 +217,7 @@ export async function getPerformanceMetrics(page: Page): Promise<{
   firstContentfulPaint: number;
 }> {
   return await page.evaluate(() => {
-    const perfData = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+    const perfData = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming;
     const paintData = performance.getEntriesByType('paint');
     
     const firstPaint = paintData.find(p => p.name === 'first-paint');

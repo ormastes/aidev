@@ -70,16 +70,16 @@ export const PROTOCOL_VERSION = '1.0.0';
 
 export const MESSAGE_TYPES = {
   REQUEST: 'request',
-  RESPONSE: 'response',
-  NOTIFICATION: 'notification',
+  RESPONSE: "response",
+  NOTIFICATION: "notification",
   ERROR: 'error',
 } as const;
 
 export const METHODS = {
   // Lifecycle
-  INITIALIZE: 'initialize',
-  INITIALIZED: 'initialized',
-  SHUTDOWN: 'shutdown',
+  INITIALIZE: "initialize",
+  INITIALIZED: "initialized",
+  SHUTDOWN: "shutdown",
   EXIT: 'exit',
   
   // Document synchronization

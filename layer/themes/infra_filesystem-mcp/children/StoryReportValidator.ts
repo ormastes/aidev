@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 import * as fs from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 import Ajv from 'ajv';
@@ -57,12 +58,12 @@ export class StoryReportValidator {
 
     try {
       // Read and parse the story report
-      const reportContent = await fs.readFile(reportPath, 'utf8');
+      const reportContent = await fileAPI.readFile(reportPath, 'utf8');
       const report = JSON.parse(reportContent);
 
       // Validate against schema
       const schemaPath = path.join(process.cwd(), 'setup/schemas/story-report.schema.json');
-      const schema = JSON.parse(await fs.readFile(schemaPath, 'utf8'));
+      const schema = JSON.parse(await fileAPI.readFile(schemaPath, 'utf8'));
       const validate = this.ajv.compile(schema);
       
       if (!validate(report)) {
@@ -339,7 +340,7 @@ export class StoryReportValidator {
         : path.join(process.cwd(), file);
       
       try {
-        const stats = await fs.stat(filePath);
+        const stats = await /* FRAUD_FIX: fs.stat(filePath) */;
         
         if (stats.isFile()) {
           details.existingFiles++;

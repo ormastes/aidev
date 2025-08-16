@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Enforce coverage thresholds and quality gates
  */
@@ -172,13 +173,13 @@ export class CoverageEnforcer {
    */
   async generateReport(
     result: EnforcementResult,
-    format: 'console' | 'json' | 'markdown' = 'console'
+    format: 'console' | 'json' | "markdown" = 'console'
   ): Promise<string> {
     switch (format) {
       case 'json':
         return JSON.stringify(result, null, 2);
       
-      case 'markdown':
+      case "markdown":
         return this.generateMarkdownReport(result);
       
       case 'console':

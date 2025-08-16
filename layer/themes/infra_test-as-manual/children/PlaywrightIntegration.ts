@@ -52,7 +52,7 @@ export class PlaywrightIntegration {
   
   private async getPlaywright(): Promise<any> {
     try {
-      return require('playwright');
+      return require("playwright");
     } catch {
       // Return mock if playwright not available
       return {
@@ -169,7 +169,7 @@ export class PlaywrightSecurityConfig {
       },
       projects: [
         {
-          name: 'chromium',
+          name: "chromium",
           use: { 
             channel: 'chrome'
           }
@@ -229,9 +229,9 @@ export class PlaywrightSecurityConfig {
       // Check for Test Theme integration
       const testFiles = this.findTestFiles(config.testDir || './test');
       for (const file of testFiles) {
-        const content = fs.readFileSync(file, 'utf-8');
+        const content = fileAPI.readFileSync(file, 'utf-8');
         
-        if (content.includes('localhost:') && !content.includes('TestPortManager')) {
+        if (content.includes('localhost:') && !content.includes("TestPortManager")) {
           warnings.push(`Test file ${file} uses hardcoded localhost port without Test Theme`);
         }
       }
@@ -365,7 +365,7 @@ export const testHelpers = {
    */
   async createTestSuite(options: {
     name: string;
-    type?: 'unit' | 'integration' | 'e2e';
+    type?: 'unit' | "integration" | 'e2e';
     deployType?: DeployType;
   }) {
     const testManager = TestPortManager.getInstance();

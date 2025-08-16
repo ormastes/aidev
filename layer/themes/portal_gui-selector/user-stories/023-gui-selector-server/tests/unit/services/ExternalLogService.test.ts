@@ -15,7 +15,7 @@ jest.mock('fs', () => ({
 }));
 jest.mock('../../../src/utils/logger');
 
-describe('ExternalLogService', () => {
+describe("ExternalLogService", () => {
   let service: ExternalLogService;
   const mockFs = fs as jest.Mocked<typeof fs>;
   const mockPromises = fs.promises as jest.Mocked<typeof fs.promises>;
@@ -47,7 +47,7 @@ describe('ExternalLogService', () => {
     jest.useRealTimers();
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should create log directory structure', () => {
       expect(mockFs.existsSync).toHaveBeenCalledWith(
         expect.stringContaining(path.join('95.child_project', 'external_log_lib', 'logs', 'gui-selector'))
@@ -123,7 +123,7 @@ describe('ExternalLogService', () => {
     });
 
     it('should log to console in development mode', async () => {
-      process.env.NODE_ENV = 'development';
+      process.env.NODE_ENV = "development";
       
       const entry = {
         timestamp: '',
@@ -138,7 +138,7 @@ describe('ExternalLogService', () => {
     });
 
     it('should not log to console in production mode', async () => {
-      process.env.NODE_ENV = 'production';
+      process.env.NODE_ENV = "production";
       
       const entry = {
         timestamp: '',
@@ -169,7 +169,7 @@ describe('ExternalLogService', () => {
     });
   });
 
-  describe('logUserAction', () => {
+  describe("logUserAction", () => {
     it('should log user action with correct format', async () => {
       await service.logUserAction(123, 'user-login', { ip: '127.0.0.1' });
       
@@ -202,7 +202,7 @@ describe('ExternalLogService', () => {
     });
   });
 
-  describe('logAppAction', () => {
+  describe("logAppAction", () => {
     it('should log app action with user id', async () => {
       await service.logAppAction(1, 'app-created', 123, { name: 'Test App' });
       
@@ -236,7 +236,7 @@ describe('ExternalLogService', () => {
     });
   });
 
-  describe('logError', () => {
+  describe("logError", () => {
     it('should log error with stack trace', async () => {
       const error = new Error('Test error');
       error.stack = 'Error: Test error\n    at test.js:1:1';
@@ -293,7 +293,7 @@ describe('ExternalLogService', () => {
     });
   });
 
-  describe('logSystemEvent', () => {
+  describe("logSystemEvent", () => {
     it('should log system event', async () => {
       await service.logSystemEvent('server-started', { port: 3000 });
       
@@ -319,7 +319,7 @@ describe('ExternalLogService', () => {
     });
   });
 
-  describe('getRecentLogs', () => {
+  describe("getRecentLogs", () => {
     it('should return recent logs in reverse order', async () => {
       const mockLogs = [
         { timestamp: '2024-01-15T10:00:00Z', action: 'action1' },
@@ -351,8 +351,8 @@ describe('ExternalLogService', () => {
       const logs = await service.getRecentLogs(50);
       
       expect(logs).toHaveLength(50);
-      expect(logs[0].action).toBe('action199');
-      expect(logs[49].action).toBe('action150');
+      expect(logs[0].action).toBe("action199");
+      expect(logs[49].action).toBe("action150");
     });
 
     it('should handle empty log file', async () => {

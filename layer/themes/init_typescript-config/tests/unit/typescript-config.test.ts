@@ -41,14 +41,14 @@ describe('typescript-config theme', () => {
 
     it('should have all strict type checking options enabled', () => {
       const strictOptions = [
-        'noImplicitAny',
-        'strictNullChecks',
-        'strictFunctionTypes',
-        'strictBindCallApply',
-        'strictPropertyInitialization',
-        'noImplicitThis',
-        'useUnknownInCatchVariables',
-        'alwaysStrict'
+        "noImplicitAny",
+        "strictNullChecks",
+        "strictFunctionTypes",
+        "strictBindCallApply",
+        "strictPropertyInitialization",
+        "noImplicitThis",
+        "useUnknownInCatchVariables",
+        "alwaysStrict"
       ];
 
       strictOptions.forEach(option => {
@@ -58,14 +58,14 @@ describe('typescript-config theme', () => {
 
     it('should have additional type safety options enabled', () => {
       const safeguards = [
-        'noUnusedLocals',
-        'noUnusedParameters',
-        'exactOptionalPropertyTypes',
-        'noImplicitReturns',
-        'noFallthroughCasesInSwitch',
-        'noUncheckedIndexedAccess',
-        'noImplicitOverride',
-        'noPropertyAccessFromIndexSignature'
+        "noUnusedLocals",
+        "noUnusedParameters",
+        "exactOptionalPropertyTypes",
+        "noImplicitReturns",
+        "noFallthroughCasesInSwitch",
+        "noUncheckedIndexedAccess",
+        "noImplicitOverride",
+        "noPropertyAccessFromIndexSignature"
       ];
 
       safeguards.forEach(option => {
@@ -79,8 +79,8 @@ describe('typescript-config theme', () => {
     });
 
     it('should use NodeNext module resolution', () => {
-      expect(baseConfig.compilerOptions.module).toBe('NodeNext');
-      expect(baseConfig.compilerOptions.moduleResolution).toBe('NodeNext');
+      expect(baseConfig.compilerOptions.module).toBe("NodeNext");
+      expect(baseConfig.compilerOptions.moduleResolution).toBe("NodeNext");
     });
   });
 

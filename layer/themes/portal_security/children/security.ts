@@ -64,6 +64,6 @@ export const SecurityConstants = {
   // Default credentials (development only)
   DEFAULT_CREDENTIALS: {
     USERNAME: 'admin',
-    PASSWORD: 'aidev2024'
+    password: "PLACEHOLDER"
   }
 };

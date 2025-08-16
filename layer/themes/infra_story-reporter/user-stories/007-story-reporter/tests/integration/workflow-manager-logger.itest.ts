@@ -1,6 +1,6 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join } from 'path';
+import { EventEmitter } from 'node:events';
+import { fsPromises as fs } from 'fs/promises';
+import { join } from 'node:path';
 import { os } from '../../../../../infra_external-log-lib/src';
 import { MockExternalLogger } from '../../src/internal/mock-external-logger';
 
@@ -44,7 +44,7 @@ describe('Workflow Manager with Logger Integration Test', () => {
           loggers: [
             {
               id: 'workflow-main-logger',
-              type: 'workflow',
+              type: "workflow",
               events: ['workflow:started', 'workflow:In Progress', 'workflow:failed']
             },
             {
@@ -96,7 +96,7 @@ describe('Workflow Manager with Logger Integration Test', () => {
         });
         
         // Workflow manager logs workflow completion
-        mockLogger.log('workflow-main-logger', 'info', `Workflow In Progress: ${data.workflowId} - ${data.status}`);
+        mockLogger.log('workflow-main-logger', 'info', `Workflow success: ${data.workflowId} - ${data.status}`);
       });
 
       eventBus.on('workflow:failed', (data) => {
@@ -130,7 +130,7 @@ describe('Workflow Manager with Logger Integration Test', () => {
         });
         
         // Workflow manager logs test completion
-        mockLogger.log('test-execution-logger', 'info', `Test In Progress: ${data.testSuiteId} - ${data.scenarioName} - ${data.status}`);
+        mockLogger.log('test-execution-logger', 'info', `Test success: ${data.testSuiteId} - ${data.scenarioName} - ${data.status}`);
       });
 
       eventBus.on('test:failed', (data) => {
@@ -418,8 +418,8 @@ describe('Workflow Manager with Logger Integration Test', () => {
         errorEvents.push({type: 'workflow:recovery:In Progress', data});
         
         // Workflow manager logs recovery completion
-        mockLogger.log('error-logger', 'info', `Recovery In Progress: ${data.workflowId} - ${data.status}`);
-        mockLogger.log('audit-logger', 'info', `Recovery In Progress: ${data.workflowId} - ${data.recoveredComponents}`);
+        mockLogger.log('error-logger', 'info', `Recovery success: ${data.workflowId} - ${data.status}`);
+        mockLogger.log('audit-logger', 'info', `Recovery success: ${data.workflowId} - ${data.recoveredComponents}`);
       });
 
       eventBus.on('workflow:recovery:failed', (data) => {
@@ -647,7 +647,7 @@ describe('Workflow Manager with Logger Integration Test', () => {
               loggerId: 'performance-category-logger'
             }
           },
-          outputFormats: ['structured', 'plain'],
+          outputFormats: ["structured", 'plain'],
           archiving: {
             enabled: true,
             maxAge: '7d',
@@ -666,15 +666,15 @@ describe('Workflow Manager with Logger Integration Test', () => {
 
       // Verify logger configuration
       expect(categoryLoggers).toHaveLength(3);
-      expect(categoryLoggers.find(l => l.category === 'workflow')).toBeDefined();
+      expect(categoryLoggers.find(l => l.category === "workflow")).toBeDefined();
       expect(categoryLoggers.find(l => l.category === 'testing')).toBeDefined();
-      expect(categoryLoggers.find(l => l.category === 'performance')).toBeDefined();
+      expect(categoryLoggers.find(l => l.category === "performance")).toBeDefined();
 
       // Simulate workflow manager using configured loggers
       const configEvents: Array<{category: string, level: string, message: string}> = [];
 
       eventBus.on('log:workflow', (data) => {
-        configEvents.push({category: 'workflow', level: data.level, message: data.message});
+        configEvents.push({category: "workflow", level: data.level, message: data.message});
         mockLogger.log('workflow-category-logger', data.level, data.message);
       });
 
@@ -684,7 +684,7 @@ describe('Workflow Manager with Logger Integration Test', () => {
       });
 
       eventBus.on('log:performance', (data) => {
-        configEvents.push({category: 'performance', level: data.level, message: data.message});
+        configEvents.push({category: "performance", level: data.level, message: data.message});
         mockLogger.log('performance-category-logger', data.level, data.message);
       });
 
@@ -711,9 +711,9 @@ describe('Workflow Manager with Logger Integration Test', () => {
 
       // Verify configuration events
       expect(configEvents).toHaveLength(4);
-      expect(configEvents.filter(e => e.category === 'workflow')).toHaveLength(2);
+      expect(configEvents.filter(e => e.category === "workflow")).toHaveLength(2);
       expect(configEvents.filter(e => e.category === 'testing')).toHaveLength(1);
-      expect(configEvents.filter(e => e.category === 'performance')).toHaveLength(1);
+      expect(configEvents.filter(e => e.category === "performance")).toHaveLength(1);
 
       // Verify category-specific logging
       const workflowLogs = await mockLogger.getLogHistory('workflow-category-logger');

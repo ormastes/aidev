@@ -3,14 +3,14 @@
  * Monitors and controls HTTP requests and servers
  */
 
-import * as originalHttp from 'http';
+import * as originalHttp from '../utils/http-wrapper';
 import { BaseInterceptor, CallInfo, ValidationResult } from './base-interceptor';
 
 export class HttpInterceptor extends BaseInterceptor<typeof originalHttp> {
   private readonly blockedHosts = [
     '169.254.169.254', // AWS metadata endpoint
     'metadata.google.internal', // GCP metadata endpoint
-    'localhost',
+    "localhost",
     '127.0.0.1',
     '0.0.0.0'
   ];
@@ -27,7 +27,7 @@ export class HttpInterceptor extends BaseInterceptor<typeof originalHttp> {
       
       request: this.wrapMethod('http', 'request', this.originalModule.request),
       get: this.wrapMethod('http', 'get', this.originalModule.get),
-      createServer: this.wrapMethod('http', 'createServer', this.originalModule.createServer),
+      createServer: this.wrapMethod('http', "createServer", this.originalModule.createServer),
       
       // Keep classes and constants
       Agent: this.originalModule.Agent,

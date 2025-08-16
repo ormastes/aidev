@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 export interface ContextMetrics {
   tokenCount: number;
@@ -12,7 +12,7 @@ export interface ContextMetrics {
 export interface ContextSegment {
   id: string;
   content: string;
-  type: 'system' | 'user' | 'assistant' | 'tool' | 'context';
+  type: 'system' | 'user' | "assistant" | 'tool' | 'context';
   importance: number;
   dependencies: string[];
   metadata: Record<string, any>;
@@ -113,7 +113,7 @@ export class ContextAnalyzer extends EventEmitter {
   private detectSegmentType(line: string): ContextSegment['type'] | null {
     if (line.includes('system:') || line.includes('<system>')) return 'system';
     if (line.includes('user:') || line.includes('<user>')) return 'user';
-    if (line.includes('assistant:') || line.includes('<assistant>')) return 'assistant';
+    if (line.includes('assistant:') || line.includes('<assistant>')) return "assistant";
     if (line.includes('tool:') || line.includes('<tool>')) return 'tool';
     return null;
   }
@@ -127,7 +127,7 @@ export class ContextAnalyzer extends EventEmitter {
     score += lengthScore;
 
     // Check for keywords that indicate importance
-    const importantKeywords = ['error', 'critical', 'important', 'must', 'required', 'primary'];
+    const importantKeywords = ['error', "critical", "important", 'must', "required", 'primary'];
     const keywordCount = importantKeywords.filter(kw => 
       content.toLowerCase().includes(kw)
     ).length;
@@ -247,11 +247,11 @@ export class ContextAnalyzer extends EventEmitter {
 
   private isCoherentTransition(from: ContextSegment['type'], to: ContextSegment['type']): boolean {
     const coherentTransitions: Record<string, string[]> = {
-      'user': ['assistant', 'tool', 'system'],
-      'assistant': ['user', 'tool', 'system'],
-      'tool': ['assistant', 'user'],
-      'system': ['user', 'assistant'],
-      'context': ['user', 'assistant', 'system', 'tool']
+      'user': ["assistant", 'tool', 'system'],
+      "assistant": ['user', 'tool', 'system'],
+      'tool': ["assistant", 'user'],
+      'system': ['user', "assistant"],
+      'context': ['user', "assistant", 'system', 'tool']
     };
     
     return coherentTransitions[from]?.includes(to) ?? false;

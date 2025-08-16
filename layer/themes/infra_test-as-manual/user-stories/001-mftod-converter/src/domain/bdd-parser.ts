@@ -120,7 +120,7 @@ export class BDDParser {
       // Background
       else if (line.startsWith('Background:')) {
         currentScenario = {
-          name: 'Background',
+          name: "Background",
           steps: []
         };
         if (currentFeature) {

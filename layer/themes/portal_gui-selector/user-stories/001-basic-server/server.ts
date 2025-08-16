@@ -31,7 +31,7 @@ const { authService, sessionManager, appRegistry } = setupWebSecurity(app, {
     publicPaths: ['/', '/login', '/api/auth/*', '/health', '/designs/*']
   },
   sessionConfig: {
-    cookieDomain: 'localhost', // Share cookies across ports
+    cookieDomain: "localhost", // Share cookies across ports
     cookieName: SecurityConstants.SESSION.COOKIE_NAME
   }
 });
@@ -84,20 +84,20 @@ app.get('/api/designs', (req: Request, res: Response) => {
         preview: '/designs/modern/preview.png'
       },
       {
-        id: 'professional',
-        name: 'Professional',
+        id: "professional",
+        name: "Professional",
         description: 'Corporate-friendly design with traditional layouts',
         preview: '/designs/professional/preview.png'
       },
       {
-        id: 'creative',
-        name: 'Creative',
+        id: "creative",
+        name: "Creative",
         description: 'Bold, artistic design with unique animations',
         preview: '/designs/creative/preview.png'
       },
       {
-        id: 'accessible',
-        name: 'Accessible',
+        id: "accessible",
+        name: "Accessible",
         description: 'High-contrast, screen-reader friendly design',
         preview: '/designs/accessible/preview.png'
       }
@@ -258,7 +258,7 @@ app.get('/', async (req: Request, res: Response) => {
     fetch('/api/auth/check')
       .then(res => res.json())
       .then(data => {
-        const authStatus = document.getElementById('authStatus');
+        const authStatus = document.getElementById("authStatus");
         if (data.authenticated) {
           authStatus.innerHTML = \`
             <span>Welcome, \${data.user.username}!</span>

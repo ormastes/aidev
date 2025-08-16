@@ -12,7 +12,7 @@ export interface Component {
 }
 
 export interface LayoutConfig {
-  type: 'dashboard' | 'form' | 'list' | 'detail' | 'landing' | 'admin';
+  type: "dashboard" | 'form' | 'list' | 'detail' | 'landing' | 'admin';
   sections: string[];
   responsive?: boolean;
   components?: Component[];
@@ -48,7 +48,7 @@ export class ASCIISketch {
     const layout = new LayoutImpl(config, this.width, this.height, this.charset);
     
     // Add default sections based on layout type
-    if (config.type === 'dashboard') {
+    if (config.type === "dashboard") {
       this.addDashboardSections(layout);
     } else if (config.type === 'form') {
       this.addFormSections(layout);
@@ -74,7 +74,7 @@ export class ASCIISketch {
 
   render(): string {
     const layout = this.createLayout({
-      type: 'dashboard',
+      type: "dashboard",
       sections: ['header', 'main'],
       components: this.components
     });
@@ -137,7 +137,7 @@ export class ASCIISketch {
     
     layout.addComponent({
       type: 'main',
-      name: 'Features',
+      name: "Features",
       position: { x: 0, y: 10 },
       size: { width: this.width, height: this.height - 15 }
     });

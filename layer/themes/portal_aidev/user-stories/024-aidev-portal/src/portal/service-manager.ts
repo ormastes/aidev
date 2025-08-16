@@ -3,7 +3,7 @@
  */
 
 import fetch from 'node-fetch';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { AuthenticationManager } from '../auth/authentication-manager';
 
 export interface ServiceConfig {
@@ -27,7 +27,7 @@ export interface OperationResult {
 }
 
 export interface ServiceHealth {
-  status: 'healthy' | 'unhealthy' | 'unknown';
+  status: 'healthy' | "unhealthy" | 'unknown';
   uptime?: number;
   version?: string;
   lastCheck?: string;
@@ -81,7 +81,7 @@ export class PortalServiceManager extends EventEmitter {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.authToken}`
+          "Authorization": `Bearer ${this.authToken}`
         },
         body: JSON.stringify(config),
         timeout: this.timeout
@@ -122,7 +122,7 @@ export class PortalServiceManager extends EventEmitter {
         serviceId: result.serviceId
       };
     } catch (error: any) {
-      if (error.code === 'ECONNREFUSED') {
+      if (error.code === "ECONNREFUSED") {
         return {
           success: false,
           error: 'registry unavailable'
@@ -139,7 +139,7 @@ export class PortalServiceManager extends EventEmitter {
     try {
       const response = await fetch(`${this.registryUrl}/services`, {
         headers: {
-          'Authorization': `Bearer ${this.authToken}`
+          "Authorization": `Bearer ${this.authToken}`
         },
         timeout: this.timeout
       });
@@ -170,7 +170,7 @@ export class PortalServiceManager extends EventEmitter {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.authToken}`
+          "Authorization": `Bearer ${this.authToken}`
         },
         body: JSON.stringify(updates),
         timeout: this.timeout
@@ -198,7 +198,7 @@ export class PortalServiceManager extends EventEmitter {
       const response = await fetch(`${this.registryUrl}/services/${serviceId}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${this.authToken}`
+          "Authorization": `Bearer ${this.authToken}`
         },
         timeout: this.timeout
       });
@@ -231,7 +231,7 @@ export class PortalServiceManager extends EventEmitter {
     try {
       const response = await fetch(`${this.registryUrl}/services/${serviceId}/health`, {
         headers: {
-          'Authorization': `Bearer ${this.authToken}`
+          "Authorization": `Bearer ${this.authToken}`
         },
         timeout: this.timeout
       });

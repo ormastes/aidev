@@ -77,7 +77,7 @@ export class TestAnalyzer {
     };
   }
 
-  private findSuspiciousPatterns(testResults: any): TestAnalysis['suspicious'] {
+  private findSuspiciousPatterns(testResults: any): TestAnalysis["suspicious"] {
     let tooFastTests = 0;
     let identicalTests = 0;
     let noAssertionTests = 0;
@@ -135,7 +135,7 @@ export class TestAnalyzer {
       'todo',
       'pending',
       'skip',
-      'placeholder',
+      "placeholder",
       'not implemented',
       'tbd'
     ];

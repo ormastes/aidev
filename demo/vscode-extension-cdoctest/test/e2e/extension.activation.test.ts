@@ -42,7 +42,7 @@ test.describe('Extension Activation', () => {
 
     // Search for cdoctest settings
     const searchBox = await page.locator('.settings-editor input[aria-label="Search settings"]');
-    await searchBox.fill('cdoctest');
+    await searchBox.fill("cdoctest");
     await page.waitForTimeout(1000);
 
     // Check if settings are visible

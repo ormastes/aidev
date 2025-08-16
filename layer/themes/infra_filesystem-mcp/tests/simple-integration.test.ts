@@ -1,4 +1,4 @@
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 import { VFDistributedFeatureWrapper, DistributedFeatureFile } from '../children/VFDistributedFeatureWrapper';
 
@@ -104,14 +104,14 @@ describe('Simple Distributed Feature Integration Test', () => {
       features: {}
     });
 
-    const platformId = await rootWrapper.addFeature('platform', {
+    const platformId = await rootWrapper.addFeature("platform", {
       name: 'Test Platform',
       data: {
         title: 'Test Platform',
         description: 'Platform for hierarchy testing',
         level: 'root',
         status: 'in-progress',
-        priority: 'critical',
+        priority: "critical",
         virtual_path: '/hierarchy-root.json'
       }
     });
@@ -169,7 +169,7 @@ describe('Simple Distributed Feature Integration Test', () => {
     });
 
     // Add orphaned feature - should create common epic
-    await wrapper.addFeature('orphaned', {
+    await wrapper.addFeature("orphaned", {
       name: 'Orphaned Feature',
       data: {
         title: 'Orphaned Feature',

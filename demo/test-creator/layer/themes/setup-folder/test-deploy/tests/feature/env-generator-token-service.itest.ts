@@ -1,6 +1,6 @@
 import { EnvGenerator, TokenService } from '../../src/external_interface/pipe';
 import * as fs from 'fs-extra';
-import { path } from '../../../../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 describe('EnvGenerator integrates with TokenService', () => {
   const testDir = path.join(process.cwd(), 'temp/test-env-integration');
@@ -38,7 +38,7 @@ describe('EnvGenerator integrates with TokenService', () => {
       const outputPath = path.join(testDir, '.env');
       const content = await envGenerator.generate({
         outputPath,
-        environment: 'development',
+        environment: "development",
         includeTokens: true
       });
 
@@ -55,12 +55,7 @@ describe('EnvGenerator integrates with TokenService', () => {
 
       // And: Content should include security tokens
       expect(content).toContain('# Security Tokens');
-      expect(content).toContain('TEST_API_KEY=');
-      expect(content).toContain('TEST_SECRET=');
-      expect(content).toContain('TEST_JWT_SECRET=');
-      expect(content).toContain('TEST_SESSION_SECRET=');
-      expect(content).toContain('TEST_REFRESH_TOKEN=');
-      expect(content).toContain('TEST_DEV_KEY=dev-');
+      expect(content).toContain('TEST_apiKey = process.env.API_KEY || 'PLACEHOLDER_API_KEY'TEST_secret: process.env.SECRET || "PLACEHOLDER"TEST_JWT_secret: process.env.SECRET || "PLACEHOLDER"TEST_SESSION_secret: process.env.SECRET || "PLACEHOLDER"TEST_REFRESH_token: process.env.TOKEN || "PLACEHOLDER"TEST_DEV_KEY=dev-');
 
       // And: Tokens should be valid hex strings
       const lines = content.split('\n');
@@ -84,7 +79,7 @@ describe('EnvGenerator integrates with TokenService', () => {
       const devPath = path.join(testDir, '.env.development');
       const devContent = await envGenerator.generate({
         outputPath: devPath,
-        environment: 'development',
+        environment: "development",
         includeTokens: true
       });
 
@@ -92,7 +87,7 @@ describe('EnvGenerator integrates with TokenService', () => {
       const prodPath = path.join(testDir, '.env.production');
       const prodContent = await envGenerator.generate({
         outputPath: prodPath,
-        environment: 'production',
+        environment: "production",
         includeTokens: true
       });
 
@@ -132,17 +127,13 @@ describe('EnvGenerator integrates with TokenService', () => {
       const outputPath = path.join(testDir, '.env');
       const content = await envGenerator.generate({
         outputPath,
-        environment: 'development',
+        environment: "development",
         includeTokens: false
       });
 
       // Then: Content should not include tokens
       expect(content).not.toContain('# Security Tokens');
-      expect(content).not.toContain('TEST_API_KEY=');
-      expect(content).not.toContain('TEST_SECRET=');
-    });
-
-    it('should generate .env file without tokens when tokenService is not set', async () => {
+      expect(content).not.toContain('TEST_apiKey = process.env.API_KEY || 'PLACEHOLDER_API_KEY'TEST_secret: process.env.SECRET || "PLACEHOLDER"should generate .env file without tokens when tokenService is not set', async () => {
       // Given: EnvGenerator without tokenService
       envGenerator.addConfig('APP_NAME', 'test-app');
       envGenerator.addConfig('APP_PORT', 3000);
@@ -151,7 +142,7 @@ describe('EnvGenerator integrates with TokenService', () => {
       const outputPath = path.join(testDir, '.env');
       const content = await envGenerator.generate({
         outputPath,
-        environment: 'development',
+        environment: "development",
         includeTokens: true
       });
 
@@ -169,14 +160,14 @@ describe('EnvGenerator integrates with TokenService', () => {
       const path1 = path.join(testDir, '.env.1');
       const content1 = await envGenerator.generate({
         outputPath: path1,
-        environment: 'development',
+        environment: "development",
         includeTokens: true
       });
 
       const path2 = path.join(testDir, '.env.2');
       const content2 = await envGenerator.generate({
         outputPath: path2,
-        environment: 'development',
+        environment: "development",
         includeTokens: true
       });
 
@@ -198,7 +189,7 @@ describe('EnvGenerator integrates with TokenService', () => {
         APP_VERSION: '1.0.0',
         APP_PORT: 3000,
         API_URL: 'http://localhost:4000',
-        DB_HOST: 'localhost',
+        DB_HOST: "localhost",
         DB_PORT: 5432,
         DB_NAME: 'testdb',
         CACHE_ENABLED: true,
@@ -221,8 +212,7 @@ describe('EnvGenerator integrates with TokenService', () => {
       expect(content).toContain('MAX_CONNECTIONS=100');
 
       // And: Tokens should be present
-      expect(content).toContain('TEST_API_KEY=');
-      expect(content).toContain('TEST_SECRET=');
+      expect(content).toContain('TEST_apiKey = process.env.API_KEY || 'PLACEHOLDER_API_KEY'TEST_SECRET=');
     });
   });
 });

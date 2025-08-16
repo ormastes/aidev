@@ -3,7 +3,7 @@
  * Manages agent sessions and their lifecycle
  */
 
-import { EventEmitter } from '../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { v4 as uuidv4 } from 'uuid';
 import { Session, SessionStatus, SessionContext, SessionMessage } from '../domain/session';
 import { Agent } from '../domain/agent';
@@ -78,7 +78,7 @@ export class SessionManager extends EventEmitter {
     });
 
     this.sessions.set(sessionId, session);
-    this.emit('sessionCreated', session);
+    this.emit("sessionCreated", session);
     
     // Set idle timer
     this.resetIdleTimer(sessionId);
@@ -113,10 +113,10 @@ export class SessionManager extends EventEmitter {
         });
       }
 
-      this.emit('sessionStarted', sessionId);
+      this.emit("sessionStarted", sessionId);
     } catch (error: any) {
       session.setError(error.message);
-      this.emit('sessionError', sessionId, error);
+      this.emit("sessionError", sessionId, error);
       throw error;
     }
   }
@@ -149,7 +149,7 @@ export class SessionManager extends EventEmitter {
       timestamp: new Date()
     };
     session.addMessage(userMessage);
-    this.emit('messageAdded', sessionId, userMessage);
+    this.emit("messageAdded", sessionId, userMessage);
 
     try {
       // Process with agent capabilities
@@ -157,7 +157,7 @@ export class SessionManager extends EventEmitter {
       
       // Add assistant response
       const assistantMessage: SessionMessage = {
-        role: 'assistant',
+        role: "assistant",
         content: [{
           type: 'text',
           text: response
@@ -165,7 +165,7 @@ export class SessionManager extends EventEmitter {
         timestamp: new Date()
       };
       session.addMessage(assistantMessage);
-      this.emit('messageAdded', sessionId, assistantMessage);
+      this.emit("messageAdded", sessionId, assistantMessage);
 
       // Trim history if needed
       this.trimMessageHistory(session);
@@ -178,7 +178,7 @@ export class SessionManager extends EventEmitter {
       return assistantMessage;
     } catch (error: any) {
       session.setError(error.message);
-      this.emit('sessionError', sessionId, error);
+      this.emit("sessionError", sessionId, error);
       throw error;
     }
   }
@@ -213,7 +213,7 @@ export class SessionManager extends EventEmitter {
     session.success();
     
     if (reason) {
-      session.setMetadata('endReason', reason);
+      session.setMetadata("endReason", reason);
     }
 
     // Clear idle timer
@@ -223,7 +223,7 @@ export class SessionManager extends EventEmitter {
       this.idleTimers.delete(sessionId);
     }
 
-    this.emit('sessioncompleted', sessionId);
+    this.emit("sessioncompleted", sessionId);
   }
 
   getSession(sessionId: string): Session | undefined {
@@ -261,7 +261,7 @@ export class SessionManager extends EventEmitter {
       const otherMessages = messages.filter(m => m.role !== 'system');
       
       const toKeep = otherMessages.slice(-this.config.maxMessageHistory!);
-      session['messages'] = [...systemMessages, ...toKeep];
+      session["messages"] = [...systemMessages, ...toKeep];
     }
   }
 

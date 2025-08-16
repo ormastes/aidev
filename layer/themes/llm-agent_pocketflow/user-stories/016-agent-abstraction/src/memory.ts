@@ -40,7 +40,7 @@ export class ConversationMemory implements Memory {
   }
 
   async store(key: string, value: any): Promise<void> {
-    if (key === 'messages') {
+    if (key === "messages") {
       this.messages = value;
       // Trim to max size
       if (this.messages.length > this.maxMessages) {
@@ -50,14 +50,14 @@ export class ConversationMemory implements Memory {
   }
 
   async retrieve(key: string): Promise<any> {
-    if (key === 'messages') {
+    if (key === "messages") {
       return this.messages.length > 0 ? this.messages : undefined;
     }
     return undefined;
   }
 
   forget(key: string): Promise<void> {
-    if (key === 'messages') {
+    if (key === "messages") {
       this.messages = [];
     }
   }

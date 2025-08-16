@@ -26,7 +26,7 @@ afterAll(() => {
 });
 
 // Global error handler for unhandled rejections
-process.on('unhandledRejection', (reason, promise) => {
+process.on("unhandledRejection", (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });
 

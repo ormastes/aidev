@@ -1,7 +1,7 @@
 import { fs } from '../../../infra_external-log-lib/src';
 import { path } from '../../../infra_external-log-lib/src';
 import { spawn, exec } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 
 const execAsync = promisify(exec);
 const fsAsync = fs.promises;
@@ -350,7 +350,7 @@ Generated: ${fullReport.timestamp}
         // Try to modify
         let isProtected = false;
         try {
-          await fsAsync.writeFile(testFile, 'modified');
+          await fsAsync.writeFile(testFile, "modified");
           isProtected = false;
         } catch (error) {
           isProtected = true;

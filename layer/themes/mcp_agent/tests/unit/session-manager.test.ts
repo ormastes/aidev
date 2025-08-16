@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { v4 as uuidv4 } from 'uuid';
 import { SessionManager, SessionConfig } from '../../children/src/session/session-manager';
 import { Session, SessionStatus, SessionMessage } from '../../children/src/domain/session';
@@ -16,7 +16,7 @@ const MockSession = Session as jest.MockedClass<typeof Session>;
 const MockAgent = Agent as jest.MockedClass<typeof Agent>;
 const MockMCPServerManager = MCPServerManager as jest.MockedClass<typeof MCPServerManager>;
 
-describe('SessionManager', () => {
+describe("SessionManager", () => {
   let sessionManager: SessionManager;
   let mockServerManager: jest.Mocked<MCPServerManager>;
   let mockAgent: jest.Mocked<Agent>;
@@ -59,7 +59,7 @@ describe('SessionManager', () => {
     sessionManager = new SessionManager(mockServerManager);
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should create session manager with default config', () => {
       expect(sessionManager).toBeDefined();
       expect(sessionManager).toBeInstanceOf(EventEmitter);
@@ -92,7 +92,7 @@ describe('SessionManager', () => {
       mockUuidv4.mockReturnValue('session-123');
       const session = sessionManager.createSession('agent-123');
       
-      const endSessionSpy = jest.spyOn(sessionManager, 'endSession');
+      const endSessionSpy = jest.spyOn(sessionManager, "endSession");
       
       sessionManager.unregisterAgent('agent-123');
 
@@ -100,7 +100,7 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('createSession', () => {
+  describe("createSession", () => {
     beforeEach(() => {
       sessionManager.registerAgent(mockAgent);
       mockUuidv4.mockReturnValue('new-session-id');
@@ -128,7 +128,7 @@ describe('SessionManager', () => {
       
       const session = sessionManager.createSession('agent-123');
 
-      expect(eventSpy).toHaveBeenCalledWith('sessionCreated', session);
+      expect(eventSpy).toHaveBeenCalledWith("sessionCreated", session);
     });
 
     it('should throw error for non-existent agent', () => {
@@ -154,7 +154,7 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('startSession', () => {
+  describe("startSession", () => {
     beforeEach(() => {
       sessionManager.registerAgent(mockAgent);
       mockUuidv4.mockReturnValue('session-789');
@@ -182,7 +182,7 @@ describe('SessionManager', () => {
       
       await sessionManager.startSession('session-789');
 
-      expect(eventSpy).toHaveBeenCalledWith('sessionStarted', 'session-789');
+      expect(eventSpy).toHaveBeenCalledWith("sessionStarted", 'session-789');
     });
 
     it('should handle session start errors', async () => {
@@ -196,7 +196,7 @@ describe('SessionManager', () => {
 
       await expect(sessionManager.startSession('session-789')).rejects.toThrow('Start failed');
       expect(mockSession.setError).toHaveBeenCalledWith('Start failed');
-      expect(eventSpy).toHaveBeenCalledWith('sessionError', 'session-789', startError);
+      expect(eventSpy).toHaveBeenCalledWith("sessionError", 'session-789', startError);
     });
 
     it('should throw error for non-existent session', async () => {
@@ -214,7 +214,7 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('processMessage', () => {
+  describe("processMessage", () => {
     beforeEach(() => {
       sessionManager.registerAgent(mockAgent);
       mockUuidv4.mockReturnValue('session-process');
@@ -227,8 +227,8 @@ describe('SessionManager', () => {
       const result = await sessionManager.processMessage('session-process', 'Hello, world!');
 
       expect(mockSession.addMessage).toHaveBeenCalledTimes(2); // User message + assistant response
-      expect(eventSpy).toHaveBeenCalledWith('messageAdded', 'session-process', expect.any(Object));
-      expect(result.role).toBe('assistant');
+      expect(eventSpy).toHaveBeenCalledWith("messageAdded", 'session-process', expect.any(Object));
+      expect(result.role).toBe("assistant");
       expect(result.content[0].text).toContain('Processing your request with test-agent agent');
     });
 
@@ -255,7 +255,7 @@ describe('SessionManager', () => {
         .rejects.toThrow('Tools failed');
 
       expect(mockSession.setError).toHaveBeenCalledWith('Tools failed');
-      expect(eventSpy).toHaveBeenCalledWith('sessionError', 'session-process', expect.any(Error));
+      expect(eventSpy).toHaveBeenCalledWith("sessionError", 'session-process', expect.any(Error));
     });
 
     it('should trim message history when limit exceeded', async () => {
@@ -267,7 +267,7 @@ describe('SessionManager', () => {
       mockSession.getMessages.mockReturnValue([
         { role: 'system', content: [], timestamp: new Date() },
         { role: 'user', content: [], timestamp: new Date() },
-        { role: 'assistant', content: [], timestamp: new Date() },
+        { role: "assistant", content: [], timestamp: new Date() },
         { role: 'user', content: [], timestamp: new Date() }
       ] as SessionMessage[]);
 
@@ -285,7 +285,7 @@ describe('SessionManager', () => {
       autoSaveManager.registerAgent(mockAgent);
       autoSaveManager.createSession('agent-123');
 
-      const saveSpy = jest.spyOn(autoSaveManager, 'saveSession').mockResolvedValue();
+      const saveSpy = jest.spyOn(autoSaveManager, "saveSession").mockResolvedValue();
 
       await autoSaveManager.processMessage('session-process', 'test');
 
@@ -293,7 +293,7 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('endSession', () => {
+  describe("endSession", () => {
     beforeEach(() => {
       sessionManager.registerAgent(mockAgent);
       mockUuidv4.mockReturnValue('session-end');
@@ -306,8 +306,8 @@ describe('SessionManager', () => {
       sessionManager.endSession('session-end', 'User requested');
 
       expect(mockSession.success).toHaveBeenCalled();
-      expect(mockSession.setMetadata).toHaveBeenCalledWith('endReason', 'User requested');
-      expect(eventSpy).toHaveBeenCalledWith('sessioncompleted', 'session-end');
+      expect(mockSession.setMetadata).toHaveBeenCalledWith("endReason", 'User requested');
+      expect(eventSpy).toHaveBeenCalledWith("sessioncompleted", 'session-end');
     });
 
     it('should handle non-existent session gracefully', () => {
@@ -316,7 +316,7 @@ describe('SessionManager', () => {
 
     it('should clear idle timer', () => {
       sessionManager.createSession('agent-123');
-      const clearTimeoutSpy = jest.spyOn(global, 'clearTimeout');
+      const clearTimeoutSpy = jest.spyOn(global, "clearTimeout");
 
       sessionManager.endSession('session-end');
 
@@ -389,7 +389,7 @@ describe('SessionManager', () => {
     });
 
     it('should set idle timer on session creation', () => {
-      const setTimeoutSpy = jest.spyOn(global, 'setTimeout');
+      const setTimeoutSpy = jest.spyOn(global, "setTimeout");
 
       sessionManager.createSession('agent-123');
 
@@ -398,8 +398,8 @@ describe('SessionManager', () => {
 
     it('should reset idle timer on message processing', async () => {
       sessionManager.createSession('agent-123');
-      const clearTimeoutSpy = jest.spyOn(global, 'clearTimeout');
-      const setTimeoutSpy = jest.spyOn(global, 'setTimeout');
+      const clearTimeoutSpy = jest.spyOn(global, "clearTimeout");
+      const setTimeoutSpy = jest.spyOn(global, "setTimeout");
 
       setTimeoutSpy.mockClear();
 
@@ -411,7 +411,7 @@ describe('SessionManager', () => {
 
     it('should end session on idle timeout', () => {
       sessionManager.createSession('agent-123');
-      const endSessionSpy = jest.spyOn(sessionManager, 'endSession');
+      const endSessionSpy = jest.spyOn(sessionManager, "endSession");
 
       // Fast-forward past idle timeout
       jest.advanceTimersByTime(30 * 60 * 1000 + 1);
@@ -466,7 +466,7 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('statistics', () => {
+  describe("statistics", () => {
     beforeEach(() => {
       sessionManager.registerAgent(mockAgent);
     });
@@ -514,9 +514,9 @@ describe('SessionManager', () => {
 
     it('should cleanup all sessions and timers', () => {
       sessionManager.createSession('agent-123');
-      const endSessionSpy = jest.spyOn(sessionManager, 'endSession');
-      const clearTimeoutSpy = jest.spyOn(global, 'clearTimeout');
-      const removeListenersSpy = jest.spyOn(sessionManager, 'removeAllListeners');
+      const endSessionSpy = jest.spyOn(sessionManager, "endSession");
+      const clearTimeoutSpy = jest.spyOn(global, "clearTimeout");
+      const removeListenersSpy = jest.spyOn(sessionManager, "removeAllListeners");
 
       sessionManager.cleanup();
 
@@ -588,7 +588,7 @@ describe('SessionManager', () => {
       const results = await Promise.allSettled(promises);
 
       // At least one operation should succeed
-      expect(results.some(result => result.status === 'fulfilled')).toBe(true);
+      expect(results.some(result => result.status === "fulfilled")).toBe(true);
     });
 
     it('should handle special characters in session context', () => {

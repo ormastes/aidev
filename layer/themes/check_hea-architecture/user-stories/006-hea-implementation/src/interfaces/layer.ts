@@ -6,7 +6,7 @@ export enum LayerType {
   Core = 'core',
   Shared = 'shared',
   Themes = 'themes',
-  Infrastructure = 'infrastructure',
+  Infrastructure = "infrastructure",
 }
 
 export interface LayerConfig {

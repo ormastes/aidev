@@ -1,7 +1,7 @@
-import { Command } from 'commander';
+import { Command } from "commander";
 import chalk from 'chalk';
 import * as fs from 'fs-extra';
-import { path } from '../../../../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 export const configCommand = new Command('config')
   .description('Manage environment configurations')

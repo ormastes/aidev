@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from 'node:events';
 import { LogEntry } from '../../src/domain/log-entry';
 
 describe('EventEmitter Log Event Broadcasting External Test', () => {

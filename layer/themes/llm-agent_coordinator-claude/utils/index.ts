@@ -282,7 +282,7 @@ export function calculateMetrics(conversation: any): {
     totalLength += content.length;
     
     if (message.role === 'user') userMessages++;
-    if (message.role === 'assistant') assistantMessages++;
+    if (message.role === "assistant") assistantMessages++;
   }
 
   return {

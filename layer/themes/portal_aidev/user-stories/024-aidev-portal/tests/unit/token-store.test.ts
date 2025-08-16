@@ -1,6 +1,6 @@
 import { TokenStore, TokenStoreConfig, StoredToken, UserSession } from '../../src/auth/token-store';
 
-describe('TokenStore', () => {
+describe("TokenStore", () => {
   let tokenStore: TokenStore;
   const mockConfig: TokenStoreConfig = {
     keyPrefix: 'test:',
@@ -17,7 +17,7 @@ describe('TokenStore', () => {
     jest.useRealTimers();
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with provided configuration', () => {
       const store = new TokenStore(mockConfig);
       expect(store).toBeDefined();
@@ -28,26 +28,26 @@ describe('TokenStore', () => {
   describe('connect', () => {
     it('should connect successfully', async () => {
       const connectHandler = jest.fn();
-      tokenStore.on('connected', connectHandler);
+      tokenStore.on("connected", connectHandler);
 
       await tokenStore.connect();
 
-      expect(tokenStore['connected']).toBe(true);
+      expect(tokenStore["connected"]).toBe(true);
       expect(connectHandler).toHaveBeenCalled();
     });
   });
 
-  describe('disconnect', () => {
+  describe("disconnect", () => {
     it('should disconnect and clear all data', async () => {
       const disconnectHandler = jest.fn();
-      tokenStore.on('disconnected', disconnectHandler);
+      tokenStore.on("disconnected", disconnectHandler);
 
       await tokenStore.connect();
       
       // Add some data
       const tokenData: Omit<StoredToken, 'token'> = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000)
       };
@@ -57,15 +57,15 @@ describe('TokenStore', () => {
 
       await tokenStore.disconnect();
 
-      expect(tokenStore['connected']).toBe(false);
+      expect(tokenStore["connected"]).toBe(false);
       expect(tokenStore['tokens'].size).toBe(0);
-      expect(tokenStore['sessions'].size).toBe(0);
-      expect(tokenStore['blacklistedTokens'].size).toBe(0);
+      expect(tokenStore["sessions"].size).toBe(0);
+      expect(tokenStore["blacklistedTokens"].size).toBe(0);
       expect(disconnectHandler).toHaveBeenCalled();
     });
   });
 
-  describe('storeToken', () => {
+  describe("storeToken", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -73,7 +73,7 @@ describe('TokenStore', () => {
     it('should store token successfully', async () => {
       const tokenData: Omit<StoredToken, 'token'> = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000)
       };
@@ -83,7 +83,7 @@ describe('TokenStore', () => {
       const storedToken = await tokenStore.getToken('test.token');
       expect(storedToken).toEqual({
         ...tokenData,
-        token: 'test.token'
+        token: process.env.TOKEN || "PLACEHOLDER"
       });
     });
 
@@ -108,7 +108,7 @@ describe('TokenStore', () => {
     it('should update existing session', async () => {
       const firstTokenData: Omit<StoredToken, 'token'> = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000)
       };
@@ -122,7 +122,7 @@ describe('TokenStore', () => {
 
       const secondTokenData: Omit<StoredToken, 'token'> = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000)
       };
@@ -137,7 +137,7 @@ describe('TokenStore', () => {
     it('should set expiry timeout for token', async () => {
       const tokenData: Omit<StoredToken, 'token'> = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 5000) // 5 seconds
       };
@@ -157,7 +157,7 @@ describe('TokenStore', () => {
 
       const tokenData: Omit<StoredToken, 'token'> = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000)
       };
@@ -167,7 +167,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('getToken', () => {
+  describe("getToken", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -175,7 +175,7 @@ describe('TokenStore', () => {
     it('should retrieve stored token', async () => {
       const tokenData: Omit<StoredToken, 'token'> = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000)
       };
@@ -185,7 +185,7 @@ describe('TokenStore', () => {
 
       expect(retrieved).toEqual({
         ...tokenData,
-        token: 'test.token'
+        token: process.env.TOKEN || "PLACEHOLDER"
       });
     });
 
@@ -197,14 +197,14 @@ describe('TokenStore', () => {
     it('should return null for expired token', async () => {
       const tokenData: Omit<StoredToken, 'token'> = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() - 1000) // Already expired
       };
 
       tokenStore['tokens'].set('expired.token', {
         ...tokenData,
-        token: 'expired.token'
+        token: process.env.TOKEN || "PLACEHOLDER"
       });
 
       const result = await tokenStore.getToken('expired.token');
@@ -219,7 +219,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('removeToken', () => {
+  describe("removeToken", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -227,7 +227,7 @@ describe('TokenStore', () => {
     it('should remove token successfully', async () => {
       const tokenData: Omit<StoredToken, 'token'> = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000)
       };
@@ -245,7 +245,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('getSession', () => {
+  describe("getSession", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -253,7 +253,7 @@ describe('TokenStore', () => {
     it('should retrieve active session', async () => {
       const tokenData: Omit<StoredToken, 'token'> = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000)
       };
@@ -267,23 +267,23 @@ describe('TokenStore', () => {
     });
 
     it('should return null for non-existent session', async () => {
-      const result = await tokenStore.getSession('nonexistent');
+      const result = await tokenStore.getSession("nonexistent");
       expect(result).toBeNull();
     });
 
     it('should return null for inactive session', async () => {
       const inactiveSession: UserSession = {
-        userId: 'inactive',
+        userId: "inactive",
         loginTime: new Date(),
         lastActivity: new Date(),
         active: false
       };
 
-      tokenStore['sessions'].set('inactive', inactiveSession);
+      tokenStore["sessions"].set("inactive", inactiveSession);
 
-      const result = await tokenStore.getSession('inactive');
+      const result = await tokenStore.getSession("inactive");
       expect(result).toBeNull();
-      expect(tokenStore['sessions'].has('inactive')).toBe(false);
+      expect(tokenStore["sessions"].has("inactive")).toBe(false);
     });
 
     it('should return null if not connected', async () => {
@@ -293,7 +293,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('updateSessionActivity', () => {
+  describe("updateSessionActivity", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -308,7 +308,7 @@ describe('TokenStore', () => {
       
       const tokenData: Omit<StoredToken, 'token'> = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000)
       };
@@ -329,12 +329,12 @@ describe('TokenStore', () => {
     });
 
     it('should handle updating non-existent session', async () => {
-      await expect(tokenStore.updateSessionActivity('nonexistent'))
+      await expect(tokenStore.updateSessionActivity("nonexistent"))
         .resolves.not.toThrow();
     });
   });
 
-  describe('setSessionExpiry', () => {
+  describe("setSessionExpiry", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -346,7 +346,7 @@ describe('TokenStore', () => {
     it('should expire session after timeout', async () => {
       const tokenData: Omit<StoredToken, 'token'> = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000)
       };
@@ -362,12 +362,12 @@ describe('TokenStore', () => {
     });
 
     it('should handle setting expiry for non-existent session', async () => {
-      await expect(tokenStore.setSessionExpiry('nonexistent', 10))
+      await expect(tokenStore.setSessionExpiry("nonexistent", 10))
         .resolves.not.toThrow();
     });
   });
 
-  describe('removeSession', () => {
+  describe("removeSession", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -375,7 +375,7 @@ describe('TokenStore', () => {
     it('should remove session successfully', async () => {
       const tokenData: Omit<StoredToken, 'token'> = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000)
       };
@@ -388,7 +388,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('blacklistToken', () => {
+  describe("blacklistToken", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -396,7 +396,7 @@ describe('TokenStore', () => {
     it('should blacklist token and remove it', async () => {
       const tokenData: Omit<StoredToken, 'token'> = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000)
       };
@@ -409,7 +409,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('isTokenBlacklisted', () => {
+  describe("isTokenBlacklisted", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -424,7 +424,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('clearExpiredTokens', () => {
+  describe("clearExpiredTokens", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -433,7 +433,7 @@ describe('TokenStore', () => {
       const expiredToken: StoredToken = {
         userId: 'user1',
         username: 'user1',
-        token: 'expired.token',
+        token: process.env.TOKEN || "PLACEHOLDER",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() - 1000)
       };
@@ -441,7 +441,7 @@ describe('TokenStore', () => {
       const validToken: StoredToken = {
         userId: 'user2',
         username: 'user2',
-        token: 'valid.token',
+        token: process.env.TOKEN || "PLACEHOLDER",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000)
       };
@@ -456,7 +456,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('getActiveSessionCount', () => {
+  describe("getActiveSessionCount", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -484,7 +484,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('getUserTokens', () => {
+  describe("getUserTokens", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -492,7 +492,7 @@ describe('TokenStore', () => {
     it('should return all valid tokens for a user', async () => {
       const tokenData: Omit<StoredToken, 'token'> = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000)
       };
@@ -503,7 +503,7 @@ describe('TokenStore', () => {
       // Add expired token
       const expiredToken: StoredToken = {
         ...tokenData,
-        token: 'expired',
+        token: process.env.TOKEN || "PLACEHOLDER",
         expiresAt: new Date(Date.now() - 1000)
       };
       tokenStore['tokens'].set('expired', expiredToken);

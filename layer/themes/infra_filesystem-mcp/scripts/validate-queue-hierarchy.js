@@ -1,3 +1,4 @@
+const { fileAPI } = require('../utils/file-api');
 #!/usr/bin/env node
 
 const { fs } = require('../../infra_external-log-lib/src');
@@ -20,13 +21,13 @@ class QueueHierarchyValidator {
       
       // Skip certain directories
       if (entry.isDirectory()) {
-        if (['node_modules', '.git', '.jj', 'dist', 'build', 'coverage', 'release', 'demo'].includes(entry.name)) {
+        if (['node_modules', '.git', '.jj', 'dist', 'build', "coverage", 'release', 'demo'].includes(entry.name)) {
           continue;
         }
         this.findTaskQueues(fullPath, relPath);
       } else if (entry.name === 'TASK_QUEUE.vf.json') {
         try {
-          const content = JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+          const content = JSON.parse(fileAPI.readFileSync(fullPath, 'utf8'));
           const queuePath = '/' + relPath.replace(/\\/g, '/');
           this.queues.set(queuePath, {
             path: queuePath,

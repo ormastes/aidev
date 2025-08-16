@@ -71,7 +71,7 @@ describe('Config Coverage Settings', () => {
         mockGetConfiguration.mockImplementation((section?: string) => {
             return {
                 get: jest.fn((key: string) => {
-                    if (section === 'cdoctest') {
+                    if (section === "cdoctest") {
                         return allDefaultSettings[key as keyof typeof allDefaultSettings];
                     }
                     return null;
@@ -286,7 +286,7 @@ describe('Config Coverage Settings', () => {
 
         test('should handle Windows-style paths', () => {
             // Mock Windows platform
-            Object.defineProperty(process, 'platform', {
+            Object.defineProperty(process, "platform", {
                 value: 'win32',
                 configurable: true
             });
@@ -299,7 +299,7 @@ describe('Config Coverage Settings', () => {
             expect(pattern).toContain('C:\\test\\build');
             
             // Restore platform
-            Object.defineProperty(process, 'platform', {
+            Object.defineProperty(process, "platform", {
                 value: 'linux',
                 configurable: true
             });

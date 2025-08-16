@@ -22,7 +22,7 @@ export class DatabaseFactory {
         adapter = new SqliteAdapter(config);
         break;
       
-      case 'postgresql':
+      case "postgresql":
         adapter = new PostgresAdapter(config);
         break;
       
@@ -37,17 +37,17 @@ export class DatabaseFactory {
 
 // Default configuration based on environment
 export function getDefaultDatabaseConfig(): DatabaseConfig {
-  const env = process.env.NODE_ENV || 'development';
+  const env = process.env.NODE_ENV || "development";
   
-  if (env === 'production') {
+  if (env === "production") {
     return {
-      type: 'postgresql',
+      type: "postgresql",
       connection: {
-        host: process.env.DB_HOST || 'localhost',
+        host: process.env.DB_HOST || "localhost",
         port: parseInt(process.env.DB_PORT || '5432'),
-        database: process.env.DB_NAME || 'testmanual',
-        user: process.env.DB_USER || 'postgres',
-        password: process.env.DB_PASSWORD || 'postgres'
+        database: process.env.DB_NAME || "testmanual",
+        user: process.env.DB_USER || "postgres",
+        password: process.env.DB_PASSWORD || "postgres"
       }
     };
   } else if (env === 'test') {

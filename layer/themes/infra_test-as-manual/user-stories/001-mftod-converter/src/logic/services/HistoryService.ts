@@ -180,7 +180,7 @@ export class HistoryService {
   async completeExecution(
     executionId: string,
     results: any,
-    status: 'completed' | 'failed',
+    status: "completed" | 'failed',
     notes?: string
   ): Promise<TestExecution> {
     return await this.database.updateTestExecution(executionId, {

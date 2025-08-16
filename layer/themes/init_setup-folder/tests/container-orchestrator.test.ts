@@ -8,7 +8,7 @@ import {
 import { fs } from '../../infra_external-log-lib/src';
 import { path } from '../../infra_external-log-lib/src';
 
-describe('ContainerOrchestrator', () => {
+describe("ContainerOrchestrator", () => {
   let orchestrator: ContainerOrchestrator;
   const testOrchestratorPath = path.join(process.cwd(), '.orchestrator');
   const testDockerPath = path.join(process.cwd(), 'docker');
@@ -34,7 +34,7 @@ describe('ContainerOrchestrator', () => {
     });
   });
 
-  describe('Initialization', () => {
+  describe("Initialization", () => {
     it('should create orchestrator directory on initialization', () => {
       expect(fs.existsSync(testOrchestratorPath)).toBe(true);
     });
@@ -154,7 +154,7 @@ describe('ContainerOrchestrator', () => {
     });
 
     it('should deploy QEMU with different architectures', async () => {
-      const architectures: Array<ContainerConfig['architecture']> = [
+      const architectures: Array<ContainerConfig["architecture"]> = [
         'x86_64',
         'aarch64',
         'armv7'
@@ -356,7 +356,7 @@ describe('ContainerOrchestrator', () => {
           baseImage: 'node:18-alpine',
           ports: [3000],
           environmentVars: {
-            NODE_ENV: 'development'
+            NODE_ENV: "development"
           }
         },
         {
@@ -477,7 +477,7 @@ describe('ContainerOrchestrator', () => {
         baseImage: 'node:18-alpine',
         environmentVars: {
           DATABASE_URL: 'postgres://localhost/db',
-          API_KEY: 'secret-key',
+          api_key: process.env.API_KEY || "PLACEHOLDER",
           DEBUG: 'true'
         }
       };
@@ -500,7 +500,7 @@ describe('ContainerOrchestrator', () => {
         baseImage: 'alpine:latest',
         architecture: 'x86_64',
         environmentVars: {
-          APP_MODE: 'production',
+          APP_MODE: "production",
           LOG_LEVEL: 'debug'
         }
       };

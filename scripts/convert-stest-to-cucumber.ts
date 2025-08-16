@@ -1,7 +1,8 @@
+import { fileAPI } from '../utils/file-api';
 #!/usr/bin/env bun
 
-import * as fs from 'fs/promises';
-import * as path from 'path';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as path from 'node:path';
 import { glob } from 'glob';
 
 interface TestCase {
@@ -11,348 +12,291 @@ interface TestCase {
   assertions: string[];
 }
 
-class SystemTestToCucumberConverter {
-  private outputDir: string = 'features';
-  private stepDefsDir: string = 'step_definitions';
+class STestToCucumberConverter {
+  private sourceFile: string;
+  private targetDir: string;
+  private featureName: string;
 
-  async convertFile(filePath: string): Promise<void> {
-    console.log(`Converting: ${filePath}`);
+  constructor(sourceFile: string) {
+    this.sourceFile = sourceFile;
+    this.targetDir = path.dirname(sourceFile).replace('/tests/system', '/features');
     
-    const content = await fs.readFile(filePath, 'utf-8');
-    const testCases = this.parseTypeScriptTests(content);
+    // Extract feature name from file path
+    const fileName = path.basename(sourceFile, '.stest.ts');
+    this.featureName = fileName
+      .replace(/-/g, ' ')
+      .replace(/_/g, ' ')
+      .replace(/\b\w/g, l => l.toUpperCase());
+  }
+
+  async convert(): Promise<void> {
+    console.log(`Converting ${this.sourceFile}...`);
+    
+    const content = await fs.promises.readFile(this.sourceFile, 'utf-8');
+    const testCases = this.extractTestCases(content);
     
     if (testCases.length === 0) {
-      console.log(`  No test cases found in ${filePath}`);
+      console.log(`  No test cases found in ${this.sourceFile}`);
       return;
     }
 
-    const featureName = this.generateFeatureName(filePath);
-    const featureContent = this.generateFeatureFile(featureName, testCases, filePath);
-    const stepDefContent = this.generateStepDefinitions(testCases, filePath);
+    // Create feature file
+    const featureContent = this.generateFeatureFile(testCases);
+    const featureFile = path.join(this.targetDir, `${path.basename(this.sourceFile, '.stest.ts')}.feature`);
     
-    const outputPath = await this.saveFeatureFile(filePath, featureContent);
-    const stepDefPath = await this.saveStepDefinitions(filePath, stepDefContent);
+    // Create step definitions
+    const stepDefsContent = this.generateStepDefinitions(testCases);
+    const stepDefsDir = path.join(this.targetDir, 'step_definitions');
+    const stepDefsFile = path.join(stepDefsDir, `${path.basename(this.sourceFile, '.stest.ts')}.steps.ts`);
     
-    console.log(`  ✅ Created feature: ${outputPath}`);
-    console.log(`  ✅ Created steps: ${stepDefPath}`);
+    // Ensure directories exist
+    await fs.promises.mkdir(this.targetDir, { recursive: true });
+    await fs.promises.mkdir(stepDefsDir, { recursive: true });
+    
+    // Write files
+    await fs.promises.writeFile(featureFile, featureContent);
+    await fs.promises.writeFile(stepDefsFile, stepDefsContent);
+    
+    console.log(`  ✅ Created feature: ${featureFile}`);
+    console.log(`  ✅ Created steps: ${stepDefsFile}`);
   }
 
-  private parseTypeScriptTests(content: string): TestCase[] {
+  private extractTestCases(content: string): TestCase[] {
     const testCases: TestCase[] = [];
     
     // Match describe blocks
-    const describeMatches = content.matchAll(/describe\(['"`](.*?)['"`].*?\{([\s\S]*?)\n\}\);?/g);
+    const describePattern = /describe\(['"]([^'"]+)['"]/g;
+    const itPattern = /it\(['"]([^'"]+)['"]/g;
     
-    for (const describeMatch of describeMatches) {
-      const suiteName = describeMatch[1];
-      const suiteContent = describeMatch[2];
-      
-      // Match it/test blocks within describe
-      const testMatches = suiteContent.matchAll(/(?:it|test)\(['"`](.*?)['"`].*?\{([\s\S]*?)\n\s*\}\);?/g);
-      
-      for (const testMatch of testMatches) {
-        const testName = testMatch[1];
-        const testContent = testMatch[2];
-        
-        const steps = this.extractSteps(testContent);
-        const assertions = this.extractAssertions(testContent);
-        
-        testCases.push({
-          name: testName,
-          description: `${suiteName} - ${testName}`,
-          steps,
-          assertions
-        });
-      }
+    // Extract test names
+    let match;
+    while ((match = itPattern.exec(content)) !== null) {
+      testCases.push({
+        name: match[1],
+        description: this.extractDescription(match[1]),
+        steps: this.extractSteps(content, match.index),
+        assertions: this.extractAssertions(content, match.index)
+      });
     }
     
     return testCases;
   }
 
-  private extractSteps(testContent: string): string[] {
+  private extractDescription(testName: string): string {
+    // Convert test name to a readable description
+    return testName
+      .replace(/should\s+/i, '')
+      .replace(/_/g, ' ')
+      .trim();
+  }
+
+  private extractSteps(content: string, startIndex: number): string[] {
     const steps: string[] = [];
     
-    // Extract common test actions
+    // Find the test body
+    const testBodyStart = content.indexOf('{', startIndex);
+    const testBodyEnd = this.findMatchingBrace(content, testBodyStart);
+    const testBody = content.substring(testBodyStart, testBodyEnd);
+    
+    // Extract meaningful operations
     const patterns = [
-      /await\s+(\w+)\.(create|start|stop|connect|disconnect|send|receive|click|type|navigate|waitFor)\((.*?)\)/g,
-      /const\s+\w+\s*=\s*await\s+(\w+)\.(\w+)\((.*?)\)/g,
-      /(\w+)\.(setup|teardown|initialize|cleanup)\(\)/g
+      /await\s+(\w+)\((.*?)\)/g,  // Async function calls
+      /const\s+(\w+)\s*=\s*await/g,  // Async assignments
+      /\.(\w+)\(/g,  // Method calls
     ];
     
-    for (const pattern of patterns) {
-      const matches = testContent.matchAll(pattern);
-      for (const match of matches) {
-        const action = this.formatStepFromMatch(match);
-        if (action && !steps.includes(action)) {
-          steps.push(action);
+    patterns.forEach(pattern => {
+      let match;
+      while ((match = pattern.exec(testBody)) !== null) {
+        if (match[1] && !['expect', 'assert', 'should'].includes(match[1])) {
+          steps.push(match[1]);
         }
       }
-    }
+    });
     
-    return steps;
+    return steps.length > 0 ? steps : ['execute test logic'];
   }
 
-  private extractAssertions(testContent: string): string[] {
+  private extractAssertions(content: string, startIndex: number): string[] {
     const assertions: string[] = [];
     
-    // Extract expect statements
-    const expectMatches = testContent.matchAll(/expect\((.*?)\)\.(toBe|toEqual|toContain|toHaveBeenCalled|toMatch|toThrow|toBeTruthy|toBeFalsy)\((.*?)\)/g);
+    // Find the test body
+    const testBodyStart = content.indexOf('{', startIndex);
+    const testBodyEnd = this.findMatchingBrace(content, testBodyStart);
+    const testBody = content.substring(testBodyStart, testBodyEnd);
     
-    for (const match of expectMatches) {
-      const assertion = this.formatAssertionFromMatch(match);
-      if (assertion && !assertions.includes(assertion)) {
-        assertions.push(assertion);
+    // Extract assertions
+    const patterns = [
+      /expect\((.*?)\)\.(.*?)\(/g,
+      /assert\.(.*?)\(/g,
+    ];
+    
+    patterns.forEach(pattern => {
+      let match;
+      while ((match = pattern.exec(testBody)) !== null) {
+        assertions.push(match[0]);
       }
-    }
+    });
     
-    return assertions;
+    return assertions.length > 0 ? assertions : ['verify expected outcome'];
   }
 
-  private formatStepFromMatch(match: RegExpMatchArray): string {
-    const [, object, method, params] = match;
+  private findMatchingBrace(content: string, startIndex: number): number {
+    let depth = 0;
+    let inString = false;
+    let stringChar = '';
     
-    const actionMap: Record<string, string> = {
-      'create': `I create a ${object}`,
-      'start': `I start the ${object}`,
-      'stop': `I stop the ${object}`,
-      'connect': `I connect to the ${object}`,
-      'disconnect': `I disconnect from the ${object}`,
-      'send': `I send data to the ${object}`,
-      'receive': `I receive data from the ${object}`,
-      'click': `I click on the ${object}`,
-      'type': `I type into the ${object}`,
-      'navigate': `I navigate to the ${object}`,
-      'waitFor': `I wait for the ${object}`,
-      'setup': `the ${object} is set up`,
-      'initialize': `the ${object} is initialized`,
-      'cleanup': `the ${object} is cleaned up`,
-      'teardown': `the ${object} is torn down`
-    };
-    
-    return actionMap[method] || `I perform ${method} on ${object}`;
-  }
-
-  private formatAssertionFromMatch(match: RegExpMatchArray): string {
-    const [, subject, matcher, expected] = match;
-    
-    const cleanSubject = subject.replace(/['"]/g, '').trim();
-    const cleanExpected = expected?.replace(/['"]/g, '').trim() || '';
-    
-    const assertionMap: Record<string, string> = {
-      'toBe': `${cleanSubject} should be ${cleanExpected}`,
-      'toEqual': `${cleanSubject} should equal ${cleanExpected}`,
-      'toContain': `${cleanSubject} should contain ${cleanExpected}`,
-      'toHaveBeenCalled': `${cleanSubject} should have been called`,
-      'toMatch': `${cleanSubject} should match ${cleanExpected}`,
-      'toThrow': `${cleanSubject} should throw an error`,
-      'toBeTruthy': `${cleanSubject} should be truthy`,
-      'toBeFalsy': `${cleanSubject} should be falsy`
-    };
-    
-    return assertionMap[matcher] || `${cleanSubject} should ${matcher} ${cleanExpected}`;
-  }
-
-  private generateFeatureName(filePath: string): string {
-    const basename = path.basename(filePath, '.stest.ts');
-    return basename.split('-').map(word => 
-      word.charAt(0).toUpperCase() + word.slice(1)
-    ).join(' ');
-  }
-
-  private generateFeatureFile(featureName: string, testCases: TestCase[], filePath: string): string {
-    const relativePath = path.relative(process.cwd(), filePath);
-    
-    let feature = `# Converted from: ${relativePath}\n`;
-    feature += `# Generated on: ${new Date().toISOString()}\n\n`;
-    feature += `Feature: ${featureName}\n`;
-    feature += `  As a system tester\n`;
-    feature += `  I want to validate ${featureName.toLowerCase()}\n`;
-    feature += `  So that I can ensure system reliability\n\n`;
-    
-    feature += `  Background:\n`;
-    feature += `    Given the test environment is initialized\n`;
-    feature += `    And all required services are running\n\n`;
-    
-    for (const testCase of testCases) {
-      feature += `  @automated @system\n`;
-      feature += `  Scenario: ${testCase.name}\n`;
+    for (let i = startIndex; i < content.length; i++) {
+      const char = content[i];
+      const prevChar = i > 0 ? content[i - 1] : '';
       
-      // Add Given steps
-      if (testCase.steps.length > 0) {
-        feature += `    Given ${testCase.steps[0]}\n`;
-        
-        // Add When/And steps
-        for (let i = 1; i < testCase.steps.length - 1; i++) {
-          feature += `    And ${testCase.steps[i]}\n`;
-        }
-        
-        // Add When step (last action before assertions)
-        if (testCase.steps.length > 1) {
-          feature += `    When ${testCase.steps[testCase.steps.length - 1]}\n`;
-        }
-      }
-      
-      // Add Then assertions
-      if (testCase.assertions.length > 0) {
-        feature += `    Then ${testCase.assertions[0]}\n`;
-        for (let i = 1; i < testCase.assertions.length; i++) {
-          feature += `    And ${testCase.assertions[i]}\n`;
+      if (!inString) {
+        if ((char === '"' || char === "'" || char === '`') && prevChar !== '\\') {
+          inString = true;
+          stringChar = char;
+        } else if (char === '{') {
+          depth++;
+        } else if (char === '}') {
+          depth--;
+          if (depth === 0) {
+            return i + 1;
+          }
         }
       } else {
-        feature += `    Then the operation should complete successfully\n`;
+        if (char === stringChar && prevChar !== '\\') {
+          inString = false;
+        }
       }
-      
-      feature += '\n';
-      
-      // Add manual validation scenario
-      feature += `  @manual\n`;
-      feature += `  Scenario: Manual validation of ${testCase.name}\n`;
-      feature += `    Given the tester has access to the system\n`;
-      feature += `    When the tester manually executes the test steps:\n`;
-      feature += `      | Step | Action | Expected Result |\n`;
-      
-      for (let i = 0; i < testCase.steps.length; i++) {
-        feature += `      | ${i + 1} | ${testCase.steps[i]} | Action completes successfully |\n`;
-      }
-      
-      feature += `    Then verify all assertions pass:\n`;
-      feature += `      | Assertion | Expected |\n`;
-      
-      for (const assertion of testCase.assertions) {
-        feature += `      | ${assertion} | Pass |\n`;
-      }
-      
-      feature += '\n';
     }
     
-    return feature;
+    return content.length;
   }
 
-  private generateStepDefinitions(testCases: TestCase[], filePath: string): string {
+  private generateFeatureFile(testCases: TestCase[]): string {
+    const scenarios = testCases.map(tc => this.generateScenario(tc)).join('\n\n');
+    
+    return `Feature: ${this.featureName}
+  As a user of the system
+  I want to ensure ${this.featureName.toLowerCase()} works correctly
+  So that I can rely on the system's functionality
+
+${scenarios}
+`;
+  }
+
+  private generateScenario(testCase: TestCase): string {
+    const steps: string[] = [];
+    
+    // Generate Given/When/Then steps based on the test case
+    steps.push(`    Given the system is initialized`);
+    
+    if (testCase.steps.length > 0) {
+      testCase.steps.forEach((step, index) => {
+        if (index === 0) {
+          steps.push(`    When I ${this.humanizeStep(step)}`);
+        } else {
+          steps.push(`    And I ${this.humanizeStep(step)}`);
+        }
+      });
+    } else {
+      steps.push(`    When I perform the ${testCase.description} operation`);
+    }
+    
+    steps.push(`    Then the ${testCase.description} should complete successfully`);
+    
+    return `  Scenario: ${testCase.description}
+${steps.join('\n')}`;
+  }
+
+  private humanizeStep(step: string): string {
+    // Convert camelCase to human-readable text
+    return step
+      .replace(/([A-Z])/g, ' $1')
+      .toLowerCase()
+      .trim()
+      .replace(/^(create|get|set|update|delete|run|execute|start|stop|init)/, '$1');
+  }
+
+  private generateStepDefinitions(testCases: TestCase[]): string {
     const uniqueSteps = new Set<string>();
     
     // Collect all unique steps
-    for (const testCase of testCases) {
-      testCase.steps.forEach(step => uniqueSteps.add(step));
-      testCase.assertions.forEach(assertion => uniqueSteps.add(assertion));
-    }
-    
-    let stepDefs = `import { Given, When, Then, Before, After } from '@cucumber/cucumber';\n`;
-    stepDefs += `import { expect } from '@playwright/test';\n\n`;
-    stepDefs += `// Step definitions converted from: ${path.basename(filePath)}\n\n`;
-    
-    stepDefs += `Before(async function() {\n`;
-    stepDefs += `  // Initialize test environment\n`;
-    stepDefs += `  this.context = {};\n`;
-    stepDefs += `});\n\n`;
-    
-    stepDefs += `After(async function() {\n`;
-    stepDefs += `  // Cleanup test environment\n`;
-    stepDefs += `  if (this.context.cleanup) {\n`;
-    stepDefs += `    await this.context.cleanup();\n`;
-    stepDefs += `  }\n`;
-    stepDefs += `});\n\n`;
-    
-    // Generate Given steps
-    stepDefs += `Given('the test environment is initialized', async function() {\n`;
-    stepDefs += `  // Initialize test environment\n`;
-    stepDefs += `});\n\n`;
-    
-    stepDefs += `Given('all required services are running', async function() {\n`;
-    stepDefs += `  // Verify services are running\n`;
-    stepDefs += `});\n\n`;
-    
-    // Generate step definitions for unique steps
-    for (const step of uniqueSteps) {
-      const stepType = this.determineStepType(step);
-      const stepPattern = this.escapeStepPattern(step);
-      
-      stepDefs += `${stepType}('${stepPattern}', async function() {\n`;
-      stepDefs += `  // TODO: Implement step: ${step}\n`;
-      stepDefs += `  throw new Error('Step not implemented');\n`;
-      stepDefs += `});\n\n`;
-    }
-    
-    return stepDefs;
-  }
-
-  private determineStepType(step: string): string {
-    if (step.includes('should')) return 'Then';
-    if (step.startsWith('I ')) return 'When';
-    return 'Given';
-  }
-
-  private escapeStepPattern(step: string): string {
-    // Escape special regex characters
-    return step.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  }
-
-  private async saveFeatureFile(originalPath: string, content: string): Promise<string> {
-    const relativePath = path.relative(process.cwd(), originalPath);
-    const pathParts = relativePath.split(path.sep);
-    
-    // Determine output directory structure
-    let outputBase = process.cwd();
-    if (pathParts.includes('layer')) {
-      const layerIndex = pathParts.indexOf('layer');
-      outputBase = path.join(process.cwd(), ...pathParts.slice(0, layerIndex + 3));
-    } else if (pathParts.includes('common')) {
-      outputBase = path.join(process.cwd(), 'common');
-    }
-    
-    const featuresDir = path.join(outputBase, this.outputDir);
-    await await fileAPI.createDirectory(featuresDir);
-    
-    const featureName = path.basename(originalPath, '.stest.ts') + '.feature';
-    const outputPath = path.join(featuresDir, featureName);
-    
-    await await fileAPI.createFile(outputPath, content);
-    return outputPath;
-  }
-
-  private async saveStepDefinitions(originalPath: string, { type: FileType.TEMPORARY }): Promise<string> {
-    const relativePath = path.relative(process.cwd(), originalPath);
-    const pathParts = relativePath.split(path.sep);
-    
-    // Determine output directory structure
-    let outputBase = process.cwd();
-    if (pathParts.includes('layer')) {
-      const layerIndex = pathParts.indexOf('layer');
-      outputBase = path.join(process.cwd(), ...pathParts.slice(0, layerIndex + 3));
-    } else if (pathParts.includes('common')) {
-      outputBase = path.join(process.cwd(), 'common');
-    }
-    
-    const stepDefsDir = path.join(outputBase, this.stepDefsDir);
-    await await fileAPI.createDirectory(stepDefsDir);
-    
-    const stepDefName = path.basename(originalPath, '.stest.ts') + '.steps.ts';
-    const outputPath = path.join(stepDefsDir, stepDefName);
-    
-    await fs.writeFile(outputPath, content);
-    return outputPath;
-  }
-
-  async convertAll(): Promise<void> {
-    const testFiles = await glob('**/*.stest.ts', {
-      ignore: ['node_modules/**', 'dist/**', 'build/**']
+    testCases.forEach(tc => {
+      uniqueSteps.add('the system is initialized');
+      tc.steps.forEach(step => {
+        uniqueSteps.add(`I ${this.humanizeStep(step)}`);
+      });
+      uniqueSteps.add(`the ${tc.description} should complete successfully`);
+      uniqueSteps.add(`I perform the ${tc.description} operation`);
     });
     
-    console.log(`Found ${testFiles.length} system test files to convert\n`);
+    const stepDefs = Array.from(uniqueSteps).map(step => {
+      const stepType = step.startsWith('the system') ? 'Given' : 
+                      step.startsWith('I ') ? 'When' : 'Then';
+      const functionName = step.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+      
+      return `${stepType}('${step}', async function() {
+  // TODO: Implement step logic from original test
+  // Original file: ${this.sourceFile}
+  await new Promise(resolve => setTimeout(resolve, 100));
+});`;
+    });
     
-    for (const file of testFiles) {
-      try {
-        await this.convertFile(file);
-      } catch (error) {
-        console.error(`Error converting ${file}:`, error);
-      }
-    }
-    
-    console.log('\n✅ Conversion complete!');
-    console.log(`Converted ${testFiles.length} test files to Cucumber format`);
+    return `import { Given, When, Then, Before, After } from '@cucumber/cucumber';
+import { expect } from 'chai';
+
+// Converted from: ${path.basename(this.sourceFile)}
+// ${new Date().toISOString()}
+
+Before(async function() {
+  // Setup test environment
+  this.testData = {};
+});
+
+After(async function() {
+  // Cleanup test environment
+});
+
+${stepDefs.join('\n\n')}
+`;
   }
 }
 
-// Run the converter
-const converter = new SystemTestToCucumberConverter();
-converter.convertAll().catch(console.error);
+// Main execution
+async function main() {
+  const pattern = process.argv[2] || '**/*.stest.ts';
+  const dryRun = process.argv.includes('--dry-run');
+  
+  console.log('🔄 Converting .stest.ts files to Cucumber format...');
+  console.log(`Pattern: ${pattern}`);
+  console.log(`Dry run: ${dryRun}`);
+  console.log('');
+  
+  const files = await glob(pattern, {
+    cwd: process.cwd(),
+    absolute: true,
+    ignore: ['**/node_modules/**', '**/dist/**', '**/build/**']
+  });
+  
+  console.log(`Found ${files.length} .stest.ts files to convert\n`);
+  
+  for (const file of files) {
+    const converter = new STestToCucumberConverter(file);
+    
+    if (dryRun) {
+      console.log(`Would convert: ${file}`);
+    } else {
+      await converter.convert();
+    }
+  }
+  
+  if (!dryRun && files.length > 0) {
+    console.log('\n✅ Conversion complete!');
+    console.log('\n⚠️  Note: The generated step definitions contain TODO placeholders.');
+    console.log('You need to manually implement the actual test logic from the original files.');
+    console.log('\n🗑️  To remove old .stest.ts files, run:');
+    console.log('  find . -name "*.stest.ts" -type f -delete');
+  }
+}
+
+main().catch(console.error);

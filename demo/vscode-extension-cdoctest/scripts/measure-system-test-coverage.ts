@@ -7,7 +7,7 @@
  */
 
 import * as fs from 'fs/promises';
-import { path } from '../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import { spawn } from 'child_process';
 
 interface CoverageMetrics {
@@ -72,7 +72,7 @@ class SystemTestCoverageAnalyzer {
         '--exclude=test/**/*',
         '--exclude=**/*.test.ts',
         '--exclude=**/*.spec.ts',
-        'playwright',
+        "playwright",
         'test',
         '--config=playwright.config.ts',
         '--grep=system-test-mockless|ctest-gui-automation'
@@ -106,7 +106,7 @@ class SystemTestCoverageAnalyzer {
       console.warn('⚠️ Coverage file not found, checking alternative locations...');
       
       // Try NYC default location
-      const nycCoverageFile = path.join(this.projectRoot, 'coverage', 'coverage-final.json');
+      const nycCoverageFile = path.join(this.projectRoot, "coverage", 'coverage-final.json');
       try {
         const data = await fs.readFile(nycCoverageFile, 'utf8');
         return JSON.parse(data);
@@ -392,7 +392,7 @@ ${this.generateRecommendations(metrics, classDetails)}
     
     if (classDetails.uncovered.length > 0) {
       const priorityClasses = classDetails.uncovered
-        .filter((cls: any) => cls.file.includes('controller') || cls.file.includes('config') || cls.file.includes('handler'))
+        .filter((cls: any) => cls.file.includes("controller") || cls.file.includes('config') || cls.file.includes('handler'))
         .slice(0, 3);
       
       if (priorityClasses.length > 0) {

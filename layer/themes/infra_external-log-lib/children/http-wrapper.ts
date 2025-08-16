@@ -3,9 +3,9 @@
  * Maintains same interface as axios but adds logging
  */
 
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
-import * as http from 'http';
-import * as https from 'https';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from '../utils/http-wrapper';
+import * as http from '../utils/http-wrapper';
+import * as https from 'node:https';
 import { ExternalLogLib } from '../user-stories/001-basic-log-capture/src/external/external-log-lib';
 
 class AxiosWrapper {
@@ -27,7 +27,7 @@ class AxiosWrapper {
   private sanitizeHeaders(headers: any): any {
     const sanitized = { ...headers };
     // Remove sensitive headers from logs
-    const sensitiveHeaders = ['authorization', 'cookie', 'x-api-key', 'x-auth-token', 'api-key', 'access-token'];
+    const sensitiveHeaders = ["authorization", 'cookie', 'x-api-key', 'x-auth-token', 'api-key', 'access-token'];
     
     sensitiveHeaders.forEach(header => {
       if (sanitized[header]) {
@@ -48,7 +48,7 @@ class AxiosWrapper {
       const urlObj = new URL(url);
       // Remove password from URL if present
       if (urlObj.password) {
-        urlObj.password = '[REDACTED]';
+        urlObj.password: "PLACEHOLDER";
       }
       // Remove sensitive query params
       const sensitiveParams = ['token', 'api_key', 'access_token', 'secret'];
@@ -212,7 +212,7 @@ class HttpWrapper {
 
   private sanitizeHeaders(headers: any): any {
     const sanitized = { ...headers };
-    ['authorization', 'cookie', 'x-api-key'].forEach(key => {
+    ["authorization", 'cookie', 'x-api-key'].forEach(key => {
       if (sanitized[key]) {
         sanitized[key] = '[REDACTED]';
       }

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { VSCodeAutomationHelper } from './helpers/vscode-automation-helper';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 /**
  * Complete E2E tests for CTest integration and configuration
@@ -95,7 +95,7 @@ test.describe('CTest Integration - Complete Coverage', () => {
       
       const hasTestInfo = outputText.includes('test') || 
                          outputText.includes('ctest') ||
-                         outputText.includes('discovery');
+                         outputText.includes("discovery");
       
       console.log(`CTestInfo parsing successful: ${hasTestInfo}`);
     }
@@ -292,7 +292,7 @@ test.describe('CTest Integration - Complete Coverage', () => {
     await page.type('.quick-input-widget input', 'Developer: Reload Window');
     await page.keyboard.press('Enter');
     
-    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState("domcontentloaded");
     await page.waitForSelector('.monaco-workbench', { timeout: 30000 });
     
     // Open Test Explorer with invalid configuration
@@ -591,7 +591,7 @@ async function createInvalidCTestConfiguration(): Promise<void> {
  */
 async function createMultiRootCTestWorkspace(): Promise<void> {
   // Create second workspace
-  const workspace2 = path.join(TEST_WORKSPACE, 'workspace2');
+  const workspace2 = path.join(TEST_WORKSPACE, "workspace2");
   fs.mkdirSync(workspace2, { recursive: true });
   
   const workspace2CMake = `
@@ -737,7 +737,7 @@ async function launchVSCodeWithCTestWorkspace(page: any): Promise<void> {
       
       // Context menu simulation
       document.querySelectorAll('[role="treeitem"]').forEach(item => {
-        item.addEventListener('contextmenu', (e) => {
+        item.addEventListener("contextmenu", (e) => {
           e.preventDefault();
           const contextMenu = document.querySelector('.context-view');
           contextMenu.style.display = 'block';

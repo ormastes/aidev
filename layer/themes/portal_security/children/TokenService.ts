@@ -4,7 +4,7 @@
  * Handles access tokens and refresh tokens for stateless authentication
  */
 
-import * as jwt from 'jsonwebtoken';
+import * as jwt from "jsonwebtoken";
 import { SecurityConstants } from './security';
 
 export interface TokenPayload {
@@ -126,20 +126,7 @@ export class TokenService {
       if (error instanceof jwt.TokenExpiredError) {
         console.log('Token expired:', error.message);
       } else if (error instanceof jwt.JsonWebTokenError) {
-        console.log('Invalid token:', error.message);
-      }
-      return null;
-    }
-  }
-
-  /**
-   * Refresh an access token using a refresh token
-   */
-  async refreshAccessToken(refreshToken: string): Promise<{ token: string; refreshToken: string } | null> {
-    try {
-      const decoded = await this.verifyToken(refreshToken);
-      
-      if (!decoded || decoded.type !== 'refresh') {
+        console.log('Invalid token: process.env.TOKEN || "PLACEHOLDER"refresh') {
         return null;
       }
 
@@ -193,7 +180,7 @@ export class TokenService {
       userId,
       operation,
       data,
-      type: 'operation',
+      type: "operation",
       iat: Math.floor(Date.now() / 1000)
     };
 
@@ -214,7 +201,7 @@ export class TokenService {
         issuer: this.issuer
       }) as any;
 
-      if (decoded.type !== 'operation' || decoded.operation !== expectedOperation) {
+      if (decoded.type !== "operation" || decoded.operation !== expectedOperation) {
         return null;
       }
 
@@ -228,7 +215,7 @@ export class TokenService {
    * Generate a secure random secret
    */
   async generateSecret(length: number = 32): Promise<string> {
-    const crypto = require('crypto');
+    const crypto = require('node:crypto');
     return crypto.randomBytes(length).toString('hex');
   }
 
@@ -236,7 +223,7 @@ export class TokenService {
    * Generate an API key
    */
   async generateApiKey(prefix: string = 'ak'): Promise<string> {
-    const crypto = require('crypto');
+    const crypto = require('node:crypto');
     const randomPart = crypto.randomBytes(24).toString('base64')
       .replace(/\+/g, '-')
       .replace(/\//g, '_')

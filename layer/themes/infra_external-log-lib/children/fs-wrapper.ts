@@ -3,7 +3,7 @@
  * Maintains same interface as Node.js fs module but adds logging
  */
 
-import * as originalFs from 'fs';
+import * as originalFs from '../../layer/themes/infra_external-log-lib/src';
 import * as originalFsPromises from 'fs/promises';
 import { ExternalLogLib } from '../user-stories/001-basic-log-capture/src/external/external-log-lib';
 
@@ -43,14 +43,14 @@ class FileSystemWrapper {
     const startTime = Date.now();
     try {
       const result = originalFs.readFileSync(path, options);
-      this.logOperation('readFileSync', path, {
+      this.logOperation("readFileSync", path, {
         size: result.length,
         duration: Date.now() - startTime,
         encoding: options?.encoding
       });
       return result;
     } catch (error) {
-      this.logError('readFileSync', path, error as Error);
+      this.logError("readFileSync", path, error as Error);
       throw error;
     }
   }
@@ -59,13 +59,13 @@ class FileSystemWrapper {
     const startTime = Date.now();
     try {
       originalFs.writeFileSync(path, data, options);
-      this.logOperation('writeFileSync', path, {
+      this.logOperation("writeFileSync", path, {
         size: data.length,
         duration: Date.now() - startTime,
         encoding: options?.encoding
       });
     } catch (error) {
-      this.logError('writeFileSync', path, error as Error);
+      this.logError("writeFileSync", path, error as Error);
       throw error;
     }
   }
@@ -73,10 +73,10 @@ class FileSystemWrapper {
   existsSync(path: string): boolean {
     try {
       const exists = originalFs.existsSync(path);
-      this.logOperation('existsSync', path, { exists });
+      this.logOperation("existsSync", path, { exists });
       return exists;
     } catch (error) {
-      this.logError('existsSync', path, error as Error);
+      this.logError("existsSync", path, error as Error);
       throw error;
     }
   }
@@ -85,13 +85,13 @@ class FileSystemWrapper {
     const startTime = Date.now();
     try {
       const result = originalFs.mkdirSync(path, options);
-      this.logOperation('mkdirSync', path, {
+      this.logOperation("mkdirSync", path, {
         recursive: options?.recursive,
         duration: Date.now() - startTime
       });
       return result;
     } catch (error) {
-      this.logError('mkdirSync', path, error as Error);
+      this.logError("mkdirSync", path, error as Error);
       throw error;
     }
   }
@@ -100,13 +100,13 @@ class FileSystemWrapper {
     const startTime = Date.now();
     try {
       const result = originalFs.readdirSync(path, options);
-      this.logOperation('readdirSync', path, {
+      this.logOperation("readdirSync", path, {
         count: Array.isArray(result) ? result.length : 0,
         duration: Date.now() - startTime
       });
       return result;
     } catch (error) {
-      this.logError('readdirSync', path, error as Error);
+      this.logError("readdirSync", path, error as Error);
       throw error;
     }
   }
@@ -115,7 +115,7 @@ class FileSystemWrapper {
     const startTime = Date.now();
     try {
       const stats = originalFs.statSync(path, options);
-      this.logOperation('statSync', path, {
+      this.logOperation("statSync", path, {
         isFile: stats.isFile(),
         isDirectory: stats.isDirectory(),
         size: stats.size,
@@ -123,7 +123,7 @@ class FileSystemWrapper {
       });
       return stats;
     } catch (error) {
-      this.logError('statSync', path, error as Error);
+      this.logError("statSync", path, error as Error);
       throw error;
     }
   }
@@ -132,41 +132,41 @@ class FileSystemWrapper {
     const startTime = Date.now();
     try {
       originalFs.unlinkSync(path);
-      this.logOperation('unlinkSync', path, {
+      this.logOperation("unlinkSync", path, {
         duration: Date.now() - startTime
       });
     } catch (error) {
-      this.logError('unlinkSync', path, error as Error);
+      this.logError("unlinkSync", path, error as Error);
       throw error;
     }
   }
 
   // Stream operations
   createReadStream(path: string, options?: any): originalFs.ReadStream {
-    this.logOperation('createReadStream', path, { options });
+    this.logOperation("createReadStream", path, { options });
     const stream = originalFs.createReadStream(path, options);
     
     stream.on('error', (error) => {
-      this.logError('createReadStream', path, error as Error);
+      this.logError("createReadStream", path, error as Error);
     });
     
     stream.on('end', () => {
-      this.logOperation('createReadStream', path, { event: 'end' });
+      this.logOperation("createReadStream", path, { event: 'end' });
     });
     
     return stream;
   }
 
   createWriteStream(path: string, options?: any): originalFs.WriteStream {
-    this.logOperation('createWriteStream', path, { options });
+    this.logOperation("createWriteStream", path, { options });
     const stream = originalFs.createWriteStream(path, options);
     
     stream.on('error', (error) => {
-      this.logError('createWriteStream', path, error as Error);
+      this.logError("createWriteStream", path, error as Error);
     });
     
     stream.on('finish', () => {
-      this.logOperation('createWriteStream', path, { event: 'finish' });
+      this.logOperation("createWriteStream", path, { event: 'finish' });
     });
     
     return stream;
@@ -209,14 +209,14 @@ class FileSystemPromisesWrapper {
     const startTime = Date.now();
     try {
       const result = await originalFsPromises.readFile(path, options);
-      await this.logOperationAsync('readFile', path, {
+      await this.logOperationAsync("readFile", path, {
         size: result.length,
         duration: Date.now() - startTime,
         encoding: options?.encoding
       });
       return result;
     } catch (error) {
-      await this.logErrorAsync('readFile', path, error as Error);
+      await this.logErrorAsync("readFile", path, error as Error);
       throw error;
     }
   }
@@ -225,13 +225,13 @@ class FileSystemPromisesWrapper {
     const startTime = Date.now();
     try {
       await originalFsPromises.writeFile(path, data, options);
-      await this.logOperationAsync('writeFile', path, {
+      await this.logOperationAsync("writeFile", path, {
         size: data.length,
         duration: Date.now() - startTime,
         encoding: options?.encoding
       });
     } catch (error) {
-      await this.logErrorAsync('writeFile', path, error as Error);
+      await this.logErrorAsync("writeFile", path, error as Error);
       throw error;
     }
   }

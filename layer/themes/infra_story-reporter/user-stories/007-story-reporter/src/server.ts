@@ -1,9 +1,10 @@
+import { fileAPI } from '../utils/file-api';
 import express from 'express';
-import { join } from 'path';
+import { join } from 'node:path';
 import { StoryService } from './services/story-service';
 import { createStoryAPI } from './api/story-api';
 import { StoryReportGenerator } from './external/story-report-generator';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
+import { fsPromises as fs } from 'fs/promises';
 
 /**
  * Story Reporter Web Server

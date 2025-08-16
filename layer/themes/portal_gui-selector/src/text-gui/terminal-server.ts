@@ -64,7 +64,7 @@ export class TerminalServer {
   }
 
   private setupWebSocket(): void {
-    this.io.on('connection', (socket) => {
+    this.io.on("connection", (socket) => {
       console.log(`Client connected: ${socket.id}`);
 
       // Create new terminal session
@@ -100,7 +100,7 @@ export class TerminalServer {
       });
 
       // Handle disconnect
-      socket.on('disconnect', () => {
+      socket.on("disconnect", () => {
         console.log(`Client disconnected: ${socket.id}`);
       });
     });

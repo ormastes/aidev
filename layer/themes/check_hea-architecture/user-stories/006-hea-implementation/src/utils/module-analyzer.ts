@@ -1,6 +1,7 @@
+import { fileAPI } from '../utils/file-api';
 import { fs } from '../../../../../infra_external-log-lib/src';
 import { path } from '../../../../../infra_external-log-lib/src';
-import * as ts from 'typescript';
+import * as ts from "typescript";
 import { ModuleInfo, MethodInfo, ParameterInfo } from '../interfaces/layer';
 
 export class ModuleAnalyzer {
@@ -61,7 +62,7 @@ export class ModuleAnalyzer {
       return [];
     }
 
-    const content = fs.readFileSync(indexPath, 'utf-8');
+    const content = fileAPI.readFileSync(indexPath, 'utf-8');
     const sourceFile = ts.createSourceFile(
       indexPath,
       content,
@@ -109,7 +110,7 @@ export class ModuleAnalyzer {
    * Extract imports from a file
    */
   private extractImports(filePath: string): string[] {
-    const content = fs.readFileSync(filePath, 'utf-8');
+    const content = fileAPI.readFileSync(filePath, 'utf-8');
     const sourceFile = ts.createSourceFile(
       filePath,
       content,
@@ -135,7 +136,7 @@ export class ModuleAnalyzer {
    * Analyze a pipe interface
    */
   analyzePipeInterface(filePath: string, interfaceName: string): MethodInfo[] {
-    const content = fs.readFileSync(filePath, 'utf-8');
+    const content = fileAPI.readFileSync(filePath, 'utf-8');
     const sourceFile = ts.createSourceFile(
       filePath,
       content,
@@ -210,14 +211,14 @@ export class ModuleAnalyzer {
    * Calculate test coverage (simplified)
    */
   async calculateCoverage(modulePath: string): Promise<number | undefined> {
-    const coveragePath = path.join(modulePath, 'coverage', 'coverage-summary.json');
+    const coveragePath = path.join(modulePath, "coverage", 'coverage-summary.json');
     
     if (!fs.existsSync(coveragePath)) {
       return undefined;
     }
 
     try {
-      const coverageData = JSON.parse(fs.readFileSync(coveragePath, 'utf-8'));
+      const coverageData = JSON.parse(fileAPI.readFileSync(coveragePath, 'utf-8'));
       const total = coverageData.total;
       
       if (total && total.lines) {

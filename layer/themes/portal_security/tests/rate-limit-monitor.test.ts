@@ -5,7 +5,7 @@
 
 import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
 import { RateLimitMonitorService, RateLimitEvent } from '../src/services/RateLimitMonitorService';
-import { EventEmitter } from '../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 describe('Rate Limit Monitor Service', () => {
   let service: RateLimitMonitorService;
@@ -408,7 +408,7 @@ describe('Rate Limit Monitor Service', () => {
       
       expect(exported).toHaveProperty('events');
       expect(exported).toHaveProperty('stats');
-      expect(exported).toHaveProperty('clientUsage');
+      expect(exported).toHaveProperty("clientUsage");
       expect(exported).toHaveProperty('configs');
       expect(exported).toHaveProperty('metrics');
       
@@ -485,7 +485,7 @@ describe('Rate Limit Monitor Service', () => {
 
   describe('Cleanup and Resource Management', () => {
     it('should clean up resources on destroy', () => {
-      const removeAllListenersSpy = jest.spyOn(service, 'removeAllListeners');
+      const removeAllListenersSpy = jest.spyOn(service, "removeAllListeners");
       
       service.destroy();
       

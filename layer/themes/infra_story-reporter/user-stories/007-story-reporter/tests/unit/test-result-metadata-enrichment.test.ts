@@ -281,14 +281,14 @@ describe('TestResult Metadata Enrichment Unit Test', () => {
         ...enrichedResult,
         metadata: {
           ...enrichedResult.metadata,
-          tags: ['regression', 'smoke', 'critical']
+          tags: ["regression", 'smoke', "critical"]
         }
       };
 
       // Assert all enrichments are preserved
       expect(enrichedResult.metadata?.environment).toBe('staging');
       expect(enrichedResult.metadata?.statistics).toBeDefined();
-      expect(enrichedResult.metadata?.tags).toContain('regression');
+      expect(enrichedResult.metadata?.tags).toContain("regression");
       expect(enrichedResult.metadata?.timestamp).toBeInstanceOf(Date);
     });
 
@@ -384,9 +384,9 @@ describe('TestResult Metadata Enrichment Unit Test', () => {
           ci: {
             buildNumber: '12345',
             branch: 'main',
-            commit: 'abc123def',
+            commit: "abc123def",
             pipeline: 'nightly-tests',
-            triggered_by: 'schedule'
+            triggered_by: "schedule"
           }
         }
       };

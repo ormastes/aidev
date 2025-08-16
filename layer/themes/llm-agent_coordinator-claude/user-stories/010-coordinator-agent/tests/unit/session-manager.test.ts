@@ -86,9 +86,9 @@ describe('SessionManager Unit Tests', () => {
       await sessionManager.interruptSession(sessionId);
 
       const updatedSession = await sessionManager.loadSession(sessionId);
-      expect(updatedSession!.state).toBe('interrupted');
+      expect(updatedSession!.state).toBe("interrupted");
       expect(updatedSession!.checkpoints).toHaveLength(1);
-      expect(updatedSession!.checkpoints[0].reason).toBe('interrupt');
+      expect(updatedSession!.checkpoints[0].reason).toBe("interrupt");
     });
 
     test('should resume interrupted session', async () => {
@@ -109,7 +109,7 @@ describe('SessionManager Unit Tests', () => {
       await sessionManager.closeSession(sessionId);
 
       const closedSession = await sessionManager.loadSession(sessionId);
-      expect(closedSession!.state).toBe('In Progress');
+      expect(closedSession!.state).toBe("completed");
     });
   });
 
@@ -124,7 +124,7 @@ describe('SessionManager Unit Tests', () => {
       });
 
       const entry2 = await sessionManager.addConversationEntry(sessionId, {
-        role: 'assistant',
+        role: "assistant",
         content: 'TypeScript is a typed superset of JavaScript...'
       });
 
@@ -141,7 +141,7 @@ describe('SessionManager Unit Tests', () => {
       const session = await sessionManager.createSession();
       
       const entry = await sessionManager.addConversationEntry(session.id, {
-        role: 'assistant',
+        role: "assistant",
         content: 'Processing...',
         metadata: {
           streamId: 'stream-123',
@@ -275,7 +275,7 @@ describe('SessionManager Unit Tests', () => {
       await sessionManager.interruptSession(session1.id);
       
       const activeSessions = await sessionManager.listSessions({ state: 'active' });
-      const interruptedSessions = await sessionManager.listSessions({ state: 'interrupted' });
+      const interruptedSessions = await sessionManager.listSessions({ state: "interrupted" });
       
       expect(activeSessions).toHaveLength(1);
       expect(activeSessions[0].id).toBe(session2.id);
@@ -341,7 +341,7 @@ describe('SessionManager Unit Tests', () => {
       // Should have saved the entry even after interrupt
       expect(parsedData.conversation).toHaveLength(1);
       expect(parsedData.conversation[0].content).toBe('After interrupt');
-      expect(parsedData.state).toBe('interrupted');
+      expect(parsedData.state).toBe("interrupted");
     });
   });
 
@@ -396,7 +396,7 @@ describe('SessionManager Unit Tests', () => {
       sessionManager.on('session_created', () => events.push('created'));
       sessionManager.on('session_saved', () => events.push('saved'));
       sessionManager.on('session_loaded', () => events.push('loaded'));
-      sessionManager.on('session_interrupted', () => events.push('interrupted'));
+      sessionManager.on('session_interrupted', () => events.push("interrupted"));
       sessionManager.on('session_resumed', () => events.push('resumed'));
       sessionManager.on('session_closed', () => events.push('closed'));
 
@@ -411,7 +411,7 @@ describe('SessionManager Unit Tests', () => {
       // The order may vary slightly depending on timing
       expect(events).toContain('created');
       // 'loaded' is only emitted when loading from disk, not creating new
-      expect(events).toContain('interrupted');
+      expect(events).toContain("interrupted");
       expect(events).toContain('resumed');
       expect(events).toContain('closed');
       expect(events.filter(e => e === 'saved').length).toBeGreaterThan(5);

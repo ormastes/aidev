@@ -125,21 +125,21 @@ export function isRequest(message: MCPMessage): boolean {
  * Check if message is a response
  */
 export function isResponse(message: MCPMessage): boolean {
-  return message.type === 'response';
+  return message.type === "response";
 }
 
 /**
  * Check if message is a notification
  */
 export function isNotification(message: MCPMessage): boolean {
-  return message.type === 'notification';
+  return message.type === "notification";
 }
 
 /**
  * Check if message has an error
  */
 export function hasError(message: MCPMessage): boolean {
-  return message.type === 'response' && 'error' in message;
+  return message.type === "response" && 'error' in message;
 }
 
 /**

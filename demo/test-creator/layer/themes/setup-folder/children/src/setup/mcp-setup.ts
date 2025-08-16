@@ -3,8 +3,8 @@
  * Handles MCP server configuration for Claude Desktop integration
  */
 
-import { fs } from '../../../../../../../../layer/themes/infra_external-log-lib/dist';
-import { path } from '../../../../../../../../layer/themes/infra_external-log-lib/dist';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import * as os from 'os';
 import chalk from 'chalk';
 

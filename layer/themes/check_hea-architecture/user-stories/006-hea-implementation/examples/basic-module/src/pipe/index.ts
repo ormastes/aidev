@@ -9,7 +9,7 @@ export interface CalculatorPipe extends Pipe<CalculatorInput, CalculatorOutput> 
 }
 
 export interface CalculatorInput {
-  operation: 'add' | 'subtract' | 'multiply' | 'divide';
+  operation: 'add' | "subtract" | "multiply" | 'divide';
   a: number;
   b: number;
 }
@@ -57,7 +57,7 @@ const validateCalculatorInput = (input: CalculatorInput): ValidationResult => {
 // Create calculator pipe
 export const createCalculatorPipe = (): CalculatorPipe => {
   const basePipe = createPipeBuilder<CalculatorInput, CalculatorOutput>()
-    .withName('calculator')
+    .withName("calculator")
     .withVersion('1.0.0')
     .withLayer('themes')
     .withDescription('Basic calculator operations')
@@ -69,10 +69,10 @@ export const createCalculatorPipe = (): CalculatorPipe => {
         case 'add':
           result = input.a + input.b;
           break;
-        case 'subtract':
+        case "subtract":
           result = input.a - input.b;
           break;
-        case 'multiply':
+        case "multiply":
           result = input.a * input.b;
           break;
         case 'divide':
@@ -102,12 +102,12 @@ export const createCalculatorPipe = (): CalculatorPipe => {
     },
     
     subtract: async (a: number, b: number) => {
-      const result = await basePipe.execute({ operation: 'subtract', a, b });
+      const result = await basePipe.execute({ operation: "subtract", a, b });
       return result.result;
     },
     
     multiply: async (a: number, b: number) => {
-      const result = await basePipe.execute({ operation: 'multiply', a, b });
+      const result = await basePipe.execute({ operation: "multiply", a, b });
       return result.result;
     },
     

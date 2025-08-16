@@ -4,7 +4,7 @@
  * Provides interactive role selection and management for LLM agents
  */
 
-import * as readline from 'readline';
+import * as readline from "readline";
 import chalk from 'chalk';
 import { SubagentManager, SubagentDefinition } from './SubagentManager';
 
@@ -144,14 +144,14 @@ export class RoleSelector {
 
     // Keywords to role mapping
     const roleKeywords: Record<string, string[]> = {
-      'requirement-analyst': ['requirement', 'story', 'criteria', 'analysis', 'feature'],
-      'auth-manager': ['auth', 'login', 'security', 'password', 'session', 'token'],
-      'api-checker': ['api', 'endpoint', 'contract', 'swagger', 'openapi', 'rest'],
-      'agent-scheduler': ['schedule', 'coordinate', 'agent', 'task', 'queue'],
-      'context-manager': ['context', 'memory', 'state', 'history', 'conversation'],
-      'tester': ['test', 'coverage', 'unit', 'integration', 'playwright', 'jest'],
-      'gui-coordinator': ['gui', 'ui', 'interface', 'design', 'frontend', 'style'],
-      'feature-manager': ['feature', 'plan', 'develop', 'lifecycle', 'deploy']
+      'requirement-analyst': ["requirement", 'story', "criteria", "analysis", 'feature'],
+      'auth-manager': ['auth', 'login', "security", "password", 'session', 'token'],
+      'api-checker': ['api', "endpoint", "contract", 'swagger', 'openapi', 'rest'],
+      'agent-scheduler': ["schedule", "coordinate", 'agent', 'task', 'queue'],
+      'context-manager': ['context', 'memory', 'state', 'history', "conversation"],
+      'tester': ['test', "coverage", 'unit', "integration", "playwright", 'jest'],
+      'gui-coordinator': ['gui', 'ui', "interface", 'design', "frontend", 'style'],
+      'feature-manager': ['feature', 'plan', 'develop', "lifecycle", 'deploy']
     };
 
     for (const agent of agents) {

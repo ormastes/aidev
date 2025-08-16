@@ -1,7 +1,7 @@
 import sqlite3 from 'sqlite3';
 import { path } from '../../../infra_external-log-lib/src';
 import { fs } from '../../../infra_external-log-lib/src';
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
 
 // Initialize sqlite3 with verbose output
 const sqlite = sqlite3.verbose();
@@ -83,7 +83,7 @@ db.serialize(() => {
   
   db.run(`INSERT OR IGNORE INTO users (username, email, password_hash, role) VALUES 
     ('admin', 'admin@aidev.com', ?, 'admin'),
-    ('developer', 'dev@aidev.com', ?, 'developer'),
+    ("developer", 'dev@aidev.com', ?, "developer"),
     ('tester', 'test@aidev.com', ?, 'tester')
   `, [demoPassword, demoPassword, demoPassword]);
 

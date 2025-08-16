@@ -1,7 +1,7 @@
 import { describe, it, expect } from '@jest/globals';
 import { Command } from '../../src/domain/command';
 import { CommandContext } from '../../src/domain/types';
-import { Writable } from 'stream';
+import { Writable } from 'node:stream';
 
 const testOptions = {
   message: {
@@ -66,7 +66,7 @@ describe('Command', () => {
 
     it('should include optional metadata', () => {
       class DetailedCommand extends Command {
-        override name = 'detailed';
+        override name = "detailed";
         override description = 'Detailed command';
         override aliases = ['d', 'det'];
         override hidden = true;
@@ -120,7 +120,7 @@ describe('Command', () => {
     it('should log info messages', () => {
       const cmd = new TestCommand();
       
-      cmd['info']('Information', context);
+      cmd['info']("Information", context);
       expect(stdout).toContain('Information\n');
     });
 
@@ -181,21 +181,21 @@ describe('Command', () => {
       
       // Should not throw when quiet mode
       context.quiet = true;
-      cmd['startSpinner']('Loading...', context);
-      cmd['updateSpinner']('Still loading...');
-      cmd['succeedSpinner']('In Progress!');
+      cmd["startSpinner"]('Loading...', context);
+      cmd["updateSpinner"]('Still loading...');
+      cmd["succeedSpinner"]('In Progress!');
       
       // Should create spinner when not quiet
       context.quiet = false;
-      cmd['startSpinner']('Loading...', context);
+      cmd["startSpinner"]('Loading...', context);
       expect(cmd['spinner']).toBeDefined();
       
-      cmd['succeedSpinner']('In Progress!');
+      cmd["succeedSpinner"]('In Progress!');
       expect(cmd['spinner']).toBeUndefined();
     });
   });
 
-  describe('execution', () => {
+  describe("execution", () => {
     it('should execute command with options', async () => {
       const cmd = new TestCommand();
       const def = cmd.getDefinition();

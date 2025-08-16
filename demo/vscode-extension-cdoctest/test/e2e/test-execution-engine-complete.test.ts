@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { VSCodeAutomationHelper } from './helpers/vscode-automation-helper';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 /**
  * Complete E2E tests for test execution engine and process management
@@ -100,7 +100,7 @@ test.describe('Test Execution Engine - Complete Coverage', () => {
         // Check for process execution indicators
         const hasProcessOutput = outputText.includes('Running') ||
                                 outputText.includes('Process') ||
-                                outputText.includes('Executing') ||
+                                outputText.includes("Executing") ||
                                 outputText.includes('Started');
         
         console.log(`Process spawning detected: ${hasProcessOutput}`);
@@ -175,7 +175,7 @@ test.describe('Test Execution Engine - Complete Coverage', () => {
     await page.waitForSelector('.settings-editor', { timeout: 10000 });
     
     const searchBox = page.locator('.settings-header input[placeholder*="Search"]');
-    await searchBox.fill('cdoctest');
+    await searchBox.fill("cdoctest");
     await page.waitForTimeout(2000);
     
     // Set library path configuration
@@ -256,10 +256,10 @@ test.describe('Test Execution Engine - Complete Coverage', () => {
         
         // Check for orchestration steps
         const orchestrationSteps = [
-          'Starting',
+          "Starting",
           'Running',
-          'Processing',
-          'Complete',
+          "Processing",
+          "Complete",
           'Results'
         ];
         
@@ -311,7 +311,7 @@ test.describe('Test Execution Engine - Complete Coverage', () => {
         const hasResultProcessing = outputText.includes('result') ||
                                    outputText.includes('.xml') ||
                                    outputText.includes('parsing') ||
-                                   outputText.includes('processed');
+                                   outputText.includes("processed");
         
         console.log(`Result file processing detected: ${hasResultProcessing}`);
       }
@@ -341,7 +341,7 @@ test.describe('Test Execution Engine - Complete Coverage', () => {
     await page.waitForSelector('.settings-editor', { timeout: 10000 });
     
     const searchBox = page.locator('.settings-header input[placeholder*="Search"]');
-    await searchBox.fill('executable');
+    await searchBox.fill("executable");
     await page.waitForTimeout(2000);
     
     // Set executable path to trigger fileExists check
@@ -363,7 +363,7 @@ test.describe('Test Execution Engine - Complete Coverage', () => {
     const hasFileValidation = outputText.includes('exists') ||
                              outputText.includes('found') ||
                              outputText.includes('not found') ||
-                             outputText.includes('validation');
+                             outputText.includes("validation");
     
     console.log(`File utility function usage detected: ${hasFileValidation}`);
     
@@ -445,9 +445,9 @@ test.describe('Test Execution Engine - Complete Coverage', () => {
       const outputText = await outputContent.textContent();
       
       // Check for concurrent execution indicators
-      const hasConcurrentExecution = outputText.includes('parallel') ||
-                                    outputText.includes('concurrent') ||
-                                    outputText.includes('multiple') ||
+      const hasConcurrentExecution = outputText.includes("parallel") ||
+                                    outputText.includes("concurrent") ||
+                                    outputText.includes("multiple") ||
                                     (outputText.match(/Running/g) || []).length > 1;
       
       console.log(`Concurrent execution detected: ${hasConcurrentExecution}`);
@@ -960,7 +960,7 @@ async function launchVSCodeWithExecutionWorkspace(page: any): Promise<void> {
       
       // Context menu simulation
       document.querySelectorAll('[role="treeitem"][aria-level="2"]').forEach(item => {
-        item.addEventListener('contextmenu', (e) => {
+        item.addEventListener("contextmenu", (e) => {
           e.preventDefault();
           const contextMenu = document.querySelector('.context-view');
           contextMenu.style.display = 'block';

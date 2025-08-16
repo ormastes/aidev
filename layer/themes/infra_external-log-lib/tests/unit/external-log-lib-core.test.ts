@@ -2,8 +2,8 @@
  * Core tests for External Log Library Theme
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
 describe('External Log Library Theme - Core Functionality', () => {
   describe('pipe gateway', () => {

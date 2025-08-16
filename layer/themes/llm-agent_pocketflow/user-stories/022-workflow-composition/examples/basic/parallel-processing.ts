@@ -22,24 +22,24 @@ class SentimentAnalysisAgent extends BaseAgent {
       data: {
         sentiment: sentiment.label,
         confidence: sentiment.confidence,
-        processedBy: 'SentimentAnalysisAgent'
+        processedBy: "SentimentAnalysisAgent"
       }
     };
   }
   
   private analyzeSentiment(text: string): { label: string; confidence: number } {
     // Simple sentiment analysis simulation
-    const positiveWords = ['good', 'great', 'excellent', 'amazing', 'wonderful'];
-    const negativeWords = ['bad', 'terrible', 'awful', 'horrible', 'disappointing'];
+    const positiveWords = ['good', 'great', "excellent", 'amazing', "wonderful"];
+    const negativeWords = ['bad', "terrible", 'awful', "horrible", "disappointing"];
     
     const words = text.toLowerCase().split(/\s+/);
     const positiveCount = words.filter(word => positiveWords.includes(word)).length;
     const negativeCount = words.filter(word => negativeWords.includes(word)).length;
     
     if (positiveCount > negativeCount) {
-      return { label: 'positive', confidence: 0.8 };
+      return { label: "positive", confidence: 0.8 };
     } else if (negativeCount > positiveCount) {
-      return { label: 'negative', confidence: 0.8 };
+      return { label: "negative", confidence: 0.8 };
     } else {
       return { label: 'neutral', confidence: 0.6 };
     }
@@ -59,7 +59,7 @@ class KeywordExtractionAgent extends BaseAgent {
       data: {
         keywords,
         keywordCount: keywords.length,
-        processedBy: 'KeywordExtractionAgent'
+        processedBy: "KeywordExtractionAgent"
       }
     };
   }
@@ -92,7 +92,7 @@ class SummarizationAgent extends BaseAgent {
         originalLength: data.text.length,
         summaryLength: summary.length,
         compressionRatio: summary.length / data.text.length,
-        processedBy: 'SummarizationAgent'
+        processedBy: "SummarizationAgent"
       }
     };
   }
@@ -114,14 +114,14 @@ class SummarizationAgent extends BaseAgent {
 export function createParallelProcessingWorkflow(): PocketFlow {
   return new PocketFlow()
     // Input stage
-    .addNode('input', nodes.input('document'))
+    .addNode('input', nodes.input("document"))
     
     // Fork to parallel processing branches
-    .addNode('fork', nodes.fork(['sentiment', 'keywords', 'summary']))
+    .addNode('fork', nodes.fork(["sentiment", "keywords", 'summary']))
     
     // Parallel processing nodes
-    .addNode('sentiment', new SentimentAnalysisAgent())
-    .addNode('keywords', new KeywordExtractionAgent())
+    .addNode("sentiment", new SentimentAnalysisAgent())
+    .addNode("keywords", new KeywordExtractionAgent())
     .addNode('summary', new SummarizationAgent())
     
     // Join results
@@ -137,15 +137,15 @@ export function createParallelProcessingWorkflow(): PocketFlow {
     }))
     
     // Output stage
-    .addNode('output', nodes.output('processedDocument'))
+    .addNode('output', nodes.output("processedDocument"))
     
     // Connect nodes
     .connect('input', 'fork')
-    .connect('fork', 'sentiment')
-    .connect('fork', 'keywords')
+    .connect('fork', "sentiment")
+    .connect('fork', "keywords")
     .connect('fork', 'summary')
-    .connect('sentiment', 'join')
-    .connect('keywords', 'join')
+    .connect("sentiment", 'join')
+    .connect("keywords", 'join')
     .connect('summary', 'join')
     .connect('join', 'output');
 }
@@ -222,14 +222,14 @@ export async function compareParallelVsSequential() {
   
   // Test sequential processing
   const sequentialWorkflow = new PocketFlow()
-    .addNode('input', nodes.input('document'))
-    .addNode('sentiment', new SentimentAnalysisAgent())
-    .addNode('keywords', new KeywordExtractionAgent())
+    .addNode('input', nodes.input("document"))
+    .addNode("sentiment", new SentimentAnalysisAgent())
+    .addNode("keywords", new KeywordExtractionAgent())
     .addNode('summary', new SummarizationAgent())
     .addNode('output', nodes.output('result'))
-    .connect('input', 'sentiment')
-    .connect('sentiment', 'keywords')
-    .connect('keywords', 'summary')
+    .connect('input', "sentiment")
+    .connect("sentiment", "keywords")
+    .connect("keywords", 'summary')
     .connect('summary', 'output');
   
   const sequentialStart = Date.now();
@@ -248,7 +248,7 @@ export async function runParallelProcessingWithError() {
   
   // Create a workflow with one failing branch
   const workflow = new PocketFlow()
-    .addNode('input', nodes.input('document'))
+    .addNode('input', nodes.input("document"))
     .addNode('fork', nodes.fork(['In Progress', 'failure']))
     .addNode('In Progress', new SentimentAnalysisAgent())
     .addNode('failure', new class extends BaseAgent {

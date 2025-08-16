@@ -23,7 +23,7 @@ export interface EnvironmentConfig {
 }
 
 export interface DatabaseConfig {
-  type: 'postgresql' | 'sqlite' | 'mysql';
+  type: "postgresql" | 'sqlite' | 'mysql';
   host?: string;
   port?: number;
   database?: string;
@@ -65,14 +65,14 @@ export class ConfigManager {
 
   private async initializeDefaultConfigs(): void {
     // Development configuration
-    this.configs.set('development', {
-      name: 'development',
+    this.configs.set("development", {
+      name: "development",
       services: [
         { name: 'main', port: 3456, enabled: true },
         { name: 'api', port: 3457, enabled: true },
         { name: 'auth', port: 3458, enabled: true },
         { name: 'admin', port: 3459, enabled: true },
-        { name: 'websocket', port: 3460, enabled: true }
+        { name: "websocket", port: 3460, enabled: true }
       ],
       database: {
         type: 'sqlite',
@@ -170,11 +170,11 @@ export class ConfigManager {
         { name: 'api', port: 8443, enabled: true },
         { name: 'auth', port: 8444, enabled: true },
         { name: 'admin', port: 8445, enabled: true },
-        { name: 'websocket', port: 8446, enabled: true }
+        { name: "websocket", port: 8446, enabled: true }
       ],
       database: {
-        type: 'postgresql',
-        host: 'localhost',
+        type: "postgresql",
+        host: "localhost",
         port: 5432,
         database: 'portal_security',
         username: 'portal_user',
@@ -368,7 +368,7 @@ export class ConfigManager {
   async propagateConfigChange(
     sourcEnvironment: string,
     targetEnvironments: string[],
-    configType: 'services' | 'database' | 'security' | 'features'
+    configType: "services" | "database" | "security" | "features"
   ): Promise<void> {
     const sourceConfig = await this.getConfig(sourcEnvironment);
 
@@ -376,7 +376,7 @@ export class ConfigManager {
       const targetConfig = await this.getConfig(targetEnv);
 
       switch (configType) {
-        case 'services':
+        case "services":
           // Don't overwrite ports, just service list and dependencies
           for (const service of sourceConfig.services) {
             const existing = targetConfig.services.find(s => s.name === service.name);
@@ -392,15 +392,15 @@ export class ConfigManager {
           }
           break;
 
-        case 'security':
+        case "security":
           targetConfig.security = { ...sourceConfig.security };
           break;
 
-        case 'features':
+        case "features":
           targetConfig.features = { ...sourceConfig.features };
           break;
 
-        case 'database':
+        case "database":
           // Only propagate non-environment-specific settings
           if (sourceConfig.database.type === targetConfig.database.type) {
             targetConfig.database.poolSize = sourceConfig.database.poolSize;
@@ -422,7 +422,7 @@ export class ConfigManager {
     }
 
     try {
-      const content = fs.readFileSync(filePath, 'utf-8');
+      const content = fileAPI.readFileSync(filePath, 'utf-8');
       return JSON.parse(content) as EnvironmentConfig;
     } catch (error) {
       console.error(`Failed to load config for environment '${environment}':`, error);
@@ -469,7 +469,7 @@ export class ConfigManager {
       }
 
       // Validate database config
-      if (config.database.type === 'postgresql') {
+      if (config.database.type === "postgresql") {
         if (!config.database.host || !config.database.database) {
           errors.push('PostgreSQL configuration missing required fields');
         }

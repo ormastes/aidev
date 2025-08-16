@@ -25,32 +25,32 @@ describe('Tag Search Functionality', () => {
     it('should filter entities by single tag', async () => {
       // Create test entities
       const entities = {
-        'UserProfile': [
+        "UserProfile": [
           {
             id: '1',
-            name: 'UserProfile',
-            data: { type: 'component' },
+            name: "UserProfile",
+            data: { type: "component" },
             tags: ['react', 'ui', 'user'],
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString()
           }
         ],
-        'AuthService': [
+        "AuthService": [
           {
             id: '2',
-            name: 'AuthService',
+            name: "AuthService",
             data: { type: 'service' },
-            tags: ['auth', 'security', 'user'],
+            tags: ['auth', "security", 'user'],
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString()
           }
         ],
-        'DatabaseConfig': [
+        "DatabaseConfig": [
           {
             id: '3',
-            name: 'DatabaseConfig',
+            name: "DatabaseConfig",
             data: { type: 'config' },
-            tags: ['config', 'database'],
+            tags: ['config', "database"],
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString()
           }
@@ -62,31 +62,31 @@ describe('Tag Search Functionality', () => {
       // Test single tag search
       const userTagged = await wrapper.getEntitiesByTag('user', testFile);
       expect(userTagged).toHaveLength(2);
-      expect(userTagged.map(e => e.name)).toContain('UserProfile');
-      expect(userTagged.map(e => e.name)).toContain('AuthService');
+      expect(userTagged.map(e => e.name)).toContain("UserProfile");
+      expect(userTagged.map(e => e.name)).toContain("AuthService");
       
       // Test case-insensitive search
       const uiTagged = await wrapper.read(`${testFile}?tag=UI`);
       expect(uiTagged).toHaveLength(1);
-      expect(uiTagged[0].name).toBe('UserProfile');
+      expect(uiTagged[0].name).toBe("UserProfile");
     });
 
     it('should filter entities by multiple tags (OR operation)', async () => {
       const entities = {
-        'Component1': [
+        "Component1": [
           {
             id: '1',
-            name: 'Component1',
+            name: "Component1",
             data: {},
             tags: ['react', 'ui'],
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString()
           }
         ],
-        'Service1': [
+        "Service1": [
           {
             id: '2',
-            name: 'Service1',
+            name: "Service1",
             data: {},
             tags: ['api', 'backend'],
             createdAt: new Date().toISOString(),
@@ -123,10 +123,10 @@ describe('Tag Search Functionality', () => {
             updatedAt: new Date().toISOString()
           }
         ],
-        'WithTags': [
+        "WithTags": [
           {
             id: '2',
-            name: 'WithTags',
+            name: "WithTags",
             data: {},
             tags: ['test'],
             createdAt: new Date().toISOString(),
@@ -139,7 +139,7 @@ describe('Tag Search Functionality', () => {
       
       const results = await wrapper.getEntitiesByTag('test', testFile);
       expect(results).toHaveLength(1);
-      expect(results[0].name).toBe('WithTags');
+      expect(results[0].name).toBe("WithTags");
     });
   });
 
@@ -152,27 +152,27 @@ describe('Tag Search Functionality', () => {
       const items = [
         {
           id: 'comp-1',
-          type: 'component',
+          type: "component",
           namespace: 'src/components',
-          name: 'UserProfile',
+          name: "UserProfile",
           full_path: 'src/components/UserProfile.tsx',
           tags: ['react', 'ui', 'user']
         },
         {
           id: 'func-1',
-          type: 'function',
+          type: "function",
           namespace: 'src/utils',
-          name: 'validateUser',
+          name: "validateUser",
           full_path: 'src/utils/validation.ts:validateUser',
-          tags: ['validation', 'user', 'utility']
+          tags: ["validation", 'user', 'utility']
         },
         {
           id: 'class-1',
           type: 'class',
           namespace: 'src/services',
-          name: 'AuthService',
+          name: "AuthService",
           full_path: 'src/services/AuthService.ts',
-          tags: ['service', 'auth', 'security']
+          tags: ['service', 'auth', "security"]
         }
       ];
       
@@ -188,16 +188,16 @@ describe('Tag Search Functionality', () => {
       // Test tag search
       const userItems = await wrapper.getItemsByTag('user', testFile);
       expect(userItems).toHaveLength(2);
-      expect(userItems.map(i => i.name)).toContain('UserProfile');
-      expect(userItems.map(i => i.name)).toContain('validateUser');
+      expect(userItems.map(i => i.name)).toContain("UserProfile");
+      expect(userItems.map(i => i.name)).toContain("validateUser");
     });
 
     it('should handle tag updates and maintain indices', async () => {
       const item = {
         id: 'test-1',
-        type: 'component',
+        type: "component",
         namespace: 'src/components',
-        name: 'TestComponent',
+        name: "TestComponent",
         full_path: 'src/components/TestComponent.tsx',
         tags: ['react', 'test']
       };
@@ -221,7 +221,7 @@ describe('Tag Search Functionality', () => {
       const items = [
         {
           id: '1',
-          type: 'component',
+          type: "component",
           namespace: 'src',
           name: 'Comp1',
           full_path: 'src/Comp1.tsx',
@@ -229,7 +229,7 @@ describe('Tag Search Functionality', () => {
         },
         {
           id: '2',
-          type: 'function',
+          type: "function",
           namespace: 'src',
           name: 'Func1',
           full_path: 'src/Func1.ts',
@@ -237,7 +237,7 @@ describe('Tag Search Functionality', () => {
         },
         {
           id: '3',
-          type: 'component',
+          type: "component",
           namespace: 'src',
           name: 'Comp2',
           full_path: 'src/Comp2.tsx',

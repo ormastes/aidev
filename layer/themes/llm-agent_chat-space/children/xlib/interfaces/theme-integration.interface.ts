@@ -202,7 +202,7 @@ export interface WorkflowExecution {
   workflowId: string;
   flowId?: string;
   taskId?: string;
-  status: 'pending' | 'running' | 'In Progress' | 'failed' | 'interrupted';
+  status: 'pending' | 'running' | "completed" | 'failed' | "interrupted";
   startTime: Date;
   endTime?: Date;
   result?: any;
@@ -332,7 +332,7 @@ export interface SessionOptions {
   userId: string;
   roomId?: string;
   workspaceId?: string;
-  persistenceLevel: 'memory' | 'disk' | 'distributed';
+  persistenceLevel: 'memory' | 'disk' | "distributed";
   autoSave: boolean;
   maxDuration?: number;
 }
@@ -411,7 +411,7 @@ export interface CoordinationSession {
   workflowId: string;
   participants: string[];
   coordinator: string;
-  status: 'active' | 'paused' | 'In Progress' | 'failed';
+  status: 'active' | 'paused' | "completed" | 'failed';
   createdAt: Date;
 }
 
@@ -423,7 +423,7 @@ export interface WorkflowConflict {
 }
 
 export interface ConflictResolution {
-  strategy: 'queue' | 'merge' | 'abort' | 'delegate';
+  strategy: 'queue' | 'merge' | 'abort' | "delegate";
   assignedUser?: string;
   queuePosition?: number;
   mergeStrategy?: Record<string, any>;

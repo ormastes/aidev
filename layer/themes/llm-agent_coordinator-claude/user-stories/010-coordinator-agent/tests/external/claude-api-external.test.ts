@@ -79,7 +79,7 @@ describeIfApiKey('Claude API External Tests', () => {
       // Follow-up with context
       const response2 = await client.createMessage([
         { role: 'user', content: 'My favorite color is blue. What is my favorite color?' },
-        { role: 'assistant', content: response1 },
+        { role: "assistant", content: response1 },
         { role: 'user', content: 'What color did I mention?' }
       ]);
       
@@ -121,7 +121,7 @@ describeIfApiKey('Claude API External Tests', () => {
       // Just verify the client can handle API errors
       
       const badClient = new ClaudeAPIClient({
-        apiKey: 'invalid-key-12345',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         maxTokens: 100
       });
       
@@ -155,7 +155,7 @@ describeIfApiKey('Claude API External Tests', () => {
         {
           sessionId: 'test-session-' + Date.now(),
           dangerousMode: false,
-          allowedTools: ['calculator']
+          allowedTools: ["calculator"]
         }
       );
       

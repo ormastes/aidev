@@ -2,9 +2,9 @@
  * Enhanced Authentication Manager - Advanced JWT handling with RS256 and refresh token rotation
  */
 
-import * as jwt from 'jsonwebtoken';
+import * as jwt from "jsonwebtoken";
 import { crypto } from '../../../../../infra_external-log-lib/src';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { EnhancedUserManager } from './enhanced-user-manager';
 import { EnhancedTokenStore } from './enhanced-token-store';
 
@@ -82,7 +82,7 @@ export interface TokenValidationResult {
   valid: boolean;
   payload?: TokenPayload;
   error?: string;
-  errorCode?: 'EXPIRED' | 'INVALID' | 'BLACKLISTED' | 'WRONG_TYPE';
+  errorCode?: 'EXPIRED' | 'INVALID' | "BLACKLISTED" | 'WRONG_TYPE';
 }
 
 export class EnhancedAuthenticationManager extends EventEmitter {
@@ -126,7 +126,7 @@ export class EnhancedAuthenticationManager extends EventEmitter {
   /**
    * Generate access token with enhanced payload
    */
-  async generateAccessToken(payload: Omit<TokenPayload, 'iat' | 'exp' | 'jti' | 'tokenType'>): Promise<string> {
+  async generateAccessToken(payload: Omit<TokenPayload, 'iat' | 'exp' | 'jti' | "tokenType">): Promise<string> {
     const now = Math.floor(Date.now() / 1000);
     const tokenId = crypto.randomUUID();
     
@@ -272,7 +272,7 @@ export class EnhancedAuthenticationManager extends EventEmitter {
       const deviceId = options.deviceId || this.generateDeviceId(options.userAgent, options.ip);
 
       // Generate tokens
-      const accessTokenPayload: Omit<TokenPayload, 'iat' | 'exp' | 'jti' | 'tokenType'> = {
+      const accessTokenPayload: Omit<TokenPayload, 'iat' | 'exp' | 'jti' | "tokenType"> = {
         sub: user.id,
         iss: this.config.issuer,
         aud: this.config.audience,
@@ -301,7 +301,7 @@ export class EnhancedAuthenticationManager extends EventEmitter {
         deviceInfo: this.parseDeviceInfo(options.userAgent)
       });
 
-      this.emit('loginSuccess', { 
+      this.emit("loginSuccess", { 
         userId: user.id, 
         username: user.username, 
         ip: options.ip,
@@ -324,7 +324,7 @@ export class EnhancedAuthenticationManager extends EventEmitter {
         }
       };
     } catch (error: any) {
-      this.emit('loginFailed', { 
+      this.emit("loginFailed", { 
         username, 
         error: error.message,
         ip: options.ip 
@@ -380,7 +380,7 @@ export class EnhancedAuthenticationManager extends EventEmitter {
           }
         }
 
-        this.emit('allSessionsRevoked', { userId: storedToken.userId });
+        this.emit("allSessionsRevoked", { userId: storedToken.userId });
       } else {
         // Remove specific token
         await this.tokenStore.removeToken(token);
@@ -461,7 +461,7 @@ export class EnhancedAuthenticationManager extends EventEmitter {
       const permissions = await this.userManager.getUserPermissions(user.id);
 
       // Generate new access token
-      const accessTokenPayload: Omit<TokenPayload, 'iat' | 'exp' | 'jti' | 'tokenType'> = {
+      const accessTokenPayload: Omit<TokenPayload, 'iat' | 'exp' | 'jti' | "tokenType"> = {
         sub: user.id,
         iss: this.config.issuer,
         aud: this.config.audience,
@@ -501,7 +501,7 @@ export class EnhancedAuthenticationManager extends EventEmitter {
         });
       }
 
-      this.emit('tokenRefreshed', { 
+      this.emit("tokenRefreshed", { 
         userId: user.id, 
         deviceId: payload.deviceId,
         rotationCount: refreshMetadata.rotationCount 
@@ -532,7 +532,7 @@ export class EnhancedAuthenticationManager extends EventEmitter {
         return {
           valid: false,
           error: 'Token is blacklisted',
-          errorCode: 'BLACKLISTED'
+          errorCode: "BLACKLISTED"
         };
       }
 
@@ -570,7 +570,7 @@ export class EnhancedAuthenticationManager extends EventEmitter {
         payload: decoded
       };
     } catch (error: any) {
-      if (error.name === 'TokenExpiredError') {
+      if (error.name === "TokenExpiredError") {
         return {
           valid: false,
           error: 'Token expired',
@@ -626,7 +626,7 @@ export class EnhancedAuthenticationManager extends EventEmitter {
     if (this.tokenStore) {
       await this.tokenStore.blacklistToken(token);
     }
-    this.emit('tokenBlacklisted', { token: token.substring(0, 8) + '...' });
+    this.emit("tokenBlacklisted", { token: token.substring(0, 8) + '...' });
   }
 
   /**
@@ -648,7 +648,7 @@ export class EnhancedAuthenticationManager extends EventEmitter {
       }
     }
 
-    this.emit('refreshTokenFamilyRevoked', { parentTokenId, revokedCount: tokensToRevoke.length });
+    this.emit("refreshTokenFamilyRevoked", { parentTokenId, revokedCount: tokensToRevoke.length });
   }
 
   /**
@@ -740,7 +740,7 @@ export class EnhancedAuthenticationManager extends EventEmitter {
     expiredTokens.forEach(token => this.activeRefreshTokens.delete(token));
     
     if (expiredTokens.length > 0) {
-      this.emit('refreshTokensCleanedUp', { count: expiredTokens.length });
+      this.emit("refreshTokensCleanedUp", { count: expiredTokens.length });
     }
   }
 

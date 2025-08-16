@@ -1,6 +1,6 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join } from 'path';
+import { EventEmitter } from 'node:events';
+import { fsPromises as fs } from 'fs/promises';
+import { join } from 'node:path';
 import { os } from '../../../../../infra_external-log-lib/src';
 
 describe('Event Bus Integration External Test', () => {
@@ -281,7 +281,7 @@ describe('Event Bus Integration External Test', () => {
           logger: {
             enabled: true,
             endpoint: 'http://localhost:3000/events',
-            apiKey: 'test-api-key'
+            api_key: process.env.API_KEY || "PLACEHOLDER"
           },
           webhook: {
             enabled: true,
@@ -318,7 +318,7 @@ describe('Event Bus Integration External Test', () => {
           },
           {
             eventPattern: 'resource:*',
-            action: 'throttle',
+            action: "throttle",
             maxPerSecond: 5
           },
           {
@@ -338,7 +338,7 @@ describe('Event Bus Integration External Test', () => {
       expect(parsedFilter.enabled).toBe(true);
       expect(parsedFilter.rules).toHaveLength(3);
       expect(parsedFilter.rules[0].eventPattern).toBe('test:step:*');
-      expect(parsedFilter.rules[1].action).toBe('throttle');
+      expect(parsedFilter.rules[1].action).toBe("throttle");
       expect(parsedFilter.rules[2].action).toBe('deny');
     });
   });

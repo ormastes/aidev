@@ -44,10 +44,10 @@ describe('CTest E2E Simulation Tests', () => {
       testTree.get(suite)?.push(testCase);
     });
     
-    expect(testTree.has('MathTests')).toBe(true);
-    expect(testTree.has('StringTests')).toBe(true);
-    expect(testTree.get('MathTests')).toContain('Addition');
-    expect(testTree.get('MathTests')).toContain('Subtraction');
+    expect(testTree.has("MathTests")).toBe(true);
+    expect(testTree.has("StringTests")).toBe(true);
+    expect(testTree.get("MathTests")).toContain("Addition");
+    expect(testTree.get("MathTests")).toContain("Subtraction");
     
     console.log('5. Test discovery completed successfully!');
   });
@@ -113,7 +113,7 @@ Total Test time (real) =   0.03 sec
     const errorMessage = mockFailureOutput.match(/Expected:.*\n.*Actual:.*/)?.[0];
     
     expect(isFailed).toBe(true);
-    expect(errorMessage).toContain('Expected');
+    expect(errorMessage).toContain("Expected");
     expect(errorMessage).toContain('Actual');
     
     console.log('3. Test failed with message:', errorMessage);

@@ -11,7 +11,7 @@ import { getTestConfig, releaseTestPort, TestConfig } from '../helpers/test-port
 interface ClickableElement {
   selector: string;
   text?: string;
-  type: 'button' | 'link' | 'input' | 'select' | 'checkbox' | 'radio' | 'other';
+  type: 'button' | 'link' | 'input' | 'select' | "checkbox" | 'radio' | 'other';
   clicked: boolean;
   feature: string;
   page: string;
@@ -102,7 +102,7 @@ test.describe('AI Dev Portal - Feature Coverage (Via Test Theme)', () => {
   let page: Page;
   let testConfig: TestConfig;
   let baseUrl: string;
-  const screenshotsDir = path.join(process.cwd(), 'tests', 'screenshots', 'feature-coverage-no-hardcode');
+  const screenshotsDir = path.join(process.cwd(), 'tests', "screenshots", 'feature-coverage-no-hardcode');
   const coverageTracker = new ClickCoverageTracker();
   
   test.beforeAll(async () => {
@@ -194,14 +194,14 @@ test.describe('AI Dev Portal - Feature Coverage (Via Test Theme)', () => {
     return false;
   }
   
-  async function determineElementType(element: Locator | any): Promise<'button' | 'link' | 'input' | 'select' | 'checkbox' | 'radio' | 'other'> {
+  async function determineElementType(element: Locator | any): Promise<'button' | 'link' | 'input' | 'select' | "checkbox" | 'radio' | 'other'> {
     const tagName = await element.evaluate((el: HTMLElement) => el.tagName.toLowerCase());
     const type = await element.getAttribute('type');
     
     if (tagName === 'button') return 'button';
     if (tagName === 'a') return 'link';
     if (tagName === 'input') {
-      if (type === 'checkbox') return 'checkbox';
+      if (type === "checkbox") return "checkbox";
       if (type === 'radio') return 'radio';
       return 'input';
     }
@@ -242,20 +242,20 @@ test.describe('AI Dev Portal - Feature Coverage (Via Test Theme)', () => {
   }
   
   test('Feature: Authentication (No Hardcoded Ports)', async () => {
-    const feature = 'Authentication';
+    const feature = "Authentication";
     
     // Navigate using allocated URL from test theme
-    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+    await page.goto(baseUrl, { waitUntil: "networkidle" });
     await discoverClickableElements(page, feature, 'login');
     
     // Test login
     await page.fill('input[name="username"], input#username', 'admin');
-    await page.fill('input[name="password"], input#password', 'admin123');
+    await page.fill('input[name="password"], input#password', "admin123");
     await trackAndClick(page, 'button[type="submit"]', feature, 'login', { wait: 2000 });
     
-    if (page.url().includes('dashboard')) {
+    if (page.url().includes("dashboard")) {
       console.log('✅ Login successful');
-      await trackAndClick(page, 'button:has-text("Logout"), a:has-text("Logout")', feature, 'dashboard');
+      await trackAndClick(page, 'button:has-text("Logout"), a:has-text("Logout")', feature, "dashboard");
     }
     
     await page.screenshot({
@@ -265,25 +265,25 @@ test.describe('AI Dev Portal - Feature Coverage (Via Test Theme)', () => {
   });
   
   test('Feature: Dashboard (No Hardcoded Ports)', async () => {
-    const feature = 'Dashboard';
+    const feature = "Dashboard";
     
     // Login using allocated URL
-    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+    await page.goto(baseUrl, { waitUntil: "networkidle" });
     await page.fill('input[name="username"], input#username', 'admin');
-    await page.fill('input[name="password"], input#password', 'admin123');
+    await page.fill('input[name="password"], input#password', "admin123");
     await page.locator('button[type="submit"]').first().click();
     await page.waitForTimeout(2000);
     
     // Navigate to dashboard using allocated base URL
-    await page.goto(`${baseUrl}/dashboard.html`, { waitUntil: 'networkidle' });
-    await discoverClickableElements(page, feature, 'dashboard');
+    await page.goto(`${baseUrl}/dashboard.html`, { waitUntil: "networkidle" });
+    await discoverClickableElements(page, feature, "dashboard");
     
     // Test dashboard elements
     const cards = ['.stat-card', '.quick-action-card'];
     for (const card of cards) {
       const elements = await page.$$(card);
       for (let i = 0; i < Math.min(elements.length, 2); i++) {
-        await trackAndClick(page, `${card}:nth-child(${i + 1})`, feature, 'dashboard', { wait: 500 });
+        await trackAndClick(page, `${card}:nth-child(${i + 1})`, feature, "dashboard", { wait: 500 });
       }
     }
     
@@ -297,18 +297,18 @@ test.describe('AI Dev Portal - Feature Coverage (Via Test Theme)', () => {
     const feature = 'GUI Selector';
     
     // Login using allocated URL
-    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+    await page.goto(baseUrl, { waitUntil: "networkidle" });
     await page.fill('input[name="username"], input#username', 'admin');
-    await page.fill('input[name="password"], input#password', 'admin123');
+    await page.fill('input[name="password"], input#password', "admin123");
     await page.locator('button[type="submit"]').first().click();
     await page.waitForTimeout(2000);
     
     // Navigate using allocated URL
-    await page.goto(`${baseUrl}/gui-selector.html`, { waitUntil: 'networkidle' });
+    await page.goto(`${baseUrl}/gui-selector.html`, { waitUntil: "networkidle" });
     await discoverClickableElements(page, feature, 'gui-selector');
     
     // Test variants
-    const variants = ['modern', 'professional', 'creative', 'accessible'];
+    const variants = ['modern', "professional", "creative", "accessible"];
     for (const variant of variants) {
       await trackAndClick(page, `[data-variant="${variant}"]`, feature, 'gui-selector', { wait: 1000 });
     }
@@ -320,23 +320,23 @@ test.describe('AI Dev Portal - Feature Coverage (Via Test Theme)', () => {
   });
   
   test('Feature: Templates (No Hardcoded Ports)', async () => {
-    const feature = 'Templates';
+    const feature = "Templates";
     
     // Login using allocated URL
-    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+    await page.goto(baseUrl, { waitUntil: "networkidle" });
     await page.fill('input[name="username"], input#username', 'admin');
-    await page.fill('input[name="password"], input#password', 'admin123');
+    await page.fill('input[name="password"], input#password', "admin123");
     await page.locator('button[type="submit"]').first().click();
     await page.waitForTimeout(2000);
     
     // Navigate using allocated URL
-    await page.goto(`${baseUrl}/templates.html`, { waitUntil: 'networkidle' });
-    await discoverClickableElements(page, feature, 'templates');
+    await page.goto(`${baseUrl}/templates.html`, { waitUntil: "networkidle" });
+    await discoverClickableElements(page, feature, "templates");
     
     // Test filters
     const filters = await page.$$('.filter-chip');
     for (let i = 0; i < Math.min(filters.length, 3); i++) {
-      await trackAndClick(page, `.filter-chip:nth-child(${i + 1})`, feature, 'templates', { wait: 500 });
+      await trackAndClick(page, `.filter-chip:nth-child(${i + 1})`, feature, "templates", { wait: 500 });
     }
     
     await page.screenshot({
@@ -349,14 +349,14 @@ test.describe('AI Dev Portal - Feature Coverage (Via Test Theme)', () => {
     const feature = 'Themes';
     
     // Login using allocated URL
-    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+    await page.goto(baseUrl, { waitUntil: "networkidle" });
     await page.fill('input[name="username"], input#username', 'admin');
-    await page.fill('input[name="password"], input#password', 'admin123');
+    await page.fill('input[name="password"], input#password', "admin123");
     await page.locator('button[type="submit"]').first().click();
     await page.waitForTimeout(2000);
     
     // Navigate using allocated URL
-    await page.goto(`${baseUrl}/themes.html`, { waitUntil: 'networkidle' });
+    await page.goto(`${baseUrl}/themes.html`, { waitUntil: "networkidle" });
     await discoverClickableElements(page, feature, 'themes');
     
     // Test theme buttons

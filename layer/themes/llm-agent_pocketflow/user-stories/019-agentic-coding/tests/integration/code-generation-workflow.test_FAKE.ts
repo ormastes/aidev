@@ -16,8 +16,8 @@ describe('Code Generation Workflow Integration', () => {
 
   beforeEach(() => {
     codeGenAgent = new CodeGenAgent({
-      defaultLanguage: 'typescript',
-      defaultStyle: 'functional'
+      defaultLanguage: "typescript",
+      defaultStyle: "functional"
     });
     
     testGenAgent = new TestGenAgent({
@@ -30,42 +30,42 @@ describe('Code Generation Workflow Integration', () => {
     it('should generate code from requirements', async () => {
       const flow = workflow()
         .addNode('input', nodes.input<CodeGenRequest>('input'))
-        .addNode('generate', createAgenticNode('generate', codeGenAgent))
+        .addNode("generate", createAgenticNode("generate", codeGenAgent))
         .addNode('output', nodes.output<GeneratedCode>('output'))
-        .connect('input', 'generate')
-        .connect('generate', 'output')
+        .connect('input', "generate")
+        .connect("generate", 'output')
         .build();
       
       const result = await flow.execute({
         description: 'Create a function that validates email addresses',
-        language: 'typescript'
+        language: "typescript"
       });
       
       expect(result.success).toBe(true);
       
       const output = result.outputs.get('output') as GeneratedCode;
       expect(output).toBeDefined();
-      expect(output?.code).toContain('validateEmail');
-      expect(output?.code).toContain('function');
-      expect(output?.language).toBe('typescript');
+      expect(output?.code).toContain("validateEmail");
+      expect(output?.code).toContain("function");
+      expect(output?.language).toBe("typescript");
     });
   });
 
   describe('Code and test generation workflow', () => {
     it('should generate code and tests sequentially', async () => {
       const flow = workflow()
-        .addNode('requirements', nodes.input<string>('requirements'))
-        .addNode('parseReq', nodes.transform<string, CodeGenRequest>(
-          'parseReq',
+        .addNode("requirements", nodes.input<string>("requirements"))
+        .addNode("parseReq", nodes.transform<string, CodeGenRequest>(
+          "parseReq",
           (desc) => ({
             description: desc,
-            language: 'typescript',
-            style: 'functional'
+            language: "typescript",
+            style: "functional"
           })
         ))
-        .addNode('generateCode', createAgenticNode('generateCode', codeGenAgent))
-        .addNode('prepareTestReq', nodes.transform<GeneratedCode, TestGenRequest>(
-          'prepareTestReq',
+        .addNode("generateCode", createAgenticNode("generateCode", codeGenAgent))
+        .addNode("prepareTestReq", nodes.transform<GeneratedCode, TestGenRequest>(
+          "prepareTestReq",
           (code) => ({
             code: code.code,
             framework: 'jest',
@@ -73,7 +73,7 @@ describe('Code Generation Workflow Integration', () => {
             coverage: 90
           })
         ))
-        .addNode('generateTests', createAgenticNode('generateTests', testGenAgent))
+        .addNode("generateTests", createAgenticNode("generateTests", testGenAgent))
         .addNode('bundle', nodes.transform<GeneratedTest, any>(
           'bundle',
           (tests) => ({
@@ -83,11 +83,11 @@ describe('Code Generation Workflow Integration', () => {
           })
         ))
         .addNode('output', nodes.output('output'))
-        .connect('requirements', 'parseReq')
-        .connect('parseReq', 'generateCode')
-        .connect('generateCode', 'prepareTestReq')
-        .connect('prepareTestReq', 'generateTests')
-        .connect('generateTests', 'bundle')
+        .connect("requirements", "parseReq")
+        .connect("parseReq", "generateCode")
+        .connect("generateCode", "prepareTestReq")
+        .connect("prepareTestReq", "generateTests")
+        .connect("generateTests", 'bundle')
         .connect('bundle', 'output')
         .build();
       
@@ -101,8 +101,8 @@ describe('Code Generation Workflow Integration', () => {
       expect(output).toBeDefined();
       expect(output.implementation).toBeDefined();
       expect(output.tests).toBeDefined();
-      expect(output.tests.testCode).toContain('describe');
-      expect(output.tests.testCode).toContain('sortArrayByKey');
+      expect(output.tests.testCode).toContain("describe");
+      expect(output.tests.testCode).toContain("sortArrayByKey");
     });
   });
 
@@ -110,9 +110,9 @@ describe('Code Generation Workflow Integration', () => {
     it('should validate generated code before creating tests', async () => {
       const flow = workflow()
         .addNode('input', nodes.input<CodeGenRequest>('input'))
-        .addNode('generate', createAgenticNode('generate', codeGenAgent))
-        .addNode('validate', nodes.validation<GeneratedCode>(
-          'validate',
+        .addNode("generate", createAgenticNode("generate", codeGenAgent))
+        .addNode("validate", nodes.validation<GeneratedCode>(
+          "validate",
           (code: GeneratedCode) => {
             if (!code.code || code.code.length < 10) {
               return { 
@@ -130,14 +130,14 @@ describe('Code Generation Workflow Integration', () => {
           }
         ))
         .addNode('output', nodes.output<GeneratedCode>('output'))
-        .connect('input', 'generate')
-        .connect('generate', 'validate')
-        .connect('validate', 'output')
+        .connect('input', "generate")
+        .connect("generate", "validate")
+        .connect("validate", 'output')
         .build();
       
       const result = await flow.execute({
         description: 'Create a function to fetch data from an API',
-        language: 'typescript'
+        language: "typescript"
       });
       
       expect(result.success).toBe(true);
@@ -152,15 +152,15 @@ describe('Code Generation Workflow Integration', () => {
     it('should filter generated functions by complexity', async () => {
       const flow = workflow()
         .addNode('input', nodes.input<string[]>('input'))
-        .addNode('mapToRequests', nodes.map<string, CodeGenRequest>(
-          'mapToRequests',
+        .addNode("mapToRequests", nodes.map<string, CodeGenRequest>(
+          "mapToRequests",
           (desc) => ({
             description: desc,
-            language: 'typescript'
+            language: "typescript"
           })
         ))
-        .addNode('generateMany', nodes.map<CodeGenRequest, GeneratedCode>(
-          'generateMany',
+        .addNode("generateMany", nodes.map<CodeGenRequest, GeneratedCode>(
+          "generateMany",
           async (req) => {
             const result = await codeGenAgent.execute(req, {
               memory: undefined as any,
@@ -170,15 +170,15 @@ describe('Code Generation Workflow Integration', () => {
             return result.data;
           }
         ))
-        .addNode('filterComplex', nodes.filter<GeneratedCode>(
-          'filterComplex',
+        .addNode("filterComplex", nodes.filter<GeneratedCode>(
+          "filterComplex",
           (code) => (code.metadata?.functionCount || 0) >= 1
         ))
         .addNode('output', nodes.output<GeneratedCode[]>('output'))
-        .connect('input', 'mapToRequests')
-        .connect('mapToRequests', 'generateMany')
-        .connect('generateMany', 'filterComplex')
-        .connect('filterComplex', 'output')
+        .connect('input', "mapToRequests")
+        .connect("mapToRequests", "generateMany")
+        .connect("generateMany", "filterComplex")
+        .connect("filterComplex", 'output')
         .build();
       
       const result = await flow.execute([
@@ -210,15 +210,15 @@ describe('Code Generation Workflow Integration', () => {
       
       const flow = workflow()
         .addNode('input', nodes.input<CodeGenRequest>('input'))
-        .addNode('generate', createAgenticNode('generate', brokenAgent))
+        .addNode("generate", createAgenticNode("generate", brokenAgent))
         .addNode('output', nodes.output<GeneratedCode>('output'))
-        .connect('input', 'generate')
-        .connect('generate', 'output')
+        .connect('input', "generate")
+        .connect("generate", 'output')
         .build();
       
       const result = await flow.execute({
         description: 'Test',
-        language: 'typescript'
+        language: "typescript"
       });
       
       expect(result.success).toBe(false);

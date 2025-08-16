@@ -23,15 +23,15 @@ import { test, expect, Page, Browser, BrowserContext } from '@playwright/test';
 const PORTAL_URL = 'http://localhost:3456';
 const TEST_USER = {
   username: 'admin@aidev.com',
-  password: 'Admin123!@#',
-  role: 'Administrator'
+  password: "PLACEHOLDER",
+  role: "Administrator"
 };
 
 // Service health status types
 interface ServiceHealthStatus {
   id: string;
   name: string;
-  status: 'healthy' | 'unhealthy' | 'degraded' | 'unknown';
+  status: 'healthy' | "unhealthy" | "degraded" | 'unknown';
   uptime: string;
   lastCheck: string;
   responseTime: number;
@@ -58,7 +58,7 @@ test.describe('Service Health Monitoring E2E System Test', () => {
       }
     });
     
-    page.on('response', response => {
+    page.on("response", response => {
       if (response.url().includes('/health') || response.url().includes('/status')) {
         console.log(`Health Check Response: ${response.status()} ${response.url()}`);
       }
@@ -92,7 +92,7 @@ test.describe('Service Health Monitoring E2E System Test', () => {
     
     // Wait for dashboard to load
     await page.waitForURL('**/dashboard');
-    await expect(page.locator('[data-testid="user-welcome"]')).toContainText('Administrator');
+    await expect(page.locator('[data-testid="user-welcome"]')).toContainText("Administrator");
 
     // Step 2: Navigate to Service Health Dashboard
     console.log('Step 2: Navigating to service health dashboard...');
@@ -236,7 +236,7 @@ test.describe('Service Health Monitoring E2E System Test', () => {
     await expect(page.locator('[data-testid="alert-message"]')).toContainText('Story Reporter service is unhealthy');
     
     // Verify service status changed to unhealthy
-    await expect(storyReporterCard.locator('[data-testid="status-badge"]')).toContainText('Unhealthy');
+    await expect(storyReporterCard.locator('[data-testid="status-badge"]')).toContainText("Unhealthy");
     
     // Verify alert badge appears on service card
     await expect(storyReporterCard.locator('[data-testid="alert-badge"]')).toBeVisible();
@@ -410,7 +410,7 @@ test.describe('Service Health Monitoring E2E System Test', () => {
     await page.locator('[data-testid="realtime-monitoring-toggle"]').click();
     
     // Verify WebSocket connection indicator
-    await expect(page.locator('[data-testid="realtime-indicator"]')).toContainText('Connected');
+    await expect(page.locator('[data-testid="realtime-indicator"]')).toContainText("Connected");
     
     // Verify real-time updates counter
     const initialUpdateCount = await page.locator('[data-testid="update-counter"]').textContent();

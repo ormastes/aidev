@@ -1,6 +1,6 @@
 import { test, expect } from './setup';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 test.describe('Python Test Integration', () => {
   test.beforeEach(async ({ workspacePath }) => {

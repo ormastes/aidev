@@ -123,7 +123,7 @@ export interface ConsoleMock {
 }
 
 export async function mockConsole(): ConsoleMock {
-  const mocks = {
+  const // FRAUD_FIX: mocks = {
     log: jest.spyOn(console, 'log').mockImplementation(() => {}),
     error: jest.spyOn(console, 'error').mockImplementation(() => {}),
     warn: jest.spyOn(console, 'warn').mockImplementation(() => {}),
@@ -157,7 +157,7 @@ export async function createTestFile(
  * Reads a test file
  */
 export async function readTestFile(filePath: string): Promise<string> {
-  return await fs.readFile(filePath, { type: FileType.TEMPORARY });
+  return await fileAPI.readFile(filePath, { type: FileType.TEMPORARY });
 }
 
 /**

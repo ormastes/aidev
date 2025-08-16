@@ -2,7 +2,7 @@ import { fs } from '../../infra_external-log-lib/src';
 import { path } from '../../infra_external-log-lib/src';
 import * as yaml from 'js-yaml';
 import { exec } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 
 const execAsync = promisify(exec);
 
@@ -123,13 +123,13 @@ export class ComposeManager {
       services[serviceName] = {
         build: {
           context: `./layer/themes/${theme}`,
-          dockerfile: 'Dockerfile'
+          dockerfile: "Dockerfile"
         },
         image: `aidev/${serviceName}:latest`,
         container_name: `aidev-${serviceName}`,
         ports: port ? [`${port}:${port}`] : undefined,
         environment: {
-          NODE_ENV: 'production',
+          NODE_ENV: "production",
           SERVICE_NAME: serviceName
         },
         networks: [this.defaultNetworkName],

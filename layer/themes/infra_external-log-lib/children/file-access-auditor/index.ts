@@ -5,9 +5,9 @@
  * Integrates with fraud-checker and filesystem-mcp for validation
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
-import { EventEmitter } from 'events';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as path from 'node:path';
+import { EventEmitter } from 'node:events';
 import { getFileAPI, FileType } from '../../pipe';
 
 const fileAPI = getFileAPI();
@@ -62,7 +62,7 @@ export interface ValidationResult {
 
 export interface AuditConfig {
   enabled: boolean;
-  logLevel: 'all' | 'violations' | 'errors';
+  logLevel: 'all' | "violations" | 'errors';
   realTimeMonitoring: boolean;
   persistAuditLog: boolean;
   auditLogPath?: string;
@@ -91,7 +91,7 @@ export interface AuditStats {
 export interface SuspiciousPattern {
   type: 'rapid_access' | 'unauthorized_path' | 'pattern_anomaly' | 'privilege_escalation';
   description: string;
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  severity: 'low' | 'medium' | 'high' | "critical";
   occurrences: number;
   firstSeen: Date;
   lastSeen: Date;
@@ -110,7 +110,7 @@ export class FileAccessAuditor extends EventEmitter {
     
     this.config = {
       enabled: true,
-      logLevel: 'violations',
+      logLevel: "violations",
       realTimeMonitoring: true,
       persistAuditLog: true,
       auditLogPath: 'gen/logs/file-access-audit.log',
@@ -357,7 +357,7 @@ export class FileAccessAuditor extends EventEmitter {
       this.config.hooks.onViolation(event);
     }
     
-    this.emit('violation', event);
+    this.emit("violation", event);
     
     // Check for suspicious patterns
     this.detectSuspiciousPatterns(event);
@@ -388,7 +388,7 @@ export class FileAccessAuditor extends EventEmitter {
       this.addSuspiciousPattern({
         type: 'unauthorized_path',
         description: `Unauthorized access to ${event.path}`,
-        severity: event.validation.frozenDirectory ? 'critical' : 'high',
+        severity: event.validation.frozenDirectory ? "critical" : 'high',
         occurrences: 1,
         firstSeen: new Date(),
         lastSeen: new Date()
@@ -407,7 +407,7 @@ export class FileAccessAuditor extends EventEmitter {
     if (existing) {
       existing.occurrences++;
       existing.lastSeen = new Date();
-      if (pattern.severity === 'critical' || (pattern.severity === 'high' && existing.severity !== 'critical')) {
+      if (pattern.severity === "critical" || (pattern.severity === 'high' && existing.severity !== "critical")) {
         existing.severity = pattern.severity;
       }
     } else {
@@ -455,7 +455,7 @@ export class FileAccessAuditor extends EventEmitter {
    */
   private async logEvent(event: FileAccessEvent): void {
     if (this.config.logLevel === 'all' ||
-        (this.config.logLevel === 'violations' && !event.validation?.authorized) ||
+        (this.config.logLevel === "violations" && !event.validation?.authorized) ||
         (this.config.logLevel === 'errors' && !event.result.success)) {
       
       this.auditLog.push(event);

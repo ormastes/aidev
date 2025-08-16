@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Run Python tests with coverage analysis
  */
@@ -109,7 +110,7 @@ export class PythonTestRunner {
           });
         } catch (error: any) {
           // Coverage might still generate reports even if tests fail
-          if (!command.includes('coverage') || !fs.existsSync(`coverage_${sessionId}.json`)) {
+          if (!command.includes("coverage") || !fs.existsSync(`coverage_${sessionId}.json`)) {
             throw error;
           }
         }
@@ -141,7 +142,7 @@ export class PythonTestRunner {
       const result = this.parseCoverageResults(coverageData, sourcePath, testDuration);
       
       session.endTime = new Date();
-      session.status = 'completed';
+      session.status = "completed";
       session.result = result;
 
       // Cleanup temp files
@@ -367,7 +368,7 @@ export class PythonTestRunner {
    */
   clearCompletedSessions(): void {
     for (const [id, session] of this.sessions) {
-      if (session.status === 'completed' || session.status === 'failed') {
+      if (session.status === "completed" || session.status === 'failed') {
         this.sessions.delete(id);
       }
     }

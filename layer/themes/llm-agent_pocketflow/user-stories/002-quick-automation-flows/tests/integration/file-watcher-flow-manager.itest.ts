@@ -523,17 +523,17 @@ describe('FileWatcher-FlowManager Integration Test', () => {
     const status = fileWatcher.getWatcherStatus();
 
     // Assert
-    expect(status).toHaveProperty('isActive');
-    expect(status).toHaveProperty('watcherCount');
-    expect(status).toHaveProperty('patterns');
-    expect(status).toHaveProperty('watchers');
+    expect(status).toHaveProperty("isActive");
+    expect(status).toHaveProperty("watcherCount");
+    expect(status).toHaveProperty("patterns");
+    expect(status).toHaveProperty("watchers");
     
     expect(status.watchers).toHaveLength(2);
     status.watchers.forEach(watcher => {
       expect(watcher).toHaveProperty('pattern');
       expect(watcher).toHaveProperty('flowId');
-      expect(watcher).toHaveProperty('flowName');
-      expect(watcher).toHaveProperty('lastTrigger');
+      expect(watcher).toHaveProperty("flowName");
+      expect(watcher).toHaveProperty("lastTrigger");
     });
 
     // Check that triggered watcher has lastTrigger data

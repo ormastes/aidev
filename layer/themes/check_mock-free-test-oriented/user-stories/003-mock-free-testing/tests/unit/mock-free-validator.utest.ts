@@ -5,14 +5,14 @@
 import { MockFreeValidator } from '../../src/validators/mock-free-validator';
 import { ValidationResult, ValidationRule } from '../../src/types';
 
-describe('MockFreeValidator', () => {
+describe("MockFreeValidator", () => {
   let validator: MockFreeValidator;
 
   beforeEach(() => {
     validator = new MockFreeValidator();
   });
 
-  describe('validateCode', () => {
+  describe("validateCode", () => {
     it('should pass code without mocks', () => {
       const code = `
         function add(a, b) {
@@ -86,7 +86,7 @@ describe('MockFreeValidator', () => {
     });
   });
 
-  describe('validateFile', () => {
+  describe("validateFile", () => {
     it('should validate file content', async () => {
       const filePath = '/test/file.ts';
       const fileContent = 'const result = calculate(1, 2);';
@@ -161,7 +161,7 @@ describe('MockFreeValidator', () => {
     });
   });
 
-  describe('removeRule', () => {
+  describe("removeRule", () => {
     it('should remove validation rule', () => {
       validator.removeRule('no-jest-mock');
 
@@ -174,7 +174,7 @@ describe('MockFreeValidator', () => {
     });
   });
 
-  describe('getRules', () => {
+  describe("getRules", () => {
     it('should return all active rules', () => {
       const rules = validator.getRules();
 

@@ -28,7 +28,7 @@ describe('FileStorage Unit Tests', () => {
     await testFileSystem.cleanup();
   });
 
-  describe('Initialization', () => {
+  describe("Initialization", () => {
     test('should create data directory on init', async () => {
       await storage.init();
       
@@ -41,7 +41,7 @@ describe('FileStorage Unit Tests', () => {
       
       const usersExists = await testFileSystem.fileExists(path.join(storageDir, 'users'));
       const roomsExists = await testFileSystem.fileExists(path.join(storageDir, 'rooms'));
-      const messagesExists = await testFileSystem.fileExists(path.join(storageDir, 'messages'));
+      const messagesExists = await testFileSystem.fileExists(path.join(storageDir, "messages"));
       
       expect(usersExists).toBe(true);
       expect(roomsExists).toBe(true);
@@ -314,7 +314,7 @@ describe('FileStorage Unit Tests', () => {
       // Create corrupted user file
       await testFileSystem.createFile(storageDir, 'users/corrupted.json', 'invalid json {');
       
-      const user = await storage.getUser('corrupted');
+      const user = await storage.getUser("corrupted");
       expect(user).toBeNull();
     });
 
@@ -366,7 +366,7 @@ describe('FileStorage Unit Tests', () => {
     });
   });
 
-  describe('Performance', () => {
+  describe("Performance", () => {
     test('should handle large numbers of messages efficiently', async () => {
       await storage.init();
       
@@ -387,7 +387,7 @@ describe('FileStorage Unit Tests', () => {
       
       const saveTime = Date.now() - start;
       
-      // Should In Progress in reasonable time (less than 10 seconds)
+      // Should complete in reasonable time (less than 10 seconds)
       expect(saveTime).toBeLessThan(10000);
       
       // Retrieve messages should also be fast

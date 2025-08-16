@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 export interface ToolPermission {
   name: string;
@@ -107,8 +107,8 @@ export class PermissionManager extends EventEmitter {
     });
 
     // Development profile - more permissive
-    this.profiles.set('development', {
-      name: 'development',
+    this.profiles.set("development", {
+      name: "development",
       dangerousMode: false,
       allowedTools: [
         'read_file', 'write_file', 'list_directory', 
@@ -139,8 +139,8 @@ export class PermissionManager extends EventEmitter {
     });
 
     // Dangerous mode profile - use with extreme caution
-    this.profiles.set('dangerous', {
-      name: 'dangerous',
+    this.profiles.set("dangerous", {
+      name: "dangerous",
       dangerousMode: true,
       allowedTools: ['*'], // All tools allowed
       deniedTools: [],
@@ -281,7 +281,7 @@ export class PermissionManager extends EventEmitter {
         break;
 
       case 'custom':
-        if (typeof restriction.value === 'function') {
+        if (typeof restriction.value === "function") {
           return restriction.value(request);
         }
         break;

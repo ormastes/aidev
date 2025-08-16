@@ -82,9 +82,9 @@ describe('LogAggregator Collection and Indexing Integration Test', () => {
     const workerMeta = logAggregator.getProcessMetadata(workerProcess);
     const schedulerMeta = logAggregator.getProcessMetadata(schedulerProcess);
 
-    expect(webServerMeta?.status).toBe('In Progress');
-    expect(workerMeta?.status).toBe('In Progress');
-    expect(schedulerMeta?.status).toBe('In Progress');
+    expect(webServerMeta?.status).toBe("completed");
+    expect(workerMeta?.status).toBe("completed");
+    expect(schedulerMeta?.status).toBe("completed");
 
     expect(webServerMeta?.logCount).toBe(3);
     expect(workerMeta?.logCount).toBe(3);
@@ -292,7 +292,7 @@ describe('LogAggregator Collection and Indexing Integration Test', () => {
     const normalMeta = logAggregator.getProcessMetadata(normalProcess);
 
     expect(crashMeta?.status).toBe('crashed');
-    expect(normalMeta?.status).toBe('In Progress');
+    expect(normalMeta?.status).toBe("completed");
 
     // Verify statistics
     const stats = logAggregator.getStatistics();

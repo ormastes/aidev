@@ -4,7 +4,7 @@ import { exec, spawn } from 'child_process';
 import { fs } from '../../../../../../infra_external-log-lib/src';
 import { os } from '../../../../../../infra_external-log-lib/src';
 import { path } from '../../../../../../infra_external-log-lib/src';
-import { EventEmitter } from '../../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 // Mock dependencies
 jest.mock('child_process');
@@ -16,7 +16,7 @@ jest.mock('fs', () => ({
 }));
 jest.mock('../../../src/services/vllm-client');
 
-describe('VLLMInstaller', () => {
+describe("VLLMInstaller", () => {
   let installer: VLLMInstaller;
   let mockExec: jest.MockedFunction<typeof exec>;
   let mockSpawn: jest.MockedFunction<typeof spawn>;
@@ -46,7 +46,7 @@ describe('VLLMInstaller', () => {
     });
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should use default configuration', () => {
       installer = new VLLMInstaller();
       const config = installer['config'];
@@ -79,7 +79,7 @@ describe('VLLMInstaller', () => {
     });
   });
 
-  describe('isInstalled', () => {
+  describe("isInstalled", () => {
     beforeEach(() => {
       installer = new VLLMInstaller();
     });
@@ -131,7 +131,7 @@ describe('VLLMInstaller', () => {
     });
   });
 
-  describe('checkGPU', () => {
+  describe("checkGPU", () => {
     beforeEach(() => {
       installer = new VLLMInstaller();
     });
@@ -199,7 +199,7 @@ describe('VLLMInstaller', () => {
     });
 
     it('should detect Apple Silicon GPU on macOS', async () => {
-      Object.defineProperty(os, 'platform', {
+      Object.defineProperty(os, "platform", {
         value: () => 'darwin',
         configurable: true
       });
@@ -229,7 +229,7 @@ describe('VLLMInstaller', () => {
       });
 
       // Restore platform
-      Object.defineProperty(os, 'platform', {
+      Object.defineProperty(os, "platform", {
         value: os.platform,
         configurable: true
       });
@@ -251,7 +251,7 @@ describe('VLLMInstaller', () => {
     });
   });
 
-  describe('autoInstall', () => {
+  describe("autoInstall", () => {
     beforeEach(() => {
       installer = new VLLMInstaller();
       mockMkdir.mockResolvedValue(undefined);
@@ -360,7 +360,7 @@ describe('VLLMInstaller', () => {
     });
   });
 
-  describe('startServer', () => {
+  describe("startServer", () => {
     let mockProcess: any;
 
     beforeEach(() => {
@@ -458,7 +458,7 @@ describe('VLLMInstaller', () => {
     });
   });
 
-  describe('stopServer', () => {
+  describe("stopServer", () => {
     beforeEach(() => {
       installer = new VLLMInstaller();
     });
@@ -467,12 +467,12 @@ describe('VLLMInstaller', () => {
       const mockProcess = {
         kill: jest.fn()
       };
-      installer['vllmProcess'] = mockProcess as any;
+      installer["vllmProcess"] = mockProcess as any;
 
       installer.stopServer();
       
       expect(mockProcess.kill).toHaveBeenCalledWith('SIGTERM');
-      expect(installer['vllmProcess']).toBeUndefined();
+      expect(installer["vllmProcess"]).toBeUndefined();
     });
 
     it('should handle when no server is running', () => {
@@ -481,7 +481,7 @@ describe('VLLMInstaller', () => {
     });
   });
 
-  describe('downloadModel', () => {
+  describe("downloadModel", () => {
     beforeEach(() => {
       installer = new VLLMInstaller();
     });
@@ -511,7 +511,7 @@ describe('VLLMInstaller', () => {
       // Install huggingface-hub succeeds
       mockExec.mockImplementationOnce((_command: any, callback: any) => {
         if (callback) {
-          callback(null, { stdout: 'Installed', stderr: '' } as any);
+          callback(null, { stdout: "Installed", stderr: '' } as any);
         }
         return {} as any;
       });
@@ -519,7 +519,7 @@ describe('VLLMInstaller', () => {
       // Download with huggingface-cli succeeds
       mockExec.mockImplementationOnce((_command: any, callback: any) => {
         if (callback) {
-          callback(null, { stdout: 'Downloaded', stderr: '' } as any);
+          callback(null, { stdout: "Downloaded", stderr: '' } as any);
         }
         return {} as any;
       });
@@ -531,7 +531,7 @@ describe('VLLMInstaller', () => {
 
     it('should return false when all download methods fail', async () => {
       mockExec.mockImplementation((_command: any, callback: any) => {
-        if (typeof callback === 'function') {
+        if (typeof callback === "function") {
           callback(new Error('Download failed'), null as any);
         }
         return {} as any;

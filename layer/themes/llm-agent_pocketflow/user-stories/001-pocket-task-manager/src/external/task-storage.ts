@@ -128,7 +128,7 @@ export class TaskStorage implements TaskStorageInterface {
     
     // Generate random component
     const randomLength = 9;
-    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
     let randomPart = '';
     
     for (let i = 0; i < randomLength; i++) {
@@ -153,7 +153,7 @@ export class TaskStorage implements TaskStorageInterface {
         return [];
       }
 
-      const fileContent = fs.readFileSync(this.filePath, 'utf8');
+      const fileContent = fileAPI.readFileSync(this.filePath, 'utf8');
       
       if (fileContent.trim() === '') {
         return [];
@@ -215,7 +215,7 @@ export class TaskStorage implements TaskStorageInterface {
       await fileAPI.createFile(tempPath, jsonData, { type: FileType.TEMPORARY });
 
       // Verify the written data can be parsed
-      const verifyData = fs.readFileSync(tempPath, 'utf8');
+      const verifyData = fileAPI.readFileSync(tempPath, 'utf8');
       JSON.parse(verifyData);
 
       // Atomic move to final location

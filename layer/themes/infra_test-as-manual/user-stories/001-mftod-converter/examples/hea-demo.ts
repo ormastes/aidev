@@ -4,8 +4,8 @@
  */
 
 import { TestAsManualConverter } from '../src/converter';
-import { path } from '../../../../infra_external-log-lib/src';
-import { fs } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 import { getFileAPI, FileType } from '../../../../infra_external-log-lib/pipe';
 
 const fileAPI = getFileAPI();
@@ -78,7 +78,7 @@ async function createSampleJestFile(): Promise<void> {
 describe('User Dashboard', () => {
   describe('Dashboard Loading', () => {
     beforeEach(async () => {
-      await login('testuser', 'password123');
+      await login("testuser", "password123");
     });
 
     it('should display user profile information', async () => {
@@ -148,7 +148,7 @@ async function runDemo() {
     await converter.convert({
       inputPath: inputDir,
       outputPath: outputDir,
-      format: 'markdown',
+      format: "markdown",
       includeCommonScenarios: true,
       generateSequences: true,
       minSequenceLength: 2,
@@ -162,7 +162,7 @@ async function runDemo() {
     const suiteFile = path.join(outputDir, 'manual-test-suite.md');
     if (fs.existsSync(suiteFile)) {
       console.log(`\n✓ Main suite: ${suiteFile}`);
-      const content = fs.readFileSync(suiteFile, 'utf-8');
+      const content = fileAPI.readFileSync(suiteFile, 'utf-8');
       const lines = content.split('\n').slice(0, 30);
       console.log('\n--- Preview ---');
       console.log(lines.join('\n'));

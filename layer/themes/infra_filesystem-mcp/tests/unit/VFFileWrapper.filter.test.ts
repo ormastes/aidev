@@ -46,9 +46,9 @@ describe('VFFileWrapper with Filtering', () => {
     beforeEach(async () => {
       const items = [
         { id: '1', type: 'typeA', status: 'active' },
-        { id: '2', type: 'typeA', status: 'inactive' },
+        { id: '2', type: 'typeA', status: "inactive" },
         { id: '3', type: 'typeB', status: 'active' },
-        { id: '4', type: 'typeB', status: 'inactive' }
+        { id: '4', type: 'typeB', status: "inactive" }
       ];
       await wrapper.write('items.json', items);
     });
@@ -116,7 +116,7 @@ describe('VFFileWrapper with Filtering', () => {
     });
   });
 
-  describe('parseQueryParams', () => {
+  describe("parseQueryParams", () => {
     it('should parse single parameter', () => {
       const result = (wrapper as any).parseQueryParams('file.json?key=value');
       expect(result).toEqual({

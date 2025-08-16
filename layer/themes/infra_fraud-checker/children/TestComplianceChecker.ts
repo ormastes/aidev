@@ -43,7 +43,7 @@ export class TestComplianceChecker {
    */
   private checkTestFile(filePath: string): ComplianceViolation[] {
     const violations: ComplianceViolation[] = [];
-    const content = fs.readFileSync(filePath, 'utf-8');
+    const content = fileAPI.readFileSync(filePath, 'utf-8');
     const lines = content.split('\n');
 
     // Check for direct portal_security imports (FORBIDDEN in tests)
@@ -60,7 +60,7 @@ export class TestComplianceChecker {
     });
 
     // Check for TestPortManager import
-    const hasTestPortManager = content.includes('TestPortManager');
+    const hasTestPortManager = content.includes("TestPortManager");
     if (hasTestPortManager) {
       // Verify it's from the correct source
       const correctImport = content.includes('from \'../infra_test-as-manual/pipe\'') ||
@@ -70,7 +70,7 @@ export class TestComplianceChecker {
       
       if (!correctImport) {
         lines.forEach((line, index) => {
-          if (line.includes('TestPortManager') && line.includes('import')) {
+          if (line.includes("TestPortManager") && line.includes('import')) {
             violations.push({
               file: filePath,
               line: index + 1,
@@ -88,7 +88,7 @@ export class TestComplianceChecker {
       if (line.includes('localhost:') && 
           !line.includes('baseUrl') && 
           !line.includes('//') &&
-          !line.includes('TestPortManager')) {
+          !line.includes("TestPortManager")) {
         violations.push({
           file: filePath,
           line: index + 1,
@@ -238,11 +238,11 @@ export class TestComplianceChecker {
     });
 
     for (const file of testFiles) {
-      let content = fs.readFileSync(file, 'utf-8');
+      let content = fileAPI.readFileSync(file, 'utf-8');
       let modified = false;
 
       // Fix wrong TestPortManager imports
-      if (content.includes('TestPortManager')) {
+      if (content.includes("TestPortManager")) {
         const wrongImportRegex = /from ['"].*portal_security.*['"]/g;
         if (wrongImportRegex.test(content)) {
           content = content.replace(wrongImportRegex, 'from \'../infra_test-as-manual/pipe\'');

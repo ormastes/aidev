@@ -3,10 +3,10 @@
  * Inspired by _aidev implementation
  */
 
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../../../../../infra_external-log-lib/src';
 import { exec } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import { getFileAPI, FileType } from '../../../../../../infra_external-log-lib/pipe';
 
 const fileAPI = getFileAPI();
@@ -91,7 +91,7 @@ export class RealCaptureService {
       if (format === 'jpg' && options.outputPath.endsWith('.png')) {
         const jpgPath = options.outputPath.replace('.png', '.jpg');
         await execAsync(`convert "${options.outputPath}" "${jpgPath}"`);
-        await fs.unlink(options.outputPath);
+        await fileAPI.unlink(options.outputPath);
         options.outputPath = jpgPath;
       }
 
@@ -159,16 +159,16 @@ export class RealCaptureService {
     }
 
     try {
-      const browserName = options.browserName || 'chromium';
+      const browserName = options.browserName || "chromium";
       
       // Create a Playwright script
       const script = `
-        const { ${browserName} } = require('playwright');
+        const { ${browserName} } = require("playwright");
         (async () => {
           const browser = await ${browserName}.launch();
           const page = await browser.newPage();
           await page.goto('${process.env.APP_URL || 'http://localhost:3000'}');
-          await page.waitForLoadState('networkidle');
+          await page.waitForLoadState("networkidle");
           await page.screenshot({ 
             path: '${options.outputPath}',
             fullPage: true

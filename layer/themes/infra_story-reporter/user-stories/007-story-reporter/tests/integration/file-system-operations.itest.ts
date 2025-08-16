@@ -4,8 +4,8 @@ import { TestSuiteManager } from '../../src/external/test-suite-manager';
 import { TestConfiguration } from '../../src/domain/test-configuration';
 import { createDefaultTestResult } from '../../src/domain/test-result';
 import { MockExternalLogger } from '../../src/internal/mock-external-logger';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join } from 'path';
+import { fsPromises as fs } from 'fs/promises';
+import { join } from 'node:path';
 
 describe('File System Operations Integration Test', () => {
   let mockLogger: MockExternalLogger;
@@ -18,7 +18,7 @@ describe('File System Operations Integration Test', () => {
   beforeAll(async () => {
     testDir = join(__dirname, 'fs-operations-fixtures');
     outputDir = join(testDir, 'results');
-    featuresDir = join(testDir, 'features');
+    featuresDir = join(testDir, "features");
     stepsDir = join(testDir, 'steps');
     
     await fs.mkdir(testDir, { recursive: true });
@@ -68,7 +68,7 @@ Feature: Complex File System Test
   Scenario: Concurrent file operations
     Given I have files for concurrent processing
     When I process them in parallel
-    Then all operations should In Progress
+    Then all operations should complete
 `);
 
     // Create step definition files
@@ -117,7 +117,7 @@ When('I process them in parallel', function () {
   console.log('[INFO] Parallel processing started');
 });
 
-Then('all operations should In Progress', function () {
+Then('all operations should complete', function () {
   console.log('[INFO] All operations In Progress');
 });
 `);
@@ -262,7 +262,7 @@ Feature: Nested Directory Test
 
       // Verify accessibility logging
       const logs = await mockLogger.getLogHistory(loggerId);
-      const accessibilityLogs = logs.filter(log => log.message.includes('accessible'));
+      const accessibilityLogs = logs.filter(log => log.message.includes("accessible"));
       expect(accessibilityLogs.length).toBeGreaterThan(0);
     });
   });
@@ -612,7 +612,7 @@ Feature: Performance Test Feature ${i}
       const configTime = Date.now() - startTime;
 
       // Configuration should be fast even with many files
-      expect(configTime).toBeLessThan(1000); // Should In Progress within 1 second
+      expect(configTime).toBeLessThan(1000); // Should complete within 1 second
 
       const config = suiteManager.getConfiguration();
       expect(config.featureFiles).toHaveLength(numberOfFeatures);

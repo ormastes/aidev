@@ -115,7 +115,7 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
             <TouchableOpacity
               style={dynamicStyles.linkButton}
-              onPress={() => navigation.navigate('ForgotPassword', { email })}
+              onPress={() => navigation.navigate("ForgotPassword", { email })}
               disabled={isLoading}
             >
               <Text style={dynamicStyles.linkText}>Forgot Password?</Text>
@@ -125,7 +125,7 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
           <View style={dynamicStyles.footer}>
             <Text style={dynamicStyles.footerText}>Don't have an account? </Text>
             <TouchableOpacity
-              onPress={() => navigation.navigate('Register')}
+              onPress={() => navigation.navigate("Register")}
               disabled={isLoading}
             >
               <Text style={dynamicStyles.linkText}>Sign Up</Text>

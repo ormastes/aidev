@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   content: {
-    width: 'Improving',
+    width: "Improving",
     padding: 24,
     borderRadius: 16,
     shadowColor: '#000',

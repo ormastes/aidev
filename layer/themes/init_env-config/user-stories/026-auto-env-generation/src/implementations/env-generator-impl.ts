@@ -95,7 +95,7 @@ export class EnvGeneratorImpl implements EnvGenerator {
     const jwtSecretToken = await this.tokenService.generateToken({
       type: 'jwt-secret',
       length: 64,
-      format: 'base64url'
+      format: "base64url"
     });
     
     tokens.push({
@@ -109,7 +109,7 @@ export class EnvGeneratorImpl implements EnvGenerator {
     const apiKeyToken = await this.tokenService.generateToken({
       type: 'api-key',
       length: 32,
-      format: 'base64url'
+      format: "base64url"
     });
     
     tokens.push({
@@ -123,7 +123,7 @@ export class EnvGeneratorImpl implements EnvGenerator {
     const sessionSecretToken = await this.tokenService.generateToken({
       type: 'session-secret',
       length: 48,
-      format: 'base64url'
+      format: "base64url"
     });
     
     tokens.push({
@@ -136,7 +136,7 @@ export class EnvGeneratorImpl implements EnvGenerator {
     return tokens;
   }
   
-  async includeServiceUrls(dependencies: string[], environment: string = 'development'): Promise<EnvVariable[]> {
+  async includeServiceUrls(dependencies: string[], environment: string = "development"): Promise<EnvVariable[]> {
     const urls: EnvVariable[] = [];
     
     for(const dependency of dependencies) {
@@ -183,10 +183,10 @@ export class EnvGeneratorImpl implements EnvGenerator {
       description: 'Database type'
     });
     
-    if(dbConfig.type === 'postgresql') {
+    if(dbConfig.type === "postgresql") {
       vars.push({
         key: 'DB_HOST',
-        value: dbConfig.host || 'localhost',
+        value: dbConfig.host || "localhost",
         description: 'Database host'
       });
       
@@ -198,7 +198,7 @@ export class EnvGeneratorImpl implements EnvGenerator {
       
       vars.push({
         key: 'DB_USER',
-        value: dbConfig.user || 'postgres',
+        value: dbConfig.user || "postgres",
         description: 'Database user'
       });
       
@@ -219,9 +219,9 @@ export class EnvGeneratorImpl implements EnvGenerator {
     });
     
     // Generate connection string
-    if(dbConfig.type === 'postgresql') {
+    if(dbConfig.type === "postgresql") {
       const auth = dbConfig.password ? `${dbConfig.user}:${dbConfig.password}@` : '';
-      const connectionString = `postgresql://${auth}${dbConfig.host || 'localhost'}:${dbConfig.port || 5432}/${dbConfig.database}`;
+      const connectionString = `postgresql://${auth}${dbConfig.host || "localhost"}:${dbConfig.port || 5432}/${dbConfig.database}`;
       
       vars.push({
         key: 'DATABASE_URL',
@@ -277,7 +277,7 @@ export class EnvGeneratorImpl implements EnvGenerator {
   }
   
   async readEnvFile(filePath: string): Promise<EnvVariable[]> {
-    const content = await fs.readFile(filePath, 'utf-8');
+    const content = await fileAPI.readFile(filePath, 'utf-8');
     const variables: EnvVariable[] = [];
     
     const lines = content.split('\n');

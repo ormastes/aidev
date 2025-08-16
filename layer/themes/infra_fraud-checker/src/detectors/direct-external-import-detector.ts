@@ -9,7 +9,7 @@ import { BaseDetector } from './base-detector';
 import { DetectionResult, Severity } from '../types';
 
 export class DirectExternalImportDetector extends BaseDetector {
-  name = 'DirectExternalImport';
+  name = "DirectExternalImport";
   description = 'Detects direct imports of Node.js modules that should use external-log-lib';
 
   // Node.js built-in modules that should be imported from external-log-lib
@@ -26,11 +26,11 @@ export class DirectExternalImportDetector extends BaseDetector {
     'stream',
     'events',
     'url',
-    'querystring',
+    "querystring",
     'zlib',
     'dns',
     'cluster',
-    'readline',
+    "readline",
     'vm',
     'util',
     'buffer'
@@ -69,7 +69,7 @@ export class DirectExternalImportDetector extends BaseDetector {
     for (const file of files) {
       if (this.shouldExclude(file)) continue;
 
-      const content = fs.readFileSync(file, 'utf-8');
+      const content = fileAPI.readFileSync(file, 'utf-8');
       const violations = this.detectDirectImports(content, file);
       
       if (violations.length > 0) {
@@ -131,7 +131,7 @@ export class DirectExternalImportDetector extends BaseDetector {
           
           if (this.isRestrictedModule(importedModule)) {
             results.push({
-              type: 'DirectExternalImport',
+              type: "DirectExternalImport",
               severity: Severity.HIGH,
               message: `Direct import of Node.js module '${importedModule}' detected. Should use external-log-lib instead.`,
               file: filePath,
@@ -179,7 +179,7 @@ export class DirectExternalImportDetector extends BaseDetector {
 
   async fix(file: string, line: number, suggestion: string): Promise<boolean> {
     try {
-      const content = fs.readFileSync(file, 'utf-8');
+      const content = fileAPI.readFileSync(file, 'utf-8');
       const lines = content.split('\n');
       
       if (line > 0 && line <= lines.length) {

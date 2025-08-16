@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { VSCodeAutomationHelper } from './helpers/vscode-automation-helper';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 /**
  * Complete E2E tests for markdown parser and file system monitoring
@@ -56,10 +56,10 @@ test.describe('Markdown Parser - Complete Coverage', () => {
     
     // Verify parsed test cases from markdown are visible
     const testCases = [
-      'MathOperations',
-      'StringOperations', 
-      'ArrayHandling',
-      'EdgeCases'
+      "MathOperations",
+      "StringOperations", 
+      "ArrayHandling",
+      "EdgeCases"
     ];
     
     for (const testCase of testCases) {
@@ -681,7 +681,7 @@ async function launchVSCodeWithMarkdownWorkspace(page: any): Promise<void> {
       
       // Context menu simulation
       document.querySelectorAll('[role="treeitem"][aria-level="2"]').forEach(item => {
-        item.addEventListener('contextmenu', (e) => {
+        item.addEventListener("contextmenu", (e) => {
           e.preventDefault();
           const contextMenu = document.querySelector('.context-view');
           contextMenu.style.display = 'block';

@@ -15,13 +15,13 @@ import {
 
 export class ServiceDiscoveryImpl implements ServiceDiscovery {
   private services: Map<string, ServiceInfo> = new Map();
-  private watchers: Set<(event: 'registered' | 'unregistered' | 'updated', service: ServiceInfo) => void> = new Set();
+  private watchers: Set<(event: "registered" | "unregistered" | 'updated', service: ServiceInfo) => void> = new Set();
 
   async registerService(registration: ServiceRegistration): Promise<ServiceInfo> {
     const serviceInfo: ServiceInfo = {
       name: registration.name,
       port: registration.port,
-      host: registration.host || 'localhost',
+      host: registration.host || "localhost",
       protocol: registration.protocol || 'http',
       environment: registration.environment,
       status: 'healthy',
@@ -36,7 +36,7 @@ export class ServiceDiscoveryImpl implements ServiceDiscovery {
     this.services.set(key, serviceInfo);
     
     // Notify watchers
-    this.notifyWatchers('registered', serviceInfo);
+    this.notifyWatchers("registered", serviceInfo);
     
     return serviceInfo;
   }
@@ -47,7 +47,7 @@ export class ServiceDiscoveryImpl implements ServiceDiscovery {
     
     if (service) {
       this.services.delete(key);
-      this.notifyWatchers('unregistered', service);
+      this.notifyWatchers("unregistered", service);
     }
   }
 
@@ -162,7 +162,7 @@ export class ServiceDiscoveryImpl implements ServiceDiscovery {
     return dependents;
   }
 
-  async updateServiceStatus(name: string, environment: string, status: 'healthy' | 'unhealthy' | 'unknown'): Promise<void> {
+  async updateServiceStatus(name: string, environment: string, status: 'healthy' | "unhealthy" | 'unknown'): Promise<void> {
     const key = this.getServiceKey(name, environment);
     const service = this.services.get(key);
     
@@ -173,7 +173,7 @@ export class ServiceDiscoveryImpl implements ServiceDiscovery {
     }
   }
 
-  watchServices(callback: (event: 'registered' | 'unregistered' | 'updated', service: ServiceInfo) => void): () => void {
+  watchServices(callback: (event: "registered" | "unregistered" | 'updated', service: ServiceInfo) => void): () => void {
     this.watchers.add(callback);
     
     // Return unsubscribe function
@@ -186,7 +186,7 @@ export class ServiceDiscoveryImpl implements ServiceDiscovery {
     return `${environment}:${name}`;
   }
 
-  private notifyWatchers(event: 'registered' | 'unregistered' | 'updated', service: ServiceInfo): void {
+  private notifyWatchers(event: "registered" | "unregistered" | 'updated', service: ServiceInfo): void {
     for (const watcher of this.watchers) {
       try {
         watcher(event, service);

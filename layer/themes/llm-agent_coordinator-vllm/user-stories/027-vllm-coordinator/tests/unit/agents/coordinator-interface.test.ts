@@ -70,7 +70,7 @@ class TestCoordinatorAgent extends BaseCoordinatorAgent {
   }
 }
 
-describe('BaseCoordinatorAgent', () => {
+describe("BaseCoordinatorAgent", () => {
   let agent: TestCoordinatorAgent;
   let config: CoordinatorConfig;
 
@@ -79,7 +79,7 @@ describe('BaseCoordinatorAgent', () => {
       serverUrl: 'ws://localhost:3000',
       roomId: 'test-room',
       agentName: 'TestBot',
-      authToken: 'test-token',
+      authtoken: process.env.TOKEN || "PLACEHOLDER",
       reconnectAttempts: 3,
       reconnectDelay: 1000
     };
@@ -87,11 +87,11 @@ describe('BaseCoordinatorAgent', () => {
     agent = new TestCoordinatorAgent(config);
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with provided config', () => {
       expect(agent['config']).toBe(config);
-      expect(agent['isConnected']).toBe(false);
-      expect(agent['messageHistory']).toEqual([]);
+      expect(agent["isConnected"]).toBe(false);
+      expect(agent["messageHistory"]).toEqual([]);
     });
   });
 
@@ -100,7 +100,7 @@ describe('BaseCoordinatorAgent', () => {
       await agent.start();
       
       expect(agent.onStartCalled).toBe(true);
-      expect(agent['isConnected']).toBe(true);
+      expect(agent["isConnected"]).toBe(true);
     });
   });
 
@@ -110,11 +110,11 @@ describe('BaseCoordinatorAgent', () => {
       await agent.stop();
       
       expect(agent.onStopCalled).toBe(true);
-      expect(agent['isConnected']).toBe(false);
+      expect(agent["isConnected"]).toBe(false);
     });
   });
 
-  describe('processMessage', () => {
+  describe("processMessage", () => {
     const createMessage = (content: string, username = 'user'): Message => ({
       id: '123',
       username,
@@ -153,7 +153,7 @@ describe('BaseCoordinatorAgent', () => {
     it('should not send response when generateResponse returns empty', async () => {
       // Override the generateResponse method to return empty string
       agent.lastGeneratedResponse = '';
-      jest.spyOn(agent as any, 'generateResponse').mockResolvedValue('');
+      jest.spyOn(agent as any, "generateResponse").mockResolvedValue('');
       
       const message = createMessage('Hello TestBot');
       
@@ -163,7 +163,7 @@ describe('BaseCoordinatorAgent', () => {
     });
   });
 
-  describe('shouldRespond', () => {
+  describe("shouldRespond", () => {
     it('should not respond to own messages', () => {
       const message: Message = {
         id: '123',
@@ -243,7 +243,7 @@ describe('BaseCoordinatorAgent', () => {
     });
   });
 
-  describe('getContext', () => {
+  describe("getContext", () => {
     it('should return last 10 messages', () => {
       // Add 15 messages
       const messages: Message[] = [];
@@ -291,7 +291,7 @@ describe('BaseCoordinatorAgent', () => {
     });
   });
 
-  describe('summarizeConversation', () => {
+  describe("summarizeConversation", () => {
     it('should return no conversation message when empty', async () => {
       const summary = await agent.testSummarizeConversation();
       expect(summary).toBe('No conversation to summarize yet.');
@@ -335,7 +335,7 @@ describe('BaseCoordinatorAgent', () => {
     });
   });
 
-  describe('capabilities', () => {
+  describe("capabilities", () => {
     it('should have defined capabilities', () => {
       expect(agent.capabilities).toBeDefined();
       expect(agent.capabilities.chat).toBe(true);
@@ -350,7 +350,7 @@ describe('BaseCoordinatorAgent', () => {
     });
   });
 
-  describe('getHelpMessage', () => {
+  describe("getHelpMessage", () => {
     it('should return help message', () => {
       expect(agent.testGetHelpMessage()).toBe('Test help message');
     });

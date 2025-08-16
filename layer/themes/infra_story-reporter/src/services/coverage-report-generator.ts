@@ -126,7 +126,7 @@ export class CoverageReportGenerator {
       ((100 - duplication) * 0.2)
     );
 
-    if (score >= 90) return 'Excellent';
+    if (score >= 90) return "Excellent";
     if (score >= 80) return 'Good';
     if (score >= 70) return 'Fair';
     if (score >= 60) return 'Needs Improvement';

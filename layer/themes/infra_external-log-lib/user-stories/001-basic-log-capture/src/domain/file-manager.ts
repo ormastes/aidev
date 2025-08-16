@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as path from 'node:path';
 import { LogEntry } from '../external/external-log-lib';
 import { IFileManager, SaveOptions } from '../interfaces';
 import { getFileAPI, FileType } from '../../../../pipe';

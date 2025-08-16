@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Utility functions for HEA Architecture Checker
  */
@@ -35,7 +36,7 @@ export async function analyzeStructure(rootPath: string): Promise<any> {
  * Generate a compliance report
  */
 export async function generateReport(
-  format: ReportOptions['format'] = 'markdown',
+  format: ReportOptions['format'] = "markdown",
   options?: Partial<ReportOptions>
 ): Promise<any> {
   const rootPath = process.cwd();
@@ -121,7 +122,7 @@ export async function checkFile(
       isPipe: filePath.includes('/pipe/'),
       isChild: filePath.includes('/children/'),
       isTheme: filePath.includes('/themes/'),
-      layer: filePath.split('/').find(p => ['themes', 'modules', 'services'].includes(p))
+      layer: filePath.split('/').find(p => ['themes', 'modules', "services"].includes(p))
     }
   };
   

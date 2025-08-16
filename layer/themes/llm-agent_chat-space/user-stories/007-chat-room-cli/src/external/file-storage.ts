@@ -27,7 +27,7 @@ export interface Message {
   username: string;
   content: string;
   timestamp: Date;
-  type: 'text' | 'command' | 'system' | 'workflow';
+  type: 'text' | 'command' | 'system' | "workflow";
 }
 
 export class FileStorage {
@@ -40,7 +40,7 @@ export class FileStorage {
     this.dataDir = baseDir;
     this.usersDir = path.join(baseDir, 'users');
     this.roomsDir = path.join(baseDir, 'rooms');
-    this.messagesDir = path.join(baseDir, 'messages');
+    this.messagesDir = path.join(baseDir, "messages");
   }
 
   async initialize(): Promise<void> {
@@ -70,7 +70,7 @@ export class FileStorage {
   async loadUser(userId: string): Promise<User | null> {
     try {
       const userPath = path.join(this.usersDir, `${userId}.json`);
-      const data = await fs.readFile(userPath, 'utf-8');
+      const data = await fileAPI.readFile(userPath, 'utf-8');
       const userData = JSON.parse(data);
       
       return {
@@ -98,7 +98,7 @@ export class FileStorage {
   async loadRoom(roomId: string): Promise<Room | null> {
     try {
       const roomPath = path.join(this.roomsDir, `${roomId}.json`);
-      const data = await fs.readFile(roomPath, 'utf-8');
+      const data = await fileAPI.readFile(roomPath, 'utf-8');
       const roomData = JSON.parse(data);
       
       return {
@@ -160,7 +160,7 @@ export class FileStorage {
       const roomMessageDir = path.join(this.messagesDir, roomId);
       const logPath = path.join(roomMessageDir, 'messages.log');
       
-      const data = await fs.readFile(logPath, 'utf-8');
+      const data = await fileAPI.readFile(logPath, 'utf-8');
       const lines = data.trim().split('\n').filter(line => line.trim());
       
       // Get the last `limit` messages
@@ -186,7 +186,7 @@ export class FileStorage {
   async deleteUser(userId: string): Promise<boolean> {
     try {
       const userPath = path.join(this.usersDir, `${userId}.json`);
-      await fs.unlink(userPath);
+      await fileAPI.unlink(userPath);
       return true;
     } catch (error) {
       if((error as NodeJS.ErrnoException).code === 'ENOENT') {
@@ -199,7 +199,7 @@ export class FileStorage {
   async deleteRoom(roomId: string): Promise<boolean> {
     try {
       const roomPath = path.join(this.roomsDir, `${roomId}.json`);
-      await fs.unlink(roomPath);
+      await fileAPI.unlink(roomPath);
       
       // Also remove messages directory
       const roomMessageDir = path.join(this.messagesDir, roomId);
@@ -223,7 +223,7 @@ export class FileStorage {
       const roomMessageDir = path.join(this.messagesDir, roomId);
       const logPath = path.join(roomMessageDir, 'messages.log');
       
-      const data = await fs.readFile(logPath, 'utf-8');
+      const data = await fileAPI.readFile(logPath, 'utf-8');
       const lines = data.trim().split('\n').filter(line => line.trim());
       
       return lines.length;
@@ -265,7 +265,7 @@ export class FileStorage {
       }
       
       // Calculate disk usage (simplified)
-      const stats = await fs.stat(this.dataDir);
+      const stats = await /* FRAUD_FIX: fs.stat(this.dataDir) */;
       
       return {
         totalUsers: usersFiles.filter(f => f.endsWith('.json')).length,

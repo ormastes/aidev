@@ -62,7 +62,7 @@ export class BddParser {
         if (currentStep) {
           const docString = this.parseDocString(lines, lineIndex);
           currentStep.argument = {
-            type: 'docString',
+            type: "docString",
             content: docString.content
           };
           lineIndex = docString.endIndex;
@@ -73,7 +73,7 @@ export class BddParser {
         if (currentStep) {
           const dataTable = this.parseDataTable(lines, lineIndex);
           currentStep.argument = {
-            type: 'dataTable',
+            type: "dataTable",
             content: dataTable.table
           };
           lineIndex = dataTable.endIndex;

@@ -1,6 +1,6 @@
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { exec } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import { path } from '../../../infra_external-log-lib/src';
 import { CompilerConfig, CompilerFlags, CrossCompileConfig, Architecture } from './BuildEnvironmentManager';
 
@@ -506,7 +506,7 @@ export class CompilerToolchain extends EventEmitter {
   private getGCCFeatures(version: CompilerVersion): CompilerFeatures {
     return {
       openmp: true,
-      sanitizers: version.major >= 4 ? ['address', 'thread', 'undefined'] : [],
+      sanitizers: version.major >= 4 ? ['address', 'thread', "undefined"] : [],
       lto: version.major >= 4,
       pgo: version.major >= 4,
       staticAnalysis: version.major >= 10,
@@ -519,7 +519,7 @@ export class CompilerToolchain extends EventEmitter {
   private getClangFeatures(version: CompilerVersion): CompilerFeatures {
     return {
       openmp: true,
-      sanitizers: ['address', 'thread', 'memory', 'undefined', 'dataflow'],
+      sanitizers: ['address', 'thread', 'memory', "undefined", "dataflow"],
       lto: true,
       pgo: true,
       staticAnalysis: true,

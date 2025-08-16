@@ -6,7 +6,7 @@
 import * as fs from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
 import { exec } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 
 const execAsync = promisify(exec);
 
@@ -71,7 +71,7 @@ export class CppDuplicationSetup {
     ignoreIdentifiers: false,
     ignoreLiterals: true,
     reportFormat: 'json',
-    outputDirectory: 'duplication'
+    outputDirectory: "duplication"
   };
 
   async setup(projectPath: string, config?: Partial<DuplicationConfig>): Promise<void> {
@@ -231,13 +231,13 @@ clang-tidy \\
 # Parse results for duplications
 node -e "
 const { fs } = require('../../../infra_external-log-lib/src');
-const report = fs.readFileSync('${config.outputDirectory}/clang-tidy-report.txt', { type: FileType.TEMPORARY });
+const report = fileAPI.readFileSync('${config.outputDirectory}/clang-tidy-report.txt', { type: FileType.TEMPORARY });
 const duplications = [];
 
 // Parse clang-tidy output for duplication-related warnings
 const lines = report.split('\\\\n');
 for (const line of lines) {
-  if (line.includes('redundant') || line.includes('duplicate')) {
+  if (line.includes("redundant") || line.includes("duplicate")) {
     duplications.push(line);
   }
 }
@@ -492,11 +492,11 @@ echo "✅ Unified duplication check complete!"
 export class CppDuplicationAnalyzer {
   async analyze(projectPath: string): Promise<DuplicationReport> {
     const configPath = path.join(projectPath, '.duplication', 'config.json');
-    const config: DuplicationConfig = JSON.parse(await fs.readFile(configPath, 'utf-8'));
+    const config: DuplicationConfig = JSON.parse(await fileAPI.readFile(configPath, 'utf-8'));
     
     // Parse report based on tool and format
     const reportPath = this.getReportPath(projectPath, config);
-    const reportContent = await fs.readFile(reportPath, 'utf-8');
+    const reportContent = await fileAPI.readFile(reportPath, 'utf-8');
     
     return this.parseReport(reportContent, config);
   }
@@ -668,7 +668,7 @@ export class UnifiedDuplicationReporter {
 
   private async loadTypeScriptReport(reportPath: string): Promise<any> {
     try {
-      const content = await fs.readFile(path.join(reportPath, 'jscpd-report.json'), 'utf-8');
+      const content = await fileAPI.readFile(path.join(reportPath, 'jscpd-report.json'), 'utf-8');
       return JSON.parse(content);
     } catch {
       return null;
@@ -747,7 +747,7 @@ export class UnifiedDuplicationReporter {
         </div>
     </div>
     
-    ${this.generateLanguageSection('TypeScript', report.languages.typescript)}
+    ${this.generateLanguageSection("TypeScript", report.languages.typescript)}
     ${this.generateLanguageSection('C++', report.languages.cpp)}
 </body>
 </html>`;

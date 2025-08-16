@@ -3,7 +3,7 @@
  * Handles communication with Claude API
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 export type ModelType = 
   | 'claude-3-opus-20240229'
@@ -36,7 +36,7 @@ export interface ClaudeOptions {
 
 export interface RequestOptions extends ClaudeOptions {
   messages: Array<{
-    role: 'user' | 'assistant' | 'system';
+    role: 'user' | "assistant" | 'system';
     content: string | ContentBlock[];
   }>;
   tools?: ToolDefinition[];
@@ -65,7 +65,7 @@ export interface ToolDefinition {
 export interface ClaudeResponse {
   id: string;
   type: 'message';
-  role: 'assistant';
+  role: "assistant";
   content: Array<{
     type: 'text' | 'tool_use';
     text?: string;
@@ -165,7 +165,7 @@ export class ClaudeClient extends EventEmitter {
         return this.handleStreamResponse(response, requestId);
       } else {
         const data = await response.json();
-        this.emit('response', { requestId, data });
+        this.emit("response", { requestId, data });
         return data;
       }
     } catch (error) {
@@ -248,7 +248,7 @@ export class ClaudeClient extends EventEmitter {
               // Aggregate the stream response
               this.aggregateStreamEvent(finalResponse, event);
             } catch (error) {
-              this.emit('streamError', { requestId, error, data });
+              this.emit("streamError", { requestId, error, data });
             }
           }
         }
@@ -360,12 +360,12 @@ export class ClaudeClient extends EventEmitter {
       .join('');
   }
 
-  async chat(messages: RequestOptions['messages'], options?: ClaudeOptions): Promise<ClaudeResponse> {
+  async chat(messages: RequestOptions["messages"], options?: ClaudeOptions): Promise<ClaudeResponse> {
     return this.sendMessage({ ...options, messages });
   }
 
   async streamChat(
-    messages: RequestOptions['messages'],
+    messages: RequestOptions["messages"],
     options?: ClaudeOptions,
     onChunk?: (chunk: StreamResponse) => void
   ): Promise<ClaudeResponse> {
@@ -426,7 +426,7 @@ class ClaudeAPIError extends Error {
     public details: any
   ) {
     super(message);
-    this.name = 'ClaudeAPIError';
+    this.name = "ClaudeAPIError";
   }
 }
 

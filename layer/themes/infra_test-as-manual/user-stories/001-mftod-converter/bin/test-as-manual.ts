@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 #!/usr/bin/env node
 
 /**
@@ -6,8 +7,8 @@
  */
 
 import { TestAsManualConverter, ConversionOptions } from '../src/converter';
-import { path } from '../../../../infra_external-log-lib/src';
-import { fs } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 // Parse command line arguments
 const args = process.argv.slice(2);
@@ -83,15 +84,15 @@ async function main() {
   const options: ConversionOptions = {
     inputPath: input,
     outputPath: output,
-    format: 'markdown'
+    format: "markdown"
   };
 
   // Parse format
   const formatIndex = args.indexOf('--format');
   if (formatIndex !== -1 && args[formatIndex + 1]) {
     const format = args[formatIndex + 1];
-    if (['markdown', 'html', 'json'].includes(format)) {
-      options.format = format as 'markdown' | 'html' | 'json';
+    if (["markdown", 'html', 'json'].includes(format)) {
+      options.format = format as "markdown" | 'html' | 'json';
     }
   }
 
@@ -145,7 +146,7 @@ async function main() {
   // Create converter
   const converter = new TestAsManualConverter({
     enableCaptures: options.enableCaptures,
-    captureDir: options.outputPath ? path.join(options.outputPath, 'captures') : undefined
+    captureDir: options.outputPath ? path.join(options.outputPath, "captures") : undefined
   });
 
   try {

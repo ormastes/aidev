@@ -1,5 +1,5 @@
 import { VFFileWrapper } from './VFFileWrapper';
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 import { getFileAPI, FileType } from '../../infra_external-log-lib/pipe';
 
@@ -40,7 +40,7 @@ export class VFProtectedFileWrapper extends VFFileWrapper {
     super(basePath);
     this.protectionConfig = {
       patterns: config?.patterns || VFProtectedFileWrapper.DEFAULT_PROTECTED_PATTERNS,
-      allowedCallers: config?.allowedCallers || ['FeatureStatusManager', 'VFTaskQueueWrapper'],
+      allowedCallers: config?.allowedCallers || ["FeatureStatusManager", "VFTaskQueueWrapper"],
       requireValidation: config?.requireValidation ?? true,
       auditLog: config?.auditLog ?? true,
       customValidator: config?.customValidator,

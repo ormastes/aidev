@@ -28,7 +28,7 @@ jest.mock('fs', () => ({
   },
 }));
 
-describe('CTestConfig', () => {
+describe("CTestConfig", () => {
   let ctestConfig: CTestConfig;
   let mockContext: vscode.ExtensionContext;
   let mockWorkspaceFolder: vscode.WorkspaceFolder;
@@ -44,58 +44,58 @@ describe('CTestConfig', () => {
       return {
         get: jest.fn((key: string) => {
         const cdoctestDefaults: { [key: string]: any } = {
-          'pythonExePath': '/usr/bin/python3',
-          'useCmakeTarget': false,
-          'srcDirectory': '/test/src',
-          'buildDirectory': '/test/build',
-          'executable': '',
+          "pythonExePath": '/usr/bin/python3',
+          "useCmakeTarget": false,
+          "srcDirectory": '/test/src',
+          "buildDirectory": '/test/build',
+          "executable": '',
           'exe_executable': '',
           'bin_executable': '',
-          'testRunArgPattern': '',
-          'listTestArgPattern': '',
+          "testRunArgPattern": '',
+          "listTestArgPattern": '',
           'exe_testRunArgPattern': '',
           'exe_listTestArgPattern': '',
           'bin_testRunArgPattern': '',
           'bin_listTestArgPattern': '',
-          'resultFile': '',
+          "resultFile": '',
           'exe_resultFile': '',
           'bin_resultFile': '',
-          'resultSuccessRgex': '',
-          'testRunUseFile': true,
-          'listTestUseFile': false,
+          "resultSuccessRgex": '',
+          "testRunUseFile": true,
+          "listTestUseFile": false,
           'exe_testRunUseFile': true,
           'exe_listTestUseFile': false,
           'bin_testRunUseFile': true,
           'bin_listTestUseFile': false,
-          'libPaths': '',
-          'configName': '',
-          'testcaseSeparator': '::',
+          "libPaths": '',
+          "configName": '',
+          "testcaseSeparator": '::',
           'exe_testcaseSeparator': '::',
           'bin_testcaseSeparator': '::',
-          'buildBeforeTest': true,
+          "buildBeforeTest": true,
           'exe_buildBeforeTest': true,
           'bin_buildBeforeTest': true,
-          'coverageLocation': '',
-          'coverageGenerateTask': '',
-          'coverageRawFilePattern': '',
-          'coverageThresholdLine': 0,
-          'coverageThresholdFunction': 0,
-          'coverageThresholdBranch': 0,
-          'coverageWarnIfBelowThreshold': false
+          "coverageLocation": '',
+          "coverageGenerateTask": '',
+          "coverageRawFilePattern": '',
+          "coverageThresholdLine": 0,
+          "coverageThresholdFunction": 0,
+          "coverageThresholdBranch": 0,
+          "coverageWarnIfBelowThreshold": false
         };
         
         const ctestDefaults: { [key: string]: any } = {
-          'ctestExecutable': 'ctest',
-          'testFilter': '',
-          'parallelJobs': 1,
-          'buildBeforeTest': true,
-          'debuggerPath': 'gdb'
+          "ctestExecutable": 'ctest',
+          "testFilter": '',
+          "parallelJobs": 1,
+          "buildBeforeTest": true,
+          "debuggerPath": 'gdb'
         };
         
         // Return config based on section
         if (section === 'ctest') {
           return ctestDefaults[key] ?? null;
-        } else if (section === 'cdoctest') {
+        } else if (section === "cdoctest") {
           return cdoctestDefaults[key] ?? null;
         }
         return null;
@@ -183,16 +183,16 @@ describe('CTestConfig', () => {
         name: 'MathTests.Addition',
         command: ['./test_executable', '--gtest_filter=MathTests.Addition'],
         properties: { TIMEOUT: '30', LABELS: 'unit' },
-        suite: 'MathTests',
-        case: 'Addition'
+        suite: "MathTests",
+        case: "Addition"
       });
 
       expect(tests[2]).toEqual({
         name: 'StringTests.ToUppercase',
         command: ['./test_executable', '--gtest_filter=StringTests.ToUppercase'],
         properties: { TIMEOUT: '30', LABELS: 'unit' },
-        suite: 'StringTests',
-        case: 'ToUppercase'
+        suite: "StringTests",
+        case: "ToUppercase"
       });
     });
 
@@ -293,8 +293,8 @@ describe('CTestConfig', () => {
     test('should generate correct test run arguments', () => {
       const additionalEnv = {
         'test_full_name': 'MathTests.Addition',
-        'test_suite_name': 'MathTests',
-        'test_case_name': 'Addition'
+        'test_suite_name': "MathTests",
+        'test_case_name': "Addition"
       };
 
       const args = ctestConfig.get_ctest_testrun_executable_args(additionalEnv);
@@ -313,8 +313,8 @@ describe('CTestConfig', () => {
       const testName = 'Test.With[Special]Chars(And)More+Stuff*';
       const args = ctestConfig.get_ctest_testrun_executable_args({
         'test_full_name': testName,
-        'test_suite_name': 'TestSuite',
-        'test_case_name': 'TestCase'
+        'test_suite_name': "TestSuite",
+        'test_case_name': "TestCase"
       });
 
       const regexArg = args[args.indexOf('-R') + 1];
@@ -379,7 +379,7 @@ describe('CTestConfig', () => {
         }, 100);
       });
 
-      await expect(ctestConfig.runTest('TimeoutTest')).rejects.toThrow();
+      await expect(ctestConfig.runTest("TimeoutTest")).rejects.toThrow();
     });
   });
 
@@ -389,7 +389,7 @@ describe('CTestConfig', () => {
       const mockGetConfiguration = vscode.workspace.getConfiguration as jest.MockedFunction<typeof vscode.workspace.getConfiguration>;
       mockGetConfiguration.mockReturnValue({
         get: jest.fn((key: string) => {
-          if (key === 'parallelJobs') return 4;
+          if (key === "parallelJobs") return 4;
           return 'default';
         })
       } as any);
@@ -431,7 +431,7 @@ Assertion failed: expected 5 but got 6
 
     // Test would verify that failure message extraction works
     expect(failureOutput).toContain('Failed');
-    expect(failureOutput).toContain('Expected');
+    expect(failureOutput).toContain("Expected");
     expect(failureOutput).toContain('Actual');
   });
 });

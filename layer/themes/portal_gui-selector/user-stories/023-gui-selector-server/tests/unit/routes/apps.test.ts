@@ -1,4 +1,4 @@
-import request from 'supertest';
+import request from "supertest";
 import express from 'express';
 import { appsRouter } from '../../../src/routes/apps';
 import { DatabaseService } from '../../../src/services/DatabaseService';
@@ -19,7 +19,7 @@ describe('Apps Routes', () => {
     
     // Mock user authentication
     app.use((req: any, res, next) => {
-      req.user = { userId: 1, username: 'testuser', role: 'user' };
+      req.user = { userId: 1, username: "testuser", role: 'user' };
       next();
     });
     
@@ -323,8 +323,8 @@ describe('Apps Routes', () => {
 
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('valid', true);
-      expect(response.body).toHaveProperty('isDirectory', true);
-      expect(response.body).toHaveProperty('absolutePath', '/absolute/path');
+      expect(response.body).toHaveProperty("isDirectory", true);
+      expect(response.body).toHaveProperty("absolutePath", '/absolute/path');
     });
 
     it('should validate non-existent path', async () => {
@@ -356,7 +356,7 @@ describe('Apps Routes', () => {
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('valid', false);
       expect(response.body).toHaveProperty('exists', true);
-      expect(response.body).toHaveProperty('isDirectory', false);
+      expect(response.body).toHaveProperty("isDirectory", false);
     });
 
     it('should require path parameter', async () => {

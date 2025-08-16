@@ -1,5 +1,6 @@
+import { fileAPI } from '../utils/file-api';
 import { LSPClient } from './LSPClient';
-import { EventEmitter } from '../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { path } from '../../infra_external-log-lib/src';
 
 export interface LSPInstance {
@@ -60,7 +61,7 @@ export class LSPManager extends EventEmitter {
       this.activeInstanceId = id;
     }
     
-    this.emit('instanceCreated', { id, name: config.name, rootPath: config.rootPath });
+    this.emit("instanceCreated", { id, name: config.name, rootPath: config.rootPath });
     
     // Initialize in background
     this.initializeInstanceInBackground(id);
@@ -98,7 +99,7 @@ export class LSPManager extends EventEmitter {
     const instance = this.instances.get(id)!;
     instance.lastUsed = new Date();
     
-    this.emit('activeInstanceChanged', { id, name: instance.name });
+    this.emit("activeInstanceChanged", { id, name: instance.name });
   }
   
   /**
@@ -110,7 +111,7 @@ export class LSPManager extends EventEmitter {
     }
     
     this.defaultInstanceId = id;
-    this.emit('defaultInstanceChanged', { id });
+    this.emit("defaultInstanceChanged", { id });
   }
   
   /**
@@ -165,7 +166,7 @@ export class LSPManager extends EventEmitter {
       this.activeInstanceId = this.defaultInstanceId;
     }
     
-    this.emit('instanceRemoved', { id, name: instance.name });
+    this.emit("instanceRemoved", { id, name: instance.name });
   }
   
   /**
@@ -187,7 +188,7 @@ export class LSPManager extends EventEmitter {
     this.defaultInstanceId = null;
     this.activeInstanceId = null;
     
-    this.emit('allInstancesShutdown');
+    this.emit("allInstancesShutdown");
   }
   
   /**
@@ -205,10 +206,10 @@ export class LSPManager extends EventEmitter {
       await instance.client.initialize();
       
       instance.active = true;
-      this.emit('instanceInitialized', { id, name: instance.name });
+      this.emit("instanceInitialized", { id, name: instance.name });
     } catch (error) {
       console.error(`Failed to initialize LSP instance ${id}:`, error);
-      this.emit('instanceInitializationFailed', { id, error });
+      this.emit("instanceInitializationFailed", { id, error });
     }
   }
   

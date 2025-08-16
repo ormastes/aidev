@@ -8,7 +8,7 @@ class MonitoringDashboard {
         this.ws = null;
         this.charts = {};
         this.isConnected = false;
-        this.currentSection = 'overview';
+        this.currentSection = "overview";
         this.updateInterval = null;
         
         this.initialize();
@@ -81,7 +81,7 @@ class MonitoringDashboard {
         
         channels.forEach(channel => {
             this.ws.send(JSON.stringify({
-                type: 'subscribe',
+                type: "subscribe",
                 channel: channel
             }));
         });
@@ -92,7 +92,7 @@ class MonitoringDashboard {
             case 'data':
                 this.handleDataMessage(message);
                 break;
-            case 'heartbeat':
+            case "heartbeat":
                 // Keep connection alive
                 break;
             case 'error':
@@ -615,7 +615,7 @@ class MonitoringDashboard {
         });
 
         // Handle visibility change to pause/resume updates
-        document.addEventListener('visibilitychange', () => {
+        document.addEventListener("visibilitychange", () => {
             if (document.hidden) {
                 this.stopDataUpdates();
             } else {
@@ -646,7 +646,7 @@ class MonitoringDashboard {
     async fetchDataFromAPI() {
         try {
             // Fetch overview data
-            if (this.currentSection === 'overview') {
+            if (this.currentSection === "overview") {
                 const response = await fetch('/api/dashboard/overview');
                 const data = await response.json();
                 
@@ -780,12 +780,12 @@ class MonitoringDashboard {
 }
 
 // Initialize dashboard when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     window.dashboard = new MonitoringDashboard();
 });
 
 // Handle unload to cleanup WebSocket
-window.addEventListener('beforeunload', () => {
+window.addEventListener("beforeunload", () => {
     if (window.dashboard && window.dashboard.ws) {
         window.dashboard.ws.close();
     }

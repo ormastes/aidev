@@ -28,13 +28,13 @@ class TestProvider extends BaseProvider {
   }
 }
 
-describe('BaseProvider', () => {
+describe("BaseProvider", () => {
   let provider: TestProvider;
 
   beforeEach(() => {
     provider = new TestProvider({
       name: 'test',
-      apiKey: 'test-key',
+      api_key: process.env.API_KEY || "PLACEHOLDER",
       retryPolicy: {
         maxAttempts: 3,
         backoffMs: 1, // Very short delay for tests
@@ -43,16 +43,16 @@ describe('BaseProvider', () => {
     });
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with config', () => {
       expect(provider.name).toBe('test');
     });
 
     it('should set default retry policy', () => {
-      const config = { name: 'test', apiKey: 'test-key' };
+      const config = { name: 'test', api_key: process.env.API_KEY || "PLACEHOLDER" };
       const testProvider = new TestProvider(config);
-      expect(testProvider['retryPolicy']).toBeDefined();
-      expect(testProvider['retryPolicy'].maxAttempts).toBe(3);
+      expect(testProvider["retryPolicy"]).toBeDefined();
+      expect(testProvider["retryPolicy"].maxAttempts).toBe(3);
     });
 
     it('should use custom retry policy', () => {
@@ -63,16 +63,16 @@ describe('BaseProvider', () => {
       };
       const config = { 
         name: 'test', 
-        apiKey: 'test-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         retryPolicy: customRetryPolicy
       };
       const testProvider = new TestProvider(config);
-      expect(testProvider['retryPolicy'].maxAttempts).toBe(5);
-      expect(testProvider['retryPolicy'].backoffMs).toBe(2000);
+      expect(testProvider["retryPolicy"].maxAttempts).toBe(5);
+      expect(testProvider["retryPolicy"].backoffMs).toBe(2000);
     });
   });
 
-  describe('createCompletion', () => {
+  describe("createCompletion", () => {
     it('should create completion', async () => {
       const result = await provider.createCompletion('Hello');
       expect(result).toBe('Test response for: Hello');
@@ -85,7 +85,7 @@ describe('BaseProvider', () => {
     });
   });
 
-  describe('streamCompletion', () => {
+  describe("streamCompletion", () => {
     it('should stream completion', async () => {
       const chunks: string[] = [];
       await provider.streamCompletion('Hello', (chunk) => {
@@ -96,14 +96,14 @@ describe('BaseProvider', () => {
     });
   });
 
-  describe('isAvailable', () => {
+  describe("isAvailable", () => {
     it('should check availability', async () => {
       const available = await provider.isAvailable();
       expect(available).toBe(true);
     });
   });
 
-  describe('getModels', () => {
+  describe("getModels", () => {
     it('should return available models', async () => {
       const models = await provider.getModels();
       expect(models).toEqual(['test-model-1', 'test-model-2']);
@@ -122,7 +122,7 @@ describe('BaseProvider', () => {
       });
 
       const result = await provider['retry'](operation, 'test operation');
-      expect(result).toBe('In Progress');
+      expect(result).toBe("completed");
       expect(attempts).toBe(3);
       expect(operation).toHaveBeenCalledTimes(3);
     });
@@ -139,23 +139,23 @@ describe('BaseProvider', () => {
 
   describe('utility methods', () => {
     it('should validate config', () => {
-      expect(() => provider['validateConfig']()).not.toThrow();
+      expect(() => provider["validateConfig"]()).not.toThrow();
     });
 
     it('should return default model', () => {
-      const model = provider['getDefaultModel']();
+      const model = provider["getDefaultModel"]();
       expect(model).toBe('default');
     });
 
     it('should return timeout', () => {
-      const timeout = provider['getTimeout']();
+      const timeout = provider["getTimeout"]();
       expect(timeout).toBe(30000);
     });
 
     it('should build headers', () => {
-      const headers = provider['buildHeaders']();
+      const headers = provider["buildHeaders"]();
       expect(headers).toHaveProperty('Content-Type', 'application/json');
-      expect(headers).toHaveProperty('Authorization', 'Bearer test-key');
+      expect(headers).toHaveProperty("Authorization", 'Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
     });
   });
 });

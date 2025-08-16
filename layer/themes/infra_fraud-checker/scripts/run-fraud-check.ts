@@ -1,19 +1,20 @@
+import { fileAPI } from '../utils/file-api';
 #!/usr/bin/env bun
 /**
  * Main fraud check runner for the infra_fraud-checker theme
  * Consolidates all fraud checking logic in one place
  */
 
-import * as path from 'path';
+import * as path from 'node:path';
 import * as fs from 'fs/promises';
 import { ComprehensiveFraudChecker } from '../src/comprehensive-checker';
 import DirectFileAccessScanner from '../src/scanners/direct-file-access-scanner';
 
 interface FraudCheckOptions {
-  mode?: 'comprehensive' | 'direct-access' | 'all';
+  mode?: "comprehensive" | 'direct-access' | 'all';
   autoFix?: boolean;
   onlyDirectImports?: boolean;
-  outputFormat?: 'console' | 'json' | 'markdown';
+  outputFormat?: 'console' | 'json' | "markdown";
   outputPath?: string;
 }
 
@@ -56,13 +57,13 @@ class FraudCheckRunner {
       // Save report
       if (options.outputPath) {
         const reportPath = path.join(this.projectPath, options.outputPath);
-        await fs.mkdir(path.dirname(reportPath), { recursive: true });
+        await fileAPI.mkdir(path.dirname(reportPath), { recursive: true });
         
         if (options.outputFormat === 'json') {
-          await fs.writeFile(reportPath, JSON.stringify(report, null, 2));
-        } else if (options.outputFormat === 'markdown') {
+          await fileAPI.writeFile(reportPath, JSON.stringify(report, null, 2));
+        } else if (options.outputFormat === "markdown") {
           const markdownReport = this.generateMarkdownReport(report);
-          await fs.writeFile(reportPath, markdownReport);
+          await fileAPI.writeFile(reportPath, markdownReport);
         }
         
         console.log(`\n📝 Report saved to: ${reportPath}`);
@@ -92,13 +93,13 @@ class FraudCheckRunner {
       // Save report
       if (options.outputPath) {
         const reportPath = path.join(this.projectPath, options.outputPath);
-        await fs.mkdir(path.dirname(reportPath), { recursive: true });
+        await fileAPI.mkdir(path.dirname(reportPath), { recursive: true });
         
         if (options.outputFormat === 'json') {
-          await fs.writeFile(reportPath, JSON.stringify(results, null, 2));
-        } else if (options.outputFormat === 'markdown') {
+          await fileAPI.writeFile(reportPath, JSON.stringify(results, null, 2));
+        } else if (options.outputFormat === "markdown") {
           const markdownReport = this.generateDirectAccessReport(results);
-          await fs.writeFile(reportPath, markdownReport);
+          await fileAPI.writeFile(reportPath, markdownReport);
         }
         
         console.log(`\n📝 Report saved to: ${reportPath}`);
@@ -139,7 +140,7 @@ class FraudCheckRunner {
     if (options.outputPath) {
       const reportPath = path.join(this.projectPath, options.outputPath);
       const combinedReport = this.generateCombinedReport(results);
-      await fs.writeFile(reportPath, combinedReport);
+      await fileAPI.writeFile(reportPath, combinedReport);
       console.log(`\n📝 Combined report saved to: ${reportPath}`);
     }
 
@@ -309,7 +310,7 @@ Examples:
     let exitCode = 0;
     
     switch (options.mode) {
-      case 'comprehensive':
+      case "comprehensive":
         const compReport = await runner.runComprehensiveCheck(options);
         if (compReport.summary?.criticalIssues > 0) exitCode = 1;
         break;

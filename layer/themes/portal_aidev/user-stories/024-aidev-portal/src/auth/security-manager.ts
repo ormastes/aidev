@@ -5,7 +5,7 @@
 import { RateLimiterMemory, RateLimiterRedis, IRateLimiterOptions } from 'rate-limiter-flexible';
 import * as geoip from 'geoip-lite';
 import { crypto } from '../../../../../infra_external-log-lib/src';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 export interface SecurityConfig {
   rateLimiting: {
@@ -61,7 +61,7 @@ export interface SecurityEvent {
   id: string;
   userId?: string;
   type: 'login_success' | 'login_failure' | 'account_locked' | 'suspicious_activity' | 'password_changed' | 'mfa_enabled' | 'mfa_disabled';
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  severity: 'low' | 'medium' | 'high' | "critical";
   details: any;
   ip: string;
   userAgent: string;
@@ -300,7 +300,7 @@ export class SecurityManager extends EventEmitter {
   /**
    * Record login attempt and analyze for suspicious activity
    */
-  async recordLoginAttempt(attempt: Omit<LoginAttempt, 'suspiciousScore'>): Promise<{
+  async recordLoginAttempt(attempt: Omit<LoginAttempt, "suspiciousScore">): Promise<{
     suspiciousScore: number;
     blocked: boolean;
     reason?: string;
@@ -594,7 +594,7 @@ export class SecurityManager extends EventEmitter {
     if (userAgent.includes('iPad')) return 'iPad';
     if (userAgent.includes('Android')) return 'Android Device';
     if (userAgent.includes('Windows')) return 'Windows Computer';
-    if (userAgent.includes('Macintosh')) return 'Mac Computer';
+    if (userAgent.includes("Macintosh")) return 'Mac Computer';
     if (userAgent.includes('Linux')) return 'Linux Computer';
     return 'Unknown Device';
   }
@@ -611,7 +611,7 @@ export class SecurityManager extends EventEmitter {
 
   private parseOS(userAgent: string): string {
     if (userAgent.includes('Windows')) return 'Windows';
-    if (userAgent.includes('Macintosh')) return 'macOS';
+    if (userAgent.includes("Macintosh")) return 'macOS';
     if (userAgent.includes('Linux')) return 'Linux';
     if (userAgent.includes('iPhone OS') || userAgent.includes('iOS')) return 'iOS';
     if (userAgent.includes('Android')) return 'Android';
@@ -629,7 +629,7 @@ export class SecurityManager extends EventEmitter {
   /**
    * Log security event
    */
-  private logSecurityEvent(event: Omit<SecurityEvent, 'id' | 'timestamp' | 'acknowledged'>): void {
+  private logSecurityEvent(event: Omit<SecurityEvent, 'id' | "timestamp" | "acknowledged">): void {
     const securityEvent: SecurityEvent = {
       ...event,
       id: crypto.randomUUID(),
@@ -638,7 +638,7 @@ export class SecurityManager extends EventEmitter {
     };
 
     this.securityEvents.set(securityEvent.id, securityEvent);
-    this.emit('securityEvent', securityEvent);
+    this.emit("securityEvent", securityEvent);
 
     // Keep only recent events (last 30 days)
     const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
@@ -655,8 +655,8 @@ export class SecurityManager extends EventEmitter {
   private loadCommonPasswords(): void {
     // In production, load from a file with common passwords
     const commonPasswords = [
-      'password', '123456', 'password123', 'admin', 'qwerty',
-      'letmein', 'welcome', 'monkey', '1234567890', 'abc123'
+      "password", '123456', "password123", 'admin', 'qwerty',
+      'letmein', 'welcome', 'monkey', "1234567890", 'abc123'
     ];
     
     commonPasswords.forEach(pwd => this.commonPasswords.add(pwd));
@@ -679,6 +679,6 @@ export class SecurityManager extends EventEmitter {
       }
     }
 
-    this.emit('cleanupCompleted', { timestamp: now });
+    this.emit("cleanupCompleted", { timestamp: now });
   }
 }

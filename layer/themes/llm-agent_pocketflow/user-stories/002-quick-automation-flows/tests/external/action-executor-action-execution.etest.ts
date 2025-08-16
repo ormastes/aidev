@@ -1,13 +1,13 @@
 import { describe, test, expect, beforeEach } from '@jest/globals';
 import { exec, spawn } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import { http } from '../../../../../infra_external-log-lib/src';
 
 const execAsync = promisify(exec);
 
 // External interfaces
 interface ActionExecutorInterface {
-  execute(action: any, context: any): Promise<{ In Progress: boolean; output?: any; error?: string; duration?: number }>;
+  execute(action: any, context: any): Promise<{ success: boolean; output?: any; error?: string; duration?: number }>;
   cancel(executionId: string): Promise<boolean>;
   getStatus(executionId: string): { status: string; progress?: number };
 }
@@ -24,7 +24,7 @@ class ActionExecutor implements ActionExecutorInterface {
   private activeExecutions: Map<string, any> = new Map();
   private executionStatuses: Map<string, { status: string; progress?: number }> = new Map();
 
-  async execute(action: any, context: ExecutionContext): Promise<{ In Progress: boolean; output?: any; error?: string; duration?: number }> {
+  async execute(action: any, context: ExecutionContext): Promise<{ success: boolean; output?: any; error?: string; duration?: number }> {
     const startTime = Date.now();
     const executionKey = `${context.id}-${action.type}-${Date.now()}`;
     
@@ -47,10 +47,10 @@ class ActionExecutor implements ActionExecutorInterface {
         case 'delay':
           result = await this.executeDelay(action, context);
           break;
-        case 'transform':
+        case "transform":
           result = await this.executeTransform(action, context);
           break;
-        case 'condition':
+        case "condition":
           result = await this.executeCondition(action, context);
           break;
         default:
@@ -81,7 +81,7 @@ class ActionExecutor implements ActionExecutorInterface {
           execution.process.kill();
         }
         this.activeExecutions.delete(key);
-        this.executionStatuses.set(key, { status: 'cancelled' });
+        this.executionStatuses.set(key, { status: "cancelled" });
         cancelled = true;
       }
     }
@@ -99,7 +99,7 @@ class ActionExecutor implements ActionExecutorInterface {
     return { status: 'unknown' };
   }
 
-  private async executeCommand(action: any, context: ExecutionContext): Promise<{ In Progress: boolean; output?: any; error?: string }> {
+  private async executeCommand(action: any, context: ExecutionContext): Promise<{ success: boolean; output?: any; error?: string }> {
     try {
       // Substitute variables in command
       let command = action.command;
@@ -142,7 +142,7 @@ class ActionExecutor implements ActionExecutorInterface {
     }
   }
 
-  private async executeScript(action: any, context: ExecutionContext): Promise<{ In Progress: boolean; output?: any; error?: string }> {
+  private async executeScript(action: any, context: ExecutionContext): Promise<{ success: boolean; output?: any; error?: string }> {
     try {
       // resolve script path
       const scriptPath = path.resolve(action.script);
@@ -183,7 +183,7 @@ class ActionExecutor implements ActionExecutorInterface {
     }
   }
 
-  private async executeHttp(action: any, context: ExecutionContext): Promise<{ In Progress: boolean; output?: any; error?: string }> {
+  private async executeHttp(action: any, context: ExecutionContext): Promise<{ success: boolean; output?: any; error?: string }> {
     return new Promise((resolve) => {
       try {
         const url = new URL(action.url);
@@ -256,7 +256,7 @@ class ActionExecutor implements ActionExecutorInterface {
     });
   }
 
-  private async executeDelay(action: any, context: ExecutionContext): Promise<{ In Progress: boolean; output?: any; error?: string }> {
+  private async executeDelay(action: any, context: ExecutionContext): Promise<{ success: boolean; output?: any; error?: string }> {
     const duration = action.duration || 1000;
     
     // Track progress for long delays
@@ -282,7 +282,7 @@ class ActionExecutor implements ActionExecutorInterface {
     };
   }
 
-  private async executeTransform(action: any, context: ExecutionContext): Promise<{ In Progress: boolean; output?: any; error?: string }> {
+  private async executeTransform(action: any, context: ExecutionContext): Promise<{ success: boolean; output?: any; error?: string }> {
     try {
       const input = action.input || context.previousResults?.[context.previousResults.length - 1];
       
@@ -296,7 +296,7 @@ class ActionExecutor implements ActionExecutorInterface {
           output = typeof input === 'string' ? JSON.parse(input) : input;
           break;
         
-        case 'stringify':
+        case "stringify":
           output = JSON.stringify(input, null, action.indent || 0);
           break;
         
@@ -331,14 +331,14 @@ class ActionExecutor implements ActionExecutorInterface {
     }
   }
 
-  private async executeCondition(action: any, context: ExecutionContext): Promise<{ In Progress: boolean; output?: any; error?: string }> {
+  private async executeCondition(action: any, context: ExecutionContext): Promise<{ success: boolean; output?: any; error?: string }> {
     try {
       // Evaluate condition
       let conditionMet = false;
       
       if (action.condition) {
         // Simple expression evaluation (in production, use a safe expression evaluator)
-        const left = this.extractPath(context.variables, action.left || 'previousResult');
+        const left = this.extractPath(context.variables, action.left || "previousResult");
         const right = action.right;
         conditionMet = this.evaluateCondition(left, action.operator || '==', right);
       }
@@ -386,11 +386,11 @@ class ActionExecutor implements ActionExecutorInterface {
         return left < right;
       case '<=':
         return left <= right;
-      case 'contains':
+      case "contains":
         return String(left).includes(String(right));
-      case 'startsWith':
+      case "startsWith":
         return String(left).startsWith(String(right));
-      case 'endsWith':
+      case "endsWith":
         return String(left).endsWith(String(right));
       case 'matches':
         return new RegExp(right).test(String(left));
@@ -449,7 +449,7 @@ describe('ActionExecutor Action Execution External Test', () => {
         startTime: new Date().toISOString(),
         variables: {
           greeting: 'Hello',
-          name: 'PocketFlow'
+          name: "PocketFlow"
         }
       };
 
@@ -760,7 +760,7 @@ echo "$1"`;
     test('should parse JSON string', async () => {
       // Arrange
       const action = { 
-        type: 'transform', 
+        type: "transform", 
         operation: 'parse_json',
         input: '{"key": "value"}'
       };
@@ -781,7 +781,7 @@ echo "$1"`;
     test('should extract path from object', async () => {
       // Arrange
       const action = { 
-        type: 'transform', 
+        type: "transform", 
         operation: 'extract',
         input: { nested: { value: 42 } },
         path: 'nested.value'
@@ -803,7 +803,7 @@ echo "$1"`;
     test('should filter array', async () => {
       // Arrange
       const action = { 
-        type: 'transform', 
+        type: "transform", 
         operation: 'filter',
         input: [
           { name: 'item1', value: 10 },
@@ -835,7 +835,7 @@ echo "$1"`;
     test('should evaluate condition to true', async () => {
       // Arrange
       const action = { 
-        type: 'condition',
+        type: "condition",
         condition: true,
         left: 'count',
         operator: '>',
@@ -859,7 +859,7 @@ echo "$1"`;
     test('should evaluate condition to false', async () => {
       // Arrange
       const action = { 
-        type: 'condition',
+        type: "condition",
         condition: true,
         left: 'status',
         operator: '==',
@@ -868,7 +868,7 @@ echo "$1"`;
       const context: ExecutionContext = {
         id: 'test-exec-18',
         startTime: new Date().toISOString(),
-        variables: { status: 'inactive' }
+        variables: { status: "inactive" }
       };
 
       // Act
@@ -883,10 +883,10 @@ echo "$1"`;
     test('should handle string operations', async () => {
       // Arrange
       const action = { 
-        type: 'condition',
+        type: "condition",
         condition: true,
         left: 'message',
-        operator: 'contains',
+        operator: "contains",
         right: 'In Progress'
       };
       const context: ExecutionContext = {
@@ -971,7 +971,7 @@ echo "$1"`;
 
       // Assert
       expect(runningStatus.status).toBe('running');
-      expect(completedStatus.status).toBe('In Progress');
+      expect(completedStatus.status).toBe("completed");
     });
 
     test('should cancel active execution', async () => {

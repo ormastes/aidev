@@ -150,7 +150,7 @@ describe('Agent Workflow Integration', () => {
       await solver.initialize({});
       
       // Create agent nodes
-      const analyzerNode = new AgentNode('analyzer', analyzer, {
+      const analyzerNode = new AgentNode("analyzer", analyzer, {
         formatOutput: (output) => output.message.content
       });
       
@@ -164,11 +164,11 @@ describe('Agent Workflow Integration', () => {
       flow.addNode(analyzerNode);
       flow.addNode(solverNode);
       
-      flow.addEdge({ from: 'analyzer', to: 'solver' });
+      flow.addEdge({ from: "analyzer", to: 'solver' });
       
       const result = await flow.execute('Please analyze this math problem');
       
-      expect(result.outputs.get('analyzer')).toContain('question about math');
+      expect(result.outputs.get("analyzer")).toContain('question about math');
       expect(result.outputs.get('solver')).toBe('The answer is 42.');
     });
   });
@@ -210,7 +210,7 @@ describe('Agent Workflow Integration', () => {
       const memory = new ConversationMemory();
       
       const agent = new MockAgent();
-      agent.addResponse('remember', 'I will remember that information.');
+      agent.addResponse("remember", 'I will remember that information.');
       agent.addResponse('recall', 'I remember what you told me.');
       await agent.initialize({ memory });
       
@@ -219,9 +219,9 @@ describe('Agent Workflow Integration', () => {
         id: 'store',
         type: 'store',
         execute: async (_input: any) => {
-          await memory.store('messages', [
+          await memory.store("messages", [
             { role: 'user', content: 'Important fact: The sky is blue' },
-            { role: 'assistant', content: 'I have noted that fact.' }
+            { role: "assistant", content: 'I have noted that fact.' }
           ]);
           return { data: 'stored', "success": true };
         }

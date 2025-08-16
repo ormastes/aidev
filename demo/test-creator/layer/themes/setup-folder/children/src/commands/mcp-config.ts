@@ -1,6 +1,6 @@
-import { Command } from 'commander';
+import { Command } from "commander";
 import chalk from 'chalk';
-import { path } from '../../../../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import { MCPSetup } from '../setup/mcp-setup';
 
 export const mcpConfigCommand = new Command('mcp-config')

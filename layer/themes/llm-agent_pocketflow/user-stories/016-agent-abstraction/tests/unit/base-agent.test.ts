@@ -20,7 +20,7 @@ class TestAgent extends BaseAgent {
     
     return {
       message: {
-        role: 'assistant',
+        role: "assistant",
         content: 'Test response'
       },
       usage: {
@@ -44,14 +44,14 @@ class TestAgent extends BaseAgent {
   }
 }
 
-describe('BaseAgent', () => {
+describe("BaseAgent", () => {
   let agent: TestAgent;
 
   beforeEach(() => {
     agent = new TestAgent();
   });
 
-  describe('Lifecycle', () => {
+  describe("Lifecycle", () => {
     it('should initialize with config', async () => {
       const config: AgentConfig = {
         temperature: 0.7,
@@ -209,15 +209,15 @@ describe('BaseAgent with Tools', () => {
     protected async onProcess(input: AgentInput): Promise<AgentOutput> {
       // Return tool calls if asked about calculation
       const lastMessage = input.messages[input.messages.length - 1];
-      if (lastMessage.content.includes('calculate')) {
+      if (lastMessage.content.includes("calculate")) {
         return {
           message: {
-            role: 'assistant',
+            role: "assistant",
             content: 'I will calculate that for you.'
           },
           toolCalls: [{
             id: 'call_123',
-            name: 'calculator',
+            name: "calculator",
             arguments: { expression: '2 + 2' }
           }]
         };
@@ -225,7 +225,7 @@ describe('BaseAgent with Tools', () => {
 
       return {
         message: {
-          role: 'assistant',
+          role: "assistant",
           content: 'No calculation needed.'
         }
       };
@@ -240,7 +240,7 @@ describe('BaseAgent with Tools', () => {
     const agent = new ToolAgent();
     
     const calculator = {
-      name: 'calculator',
+      name: "calculator",
       description: 'Calculate math',
       parameters: { type: 'object' as const, properties: {} },
       execute: async (_args: any) => ({ result: 4 })

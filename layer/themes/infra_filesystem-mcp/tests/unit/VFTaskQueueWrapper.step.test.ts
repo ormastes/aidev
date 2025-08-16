@@ -46,30 +46,30 @@ describe('VFTaskQueueWrapper Step Execution', () => {
         steps: [
           {
             id: 'step-1',
-            type: 'runnable',
+            type: "runnable",
             priority: 'high',
-            content: { action: 'Initialize' },
+            content: { action: "Initialize" },
             status: 'pending',
             createdAt: new Date().toISOString(),
-            runnable: { type: 'function', function: 'init' }
+            runnable: { type: "function", function: 'init' }
           },
           {
             id: 'step-2',
-            type: 'runnable',
+            type: "runnable",
             priority: 'high',
             content: { action: 'Process' },
             status: 'pending',
             createdAt: new Date().toISOString(),
-            runnable: { type: 'function', function: 'process' }
+            runnable: { type: "function", function: 'process' }
           },
           {
             id: 'step-3',
-            type: 'runnable',
+            type: "runnable",
             priority: 'high',
-            content: { action: 'Finalize' },
+            content: { action: "Finalize" },
             status: 'pending',
             createdAt: new Date().toISOString(),
-            runnable: { type: 'function', function: 'finalize' }
+            runnable: { type: "function", function: "finalize" }
           }
         ]
       };
@@ -86,7 +86,7 @@ describe('VFTaskQueueWrapper Step Execution', () => {
       // Verify all steps are completed
       const queue = await wrapper.read(queueFile);
       const updatedTask = queue.items.find((t: Task) => t.id === 'main-task');
-      expect(updatedTask.steps?.every((s: Task) => s.status === 'completed')).toBe(true);
+      expect(updatedTask.steps?.every((s: Task) => s.status === "completed")).toBe(true);
     });
 
     it('should stop execution on step failure', async () => {
@@ -110,30 +110,30 @@ describe('VFTaskQueueWrapper Step Execution', () => {
         steps: [
           {
             id: 'step-1',
-            type: 'runnable',
+            type: "runnable",
             priority: 'high',
             content: { action: 'Start' },
             status: 'pending',
             createdAt: new Date().toISOString(),
-            runnable: { type: 'function', function: 'start' }
+            runnable: { type: "function", function: 'start' }
           },
           {
             id: 'step-2',
-            type: 'runnable',
+            type: "runnable",
             priority: 'high',
             content: { action: 'Fail' },
             status: 'pending',
             createdAt: new Date().toISOString(),
-            runnable: { type: 'function', function: 'fail' }
+            runnable: { type: "function", function: 'fail' }
           },
           {
             id: 'step-3',
-            type: 'runnable',
+            type: "runnable",
             priority: 'high',
             content: { action: 'Never reached' },
             status: 'pending',
             createdAt: new Date().toISOString(),
-            runnable: { type: 'function', function: 'unreachable' }
+            runnable: { type: "function", function: "unreachable" }
           }
         ]
       };
@@ -186,12 +186,12 @@ describe('VFTaskQueueWrapper Step Execution', () => {
         steps: [
           {
             id: 'step-1',
-            type: 'runnable',
+            type: "runnable",
             priority: 'high',
             content: { action: 'Execute' },
             status: 'pending',
             createdAt: new Date().toISOString(),
-            runnable: { type: 'function', function: 'exec' }
+            runnable: { type: "function", function: 'exec' }
           },
           {
             id: 'step-2',
@@ -203,12 +203,12 @@ describe('VFTaskQueueWrapper Step Execution', () => {
           },
           {
             id: 'step-3',
-            type: 'runnable',
+            type: "runnable",
             priority: 'high',
-            content: { action: 'Continue' },
+            content: { action: "Continue" },
             status: 'pending',
             createdAt: new Date().toISOString(),
-            runnable: { type: 'function', function: 'continue' }
+            runnable: { type: "function", function: "continue" }
           }
         ]
       };
@@ -246,12 +246,12 @@ describe('VFTaskQueueWrapper Step Execution', () => {
         steps: [
           {
             id: 'check-status',
-            type: 'runnable',
+            type: "runnable",
             priority: 'high',
             content: { action: 'Check' },
             status: 'pending',
             createdAt: new Date().toISOString(),
-            runnable: { type: 'function', function: 'check' }
+            runnable: { type: "function", function: 'check' }
           }
         ]
       };
@@ -263,10 +263,10 @@ describe('VFTaskQueueWrapper Step Execution', () => {
       // Step should be 'working' during execution
       expect(stepStatusDuringExecution).toBe('working');
       
-      // Step should be 'completed' after execution
+      // Step should be "completed" after execution
       const finalQueue = await wrapper.read(queueFile);
       const finalTask = finalQueue.items.find((t: Task) => t.id === 'status-task');
-      expect(finalTask?.steps?.[0].status).toBe('completed');
+      expect(finalTask?.steps?.[0].status).toBe("completed");
     });
 
     it('should handle steps with dependencies', async () => {
@@ -279,10 +279,10 @@ describe('VFTaskQueueWrapper Step Execution', () => {
           return { data: { value: 42 } };
         } else if (task.id === 'process-data') {
           const processedValue = (results['data']?.value || 0) * 2;
-          results['processed'] = processedValue;
+          results["processed"] = processedValue;
           return { processed: processedValue };
         } else if (task.id === 'save-result') {
-          return { saved: results['processed'] };
+          return { saved: results["processed"] };
         }
         return {};
       });
@@ -297,30 +297,30 @@ describe('VFTaskQueueWrapper Step Execution', () => {
         steps: [
           {
             id: 'fetch-data',
-            type: 'runnable',
+            type: "runnable",
             priority: 'high',
             content: { action: 'Fetch' },
             status: 'pending',
             createdAt: new Date().toISOString(),
-            runnable: { type: 'function', function: 'fetch' }
+            runnable: { type: "function", function: 'fetch' }
           },
           {
             id: 'process-data',
-            type: 'runnable',
+            type: "runnable",
             priority: 'high',
             content: { action: 'Process' },
             status: 'pending',
             createdAt: new Date().toISOString(),
-            runnable: { type: 'function', function: 'process' }
+            runnable: { type: "function", function: 'process' }
           },
           {
             id: 'save-result',
-            type: 'runnable',
+            type: "runnable",
             priority: 'high',
             content: { action: 'Save' },
             status: 'pending',
             createdAt: new Date().toISOString(),
-            runnable: { type: 'function', function: 'save' }
+            runnable: { type: "function", function: 'save' }
           }
         ]
       };
@@ -331,12 +331,12 @@ describe('VFTaskQueueWrapper Step Execution', () => {
       
       // Verify the chain of execution
       expect(results['data']).toEqual({ value: 42 });
-      expect(results['processed']).toBe(84);
+      expect(results["processed"]).toBe(84);
       
       // Verify all steps completed
       const queue = await wrapper.read(queueFile);
       const task = queue.items.find((t: Task) => t.id === 'dependent-task');
-      expect(task?.steps?.every((s: Task) => s.status === 'completed')).toBe(true);
+      expect(task?.steps?.every((s: Task) => s.status === "completed")).toBe(true);
     });
   });
 
@@ -357,12 +357,12 @@ describe('VFTaskQueueWrapper Step Execution', () => {
       const newSteps: Task[] = [
         {
           id: 'new-step-1',
-          type: 'runnable',
+          type: "runnable",
           priority: 'medium',
           content: { action: 'New action' },
           status: 'pending',
           createdAt: new Date().toISOString(),
-          runnable: { type: 'function', function: 'newAction' }
+          runnable: { type: "function", function: "newAction" }
         }
       ];
 
@@ -398,21 +398,21 @@ describe('VFTaskQueueWrapper Step Execution', () => {
             steps: [
               {
                 id: 'child-step-1',
-                type: 'runnable',
+                type: "runnable",
                 priority: 'high',
                 content: { action: 'Child 1' },
                 status: 'pending',
                 createdAt: new Date().toISOString(),
-                runnable: { type: 'function', function: 'child1' }
+                runnable: { type: "function", function: 'child1' }
               },
               {
                 id: 'child-step-2',
-                type: 'runnable',
+                type: "runnable",
                 priority: 'high',
                 content: { action: 'Child 2' },
                 status: 'pending',
                 createdAt: new Date().toISOString(),
-                runnable: { type: 'function', function: 'child2' }
+                runnable: { type: "function", function: 'child2' }
               }
             ]
           }

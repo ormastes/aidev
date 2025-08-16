@@ -1,5 +1,5 @@
 import { LogEntry } from '../../user-stories/001-basic-log-capture/src/external/external-log-lib';
-import { EventEmitter } from 'events';
+import { EventEmitter } from 'node:events';
 import { ChildProcess } from 'child_process';
 
 /**

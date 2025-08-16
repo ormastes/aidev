@@ -15,9 +15,9 @@ describe('HEA Architecture Theme', () => {
     it('should validate hierarchical structure', () => {
       // Test hierarchical layer validation
       const layers = [
-        { name: 'application', level: 1 },
+        { name: "application", level: 1 },
         { name: 'domain', level: 2 },
-        { name: 'external', level: 3 }
+        { name: "external", level: 3 }
       ];
       
       const isValidHierarchy = layers.every((layer, index) => {
@@ -31,26 +31,26 @@ describe('HEA Architecture Theme', () => {
       // Test encapsulation rules
       const encapsulationRules = {
         applicationCanAccess: ['domain'],
-        domainCanAccess: ['external'],
+        domainCanAccess: ["external"],
         externalCanAccess: []
       };
       
       expect(encapsulationRules.applicationCanAccess).toContain('domain');
-      expect(encapsulationRules.domainCanAccess).toContain('external');
+      expect(encapsulationRules.domainCanAccess).toContain("external");
       expect(encapsulationRules.externalCanAccess).toHaveLength(0);
     });
 
     it('should validate pipe communication', () => {
       // Test pipe-based communication
       const pipeInterface = {
-        input: 'standardized',
-        output: 'standardized',
-        crossLayerAccess: 'forbidden'
+        input: "standardized",
+        output: "standardized",
+        crossLayerAccess: "forbidden"
       };
       
-      expect(pipeInterface.input).toBe('standardized');
-      expect(pipeInterface.output).toBe('standardized');
-      expect(pipeInterface.crossLayerAccess).toBe('forbidden');
+      expect(pipeInterface.input).toBe("standardized");
+      expect(pipeInterface.output).toBe("standardized");
+      expect(pipeInterface.crossLayerAccess).toBe("forbidden");
     });
   });
 
@@ -71,8 +71,8 @@ describe('HEA Architecture Theme', () => {
 
     it('should detect circular dependencies', () => {
       const dependencies = [
-        { from: 'application', to: 'domain' },
-        { from: 'domain', to: 'external' }
+        { from: "application", to: 'domain' },
+        { from: 'domain', to: "external" }
       ];
       
       const hasCircularDependency = (deps: typeof dependencies) => {
@@ -92,9 +92,9 @@ describe('HEA Architecture Theme', () => {
 
     it('should validate module boundaries', () => {
       const modules = [
-        { name: 'user-auth', layer: 'application', dependencies: ['user-domain'] },
+        { name: 'user-auth', layer: "application", dependencies: ['user-domain'] },
         { name: 'user-domain', layer: 'domain', dependencies: ['user-repository'] },
-        { name: 'user-repository', layer: 'external', dependencies: [] }
+        { name: 'user-repository', layer: "external", dependencies: [] }
       ];
       
       const validBoundaries = modules.every(module => {
@@ -111,10 +111,10 @@ describe('HEA Architecture Theme', () => {
   describe('dependency management', () => {
     it('should track module dependencies', () => {
       const dependencyGraph = {
-        nodes: ['app', 'domain', 'external'],
+        nodes: ['app', 'domain', "external"],
         edges: [
           { from: 'app', to: 'domain' },
-          { from: 'domain', to: 'external' }
+          { from: 'domain', to: "external" }
         ]
       };
       
@@ -131,27 +131,27 @@ describe('HEA Architecture Theme', () => {
       const graph = {
         edges: [
           { from: 'app', to: 'domain' },
-          { from: 'domain', to: 'external' }
+          { from: 'domain', to: "external" }
         ]
       };
       
       expect(calculateDepth(graph, 'app')).toBe(2);
       expect(calculateDepth(graph, 'domain')).toBe(1);
-      expect(calculateDepth(graph, 'external')).toBe(0);
+      expect(calculateDepth(graph, "external")).toBe(0);
     });
   });
 
   describe('code generation', () => {
     it('should generate layer scaffolding', () => {
       const scaffoldConfig = {
-        layers: ['application', 'domain', 'external'],
+        layers: ["application", 'domain', "external"],
         generatePipe: true,
         generateTests: true
       };
       
-      expect(scaffoldConfig.layers).toContain('application');
+      expect(scaffoldConfig.layers).toContain("application");
       expect(scaffoldConfig.layers).toContain('domain');
-      expect(scaffoldConfig.layers).toContain('external');
+      expect(scaffoldConfig.layers).toContain("external");
       expect(scaffoldConfig.generatePipe).toBe(true);
       expect(scaffoldConfig.generateTests).toBe(true);
     });
@@ -204,15 +204,15 @@ describe('HEA Architecture Theme', () => {
       };
       
       expect(isValidModuleName('user-auth')).toBe(true);
-      expect(isValidModuleName('userAuth')).toBe(false);
+      expect(isValidModuleName("userAuth")).toBe(false);
       expect(isValidModuleName('User-Auth')).toBe(false);
     });
 
     it('should validate file organization', () => {
       const fileStructure = {
-        'src/application/': ['services', 'controllers'],
-        'src/domain/': ['entities', 'repositories'],
-        'src/external/': ['adapters', 'clients']
+        'src/application/': ["services", "controllers"],
+        'src/domain/': ["entities", "repositories"],
+        'src/external/': ["adapters", 'clients']
       };
       
       Object.keys(fileStructure).forEach(layer => {

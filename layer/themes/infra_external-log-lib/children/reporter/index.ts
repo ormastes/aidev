@@ -4,11 +4,11 @@
  */
 
 export type ReportFormat = 
-  | 'markdown'
+  | "markdown"
   | 'html'
   | 'json'
   | 'text'
-  | 'timeline'
+  | "timeline"
   | 'summary';
 
 export interface StoryEvent {
@@ -236,13 +236,13 @@ export class StoryReporter {
     }
 
     switch (options.format) {
-      case 'markdown':
+      case "markdown":
         return this.generateMarkdownReport(story, options);
       case 'html':
         return this.generateHTMLReport(story, options);
       case 'json':
         return this.generateJSONReport(story, options);
-      case 'timeline':
+      case "timeline":
         return this.generateTimelineReport(story, options);
       case 'summary':
         return this.generateSummaryReport(story, options);

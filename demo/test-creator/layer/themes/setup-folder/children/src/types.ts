@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export type DeploymentType = 'demo' | 'epic' | 'theme' | 'story' | 'release' | 'test';
 
-export const LanguageSchema = z.enum(['typescript', 'javascript', 'python']);
+export const LanguageSchema = z.enum(["typescript", "javascript", 'python']);
 export type Language = z.infer<typeof LanguageSchema>;
 
 export const ReleaseTypeSchema = z.enum(['web-server', 'mcp', 'cli', 'api', 'library']);

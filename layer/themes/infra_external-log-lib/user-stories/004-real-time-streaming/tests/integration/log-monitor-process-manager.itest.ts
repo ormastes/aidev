@@ -1,8 +1,8 @@
 import { LogMonitor } from '../../src/external/log-monitor';
 import { ProcessManager } from '../../src/external/process-manager';
 import { LogEntry } from '../../src/domain/log-entry';
-import * as path from 'path';
-import * as fs from 'fs';
+import * as path from 'node:path';
+import * as fs from 'node:fs';
 
 describe('LogMonitor and ProcessManager Coordination Integration Test', () => {
   let logMonitor: LogMonitor;
@@ -120,7 +120,7 @@ setTimeout(() => {
   
   if (errorType === 'throw') {
     throw new Error('Integration test error');
-  } else if (errorType === 'reference') {
+  } else if (errorType === "reference") {
     const obj = null;
     console.log(obj.property);
   } else if (errorType === 'exit') {
@@ -132,7 +132,7 @@ setTimeout(() => {
   }
 }, 200);
 
-process.on('uncaughtException', (error) => {
+process.on("uncaughtException", (error) => {
   console.error(\`UNCAUGHT: \${error.message}\`);
   process.exit(1);
 });
@@ -282,7 +282,7 @@ process.on('uncaughtException', (error) => {
 
     // Verify logs were captured before termination
     expect(logEntries.length).toBeGreaterThan(0);
-    expect(logEntries.some(entry => entry.message.includes('Integration'))).toBe(true);
+    expect(logEntries.some(entry => entry.message.includes("Integration"))).toBe(true);
   });
 
   it('should coordinate multiple process instances simultaneously', async () => {

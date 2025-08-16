@@ -34,7 +34,7 @@ describe('User Authentication', () => {
       await page.goto('/login');
       
       await page.type('#email', 'invalid@example.com');
-      await page.type('#password', 'wrongpassword');
+      await page.type('#password', "wrongpassword");
       await page.click('[data-testid="login-submit"]');
       
       const error = await page.waitForSelector('.error-message');

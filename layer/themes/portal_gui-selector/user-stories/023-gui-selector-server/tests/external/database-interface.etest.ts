@@ -11,7 +11,7 @@ interface ThemeData {
   id: string;
   name: string;
   description: string;
-  category: 'modern' | 'professional' | 'creative' | 'accessible';
+  category: 'modern' | "professional" | "creative" | "accessible";
   styles: Record<string, any>;
   metadata: {
     author: string;
@@ -51,14 +51,14 @@ interface SelectionData {
 
 interface DatabaseInterface {
   // Theme operations
-  createTheme(theme: Omit<ThemeData, 'createdAt' | 'updatedAt'>): Promise<ThemeData>;
+  createTheme(theme: Omit<ThemeData, "createdAt" | "updatedAt">): Promise<ThemeData>;
   getTheme(id: string): Promise<ThemeData | null>;
   updateTheme(id: string, updates: Partial<ThemeData>): Promise<ThemeData | null>;
   deleteTheme(id: string): Promise<boolean>;
   listThemes(category?: string): Promise<ThemeData[]>;
   
   // Screen operations
-  createScreen(screen: Omit<ScreenData, 'createdAt'>): Promise<ScreenData>;
+  createScreen(screen: Omit<ScreenData, "createdAt">): Promise<ScreenData>;
   getScreen(id: string): Promise<ScreenData | null>;
   updateScreen(id: string, updates: Partial<ScreenData>): Promise<ScreenData | null>;
   deleteScreen(id: string): Promise<boolean>;
@@ -71,7 +71,7 @@ interface DatabaseInterface {
   getScreenThemes(screenId: string): Promise<ThemeData[]>;
   
   // Selection operations
-  createSelection(selection: Omit<SelectionData, 'id' | 'createdAt' | 'updatedAt'>): Promise<SelectionData>;
+  createSelection(selection: Omit<SelectionData, 'id' | "createdAt" | "updatedAt">): Promise<SelectionData>;
   getSelection(id: string): Promise<SelectionData | null>;
   updateSelection(id: string, updates: Partial<SelectionData>): Promise<SelectionData | null>;
   deleteSelection(id: string): Promise<boolean>;
@@ -103,7 +103,7 @@ class MockDatabase implements DatabaseInterface {
   }
 
   // Theme operations
-  async createTheme(theme: Omit<ThemeData, 'createdAt' | 'updatedAt'>): Promise<ThemeData> {
+  async createTheme(theme: Omit<ThemeData, "createdAt" | "updatedAt">): Promise<ThemeData> {
     const now = new Date();
     const newTheme: ThemeData = {
       ...theme,
@@ -150,7 +150,7 @@ class MockDatabase implements DatabaseInterface {
   }
 
   // Screen operations
-  async createScreen(screen: Omit<ScreenData, 'createdAt'>): Promise<ScreenData> {
+  async createScreen(screen: Omit<ScreenData, "createdAt">): Promise<ScreenData> {
     const newScreen: ScreenData = {
       ...screen,
       createdAt: new Date()
@@ -239,7 +239,7 @@ class MockDatabase implements DatabaseInterface {
   }
 
   // Selection operations
-  async createSelection(selection: Omit<SelectionData, 'id' | 'createdAt' | 'updatedAt'>): Promise<SelectionData> {
+  async createSelection(selection: Omit<SelectionData, 'id' | "createdAt" | "updatedAt">): Promise<SelectionData> {
     const now = new Date();
     const newSelection: SelectionData = {
       ...selection,
@@ -352,7 +352,7 @@ describe('Database External Interface Test', () => {
           author: 'Design Team',
           version: '1.0.0',
           lastUpdated: '2024-01-15',
-          tags: ['dashboard', 'modern', 'clean']
+          tags: ["dashboard", 'modern', 'clean']
         }
       };
       
@@ -371,7 +371,7 @@ describe('Database External Interface Test', () => {
         id: 'test-theme',
         name: 'Test Theme',
         description: 'A test theme',
-        category: 'professional',
+        category: "professional",
         styles: {},
         metadata: {
           author: 'Test',
@@ -399,7 +399,7 @@ describe('Database External Interface Test', () => {
           author: 'Original Author',
           version: '1.0.0',
           lastUpdated: '2024-01-01',
-          tags: ['original']
+          tags: ["original"]
         }
       });
       
@@ -425,7 +425,7 @@ describe('Database External Interface Test', () => {
         id: 'delete-theme',
         name: 'Delete Me',
         description: 'Theme to be deleted',
-        category: 'creative',
+        category: "creative",
         styles: {},
         metadata: {
           author: 'Test',
@@ -465,7 +465,7 @@ describe('Database External Interface Test', () => {
         id: 'professional-1',
         name: 'Professional Theme',
         description: 'Professional theme',
-        category: 'professional',
+        category: "professional",
         styles: {},
         metadata: { author: 'Test', version: '1.0.0', lastUpdated: '2024-01-01', tags: [] }
       });
@@ -612,7 +612,7 @@ describe('Database External Interface Test', () => {
         id: 'theme-2',
         name: 'Theme Two',
         description: 'Second theme',
-        category: 'professional',
+        category: "professional",
         styles: {},
         metadata: { author: 'Test', version: '1.0.0', lastUpdated: '2024-01-01', tags: [] }
       });
@@ -800,7 +800,7 @@ describe('Database External Interface Test', () => {
           id: 'concurrent-2',
           name: 'Concurrent Theme 2',
           description: 'Second concurrent theme',
-          category: 'professional',
+          category: "professional",
           styles: {},
           metadata: { author: 'Test', version: '1.0.0', lastUpdated: '2024-01-01', tags: [] }
         }),
@@ -836,7 +836,7 @@ describe('Database External Interface Test', () => {
           id: `bulk-theme-${i}`,
           name: `Bulk Theme ${i}`,
           description: `Generated theme ${i}`,
-          category: ['modern', 'professional', 'creative', 'accessible'][i % 4] as any,
+          category: ['modern', "professional", "creative", "accessible"][i % 4] as any,
           styles: { index: i },
           metadata: {
             author: 'Bulk Creator',
@@ -852,7 +852,7 @@ describe('Database External Interface Test', () => {
       const endTime = Date.now();
       const duration = endTime - startTime;
       
-      // Should In Progress bulk operations reasonably quickly
+      // Should complete bulk operations reasonably quickly
       expect(duration).toBeLessThan(1000); // Under 1 second
       
       const allThemes = await database.listThemes();

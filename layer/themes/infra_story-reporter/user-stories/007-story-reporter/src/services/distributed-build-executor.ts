@@ -1,7 +1,8 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { fileAPI } from '../utils/file-api';
+import { EventEmitter } from 'node:events';
 import { spawn, ChildProcess } from 'child_process';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join } from 'path';
+import { fsPromises as fs } from 'fs/promises';
+import { join } from 'node:path';
 import {
   HierarchicalBuildConfig,
   HierarchicalBuildResult,
@@ -58,7 +59,7 @@ export class DistributedBuildExecutor extends EventEmitter {
     
     this.buildResults.set(config.testSuiteId, result);
     
-    this.emit('buildStart', {
+    this.emit("buildStart", {
       buildId: config.testSuiteId,
       buildType: config.buildType,
       parentId: config.parentId,
@@ -97,7 +98,7 @@ export class DistributedBuildExecutor extends EventEmitter {
         phase: 'build'
       };
       
-      this.emit('buildError', {
+      this.emit("buildError", {
         buildId: config.testSuiteId,
         error: result.error,
         timestamp: new Date()
@@ -106,7 +107,7 @@ export class DistributedBuildExecutor extends EventEmitter {
       result.endTime = new Date();
       result.duration = result.endTime.getTime() - startTime.getTime();
       
-      this.emit('buildComplete', {
+      this.emit("buildComplete", {
         buildId: config.testSuiteId,
         status: result.status,
         duration: result.duration,
@@ -179,7 +180,7 @@ export class DistributedBuildExecutor extends EventEmitter {
   ): Promise<void> {
     const { buildCommand, workingDirectory = './', env = {} } = config.buildSettings!;
     
-    this.emit('commandStart', {
+    this.emit("commandStart", {
       buildId: config.testSuiteId,
       command: buildCommand,
       type: 'build',
@@ -194,7 +195,7 @@ export class DistributedBuildExecutor extends EventEmitter {
       'build'
     );
     
-    this.emit('commandComplete', {
+    this.emit("commandComplete", {
       buildId: config.testSuiteId,
       command: buildCommand,
       type: 'build',
@@ -211,7 +212,7 @@ export class DistributedBuildExecutor extends EventEmitter {
   ): Promise<void> {
     const { testCommand, workingDirectory = './', env = {} } = config.buildSettings!;
     
-    this.emit('commandStart', {
+    this.emit("commandStart", {
       buildId: config.testSuiteId,
       command: testCommand,
       type: 'test',
@@ -232,7 +233,7 @@ export class DistributedBuildExecutor extends EventEmitter {
     // Parse coverage if available
     result.coverage = this.parseCoverageResults(workingDirectory);
     
-    this.emit('commandComplete', {
+    this.emit("commandComplete", {
       buildId: config.testSuiteId,
       command: testCommand,
       type: 'test',
@@ -268,7 +269,7 @@ export class DistributedBuildExecutor extends EventEmitter {
         const message = data.toString();
         stdout += message;
         
-        this.emit('buildLog', {
+        this.emit("buildLog", {
           buildId,
           level: 'info',
           message: message.trim(),
@@ -281,7 +282,7 @@ export class DistributedBuildExecutor extends EventEmitter {
         const message = data.toString();
         stderr += message;
         
-        this.emit('buildLog', {
+        this.emit("buildLog", {
           buildId,
           level: 'error',
           message: message.trim(),
@@ -310,7 +311,7 @@ export class DistributedBuildExecutor extends EventEmitter {
   /**
    * Parse test results from command output
    */
-  private parseTestResults(output: string): HierarchicalBuildResult['testResults'] {
+  private parseTestResults(output: string): HierarchicalBuildResult["testResults"] {
     // This is a simplified parser - in real implementation would parse actual test output format
     const lines = output.split('\n');
     const summary = {
@@ -350,7 +351,7 @@ export class DistributedBuildExecutor extends EventEmitter {
   /**
    * Parse coverage results from coverage files
    */
-  private parseCoverageResults(workingDirectory: string): HierarchicalBuildResult['coverage'] {
+  private parseCoverageResults(workingDirectory: string): HierarchicalBuildResult["coverage"] {
     // This would parse actual coverage files (lcov, json, etc.)
     // For now, return a placeholder
     return {
@@ -385,7 +386,7 @@ export class DistributedBuildExecutor extends EventEmitter {
         const files = await this.globFiles(join(workingDirectory, pattern));
         
         for (const file of files) {
-          if (file.includes('coverage') && artifacts.includeCoverage) {
+          if (file.includes("coverage") && artifacts.includeCoverage) {
             result.artifacts.coverage.push(file);
           } else if (file.includes('report') && artifacts.includeReports) {
             result.artifacts.reports.push(file);
@@ -404,7 +405,7 @@ export class DistributedBuildExecutor extends EventEmitter {
       }
     }
     
-    this.emit('artifactsCollected', {
+    this.emit("artifactsCollected", {
       buildId: config.testSuiteId,
       artifacts: result.artifacts,
       timestamp: new Date()
@@ -470,7 +471,7 @@ export class DistributedBuildExecutor extends EventEmitter {
     }
     
     // Check child results based on failure handling
-    const { failureHandling = 'continue' } = config.aggregation || {};
+    const { failureHandling = "continue" } = config.aggregation || {};
     
     if (failureHandling !== 'ignore-children') {
       const failedChildren = result.children.filter(c => c.status === 'failed');
@@ -499,7 +500,7 @@ export class DistributedBuildExecutor extends EventEmitter {
   private aggregateChildResults(result: HierarchicalBuildResult): void {
     if (result.children.length === 0) return;
     
-    const aggregated: HierarchicalBuildResult['aggregated'] = {
+    const aggregated: HierarchicalBuildResult["aggregated"] = {
       testResults: {
         total: 0,
         passed: 0,
@@ -530,7 +531,7 @@ export class DistributedBuildExecutor extends EventEmitter {
       const childCoverage = child.aggregated?.coverage || child.coverage;
       if (childCoverage) {
         // Sum totals and covered for each metric
-        for (const metric of ['lines', 'branches', 'functions', 'statements'] as const) {
+        for (const metric of ['lines', "branches", "functions", "statements"] as const) {
           aggregated.coverage![metric].total += childCoverage[metric].total;
           aggregated.coverage![metric].covered += childCoverage[metric].covered;
         }
@@ -538,7 +539,7 @@ export class DistributedBuildExecutor extends EventEmitter {
     }
     
     // Calculate coverage percentages
-    for (const metric of ['lines', 'branches', 'functions', 'statements'] as const) {
+    for (const metric of ['lines', "branches", "functions", "statements"] as const) {
       const { total, covered } = aggregated.coverage![metric];
       aggregated.coverage![metric].percentage = total > 0 ? (covered / total) * 100 : 0;
     }
@@ -554,7 +555,7 @@ export class DistributedBuildExecutor extends EventEmitter {
     
     for (const [buildId, child] of this.activeBuilds) {
       child.kill('SIGTERM');
-      this.emit('buildCancelled', {
+      this.emit("buildCancelled", {
         buildId,
         timestamp: new Date()
       });

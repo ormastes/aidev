@@ -21,7 +21,7 @@ export interface ServiceConfig {
 }
 
 export interface DatabaseConfig {
-  type: 'postgresql' | 'sqlite';
+  type: "postgresql" | 'sqlite';
   host?: string;
   port?: number;
   database: string;
@@ -30,7 +30,7 @@ export interface DatabaseConfig {
 }
 
 export interface EnvGeneratorConfig {
-  environment: 'development' | 'test' | 'release' | 'theme' | 'demo' | 'epic';
+  environment: "development" | 'test' | 'release' | 'theme' | 'demo' | 'epic';
   serviceName: string;
   servicePort: number;
   databaseConfig?: DatabaseConfig;

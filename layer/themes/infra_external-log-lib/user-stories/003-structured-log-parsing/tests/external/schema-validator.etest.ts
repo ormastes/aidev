@@ -8,10 +8,10 @@ describe('Log Schema Validator External Test', () => {
     validator = new LogSchemaValidator();
   });
 
-  describe('defineSchema', () => {
+  describe("defineSchema", () => {
     it('should define a basic schema', () => {
       const schema: LogSchema = {
-        required: ['timestamp', 'level', 'message'],
+        required: ["timestamp", 'level', 'message'],
         properties: {
           timestamp: { type: 'date' },
           level: { type: 'string', enum: ['debug', 'info', 'warn', 'error'] },
@@ -25,7 +25,7 @@ describe('Log Schema Validator External Test', () => {
 
     it('should define schema with nested properties', () => {
       const schema: LogSchema = {
-        required: ['timestamp', 'level'],
+        required: ["timestamp", 'level'],
         properties: {
           timestamp: { type: 'date' },
           level: { type: 'string' },
@@ -44,10 +44,10 @@ describe('Log Schema Validator External Test', () => {
     });
   });
 
-  describe('validate', () => {
+  describe("validate", () => {
     it('should validate a log entry against schema', () => {
       const schema: LogSchema = {
-        required: ['timestamp', 'level', 'message'],
+        required: ["timestamp", 'level', 'message'],
         properties: {
           timestamp: { type: 'date' },
           level: { type: 'string', enum: ['debug', 'info', 'warn', 'error'] },
@@ -71,7 +71,7 @@ describe('Log Schema Validator External Test', () => {
 
     it('should detect missing required fields', () => {
       const schema: LogSchema = {
-        required: ['timestamp', 'level', 'message'],
+        required: ["timestamp", 'level', 'message'],
         properties: {
           timestamp: { type: 'date' },
           level: { type: 'string' },
@@ -319,7 +319,7 @@ describe('Log Schema Validator External Test', () => {
     });
   });
 
-  describe('validateBatch', () => {
+  describe("validateBatch", () => {
     it('should validate multiple log entries', () => {
       const schema: LogSchema = {
         required: ['level'],
@@ -347,10 +347,10 @@ describe('Log Schema Validator External Test', () => {
     });
   });
 
-  describe('createValidationError', () => {
+  describe("createValidationError", () => {
     it('should create formatted validation error for invalid log', () => {
       const schema: LogSchema = {
-        required: ['timestamp', 'level', 'message'],
+        required: ["timestamp", 'level', 'message'],
         properties: {
           timestamp: { type: 'date' },
           level: { type: 'string', enum: ['debug', 'info', 'warn', 'error'] },
@@ -372,7 +372,7 @@ describe('Log Schema Validator External Test', () => {
         timestamp: expect.any(Date),
         level: 'error',
         message: expect.stringContaining('Invalid log format:'),
-        source: 'validation' as any,
+        source: "validation" as any,
         metadata: {
           validationErrors: expect.arrayContaining([
             'Field "timestamp" must be a valid date',

@@ -5,7 +5,7 @@ export class EnvironmentPresets {
     // PotonMock environment - Heavy CPU and cross-compilation setup
     'poton-mock': (): BuildEnvironment => ({
       name: 'poton-mock',
-      type: 'container',
+      type: "container",
       architecture: {
         arch: 'x86_64',
         bits: 64,
@@ -74,7 +74,7 @@ export class EnvironmentPresets {
           location: 'https://gitlab.com/libeigen/eigen.git'
         },
         {
-          name: 'protobuf',
+          name: "protobuf",
           version: '3.21.0',
           type: 'source',
           location: 'https://github.com/protocolbuffers/protobuf.git',
@@ -84,8 +84,8 @@ export class EnvironmentPresets {
       environment: {
         'CC': 'gcc-12',
         'CXX': 'g++-12',
-        'MAKEFLAGS': '-j32',
-        'CXXFLAGS': '-std=c++20',
+        "MAKEFLAGS": '-j32',
+        "CXXFLAGS": '-std=c++20',
         'LD_LIBRARY_PATH': '/usr/local/lib:/opt/poton/lib',
         'PKG_CONFIG_PATH': '/usr/local/lib/pkgconfig:/opt/poton/lib/pkgconfig'
       },
@@ -163,7 +163,7 @@ export class EnvironmentPresets {
           location: 'https://github.com/ARM-software/CMSIS_5.git'
         },
         {
-          name: 'freertos',
+          name: "freertos",
           version: '10.5.1',
           type: 'source',
           location: 'https://github.com/FreeRTOS/FreeRTOS-Kernel.git'
@@ -244,7 +244,7 @@ export class EnvironmentPresets {
     // Android development
     'android-ndk': (): BuildEnvironment => ({
       name: 'android-ndk',
-      type: 'container',
+      type: "container",
       architecture: {
         arch: 'aarch64',
         bits: 64,
@@ -304,7 +304,7 @@ export class EnvironmentPresets {
     // WebAssembly with Emscripten
     'wasm-emscripten': (): BuildEnvironment => ({
       name: 'wasm-emscripten',
-      type: 'container',
+      type: "container",
       architecture: {
         arch: 'x86_64',
         bits: 32,
@@ -341,7 +341,7 @@ export class EnvironmentPresets {
       },
       dependencies: [
         {
-          name: 'emscripten',
+          name: "emscripten",
           version: '3.1.47',
           type: 'binary',
           location: 'https://github.com/emscripten-core/emsdk.git',
@@ -409,7 +409,7 @@ export class EnvironmentPresets {
     // Windows MinGW cross-compilation
     'windows-mingw': (): BuildEnvironment => ({
       name: 'windows-mingw',
-      type: 'container',
+      type: "container",
       architecture: {
         arch: 'x86_64',
         bits: 64,
@@ -466,7 +466,7 @@ export class EnvironmentPresets {
     // macOS cross-compilation with osxcross
     'macos-cross': (): BuildEnvironment => ({
       name: 'macos-cross',
-      type: 'container',
+      type: "container",
       architecture: {
         arch: 'x86_64',
         bits: 64,
@@ -488,7 +488,7 @@ export class EnvironmentPresets {
           warnings: ['-Wall', '-Wextra'],
           includes: [],
           defines: ['__APPLE__', 'TARGET_OS_MAC'],
-          linkFlags: ['-framework', 'Foundation', '-framework', 'CoreFoundation']
+          linkFlags: ['-framework', "Foundation", '-framework', "CoreFoundation"]
         },
         crossCompile: {
           prefix: 'x86_64-apple-darwin21.4-',
@@ -509,7 +509,7 @@ export class EnvironmentPresets {
       },
       dependencies: [
         {
-          name: 'osxcross',
+          name: "osxcross",
           version: 'latest',
           type: 'binary',
           location: 'https://github.com/tpoechtrager/osxcross.git'
@@ -524,7 +524,7 @@ export class EnvironmentPresets {
     // Minimal container environment
     'minimal-alpine': (): BuildEnvironment => ({
       name: 'minimal-alpine',
-      type: 'container',
+      type: "container",
       architecture: {
         arch: 'x86_64',
         bits: 64,
@@ -619,7 +619,7 @@ export class EnvironmentPresets {
           type: 'system'
         },
         {
-          name: 'valgrind',
+          name: "valgrind",
           version: '3.19+',
           type: 'system'
         },

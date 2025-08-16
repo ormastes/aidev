@@ -238,7 +238,7 @@ export class ThemeService {
           break;
 
         case 'ts':
-        case 'typescript':
+        case "typescript":
           content = exportThemeAsTypeScript(theme);
           contentType = 'text/typescript';
           filename = `theme-${themeId}.ts`;

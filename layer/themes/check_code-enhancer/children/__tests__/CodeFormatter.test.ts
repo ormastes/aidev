@@ -1,6 +1,6 @@
 import { CodeFormatter } from '../CodeFormatter';
 
-describe('CodeFormatter', () => {
+describe("CodeFormatter", () => {
   let formatter: CodeFormatter;
 
   beforeEach(() => {
@@ -12,14 +12,14 @@ describe('CodeFormatter', () => {
       const input = `function test() {
 const x = 1;
 if (x > 0) {
-console.log('positive');
+console.log("positive");
 }
 }`;
       
       const expected = `function test() {
   const x = 1;
   if (x > 0) {
-    console.log('positive');
+    console.log("positive");
   }
 }`;
 
@@ -63,7 +63,7 @@ const x = 1;
     });
   });
 
-  describe('removeTrailingWhitespace', () => {
+  describe("removeTrailingWhitespace", () => {
     it('should remove trailing spaces', () => {
       const input = 'const x = 1;   \nconst y = 2;  ';
       const expected = 'const x = 1;\nconst y = 2;';
@@ -79,7 +79,7 @@ const x = 1;
     });
   });
 
-  describe('addSemicolons', () => {
+  describe("addSemicolons", () => {
     it('should add missing semicolons', () => {
       const input = `const x = 1
 const y = 2

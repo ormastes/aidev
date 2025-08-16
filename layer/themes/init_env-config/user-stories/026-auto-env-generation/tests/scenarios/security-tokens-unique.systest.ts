@@ -24,7 +24,7 @@ describe('Scenario: Security tokens are generated uniquely per environment', () 
   it('should generate different tokens for different environments', async () => {
     // Given: Same service in different environments
     const devConfig: EnvGeneratorConfig = {
-      environment: 'development',
+      environment: "development",
       serviceName: 'api-service',
       servicePort: 3000
     };
@@ -82,19 +82,19 @@ describe('Scenario: Security tokens are generated uniquely per environment', () 
   it('should generate different tokens for different services in same environment', async () => {
     // Given: Different services in the same environment
     const authConfig: EnvGeneratorConfig = {
-      environment: 'development',
+      environment: "development",
       serviceName: 'auth-service',
       servicePort: 4000
     };
     
     const userConfig: EnvGeneratorConfig = {
-      environment: 'development',
+      environment: "development",
       serviceName: 'user-service',
       servicePort: 4001
     };
     
     const apiConfig: EnvGeneratorConfig = {
-      environment: 'development',
+      environment: "development",
       serviceName: 'api-service',
       servicePort: 4002
     };
@@ -117,7 +117,7 @@ describe('Scenario: Security tokens are generated uniquely per environment', () 
   it('should maintain token format and strength requirements', async () => {
     // Given: Multiple environment configurations
     const configs: EnvGeneratorConfig[] = [
-      { environment: 'development', serviceName: 'service-1', servicePort: 3001 },
+      { environment: "development", serviceName: 'service-1', servicePort: 3001 },
       { environment: 'test', serviceName: 'service-2', servicePort: 3002 },
       { environment: 'release', serviceName: 'service-3', servicePort: 3003 },
       { environment: 'theme', serviceName: 'service-4', servicePort: 3004 },
@@ -150,7 +150,7 @@ describe('Scenario: Security tokens are generated uniquely per environment', () 
   it('should generate unique tokens even when called rapidly', async () => {
     // Given: Same configuration
     const config: EnvGeneratorConfig = {
-      environment: 'development',
+      environment: "development",
       serviceName: 'rapid-service',
       servicePort: 5000
     };
@@ -178,7 +178,7 @@ describe('Scenario: Security tokens are generated uniquely per environment', () 
   it('should mark security tokens as secret in metadata', async () => {
     // Given: Any configuration
     const config: EnvGeneratorConfig = {
-      environment: 'development',
+      environment: "development",
       serviceName: 'metadata-test',
       servicePort: 6000
     };
@@ -206,7 +206,7 @@ describe('Scenario: Security tokens are generated uniquely per environment', () 
   it('should include appropriate security token descriptions', async () => {
     // Given: Any configuration
     const config: EnvGeneratorConfig = {
-      environment: 'development',
+      environment: "development",
       serviceName: 'description-test',
       servicePort: 7000
     };
@@ -227,7 +227,7 @@ describe('Scenario: Security tokens are generated uniquely per environment', () 
   it('should handle custom security tokens alongside generated ones', async () => {
     // Given: Configuration with custom security tokens
     const config: EnvGeneratorConfig = {
-      environment: 'development',
+      environment: "development",
       serviceName: 'custom-security',
       servicePort: 8000,
       additionalVariables: [
@@ -279,7 +279,7 @@ describe('Scenario: Security tokens are generated uniquely per environment', () 
     
     // When: Generating env file
     const config: EnvGeneratorConfig = {
-      environment: 'development',
+      environment: "development",
       serviceName: 'token-service-test',
       servicePort: 9000
     };

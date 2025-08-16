@@ -17,7 +17,7 @@ export interface EpicMetadata {
   themeId: string;
   name: string;
   description?: string;
-  status: 'planning' | 'in_progress' | 'completed';
+  status: "planning" | 'in_progress' | "completed";
   createdAt: string;
   updatedAt: string;
 }
@@ -28,7 +28,7 @@ export interface AppMetadata {
   themeId: string;
   name: string;
   version: string;
-  environment: 'development' | 'staging' | 'production';
+  environment: "development" | 'staging' | "production";
   createdAt: string;
   updatedAt: string;
 }
@@ -76,7 +76,7 @@ export class VFThemeStorageWrapper {
       'gui_selector',
       'story_reports',
       'test_manual',
-      'security',
+      "security",
       'security/audit_logs'
     ];
 
@@ -118,7 +118,7 @@ export class VFThemeStorageWrapper {
   }
 
   // Theme Management
-  async createTheme(theme: Omit<ThemeMetadata, 'id' | 'createdAt' | 'updatedAt'>): Promise<ThemeMetadata> {
+  async createTheme(theme: Omit<ThemeMetadata, 'id' | "createdAt" | "updatedAt">): Promise<ThemeMetadata> {
     if (!this.checkPermission('theme', 'create')) {
       throw new Error('Insufficient permissions to create theme');
     }
@@ -155,13 +155,13 @@ export class VFThemeStorageWrapper {
       return null;
     }
 
-    const themeData = JSON.parse(fs.readFileSync(metadataPath, 'utf-8'));
+    const themeData = JSON.parse(fileAPI.readFileSync(metadataPath, 'utf-8'));
     this.auditLog('theme_accessed', { themeId });
     return themeData;
   }
 
   // Epic Management with Theme Isolation
-  async createEpic(epic: Omit<EpicMetadata, 'id' | 'createdAt' | 'updatedAt'>): Promise<EpicMetadata> {
+  async createEpic(epic: Omit<EpicMetadata, 'id' | "createdAt" | "updatedAt">): Promise<EpicMetadata> {
     if (!this.checkPermission('epic', 'create')) {
       throw new Error('Insufficient permissions to create epic');
     }
@@ -195,7 +195,7 @@ export class VFThemeStorageWrapper {
   }
 
   // App Management with Epic/Theme Isolation
-  async createApp(app: Omit<AppMetadata, 'id' | 'createdAt' | 'updatedAt'>): Promise<AppMetadata> {
+  async createApp(app: Omit<AppMetadata, 'id' | "createdAt" | "updatedAt">): Promise<AppMetadata> {
     if (!this.checkPermission('app', 'create')) {
       throw new Error('Insufficient permissions to create app');
     }
@@ -211,7 +211,7 @@ export class VFThemeStorageWrapper {
     await fileAPI.createDirectory(appPath);
 
     // Create app-specific storage directories
-    ['gui_selector', 'story_reports', 'test_manual', 'builds', 'deployments'].forEach(dir => {
+    ['gui_selector', 'story_reports', 'test_manual', 'builds', "deployments"].forEach(dir => {
       await fileAPI.createDirectory(path.join(appPath), { recursive: true });
     });
 
@@ -275,7 +275,7 @@ export class VFThemeStorageWrapper {
     const files = fs.readdirSync(storagePath)
       .filter(file => file.endsWith('.json'))
       .map(file => {
-        const content = fs.readFileSync(path.join(storagePath, file), 'utf-8');
+        const content = fileAPI.readFileSync(path.join(storagePath, file), 'utf-8');
         return JSON.parse(content) as StorageLayer;
       });
 

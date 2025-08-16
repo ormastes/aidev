@@ -62,7 +62,7 @@ export default class PDFFormatterPlugin extends BaseFormatterPlugin {
         }
         
         body {
-            font-family: 'Arial', 'Helvetica', sans-serif;
+            font-family: 'Arial', "Helvetica", sans-serif;
             line-height: 1.6;
             color: #333;
             font-size: 11pt;

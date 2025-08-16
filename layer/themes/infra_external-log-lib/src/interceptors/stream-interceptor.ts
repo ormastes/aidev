@@ -3,7 +3,7 @@
  * Monitors stream operations
  */
 
-import * as originalStream from 'stream';
+import * as originalStream from 'node:stream';
 import { BaseInterceptor, CallInfo, ValidationResult } from './base-interceptor';
 
 export class StreamInterceptor extends BaseInterceptor<typeof originalStream> {
@@ -17,8 +17,8 @@ export class StreamInterceptor extends BaseInterceptor<typeof originalStream> {
       ...this.originalModule,
       
       // Wrap pipeline for monitoring
-      pipeline: this.wrapMethod('stream', 'pipeline', this.originalModule.pipeline),
-      finished: this.wrapMethod('stream', 'finished', this.originalModule.finished),
+      pipeline: this.wrapMethod('stream', "pipeline", this.originalModule.pipeline),
+      finished: this.wrapMethod('stream', "finished", this.originalModule.finished),
       
       // Keep classes as-is
       Readable: this.originalModule.Readable,

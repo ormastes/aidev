@@ -36,10 +36,10 @@ describe('Bypass Build Configuration', () => {
     describe('Config class - buildBeforeTest', () => {
         test('should default buildBeforeTest to true', () => {
             mockGetConfiguration.mockReturnValue(new Map([
-                ['pythonExePath', 'python3'],
-                ['buildDirectory', '/test/build'],
-                ['srcDirectory', '/test/src'],
-                ['useCmakeTarget', false],
+                ["pythonExePath", 'python3'],
+                ["buildDirectory", '/test/build'],
+                ["srcDirectory", '/test/src'],
+                ["useCmakeTarget", false],
                 // buildBeforeTest not set - should default to true
             ]));
 
@@ -50,11 +50,11 @@ describe('Bypass Build Configuration', () => {
 
         test('should respect buildBeforeTest configuration when set to false', () => {
             mockGetConfiguration.mockReturnValue(new Map([
-                ['pythonExePath', 'python3'],
-                ['buildDirectory', '/test/build'],
-                ['srcDirectory', '/test/src'],
-                ['useCmakeTarget', false],
-                ['buildBeforeTest', false],
+                ["pythonExePath", 'python3'],
+                ["buildDirectory", '/test/build'],
+                ["srcDirectory", '/test/src'],
+                ["useCmakeTarget", false],
+                ["buildBeforeTest", false],
             ]));
 
             const config = new Config(mockContext, mockWorkspaceFolder, jest.fn(), false);
@@ -64,11 +64,11 @@ describe('Bypass Build Configuration', () => {
 
         test('should respect buildBeforeTest configuration when explicitly set to true', () => {
             mockGetConfiguration.mockReturnValue(new Map([
-                ['pythonExePath', 'python3'],
-                ['buildDirectory', '/test/build'],
-                ['srcDirectory', '/test/src'],
-                ['useCmakeTarget', false],
-                ['buildBeforeTest', true],
+                ["pythonExePath", 'python3'],
+                ["buildDirectory", '/test/build'],
+                ["srcDirectory", '/test/src'],
+                ["useCmakeTarget", false],
+                ["buildBeforeTest", true],
             ]));
 
             const config = new Config(mockContext, mockWorkspaceFolder, jest.fn(), false);
@@ -80,10 +80,10 @@ describe('Bypass Build Configuration', () => {
     describe('ExeConfig class - exe_buildBeforeTest', () => {
         test('should default exe_buildBeforeTest to true', () => {
             mockGetConfiguration.mockReturnValue(new Map([
-                ['pythonExePath', 'python3'],
-                ['buildDirectory', '/test/build'],
-                ['srcDirectory', '/test/src'],
-                ['useCmakeTarget', false],
+                ["pythonExePath", 'python3'],
+                ["buildDirectory", '/test/build'],
+                ["srcDirectory", '/test/src'],
+                ["useCmakeTarget", false],
                 ['exe_executable', '/test/build/test_exe'],
                 // exe_buildBeforeTest not set - should default to true
             ]));
@@ -95,10 +95,10 @@ describe('Bypass Build Configuration', () => {
 
         test('should respect exe_buildBeforeTest configuration when set to false', () => {
             mockGetConfiguration.mockReturnValue(new Map([
-                ['pythonExePath', 'python3'],
-                ['buildDirectory', '/test/build'],
-                ['srcDirectory', '/test/src'],
-                ['useCmakeTarget', false],
+                ["pythonExePath", 'python3'],
+                ["buildDirectory", '/test/build'],
+                ["srcDirectory", '/test/src'],
+                ["useCmakeTarget", false],
                 ['exe_executable', '/test/build/test_exe'],
                 ['exe_buildBeforeTest', false],
             ]));
@@ -112,10 +112,10 @@ describe('Bypass Build Configuration', () => {
     describe('BinConfig class - bin_buildBeforeTest', () => {
         test('should default bin_buildBeforeTest to true', () => {
             mockGetConfiguration.mockReturnValue(new Map([
-                ['pythonExePath', 'python3'],
-                ['buildDirectory', '/test/build'],
-                ['srcDirectory', '/test/src'],
-                ['useCmakeTarget', false],
+                ["pythonExePath", 'python3'],
+                ["buildDirectory", '/test/build'],
+                ["srcDirectory", '/test/src'],
+                ["useCmakeTarget", false],
                 ['bin_executable', '/test/build/test_bin'],
                 // bin_buildBeforeTest not set - should default to true
             ]));
@@ -127,10 +127,10 @@ describe('Bypass Build Configuration', () => {
 
         test('should respect bin_buildBeforeTest configuration when set to false', () => {
             mockGetConfiguration.mockReturnValue(new Map([
-                ['pythonExePath', 'python3'],
-                ['buildDirectory', '/test/build'],
-                ['srcDirectory', '/test/src'],
-                ['useCmakeTarget', false],
+                ["pythonExePath", 'python3'],
+                ["buildDirectory", '/test/build'],
+                ["srcDirectory", '/test/src'],
+                ["useCmakeTarget", false],
                 ['bin_executable', '/test/build/test_bin'],
                 ['bin_buildBeforeTest', false],
             ]));
@@ -144,10 +144,10 @@ describe('Bypass Build Configuration', () => {
     describe('Configuration type detection', () => {
         test('should have correct type for Config', () => {
             mockGetConfiguration.mockReturnValue(new Map([
-                ['pythonExePath', 'python3'],
-                ['buildDirectory', '/test/build'],
-                ['srcDirectory', '/test/src'],
-                ['useCmakeTarget', false],
+                ["pythonExePath", 'python3'],
+                ["buildDirectory", '/test/build'],
+                ["srcDirectory", '/test/src'],
+                ["useCmakeTarget", false],
             ]));
 
             const config = new Config(mockContext, mockWorkspaceFolder, jest.fn(), false);
@@ -157,10 +157,10 @@ describe('Bypass Build Configuration', () => {
 
         test('should have correct type for ExeConfig', () => {
             mockGetConfiguration.mockReturnValue(new Map([
-                ['pythonExePath', 'python3'],
-                ['buildDirectory', '/test/build'],
-                ['srcDirectory', '/test/src'],
-                ['useCmakeTarget', false],
+                ["pythonExePath", 'python3'],
+                ["buildDirectory", '/test/build'],
+                ["srcDirectory", '/test/src'],
+                ["useCmakeTarget", false],
                 ['exe_executable', '/test/build/test_exe'],
             ]));
 
@@ -171,10 +171,10 @@ describe('Bypass Build Configuration', () => {
 
         test('should have correct type for BinConfig', () => {
             mockGetConfiguration.mockReturnValue(new Map([
-                ['pythonExePath', 'python3'],
-                ['buildDirectory', '/test/build'],
-                ['srcDirectory', '/test/src'],
-                ['useCmakeTarget', false],
+                ["pythonExePath", 'python3'],
+                ["buildDirectory", '/test/build'],
+                ["srcDirectory", '/test/src'],
+                ["useCmakeTarget", false],
                 ['bin_executable', '/test/build/test_bin'],
             ]));
 

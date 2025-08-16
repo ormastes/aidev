@@ -3,12 +3,12 @@
  * Aggregates logs from multiple processes and sources
  */
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from 'node:events';
 
 export type AggregationStrategy = 
   | 'merge'      // Simple chronological merge
   | 'group'      // Group by source/process
-  | 'correlate'  // Correlate by request/session ID
+  | "correlate"  // Correlate by request/session ID
   | 'window'     // Time-windowed aggregation
   | 'sample';    // Statistical sampling
 
@@ -73,7 +73,7 @@ export class LogAggregator extends EventEmitter {
 
   addProcess(processId: string, metadata?: Record<string, any>): void {
     if (this.processes.size >= (this.config.maxProcesses || 100)) {
-      this.emit('maxProcessesReached', { count: this.processes.size });
+      this.emit("maxProcessesReached", { count: this.processes.size });
       return;
     }
 
@@ -88,14 +88,14 @@ export class LogAggregator extends EventEmitter {
 
     this.processes.set(processId, process);
     this.stats.totalProcesses++;
-    this.emit('processAdded', { processId, metadata });
+    this.emit("processAdded", { processId, metadata });
   }
 
   removeProcess(processId: string): void {
     const process = this.processes.get(processId);
     if (process) {
       this.processes.delete(processId);
-      this.emit('processRemoved', { 
+      this.emit("processRemoved", { 
         processId, 
         logCount: process.logs.length 
       });
@@ -119,7 +119,7 @@ export class LogAggregator extends EventEmitter {
 
     // Handle strategy-specific processing
     switch (this.config.strategy) {
-      case 'correlate':
+      case "correlate":
         this.handleCorrelation(log);
         break;
       case 'window':
@@ -138,7 +138,7 @@ export class LogAggregator extends EventEmitter {
       case 'group':
         result = this.aggregateGroup();
         break;
-      case 'correlate':
+      case "correlate":
         result = this.aggregateCorrelate();
         break;
       case 'window':
@@ -152,7 +152,7 @@ export class LogAggregator extends EventEmitter {
     }
 
     this.stats.aggregations++;
-    this.emit('aggregated', result);
+    this.emit("aggregated", result);
     return result;
   }
 
@@ -168,7 +168,7 @@ export class LogAggregator extends EventEmitter {
     }
 
     // Sort by timestamp or configured field
-    const sortField = this.config.sortField || 'timestamp';
+    const sortField = this.config.sortField || "timestamp";
     allLogs.sort((a, b) => {
       const aVal = this.getFieldValue(a, sortField);
       const bVal = this.getFieldValue(b, sortField);
@@ -234,7 +234,7 @@ export class LogAggregator extends EventEmitter {
     }
 
     return {
-      strategy: 'correlate',
+      strategy: "correlate",
       timestamp: new Date(),
       count: Object.values(correlations).reduce((sum, logs) => sum + logs.length, 0),
       processes: this.processes.size,
@@ -392,7 +392,7 @@ export class LogAggregator extends EventEmitter {
 
     this.aggregationTimer = setInterval(() => {
       const result = this.aggregate();
-      this.emit('autoAggregation', result);
+      this.emit("autoAggregation", result);
       this.clearProcessLogs();
     }, this.config.bufferTimeout);
   }

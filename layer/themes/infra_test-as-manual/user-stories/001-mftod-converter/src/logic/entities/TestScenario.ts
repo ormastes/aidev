@@ -27,7 +27,7 @@ export interface TestStep {
 }
 
 export interface StepArgument {
-  type: 'docString' | 'dataTable';
+  type: "docString" | "dataTable";
   content: string | DataTable;
 }
 

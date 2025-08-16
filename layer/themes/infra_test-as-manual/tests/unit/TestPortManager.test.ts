@@ -7,7 +7,7 @@ import { path } from '../../../infra_external-log-lib/src';
 jest.mock('fs');
 jest.mock('../../../portal_security/pipe');
 
-describe('TestPortManager', () => {
+describe("TestPortManager", () => {
   let testPortManager: TestPortManager;
   let mockSecurityPortManager: jest.Mocked<EnhancedPortManager>;
   let mockFs: jest.Mocked<typeof fs>;
@@ -82,7 +82,7 @@ describe('TestPortManager', () => {
     });
 
     it('should allocate port for integration tests', async () => {
-      const port = await testPortManager.allocateTestPort('integration-test-1', 'integration');
+      const port = await testPortManager.allocateTestPort('integration-test-1', "integration");
       
       expect(port).toBe(3000);
       expect(mockSecurityPortManager.allocatePort).toHaveBeenCalled();
@@ -149,7 +149,7 @@ describe('TestPortManager', () => {
 
     it('should release all test ports on cleanup', async () => {
       await testPortManager.allocateTestPort('test-1', 'unit');
-      await testPortManager.allocateTestPort('test-2', 'integration');
+      await testPortManager.allocateTestPort('test-2', "integration");
       await testPortManager.allocateTestPort('test-3', 'e2e');
       
       await testPortManager.releaseAllTestPorts();
@@ -222,7 +222,7 @@ describe('TestPortManager', () => {
 
     it('should validate port ranges for test types', () => {
       const unitRange = testPortManager.getPortRangeForTestType('unit');
-      const integrationRange = testPortManager.getPortRangeForTestType('integration');
+      const integrationRange = testPortManager.getPortRangeForTestType("integration");
       const e2eRange = testPortManager.getPortRangeForTestType('e2e');
       
       expect(unitRange.start).toBeLessThan(unitRange.end);
@@ -233,7 +233,7 @@ describe('TestPortManager', () => {
     it('should ensure ranges do not overlap', () => {
       const ranges = [
         testPortManager.getPortRangeForTestType('unit'),
-        testPortManager.getPortRangeForTestType('integration'),
+        testPortManager.getPortRangeForTestType("integration"),
         testPortManager.getPortRangeForTestType('e2e')
       ];
       
@@ -356,7 +356,7 @@ describe('TestPortManager', () => {
 
     it('should track allocation statistics', async () => {
       await testPortManager.allocateTestPort('stats-1', 'unit');
-      await testPortManager.allocateTestPort('stats-2', 'integration');
+      await testPortManager.allocateTestPort('stats-2', "integration");
       await testPortManager.allocateTestPort('stats-3', 'e2e');
       
       const stats = testPortManager.getStatistics();

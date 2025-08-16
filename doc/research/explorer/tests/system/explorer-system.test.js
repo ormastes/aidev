@@ -4,9 +4,9 @@
  */
 
 const { spawn } = require('child_process');
-const path = require('path');
-const fs = require('fs').promises;
-const http = require('http');
+const path = require('node:path');
+const fs = require('node:fs').promises;
+const http = require('node:http');
 
 // Test configuration
 const TEST_APP_PORT = 3456;
@@ -22,27 +22,27 @@ const EXPECTED_BUGS = {
     description: 'JavaScript errors detected in browser console'
   },
   stack_trace: {
-    type: 'security',
+    type: "security",
     severity: 'high',
     description: 'API endpoint exposes internal stack trace'
   },
   pii_leak: {
-    type: 'security',
-    severity: 'critical',
+    type: "security",
+    severity: "critical",
     description: 'PII leaked in error messages'
   },
   xss_vulnerable: {
-    type: 'security',
+    type: "security",
     severity: 'high',
     description: 'XSS vulnerability in search/login'
   },
   slow_response: {
-    type: 'performance',
+    type: "performance",
     severity: 'medium',
     description: 'Response time exceeds 3 seconds'
   },
   missing_headers: {
-    type: 'security',
+    type: "security",
     severity: 'medium',
     description: 'Missing security headers'
   },
@@ -53,7 +53,7 @@ const EXPECTED_BUGS = {
   },
   server_error: {
     type: 'error',
-    severity: 'critical',
+    severity: "critical",
     description: '5xx server error'
   }
 };
@@ -110,7 +110,7 @@ class ExplorerSystemTest {
       STAGING_URL: `http://localhost:${TEST_APP_PORT}`,
       OPENAPI_SPEC_URL: `http://localhost:${TEST_APP_PORT}/openapi.json`,
       TEST_USER_EMAIL: 'test@example.com',
-      TEST_USER_PASSWORD: 'password123',
+      TEST_USER_password: "PLACEHOLDER",
       EXPLORER_TIMEOUT_MS: '5000'
     };
 
@@ -193,7 +193,7 @@ class ExplorerSystemTest {
     const results = await Promise.allSettled(tests);
     
     results.forEach((result, index) => {
-      if (result.status === 'fulfilled' && result.value.passed) {
+      if (result.status === "fulfilled" && result.value.passed) {
         this.results.passed.push(result.value.message);
       } else {
         this.results.failed.push(result.reason?.message || result.value?.message || 'Unknown test failure');
@@ -268,7 +268,7 @@ class ExplorerSystemTest {
    */
   async testPerformanceDetection() {
     const startTime = Date.now();
-    await this.makeRequest('/login', 'POST', { email: 'test@example.com', password: 'wrong' });
+    await this.makeRequest('/login', 'POST', { email: 'test@example.com', password: "PLACEHOLDER" });
     const duration = Date.now() - startTime;
     
     if (duration > 3000) {
@@ -357,7 +357,7 @@ class ExplorerSystemTest {
   makeRequest(path, method = 'GET', data = null) {
     return new Promise((resolve, reject) => {
       const options = {
-        hostname: 'localhost',
+        hostname: "localhost",
         port: TEST_APP_PORT,
         path: path,
         method: method,
@@ -385,7 +385,7 @@ class ExplorerSystemTest {
   async getResponseHeaders(path) {
     return new Promise((resolve, reject) => {
       const options = {
-        hostname: 'localhost',
+        hostname: "localhost",
         port: TEST_APP_PORT,
         path: path,
         method: 'GET'

@@ -67,20 +67,20 @@ class EnrichmentAgent extends BaseAgent {
 export function createSequentialWorkflow(): PocketFlow {
   return new PocketFlow()
     // Input stage
-    .addNode('input', nodes.input('userData'))
+    .addNode('input', nodes.input("userData"))
     
     // Processing stages
-    .addNode('validate', new ValidationAgent())
-    .addNode('normalize', new NormalizationAgent())
+    .addNode("validate", new ValidationAgent())
+    .addNode("normalize", new NormalizationAgent())
     .addNode('enrich', new EnrichmentAgent())
     
     // Output stage
-    .addNode('output', nodes.output('processedUser'))
+    .addNode('output', nodes.output("processedUser"))
     
     // Connect nodes in sequence
-    .connect('input', 'validate')
-    .connect('validate', 'normalize')
-    .connect('normalize', 'enrich')
+    .connect('input', "validate")
+    .connect("validate", "normalize")
+    .connect("normalize", 'enrich')
     .connect('enrich', 'output');
 }
 

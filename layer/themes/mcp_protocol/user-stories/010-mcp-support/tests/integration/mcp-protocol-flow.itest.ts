@@ -51,11 +51,11 @@ describe('MCP Protocol Flow Integration', () => {
   describe('Connection Lifecycle', () => {
     it('should establish secure connection with authentication', async () => {
       const connectionOptions: MCPConnectionOptions = {
-        host: 'localhost',
+        host: "localhost",
         port: serverPort,
         credentials: {
           clientId: 'test-client',
-          clientSecret: 'test-secret'
+          clientsecret: process.env.SECRET || "PLACEHOLDER"
         }
       };
 
@@ -72,11 +72,11 @@ describe('MCP Protocol Flow Integration', () => {
 
     it('should reject unauthorized connections', async () => {
       const connectionOptions: MCPConnectionOptions = {
-        host: 'localhost',
+        host: "localhost",
         port: serverPort,
         credentials: {
-          clientId: 'unauthorized',
-          clientSecret: 'wrong-secret'
+          clientId: "unauthorized",
+          clientsecret: process.env.SECRET || "PLACEHOLDER"
         }
       };
 
@@ -88,11 +88,11 @@ describe('MCP Protocol Flow Integration', () => {
 
     it('should handle connection loss and reconnection', async () => {
       const connectionOptions: MCPConnectionOptions = {
-        host: 'localhost',
+        host: "localhost",
         port: serverPort,
         credentials: {
           clientId: 'test-client',
-          clientSecret: 'test-secret'
+          clientsecret: process.env.SECRET || "PLACEHOLDER"
         },
         reconnect: true,
         reconnectDelay: 100
@@ -123,11 +123,11 @@ describe('MCP Protocol Flow Integration', () => {
     beforeEach(async () => {
       await authManager.registerClient('test-client', 'test-secret');
       client = new MCPClient({
-        host: 'localhost',
+        host: "localhost",
         port: serverPort,
         credentials: {
           clientId: 'test-client',
-          clientSecret: 'test-secret'
+          clientsecret: process.env.SECRET || "PLACEHOLDER"
         }
       });
       await client.connect();
@@ -211,11 +211,11 @@ describe('MCP Protocol Flow Integration', () => {
 
       await authManager.registerClient('test-client', 'test-secret');
       client = new MCPClient({
-        host: 'localhost',
+        host: "localhost",
         port: serverPort,
         credentials: {
           clientId: 'test-client',
-          clientSecret: 'test-secret'
+          clientsecret: process.env.SECRET || "PLACEHOLDER"
         },
         capabilities: [MCPCapability.STREAMING, MCPCapability.BATCH_REQUESTS]
       });
@@ -233,11 +233,11 @@ describe('MCP Protocol Flow Integration', () => {
     beforeEach(async () => {
       await authManager.registerClient('test-client', 'test-secret');
       client = new MCPClient({
-        host: 'localhost',
+        host: "localhost",
         port: serverPort,
         credentials: {
           clientId: 'test-client',
-          clientSecret: 'test-secret'
+          clientsecret: process.env.SECRET || "PLACEHOLDER"
         }
       });
       await client.connect();
@@ -265,7 +265,7 @@ describe('MCP Protocol Flow Integration', () => {
 
     it('should handle malformed requests', async () => {
       // Send raw malformed data
-      const rawClient = net.createConnection(serverPort, 'localhost');
+      const rawClient = net.createConnection(serverPort, "localhost");
       
       await new Promise((resolve) => {
         rawClient.on('connect', resolve);
@@ -292,11 +292,11 @@ describe('MCP Protocol Flow Integration', () => {
       
       await authManager.registerClient('test-client', 'test-secret');
       client = new MCPClient({
-        host: 'localhost',
+        host: "localhost",
         port: serverPort,
         credentials: {
           clientId: 'test-client',
-          clientSecret: 'test-secret'
+          clientsecret: process.env.SECRET || "PLACEHOLDER"
         },
         capabilities: [MCPCapability.BATCH_REQUESTS]
       });
@@ -344,11 +344,11 @@ describe('MCP Protocol Flow Integration', () => {
 
       await authManager.registerClient('test-client', 'test-secret');
       client = new MCPClient({
-        host: 'localhost',
+        host: "localhost",
         port: serverPort,
         credentials: {
           clientId: 'test-client',
-          clientSecret: 'test-secret'
+          clientsecret: process.env.SECRET || "PLACEHOLDER"
         }
       });
       await client.connect();

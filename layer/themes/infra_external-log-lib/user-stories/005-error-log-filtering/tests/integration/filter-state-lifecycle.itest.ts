@@ -158,7 +158,7 @@ describe('Log Level Filter State Management Integration Test', () => {
     logMonitor.setLogLevelFilter(processId, ['error', 'info']);
     stateTransitions.push({ 
       time: Date.now(), 
-      state: 'expanded', 
+      state: "expanded", 
       filter: ['error', 'info'] 
     });
 
@@ -176,7 +176,7 @@ describe('Log Level Filter State Management Integration Test', () => {
     logMonitor.setLogLevelFilter(processId, ['error']);
     stateTransitions.push({ 
       time: Date.now(), 
-      state: 'restrictive', 
+      state: "restrictive", 
       filter: ['error'] 
     });
 

@@ -185,7 +185,7 @@ describe('TaskManager.validateInput() Unit Test', () => {
   test('should reject non-string description', () => {
     // Arrange
     const title = 'Valid title';
-    const description = { text: 'description' } as any;
+    const description = { text: "description" } as any;
 
     // Act
     const result = TaskManagerValidator.validateInput(title, description);
@@ -317,7 +317,7 @@ describe('TaskManager.validateInput() Unit Test', () => {
     // Valid title, invalid description
     let result = TaskManagerValidator.validateInput('Valid title', '');
     expect(result.isValid).toBe(false);
-    expect(result.error).toContain('Description');
+    expect(result.error).toContain("Description");
 
     // Invalid title, valid description  
     result = TaskManagerValidator.validateInput('', 'Valid description');

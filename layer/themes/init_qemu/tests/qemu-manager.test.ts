@@ -46,7 +46,7 @@ describe('QEMU Container Alternative', () => {
     await fs.rm(testDataDir, { recursive: true, force: true });
   });
 
-  describe('QEMUManager', () => {
+  describe("QEMUManager", () => {
     describe('Container Lifecycle', () => {
       it('should create a container', async () => {
         const config: QEMUConfig = {
@@ -57,7 +57,7 @@ describe('QEMU Container Alternative', () => {
         };
         
         // Mock image existence
-        jest.spyOn(qemuManager as any, 'getImage').mockResolvedValue({
+        jest.spyOn(qemuManager as any, "getImage").mockResolvedValue({
           id: 'alpine-image-id',
           name: 'alpine',
           tag: 'latest'
@@ -79,13 +79,13 @@ describe('QEMU Container Alternative', () => {
           command: ['echo', 'Hello, QEMU!']
         };
         
-        jest.spyOn(qemuManager as any, 'getImage').mockResolvedValue({
+        jest.spyOn(qemuManager as any, "getImage").mockResolvedValue({
           id: 'ubuntu-image-id',
           name: 'ubuntu',
           tag: '20.04'
         });
         
-        jest.spyOn(qemuManager as any, 'buildQEMUCommand').mockReturnValue({
+        jest.spyOn(qemuManager as any, "buildQEMUCommand").mockReturnValue({
           command: 'qemu-system-x86_64',
           args: ['-m', '512M']
         });
@@ -103,7 +103,7 @@ describe('QEMU Container Alternative', () => {
           image: 'alpine:latest'
         };
         
-        jest.spyOn(qemuManager as any, 'getImage').mockResolvedValue({
+        jest.spyOn(qemuManager as any, "getImage").mockResolvedValue({
           id: 'alpine-image-id',
           name: 'alpine',
           tag: 'latest'
@@ -115,7 +115,7 @@ describe('QEMU Container Alternative', () => {
         instance.status = 'running';
         instance.startTime = new Date();
         
-        jest.spyOn(qemuManager as any, 'sendMonitorCommand').mockResolvedValue('');
+        jest.spyOn(qemuManager as any, "sendMonitorCommand").mockResolvedValue('');
         
         await qemuManager.stop(instance.id);
         
@@ -129,7 +129,7 @@ describe('QEMU Container Alternative', () => {
           image: 'alpine:latest'
         };
         
-        jest.spyOn(qemuManager as any, 'getImage').mockResolvedValue({
+        jest.spyOn(qemuManager as any, "getImage").mockResolvedValue({
           id: 'alpine-image-id',
           name: 'alpine',
           tag: 'latest'
@@ -145,12 +145,12 @@ describe('QEMU Container Alternative', () => {
 
       it('should list containers', async () => {
         const configs: QEMUConfig[] = [
-          { name: 'container1', image: 'alpine:latest' },
-          { name: 'container2', image: 'ubuntu:20.04' },
-          { name: 'container3', image: 'debian:11' }
+          { name: "container1", image: 'alpine:latest' },
+          { name: "container2", image: 'ubuntu:20.04' },
+          { name: "container3", image: 'debian:11' }
         ];
         
-        jest.spyOn(qemuManager as any, 'getImage').mockResolvedValue({
+        jest.spyOn(qemuManager as any, "getImage").mockResolvedValue({
           id: 'test-image-id',
           name: 'test',
           tag: 'latest'
@@ -164,12 +164,12 @@ describe('QEMU Container Alternative', () => {
         
         expect(instances).toHaveLength(3);
         expect(instances.map(i => i.name)).toEqual(expect.arrayContaining([
-          'container1', 'container2', 'container3'
+          "container1", "container2", "container3"
         ]));
       });
 
       it('should filter containers by status', async () => {
-        jest.spyOn(qemuManager as any, 'getImage').mockResolvedValue({
+        jest.spyOn(qemuManager as any, "getImage").mockResolvedValue({
           id: 'test-image-id',
           name: 'test',
           tag: 'latest'
@@ -196,7 +196,7 @@ describe('QEMU Container Alternative', () => {
           image: 'alpine:latest'
         };
         
-        jest.spyOn(qemuManager as any, 'getImage').mockResolvedValue({
+        jest.spyOn(qemuManager as any, "getImage").mockResolvedValue({
           id: 'alpine-image-id',
           name: 'alpine',
           tag: 'latest'
@@ -205,7 +205,7 @@ describe('QEMU Container Alternative', () => {
         const instance = await qemuManager.create(config);
         instance.status = 'running';
         
-        jest.spyOn(qemuManager as any, 'execViaGuestAgent').mockResolvedValue({
+        jest.spyOn(qemuManager as any, "execViaGuestAgent").mockResolvedValue({
           exitCode: 0,
           output: 'Command output'
         });
@@ -222,7 +222,7 @@ describe('QEMU Container Alternative', () => {
           image: 'alpine:latest'
         };
         
-        jest.spyOn(qemuManager as any, 'getImage').mockResolvedValue({
+        jest.spyOn(qemuManager as any, "getImage").mockResolvedValue({
           id: 'alpine-image-id',
           name: 'alpine',
           tag: 'latest'
@@ -230,11 +230,11 @@ describe('QEMU Container Alternative', () => {
         
         const instance = await qemuManager.create(config);
         
-        jest.spyOn(qemuManager as any, 'copyVia9P').mockResolvedValue(undefined);
+        jest.spyOn(qemuManager as any, "copyVia9P").mockResolvedValue(undefined);
         
         await qemuManager.copy(instance.id, '/local/file', '/container/file');
         
-        expect(qemuManager['copyVia9P']).toHaveBeenCalled();
+        expect(qemuManager["copyVia9P"]).toHaveBeenCalled();
       });
 
       it('should get container logs', async () => {
@@ -243,7 +243,7 @@ describe('QEMU Container Alternative', () => {
           image: 'alpine:latest'
         };
         
-        jest.spyOn(qemuManager as any, 'getImage').mockResolvedValue({
+        jest.spyOn(qemuManager as any, "getImage").mockResolvedValue({
           id: 'alpine-image-id',
           name: 'alpine',
           tag: 'latest'
@@ -252,7 +252,7 @@ describe('QEMU Container Alternative', () => {
         const instance = await qemuManager.create(config);
         
         // Mock log file
-        const logPath = path.join(testDataDir, 'instances', instance.id, 'console.log');
+        const logPath = path.join(testDataDir, "instances", instance.id, 'console.log');
         await fs.mkdir(path.dirname(logPath), { recursive: true });
         await fs.writeFile(logPath, 'Container logs\nLine 2\nLine 3');
         
@@ -268,7 +268,7 @@ describe('QEMU Container Alternative', () => {
           image: 'alpine:latest'
         };
         
-        jest.spyOn(qemuManager as any, 'getImage').mockResolvedValue({
+        jest.spyOn(qemuManager as any, "getImage").mockResolvedValue({
           id: 'alpine-image-id',
           name: 'alpine',
           tag: 'latest'
@@ -277,7 +277,7 @@ describe('QEMU Container Alternative', () => {
         const instance = await qemuManager.create(config);
         
         // Mock log file
-        const logPath = path.join(testDataDir, 'instances', instance.id, 'console.log');
+        const logPath = path.join(testDataDir, "instances", instance.id, 'console.log');
         await fs.mkdir(path.dirname(logPath), { recursive: true });
         await fs.writeFile(logPath, 'Line 1\nLine 2\nLine 3\nLine 4\nLine 5');
         
@@ -299,7 +299,7 @@ describe('QEMU Container Alternative', () => {
           ]
         };
         
-        jest.spyOn(qemuManager as any, 'getImage').mockResolvedValue({
+        jest.spyOn(qemuManager as any, "getImage").mockResolvedValue({
           id: 'alpine-image-id',
           name: 'alpine',
           tag: 'latest'
@@ -319,13 +319,13 @@ describe('QEMU Container Alternative', () => {
           networkMode: 'bridge'
         };
         
-        jest.spyOn(qemuManager as any, 'getImage').mockResolvedValue({
+        jest.spyOn(qemuManager as any, "getImage").mockResolvedValue({
           id: 'alpine-image-id',
           name: 'alpine',
           tag: 'latest'
         });
         
-        jest.spyOn(qemuManager as any, 'allocateIP').mockResolvedValue('192.168.100.10');
+        jest.spyOn(qemuManager as any, "allocateIP").mockResolvedValue('192.168.100.10');
         
         const instance = await qemuManager.create(config);
         
@@ -342,7 +342,7 @@ describe('QEMU Container Alternative', () => {
           image: 'alpine:latest'
         };
         
-        jest.spyOn(qemuManager as any, 'getImage').mockResolvedValue({
+        jest.spyOn(qemuManager as any, "getImage").mockResolvedValue({
           id: 'alpine-image-id',
           name: 'alpine',
           tag: 'latest'
@@ -352,9 +352,9 @@ describe('QEMU Container Alternative', () => {
         instance.status = 'running';
         instance.startTime = new Date();
         
-        jest.spyOn(qemuManager as any, 'sendMonitorCommand').mockResolvedValue('');
-        jest.spyOn(qemuManager as any, 'parseCPUUsage').mockReturnValue(25);
-        jest.spyOn(qemuManager as any, 'parseMemoryUsage').mockReturnValue(128000000);
+        jest.spyOn(qemuManager as any, "sendMonitorCommand").mockResolvedValue('');
+        jest.spyOn(qemuManager as any, "parseCPUUsage").mockReturnValue(25);
+        jest.spyOn(qemuManager as any, "parseMemoryUsage").mockReturnValue(128000000);
         
         const stats = await qemuManager.stats(instance.id);
         
@@ -366,7 +366,7 @@ describe('QEMU Container Alternative', () => {
     });
   });
 
-  describe('ImageBuilder', () => {
+  describe("ImageBuilder", () => {
     describe('Dockerfile Parsing', () => {
       it('should parse simple Dockerfile', () => {
         const dockerfile = `
@@ -377,7 +377,7 @@ WORKDIR /app
 CMD ["node", "app.js"]
         `.trim();
         
-        const steps = imageBuilder['parseDockerfile'](dockerfile);
+        const steps = imageBuilder["parseDockerfile"](dockerfile);
         
         expect(steps).toHaveLength(5);
         expect(steps[0].instruction).toBe('FROM');
@@ -394,7 +394,7 @@ RUN echo "Version: $VERSION"
         `.trim();
         
         const buildArgs = { VERSION: '14-alpine' };
-        const steps = imageBuilder['parseDockerfile'](dockerfile, buildArgs);
+        const steps = imageBuilder["parseDockerfile"](dockerfile, buildArgs);
         
         expect(steps[1].instruction).toBe('FROM');
         expect(steps[1].args).toEqual(['node:14-alpine']);
@@ -408,7 +408,7 @@ RUN apt-get update && \\
     wget
         `.trim();
         
-        const steps = imageBuilder['parseDockerfile'](dockerfile);
+        const steps = imageBuilder["parseDockerfile"](dockerfile);
         
         expect(steps).toHaveLength(1);
         expect(steps[0].instruction).toBe('RUN');
@@ -430,9 +430,9 @@ CMD ["/hello"]
         };
         
         // Mock methods
-        jest.spyOn(imageBuilder as any, 'createScratchImage').mockResolvedValue('scratch-id');
-        jest.spyOn(imageBuilder as any, 'executeStep').mockResolvedValue('layer-id');
-        jest.spyOn(imageBuilder as any, 'finalizeImage').mockResolvedValue({
+        jest.spyOn(imageBuilder as any, "createScratchImage").mockResolvedValue('scratch-id');
+        jest.spyOn(imageBuilder as any, "executeStep").mockResolvedValue('layer-id');
+        jest.spyOn(imageBuilder as any, "finalizeImage").mockResolvedValue({
           schemaVersion: 2,
           architecture: 'amd64',
           os: 'linux'
@@ -441,7 +441,7 @@ CMD ["/hello"]
         const imageId = await imageBuilder.build(context);
         
         expect(imageId).toBeDefined();
-        expect(imageBuilder['executeStep']).toHaveBeenCalled();
+        expect(imageBuilder["executeStep"]).toHaveBeenCalled();
       });
 
       it('should use build cache', async () => {
@@ -452,7 +452,7 @@ CMD ["/hello"]
         };
         
         // Mock cache hit
-        jest.spyOn(imageBuilder as any, 'checkCache').mockResolvedValue({
+        jest.spyOn(imageBuilder as any, "checkCache").mockResolvedValue({
           id: 'cached-layer',
           size: 1024,
           created: new Date(),
@@ -460,8 +460,8 @@ CMD ["/hello"]
           checksum: 'abc123'
         });
         
-        jest.spyOn(imageBuilder as any, 'createBaseImage').mockResolvedValue('base-id');
-        jest.spyOn(imageBuilder as any, 'finalizeImage').mockResolvedValue({
+        jest.spyOn(imageBuilder as any, "createBaseImage").mockResolvedValue('base-id');
+        jest.spyOn(imageBuilder as any, "finalizeImage").mockResolvedValue({
           schemaVersion: 2,
           architecture: 'amd64',
           os: 'linux'
@@ -469,21 +469,21 @@ CMD ["/hello"]
         
         await imageBuilder.build(context);
         
-        expect(imageBuilder['checkCache']).toHaveBeenCalled();
+        expect(imageBuilder["checkCache"]).toHaveBeenCalled();
       });
     });
 
     describe('Image Management', () => {
       it('should list images', async () => {
         // Mock image registry
-        imageBuilder['imageRegistry'].set('image1', {
+        imageBuilder["imageRegistry"].set('image1', {
           schemaVersion: 2,
           architecture: 'amd64',
           os: 'linux',
           config: { image: 'alpine:latest' }
         } as any);
         
-        imageBuilder['imageRegistry'].set('image2', {
+        imageBuilder["imageRegistry"].set('image2', {
           schemaVersion: 2,
           architecture: 'amd64',
           os: 'linux',
@@ -498,18 +498,18 @@ CMD ["/hello"]
       it('should remove image', async () => {
         const imageId = 'test-image-id';
         
-        imageBuilder['imageRegistry'].set(imageId, {
+        imageBuilder["imageRegistry"].set(imageId, {
           schemaVersion: 2,
           architecture: 'amd64',
           os: 'linux'
         } as any);
         
         jest.spyOn(fs, 'rm').mockResolvedValue();
-        jest.spyOn(imageBuilder as any, 'saveImageRegistry').mockResolvedValue(undefined);
+        jest.spyOn(imageBuilder as any, "saveImageRegistry").mockResolvedValue(undefined);
         
         await imageBuilder.removeImage(imageId);
         
-        expect(imageBuilder['imageRegistry'].has(imageId)).toBe(false);
+        expect(imageBuilder["imageRegistry"].has(imageId)).toBe(false);
       });
 
       it('should tag image', async () => {
@@ -517,7 +517,7 @@ CMD ["/hello"]
         const tag = 'myapp:v1.0';
         
         jest.spyOn(fs, 'mkdir').mockResolvedValue(undefined);
-        jest.spyOn(fs, 'writeFile').mockResolvedValue();
+        jest.spyOn(fs, "writeFile").mockResolvedValue();
         
         await imageBuilder.tagImage(imageId, tag);
         
@@ -526,7 +526,7 @@ CMD ["/hello"]
     });
   });
 
-  describe('VolumeManager', () => {
+  describe("VolumeManager", () => {
     describe('Volume Lifecycle', () => {
       it('should create a volume', async () => {
         const config: VolumeConfig = {
@@ -616,17 +616,17 @@ CMD ["/hello"]
         const source = await volumeManager.create({ name: 'source-vol' });
         const dest = await volumeManager.create({ name: 'dest-vol' });
         
-        jest.spyOn(volumeManager as any, 'copyDirectory').mockResolvedValue(undefined);
+        jest.spyOn(volumeManager as any, "copyDirectory").mockResolvedValue(undefined);
         
         await volumeManager.copy(source.id, dest.id);
         
-        expect(volumeManager['copyDirectory']).toHaveBeenCalled();
+        expect(volumeManager["copyDirectory"]).toHaveBeenCalled();
       });
 
       it('should backup volume', async () => {
         const volume = await volumeManager.create({ name: 'backup-test' });
         
-        jest.spyOn(volumeManager as any, 'createTarArchive').mockResolvedValue(undefined);
+        jest.spyOn(volumeManager as any, "createTarArchive").mockResolvedValue(undefined);
         
         const backupPath = await volumeManager.backup(volume.id, '/tmp/backups');
         
@@ -635,7 +635,7 @@ CMD ["/hello"]
       });
 
       it('should restore volume from backup', async () => {
-        jest.spyOn(volumeManager as any, 'extractTarArchive').mockResolvedValue(undefined);
+        jest.spyOn(volumeManager as any, "extractTarArchive").mockResolvedValue(undefined);
         
         const restored = await volumeManager.restore(
           '/tmp/backup.tar.gz',
@@ -710,13 +710,13 @@ CMD ["/hello"]
         user: 'nobody'
       };
       
-      jest.spyOn(qemuManager as any, 'getImage').mockResolvedValue({
+      jest.spyOn(qemuManager as any, "getImage").mockResolvedValue({
         id: 'alpine-image-id',
         name: 'alpine',
         tag: 'latest'
       });
       
-      jest.spyOn(qemuManager as any, 'buildQEMUCommand').mockReturnValue({
+      jest.spyOn(qemuManager as any, "buildQEMUCommand").mockReturnValue({
         command: 'qemu-system-x86_64',
         args: []
       });
@@ -740,7 +740,7 @@ CMD ["/hello"]
         {
           name: 'db',
           image: 'postgres:13',
-          environment: { POSTGRES_PASSWORD: 'secret' },
+          environment: { POSTGRES_password: "PLACEHOLDER" },
           volumes: [{ source: 'pgdata', target: '/var/lib/postgresql/data', type: 'volume' as const }]
         },
         {
@@ -750,7 +750,7 @@ CMD ["/hello"]
         }
       ];
       
-      jest.spyOn(qemuManager as any, 'getImage').mockResolvedValue({
+      jest.spyOn(qemuManager as any, "getImage").mockResolvedValue({
         id: 'test-image-id',
         name: 'test',
         tag: 'latest'

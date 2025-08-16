@@ -23,17 +23,17 @@ describe('Freeze Validation Unit Test', () => {
       },
       templates: {
         workspace: {
-          id: 'workspace',
-          type: 'directory',
+          id: "workspace",
+          type: "directory",
           freeze: true,
           freeze_message: 'Root directory is frozen. Create files in appropriate subdirectories: gen/doc/ for reports, layer/themes/ for features',
           required_children: [
             { name: 'CLAUDE.md', type: 'file' },
             { name: 'README.md', type: 'file' },
-            { name: 'gen', type: 'directory', children: [
-              { name: 'doc', type: 'directory' }
+            { name: 'gen', type: "directory", children: [
+              { name: 'doc', type: "directory" }
             ]},
-            { name: 'layer', type: 'directory' }
+            { name: 'layer', type: "directory" }
           ],
           platform_files: '$ref:platform_specific_root_files'
         }
@@ -49,8 +49,8 @@ describe('Freeze Validation Unit Test', () => {
       },
       structure: {
         name: '.',
-        type: 'directory',
-        template: 'workspace'
+        type: "directory",
+        template: "workspace"
       }
     };
     
@@ -109,7 +109,7 @@ describe('Freeze Validation Unit Test', () => {
     });
   });
 
-  describe('checkFreezeStatus', () => {
+  describe("checkFreezeStatus", () => {
     it('should provide helpful freeze messages', async () => {
       const result = await wrapper.validateWrite('unauthorized.js', false);
       
@@ -122,11 +122,11 @@ describe('Freeze Validation Unit Test', () => {
       const structure = await wrapper.loadStructure();
       structure.templates['theme'] = {
         id: 'theme',
-        type: 'directory',
+        type: "directory",
         freeze: true,
         freeze_message: 'Theme root is frozen. Use subdirectories.',
         required_children: [
-          { name: 'children', type: 'directory' }
+          { name: "children", type: "directory" }
         ]
       };
       

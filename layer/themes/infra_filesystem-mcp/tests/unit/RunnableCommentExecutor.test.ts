@@ -9,7 +9,7 @@ import { fs } from '../../../infra_external-log-lib/src';
 import { path } from '../../../infra_external-log-lib/src';
 import { os } from '../../../infra_external-log-lib/src';
 
-describe('RunnableCommentExecutor', () => {
+describe("RunnableCommentExecutor", () => {
   let testStepsDir: string;
   let executor: RunnableCommentExecutor;
 
@@ -25,7 +25,7 @@ describe('RunnableCommentExecutor', () => {
     await fs.promises.rm(testStepsDir, { recursive: true, force: true });
   });
 
-  describe('textToScriptName', () => {
+  describe("textToScriptName", () => {
     it('should convert simple text to script name', () => {
       expect(executor.textToScriptName('hello world')).toBe('hello_world.js');
     });
@@ -51,7 +51,7 @@ describe('RunnableCommentExecutor', () => {
     });
   });
 
-  describe('findScript', () => {
+  describe("findScript", () => {
     it('should find JavaScript script', async () => {
       const scriptContent = `console.log('Hello from JS');`;
       await fs.promises.writeFile(
@@ -275,7 +275,7 @@ setTimeout(() => process.exit(0), 100);`;
     }, 10000); // Increase test timeout
   });
 
-  describe('isRunnable', () => {
+  describe("isRunnable", () => {
     it('should return true for existing script', async () => {
       await fs.promises.writeFile(
         path.join(testStepsDir, 'exists.js'),

@@ -52,7 +52,7 @@ export interface DesignSystem {
 }
 
 export interface Design {
-  name: 'modern' | 'professional' | 'creative' | 'accessible';
+  name: 'modern' | "professional" | "creative" | "accessible";
   system: DesignSystem;
   html: string;
   css: string;
@@ -258,11 +258,11 @@ export class DesignCandidates {
   }
 
   async generateProfessional(base: DesignBase): Promise<Design> {
-    const components = this.generateComponents('professional', this.professionalSystem, base);
-    const { html, css } = this.generateMarkup('professional', this.professionalSystem, base);
+    const components = this.generateComponents("professional", this.professionalSystem, base);
+    const { html, css } = this.generateMarkup("professional", this.professionalSystem, base);
     
     return {
-      name: 'professional',
+      name: "professional",
       system: this.professionalSystem,
       html,
       css,
@@ -279,11 +279,11 @@ export class DesignCandidates {
   }
 
   async generateCreative(base: DesignBase): Promise<Design> {
-    const components = this.generateComponents('creative', this.creativeSystem, base);
-    const { html, css } = this.generateMarkup('creative', this.creativeSystem, base);
+    const components = this.generateComponents("creative", this.creativeSystem, base);
+    const { html, css } = this.generateMarkup("creative", this.creativeSystem, base);
     
     return {
-      name: 'creative',
+      name: "creative",
       system: this.creativeSystem,
       html,
       css,
@@ -300,11 +300,11 @@ export class DesignCandidates {
   }
 
   async generateAccessible(base: DesignBase): Promise<Design> {
-    const components = this.generateComponents('accessible', this.accessibleSystem, base);
-    const { html, css } = this.generateMarkup('accessible', this.accessibleSystem, base);
+    const components = this.generateComponents("accessible", this.accessibleSystem, base);
+    const { html, css } = this.generateMarkup("accessible", this.accessibleSystem, base);
     
     return {
-      name: 'accessible',
+      name: "accessible",
       system: this.accessibleSystem,
       html,
       css,
@@ -381,7 +381,7 @@ export class DesignCandidates {
           box-shadow: 0 6px 20px rgba(0, 122, 255, 0.3);
         }`;
       
-      case 'professional':
+      case "professional":
         return `.btn-${style} {
           ${baseButton}
           background: ${system.colors.primary};
@@ -393,7 +393,7 @@ export class DesignCandidates {
           color: ${system.colors.primary};
         }`;
       
-      case 'creative':
+      case "creative":
         return `.btn-${style} {
           ${baseButton}
           background: ${system.colors.primary};
@@ -416,7 +416,7 @@ export class DesignCandidates {
           left: 0;
         }`;
       
-      case 'accessible':
+      case "accessible":
         return `.btn-${style} {
           ${baseButton}
           background: ${system.colors.primary};
@@ -454,14 +454,14 @@ export class DesignCandidates {
           box-shadow: ${system.shadow};
         }`;
       
-      case 'professional':
+      case "professional":
         return `.card-${style} {
           ${baseCard}
           background: white;
           border: 1px solid #e0e0e0;
         }`;
       
-      case 'creative':
+      case "creative":
         return `.card-${style} {
           ${baseCard}
           background: linear-gradient(135deg, ${system.colors.background}, ${system.colors.primary}22);
@@ -469,7 +469,7 @@ export class DesignCandidates {
           transform: rotate(-1deg);
         }`;
       
-      case 'accessible':
+      case "accessible":
         return `.card-${style} {
           ${baseCard}
           background: white;
@@ -504,7 +504,7 @@ export class DesignCandidates {
           border-bottom-color: ${system.colors.secondary};
         }`;
       
-      case 'professional':
+      case "professional":
         return `.input-${style} {
           ${baseInput}
           border: 1px solid #ccc;
@@ -515,7 +515,7 @@ export class DesignCandidates {
           border-color: ${system.colors.primary};
         }`;
       
-      case 'creative':
+      case "creative":
         return `.input-${style} {
           ${baseInput}
           border: 2px dashed ${system.colors.secondary};
@@ -528,7 +528,7 @@ export class DesignCandidates {
           border-color: ${system.colors.primary};
         }`;
       
-      case 'accessible':
+      case "accessible":
         return `.input-${style} {
           ${baseInput}
           border: 3px solid ${system.colors.text};
@@ -561,21 +561,21 @@ export class DesignCandidates {
           box-shadow: ${system.shadow};
         }`;
       
-      case 'professional':
+      case "professional":
         return `.nav-${style} {
           ${baseNav}
           background: ${system.colors.primary};
           color: white;
         }`;
       
-      case 'creative':
+      case "creative":
         return `.nav-${style} {
           ${baseNav}
           background: linear-gradient(90deg, ${system.colors.primary}, ${system.colors.secondary});
           clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
         }`;
       
-      case 'accessible':
+      case "accessible":
         return `.nav-${style} {
           ${baseNav}
           background: ${system.colors.background};
@@ -614,7 +614,7 @@ export class DesignCandidates {
           border-bottom: 1px solid #f0f0f0;
         }`;
       
-      case 'professional':
+      case "professional":
         return `.table-${style} {
           ${baseTable}
           border: 1px solid #ddd;
@@ -629,7 +629,7 @@ export class DesignCandidates {
           border: 1px solid #ddd;
         }`;
       
-      case 'creative':
+      case "creative":
         return `.table-${style} {
           ${baseTable}
         }
@@ -644,7 +644,7 @@ export class DesignCandidates {
           border-left: 3px solid ${system.colors.secondary};
         }`;
       
-      case 'accessible':
+      case "accessible":
         return `.table-${style} {
           ${baseTable}
           border: 2px solid ${system.colors.text};

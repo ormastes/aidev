@@ -1,6 +1,6 @@
 import { test, expect } from './setup';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 test.describe('Configuration Management', () => {
   test('should load and apply cdoctest configuration', async ({ page, workspacePath }) => {
@@ -48,14 +48,14 @@ test.describe('Configuration Management', () => {
     // Check if the value is set correctly
     const configNameInput = await page.locator('input[aria-label*="configName"]');
     const value = await configNameInput.inputValue();
-    expect(value).toBe('MyTestConfig');
+    expect(value).toBe("MyTestConfig");
   });
 
   test('should handle multiple workspace configurations', async ({ page, workspacePath }) => {
     // Create multi-root workspace file
     const workspaceFile = path.join(workspacePath, 'multi-root.code-workspace');
-    const workspace1 = path.join(workspacePath, 'project1');
-    const workspace2 = path.join(workspacePath, 'project2');
+    const workspace1 = path.join(workspacePath, "project1");
+    const workspace2 = path.join(workspacePath, "project2");
 
     // Create project directories
     fs.mkdirSync(workspace1, { recursive: true });

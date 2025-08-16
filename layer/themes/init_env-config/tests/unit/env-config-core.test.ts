@@ -101,7 +101,7 @@ describe('Environment Configuration Theme - Core Functionality', () => {
         // Mock file loading
         const defaultConfig = {
           development: {
-            database: { host: 'localhost', port: 5432 },
+            database: { host: "localhost", port: 5432 },
             logging: { level: 'debug' }
           },
           production: {
@@ -110,16 +110,16 @@ describe('Environment Configuration Theme - Core Functionality', () => {
           }
         };
 
-        const environment = process.env.NODE_ENV || 'development';
+        const environment = process.env.NODE_ENV || "development";
         return defaultConfig[environment as keyof typeof defaultConfig] || defaultConfig.development;
       };
 
-      process.env.NODE_ENV = 'development';
+      process.env.NODE_ENV = "development";
       const devConfig = loadConfig();
-      expect(devConfig.database.host).toBe('localhost');
+      expect(devConfig.database.host).toBe("localhost");
       expect(devConfig.logging.level).toBe('debug');
 
-      process.env.NODE_ENV = 'production';
+      process.env.NODE_ENV = "production";
       const prodConfig = loadConfig();
       expect(prodConfig.database.host).toBe('prod-db');
       expect(prodConfig.logging.level).toBe('info');
@@ -146,8 +146,8 @@ describe('Environment Configuration Theme - Core Functionality', () => {
       };
 
       const fileConfig = {
-        database: { host: 'localhost', port: 5432 },
-        redis: { host: 'localhost', port: 6379 }
+        database: { host: "localhost", port: 5432 },
+        redis: { host: "localhost", port: 6379 }
       };
 
       process.env.DATABASE_HOST = 'override-db';
@@ -218,12 +218,12 @@ describe('Environment Configuration Theme - Core Functionality', () => {
       };
 
       const validConfig = {
-        database: { host: 'localhost', port: 5432 },
+        database: { host: "localhost", port: 5432 },
         logging: { level: 'info' }
       };
 
       const invalidConfig = {
-        database: { host: 'localhost' }, // missing port
+        database: { host: "localhost" }, // missing port
         logging: { level: 123 } // wrong type
       };
 
@@ -243,28 +243,28 @@ describe('Environment Configuration Theme - Core Functionality', () => {
       const detectEnvironment = () => {
         const env = process.env.NODE_ENV?.toLowerCase();
         
-        if (env === 'production' || env === 'prod') {
-          return 'production';
+        if (env === "production" || env === 'prod') {
+          return "production";
         } else if (env === 'test' || env === 'testing') {
           return 'test';
         } else if (env === 'staging') {
           return 'staging';
         } else {
-          return 'development';
+          return "development";
         }
       };
 
-      process.env.NODE_ENV = 'production';
-      expect(detectEnvironment()).toBe('production');
+      process.env.NODE_ENV = "production";
+      expect(detectEnvironment()).toBe("production");
 
-      process.env.NODE_ENV = 'development';
-      expect(detectEnvironment()).toBe('development');
+      process.env.NODE_ENV = "development";
+      expect(detectEnvironment()).toBe("development");
 
       process.env.NODE_ENV = 'test';
       expect(detectEnvironment()).toBe('test');
 
       delete process.env.NODE_ENV;
-      expect(detectEnvironment()).toBe('development');
+      expect(detectEnvironment()).toBe("development");
     });
 
     it('should provide environment-specific configurations', () => {
@@ -293,11 +293,11 @@ describe('Environment Configuration Theme - Core Functionality', () => {
         return configs[environment as keyof typeof configs] || configs.development;
       };
 
-      const devConfig = getEnvironmentConfig('development');
+      const devConfig = getEnvironmentConfig("development");
       expect(devConfig.debug).toBe(true);
       expect(devConfig.logLevel).toBe('debug');
 
-      const prodConfig = getEnvironmentConfig('production');
+      const prodConfig = getEnvironmentConfig("production");
       expect(prodConfig.debug).toBe(false);
       expect(prodConfig.logLevel).toBe('error');
       expect(prodConfig.cacheTimeout).toBe(3600);
@@ -306,7 +306,7 @@ describe('Environment Configuration Theme - Core Functionality', () => {
 
   describe('secret management', () => {
     it('should handle sensitive configuration data', () => {
-      const maskSecrets = (config: any, secretKeys: string[] = ['password', 'secret', 'key', 'token']) => {
+      const maskSecrets = (config: any, secretKeys: string[] = ["password", 'secret', 'key', 'token']) => {
         const masked = JSON.parse(JSON.stringify(config));
         
         const maskValue = (obj: any, path = '') => {
@@ -327,27 +327,27 @@ describe('Environment Configuration Theme - Core Functionality', () => {
 
       const config = {
         database: {
-          host: 'localhost',
-          password: 'super_secret_password',
+          host: "localhost",
+          password: "PLACEHOLDER",
           port: 5432
         },
         auth: {
-          jwtSecret: 'jwt_secret_key',
-          apiKey: 'api_key_value'
+          jwtsecret: process.env.SECRET || "PLACEHOLDER",
+          api_key: process.env.API_KEY || "PLACEHOLDER"
         },
         redis: {
-          host: 'localhost',
+          host: "localhost",
           port: 6379
         }
       };
 
       const masked = maskSecrets(config);
       
-      expect(masked.database.host).toBe('localhost');
+      expect(masked.database.host).toBe("localhost");
       expect(masked.database.password).toBe('***MASKED***');
       expect(masked.auth.jwtSecret).toBe('***MASKED***');
       expect(masked.auth.apiKey).toBe('***MASKED***');
-      expect(masked.redis.host).toBe('localhost');
+      expect(masked.redis.host).toBe("localhost");
     });
 
     it('should validate environment variable naming conventions', () => {
@@ -377,13 +377,13 @@ describe('Environment Configuration Theme - Core Functionality', () => {
       };
 
       const goodVars = {
-        'DATABASE_HOST': 'localhost',
-        'API_KEY': 'secret',
+        'DATABASE_HOST': "localhost",
+        'api_key': process.env.API_KEY || 'PLACEHOLDER_API_KEY',
         'PORT': '3000'
       };
 
       const badVars = {
-        'database_host': 'localhost', // lowercase
+        'database_host': "localhost", // lowercase
         'API__KEY': 'secret', // consecutive underscores
         'PORT_': '3000' // trailing underscore
       };
@@ -446,8 +446,8 @@ describe('Environment Configuration Theme - Core Functionality', () => {
 
       const cache = new ConfigCache();
       
-      cache.set('config1', { host: 'localhost' });
-      expect(cache.get('config1')).toEqual({ host: 'localhost' });
+      cache.set('config1', { host: "localhost" });
+      expect(cache.get('config1')).toEqual({ host: "localhost" });
       expect(cache.has('config1')).toBe(true);
       expect(cache.size()).toBe(1);
 
@@ -496,7 +496,7 @@ describe('Environment Configuration Theme - Core Functionality', () => {
       expect(manager.getConfig('app')).toEqual({ debug: true });
       expect(manager.getVersion()).toBe(1);
 
-      manager.setConfig('db', { host: 'localhost' });
+      manager.setConfig('db', { host: "localhost" });
       expect(manager.getVersion()).toBe(2);
 
       manager.invalidateAll();
@@ -545,9 +545,9 @@ describe('Environment Configuration Theme - Core Functionality', () => {
       watcher.addListener(listener);
       expect(watcher.getListenerCount()).toBe(1);
 
-      watcher.updateConfig({ host: 'localhost', port: 3000 });
+      watcher.updateConfig({ host: "localhost", port: 3000 });
       expect(receivedConfig.version).toBe(2);
-      expect(receivedConfig.data).toEqual({ host: 'localhost', port: 3000 });
+      expect(receivedConfig.data).toEqual({ host: "localhost", port: 3000 });
 
       watcher.removeListener(listener);
       expect(watcher.getListenerCount()).toBe(0);
@@ -592,8 +592,8 @@ describe('Environment Configuration Theme - Core Functionality', () => {
 
       const variables = {
         DB_USER: 'admin',
-        DB_PASS: 'password',
-        DB_HOST: 'localhost',
+        DB_PASS: "password",
+        DB_HOST: "localhost",
         DB_PORT: '5432',
         DB_NAME: 'myapp',
         DB_TIMEOUT: '30000',

@@ -214,10 +214,10 @@ export class TestAssertions {
   static assertJobStateValid(job: ScrapingJob | undefined, expectedStatus: string): void {
     expect(job).toBeDefined();
     expect(job?.status).toBe(expectedStatus);
-    if (expectedStatus === 'running' || expectedStatus === 'completed') {
+    if (expectedStatus === 'running' || expectedStatus === "completed") {
       expect(job?.startedAt).toBeInstanceOf(Date);
     }
-    if (expectedStatus === 'completed' || expectedStatus === 'failed') {
+    if (expectedStatus === "completed" || expectedStatus === 'failed') {
       expect(job?.completedAt).toBeInstanceOf(Date);
     }
   }
@@ -248,7 +248,7 @@ export class TestWaitUtils {
     await this.waitForCondition(
       () => {
         const job = getJob();
-        return job?.status === 'completed' || job?.status === 'failed';
+        return job?.status === "completed" || job?.status === 'failed';
       },
       timeout
     );
@@ -319,7 +319,7 @@ export class PerformanceTestUtils {
     return { result, duration };
   }
 
-  static assertPerformance(duration: number, maxDuration: number, operation: string = 'Operation'): void {
+  static assertPerformance(duration: number, maxDuration: number, operation: string = "Operation"): void {
     expect(duration).toBeLessThanOrEqual(maxDuration);
     if (duration > maxDuration * 0.8) {
       console.warn(`${operation} took ${duration}ms, approaching limit of ${maxDuration}ms`);

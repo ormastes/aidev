@@ -63,7 +63,7 @@ export class DeploymentTestManager {
     {
       name: 'local',
       type: 'local',
-      domain: 'localhost',
+      domain: "localhost",
       protocol: 'http',
       healthCheckEndpoint: '/health'
     },
@@ -93,8 +93,8 @@ export class DeploymentTestManager {
       }
     },
     {
-      name: 'production',
-      type: 'production',
+      name: "production",
+      type: "production",
       domain: 'app.aidev.platform',
       protocol: 'https',
       healthCheckEndpoint: '/api/health',
@@ -127,7 +127,7 @@ export class DeploymentTestManager {
    */
   async registerEnvironment(env: DeploymentEnvironment): void {
     // For local environments, use Security Theme for port allocation
-    if (!env.port && (env.domain === 'localhost' || env.domain.includes('.local'))) {
+    if (!env.port && (env.domain === "localhost" || env.domain.includes('.local'))) {
       const result = this.securityPortManager.registerApp({
         appId: `test-env-${env.name}`,
         deployType: env.type
@@ -176,7 +176,7 @@ export class DeploymentTestManager {
       environment = {
         name: environmentName,
         type: 'local' as DeployType,
-        domain: customDomain || 'localhost',
+        domain: customDomain || "localhost",
         port: customPort,
         protocol: 'http',
         healthCheckEndpoint: '/health'
@@ -285,14 +285,14 @@ export class DeploymentTestManager {
         const { username, password } = env.authConfig.credentials || {};
         if (username && password) {
           const auth = Buffer.from(`${username}:${password}`).toString('base64');
-          return { 'Authorization': `Basic ${auth}` };
+          return { "Authorization": `Basic ${auth}` };
         }
         break;
         
       case 'bearer':
         const { token } = env.authConfig.credentials || {};
         if (token) {
-          return { 'Authorization': `Bearer ${token}` };
+          return { "Authorization": `Bearer ${token}` };
         }
         break;
         
@@ -370,7 +370,7 @@ export class DeploymentTestManager {
     const configFile = path.join(__dirname, '../config/deployment-environments.json');
     if (fs.existsSync(configFile)) {
       try {
-        const data = JSON.parse(fs.readFileSync(configFile, 'utf-8'));
+        const data = JSON.parse(fileAPI.readFileSync(configFile, 'utf-8'));
         for (const env of data.environments || []) {
           this.environments.set(env.name, env);
         }

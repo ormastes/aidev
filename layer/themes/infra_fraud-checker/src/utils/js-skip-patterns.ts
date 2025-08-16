@@ -3,8 +3,8 @@
  * Based on TS_CHECK_SKIP_LIST.md
  */
 
-import * as path from 'path';
-import { minimatch } from 'minimatch';
+import * as path from 'node:path';
+import { minimatch } from "minimatch";
 
 export interface SkipPattern {
   pattern: string;
@@ -51,12 +51,12 @@ export class JavaScriptSkipChecker {
     { pattern: '**/out/**', reason: 'Output file', category: 'build' },
 
     // Database Configuration
-    { pattern: '**/config/database.js', reason: 'Database configuration', category: 'database' },
-    { pattern: '**/config/db.js', reason: 'Database configuration', category: 'database' },
-    { pattern: '**/database.config.js', reason: 'Database configuration', category: 'database' },
-    { pattern: '**/knexfile.js', reason: 'Knex configuration', category: 'database' },
-    { pattern: '**/ormconfig.js', reason: 'ORM configuration', category: 'database' },
-    { pattern: '**/sequelize.config.js', reason: 'Sequelize configuration', category: 'database' },
+    { pattern: '**/config/database.js', reason: 'Database configuration', category: "database" },
+    { pattern: '**/config/db.js', reason: 'Database configuration', category: "database" },
+    { pattern: '**/database.config.js', reason: 'Database configuration', category: "database" },
+    { pattern: '**/knexfile.js', reason: 'Knex configuration', category: "database" },
+    { pattern: '**/ormconfig.js', reason: 'ORM configuration', category: "database" },
+    { pattern: '**/sequelize.config.js', reason: 'Sequelize configuration', category: "database" },
 
     // Test Fixtures and Mocks - match at any level
     { pattern: 'fixtures/**', reason: 'Test fixture', category: 'test' },
@@ -94,13 +94,13 @@ export class JavaScriptSkipChecker {
     { pattern: '**/lib/vendor/**', reason: 'Vendor library', category: 'vendor' },
     { pattern: 'third-party/**', reason: 'Third-party library', category: 'vendor' },
     { pattern: '**/third-party/**', reason: 'Third-party library', category: 'vendor' },
-    { pattern: 'generated/**', reason: 'Generated file', category: 'generated' },
-    { pattern: '**/generated/**', reason: 'Generated file', category: 'generated' },
-    { pattern: 'gen/**', reason: 'Generated file', category: 'generated' },
-    { pattern: '**/gen/**', reason: 'Generated file', category: 'generated' },
-    { pattern: '.next/**', reason: 'Next.js generated', category: 'generated' },
-    { pattern: '**/.next/**', reason: 'Next.js generated', category: 'generated' },
-    { pattern: '**/*generated*.js', reason: 'Generated file', category: 'generated' },
+    { pattern: 'generated/**', reason: 'Generated file', category: "generated" },
+    { pattern: '**/generated/**', reason: 'Generated file', category: "generated" },
+    { pattern: 'gen/**', reason: 'Generated file', category: "generated" },
+    { pattern: '**/gen/**', reason: 'Generated file', category: "generated" },
+    { pattern: '.next/**', reason: 'Next.js generated', category: "generated" },
+    { pattern: '**/.next/**', reason: 'Next.js generated', category: "generated" },
+    { pattern: '**/*generated*.js', reason: 'Generated file', category: "generated" },
     { pattern: '**/prism.js', reason: 'Prism library', category: 'vendor' },
     { pattern: '**/prism-*.js', reason: 'Prism plugin', category: 'vendor' },
 
@@ -110,9 +110,9 @@ export class JavaScriptSkipChecker {
     { pattern: '**/tools/**/*.js', reason: 'Tool file', category: 'script' },
 
     // Node Modules
-    { pattern: '**/node_modules/**', reason: 'Node module', category: 'dependency' },
-    { pattern: '**/.pnpm/**', reason: 'PNPM cache', category: 'dependency' },
-    { pattern: '**/bower_components/**', reason: 'Bower component', category: 'dependency' },
+    { pattern: '**/node_modules/**', reason: 'Node module', category: "dependency" },
+    { pattern: '**/.pnpm/**', reason: 'PNPM cache', category: "dependency" },
+    { pattern: '**/bower_components/**', reason: 'Bower component', category: "dependency" },
 
     // Environment and Cache
     { pattern: '**/.cache/**', reason: 'Cache file', category: 'cache' },
@@ -135,7 +135,7 @@ export class JavaScriptSkipChecker {
     { pattern: '**/*.bundle.js', reason: 'Bundled file', category: 'build' },
     { pattern: '**/*.chunk.js', reason: 'Code split chunk', category: 'build' },
     { pattern: '**/*.compiled.js', reason: 'Compiled output', category: 'build' },
-    { pattern: '**/*.generated.js', reason: 'Generated file', category: 'generated' },
+    { pattern: '**/*.generated.js', reason: 'Generated file', category: "generated" },
     { pattern: '**/*.config.js', reason: 'Configuration file', category: 'config' },
     { pattern: '**/*.setup.js', reason: 'Setup file', category: 'config' },
     { pattern: '**/*.preset.js', reason: 'Preset file', category: 'config' }

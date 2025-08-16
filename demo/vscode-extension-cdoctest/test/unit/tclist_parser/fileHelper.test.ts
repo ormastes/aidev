@@ -56,16 +56,16 @@ import {
 import * as vscode from 'vscode';
 import { TestFile, testData } from '../../../src/tclist_parser/testTree';
 
-describe('fileHelper', () => {
+describe("fileHelper", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockTestData.clear();
   });
 
-  describe('getOrCreateFile', () => {
+  describe("getOrCreateFile", () => {
     test('should return existing file if it exists', () => {
       const uri = { toString: () => 'file:///test.md', path: '/test.md' } as vscode.Uri;
-      const existingItem = { id: 'existing' };
+      const existingItem = { id: "existing" };
       const existingData = new TestFile();
       
       mockGetItem.mockReturnValue(existingItem);
@@ -136,7 +136,7 @@ describe('fileHelper', () => {
     });
   });
 
-  describe('gatherTestItems', () => {
+  describe("gatherTestItems", () => {
     test('should collect all items from collection', () => {
       const items = [
         { id: '1' },
@@ -167,7 +167,7 @@ describe('fileHelper', () => {
     });
   });
 
-  describe('getWorkspaceTestPatterns', () => {
+  describe("getWorkspaceTestPatterns", () => {
     test('should return empty array when no workspace folders', () => {
       (vscode.workspace as any).workspaceFolders = undefined;
       
@@ -213,7 +213,7 @@ describe('fileHelper', () => {
     });
   });
 
-  describe('findInitialFiles', () => {
+  describe("findInitialFiles", () => {
     test('should create test items for found files', async () => {
       const files = [
         { toString: () => 'file:///test1.md', path: '/test1.md' },
@@ -260,7 +260,7 @@ describe('fileHelper', () => {
       
       mockFindFiles.mockResolvedValue(files);
       mockGetItem.mockImplementation((key) => 
-        key === 'file:///existing.md' ? { id: 'existing' } : undefined
+        key === 'file:///existing.md' ? { id: "existing" } : undefined
       );
       mockCreateTestItem.mockImplementation((id, label) => ({ id, label }));
       

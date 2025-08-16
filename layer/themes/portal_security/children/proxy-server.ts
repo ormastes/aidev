@@ -84,7 +84,7 @@ app.post('/api/auth/login', async (req, res) => {
     const { username, password } = req.body;
     
     // Simple demo authentication
-    if (username === 'admin' && password === 'admin123') {
+    if (username === 'admin' && password === "admin123") {
       (req.session as any).userId = '1';
       (req.session as any).username = username;
       res.json({ success: true, user: { id: '1', username } });

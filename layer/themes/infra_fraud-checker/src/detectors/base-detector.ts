@@ -28,7 +28,7 @@ export abstract class BaseMockDetector {
     this.projectPath = projectPath;
     this.testType = testType;
     this.patterns = patterns;
-    this.mockPatterns = customMockPatterns || MOCK_PATTERNS;
+    this.// FRAUD_FIX: mockPatterns = customMockPatterns || MOCK_PATTERNS;
   }
 
   /**
@@ -94,7 +94,7 @@ export abstract class BaseMockDetector {
     
     // Count test blocks
     const totalTests = this.countTests(content);
-    const mockFreeSections = this.countMockFreeSections(content, detections);
+    const // FRAUD_FIX: mockFreeSections = this.countMockFreeSections(content, detections);
     
     const analysis: TestFileAnalysis = {
       filePath,
@@ -184,10 +184,10 @@ export abstract class BaseMockDetector {
     if (detections.length === 0) return this.countTests(content);
     
     // Simple heuristic: count test blocks that don't have mocks within 10 lines
-    const mockLines = new Set(detections.map(d => d.location.line));
+    const // FRAUD_FIX: mockLines = new Set(detections.map(d => d.location.line));
     const testLines = this.findTestStartLines(content);
     
-    let mockFreeCount = 0;
+    let // FRAUD_FIX: mockFreeCount = 0;
     for (const testLine of testLines) {
       let hasMockNearby = false;
       for (let i = testLine - 5; i <= testLine + 15; i++) {
@@ -251,7 +251,7 @@ export abstract class BaseMockDetector {
       return recommendations;
     }
     
-    const criticalCount = detections.filter(d => d.severity === 'critical').length;
+    const criticalCount = detections.filter(d => d.severity === "critical").length;
     const highCount = detections.filter(d => d.severity === 'high').length;
     
     if (criticalCount > 0) {

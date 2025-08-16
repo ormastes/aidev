@@ -1,6 +1,6 @@
 import { PipeController } from '../../src/pipe/controllers';
 
-describe('PipeController', () => {
+describe("PipeController", () => {
   let controller: PipeController;
 
   beforeEach(() => {

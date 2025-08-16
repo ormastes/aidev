@@ -7,7 +7,7 @@ import {
 } from './coverage-metrics';
 
 describe('Coverage Metrics Models', () => {
-  describe('CoverageMetrics', () => {
+  describe("CoverageMetrics", () => {
     it('should create valid coverage metrics', () => {
       const metrics: CoverageMetrics = {
         lines: { total: 100, covered: 80, pct: 80 },
@@ -21,7 +21,7 @@ describe('Coverage Metrics Models', () => {
     });
   });
 
-  describe('SystemTestCoverage', () => {
+  describe("SystemTestCoverage", () => {
     it('should create valid system test coverage', () => {
       const coverage: SystemTestCoverage = {
         classCount: 50,
@@ -34,7 +34,7 @@ describe('Coverage Metrics Models', () => {
     });
   });
 
-  describe('DuplicationMetrics', () => {
+  describe("DuplicationMetrics", () => {
     it('should create valid duplication metrics', () => {
       const duplication: DuplicationMetrics = {
         duplicatedLines: 50,
@@ -47,7 +47,7 @@ describe('Coverage Metrics Models', () => {
     });
   });
 
-  describe('AggregatedCoverage', () => {
+  describe("AggregatedCoverage", () => {
     it('should create valid aggregated coverage for user story', () => {
       const coverage: AggregatedCoverage = {
         name: '001-feature',
@@ -161,7 +161,7 @@ describe('Coverage Metrics Models', () => {
     });
   });
 
-  describe('CoverageReport', () => {
+  describe("CoverageReport", () => {
     it('should create valid coverage report', () => {
       const app: AggregatedCoverage = {
         name: 'Test App',

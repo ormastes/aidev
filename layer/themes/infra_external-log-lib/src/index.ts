@@ -16,20 +16,20 @@ export interface CallRecord {
 
 // Import original modules
 import * as originalUrl from 'url';
-import * as originalUtil from 'util';
-import * as originalEvents from 'events';
+import * as originalUtil from 'node:util';
+import * as originalEvents from 'node:events';
 import * as originalZlib from 'zlib';
 import * as originalDns from 'dns';
-import * as originalReadline from 'readline';
+import * as originalReadline from "readline";
 import * as originalVm from 'vm';
 import * as originalCluster from 'cluster';
 import * as originalBuffer from 'buffer';
-import * as originalHttp from 'http';
-import * as originalHttps from 'https';
+import * as originalHttp from '../utils/http-wrapper';
+import * as originalHttps from 'node:https';
 import * as originalOs from 'os';
-import * as originalCrypto from 'crypto';
+import * as originalCrypto from 'node:crypto';
 import * as originalNet from 'net';
-import * as originalStream from 'stream';
+import * as originalStream from 'node:stream';
 
 // Import facades
 import { 
@@ -78,8 +78,8 @@ export { globalConfig, updateConfig } from './config';
 
 // Export originals for cases where unwrapped access is needed
 export const original = {
-  fs: require('fs'),
-  path: require('path'),
+  fs: require('node:fs'),
+  path: require('node:path'),
   childProcess: require('child_process'),
   http: originalHttp,
   https: originalHttps,

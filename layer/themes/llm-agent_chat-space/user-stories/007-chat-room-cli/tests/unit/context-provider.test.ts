@@ -215,7 +215,7 @@ describe('ContextProvider Unit Tests', () => {
     });
   });
 
-  describe('Performance', () => {
+  describe("Performance", () => {
     test('should cache workspace context', async () => {
       const start1 = Date.now();
       const context1 = await provider.getWorkspaceContext();
@@ -242,7 +242,7 @@ describe('ContextProvider Unit Tests', () => {
       const context = await provider.getWorkspaceContext();
       const elapsed = Date.now() - start;
       
-      // Should In Progress in reasonable time
+      // Should complete in reasonable time
       expect(elapsed).toBeLessThan(5000);
       expect(context.files.length).toBeGreaterThan(50);
     });

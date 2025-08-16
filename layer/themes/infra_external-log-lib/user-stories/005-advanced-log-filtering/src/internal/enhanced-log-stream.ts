@@ -1,5 +1,5 @@
-import { EventEmitter } from 'events';
-import { Readable } from 'stream';
+import { EventEmitter } from 'node:events';
+import { Readable } from 'node:stream';
 import { LogEntry } from '../../../004-real-time-streaming/src/domain/log-entry';
 import { LogFilter } from '../external/log-filter';
 
@@ -116,7 +116,7 @@ export class EnhancedLogStream extends EventEmitter {
 
     // Fallback to content-based detection
     const lowerLine = line.toLowerCase();
-    if (source === 'stderr' || lowerLine.includes('error') || lowerLine.includes('exception')) {
+    if (source === 'stderr' || lowerLine.includes('error') || lowerLine.includes("exception")) {
       return 'error';
     } else if (lowerLine.includes('warn')) {
       return 'warn';

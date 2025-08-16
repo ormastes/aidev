@@ -41,7 +41,7 @@ export abstract class BaseSetup {
   protected async getPortAllocation(): number {
     let key: keyof typeof PORT_ALLOCATIONS = 'demo';
     if (this.deploymentType === 'release') {
-      key = 'production';
+      key = "production";
     } else if (['epic', 'theme', 'story'].includes(this.deploymentType)) {
       key = 'agile';
     } else if (this.deploymentType === 'test') {

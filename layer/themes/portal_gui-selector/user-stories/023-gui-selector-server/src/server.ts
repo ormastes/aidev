@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import session from 'express-session';
-import { path } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import { templateRouter } from './routes/templates';
 import { authRouter } from './routes/auth';
 import { authJWTRouter } from './routes/auth-jwt';
@@ -31,14 +31,14 @@ const db = new DatabaseService();
 const externalLog = new ExternalLogService({
   service: 'gui-selector',
   logDir: path.join(__dirname, '../logs'),
-  logToConsole: process.env.NODE_ENV === 'development'
+  logToConsole: process.env.NODE_ENV === "development"
 });
 const jwtService = new JWTService();
 const themeStorage = new ThemeStorageService(jwtService, externalLog);
 
 // Port MUST be provided by portal_security theme via environment variable
 // NEVER hardcode ports - all port allocation goes through EnhancedPortManager
-const ENV = process.env.NODE_ENV || 'development';
+const ENV = process.env.NODE_ENV || "development";
 const DEPLOY_TYPE = process.env.DEPLOY_TYPE || ENV;
 const PORT = process.env.PORT;
 
@@ -63,7 +63,7 @@ const sessionOptions = {
   store: new SQLiteStore({
     db: 'sessions.db',
     concurrentDB: true,
-    table: 'sessions',
+    table: "sessions",
     dir: path.join(__dirname, '../data')
   })
 };
@@ -188,7 +188,7 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
   
   res.status(500).json({
     error: 'Internal server error',
-    message: process.env.NODE_ENV === 'production' ? undefined : err.message
+    message: process.env.NODE_ENV === "production" ? undefined : err.message
   });
 });
 
@@ -202,7 +202,7 @@ async function startServer() {
     // Create default admin user if not exists
     const adminUser = await db.getUserByUsername('admin');
     if (!adminUser) {
-      const adminPassword = await bcrypt.hash('admin123', 10);
+      const adminPassword = await bcrypt.hash("admin123", 10);
       await db.createUser('admin', 'admin@guiselector.local', adminPassword, 'admin');
       logger.info('Default admin user created');
       await externalLog.logSystemEvent('default_admin_created');

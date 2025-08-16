@@ -9,7 +9,7 @@ export interface RuleDefinition {
   id: string;
   name: string;
   description: string;
-  category: 'structure' | 'logic' | 'performance' | 'security' | 'best-practice';
+  category: "structure" | 'logic' | "performance" | "security" | 'best-practice';
   severity: 'error' | 'warning' | 'info';
   enabled: boolean;
   evaluate: (flow: FlowDefinition, context: RuleContext) => RuleResult[];
@@ -18,7 +18,7 @@ export interface RuleDefinition {
 export interface RuleContext {
   previousFlows?: FlowDefinition[];
   metadata?: Record<string, any>;
-  environment?: 'development' | 'staging' | 'production';
+  environment?: "development" | 'staging' | "production";
   strict?: boolean;
 }
 
@@ -48,7 +48,7 @@ export class ValidationRulesEngine {
       id: 'no-orphan-steps',
       name: 'No Orphan Steps',
       description: 'Ensures all steps are connected to the flow',
-      category: 'structure',
+      category: "structure",
       severity: 'error',
       enabled: true,
       evaluate: (flow) => {
@@ -129,7 +129,7 @@ export class ValidationRulesEngine {
         const results: RuleResult[] = [];
         
         flow.steps.forEach(step => {
-          if (step.type === 'decision') {
+          if (step.type === "decision") {
             if (!step.next || (Array.isArray(step.next) && step.next.length < 2)) {
               results.push({
                 ruleId: 'decision-has-branches',
@@ -179,7 +179,7 @@ export class ValidationRulesEngine {
       id: 'parallel-step-limit',
       name: 'Parallel Step Limit',
       description: 'Warns when parallel steps exceed recommended limit',
-      category: 'performance',
+      category: "performance",
       severity: 'warning',
       enabled: true,
       evaluate: (flow) => {
@@ -187,7 +187,7 @@ export class ValidationRulesEngine {
         const MAX_PARALLEL = 10;
         
         flow.steps.forEach(step => {
-          if (step.type === 'parallel' && step.next && Array.isArray(step.next)) {
+          if (step.type === "parallel" && step.next && Array.isArray(step.next)) {
             if (step.next.length > MAX_PARALLEL) {
               results.push({
                 ruleId: 'parallel-step-limit',
@@ -208,7 +208,7 @@ export class ValidationRulesEngine {
       id: 'timeout-configured',
       name: 'Timeout Configuration',
       description: 'Ensures long-running steps have timeouts',
-      category: 'performance',
+      category: "performance",
       severity: 'warning',
       enabled: true,
       evaluate: (flow) => {
@@ -236,7 +236,7 @@ export class ValidationRulesEngine {
       id: 'no-sensitive-data',
       name: 'No Sensitive Data',
       description: 'Checks for potential sensitive data in flow',
-      category: 'security',
+      category: "security",
       severity: 'error',
       enabled: true,
       evaluate: (flow) => {
@@ -297,7 +297,7 @@ export class ValidationRulesEngine {
       enabled: true,
       evaluate: (flow) => {
         const results: RuleResult[] = [];
-        const CRITICAL_TYPES = ['action', 'transform'];
+        const CRITICAL_TYPES = ['action', "transform"];
         
         flow.steps.forEach(step => {
           if (CRITICAL_TYPES.includes(step.type) && !step.errorHandler) {
@@ -369,7 +369,7 @@ export class ValidationRulesEngine {
             ruleId: 'flow-documentation',
             passed: false,
             message: 'Flow lacks adequate description',
-            path: 'description',
+            path: "description",
             suggestion: 'Add a comprehensive description of the flow\'s purpose and behavior'
           });
         }

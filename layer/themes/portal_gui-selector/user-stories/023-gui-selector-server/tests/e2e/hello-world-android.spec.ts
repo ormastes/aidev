@@ -9,7 +9,7 @@ test.describe('Hello World Android App E2E Tests', () => {
     await page.goto('/mobile-preview.html');
     
     // Wait for the page to fully load
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState("networkidle");
   });
 
   test('should load mobile preview page successfully', async () => {

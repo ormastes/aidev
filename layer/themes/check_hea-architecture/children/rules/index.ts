@@ -3,13 +3,13 @@
  * Defines and manages HEA architecture rules
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 export interface Rule {
   id: string;
   name: string;
   description: string;
-  category: 'structure' | 'imports' | 'exports' | 'naming' | 'complexity';
+  category: "structure" | 'imports' | 'exports' | 'naming' | "complexity";
   severity: 'error' | 'warning' | 'info';
   enabled: boolean;
   fixable: boolean;
@@ -86,7 +86,7 @@ export class HEARules extends EventEmitter {
       id: 'pipe-gateway-required',
       name: 'Pipe Gateway Required',
       description: 'Themes with children must have a pipe gateway',
-      category: 'structure',
+      category: "structure",
       severity: 'error',
       enabled: true,
       fixable: true,
@@ -115,7 +115,7 @@ export class HEARules extends EventEmitter {
       id: 'pipe-index-only',
       name: 'Pipe Index Only',
       description: 'Pipe directories must only contain index files',
-      category: 'structure',
+      category: "structure",
       severity: 'error',
       enabled: true,
       fixable: false,
@@ -337,7 +337,7 @@ export class HEARules extends EventEmitter {
         const dirs = context.filePath.split('/');
         dirs.forEach((dir, index) => {
           if (dir && !dir.match(/^[a-z]+(-[a-z]+)*$/) && 
-              dir !== 'pipe' && dir !== 'children' && !dir.includes('.')) {
+              dir !== 'pipe' && dir !== "children" && !dir.includes('.')) {
             violations.push({
               rule: 'consistent-naming',
               message: `Directory name should be kebab-case: ${dir}`,
@@ -357,7 +357,7 @@ export class HEARules extends EventEmitter {
       id: 'max-complexity',
       name: 'Maximum Complexity',
       description: 'Modules should not exceed complexity threshold',
-      category: 'complexity',
+      category: "complexity",
       severity: 'warning',
       enabled: true,
       fixable: false,
@@ -383,7 +383,7 @@ export class HEARules extends EventEmitter {
       id: 'max-dependencies',
       name: 'Maximum Dependencies',
       description: 'Modules should not have too many dependencies',
-      category: 'complexity',
+      category: "complexity",
       severity: 'warning',
       enabled: true,
       fixable: false,
@@ -416,7 +416,7 @@ export class HEARules extends EventEmitter {
 
     // Recommended ruleset
     this.registerRuleSet({
-      name: 'recommended',
+      name: "recommended",
       description: 'Recommended HEA rules',
       rules: Array.from(this.rules.values()).filter(r => 
         r.severity === 'error' || (r.severity === 'warning' && r.category !== 'naming')
@@ -555,11 +555,11 @@ export class HEARules extends EventEmitter {
     return this.getAllRules().filter(r => r.fixable);
   }
 
-  getRulesByCategory(category: Rule['category']): Rule[] {
+  getRulesByCategory(category: Rule["category"]): Rule[] {
     return this.getAllRules().filter(r => r.category === category);
   }
 
-  getRulesBySeverity(severity: Rule['severity']): Rule[] {
+  getRulesBySeverity(severity: Rule["severity"]): Rule[] {
     return this.getAllRules().filter(r => r.severity === severity);
   }
 

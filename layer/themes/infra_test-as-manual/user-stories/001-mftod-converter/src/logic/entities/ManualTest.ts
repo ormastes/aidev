@@ -54,7 +54,7 @@ export interface TestData {
 
 export interface CaptureReference {
   stepId: string;
-  type: 'screenshot' | 'log';
+  type: "screenshot" | 'log';
   filePath: string;
   caption?: string;
 }

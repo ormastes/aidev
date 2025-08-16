@@ -5,8 +5,8 @@ import { TestConfiguration, validateTestConfiguration } from '../../src/domain/t
 import { ReportConfig, validateReportConfig } from '../../src/domain/report-config';
 import { MockExternalLogger } from '../../src/internal/mock-external-logger';
 import { ErrorHandler } from '../../s../utils/error-handler';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join } from 'path';
+import { fsPromises as fs } from 'fs/promises';
+import { join } from 'node:path';
 
 describe('Configuration Validation Integration Test', () => {
   let mockLogger: MockExternalLogger;
@@ -120,12 +120,12 @@ Then('it should pass or fail appropriately', function () {});
       } catch (error) {
         // Test error handler integration
         const context = ErrorHandler.createErrorContext(error, {
-          component: 'MockFreeTestRunner',
+          component: "MockFreeTestRunner",
           operation: 'configuration-validation'
         });
 
         expect(context.errorMessage).toContain('Invalid configuration');
-        expect(context.component).toBe('MockFreeTestRunner');
+        expect(context.component).toBe("MockFreeTestRunner");
         expect(context.operation).toBe('configuration-validation');
         expect(context.timestamp).toBeDefined();
       }
@@ -189,12 +189,12 @@ Then('it should pass or fail appropriately', function () {});
         fail('Expected validation to throw');
       } catch (error) {
         const context = ErrorHandler.createErrorContext(error, {
-          component: 'ReportGenerator',
+          component: "ReportGenerator",
           operation: 'report-config-validation'
         });
 
         expect(context.errorMessage).toContain('Invalid report config');
-        expect(context.component).toBe('ReportGenerator');
+        expect(context.component).toBe("ReportGenerator");
         expect(context.operation).toBe('report-config-validation');
       }
     });

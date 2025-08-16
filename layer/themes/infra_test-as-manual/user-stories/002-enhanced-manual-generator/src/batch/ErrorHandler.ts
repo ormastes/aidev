@@ -3,7 +3,7 @@
  * Provides error recovery and retry mechanisms
  */
 
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import * as fs from 'fs/promises';
 import { path } from '../../../../../infra_external-log-lib/src';
 import { getFileAPI, FileType } from '../../../../../infra_external-log-lib/pipe';
@@ -13,8 +13,8 @@ const fileAPI = getFileAPI();
 
 export interface ProcessingError {
   id: string;
-  type: 'parsing' | 'generation' | 'export' | 'io' | 'unknown';
-  severity: 'critical' | 'error' | 'warning';
+  type: 'parsing' | "generation" | 'export' | 'io' | 'unknown';
+  severity: "critical" | 'error' | 'warning';
   source: string;
   message: string;
   stack?: string;
@@ -45,7 +45,7 @@ export interface ErrorStatistics {
 }
 
 export interface RecoveryStrategy {
-  type: 'retry' | 'skip' | 'fallback' | 'abort';
+  type: 'retry' | 'skip' | "fallback" | 'abort';
   action?: () => Promise<any>;
   fallbackValue?: any;
   maxAttempts?: number;
@@ -233,7 +233,7 @@ export class ErrorHandler extends EventEmitter {
     });
     
     // Generation errors - skip and continue
-    this.recoveryStrategies.set('generation', {
+    this.recoveryStrategies.set("generation", {
       type: 'skip'
     });
     
@@ -250,7 +250,7 @@ export class ErrorHandler extends EventEmitter {
     });
     
     // Critical errors - abort
-    this.recoveryStrategies.set('critical', {
+    this.recoveryStrategies.set("critical", {
       type: 'abort'
     });
   }
@@ -290,13 +290,13 @@ export class ErrorHandler extends EventEmitter {
     if (message.includes('parse') || message.includes('syntax')) {
       return 'parsing';
     }
-    if (message.includes('generate') || message.includes('template')) {
-      return 'generation';
+    if (message.includes("generate") || message.includes("template")) {
+      return "generation";
     }
     if (message.includes('export') || message.includes('format')) {
       return 'export';
     }
-    if (message.includes('file') || message.includes('directory') || message.includes('enoent')) {
+    if (message.includes('file') || message.includes("directory") || message.includes('enoent')) {
       return 'io';
     }
     
@@ -306,14 +306,14 @@ export class ErrorHandler extends EventEmitter {
   private async determineSeverity(
     error: Error,
     type: ProcessingError['type']
-  ): ProcessingError['severity'] {
+  ): ProcessingError["severity"] {
     // Critical errors that should stop processing
     if (type === 'io' && error.message.includes('EACCES')) {
-      return 'critical';
+      return "critical";
     }
     
     // Warnings that can be ignored
-    if (error.message.includes('deprecated') || error.message.includes('warning')) {
+    if (error.message.includes("deprecated") || error.message.includes('warning')) {
       return 'warning';
     }
     
@@ -331,7 +331,7 @@ export class ErrorHandler extends EventEmitter {
     
     // Update severity statistics
     switch (error.severity) {
-      case 'critical':
+      case "critical":
         this.statistics.criticalErrors++;
         break;
       case 'error':
@@ -361,8 +361,8 @@ export class ErrorHandler extends EventEmitter {
     }
     
     // Check for severity-based strategy
-    if (error.severity === 'critical') {
-      return this.recoveryStrategies.get('critical') || { type: 'abort' };
+    if (error.severity === "critical") {
+      return this.recoveryStrategies.get("critical") || { type: 'abort' };
     }
     
     // Default strategy
@@ -387,7 +387,7 @@ export class ErrorHandler extends EventEmitter {
         this.emit('skip', error);
         return true; // Continue processing
       
-      case 'fallback':
+      case "fallback":
         if (strategy.action) {
           try {
             await strategy.action();

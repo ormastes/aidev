@@ -125,7 +125,7 @@ export class CommentTaskExecutor extends DefaultTaskExecutor {
     
     return async (task: Task) => {
       // First execute the task normally if it's runnable
-      if (task.type === 'runnable' && task.runnable) {
+      if (task.type === "runnable" && task.runnable) {
         return await baseExecutor(task);
       }
       
@@ -146,7 +146,7 @@ export class CommentTaskExecutor extends DefaultTaskExecutor {
     const executor = new CommentTaskExecutor(workingDirectory);
     
     // Register NAME_ID update function
-    executor.registerFunction('updateNameId', async (filePath: string, entity: string) => {
+    executor.registerFunction("updateNameId", async (filePath: string, entity: string) => {
       const nameIdPath = path.join(executor.directory || '.', 'NAME_ID.vf.json');
       
       try {

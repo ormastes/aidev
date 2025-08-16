@@ -7,7 +7,7 @@ jest.mock('vscode', () => ({
   Position: jest.fn((line: number, char: number) => ({ line, character: char }))
 }));
 
-describe('TestTree', () => {
+describe("TestTree", () => {
   let TestFile: any;
   let TestHeading: any;
   let TestCase: any;
@@ -24,7 +24,7 @@ describe('TestTree', () => {
     testData = testTreeModule.testData;
   });
 
-  describe('TestFile', () => {
+  describe("TestFile", () => {
     test('should create empty test file', () => {
       const file = new TestFile();
       
@@ -60,7 +60,7 @@ describe('TestTree', () => {
     });
   });
 
-  describe('TestHeading', () => {
+  describe("TestHeading", () => {
     test('should create test heading', () => {
       const heading = new TestHeading('Test Suite', 1);
       
@@ -69,7 +69,7 @@ describe('TestTree', () => {
     });
   });
 
-  describe('TestCase', () => {
+  describe("TestCase", () => {
     test('should create test case', () => {
       const testCase = new TestCase('test1', 1, '+', 1, 2);
       

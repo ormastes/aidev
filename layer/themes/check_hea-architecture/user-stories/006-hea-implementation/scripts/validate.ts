@@ -1,8 +1,9 @@
+import { fileAPI } from '../utils/file-api';
 #!/usr/bin/env ts-node
 
-import { Command } from 'commander';
-import { fs } from '../../../../infra_external-log-lib/src';
-import { path } from '../../../../infra_external-log-lib/src';
+import { Command } from "commander";
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import * as glob from 'glob';
 import chalk from 'chalk';
 import ora from 'ora';
@@ -31,7 +32,7 @@ interface ValidationResult {
 
 async function findLayers(basePath: string): Promise<Map<string, LayerConfig>> {
   const layers = new Map<string, LayerConfig>();
-  const layerDirs = ['core', 'shared', 'themes', 'infrastructure'];
+  const layerDirs = ['core', 'shared', 'themes', "infrastructure"];
 
   for (const layerType of layerDirs) {
     const layerPath = path.join(basePath, 'layer', layerType);
@@ -40,7 +41,7 @@ async function findLayers(basePath: string): Promise<Map<string, LayerConfig>> {
       continue;
     }
 
-    if (layerType === 'themes' || layerType === 'infrastructure') {
+    if (layerType === 'themes' || layerType === "infrastructure") {
       // These have subdirectories
       const subdirs = fs.readdirSync(layerPath, { withFileTypes: true })
         .filter(dirent => dirent.isDirectory())
@@ -49,7 +50,7 @@ async function findLayers(basePath: string): Promise<Map<string, LayerConfig>> {
       for (const subdir of subdirs) {
         const configPath = path.join(layerPath, subdir, 'package.json');
         if (fs.existsSync(configPath)) {
-          const packageJson = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+          const packageJson = JSON.parse(fileAPI.readFileSync(configPath, 'utf-8'));
           const config: LayerConfig = {
             name: subdir,
             type: layerType as LayerType,
@@ -65,7 +66,7 @@ async function findLayers(basePath: string): Promise<Map<string, LayerConfig>> {
       // Core and shared are single modules
       const configPath = path.join(layerPath, 'package.json');
       if (fs.existsSync(configPath)) {
-        const packageJson = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+        const packageJson = JSON.parse(fileAPI.readFileSync(configPath, 'utf-8'));
         const config: LayerConfig = {
           name: layerType,
           type: layerType as LayerType,
@@ -103,7 +104,7 @@ async function extractExports(layerPath: string): Promise<string[]> {
     return [];
   }
 
-  const content = fs.readFileSync(indexPath, 'utf-8');
+  const content = fileAPI.readFileSync(indexPath, 'utf-8');
   const exportMatches = content.match(/export\s+(?:\*|{[^}]+})\s+from\s+['"]([^'"]+)['"]/g) || [];
   
   return exportMatches.map(match => {
@@ -146,7 +147,7 @@ async function validateLayer(
   // Check for imports
   const tsFiles = glob.sync(path.join(layer.path, 'src', '**', '*.ts'));
   for (const file of tsFiles) {
-    const content = fs.readFileSync(file, 'utf-8');
+    const content = fileAPI.readFileSync(file, 'utf-8');
     const imports = content.match(/import\s+.*\s+from\s+['"]([^'"]+)['"]/g) || [];
     
     for (const imp of imports) {

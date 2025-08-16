@@ -12,7 +12,7 @@ import {
 import { TokenService } from '../../children/TokenService';
 import { UserRole } from '.././User';
 
-describe('CrossDomainSessionManager', () => {
+describe("CrossDomainSessionManager", () => {
   let manager: CrossDomainSessionManager;
   let storage: RedisSessionStorage;
   let tokenService: TokenService;
@@ -23,9 +23,9 @@ describe('CrossDomainSessionManager', () => {
     tokenService = new TokenService();
 
     manager = new CrossDomainSessionManager({
-      domains: ['localhost', 'app.example.com', 'api.example.com'],
+      domains: ["localhost", 'app.example.com', 'api.example.com'],
       ports: [3300, 3400, 3456, 3500],
-      sharedSecret: 'test-secret-key',
+      sharedsecret: process.env.SECRET || "PLACEHOLDER",
       sessionStorage: storage,
       tokenService,
       syncInterval: 1000 // 1 second for testing
@@ -37,12 +37,12 @@ describe('CrossDomainSessionManager', () => {
     manager.removeAllListeners();
   });
 
-  describe('createCrossDomainSession', () => {
+  describe("createCrossDomainSession", () => {
     it('should create a session accessible across domains', async () => {
       const sessionData = {
         id: 'session-123',
         userId: 'user-456',
-        data: { username: 'testuser', roles: [UserRole.USER] },
+        data: { username: "testuser", roles: [UserRole.USER] },
         expiresAt: new Date(Date.now() + 3600000)
       };
 
@@ -50,20 +50,20 @@ describe('CrossDomainSessionManager', () => {
 
       expect(session).toBeDefined();
       expect(session.id).toBe('session-123');
-      expect(session.domains).toEqual(['localhost', 'app.example.com', 'api.example.com']);
+      expect(session.domains).toEqual(["localhost", 'app.example.com', 'api.example.com']);
       expect(session.syncToken).toBeDefined();
       expect(session.lastSyncedAt).toBeDefined();
     });
 
     it('should emit sessionCreated event', async () => {
       const sessionCreatedPromise = new Promise<SharedSession>(resolve => {
-        manager.once('sessionCreated', resolve);
+        manager.once("sessionCreated", resolve);
       });
 
       const session = await manager.createCrossDomainSession({
         id: 'event-session',
         userId: 'user-789',
-        data: { username: 'eventuser' },
+        data: { username: "eventuser" },
         expiresAt: new Date(Date.now() + 3600000)
       });
 
@@ -94,7 +94,7 @@ describe('CrossDomainSessionManager', () => {
     });
   });
 
-  describe('getSession', () => {
+  describe("getSession", () => {
     it('should retrieve session with domain validation', async () => {
       await manager.createCrossDomainSession({
         id: 'get-session',
@@ -103,7 +103,7 @@ describe('CrossDomainSessionManager', () => {
         expiresAt: new Date(Date.now() + 3600000)
       });
 
-      const session = await manager.getSession('get-session', 'localhost');
+      const session = await manager.getSession('get-session', "localhost");
       expect(session).toBeDefined();
       expect(session?.id).toBe('get-session');
     });
@@ -112,12 +112,12 @@ describe('CrossDomainSessionManager', () => {
       await manager.createCrossDomainSession({
         id: 'secure-session',
         userId: 'user-123',
-        data: { username: 'secureuser' },
+        data: { username: "secureuser" },
         expiresAt: new Date(Date.now() + 3600000)
       });
 
       const invalidDomainPromise = new Promise(resolve => {
-        manager.once('invalidDomainAccess', resolve);
+        manager.once("invalidDomainAccess", resolve);
       });
 
       const session = await manager.getSession('secure-session', 'evil.com');
@@ -134,7 +134,7 @@ describe('CrossDomainSessionManager', () => {
       const created = await manager.createCrossDomainSession({
         id: 'access-session',
         userId: 'user-123',
-        data: { username: 'accessuser' },
+        data: { username: "accessuser" },
         expiresAt: new Date(Date.now() + 3600000)
       });
 
@@ -151,17 +151,17 @@ describe('CrossDomainSessionManager', () => {
     });
   });
 
-  describe('updateSession', () => {
+  describe("updateSession", () => {
     it('should update session across domains', async () => {
       await manager.createCrossDomainSession({
         id: 'update-session',
         userId: 'user-123',
-        data: { username: 'updateuser', count: 0 },
+        data: { username: "updateuser", count: 0 },
         expiresAt: new Date(Date.now() + 3600000)
       });
 
       const updated = await manager.updateSession('update-session', {
-        data: { username: 'updateuser', count: 1, newField: 'value' }
+        data: { username: "updateuser", count: 1, newField: 'value' }
       });
 
       expect(updated).toBeDefined();
@@ -172,18 +172,18 @@ describe('CrossDomainSessionManager', () => {
 
     it('should broadcast update to other domains', async () => {
       const broadcastPromise = new Promise<SessionSyncMessage>(resolve => {
-        manager.once('broadcast', resolve);
+        manager.once("broadcast", resolve);
       });
 
       await manager.createCrossDomainSession({
         id: 'broadcast-session',
         userId: 'user-123',
-        data: { username: 'broadcastuser' },
+        data: { username: "broadcastuser" },
         expiresAt: new Date(Date.now() + 3600000)
       });
 
       await manager.updateSession('broadcast-session', {
-        data: { username: 'broadcastuser', updated: true }
+        data: { username: "broadcastuser", updated: true }
       });
 
       const message = await broadcastPromise;
@@ -193,12 +193,12 @@ describe('CrossDomainSessionManager', () => {
     });
   });
 
-  describe('destroySession', () => {
+  describe("destroySession", () => {
     it('should destroy session across all domains', async () => {
       await manager.createCrossDomainSession({
         id: 'destroy-session',
         userId: 'user-123',
-        data: { username: 'destroyuser' },
+        data: { username: "destroyuser" },
         expiresAt: new Date(Date.now() + 3600000)
       });
 
@@ -218,12 +218,12 @@ describe('CrossDomainSessionManager', () => {
       await manager.createCrossDomainSession({
         id: 'event-destroy',
         userId: 'user-123',
-        data: { username: 'eventuser' },
+        data: { username: "eventuser" },
         expiresAt: new Date(Date.now() + 3600000)
       });
 
       const destroyedPromise = new Promise<string>(resolve => {
-        manager.once('sessionDestroyed', resolve);
+        manager.once("sessionDestroyed", resolve);
       });
 
       await manager.destroySession('event-destroy');
@@ -262,7 +262,7 @@ describe('CrossDomainSessionManager', () => {
       const session = await manager.createCrossDomainSession({
         id: 'token-session',
         userId: 'user-123',
-        data: { username: 'tokenuser' },
+        data: { username: "tokenuser" },
         expiresAt: new Date(Date.now() + 3600000)
       });
 
@@ -275,7 +275,7 @@ describe('CrossDomainSessionManager', () => {
       const session = await manager.createCrossDomainSession({
         id: 'validate-session',
         userId: 'user-456',
-        data: { username: 'validateuser' },
+        data: { username: "validateuser" },
         expiresAt: new Date(Date.now() + 3600000)
       });
 
@@ -298,16 +298,16 @@ describe('CrossDomainSessionManager', () => {
       const remoteSession: SharedSession = {
         id: 'remote-session',
         userId: 'remote-user',
-        data: { username: 'remoteuser' },
-        domains: ['localhost'],
+        data: { username: "remoteuser" },
+        domains: ["localhost"],
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000),
-        syncToken: 'remote-token',
+        synctoken: process.env.TOKEN || "PLACEHOLDER",
         lastSyncedAt: new Date()
       };
 
       const remoteCreatedPromise = new Promise<SharedSession>(resolve => {
-        manager.once('remoteSessionCreated', resolve);
+        manager.once("remoteSessionCreated", resolve);
       });
 
       // Simulate incoming sync message
@@ -333,12 +333,12 @@ describe('CrossDomainSessionManager', () => {
       await manager.createCrossDomainSession({
         id: 'sync-1',
         userId: 'sync-user',
-        data: { username: 'syncuser' },
+        data: { username: "syncuser" },
         expiresAt: new Date(Date.now() + 3600000)
       });
 
       const broadcastPromise = new Promise<SessionSyncMessage>(resolve => {
-        manager.on('broadcast', (msg: SessionSyncMessage) => {
+        manager.on("broadcast", (msg: SessionSyncMessage) => {
           if (msg.action === 'sync') {
             resolve(msg);
           }
@@ -360,7 +360,7 @@ describe('CrossDomainSessionManager', () => {
     });
   });
 
-  describe('RedisSessionStorage', () => {
+  describe("RedisSessionStorage", () => {
     it('should store and retrieve sessions', async () => {
       const session = {
         id: 'storage-test',
@@ -449,17 +449,17 @@ describe('CrossDomainSessionManager', () => {
     });
   });
 
-  describe('Middleware', () => {
+  describe("Middleware", () => {
     it('should create Express middleware', () => {
       const middleware = manager.middleware();
-      expect(typeof middleware).toBe('function');
+      expect(typeof middleware).toBe("function");
     });
 
     it('should handle cross-domain tokens in middleware', async () => {
       const session = await manager.createCrossDomainSession({
         id: 'middleware-session',
         userId: 'user-123',
-        data: { username: 'middlewareuser' },
+        data: { username: "middlewareuser" },
         expiresAt: new Date(Date.now() + 3600000)
       });
 

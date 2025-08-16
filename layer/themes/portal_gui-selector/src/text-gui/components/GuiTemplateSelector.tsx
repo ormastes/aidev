@@ -41,7 +41,7 @@ export const GuiTemplateSelector: React.FC<Props> = ({ onSelect, onBack }) => {
     {
       id: 'modern-dashboard',
       name: 'Modern Dashboard',
-      category: 'dashboard',
+      category: "dashboard",
       description: 'Clean, modern dashboard with charts and metrics',
       preview: [
         '┌─────────────────────────────┐',
@@ -54,7 +54,7 @@ export const GuiTemplateSelector: React.FC<Props> = ({ onSelect, onBack }) => {
         '│ ▁▂▃▄▅▆▇█▇▆▅▄▃▂▁           │',
         '└─────────────────────────────┘'
       ],
-      tags: ['modern', 'dashboard', 'analytics']
+      tags: ['modern', "dashboard", "analytics"]
     },
     {
       id: 'admin-panel',
@@ -71,7 +71,7 @@ export const GuiTemplateSelector: React.FC<Props> = ({ onSelect, onBack }) => {
         '│ • Logs│                     │',
         '└───────┴─────────────────────┘'
       ],
-      tags: ['admin', 'navigation', 'crud']
+      tags: ['admin', "navigation", 'crud']
     },
     {
       id: 'form-wizard',
@@ -88,7 +88,7 @@ export const GuiTemplateSelector: React.FC<Props> = ({ onSelect, onBack }) => {
         '│  [Back]  [Next]  [Cancel]   │',
         '└─────────────────────────────┘'
       ],
-      tags: ['forms', 'wizard', 'validation']
+      tags: ['forms', 'wizard', "validation"]
     },
     {
       id: 'data-table',
@@ -111,7 +111,7 @@ export const GuiTemplateSelector: React.FC<Props> = ({ onSelect, onBack }) => {
 
   const categories = [
     { label: 'All Templates', value: 'all' },
-    { label: 'Dashboards', value: 'dashboard' },
+    { label: "Dashboards", value: "dashboard" },
     { label: 'Admin Panels', value: 'admin' },
     { label: 'Forms', value: 'forms' },
     { label: 'Tables', value: 'tables' }

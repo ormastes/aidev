@@ -7,7 +7,7 @@ import { Task } from '../../children/VFTaskQueueWrapper';
 // Mock child_process
 jest.mock('child_process');
 
-describe('DefaultTaskExecutor', () => {
+describe("DefaultTaskExecutor", () => {
   let executor: DefaultTaskExecutor;
   let testDir: string;
 
@@ -30,10 +30,10 @@ describe('DefaultTaskExecutor', () => {
     jest.clearAllMocks();
   });
 
-  describe('getExecutor', () => {
+  describe("getExecutor", () => {
     it('should return a task executor function', () => {
       const taskExecutor = executor.getExecutor();
-      expect(typeof taskExecutor).toBe('function');
+      expect(typeof taskExecutor).toBe("function");
     });
 
     it('should handle tasks with no runnable property', async () => {
@@ -60,7 +60,7 @@ describe('DefaultTaskExecutor', () => {
     it('should execute file:write command', async () => {
       const task: Task = {
         id: 'test-file-write',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
@@ -87,7 +87,7 @@ describe('DefaultTaskExecutor', () => {
 
       const task: Task = {
         id: 'test-file-read',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
@@ -112,7 +112,7 @@ describe('DefaultTaskExecutor', () => {
 
       const task: Task = {
         id: 'test-file-delete',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
@@ -136,7 +136,7 @@ describe('DefaultTaskExecutor', () => {
 
       const task: Task = {
         id: 'test-file-exists',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
@@ -160,7 +160,7 @@ describe('DefaultTaskExecutor', () => {
     it('should execute dir:create command', async () => {
       const task: Task = {
         id: 'test-dir-create',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
@@ -181,12 +181,12 @@ describe('DefaultTaskExecutor', () => {
 
     it('should execute dir:list command', async () => {
       fs.mkdirSync('list-dir');
-      fs.writeFileSync('list-dir/file1.txt', 'content1');
-      fs.writeFileSync('list-dir/file2.txt', 'content2');
+      fs.writeFileSync('list-dir/file1.txt', "content1");
+      fs.writeFileSync('list-dir/file2.txt', "content2");
 
       const task: Task = {
         id: 'test-dir-list',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
@@ -210,21 +210,21 @@ describe('DefaultTaskExecutor', () => {
   describe('function execution', () => {
     it('should execute registered functions', async () => {
       let functionCalled = false;
-      executor.registerFunction('testFunction', async (arg1: string, arg2: number) => {
+      executor.registerFunction("testFunction", async (arg1: string, arg2: number) => {
         functionCalled = true;
         return `Called with ${arg1} and ${arg2}`;
       });
 
       const task: Task = {
         id: 'test-function',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
-          function: 'testFunction',
+          type: "function",
+          function: "testFunction",
           args: ['hello', '42']
         }
       };
@@ -238,20 +238,20 @@ describe('DefaultTaskExecutor', () => {
     });
 
     it('should handle function errors', async () => {
-      executor.registerFunction('errorFunction', async () => {
+      executor.registerFunction("errorFunction", async () => {
         throw new Error('Function error');
       });
 
       const task: Task = {
         id: 'test-function-error',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
-          function: 'errorFunction'
+          type: "function",
+          function: "errorFunction"
         }
       };
 
@@ -269,7 +269,7 @@ describe('DefaultTaskExecutor', () => {
     it('should handle file read errors', async () => {
       const task: Task = {
         id: 'test-read-error',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
@@ -289,7 +289,7 @@ describe('DefaultTaskExecutor', () => {
     it('should handle unknown commands', async () => {
       const task: Task = {
         id: 'test-unknown',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
@@ -310,7 +310,7 @@ describe('DefaultTaskExecutor', () => {
     it('should handle missing runnable.command', async () => {
       const task: Task = {
         id: 'test-no-command',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',

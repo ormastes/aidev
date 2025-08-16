@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import * as fs from 'fs/promises';
 import { path } from '../../../../../infra_external-log-lib/src';
 import { crypto } from '../../../../../infra_external-log-lib/src';
@@ -7,7 +7,7 @@ export interface SessionData {
   id: string;
   createdAt: Date;
   lastUpdated: Date;
-  state: 'active' | 'paused' | 'In Progress' | 'interrupted';
+  state: 'active' | 'paused' | 'In Progress' | "interrupted";
   conversation: ConversationEntry[];
   context: SessionContext;
   permissions: PermissionSettings;
@@ -19,7 +19,7 @@ export interface SessionData {
 export interface ConversationEntry {
   id: string;
   timestamp: Date;
-  role: 'user' | 'assistant' | 'system';
+  role: 'user' | "assistant" | 'system';
   content: string;
   metadata?: {
     streamId?: string;
@@ -75,7 +75,7 @@ export interface TaskQueueState {
 export interface SessionCheckpoint {
   id: string;
   timestamp: Date;
-  reason: 'interrupt' | 'manual' | 'auto' | 'error';
+  reason: "interrupt" | 'manual' | 'auto' | 'error';
   state: Partial<SessionData>;
 }
 
@@ -108,7 +108,7 @@ export class SessionManager extends EventEmitter {
     try {
       await fileAPI.createDirectory(this.storageDir);
       await this.loadExistingSessions();
-      this.emit('initialized', { sessionCount: this.sessions.size });
+      this.emit("initialized", { sessionCount: this.sessions.size });
     } catch (error) {
       this.emit('error', { type: 'initialization_error', error });
       throw error;
@@ -171,7 +171,7 @@ export class SessionManager extends EventEmitter {
     // Load from disk
     try {
       const sessionPath = this.getSessionPath(sessionId);
-      const data = await fs.readFile(sessionPath, 'utf-8');
+      const data = await fileAPI.readFile(sessionPath, 'utf-8');
       
       let sessionData: SessionData;
       if(this.encryptionKey) {
@@ -233,7 +233,7 @@ export class SessionManager extends EventEmitter {
 
   async addConversationEntry(
     sessionId: string,
-    entry: Omit<ConversationEntry, 'id' | 'timestamp'>
+    entry: Omit<ConversationEntry, 'id' | "timestamp">
   ): Promise<ConversationEntry> {
     const session = await this.getOrLoadSession(sessionId);
     
@@ -276,7 +276,7 @@ export class SessionManager extends EventEmitter {
 
   async createCheckpoint(
     sessionId: string,
-    reason: 'interrupt' | 'manual' | 'auto' | 'error'
+    reason: "interrupt" | 'manual' | 'auto' | 'error'
   ): Promise<SessionCheckpoint> {
     const session = await this.getOrLoadSession(sessionId);
     
@@ -332,9 +332,9 @@ export class SessionManager extends EventEmitter {
     const session = await this.getOrLoadSession(sessionId);
     
     // Create checkpoint before interrupting
-    await this.createCheckpoint(sessionId, 'interrupt');
+    await this.createCheckpoint(sessionId, "interrupt");
     
-    session.state = 'interrupted';
+    session.state = "interrupted";
     await this.saveSession(sessionId);
     
     this.stopAutoSave(sessionId);
@@ -511,6 +511,6 @@ export class SessionManager extends EventEmitter {
     }
     
     this.sessions.clear();
-    this.emit('shutdown');
+    this.emit("shutdown");
   }
 }

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { VSCodeAutomationHelper } from './helpers/vscode-automation-helper';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 /**
  * Complete E2E tests for extension lifecycle and controller setup
@@ -45,7 +45,7 @@ test.describe('Extension Lifecycle - Complete Coverage', () => {
     await page.waitForSelector('.quick-input-widget input', { timeout: 10000 });
     
     // Check for extension-specific commands to verify activation
-    await page.type('.quick-input-widget input', 'CDocTest');
+    await page.type('.quick-input-widget input', "CDocTest");
     await page.waitForTimeout(2000);
     
     // Should see extension commands in palette
@@ -94,7 +94,7 @@ test.describe('Extension Lifecycle - Complete Coverage', () => {
     await page.keyboard.press('Enter');
     
     // Wait for reload
-    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState("domcontentloaded");
     await page.waitForSelector('.monaco-workbench', { timeout: 30000 });
     
     // Verify workspace reactivation created all controllers
@@ -142,7 +142,7 @@ test.describe('Extension Lifecycle - Complete Coverage', () => {
     
     // Search for extension settings to trigger config retrieval
     const searchBox = page.locator('.settings-header input[placeholder*="Search"]');
-    await searchBox.fill('cdoctest');
+    await searchBox.fill("cdoctest");
     await page.waitForTimeout(2000);
     
     // Verify settings are loaded (indicating config retrieval worked)
@@ -151,7 +151,7 @@ test.describe('Extension Lifecycle - Complete Coverage', () => {
     expect(settingCount).toBeGreaterThan(0);
     
     // Test different configuration types
-    const configTypes = ['exe_executable', 'listTestArgPattern', 'buildDirectory'];
+    const configTypes = ['exe_executable', "listTestArgPattern", "buildDirectory"];
     
     for (const configType of configTypes) {
       const setting = page.locator(`[data-setting*="${configType}"]`);
@@ -237,7 +237,7 @@ test.describe('Extension Lifecycle - Complete Coverage', () => {
     await page.type('.quick-input-widget input', 'Developer: Reload Window');
     await page.keyboard.press('Enter');
     
-    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState("domcontentloaded");
     await page.waitForSelector('.monaco-workbench', { timeout: 30000 });
     
     // Verify extension still loads despite configuration issues

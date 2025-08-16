@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 #!/usr/bin/env node
 
 import * as fs from 'fs/promises';

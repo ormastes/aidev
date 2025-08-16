@@ -3,7 +3,7 @@ import { createValidator } from '../../src/guards';
 import { z } from 'zod';
 
 describe('Typed Nodes', () => {
-  describe('TypedInputNode', () => {
+  describe("TypedInputNode", () => {
     it('should pass through input data', async () => {
       const node = nodes.input<string>('input');
       const result = await node.execute({ data: 'hello', context: {} });
@@ -34,7 +34,7 @@ describe('Typed Nodes', () => {
     });
   });
 
-  describe('TypedTransformNode', () => {
+  describe("TypedTransformNode", () => {
     it('should transform input data', async () => {
       const node = nodes.transform(
         'double',
@@ -81,7 +81,7 @@ describe('Typed Nodes', () => {
     });
   });
 
-  describe('TypedFilterNode', () => {
+  describe("TypedFilterNode", () => {
     it('should filter array elements', async () => {
       const node = nodes.filter(
         'even-numbers',
@@ -118,7 +118,7 @@ describe('Typed Nodes', () => {
     it('should validate array items', async () => {
       const validator = createValidator(z.number());
       const node = nodes.filter(
-        'positive',
+        "positive",
         (n: number) => n > 0,
         validator
       );
@@ -133,7 +133,7 @@ describe('Typed Nodes', () => {
     });
   });
 
-  describe('TypedMapNode', () => {
+  describe("TypedMapNode", () => {
     it('should map array elements', async () => {
       const node = nodes.map(
         'double',
@@ -189,7 +189,7 @@ describe('Typed Nodes', () => {
     });
   });
 
-  describe('TypedReduceNode', () => {
+  describe("TypedReduceNode", () => {
     it('should reduce array to single value', async () => {
       const node = nodes.reduce(
         'sum',
@@ -240,12 +240,12 @@ describe('Typed Nodes', () => {
     });
   });
 
-  describe('TypedConditionalNode', () => {
+  describe("TypedConditionalNode", () => {
     it('should evaluate conditions and set branch', async () => {
       const node = nodes.conditional(
         'check',
         (n: number) => n > 0,
-        'positive',
+        "positive",
         'non-positive'
       );
       
@@ -256,7 +256,7 @@ describe('Typed Nodes', () => {
       
       expect(positiveResult.success).toBe(true);
       expect(positiveResult.data).toBe(5);
-      expect(positiveResult.context.branch).toBe('positive');
+      expect(positiveResult.context.branch).toBe("positive");
       
       const negativeResult = await node.execute({ 
         data: -3, 
@@ -289,10 +289,10 @@ describe('Typed Nodes', () => {
     });
   });
 
-  describe('ValidationNode', () => {
+  describe("ValidationNode", () => {
     it('should pass valid data through', async () => {
       const validator = createValidator(z.string().min(3));
-      const node = nodes.validation('validate', validator);
+      const node = nodes.validation("validate", validator);
       
       const result = await node.execute({ 
         data: 'hello', 
@@ -306,7 +306,7 @@ describe('Typed Nodes', () => {
     it('should handle invalid data with fallback', async () => {
       const validator = createValidator(z.number().positive());
       const node = nodes.validation(
-        'validate',
+        "validate",
         validator,
         async (errors) => {
           console.log('Validation failed:', errors);
@@ -325,7 +325,7 @@ describe('Typed Nodes', () => {
 
     it('should fail without fallback', async () => {
       const validator = createValidator(z.string().email());
-      const node = nodes.validation('validate', validator);
+      const node = nodes.validation("validate", validator);
       
       const result = await node.execute({ 
         data: 'not-an-email', 

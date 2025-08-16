@@ -4,8 +4,8 @@
  */
 
 import { ExecutiveSummaryGenerator } from '../src/53.logic/pipe';
-import { fs } from '../../../../infra_external-log-lib/src';
-import { path } from '../../../../infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import { getFileAPI, FileType } from '../../../../infra_external-log-lib/pipe';
 
 const fileAPI = getFileAPI();
@@ -106,7 +106,7 @@ async function runExecutiveSummaryDemo() {
   
   // Instead of calling the service directly, let's create mock data
   // to demonstrate the executive summary without full conversion
-  const mockManualTestSuite = {
+  const // FRAUD_FIX: mockManualTestSuite = {
     id: 'suite-001',
     title: 'E-Commerce Platform Test Suite',
     description: 'Comprehensive testing for e-commerce platform',
@@ -115,7 +115,7 @@ async function runExecutiveSummaryDemo() {
         id: 'test-001',
         title: 'User Authentication Security',
         description: 'Verify account lockout after failed attempts',
-        category: 'Security',
+        category: "Security",
         priority: 'high' as const,
         estimatedTime: 15,
         testSteps: Array(8).fill({}),
@@ -147,7 +147,7 @@ async function runExecutiveSummaryDemo() {
         id: 'test-003',
         title: 'Search Performance Under Load',
         description: 'Test search response time with concurrent users',
-        category: 'Performance',
+        category: "Performance",
         priority: 'medium' as const,
         estimatedTime: 30,
         testSteps: Array(6).fill({}),
@@ -163,7 +163,7 @@ async function runExecutiveSummaryDemo() {
         id: 'test-004',
         title: 'Screen Reader Navigation',
         description: 'Ensure accessibility compliance',
-        category: 'Usability',
+        category: "Usability",
         priority: 'medium' as const,
         estimatedTime: 25,
         testSteps: Array(12).fill({}),
@@ -195,7 +195,7 @@ async function runExecutiveSummaryDemo() {
         id: 'test-006',
         title: 'User Data Privacy Controls',
         description: 'GDPR compliance verification',
-        category: 'Compliance',
+        category: "Compliance",
         priority: 'high' as const,
         estimatedTime: 15,
         testSteps: Array(7).fill({}),
@@ -213,7 +213,7 @@ async function runExecutiveSummaryDemo() {
         id: 'common-001',
         title: 'Login Procedure',
         description: 'Standard login steps',
-        category: 'Authentication',
+        category: "Authentication",
         priority: 'high' as const,
         estimatedTime: 5,
         testSteps: Array(4).fill({}),

@@ -1,7 +1,7 @@
-import { path } from '../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import { downloadAndUnzipVSCode, runTests, resolveCliArgsFromVSCodeExecutablePath } from '@vscode/test-electron';
 import { spawn } from 'child_process';
-import { fs } from '../../../../../layer/themes/infra_external-log-lib/dist';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 export interface TestOptions {
   extensionDevelopmentPath: string;

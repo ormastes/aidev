@@ -173,7 +173,7 @@ class FlowValidator implements FlowValidatorInterface {
       return { isValid: false, errors };
     }
 
-    const validTypes = ['command', 'script', 'http', 'email', 'delay', 'condition'];
+    const validTypes = ['command', 'script', 'http', 'email', 'delay', "condition"];
     if (!validTypes.includes(action.type)) {
       errors.push(`Action ${actionNum} type must be one of: ${validTypes.join(', ')}`);
     }
@@ -231,7 +231,7 @@ class FlowValidator implements FlowValidatorInterface {
         }
         break;
 
-      case 'condition':
+      case "condition":
         if (!action.condition || typeof action.condition !== 'string') {
           errors.push(`Action ${actionNum} (condition) requires a condition expression`);
         }
@@ -343,7 +343,7 @@ describe('FlowValidator Validation Rules External Test', () => {
     });
   });
 
-  describe('validateEnabled', () => {
+  describe("validateEnabled", () => {
     test('should validate enabled flow', () => {
       // Arrange
       const flow = { enabled: true };
@@ -393,7 +393,7 @@ describe('FlowValidator Validation Rules External Test', () => {
     });
   });
 
-  describe('validateTrigger', () => {
+  describe("validateTrigger", () => {
     test('should validate manual trigger', () => {
       // Arrange
       const trigger = { type: 'manual' };
@@ -488,7 +488,7 @@ describe('FlowValidator Validation Rules External Test', () => {
     });
   });
 
-  describe('validateActions', () => {
+  describe("validateActions", () => {
     test('should validate action array', () => {
       // Arrange
       const actions = [
@@ -534,7 +534,7 @@ describe('FlowValidator Validation Rules External Test', () => {
     });
   });
 
-  describe('validateAction', () => {
+  describe("validateAction", () => {
     test('should validate command action', () => {
       // Arrange
       const action = { type: 'command', command: 'echo "Hello World"', timeout: 5000 };
@@ -652,7 +652,7 @@ describe('FlowValidator Validation Rules External Test', () => {
 
     test('should validate condition action', () => {
       // Arrange
-      const action = { type: 'condition', condition: 'x > 5', onTrue: 'continue', onFalse: 'stop' };
+      const action = { type: "condition", condition: 'x > 5', onTrue: "continue", onFalse: 'stop' };
 
       // Act
       const result = validator.validateAction(action, 0);
@@ -663,7 +663,7 @@ describe('FlowValidator Validation Rules External Test', () => {
 
     test('should fail condition action without condition', () => {
       // Arrange
-      const action = { type: 'condition', onTrue: 'continue' };
+      const action = { type: "condition", onTrue: "continue" };
 
       // Act
       const result = validator.validateAction(action, 0);

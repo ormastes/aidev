@@ -5,7 +5,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const shell_script_detector_1 = require("../detectors/shell-script-detector");
 const types_1 = require("../types");
-describe('ShellScriptDetector', () => {
+describe("ShellScriptDetector", () => {
     describe('detect', () => {
         it('should pass for short shell scripts (10 lines or less)', async () => {
             const shortScript = `#!/bin/bash

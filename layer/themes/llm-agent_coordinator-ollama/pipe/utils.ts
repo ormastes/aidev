@@ -161,7 +161,7 @@ export async function ensureModel(
  * Create a specialized assistant
  */
 export async function createAssistant(
-  type: 'code' | 'creative' | 'analyst' | 'translator' | 'teacher',
+  type: 'code' | "creative" | 'analyst' | "translator" | 'teacher',
   options?: {
     client?: OllamaClient;
     modelOverride?: string;
@@ -173,7 +173,7 @@ export async function createAssistant(
   
   const configs = {
     code: {
-      model: options?.modelOverride || 'codellama',
+      model: options?.modelOverride || "codellama",
       systemPrompt: 'You are an expert programmer. Provide clear, efficient, and well-documented code.',
       temperature: 0.1
     },

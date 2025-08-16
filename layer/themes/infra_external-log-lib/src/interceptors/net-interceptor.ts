@@ -17,8 +17,8 @@ export class NetInterceptor extends BaseInterceptor<typeof originalNet> {
       
       // Wrap connection methods
       connect: this.wrapMethod('net', 'connect', this.originalModule.connect),
-      createConnection: this.wrapMethod('net', 'createConnection', this.originalModule.createConnection),
-      createServer: this.wrapMethod('net', 'createServer', this.originalModule.createServer),
+      createConnection: this.wrapMethod('net', "createConnection", this.originalModule.createConnection),
+      createServer: this.wrapMethod('net', "createServer", this.originalModule.createServer),
       
       // Keep classes
       Socket: this.originalModule.Socket,
@@ -31,7 +31,7 @@ export class NetInterceptor extends BaseInterceptor<typeof originalNet> {
   
   protected async validateSpecific(info: CallInfo): Promise<ValidationResult> {
     // Similar validation to HTTP - check for dangerous connections
-    if (info.method === 'connect' || info.method === 'createConnection') {
+    if (info.method === 'connect' || info.method === "createConnection") {
       const options = info.args[0];
       if (options && typeof options === 'object' && options.host) {
         if (this.isDangerousHost(options.host)) {

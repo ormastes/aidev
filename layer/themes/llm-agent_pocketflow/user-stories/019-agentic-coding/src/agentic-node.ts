@@ -184,7 +184,7 @@ export class AgentDebate<TInput, TOutput> extends ValidatedNode<TInput, TOutput>
     id: string,
     private agents: CodeAgent[],
     private rounds: number = 3,
-    private consensusStrategy: 'vote' | 'synthesize' = 'synthesize'
+    private consensusStrategy: 'vote' | "synthesize" = "synthesize"
   ) {
     super();
     this.id = id;

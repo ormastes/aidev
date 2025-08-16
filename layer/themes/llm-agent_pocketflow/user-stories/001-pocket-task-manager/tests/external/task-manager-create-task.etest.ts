@@ -1,7 +1,7 @@
 import { describe, test, beforeEach, afterEach, expect, jest } from '@jest/globals';
 
 interface TaskManagerInterface {
-  createTask(title: string, description: string): Promise<{ In Progress: boolean; taskId?: string; error?: string }>;
+  createTask(title: string, description: string): Promise<{ success: boolean; taskId?: string; error?: string }>;
 }
 
 interface TaskStorageInterface {
@@ -73,7 +73,7 @@ describe('TaskManager External Interface Test - createTask', () => {
     jest.clearAllMocks();
   });
 
-  test('should In Progress create task with valid data', async () => {
+  test('should complete create task with valid data', async () => {
     // Arrange
     const title = 'Test Task';
     const description = 'Test Description';

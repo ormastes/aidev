@@ -73,7 +73,7 @@ describe('ChainBuilder Fluent API Unit Tests', () => {
       // Assert
       expect(result).toBeInstanceOf(ChainBuilder);
       expect(result).toBe(builder); // Should return same instance for chaining
-      expect(startNode['nextNodes']).toContain(node2);
+      expect(startNode["nextNodes"]).toContain(node2);
     });
 
     test('should create multi-node chain', () => {
@@ -83,8 +83,8 @@ describe('ChainBuilder Fluent API Unit Tests', () => {
         .then(node3);
 
       // Assert
-      expect(startNode['nextNodes']).toContain(node2);
-      expect(node2['nextNodes']).toContain(node3);
+      expect(startNode["nextNodes"]).toContain(node2);
+      expect(node2["nextNodes"]).toContain(node3);
     });
 
     test('should build and return root node', () => {
@@ -96,8 +96,8 @@ describe('ChainBuilder Fluent API Unit Tests', () => {
 
       // Assert
       expect(builtNode).toBe(startNode);
-      expect(startNode['nextNodes']).toContain(node2);
-      expect(node2['nextNodes']).toContain(node3);
+      expect(startNode["nextNodes"]).toContain(node2);
+      expect(node2["nextNodes"]).toContain(node3);
     });
 
     test('should execute chain directly with run()', async () => {
@@ -126,9 +126,9 @@ describe('ChainBuilder Fluent API Unit Tests', () => {
         .when(condition, conditionalNode);
 
       // Assert
-      expect(startNode['conditions']).toHaveLength(1);
-      expect(startNode['conditions'][0].condition).toBe(condition);
-      expect(startNode['conditions'][0].node).toBe(conditionalNode);
+      expect(startNode["conditions"]).toHaveLength(1);
+      expect(startNode["conditions"][0].condition).toBe(condition);
+      expect(startNode["conditions"][0].node).toBe(conditionalNode);
     });
 
     test('should support mixed then() and when() operations', () => {
@@ -143,9 +143,9 @@ describe('ChainBuilder Fluent API Unit Tests', () => {
         .then(node3);
 
       // Assert
-      expect(startNode['nextNodes']).toContain(node2);
-      expect(node2['conditions']).toHaveLength(1);
-      expect(node2['nextNodes']).toContain(node3);
+      expect(startNode["nextNodes"]).toContain(node2);
+      expect(node2["conditions"]).toHaveLength(1);
+      expect(node2["nextNodes"]).toContain(node3);
     });
 
     test('should execute conditional path when condition matches', async () => {
@@ -190,8 +190,8 @@ describe('ChainBuilder Fluent API Unit Tests', () => {
 
       // Assert
       expect(builder).toBeInstanceOf(ChainBuilder);
-      expect(builder['rootNode']).toBe(startNode);
-      expect(builder['currentNode']).toBe(startNode);
+      expect(builder["rootNode"]).toBe(startNode);
+      expect(builder["currentNode"]).toBe(startNode);
     });
 
     test('should support fluent chaining with flow() helper', async () => {
@@ -213,7 +213,7 @@ describe('ChainBuilder Fluent API Unit Tests', () => {
     test('should add then() method to BaseNode prototype', () => {
       // Assert
       expect(startNode.then).toBeDefined();
-      expect(typeof startNode.then).toBe('function');
+      expect(typeof startNode.then).toBe("function");
     });
 
     test('should create ChainBuilder when calling then() on BaseNode', () => {
@@ -222,7 +222,7 @@ describe('ChainBuilder Fluent API Unit Tests', () => {
 
       // Assert
       expect(builder).toBeInstanceOf(ChainBuilder);
-      expect(startNode['nextNodes']).toContain(node2);
+      expect(startNode["nextNodes"]).toContain(node2);
     });
 
     test('should support method chaining on BaseNode.then()', async () => {
@@ -244,8 +244,8 @@ describe('ChainBuilder Fluent API Unit Tests', () => {
       startNode.then(node2).then(node3);
 
       // Assert
-      expect(startNode['nextNodes']).toContain(node2);
-      expect(node2['nextNodes']).toContain(node3);
+      expect(startNode["nextNodes"]).toContain(node2);
+      expect(node2["nextNodes"]).toContain(node3);
     });
   });
 
@@ -256,7 +256,7 @@ describe('ChainBuilder Fluent API Unit Tests', () => {
 
       // Assert
       expect(result).toBe(startNode);
-      expect(startNode['nextNodes']).toContain(node2);
+      expect(startNode["nextNodes"]).toContain(node2);
     });
 
     test('should add conditional with when() utility', () => {
@@ -268,9 +268,9 @@ describe('ChainBuilder Fluent API Unit Tests', () => {
 
       // Assert
       expect(result).toBe(startNode);
-      expect(startNode['conditions']).toHaveLength(1);
-      expect(startNode['conditions'][0].condition).toBe(condition);
-      expect(startNode['conditions'][0].node).toBe(node2);
+      expect(startNode["conditions"]).toHaveLength(1);
+      expect(startNode["conditions"][0].condition).toBe(condition);
+      expect(startNode["conditions"][0].node).toBe(node2);
     });
 
     test('should support chaining utility functions', () => {
@@ -281,9 +281,9 @@ describe('ChainBuilder Fluent API Unit Tests', () => {
       const result = when(chain(startNode, node2), condition, node3);
 
       // Assert
-      expect(startNode['nextNodes']).toContain(node2);
-      expect(node2['conditions']).toHaveLength(1);
-      expect(node2['conditions'][0].node).toBe(node3);
+      expect(startNode["nextNodes"]).toContain(node2);
+      expect(node2["conditions"]).toHaveLength(1);
+      expect(node2["conditions"][0].node).toBe(node3);
     });
   });
 
@@ -485,10 +485,10 @@ describe('ChainBuilder Fluent API Unit Tests', () => {
       
       startNode.exec = async () => {
         circularCount++;
-        return circularCount < 3 ? 'continue' : 'stop';
+        return circularCount < 3 ? "continue" : 'stop';
       };
       
-      startNode.when(result => result === 'continue', startNode);
+      startNode.when(result => result === "continue", startNode);
       node3.when(result => result === 'stop', node3);
 
       // Should not cause infinite loops or memory issues
@@ -590,8 +590,8 @@ describe('ChainBuilder Fluent API Unit Tests', () => {
       expect(conditionalBuilder.build()).toBe(startNode);
       
       // But they should have accumulated the changes
-      expect(startNode['nextNodes']).toContain(node2);
-      expect(node2['conditions']).toHaveLength(1);
+      expect(startNode["nextNodes"]).toContain(node2);
+      expect(node2["conditions"]).toHaveLength(1);
     });
   });
 });

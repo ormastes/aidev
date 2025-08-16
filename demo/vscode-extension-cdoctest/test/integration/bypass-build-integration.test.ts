@@ -66,37 +66,37 @@ describe('Bypass Build Feature Integration Tests', () => {
     mockGetConfiguration.mockReturnValue({
       get: jest.fn((key: string) => {
         const config: Record<string, any> = {
-          'pythonExePath': 'python3',
-          'buildDirectory': '', // Must be empty when useCmakeTarget is true
-          'srcDirectory': '', // Must be empty when useCmakeTarget is true
-          'useCmakeTarget': true, // Enable cmake for integration tests
-          'configName': 'test-config',
-          'executable': '', // Must be empty when useCmakeTarget is true
+          "pythonExePath": 'python3',
+          "buildDirectory": '', // Must be empty when useCmakeTarget is true
+          "srcDirectory": '', // Must be empty when useCmakeTarget is true
+          "useCmakeTarget": true, // Enable cmake for integration tests
+          "configName": 'test-config',
+          "executable": '', // Must be empty when useCmakeTarget is true
           'exe_executable': '', // Must be empty when useCmakeTarget is true
           'bin_executable': '', // Must be empty when useCmakeTarget is true
-          'listTestArgPattern': 'python3 -m cdoctest --list',
-          'testRunArgPattern': 'python3 -m cdoctest --run',
+          "listTestArgPattern": 'python3 -m cdoctest --list',
+          "testRunArgPattern": 'python3 -m cdoctest --run',
           'exe_listTestArgPattern': 'GetTcList:',
           'exe_testRunArgPattern': 'TC/${test_suite_name}::${test_case_name}',
           'bin_listTestArgPattern': 'GetTcList:',
           'bin_testRunArgPattern': 'TC/${test_suite_name}::${test_case_name}',
-          'resultFile': '/test/build/output.xml',
+          "resultFile": '/test/build/output.xml',
           'exe_resultFile': '/test/build/output.vsc',
           'bin_resultFile': '/test/build/output.vsc',
-          'testRunUseFile': true,
-          'listTestUseFile': false,
+          "testRunUseFile": true,
+          "listTestUseFile": false,
           'exe_testRunUseFile': true,
           'exe_listTestUseFile': false,
           'bin_testRunUseFile': true,
           'bin_listTestUseFile': false,
-          'libPaths': '',
-          'testcaseSeparator': '::',
+          "libPaths": '',
+          "testcaseSeparator": '::',
           'exe_testcaseSeparator': '::',
           'bin_testcaseSeparator': '::',
-          'resultSuccessRgex': 'failedtests=\"0\"',
-          'parallelJobs': 1,
+          "resultSuccessRgex": 'failedtests=\"0\"',
+          "parallelJobs": 1,
           // Build before test settings with defaults
-          'buildBeforeTest': true,
+          "buildBeforeTest": true,
           'exe_buildBeforeTest': true,
           'bin_buildBeforeTest': true
         };
@@ -110,12 +110,12 @@ describe('Bypass Build Feature Integration Tests', () => {
       // Create Config with buildBeforeTest disabled
       mockGetConfiguration.mockReturnValue({
         get: jest.fn((key: string) => {
-          if (key === 'buildBeforeTest') return false;
-          if (key === 'pythonExePath') return 'python3';
-          if (key === 'buildDirectory') return ''; // Empty for cmake
-          if (key === 'srcDirectory') return ''; // Empty for cmake
-          if (key === 'useCmakeTarget') return true;
-          if (key === 'executable') return ''; // Empty for cmake
+          if (key === "buildBeforeTest") return false;
+          if (key === "pythonExePath") return 'python3';
+          if (key === "buildDirectory") return ''; // Empty for cmake
+          if (key === "srcDirectory") return ''; // Empty for cmake
+          if (key === "useCmakeTarget") return true;
+          if (key === "executable") return ''; // Empty for cmake
           if (key === 'exe_executable') return ''; // Empty for cmake  
           if (key === 'bin_executable') return ''; // Empty for cmake
           return undefined;
@@ -134,12 +134,12 @@ describe('Bypass Build Feature Integration Tests', () => {
       mockGetConfiguration.mockReturnValue({
         get: jest.fn((key: string) => {
           if (key === 'exe_buildBeforeTest') return false;
-          if (key === 'buildBeforeTest') return true; // Base should still be true
-          if (key === 'pythonExePath') return 'python3';
-          if (key === 'buildDirectory') return ''; // Empty for cmake
-          if (key === 'srcDirectory') return ''; // Empty for cmake
-          if (key === 'useCmakeTarget') return true;
-          if (key === 'executable') return ''; // Empty for cmake
+          if (key === "buildBeforeTest") return true; // Base should still be true
+          if (key === "pythonExePath") return 'python3';
+          if (key === "buildDirectory") return ''; // Empty for cmake
+          if (key === "srcDirectory") return ''; // Empty for cmake
+          if (key === "useCmakeTarget") return true;
+          if (key === "executable") return ''; // Empty for cmake
           if (key === 'exe_executable') return ''; // Empty for cmake
           if (key === 'bin_executable') return ''; // Empty for cmake
           return undefined;
@@ -158,12 +158,12 @@ describe('Bypass Build Feature Integration Tests', () => {
       mockGetConfiguration.mockReturnValue({
         get: jest.fn((key: string) => {
           if (key === 'bin_buildBeforeTest') return false;
-          if (key === 'buildBeforeTest') return true;
-          if (key === 'pythonExePath') return 'python3';
-          if (key === 'buildDirectory') return ''; // Empty for cmake
-          if (key === 'srcDirectory') return ''; // Empty for cmake
-          if (key === 'useCmakeTarget') return true;
-          if (key === 'executable') return ''; // Empty for cmake
+          if (key === "buildBeforeTest") return true;
+          if (key === "pythonExePath") return 'python3';
+          if (key === "buildDirectory") return ''; // Empty for cmake
+          if (key === "srcDirectory") return ''; // Empty for cmake
+          if (key === "useCmakeTarget") return true;
+          if (key === "executable") return ''; // Empty for cmake
           if (key === 'exe_executable') return ''; // Empty for cmake
           if (key === 'bin_executable') return ''; // Empty for cmake
           return undefined;
@@ -185,14 +185,14 @@ describe('Bypass Build Feature Integration Tests', () => {
       mockGetConfiguration.mockReturnValue({
         get: jest.fn((key: string) => {
           const mixedSettings: Record<string, any> = {
-            'pythonExePath': 'python3',
-            'buildDirectory': '', // Empty for cmake
-            'srcDirectory': '', // Empty for cmake
-            'useCmakeTarget': true,
-            'executable': '', // Empty for cmake
+            "pythonExePath": 'python3',
+            "buildDirectory": '', // Empty for cmake
+            "srcDirectory": '', // Empty for cmake
+            "useCmakeTarget": true,
+            "executable": '', // Empty for cmake
             'exe_executable': '', // Empty for cmake
             'bin_executable': '', // Empty for cmake,
-            'buildBeforeTest': false,      // cdoctest bypasses build
+            "buildBeforeTest": false,      // cdoctest bypasses build
             'exe_buildBeforeTest': true,   // exe builds
             'bin_buildBeforeTest': false,  // bin bypasses build
           };
@@ -250,11 +250,11 @@ describe('Bypass Build Feature Integration Tests', () => {
     test('should support configurations without CMAKE target', () => {
       mockGetConfiguration.mockReturnValue({
         get: jest.fn((key: string) => {
-          if (key === 'useCmakeTarget') return false;
-          if (key === 'buildBeforeTest') return false;
-          if (key === 'pythonExePath') return 'python3';
-          if (key === 'buildDirectory') return '/test/build'; // Can be non-empty when cmake disabled
-          if (key === 'srcDirectory') return '/test/src'; // Can be non-empty when cmake disabled
+          if (key === "useCmakeTarget") return false;
+          if (key === "buildBeforeTest") return false;
+          if (key === "pythonExePath") return 'python3';
+          if (key === "buildDirectory") return '/test/build'; // Can be non-empty when cmake disabled
+          if (key === "srcDirectory") return '/test/src'; // Can be non-empty when cmake disabled
           return undefined;
         })
       });
@@ -273,14 +273,14 @@ describe('Bypass Build Feature Integration Tests', () => {
       // what would be defined in package.json contribution points
       
       const expectedConfigKeys = [
-        'buildBeforeTest',
+        "buildBeforeTest",
         'exe_buildBeforeTest', 
         'bin_buildBeforeTest'
       ];
 
       const mockGet = jest.fn((key: string) => {
         if (expectedConfigKeys.includes(key)) return true;
-        if (key === 'pythonExePath') return 'python3';
+        if (key === "pythonExePath") return 'python3';
         return undefined;
       });
       

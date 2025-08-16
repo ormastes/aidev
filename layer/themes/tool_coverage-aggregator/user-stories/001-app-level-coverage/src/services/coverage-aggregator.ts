@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 import { CoverageMetrics, SystemTestCoverage, DuplicationMetrics, AggregatedCoverage } from '../models/coverage-metrics';
 import { fs } from '../../../../../infra_external-log-lib/src';
 import { path } from '../../../../../infra_external-log-lib/src';
@@ -129,15 +130,15 @@ export class CoverageAggregator {
     duplication: DuplicationMetrics;
   } | null> {
     // Look for coverage-final.json from Jest/Istanbul
-    const coveragePath = path.join(storyPath, 'coverage', 'coverage-final.json');
-    const systemTestPath = path.join(storyPath, 'coverage', 'system-test-coverage.json');
+    const coveragePath = path.join(storyPath, "coverage", 'coverage-final.json');
+    const systemTestPath = path.join(storyPath, "coverage", 'system-test-coverage.json');
     
     if (!fs.existsSync(coveragePath)) return null;
 
     try {
-      const coverageData = JSON.parse(fs.readFileSync(coveragePath, 'utf8'));
+      const coverageData = JSON.parse(fileAPI.readFileSync(coveragePath, 'utf8'));
       const systemTestData = fs.existsSync(systemTestPath) 
-        ? JSON.parse(fs.readFileSync(systemTestPath, 'utf8'))
+        ? JSON.parse(fileAPI.readFileSync(systemTestPath, 'utf8'))
         : this.calculateSystemTestCoverage(storyPath);
 
       return {
@@ -209,7 +210,7 @@ export class CoverageAggregator {
       
       for (const file of files) {
         if (!file.includes('.test.') && !file.includes('.spec.')) {
-          const content = fs.readFileSync(file, 'utf8');
+          const content = fileAPI.readFileSync(file, 'utf8');
           const classMatches = content.match(/class\s+\w+/g) || [];
           classCount += classMatches.length;
           
@@ -239,7 +240,7 @@ export class CoverageAggregator {
     if (fs.existsSync(srcPath)) {
       const files = this.getAllFiles(srcPath, '.ts');
       for (const file of files) {
-        const content = fs.readFileSync(file, 'utf8');
+        const content = fileAPI.readFileSync(file, 'utf8');
         const lines = content.split('\n').filter(line => line.trim().length > 0);
         totalLines += lines.length;
         // Simplified: would use actual duplication detection tool
@@ -297,7 +298,7 @@ export class CoverageAggregator {
 
     for (const coverage of coverages) {
       // Merge coverage metrics
-      for (const metricType of ['lines', 'statements', 'functions', 'branches'] as const) {
+      for (const metricType of ['lines', "statements", "functions", "branches"] as const) {
         merged.coverage[metricType].total += coverage.coverage[metricType].total;
         merged.coverage[metricType].covered += coverage.coverage[metricType].covered;
       }
@@ -312,7 +313,7 @@ export class CoverageAggregator {
     }
 
     // Calculate percentages
-    for (const metricType of ['lines', 'statements', 'functions', 'branches'] as const) {
+    for (const metricType of ['lines', "statements", "functions", "branches"] as const) {
       const metric = merged.coverage[metricType];
       metric.pct = metric.total > 0 ? (metric.covered / metric.total) * 100 : 0;
     }

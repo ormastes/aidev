@@ -53,7 +53,7 @@ describe('System Test: register__type__item.js', () => {
     const existingData = {
       entities: [{
         id: 'existing_123',
-        type: 'existing',
+        type: "existing",
         name: 'existing_item'
       }]
     };
@@ -67,7 +67,7 @@ describe('System Test: register__type__item.js', () => {
     const nameIdData = JSON.parse(fs.readFileSync(nameIdPath, 'utf8'));
     expect(nameIdData.entities).toHaveLength(2);
     expect(nameIdData.entities[0].id).toBe('existing_123');
-    expect(nameIdData.entities[1].type).toBe('scenario');
+    expect(nameIdData.entities[1].type).toBe("scenario");
     expect(nameIdData.entities[1].name).toBe('new_scenario');
   });
 

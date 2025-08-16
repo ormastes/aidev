@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { LocalLLMConnector, LLMResponse } from '../external/local-llm-connector';
 
 // Interface definitions based on sequence diagrams
@@ -28,7 +28,7 @@ export interface Message {
   username: string;
   content: string;
   timestamp: Date;
-  type: 'text' | 'command' | 'system' | 'workflow' | 'ai';
+  type: 'text' | 'command' | 'system' | "workflow" | 'ai';
   llmResponse?: LLMResponse;  // Optional LLM response metadata
 }
 
@@ -254,11 +254,11 @@ export class ChatRoomPlatform {
         const workflowMessage: Message = {
           id: 'msg-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5),
           roomId: data.roomId,
-          userId: 'workflow',
-          username: 'Workflow',
+          userId: "workflow",
+          username: "Workflow",
           content: `${data.workflow} completed: ${JSON.stringify(result)}`,
           timestamp: new Date(),
-          type: 'workflow'
+          type: "workflow"
         };
 
         await this.storage.saveMessage(workflowMessage);

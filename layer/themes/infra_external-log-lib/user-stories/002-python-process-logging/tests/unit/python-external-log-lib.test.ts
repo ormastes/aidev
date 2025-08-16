@@ -1,8 +1,8 @@
 import { pythonExternalLogLib } from '../../src/external/python-external-log-lib';
 import { ExternalLogLibImpl } from '../../../001-basic-log-capture/src/external/external-log-lib';
 
-describe('PythonExternalLogLib', () => {
-  describe('parseLogLine', () => {
+describe("PythonExternalLogLib", () => {
+  describe("parseLogLine", () => {
     it('should parse Python logging format', () => {
       const line = '2025-01-15 10:30:45,123 - app.module - INFO - Starting application';
       const result = pythonExternalLogLib.parseLogLine(line, 'stderr');

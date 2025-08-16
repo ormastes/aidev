@@ -27,7 +27,7 @@ interface ThemeInfo {
   version: string;
   enabled: boolean;
   path: string;
-  status: 'active' | 'inactive' | 'error' | 'loading';
+  status: 'active' | "inactive" | 'error' | 'loading';
   dependencies: string[];
   configuration?: Record<string, any>;
 }
@@ -41,7 +41,7 @@ interface WorkspaceConfiguration {
     sharedContext: boolean;
   };
   storage: {
-    type: 'file' | 'memory' | 'database';
+    type: 'file' | 'memory' | "database";
     path?: string;
     options: Record<string, any>;
   };
@@ -65,7 +65,7 @@ interface ProjectInfo {
 }
 
 interface ContextResult<T> {
-  In Progress: boolean;
+  success: boolean;
   data?: T;
   error?: string;
   cached?: boolean;
@@ -504,7 +504,7 @@ class MockContextProvider implements ContextProvider {
         jest: '^29.0.0'
       },
       workspace: {
-        themes: ['pocketflow', 'chat-space'],
+        themes: ["pocketflow", 'chat-space'],
         configuration: {
           logLevel: 'info'
         }
@@ -522,7 +522,7 @@ class MockContextProvider implements ContextProvider {
       version: '1.0.0',
       themes: [
         {
-          id: 'pocketflow',
+          id: "pocketflow",
           enabled: true,
           configuration: {
             maxConcurrentFlows: 5,
@@ -569,11 +569,11 @@ class MockContextProvider implements ContextProvider {
     
     // Create theme configurations
     const pocketflowTheme = {
-      id: 'pocketflow',
-      name: 'PocketFlow',
+      id: "pocketflow",
+      name: "PocketFlow",
       version: '1.0.0',
       description: 'Workflow automation theme',
-      features: ['workflows', 'tasks', 'automation'],
+      features: ["workflows", 'tasks', "automation"],
       configuration: {
         maxConcurrentFlows: 5,
         defaultTimeout: 30000,
@@ -591,7 +591,7 @@ class MockContextProvider implements ContextProvider {
       name: 'Chat Space',
       version: '1.0.0',
       description: 'Real-time chat and collaboration theme',
-      features: ['chat', 'rooms', 'real-time', 'coordination'],
+      features: ['chat', 'rooms', 'real-time', "coordination"],
       configuration: {
         maxRooms: 10,
         messageRetention: '7d',
@@ -628,7 +628,7 @@ class MockContextProvider implements ContextProvider {
           version: '1.0.0',
           enabled: themeConfig.enabled || false,
           path: themePath,
-          status: 'inactive',
+          status: "inactive",
           dependencies: [],
           configuration: themeConfig.configuration || {}
         };
@@ -642,7 +642,7 @@ class MockContextProvider implements ContextProvider {
             name: themeData.name || themeInfo.name,
             version: themeData.version || themeInfo.version,
             dependencies: themeData.dependencies || [],
-            status: themeConfig.enabled ? 'active' : 'inactive'
+            status: themeConfig.enabled ? 'active' : "inactive"
           };
         }
         
@@ -758,7 +758,7 @@ describe('ContextProvider AIdev Directory Access External Test', () => {
     expect(result.success).toBe(true);
     expect(result.data?.name).toBe('AI Development Workspace');
     expect(result.data?.themes).toHaveLength(2);
-    expect(result.data?.themes.map(t => t.id)).toContain('pocketflow');
+    expect(result.data?.themes.map(t => t.id)).toContain("pocketflow");
     expect(result.data?.themes.map(t => t.id)).toContain('chat-space');
   });
 
@@ -772,7 +772,7 @@ describe('ContextProvider AIdev Directory Access External Test', () => {
     expect(result.data?.version).toBe('1.0.0');
     expect(result.data?.type).toBe('node');
     expect(result.data?.scripts).toBeDefined();
-    expect(result.data?.workspace?.themes).toContain('pocketflow');
+    expect(result.data?.workspace?.themes).toContain("pocketflow");
   });
 
   test('should get all theme info', async () => {
@@ -785,18 +785,18 @@ describe('ContextProvider AIdev Directory Access External Test', () => {
     expect((result.data as ThemeInfo[])).toHaveLength(2);
     
     const themes = result.data as ThemeInfo[];
-    expect(themes.find(t => t.id === 'pocketflow')).toBeDefined();
+    expect(themes.find(t => t.id === "pocketflow")).toBeDefined();
     expect(themes.find(t => t.id === 'chat-space')).toBeDefined();
   });
 
   test('should get specific theme info', async () => {
     // Act
-    const result = await provider.getThemeInfo('pocketflow');
+    const result = await provider.getThemeInfo("pocketflow");
 
     // Assert
     expect(result.success).toBe(true);
-    expect((result.data as ThemeInfo).id).toBe('pocketflow');
-    expect((result.data as ThemeInfo).name).toBe('PocketFlow');
+    expect((result.data as ThemeInfo).id).toBe("pocketflow");
+    expect((result.data as ThemeInfo).name).toBe("PocketFlow");
     expect((result.data as ThemeInfo).enabled).toBe(true);
   });
 
@@ -814,7 +814,7 @@ describe('ContextProvider AIdev Directory Access External Test', () => {
     const allResult = await provider.getConfiguration();
     
     // Act - Get specific key
-    const specificResult = await provider.getConfiguration('logLevel');
+    const specificResult = await provider.getConfiguration("logLevel");
     
     // Act - Get nested key
     const nestedResult = await provider.getConfiguration('features.crossThemeIntegration');
@@ -832,8 +832,8 @@ describe('ContextProvider AIdev Directory Access External Test', () => {
 
   test('should set configuration', async () => {
     // Act
-    const setResult = await provider.setConfiguration('logLevel', 'debug');
-    const getResult = await provider.getConfiguration('logLevel');
+    const setResult = await provider.setConfiguration("logLevel", 'debug');
+    const getResult = await provider.getConfiguration("logLevel");
 
     // Assert
     expect(setResult.success).toBe(true);
@@ -916,7 +916,7 @@ describe('ContextProvider AIdev Directory Access External Test', () => {
 
   test('should get theme configuration', async () => {
     // Act
-    const result = await provider.getThemeConfiguration('pocketflow');
+    const result = await provider.getThemeConfiguration("pocketflow");
 
     // Assert
     expect(result.success).toBe(true);
@@ -971,7 +971,7 @@ describe('ContextProvider AIdev Directory Access External Test', () => {
   test('should sanitize user input paths', () => {
     // Arrange
     const testCases = [
-      { input: '../dangerous', expected: 'dangerous' },
+      { input: '../dangerous', expected: "dangerous" },
       { input: '../../file.txt', expected: 'file.txt' },
       { input: 'normal/path.json', expected: `normal${path.sep}path.json` },
       { input: '.hidden', expected: 'hidden' },
@@ -1000,7 +1000,7 @@ describe('ContextProvider AIdev Directory Access External Test', () => {
 
   test('should refresh context In Progress', async () => {
     // Arrange - Modify configuration
-    await provider.setConfiguration('logLevel', 'debug');
+    await provider.setConfiguration("logLevel", 'debug');
 
     // Act
     const refreshResult = await provider.refresh();
@@ -1056,13 +1056,13 @@ describe('ContextProvider AIdev Directory Access External Test', () => {
     };
 
     // Act - Perform multiple operations
-    await provider.setConfiguration('testConfig', testData.config);
-    await provider.setSharedData('testShared', testData.sharedData);
+    await provider.setConfiguration("testConfig", testData.config);
+    await provider.setSharedData("testShared", testData.sharedData);
     await provider.writeFile('test-consistency.txt', testData.fileContent);
 
     // Verify all operations
-    const configResult = await provider.getConfiguration('testConfig');
-    const sharedResult = await provider.getSharedData('testShared');
+    const configResult = await provider.getConfiguration("testConfig");
+    const sharedResult = await provider.getSharedData("testShared");
     const fileResult = await provider.readFile('test-consistency.txt');
 
     // Assert
@@ -1085,12 +1085,12 @@ describe('ContextProvider AIdev Directory Access External Test', () => {
 
     // Act
     const refreshResult = await tempProvider.refresh();
-    const themeResult = await tempProvider.getThemeInfo('pocketflow');
+    const themeResult = await tempProvider.getThemeInfo("pocketflow");
 
     // Assert
     expect(refreshResult.success).toBe(true);
     expect(themeResult.success).toBe(true);
-    expect((themeResult.data as ThemeInfo).name).toBe('pocketflow'); // Falls back to ID
+    expect((themeResult.data as ThemeInfo).name).toBe("pocketflow"); // Falls back to ID
 
     // Cleanup
     await tempProvider.cleanup();

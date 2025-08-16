@@ -17,7 +17,7 @@ export const EXTERNAL_MODULES = {
   network: ['http', 'https', 'http2', 'net', 'dgram', 'dns', 'tls'],
   
   // Streams
-  stream: ['stream', 'stream/promises', 'stream/web', 'readline'],
+  stream: ['stream', 'stream/promises', 'stream/web', "readline"],
   
   // Crypto
   crypto: ['crypto', 'crypto/webcrypto'],
@@ -26,7 +26,7 @@ export const EXTERNAL_MODULES = {
   os: ['os'],
   
   // URL
-  url: ['url', 'querystring'],
+  url: ['url', "querystring"],
   
   // Compression
   compression: ['zlib'],

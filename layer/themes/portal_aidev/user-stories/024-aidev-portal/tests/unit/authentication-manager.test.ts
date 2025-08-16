@@ -1,15 +1,15 @@
 import { AuthenticationManager, AuthConfig, TokenPayload } from '../../src/auth/authentication-manager';
 import { UserManager } from '../../src/auth/user-manager';
 import { TokenStore } from '../../src/auth/token-store';
-import * as jwt from 'jsonwebtoken';
+import * as jwt from "jsonwebtoken";
 
-jest.mock('jsonwebtoken');
+jest.mock("jsonwebtoken");
 
-describe('AuthenticationManager', () => {
+describe("AuthenticationManager", () => {
   let authManager: AuthenticationManager;
   let mockUserManager: jest.Mocked<UserManager>;
   let mockTokenStore: jest.Mocked<TokenStore>;
-  const mockJwtSecret = 'test-secret';
+  const mockJwtsecret: process.env.SECRET || "PLACEHOLDER";
   const mockTokenExpiry = '1h';
 
   beforeEach(() => {
@@ -46,10 +46,10 @@ describe('AuthenticationManager', () => {
     jest.clearAllMocks();
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with provided configuration', () => {
       const config: AuthConfig = {
-        jwtSecret: 'secret',
+        jwtsecret: process.env.SECRET || "PLACEHOLDER",
         tokenExpiry: '2h'
       };
       const manager = new AuthenticationManager(config);
@@ -58,7 +58,7 @@ describe('AuthenticationManager', () => {
 
     it('should set default refresh token expiry if not provided', () => {
       const config: AuthConfig = {
-        jwtSecret: 'secret',
+        jwtsecret: process.env.SECRET || "PLACEHOLDER",
         tokenExpiry: '1h'
       };
       const manager = new AuthenticationManager(config);
@@ -66,32 +66,32 @@ describe('AuthenticationManager', () => {
     });
   });
 
-  describe('setUserManager', () => {
+  describe("setUserManager", () => {
     it('should set the user manager', () => {
       const newUserManager = {} as UserManager;
       authManager.setUserManager(newUserManager);
-      expect(authManager['userManager']).toBe(newUserManager);
+      expect(authManager["userManager"]).toBe(newUserManager);
     });
   });
 
-  describe('setTokenStore', () => {
+  describe("setTokenStore", () => {
     it('should set the token store', () => {
       const newTokenStore = {} as TokenStore;
       authManager.setTokenStore(newTokenStore);
-      expect(authManager['tokenStore']).toBe(newTokenStore);
+      expect(authManager["tokenStore"]).toBe(newTokenStore);
     });
   });
 
-  describe('generateToken', () => {
+  describe("generateToken", () => {
     it('should generate a JWT token with provided payload', async () => {
       const payload: TokenPayload = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         role: 'user',
         permissions: ['read', 'write']
       };
 
-      const mockToken = 'mock.jwt.token';
+      const mocktoken: process.env.TOKEN || "PLACEHOLDER";
       (jwt.sign as jest.Mock).mockReturnValue(mockToken);
 
       const token = await authManager.generateToken(payload);
@@ -116,8 +116,8 @@ describe('AuthenticationManager', () => {
     it('should successfully login with valid credentials', async () => {
       const mockUser = {
         id: 'user123',
-        username: 'testuser',
-        password: 'hashedpassword',
+        username: "testuser",
+        password: "PLACEHOLDER",
         fullName: 'Test User',
         role: 'user',
         permissions: ['read']
@@ -127,7 +127,7 @@ describe('AuthenticationManager', () => {
       mockTokenStore.storeToken.mockResolvedValue(undefined);
       (jwt.sign as jest.Mock).mockReturnValue('mock.token');
 
-      const result = await authManager.login('testuser', 'password');
+      const result = await authManager.login("testuser", "password");
 
       expect(result.success).toBe(true);
       expect(result.token).toBe('mock.token');
@@ -138,14 +138,14 @@ describe('AuthenticationManager', () => {
         role: mockUser.role,
         permissions: mockUser.permissions
       });
-      expect(mockUserManager.validateCredentials).toHaveBeenCalledWith('testuser', 'password');
+      expect(mockUserManager.validateCredentials).toHaveBeenCalledWith("testuser", "password");
       expect(mockTokenStore.storeToken).toHaveBeenCalled();
     });
 
     it('should fail login with invalid credentials', async () => {
       mockUserManager.validateCredentials.mockResolvedValue(null);
 
-      const result = await authManager.login('testuser', 'wrongpassword');
+      const result = await authManager.login("testuser", "wrongpassword");
 
       expect(result.success).toBe(false);
       expect(result.error).toBe('invalid credentials');
@@ -155,7 +155,7 @@ describe('AuthenticationManager', () => {
     it('should fail if user manager not configured', async () => {
       authManager.setUserManager(undefined as any);
 
-      const result = await authManager.login('testuser', 'password');
+      const result = await authManager.login("testuser", "password");
 
       expect(result.success).toBe(false);
       expect(result.error).toBe('user manager not configured');
@@ -164,7 +164,7 @@ describe('AuthenticationManager', () => {
     it('should fail if token store not available', async () => {
       authManager.setTokenStore(undefined as any);
 
-      const result = await authManager.login('testuser', 'password');
+      const result = await authManager.login("testuser", "password");
 
       expect(result.success).toBe(false);
       expect(result.error).toBe('token store unavailable');
@@ -173,7 +173,7 @@ describe('AuthenticationManager', () => {
     it('should handle rate limit exceeded error', async () => {
       mockUserManager.validateCredentials.mockRejectedValue(new Error('rate limit exceeded'));
 
-      const result = await authManager.login('testuser', 'password');
+      const result = await authManager.login("testuser", "password");
 
       expect(result.success).toBe(false);
       expect(result.error).toBe('rate limit exceeded');
@@ -182,7 +182,7 @@ describe('AuthenticationManager', () => {
     it('should handle generic errors', async () => {
       mockUserManager.validateCredentials.mockRejectedValue(new Error('database error'));
 
-      const result = await authManager.login('testuser', 'password');
+      const result = await authManager.login("testuser", "password");
 
       expect(result.success).toBe(false);
       expect(result.error).toBe('database error');
@@ -192,9 +192,9 @@ describe('AuthenticationManager', () => {
   describe('logout', () => {
     it('should successfully logout', async () => {
       const mockStoredToken = {
-        token: 'mock.token',
+        token: process.env.TOKEN || "PLACEHOLDER",
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date()
       };
@@ -213,9 +213,9 @@ describe('AuthenticationManager', () => {
 
     it('should not remove session if user has other active tokens', async () => {
       const mockStoredToken = {
-        token: 'mock.token',
+        token: process.env.TOKEN || "PLACEHOLDER",
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date()
       };
@@ -250,7 +250,7 @@ describe('AuthenticationManager', () => {
     });
   });
 
-  describe('refreshToken', () => {
+  describe("refreshToken", () => {
     beforeEach(() => {
       (jwt.sign as jest.Mock).mockReturnValue('new.mock.token');
     });
@@ -258,15 +258,15 @@ describe('AuthenticationManager', () => {
     it('should successfully refresh token', async () => {
       const mockUser = {
         id: 'user123',
-        username: 'testuser',
-        password: 'hashedpassword',
+        username: "testuser",
+        password: "PLACEHOLDER",
         fullName: 'Test User',
         role: 'user',
         permissions: ['read']
       };
 
       // Generate a refresh token first
-      const refreshToken = authManager['generateRefreshToken']('user123');
+      const refreshToken = authManager["generateRefreshToken"]('user123');
       
       mockUserManager.getUser.mockResolvedValue(mockUser);
       mockTokenStore.storeToken.mockResolvedValue(undefined);
@@ -290,7 +290,7 @@ describe('AuthenticationManager', () => {
       const expiredDate = new Date();
       expiredDate.setDate(expiredDate.getDate() - 1);
       
-      authManager['refreshTokens'].set('expired.token', {
+      authManager["refreshTokens"].set('expired.token', {
         userId: 'user123',
         expiresAt: expiredDate
       });
@@ -302,7 +302,7 @@ describe('AuthenticationManager', () => {
     });
 
     it('should fail if user manager not configured', async () => {
-      const refreshToken = authManager['generateRefreshToken']('user123');
+      const refreshToken = authManager["generateRefreshToken"]('user123');
       authManager.setUserManager(undefined as any);
 
       const result = await authManager.refreshToken(refreshToken);
@@ -312,7 +312,7 @@ describe('AuthenticationManager', () => {
     });
 
     it('should fail if user not found', async () => {
-      const refreshToken = authManager['generateRefreshToken']('user123');
+      const refreshToken = authManager["generateRefreshToken"]('user123');
       mockUserManager.getUser.mockResolvedValue(null);
 
       const result = await authManager.refreshToken(refreshToken);
@@ -322,7 +322,7 @@ describe('AuthenticationManager', () => {
     });
   });
 
-  describe('verifyToken', () => {
+  describe("verifyToken", () => {
     it('should verify valid token', async () => {
       const mockPayload: TokenPayload = {
         userId: 'user123',
@@ -349,7 +349,7 @@ describe('AuthenticationManager', () => {
     });
   });
 
-  describe('validatePermissions', () => {
+  describe("validatePermissions", () => {
     it('should validate permissions successfully', async () => {
       const mockPayload: TokenPayload = {
         userId: 'user123',
@@ -389,9 +389,9 @@ describe('AuthenticationManager', () => {
     });
   });
 
-  describe('extractTokenFromHeader', () => {
-    it('should extract token from valid Bearer header', () => {
-      const token = authManager.extractTokenFromHeader('Bearer valid.token');
+  describe("extractTokenFromHeader", () => {
+    it('should extract token from valid Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}', () => {
+      const token = authManager.extractTokenFromHeader('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
       expect(token).toBe('valid.token');
     });
 
@@ -400,18 +400,18 @@ describe('AuthenticationManager', () => {
       expect(token).toBeNull();
     });
 
-    it('should return null for non-Bearer header', () => {
+    it('should return null for non-Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}', () => {
       const token = authManager.extractTokenFromHeader('Basic credentials');
       expect(token).toBeNull();
     });
 
-    it('should return null for malformed Bearer header', () => {
+    it('should return null for malformed Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}', () => {
       const token = authManager.extractTokenFromHeader('Bearer');
       expect(token).toBeNull();
     });
   });
 
-  describe('authenticateRequest', () => {
+  describe("authenticateRequest", () => {
     it('should authenticate valid request', async () => {
       const mockPayload: TokenPayload = {
         userId: 'user123',
@@ -421,7 +421,7 @@ describe('AuthenticationManager', () => {
 
       (jwt.verify as jest.Mock).mockReturnValue(mockPayload);
 
-      const result = await authManager.authenticateRequest('Bearer valid.token', ['read']);
+      const result = await authManager.authenticateRequest('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}', ['read']);
 
       expect(result.success).toBe(true);
       expect(result.token).toBe('valid.token');
@@ -439,7 +439,7 @@ describe('AuthenticationManager', () => {
         throw new Error('invalid token');
       });
 
-      const result = await authManager.authenticateRequest('Bearer invalid.token');
+      const result = await authManager.authenticateRequest('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
 
       expect(result.success).toBe(false);
       expect(result.error).toBe('Invalid or expired token');
@@ -454,21 +454,21 @@ describe('AuthenticationManager', () => {
 
       (jwt.verify as jest.Mock).mockReturnValue(mockPayload);
 
-      const result = await authManager.authenticateRequest('Bearer valid.token', ['write', 'delete']);
+      const result = await authManager.authenticateRequest('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}', ['write', 'delete']);
 
       expect(result.success).toBe(false);
       expect(result.error).toBe('Insufficient permissions');
     });
   });
 
-  describe('setTokenExpiry', () => {
+  describe("setTokenExpiry", () => {
     it('should update token expiry', async () => {
       await authManager.setTokenExpiry('2h');
-      expect(authManager['tokenExpiry']).toBe('2h');
+      expect(authManager["tokenExpiry"]).toBe('2h');
     });
   });
 
-  describe('blacklistToken', () => {
+  describe("blacklistToken", () => {
     it('should blacklist token when token store is available', async () => {
       mockTokenStore.blacklistToken.mockResolvedValue(undefined);
 
@@ -484,29 +484,29 @@ describe('AuthenticationManager', () => {
     });
   });
 
-  describe('parseExpiry', () => {
+  describe("parseExpiry", () => {
     it('should parse seconds correctly', () => {
-      const result = authManager['parseExpiry']('30s');
+      const result = authManager["parseExpiry"]('30s');
       expect(result).toBe(30 * 1000);
     });
 
     it('should parse minutes correctly', () => {
-      const result = authManager['parseExpiry']('5m');
+      const result = authManager["parseExpiry"]('5m');
       expect(result).toBe(5 * 60 * 1000);
     });
 
     it('should parse hours correctly', () => {
-      const result = authManager['parseExpiry']('2h');
+      const result = authManager["parseExpiry"]('2h');
       expect(result).toBe(2 * 60 * 60 * 1000);
     });
 
     it('should parse days correctly', () => {
-      const result = authManager['parseExpiry']('7d');
+      const result = authManager["parseExpiry"]('7d');
       expect(result).toBe(7 * 24 * 60 * 60 * 1000);
     });
 
     it('should return default for invalid format', () => {
-      const result = authManager['parseExpiry']('invalid');
+      const result = authManager["parseExpiry"]('invalid');
       expect(result).toBe(3600000); // 1 hour default
     });
   });

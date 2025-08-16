@@ -13,7 +13,7 @@ import figures from 'figures';
 interface Project {
   id: string;
   name: string;
-  status: 'active' | 'completed' | 'pending' | 'archived';
+  status: 'active' | "completed" | 'pending' | "archived";
   progress: number;
   lastUpdated: string;
   tasks: number;
@@ -36,7 +36,7 @@ export const ProjectDashboard: React.FC<Props> = ({ onBack }) => {
         {
           id: 'proj-001',
           name: 'Enhanced Manual Generator',
-          status: 'completed',
+          status: "completed",
           progress: 100,
           lastUpdated: '2025-08-13',
           tasks: 8,
@@ -45,7 +45,7 @@ export const ProjectDashboard: React.FC<Props> = ({ onBack }) => {
         {
           id: 'proj-002',
           name: 'Portal Security',
-          status: 'completed',
+          status: "completed",
           progress: 100,
           lastUpdated: '2025-08-11',
           tasks: 4,
@@ -95,9 +95,9 @@ export const ProjectDashboard: React.FC<Props> = ({ onBack }) => {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'active': return figures.play;
-      case 'completed': return figures.tick;
+      case "completed": return figures.tick;
       case 'pending': return figures.circle;
-      case 'archived': return figures.cross;
+      case "archived": return figures.cross;
       default: return figures.bullet;
     }
   };
@@ -105,9 +105,9 @@ export const ProjectDashboard: React.FC<Props> = ({ onBack }) => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'active': return 'yellow';
-      case 'completed': return 'green';
+      case "completed": return 'green';
       case 'pending': return 'gray';
-      case 'archived': return 'red';
+      case "archived": return 'red';
       default: return 'white';
     }
   };
@@ -145,7 +145,7 @@ export const ProjectDashboard: React.FC<Props> = ({ onBack }) => {
     const stats = {
       total: projects.length,
       active: projects.filter(p => p.status === 'active').length,
-      completed: projects.filter(p => p.status === 'completed').length,
+      completed: projects.filter(p => p.status === "completed").length,
       pending: projects.filter(p => p.status === 'pending').length,
       totalTasks: projects.reduce((sum, p) => sum + p.tasks, 0),
       completedTasks: projects.reduce((sum, p) => sum + p.completedTasks, 0)

@@ -1,9 +1,9 @@
 #!/usr/bin/env ts-node
 
-import { Command } from 'commander';
-import { fs } from '../../../../infra_external-log-lib/src';
-import { path } from '../../../../infra_external-log-lib/src';
-import * as inquirer from 'inquirer';
+import { Command } from "commander";
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import * as inquirer from "inquirer";
 import chalk from 'chalk';
 import ora from 'ora';
 import { LayerType } from '../src/interfaces/layer';
@@ -62,7 +62,7 @@ async function promptForMissing(): Promise<ScaffoldOptions> {
   if(!options.description) {
     questions.push({
       type: 'input',
-      name: 'description',
+      name: "description",
       message: 'Module description:',
       default: 'A new HEA module',
     });

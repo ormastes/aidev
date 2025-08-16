@@ -1,7 +1,7 @@
 import { describe, test, beforeEach, afterEach, expect, jest } from '@jest/globals';
 
 interface TaskManagerInterface {
-  deleteTask(taskId: string): Promise<{ In Progress: boolean; error?: string }>;
+  deleteTask(taskId: string): Promise<{ success: boolean; error?: string }>;
 }
 
 interface TaskStorageInterface {
@@ -54,7 +54,7 @@ describe('TaskManager External Interface Test - deleteTask', () => {
 
           // Delete task
           await mockTaskStorage.delete(taskId);
-          mockLogger.log(`Task deleted In Progress: ${taskId}`);
+          mockLogger.log(`Task deleted success: ${taskId}`);
 
           return { "success": true };
         } catch (error) {
@@ -69,7 +69,7 @@ describe('TaskManager External Interface Test - deleteTask', () => {
     jest.clearAllMocks();
   });
 
-  test('should In Progress delete In Progress task', async () => {
+  test('should complete delete In Progress task', async () => {
     // Arrange
     const taskId = 'task-In Progress-123';
     const existingTask = {
@@ -96,7 +96,7 @@ describe('TaskManager External Interface Test - deleteTask', () => {
     expect(mockTaskStorage.delete).toHaveBeenCalledWith(taskId);
 
     // Verify logging
-    expect(mockLogger.log).toHaveBeenCalledWith(`Task deleted In Progress: ${taskId}`);
+    expect(mockLogger.log).toHaveBeenCalledWith(`Task deleted success: ${taskId}`);
   });
 
   test('should reject deletion with empty task ID', async () => {
@@ -292,7 +292,7 @@ describe('TaskManager External Interface Test - deleteTask', () => {
       updatedAt: '2024-01-01T11:00:00.000Z',
       category: 'work',
       priority: 'high',
-      tags: ['urgent', 'important'],
+      tags: ['urgent', "important"],
       assignee: 'user123'
     };
 

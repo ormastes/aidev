@@ -6,7 +6,7 @@
 import * as fs from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
 import { exec } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import { getFileAPI, FileType } from '../../../infra_external-log-lib/pipe';
 
 const fileAPI = getFileAPI();
@@ -69,7 +69,7 @@ export class CppBuildSetup {
     console.log('✅ C++ build setup complete!');
   }
 
-  private async detectBuildSystem(projectPath: string): Promise<CppBuildConfig['buildSystem']> {
+  private async detectBuildSystem(projectPath: string): Promise<CppBuildConfig["buildSystem"]> {
     try {
       // Check for CMakeLists.txt
       await fs.access(path.join(projectPath, 'CMakeLists.txt'));
@@ -78,7 +78,7 @@ export class CppBuildSetup {
     
     try {
       // Check for Makefile
-      await fs.access(path.join(projectPath, 'Makefile'));
+      await fs.access(path.join(projectPath, "Makefile"));
       return 'make';
     } catch {}
     
@@ -92,7 +92,7 @@ export class CppBuildSetup {
     return 'cmake';
   }
 
-  private async detectCompiler(): Promise<CppBuildConfig['compiler']> {
+  private async detectCompiler(): Promise<CppBuildConfig["compiler"]> {
     try {
       await execAsync('clang++ --version');
       return 'clang';
@@ -116,7 +116,7 @@ export class CppBuildSetup {
       version: 3,
       configurePresets: [
         {
-          name: 'coverage',
+          name: "coverage",
           displayName: 'Coverage Build',
           generator: 'Ninja',
           binaryDir: '${sourceDir}/build-coverage',
@@ -152,8 +152,8 @@ export class CppBuildSetup {
       ],
       buildPresets: [
         {
-          name: 'coverage',
-          configurePreset: 'coverage',
+          name: "coverage",
+          configurePreset: "coverage",
           jobs: 4
         },
         {
@@ -169,8 +169,8 @@ export class CppBuildSetup {
       ],
       testPresets: [
         {
-          name: 'coverage',
-          configurePreset: 'coverage',
+          name: "coverage",
+          configurePreset: "coverage",
           output: {
             outputOnFailure: true
           }
@@ -189,7 +189,7 @@ export class CppBuildSetup {
     const cmakeListsPath = path.join(projectPath, 'CMakeLists.txt');
     
     try {
-      let content = await fs.readFile(cmakeListsPath, 'utf-8');
+      let content = await fileAPI.readFile(cmakeListsPath, 'utf-8');
       
       // Check if coverage is already included
       if (!content.includes('coverage.cmake')) {
@@ -276,7 +276,7 @@ clean:
     await fileAPI.createFile(bazelrcPath, bazelrcContent);
   }
 
-  private async getCoverageFlags(compiler: CppBuildConfig['compiler']): string[] {
+  private async getCoverageFlags(compiler: CppBuildConfig["compiler"]): string[] {
     switch (compiler) {
       case 'clang':
         return ['-fprofile-instr-generate', { type: FileType.TEMPORARY }): string[] {
@@ -292,7 +292,7 @@ clean:
     }
   }
 
-  private async getCoverageCommand(compiler: CppBuildConfig['compiler']): string {
+  private async getCoverageCommand(compiler: CppBuildConfig["compiler"]): string {
     switch (compiler) {
       case 'clang':
         return `llvm-profdata merge -sparse *.profraw -o default.profdata && \\

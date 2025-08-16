@@ -28,7 +28,7 @@ describe('Integration: EnvGenerator with TokenService', () => {
     it('should include JWT secret token in generated .env file', async () => {
       // Arrange
       const config: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'api-service',
         servicePort: 3000,
         additionalVariables: []
@@ -66,7 +66,7 @@ describe('Integration: EnvGenerator with TokenService', () => {
     it('should generate unique tokens for each environment', async () => {
       // Arrange
       const devConfig: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'auth-service',
         servicePort: 4000
       };
@@ -153,7 +153,7 @@ describe('Integration: EnvGenerator with TokenService', () => {
     it('should generate environment-prefixed tokens for non-production', async () => {
       // Arrange
       const config: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'test-service',
         servicePort: 5000
       };
@@ -163,7 +163,7 @@ describe('Integration: EnvGenerator with TokenService', () => {
       
       // Assert
       const envVar = result.variables.find(v => v.key === 'NODE_ENV');
-      expect(envVar?.value).toBe('development');
+      expect(envVar?.value).toBe("development");
       
       // Check that JWT secret was generated
       const jwtSecret = result.variables.find(v => v.key === 'JWT_SECRET');
@@ -198,7 +198,7 @@ describe('Integration: EnvGenerator with TokenService', () => {
     it('should support token rotation when updating .env file', async () => {
       // Arrange
       const config: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'rotating-service',
         servicePort: 6000
       };
@@ -268,8 +268,7 @@ describe('Integration: EnvGenerator with TokenService', () => {
       tokens.forEach(token => {
         const requirements = tokenService.getTokenRequirements(
           token.key === 'JWT_SECRET' ? 'jwt-secret' :
-          token.key === 'API_KEY' ? 'api-key' :
-          'session-secret'
+          token.key === 'API_KEY' ? 'api_key': process.env.API_KEY || "PLACEHOLDER"
         );
         expect(token.value.length).toBeGreaterThanOrEqual(requirements.minLength);
       });
@@ -279,7 +278,7 @@ describe('Integration: EnvGenerator with TokenService', () => {
   describe('multi-environment token generation', () => {
     it('should generate different tokens for different environments', async () => {
       // Arrange
-      const environments: Array<'development' | 'test' | 'release'> = ['development', 'test', 'release'];
+      const environments: Array<"development" | 'test' | 'release'> = ["development", 'test', 'release'];
       const tokens: Record<string, string> = {};
       
       // Act - Generate tokens for each environment
@@ -370,7 +369,7 @@ describe('Integration: EnvGenerator with TokenService', () => {
     
     it('should properly integrate token prefixes when specified', async () => {
       // Act
-      const envTokens = await tokenService.generateEnvironmentTokens('development');
+      const envTokens = await tokenService.generateEnvironmentTokens("development");
       
       // Assert - Check that prefixed tokens have correct prefixes
       const apiKey = envTokens.find(t => t.type === 'api-key');
@@ -383,7 +382,7 @@ describe('Integration: EnvGenerator with TokenService', () => {
     it('should handle token rotation through EnvGenerator', async () => {
       // Arrange
       const config: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'rotation-test',
         servicePort: 3333
       };
@@ -395,7 +394,7 @@ describe('Integration: EnvGenerator with TokenService', () => {
       // Act - Rotate the JWT token
       const rotated = await tokenService.rotateToken(initialJwt!.value, {
         type: 'jwt-secret',
-        environment: 'development'
+        environment: "development"
       });
       
       // Assert

@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import * as os from 'os';
 import { LogCaptureSession } from '../../src/application/aidev-platform';
 import { LogEntry } from '../../src/external/external-log-lib';
@@ -21,7 +21,7 @@ describe('LogCaptureSession Unit Test', () => {
     }
   });
 
-  describe('saveLogsToFile', () => {
+  describe("saveLogsToFile", () => {
     it('should write formatted logs to file', async () => {
       // Create a session
       const session = new LogCaptureSession({

@@ -6,16 +6,16 @@
  * theme to provide comprehensive security validation.
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
-import * as ts from 'typescript';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as path from 'node:path';
+import * as ts from "typescript";
 import { FileCreationAPI, FileType } from '../file-manager/FileCreationAPI';
 import { isDirectFSAllowed, strictEnforcement } from '../config/enforcement-config';
 
 export interface FraudPattern {
   name: string;
   pattern: RegExp;
-  severity: 'critical' | 'high' | 'medium' | 'low';
+  severity: "critical" | 'high' | 'medium' | 'low';
   message: string;
   autoFix?: boolean;
 }
@@ -32,7 +32,7 @@ export interface Violation {
   column: number;
   code: string;
   pattern: string;
-  severity: 'critical' | 'high' | 'medium' | 'low';
+  severity: "critical" | 'high' | 'medium' | 'low';
   message: string;
 }
 
@@ -114,14 +114,14 @@ export class FileCreationFraudChecker {
       {
         name: 'exec_redirect',
         pattern: /exec(?:Sync)?\s*\([^)]*>\s*['"`][^'"`]+['"`]/,
-        severity: 'critical',
+        severity: "critical",
         message: 'Shell redirect to file detected. This bypasses all file creation controls.',
         autoFix: false
       },
       {
         name: 'spawn_redirect',
         pattern: /spawn(?:Sync)?\s*\([^)]*>\s*['"`][^'"`]+['"`]/,
-        severity: 'critical',
+        severity: "critical",
         message: 'Spawn with file redirect detected. Use FileCreationAPI for controlled output.',
         autoFix: false
       },
@@ -139,7 +139,7 @@ export class FileCreationFraudChecker {
       {
         name: 'root_file_creation',
         pattern: /writeFile[^(]*\(['"`]\/[^'"`]*['"`]/,
-        severity: 'critical',
+        severity: "critical",
         message: 'Attempting to write to root directory. This violates file structure rules.',
         autoFix: false
       },
@@ -155,14 +155,14 @@ export class FileCreationFraudChecker {
       {
         name: 'eval_file_operation',
         pattern: /eval\s*\([^)]*writeFile/,
-        severity: 'critical',
+        severity: "critical",
         message: 'File operation within eval detected. This is a severe security risk.',
         autoFix: false
       },
       {
         name: 'function_constructor_file',
         pattern: /new\s+Function\s*\([^)]*writeFile/,
-        severity: 'critical',
+        severity: "critical",
         message: 'File operation in Function constructor. This bypasses static analysis.',
         autoFix: false
       }
@@ -238,7 +238,7 @@ export class FileCreationFraudChecker {
     options: FraudCheckOptions = {}
   ): Promise<Map<string, FraudDetectionResult>> {
     const results = new Map<string, FraudDetectionResult>();
-    const excludePaths = options.excludePaths || ['node_modules', '.git', 'dist', 'coverage'];
+    const excludePaths = options.excludePaths || ['node_modules', '.git', 'dist', "coverage"];
 
     const scanRecursive = async (currentPath: string) => {
       const entries = await fs.promises.readdir(currentPath, { withFileTypes: true });
@@ -352,7 +352,7 @@ export class FileCreationFraudChecker {
     if (modified) {
       // Add import if not present
       const hasImport = lines.some(line => 
-        line.includes('FileCreationAPI') || line.includes('fileAPI')
+        line.includes("FileCreationAPI") || line.includes('fileAPI')
       );
       
       if (!hasImport) {
@@ -411,7 +411,7 @@ export class FileCreationFraudChecker {
     // Critical violations
     if (severityCounts.critical > 0) {
       reportLines.push('## Critical Violations (Immediate Action Required)');
-      this.addViolationSection(reportLines, 'critical', violationsBySeverity.get('critical') || []);
+      this.addViolationSection(reportLines, "critical", violationsBySeverity.get("critical") || []);
     }
 
     // High severity violations

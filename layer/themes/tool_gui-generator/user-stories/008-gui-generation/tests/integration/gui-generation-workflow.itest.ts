@@ -45,7 +45,7 @@ describe('GUI Generation Workflow Integration', () => {
       const config: GUIConfig = {
         appName: 'TestApp',
         description: 'A test application for integration testing',
-        features: ['login', 'dashboard', 'settings'],
+        features: ['login', "dashboard", "settings"],
         designStyles: [
           DesignStyle.MODERN,
           DesignStyle.PROFESSIONAL,
@@ -73,7 +73,7 @@ describe('GUI Generation Workflow Integration', () => {
 
     it('should save generated designs to filesystem', async () => {
       const config: GUIConfig = {
-        appName: 'SaveTest',
+        appName: "SaveTest",
         description: 'Test saving functionality',
         features: ['home'],
         designStyles: [DesignStyle.MODERN]
@@ -84,12 +84,12 @@ describe('GUI Generation Workflow Integration', () => {
 
       // Verify files were created
       const files = await fs.readdir(testOutputDir);
-      expect(files).toContain('candidates');
+      expect(files).toContain("candidates");
       
-      const candidateFiles = await fs.readdir(path.join(testOutputDir, 'candidates'));
+      const candidateFiles = await fs.readdir(path.join(testOutputDir, "candidates"));
       expect(candidateFiles).toContain('modern');
       
-      const modernFiles = await fs.readdir(path.join(testOutputDir, 'candidates', 'modern'));
+      const modernFiles = await fs.readdir(path.join(testOutputDir, "candidates", 'modern'));
       expect(modernFiles).toContain('index.html');
       expect(modernFiles).toContain('styles.css');
       expect(modernFiles).toContain('components.json');
@@ -97,9 +97,9 @@ describe('GUI Generation Workflow Integration', () => {
 
     it('should generate selection interface', async () => {
       const config: GUIConfig = {
-        appName: 'SelectionTest',
+        appName: "SelectionTest",
         description: 'Test selection interface',
-        features: ['feature1', 'feature2'],
+        features: ["feature1", "feature2"],
         designStyles: [DesignStyle.MODERN, DesignStyle.PROFESSIONAL]
       };
 
@@ -107,13 +107,13 @@ describe('GUI Generation Workflow Integration', () => {
       const selectionInterface = await guiGenerator.generateSelectionInterface(results);
 
       expect(selectionInterface.html).toContain('<!DOCTYPE html>');
-      expect(selectionInterface.html).toContain('SelectionTest');
+      expect(selectionInterface.html).toContain("SelectionTest");
       expect(selectionInterface.html).toContain('iframe');
       expect(selectionInterface.port).toBe(3456);
       
       // Verify selection interface includes all candidates
       expect(selectionInterface.html).toContain('modern');
-      expect(selectionInterface.html).toContain('professional');
+      expect(selectionInterface.html).toContain("professional");
     });
   });
 
@@ -135,7 +135,7 @@ describe('GUI Generation Workflow Integration', () => {
       await designSystem.setTokens(tokens);
       
       const config: GUIConfig = {
-        appName: 'TokenTest',
+        appName: "TokenTest",
         description: 'Test design tokens',
         features: ['button-showcase'],
         designStyles: [DesignStyle.MODERN]
@@ -152,7 +152,7 @@ describe('GUI Generation Workflow Integration', () => {
 
     it('should maintain consistency across components', async () => {
       const config: GUIConfig = {
-        appName: 'ConsistencyTest',
+        appName: "ConsistencyTest",
         description: 'Test design consistency',
         features: ['navbar', 'sidebar', 'footer'],
         designStyles: [DesignStyle.PROFESSIONAL]
@@ -176,7 +176,7 @@ describe('GUI Generation Workflow Integration', () => {
     it('should use components from library', async () => {
       // Register custom components
       await componentLibrary.registerComponent({
-        name: 'CustomButton',
+        name: "CustomButton",
         type: 'button',
         template: '<button class="custom-btn">{text}</button>',
         styles: '.custom-btn { padding: 10px 20px; }',
@@ -184,7 +184,7 @@ describe('GUI Generation Workflow Integration', () => {
       });
 
       const config: GUIConfig = {
-        appName: 'ComponentTest',
+        appName: "ComponentTest",
         description: 'Test component library',
         features: ['custom-components'],
         designStyles: [DesignStyle.MODERN],
@@ -200,14 +200,14 @@ describe('GUI Generation Workflow Integration', () => {
 
     it('should handle component composition', async () => {
       const config: GUIConfig = {
-        appName: 'CompositionTest',
+        appName: "CompositionTest",
         description: 'Test component composition',
-        features: ['dashboard'],
+        features: ["dashboard"],
         designStyles: [DesignStyle.CREATIVE]
       };
 
       const results = await guiGenerator.generateCandidates(config);
-      const dashboard = results[0].components.find(c => c.type === 'dashboard');
+      const dashboard = results[0].components.find(c => c.type === "dashboard");
 
       expect(dashboard?.children).toBeDefined();
       expect(dashboard?.children?.length).toBeGreaterThan(0);
@@ -232,7 +232,7 @@ describe('GUI Generation Workflow Integration', () => {
       await themeManager.registerTheme(darkTheme);
 
       const config: GUIConfig = {
-        appName: 'ThemeTest',
+        appName: "ThemeTest",
         description: 'Test theme application',
         features: ['themed-page'],
         designStyles: [DesignStyle.MODERN],
@@ -249,7 +249,7 @@ describe('GUI Generation Workflow Integration', () => {
 
     it('should support theme switching', async () => {
       const config: GUIConfig = {
-        appName: 'ThemeSwitchTest',
+        appName: "ThemeSwitchTest",
         description: 'Test theme switching',
         features: ['theme-switcher'],
         designStyles: [DesignStyle.MODERN],
@@ -261,15 +261,15 @@ describe('GUI Generation Workflow Integration', () => {
       const scripts = results[0].scripts;
 
       expect(html).toContain('theme-switcher');
-      expect(scripts).toContain('switchTheme');
-      expect(scripts).toContain('localStorage');
+      expect(scripts).toContain("switchTheme");
+      expect(scripts).toContain("localStorage");
     });
   });
 
   describe('Responsive Design', () => {
     it('should generate responsive layouts', async () => {
       const config: GUIConfig = {
-        appName: 'ResponsiveTest',
+        appName: "ResponsiveTest",
         description: 'Test responsive design',
         features: ['responsive-grid'],
         designStyles: [DesignStyle.MODERN],
@@ -285,12 +285,12 @@ describe('GUI Generation Workflow Integration', () => {
     });
   });
 
-  describe('Accessibility', () => {
+  describe("Accessibility", () => {
     it('should include accessibility features for accessible style', async () => {
       const config: GUIConfig = {
-        appName: 'A11yTest',
+        appName: "A11yTest",
         description: 'Test accessibility features',
-        features: ['form', 'navigation'],
+        features: ['form', "navigation"],
         designStyles: [DesignStyle.ACCESSIBLE]
       };
 
@@ -299,7 +299,7 @@ describe('GUI Generation Workflow Integration', () => {
 
       expect(html).toContain('aria-label');
       expect(html).toContain('role=');
-      expect(html).toContain('tabindex');
+      expect(html).toContain("tabindex");
       expect(html).toMatch(/alt="[^"]+"/); // Alt text for images
     });
   });
@@ -318,7 +318,7 @@ describe('GUI Generation Workflow Integration', () => {
 
     it('should handle component generation failures', async () => {
       const config: GUIConfig = {
-        appName: 'ErrorTest',
+        appName: "ErrorTest",
         description: 'Test error handling',
         features: ['non-existent-feature'],
         designStyles: [DesignStyle.MODERN]

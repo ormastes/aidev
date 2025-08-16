@@ -40,8 +40,8 @@ async function demo() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        username: 'demouser',
-        password: 'demo123',
+        username: "demouser",
+        password: "PLACEHOLDER",
         email: 'demo@example.com'
       })
     });
@@ -61,7 +61,7 @@ async function demo() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         username: 'admin',
-        password: 'admin123'
+        password: "PLACEHOLDER"
       })
     });
     
@@ -83,7 +83,7 @@ async function demo() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`
+        "Authorization": `Bearer ${accessToken}`
       },
       body: JSON.stringify({
         name: 'My Calculator App',
@@ -101,7 +101,7 @@ async function demo() {
     // 5. List all apps
     console.log('\n5. Listing all apps...');
     const appsRes = await fetch(`${BASE_URL}/api/apps`, {
-      headers: { 'Authorization': `Bearer ${accessToken}` }
+      headers: { "Authorization": `Bearer ${accessToken}` }
     });
     
     if (!appsRes.ok) {
@@ -143,7 +143,7 @@ async function demo() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`
+        "Authorization": `Bearer ${accessToken}`
       },
       body: JSON.stringify({
         templateId: 'modern-01',
@@ -163,9 +163,9 @@ async function demo() {
     // 9. Add requirements
     console.log('\n9. Adding project requirements...');
     const requirements = [
-      { type: 'functional', description: 'Support basic arithmetic operations', priority: 'high' },
+      { type: "functional", description: 'Support basic arithmetic operations', priority: 'high' },
       { type: 'design', description: 'Dark mode support', priority: 'medium' },
-      { type: 'technical', description: 'React 18+ with TypeScript', priority: 'high' }
+      { type: "technical", description: 'React 18+ with TypeScript', priority: 'high' }
     ];
     
     for (const req of requirements) {
@@ -173,7 +173,7 @@ async function demo() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
+          "Authorization": `Bearer ${accessToken}`
         },
         body: JSON.stringify({
           ...req,
@@ -190,12 +190,12 @@ async function demo() {
     // 10. Export requirements
     console.log('\n10. Exporting requirements...');
     const exportRes = await fetch(`${BASE_URL}/api/requirements/export?format=json`, {
-      headers: { 'Authorization': `Bearer ${accessToken}` }
+      headers: { "Authorization": `Bearer ${accessToken}` }
     });
     
     if (exportRes.ok) {
       const exportData = await exportRes.json();
-      console.log('✓ Exported', exportData.requirements.length, 'requirements');
+      console.log('✓ Exported', exportData.requirements.length, "requirements");
     }
     await delay(1000);
 

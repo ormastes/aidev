@@ -8,7 +8,7 @@ import { Environment } from './EnvironmentManager';
 
 export interface ReleaseConfig {
   themes: string[];
-  environment: 'release' | 'production';
+  environment: 'release' | "production";
   replicas?: number;
   domain?: string;
   ssl?: boolean;
@@ -31,7 +31,7 @@ export interface ReleaseDeployment {
   environment: Environment;
   version: string;
   themes: string[];
-  status: 'preparing' | 'building' | 'deploying' | 'running' | 'failed';
+  status: "preparing" | "building" | "deploying" | 'running' | 'failed';
   startTime: Date;
   endTime?: Date;
   services: Map<string, ServiceStatus>;
@@ -44,7 +44,7 @@ export interface ServiceStatus {
   image: string;
   replicas: number;
   runningReplicas: number;
-  status: 'starting' | 'healthy' | 'unhealthy' | 'stopped';
+  status: "starting" | 'healthy' | "unhealthy" | 'stopped';
   ports: string[];
   health?: string;
 }
@@ -90,7 +90,7 @@ export class ReleaseEnvironmentOrchestrator {
       environment: config.environment,
       version,
       themes: config.themes,
-      status: 'preparing',
+      status: "preparing",
       startTime: new Date(),
       services: new Map()
     };
@@ -101,15 +101,15 @@ export class ReleaseEnvironmentOrchestrator {
       console.log(`🚀 Starting ${config.environment} deployment v${version}...`);
 
       // Phase 1: Preparation
-      deployment.status = 'preparing';
+      deployment.status = "preparing";
       await this.prepareDeployment(config, deployment);
 
       // Phase 2: Building
-      deployment.status = 'building';
+      deployment.status = "building";
       await this.buildImages(config, deployment);
 
       // Phase 3: Deployment
-      deployment.status = 'deploying';
+      deployment.status = "deploying";
       await this.deployServices(config, deployment);
 
       // Phase 4: Health checks
@@ -158,7 +158,7 @@ export class ReleaseEnvironmentOrchestrator {
     }
 
     // Create deployment directory within the theme
-    const deployDir = path.join(__dirname, '..', 'deployments', deployment.id);
+    const deployDir = path.join(__dirname, '..', "deployments", deployment.id);
     await fileAPI.createDirectory(deployDir);
 
     // Generate secrets file if provided
@@ -219,7 +219,7 @@ export class ReleaseEnvironmentOrchestrator {
         image: tag,
         replicas: config.replicas || 1,
         runningReplicas: 0,
-        status: 'starting',
+        status: "starting",
         ports: []
       });
     }
@@ -300,7 +300,7 @@ CMD ["node", "dist/index.js"]
     const composeConfig = this.generateProductionCompose(config, deployment);
     const composePath = path.join(
       this.baseDir,
-      'deployments',
+      "deployments",
       deployment.id,
       'docker-compose.yml'
     );
@@ -324,7 +324,7 @@ CMD ["node", "dist/index.js"]
       );
       
       service.runningReplicas = themeContainers.length;
-      service.status = themeContainers.length > 0 ? 'healthy' : 'unhealthy';
+      service.status = themeContainers.length > 0 ? 'healthy' : "unhealthy";
       service.ports = this.getServicePorts(themeName, config);
     }
 
@@ -348,7 +348,7 @@ CMD ["node", "dist/index.js"]
           update_config: {
             parallelism: 1,
             delay: '10s',
-            failure_action: 'rollback'
+            failure_action: "rollback"
           },
           restart_policy: {
             condition: 'any',
@@ -373,7 +373,7 @@ CMD ["node", "dist/index.js"]
           `${theme}_logs:/app/logs`
         ],
         environment: {
-          NODE_ENV: 'production',
+          NODE_ENV: "production",
           ENVIRONMENT: config.environment,
           VERSION: deployment.version
         },
@@ -496,8 +496,8 @@ CMD ["node", "dist/index.js"]
       }
 
       if(!healthy) {
-        service.status = 'unhealthy';
-        service.health = 'Unhealthy';
+        service.status = "unhealthy";
+        service.health = "Unhealthy";
         console.warn(`   ⚠️  ${themeName}: Health check failed`);
       }
     }
@@ -558,7 +558,7 @@ CMD ["node", "dist/index.js"]
 
     const composePath = path.join(
       this.baseDir,
-      'deployments',
+      "deployments",
       deployment.id,
       'docker-compose.yml'
     );
@@ -579,7 +579,7 @@ CMD ["node", "dist/index.js"]
    */
   async private getDeploymentUrl(config: ReleaseConfig): string {
     const protocol = config.ssl ? 'https' : 'http';
-    const domain = config.domain || 'localhost';
+    const domain = config.domain || "localhost";
     return `${protocol}://${domain}`;
   }
 

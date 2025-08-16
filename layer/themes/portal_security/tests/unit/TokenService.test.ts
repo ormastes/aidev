@@ -5,9 +5,9 @@
 
 import { TokenService, TokenPayload } from '../../children/TokenService';
 import { UserRole } from '.././User';
-import * as jwt from 'jsonwebtoken';
+import * as jwt from "jsonwebtoken";
 
-describe('TokenService', () => {
+describe("TokenService", () => {
   let tokenService: TokenService;
 
   beforeEach(() => {
@@ -15,11 +15,11 @@ describe('TokenService', () => {
     tokenService = new TokenService();
   });
 
-  describe('generateToken', () => {
+  describe("generateToken", () => {
     it('should generate a valid JWT token', async () => {
       const payload: TokenPayload = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         roles: [UserRole.USER]
       };
 
@@ -33,7 +33,7 @@ describe('TokenService', () => {
     it('should generate token with custom expiry', async () => {
       const payload: TokenPayload = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         roles: [UserRole.USER]
       };
 
@@ -55,7 +55,7 @@ describe('TokenService', () => {
     it('should include all payload fields in token', async () => {
       const payload: TokenPayload = {
         userId: 'user-456',
-        username: 'adminuser',
+        username: "adminuser",
         roles: [UserRole.ADMIN, UserRole.USER],
         email: 'admin@example.com'
       };
@@ -64,17 +64,17 @@ describe('TokenService', () => {
       const decoded = jwt.decode(token) as any;
 
       expect(decoded.userId).toBe('user-456');
-      expect(decoded.username).toBe('adminuser');
+      expect(decoded.username).toBe("adminuser");
       expect(decoded.roles).toEqual([UserRole.ADMIN, UserRole.USER]);
       expect(decoded.email).toBe('admin@example.com');
     });
   });
 
-  describe('generateRefreshToken', () => {
+  describe("generateRefreshToken", () => {
     it('should generate a valid refresh token', async () => {
       const payload: TokenPayload = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         roles: [UserRole.USER]
       };
 
@@ -88,7 +88,7 @@ describe('TokenService', () => {
     it('should have longer expiry than regular token', async () => {
       const payload: TokenPayload = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         roles: [UserRole.USER]
       };
 
@@ -104,7 +104,7 @@ describe('TokenService', () => {
     it('should include refresh type in token', async () => {
       const payload: TokenPayload = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         roles: [UserRole.USER]
       };
 
@@ -115,11 +115,11 @@ describe('TokenService', () => {
     });
   });
 
-  describe('verifyToken', () => {
+  describe("verifyToken", () => {
     it('should verify and decode valid token', async () => {
       const payload: TokenPayload = {
         userId: 'user-789',
-        username: 'verifyuser',
+        username: "verifyuser",
         roles: [UserRole.USER],
         email: 'verify@example.com'
       };
@@ -129,7 +129,7 @@ describe('TokenService', () => {
 
       expect(verified).toBeDefined();
       expect(verified?.userId).toBe('user-789');
-      expect(verified?.username).toBe('verifyuser');
+      expect(verified?.username).toBe("verifyuser");
       expect(verified?.roles).toEqual([UserRole.USER]);
       expect(verified?.email).toBe('verify@example.com');
     });
@@ -142,7 +142,7 @@ describe('TokenService', () => {
     it('should return null for expired token', async () => {
       const payload: TokenPayload = {
         userId: 'user-123',
-        username: 'expireduser',
+        username: "expireduser",
         roles: [UserRole.USER]
       };
 
@@ -159,7 +159,7 @@ describe('TokenService', () => {
     it('should verify refresh token', async () => {
       const payload: TokenPayload = {
         userId: 'user-123',
-        username: 'refreshuser',
+        username: "refreshuser",
         roles: [UserRole.USER]
       };
 
@@ -172,11 +172,11 @@ describe('TokenService', () => {
     });
   });
 
-  describe('refreshToken', () => {
+  describe("refreshToken", () => {
     it('should generate new token from valid refresh token', async () => {
       const payload: TokenPayload = {
         userId: 'user-999',
-        username: 'refreshuser',
+        username: "refreshuser",
         roles: [UserRole.USER]
       };
 
@@ -188,14 +188,14 @@ describe('TokenService', () => {
       // Verify new token has same payload
       const decoded = jwt.decode(newToken!) as any;
       expect(decoded.userId).toBe('user-999');
-      expect(decoded.username).toBe('refreshuser');
+      expect(decoded.username).toBe("refreshuser");
       expect(decoded.roles).toEqual([UserRole.USER]);
     });
 
     it('should return null for non-refresh token', async () => {
       const payload: TokenPayload = {
         userId: 'user-123',
-        username: 'regularuser',
+        username: "regularuser",
         roles: [UserRole.USER]
       };
 
@@ -213,7 +213,7 @@ describe('TokenService', () => {
     it('should return null for expired refresh token', async () => {
       const payload: TokenPayload = {
         userId: 'user-123',
-        username: 'expiredrefresh',
+        username: "expiredrefresh",
         roles: [UserRole.USER]
       };
 
@@ -234,11 +234,11 @@ describe('TokenService', () => {
     });
   });
 
-  describe('getTokenExpiry', () => {
+  describe("getTokenExpiry", () => {
     it('should get expiry time from token', async () => {
       const payload: TokenPayload = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         roles: [UserRole.USER]
       };
 
@@ -271,7 +271,7 @@ describe('TokenService', () => {
     it('should use different secrets for different token types', async () => {
       const payload: TokenPayload = {
         userId: 'user-123',
-        username: 'secureuser',
+        username: "secureuser",
         roles: [UserRole.USER]
       };
 
@@ -296,7 +296,7 @@ describe('TokenService', () => {
     it('should handle concurrent token generation', async () => {
       const payload: TokenPayload = {
         userId: 'user-concurrent',
-        username: 'concurrentuser',
+        username: "concurrentuser",
         roles: [UserRole.USER]
       };
 

@@ -39,35 +39,35 @@ describe('PocketFlow Integration Tests', () => {
       
       // Create a workflow that branches based on input type
       flow.addNode(new InputNode('input'));
-      flow.addNode(new TransformNode('processNumber', (x: number) => x * 2));
-      flow.addNode(new TransformNode('processString', (x: string) => x.toUpperCase()));
-      flow.addNode(new OutputNode('numericOutput'));
-      flow.addNode(new OutputNode('stringOutput'));
+      flow.addNode(new TransformNode("processNumber", (x: number) => x * 2));
+      flow.addNode(new TransformNode("processString", (x: string) => x.toUpperCase()));
+      flow.addNode(new OutputNode("numericOutput"));
+      flow.addNode(new OutputNode("stringOutput"));
       
       // Direct conditional routing from input
       flow.addEdge({ 
         from: 'input', 
-        to: 'processNumber',
+        to: "processNumber",
         condition: (data: any) => typeof data === 'number'
       });
       flow.addEdge({ 
         from: 'input', 
-        to: 'processString',
+        to: "processString",
         condition: (data: any) => typeof data === 'string'
       });
-      flow.addEdge({ from: 'processNumber', to: 'numericOutput' });
-      flow.addEdge({ from: 'processString', to: 'stringOutput' });
+      flow.addEdge({ from: "processNumber", to: "numericOutput" });
+      flow.addEdge({ from: "processString", to: "stringOutput" });
       
       // Test with number
       const result1 = await flow.execute(42);
-      expect(result1.outputs.has('numericOutput')).toBe(true);
-      expect(result1.outputs.has('stringOutput')).toBe(false);
+      expect(result1.outputs.has("numericOutput")).toBe(true);
+      expect(result1.outputs.has("stringOutput")).toBe(false);
       
       // Test with string
       const result2 = await flow.execute('hello');
-      expect(result2.outputs.has('numericOutput')).toBe(false);
-      expect(result2.outputs.has('stringOutput')).toBe(true);
-      expect(result2.outputs.get('stringOutput')).toBe('HELLO');
+      expect(result2.outputs.has("numericOutput")).toBe(false);
+      expect(result2.outputs.has("stringOutput")).toBe(true);
+      expect(result2.outputs.get("stringOutput")).toBe('HELLO');
     });
   });
 
@@ -80,28 +80,28 @@ describe('PocketFlow Integration Tests', () => {
       flow.addNode(new InputNode('data2'));
       flow.addNode(new InputNode('data3'));
       
-      flow.addNode(new TransformNode('process1', (x: number) => x + 10));
-      flow.addNode(new TransformNode('process2', (x: number) => x * 2));
-      flow.addNode(new TransformNode('process3', (x: number) => x - 5));
+      flow.addNode(new TransformNode("process1", (x: number) => x + 10));
+      flow.addNode(new TransformNode("process2", (x: number) => x * 2));
+      flow.addNode(new TransformNode("process3", (x: number) => x - 5));
       
-      flow.addNode(new TransformNode('aggregate', (inputs: number[]) => {
+      flow.addNode(new TransformNode("aggregate", (inputs: number[]) => {
         return inputs.reduce((sum, val) => sum + val, 0);
       }));
       
       flow.addNode(new OutputNode('result'));
       
       // Connect inputs to processors
-      flow.addEdge({ from: 'data1', to: 'process1' });
-      flow.addEdge({ from: 'data2', to: 'process2' });
-      flow.addEdge({ from: 'data3', to: 'process3' });
+      flow.addEdge({ from: 'data1', to: "process1" });
+      flow.addEdge({ from: 'data2', to: "process2" });
+      flow.addEdge({ from: 'data3', to: "process3" });
       
       // Connect processors to aggregator
-      flow.addEdge({ from: 'process1', to: 'aggregate' });
-      flow.addEdge({ from: 'process2', to: 'aggregate' });
-      flow.addEdge({ from: 'process3', to: 'aggregate' });
+      flow.addEdge({ from: "process1", to: "aggregate" });
+      flow.addEdge({ from: "process2", to: "aggregate" });
+      flow.addEdge({ from: "process3", to: "aggregate" });
       
       // Connect aggregator to output
-      flow.addEdge({ from: 'aggregate', to: 'result' });
+      flow.addEdge({ from: "aggregate", to: 'result' });
       
       const result = await flow.execute();
       
@@ -116,17 +116,17 @@ describe('PocketFlow Integration Tests', () => {
       const flow = new PocketFlow();
       
       flow.addNode(new InputNode('input'));
-      flow.addNode(new TransformNode('errorBranch', () => {
+      flow.addNode(new TransformNode("errorBranch", () => {
         throw new Error('Intentional error');
       }));
-      flow.addNode(new TransformNode('completedBranch', (x: string) => x.toUpperCase()));
-      flow.addNode(new OutputNode('errorOutput'));
-      flow.addNode(new OutputNode('completedOutput'));
+      flow.addNode(new TransformNode("completedBranch", (x: string) => x.toUpperCase()));
+      flow.addNode(new OutputNode("errorOutput"));
+      flow.addNode(new OutputNode("completedOutput"));
       
-      flow.addEdge({ from: 'input', to: 'errorBranch' });
-      flow.addEdge({ from: 'input', to: 'completedBranch' });
-      flow.addEdge({ from: 'errorBranch', to: 'errorOutput' });
-      flow.addEdge({ from: 'completedBranch', to: 'completedOutput' });
+      flow.addEdge({ from: 'input', to: "errorBranch" });
+      flow.addEdge({ from: 'input', to: "completedBranch" });
+      flow.addEdge({ from: "errorBranch", to: "errorOutput" });
+      flow.addEdge({ from: "completedBranch", to: "completedOutput" });
       
       const result = await flow.execute('test');
       
@@ -134,10 +134,10 @@ describe('PocketFlow Integration Tests', () => {
       expect(result.errors).toHaveLength(1);
       expect(result.errors[0].message).toBe('Intentional error');
       
-      // But In Progress branch should In Progress
-      expect(result.outputs.has('completedOutput')).toBe(true);
-      expect(result.outputs.get('completedOutput')).toBe('TEST');
-      expect(result.outputs.has('errorOutput')).toBe(false);
+      // But In Progress branch should complete
+      expect(result.outputs.has("completedOutput")).toBe(true);
+      expect(result.outputs.get("completedOutput")).toBe('TEST');
+      expect(result.outputs.has("errorOutput")).toBe(false);
     });
   });
 
@@ -146,15 +146,15 @@ describe('PocketFlow Integration Tests', () => {
       const flow = new PocketFlow();
       
       // Parse JSON -> Extract field -> Transform -> Format
-      flow.addNode(new InputNode('jsonInput'));
+      flow.addNode(new InputNode("jsonInput"));
       flow.addNode(new TransformNode('parse', (json: string) => JSON.parse(json)));
       flow.addNode(new TransformNode('extract', (obj: any) => obj.items || []));
-      flow.addNode(new MapNode('processItems', (item: any) => ({
+      flow.addNode(new MapNode("processItems", (item: any) => ({
         ...item,
         processed: true,
         timestamp: Date.now()
       })));
-      flow.addNode(new FilterNode('filterValid', (item: any) => item.value > 0));
+      flow.addNode(new FilterNode("filterValid", (item: any) => item.value > 0));
       flow.addNode(new TransformNode('format', (items: any[]) => ({
         count: items.length,
         items: items,
@@ -162,11 +162,11 @@ describe('PocketFlow Integration Tests', () => {
       })));
       flow.addNode(new OutputNode('result'));
       
-      flow.addEdge({ from: 'jsonInput', to: 'parse' });
+      flow.addEdge({ from: "jsonInput", to: 'parse' });
       flow.addEdge({ from: 'parse', to: 'extract' });
-      flow.addEdge({ from: 'extract', to: 'processItems' });
-      flow.addEdge({ from: 'processItems', to: 'filterValid' });
-      flow.addEdge({ from: 'filterValid', to: 'format' });
+      flow.addEdge({ from: 'extract', to: "processItems" });
+      flow.addEdge({ from: "processItems", to: "filterValid" });
+      flow.addEdge({ from: "filterValid", to: 'format' });
       flow.addEdge({ from: 'format', to: 'result' });
       
       const inputData = JSON.stringify({
@@ -189,7 +189,7 @@ describe('PocketFlow Integration Tests', () => {
     });
   });
 
-  describe('Performance', () => {
+  describe("Performance", () => {
     it('should handle large workflows efficiently', async () => {
       const flow = new PocketFlow();
       const nodeCount = 100;
@@ -204,7 +204,7 @@ describe('PocketFlow Integration Tests', () => {
       flow.addNode(new OutputNode('end'));
       
       // Connect them in sequence
-      flow.addEdge({ from: 'start', to: 'transform0' });
+      flow.addEdge({ from: 'start', to: "transform0" });
       for (let i = 0; i < nodeCount - 1; i++) {
         flow.addEdge({ from: `transform${i}`, to: `transform${i + 1}` });
       }
@@ -216,7 +216,7 @@ describe('PocketFlow Integration Tests', () => {
       
       expect(result.success).toBe(true);
       expect(result.outputs.get('end')).toBe(nodeCount); // Each adds 1
-      expect(executionTime).toBeLessThan(1000); // Should In Progress quickly
+      expect(executionTime).toBeLessThan(1000); // Should complete quickly
     });
   });
 });

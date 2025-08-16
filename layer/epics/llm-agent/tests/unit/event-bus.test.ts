@@ -72,21 +72,21 @@ describe('EventBus Unit Tests', () => {
       });
 
       subscription.filter = { 
-        metadata: { env: 'production', region: 'us-east' }
+        metadata: { env: "production", region: 'us-east' }
       };
 
       await eventBus.publish('metadata-filter', 
-        EventBus.createEvent('test', 'source', {}, { env: 'production', region: 'us-east' })
+        EventBus.createEvent('test', 'source', {}, { env: "production", region: 'us-east' })
       );
       await eventBus.publish('metadata-filter', 
-        EventBus.createEvent('test', 'source', {}, { env: 'development', region: 'us-east' })
+        EventBus.createEvent('test', 'source', {}, { env: "development", region: 'us-east' })
       );
       await eventBus.publish('metadata-filter', 
-        EventBus.createEvent('test', 'source', {}, { env: 'production' })
+        EventBus.createEvent('test', 'source', {}, { env: "production" })
       );
 
       expect(receivedEvents).toHaveLength(1);
-      expect(receivedEvents[0].metadata).toEqual({ env: 'production', region: 'us-east' });
+      expect(receivedEvents[0].metadata).toEqual({ env: "production", region: 'us-east' });
     });
 
     it('should handle event without metadata when filter expects metadata', async () => {

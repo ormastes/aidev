@@ -10,11 +10,11 @@
 export interface PortalConfig {
   port: number;
   host: string;
-  environment: 'production' | 'test' | 'theme-demo' | 'demo';
+  environment: "production" | 'test' | 'theme-demo' | 'demo';
 }
 
 export interface HealthResponse {
-  status: 'healthy' | 'degraded' | 'unhealthy';
+  status: 'healthy' | "degraded" | "unhealthy";
   service: 'aidev-portal';
   version: string;
   uptime: number;
@@ -25,7 +25,7 @@ export interface HealthResponse {
 export interface ServiceHealthStatus {
   id: string;
   name: string;
-  status: 'healthy' | 'unhealthy' | 'unknown';
+  status: 'healthy' | "unhealthy" | 'unknown';
   lastCheck?: string;
 }
 
@@ -80,7 +80,7 @@ export interface ApplicationInfo {
   owner: string;
   services: string[];
   createdAt: string;
-  status: 'active' | 'inactive';
+  status: 'active' | "inactive";
 }
 
 // Portal Server External Interface
@@ -168,7 +168,7 @@ describe('Portal Server External Interface', () => {
             id: 'user-123',
             username: request.username,
             email: `${request.username}@example.com`,
-            roles: ['developer'],
+            roles: ["developer"],
             appAccess: ['app-1', 'app-2']
           }
         };
@@ -178,7 +178,7 @@ describe('Portal Server External Interface', () => {
 
     async registerService(request: ServiceRegistrationRequest, token: string): Promise<ServiceRegistrationResponse> {
       if (!this.authTokens.has(token)) {
-        throw new Error('Unauthorized');
+        throw new Error("Unauthorized");
       }
 
       const serviceStatus: ServiceHealthStatus = {
@@ -200,14 +200,14 @@ describe('Portal Server External Interface', () => {
 
     async getServices(token: string): Promise<ServiceHealthStatus[]> {
       if (!this.authTokens.has(token)) {
-        throw new Error('Unauthorized');
+        throw new Error("Unauthorized");
       }
       return Array.from(this.services.values());
     }
 
     async createApplication(request: ApplicationCreateRequest, token: string): Promise<ApplicationInfo> {
       if (!this.authTokens.has(token)) {
-        throw new Error('Unauthorized');
+        throw new Error("Unauthorized");
       }
 
       const app: ApplicationInfo = {
@@ -243,8 +243,8 @@ describe('Portal Server External Interface', () => {
 
   test('should provide authentication endpoints', async () => {
     const authRequest: AuthRequest = {
-      username: 'testuser',
-      password: 'testpass'
+      username: "testuser",
+      password: "PLACEHOLDER"
     };
 
     const authResponse = await mockServer.login(authRequest);
@@ -252,19 +252,19 @@ describe('Portal Server External Interface', () => {
     expect(authResponse.token).toBeDefined();
     expect(authResponse.refreshToken).toBeDefined();
     expect(authResponse.expiresIn).toBeGreaterThan(0);
-    expect(authResponse.user.username).toBe('testuser');
-    expect(authResponse.user.roles).toContain('developer');
+    expect(authResponse.user.username).toBe("testuser");
+    expect(authResponse.user.roles).toContain("developer");
   });
 
   test('should provide service registration endpoint', async () => {
     // First login to get token
-    const authResponse = await mockServer.login({ username: 'test', password: 'test' });
+    const authResponse = await mockServer.login({ username: 'test', password: "PLACEHOLDER" });
     const token = authResponse.token;
 
     const serviceRequest: ServiceRegistrationRequest = {
       id: 'story-reporter-1',
       name: 'story-reporter',
-      host: 'localhost',
+      host: "localhost",
       port: 3401,
       healthCheck: '/health',
       capabilities: ['test-execution', 'report-generation']
@@ -279,14 +279,14 @@ describe('Portal Server External Interface', () => {
   });
 
   test('should provide service listing endpoint', async () => {
-    const authResponse = await mockServer.login({ username: 'test', password: 'test' });
+    const authResponse = await mockServer.login({ username: 'test', password: "PLACEHOLDER" });
     const token = authResponse.token;
 
     // Register some services
     await mockServer.registerService({
       id: 'service-1',
       name: 'test-service-1',
-      host: 'localhost',
+      host: "localhost",
       port: 3501,
       healthCheck: '/health',
       capabilities: ['capability-1']
@@ -295,7 +295,7 @@ describe('Portal Server External Interface', () => {
     await mockServer.registerService({
       id: 'service-2',
       name: 'test-service-2',
-      host: 'localhost',
+      host: "localhost",
       port: 3502,
       healthCheck: '/health',
       capabilities: ['capability-2']
@@ -308,13 +308,13 @@ describe('Portal Server External Interface', () => {
   });
 
   test('should provide application management endpoints', async () => {
-    const authResponse = await mockServer.login({ username: 'test', password: 'test' });
+    const authResponse = await mockServer.login({ username: 'test', password: "PLACEHOLDER" });
     const token = authResponse.token;
 
     const appRequest: ApplicationCreateRequest = {
       name: 'My Test App',
       description: 'Test application',
-      owner: 'testuser',
+      owner: "testuser",
       services: ['story-reporter', 'gui-selector']
     };
 
@@ -322,28 +322,28 @@ describe('Portal Server External Interface', () => {
     
     expect(app.id).toBeDefined();
     expect(app.name).toBe('My Test App');
-    expect(app.owner).toBe('testuser');
+    expect(app.owner).toBe("testuser");
     expect(app.services).toEqual(['story-reporter', 'gui-selector']);
     expect(app.status).toBe('active');
   });
 
   test('should require authentication for protected endpoints', async () => {
-    const invalidToken = 'invalid-token';
+    const invalidtoken: process.env.TOKEN || "PLACEHOLDER";
 
     await expect(
       mockServer.getServices(invalidToken)
-    ).rejects.toThrow('Unauthorized');
+    ).rejects.toThrow("Unauthorized");
 
     await expect(
       mockServer.registerService({
         id: 'test',
         name: 'test',
-        host: 'localhost',
+        host: "localhost",
         port: 3000,
         healthCheck: '/health',
         capabilities: []
       }, invalidToken)
-    ).rejects.toThrow('Unauthorized');
+    ).rejects.toThrow("Unauthorized");
   });
 
   test('should support standard HTTP status codes', () => {
@@ -394,7 +394,7 @@ describe('Portal Server External Interface', () => {
     // Verify CORS headers are properly defined
     expect(corsHeaders['Access-Control-Allow-Origin']).toBeDefined();
     expect(corsHeaders['Access-Control-Allow-Methods']).toContain('POST');
-    expect(corsHeaders['Access-Control-Allow-Headers']).toContain('Authorization');
+    expect(corsHeaders['Access-Control-Allow-Headers']).toContain("Authorization");
   });
 
   test('should define WebSocket upgrade support for real-time features', () => {

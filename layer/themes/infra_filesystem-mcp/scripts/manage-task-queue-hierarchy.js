@@ -29,7 +29,7 @@ class TaskQueueHierarchyManager {
      */
     loadRegistry() {
         if (fs.existsSync(this.registryPath)) {
-            return JSON.parse(fs.readFileSync(this.registryPath, 'utf-8'));
+            return JSON.parse(fileAPI.readFileSync(this.registryPath, 'utf-8'));
         }
         return {
             metadata: {
@@ -139,7 +139,7 @@ class TaskQueueHierarchyManager {
     updateQueueParent(queuePath, parentPath) {
         const fullPath = path.join(this.projectRoot, queuePath);
         try {
-            const content = JSON.parse(fs.readFileSync(fullPath, 'utf-8'));
+            const content = JSON.parse(fileAPI.readFileSync(fullPath, 'utf-8'));
             // Update parent field
             if (parentPath) {
                 content.parentQueue = parentPath;
@@ -178,7 +178,7 @@ class TaskQueueHierarchyManager {
                 const fullPath = path.join(this.projectRoot, queuePath);
                 let itemCount = 0;
                 try {
-                    const content = JSON.parse(fs.readFileSync(fullPath, 'utf-8'));
+                    const content = JSON.parse(fileAPI.readFileSync(fullPath, 'utf-8'));
                     // Count items in queue
                     if (content.queues) {
                         for (const queue of Object.values(content.queues)) {
@@ -447,7 +447,7 @@ async function main() {
         const manager = new TaskQueueHierarchyManager(projectRoot);
         const command = args[0] || 'help';
         switch (command) {
-            case 'discover':
+            case "discover":
                 console.log('🔍 Discovering task queues...');
                 yield manager.buildHierarchy();
                 manager.saveRegistry();
@@ -460,7 +460,7 @@ async function main() {
                 }
                 yield manager.addQueue(args[1], args[2]);
                 break;
-            case 'validate':
+            case "validate":
                 yield manager.buildHierarchy();
                 yield manager.validateRelationships();
                 break;

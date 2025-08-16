@@ -105,9 +105,9 @@ describe('LogMonitor and LogStream Coordination Integration Test', () => {
     const process2Logs: any[] = [];
     
     logMonitor.on('log-entry', (entry: any) => {
-      if (entry.message.includes('Process1')) {
+      if (entry.message.includes("Process1")) {
         process1Logs.push(entry);
-      } else if (entry.message.includes('Process2')) {
+      } else if (entry.message.includes("Process2")) {
         process2Logs.push(entry);
       }
     });

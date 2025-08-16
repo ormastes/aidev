@@ -7,8 +7,8 @@ import {
 } from '../../src/domain/hierarchical-build-config';
 import { createDefaultTestConfiguration } from '../../src/domain/test-configuration';
 
-describe('HierarchicalBuildConfig', () => {
-  describe('createHierarchicalBuildConfig', () => {
+describe("HierarchicalBuildConfig", () => {
+  describe("createHierarchicalBuildConfig", () => {
     it('should create a hierarchical build config with defaults', () => {
       const baseConfig = createDefaultTestConfiguration(
         'test-suite-1',
@@ -61,8 +61,8 @@ describe('HierarchicalBuildConfig', () => {
       expect(config.aggregation?.aggregateTests).toBe(true);
       expect(config.aggregation?.aggregateCoverage).toBe(true);
       expect(config.aggregation?.aggregateLogs).toBe(true);
-      expect(config.aggregation?.strategy).toBe('hierarchical');
-      expect(config.aggregation?.failureHandling).toBe('continue');
+      expect(config.aggregation?.strategy).toBe("hierarchical");
+      expect(config.aggregation?.failureHandling).toBe("continue");
     });
 
     it('should set default execution order settings', () => {
@@ -80,7 +80,7 @@ describe('HierarchicalBuildConfig', () => {
     });
   });
 
-  describe('mergeBuildConfigs', () => {
+  describe("mergeBuildConfigs", () => {
     it('should merge parent and child configurations', () => {
       const parent = createHierarchicalBuildConfig(
         createDefaultTestConfiguration('parent', ['parent.feature'], ['parent.ts']),
@@ -185,7 +185,7 @@ describe('HierarchicalBuildConfig', () => {
     });
   });
 
-  describe('validateHierarchicalBuildConfig', () => {
+  describe("validateHierarchicalBuildConfig", () => {
     it('should validate a valid configuration', () => {
       const config = createHierarchicalBuildConfig(
         createDefaultTestConfiguration('test', ['test.feature'], ['test.ts']),
@@ -279,7 +279,7 @@ describe('HierarchicalBuildConfig', () => {
         'theme'
       );
       
-      const validStrategies: Array<'merge' | 'append' | 'hierarchical'> = ['merge', 'append', 'hierarchical'];
+      const validStrategies: Array<'merge' | 'append' | "hierarchical"> = ['merge', 'append', "hierarchical"];
       
       for (const strategy of validStrategies) {
         config.aggregation!.strategy = strategy;
@@ -293,8 +293,8 @@ describe('HierarchicalBuildConfig', () => {
         'theme'
       );
       
-      const validOptions: Array<'fail-fast' | 'continue' | 'ignore-children'> = 
-        ['fail-fast', 'continue', 'ignore-children'];
+      const validOptions: Array<'fail-fast' | "continue" | 'ignore-children'> = 
+        ['fail-fast', "continue", 'ignore-children'];
       
       for (const option of validOptions) {
         config.aggregation!.failureHandling = option;
@@ -303,7 +303,7 @@ describe('HierarchicalBuildConfig', () => {
     });
   });
 
-  describe('HierarchicalBuildResult', () => {
+  describe("HierarchicalBuildResult", () => {
     it('should represent build result structure', () => {
       const result: HierarchicalBuildResult = {
         buildId: 'test-build',

@@ -56,7 +56,7 @@ describe('Parser Integration Test - Mixed Formats', () => {
 
     it('should maintain parser independence with different configurations', () => {
       const jsonOnlyParser = new StructuredLogParser({ format: 'json' });
-      const kvOnlyParser = new StructuredLogParser({ format: 'keyvalue' });
+      const kvOnlyParser = new StructuredLogParser({ format: "keyvalue" });
       const autoParser = new StructuredLogParser({ format: 'auto' });
 
       const jsonLine = '{"timestamp": "2025-01-15T10:00:00.000Z", "level": "info", "message": "Test"}';
@@ -129,7 +129,7 @@ describe('Parser Integration Test - Mixed Formats', () => {
 
     it('should integrate schema validation with mixed formats', () => {
       const schema: LogSchema = {
-        required: ['timestamp', 'level', 'message'],
+        required: ["timestamp", 'level', 'message'],
         properties: {
           timestamp: { type: 'date' },
           level: { type: 'string', enum: ['debug', 'info', 'warn', 'error'] },
@@ -164,7 +164,7 @@ describe('Parser Integration Test - Mixed Formats', () => {
       // Invalid JSON should create validation error (missing required message field)
       expect(results[2].level).toBe('error');
       expect(results[2].message).toContain('Invalid log format');
-      expect((results[2] as any).source).toBe('validation');
+      expect((results[2] as any).source).toBe("validation");
 
       // Plain text should pass validation since it gets default valid fields
       expect(results[3].message).toBe('Plain text log');
@@ -198,7 +198,7 @@ describe('Parser Integration Test - Mixed Formats', () => {
 
     it('should handle concurrent parsing with different parsers', () => {
       const parser1 = new StructuredLogParser({ format: 'json' });
-      const parser2 = new StructuredLogParser({ format: 'keyvalue' });
+      const parser2 = new StructuredLogParser({ format: "keyvalue" });
       const parser3 = new StructuredLogParser({ format: 'auto' });
 
       const jsonLine = '{"timestamp": "2025-01-15T10:00:00.000Z", "level": "info", "message": "Concurrent test"}';

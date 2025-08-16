@@ -4,7 +4,7 @@ import { path } from '../../infra_external-log-lib/src';
 
 export interface FraudViolation {
   type: 'test-manipulation' | 'coverage-bypass' | 'fake-assertions' | 'disabled-tests';
-  severity: 'critical' | 'high' | 'medium' | 'low';
+  severity: "critical" | 'high' | 'medium' | 'low';
   message: string;
   location: string;
   pattern?: TestPattern;
@@ -106,7 +106,7 @@ export class FraudChecker {
             case 'always-true':
               violations.push({
                 type: 'fake-assertions',
-                severity: 'critical',
+                severity: "critical",
                 message: `Always-true assertion: ${pattern.code}`,
                 location: `${pattern.location.file}:${pattern.location.line}:${pattern.location.column}`,
                 pattern

@@ -19,8 +19,8 @@ export interface TestConfig {
  */
 export async function getTestConfig(options: {
   suiteName: string;
-  testType?: 'unit' | 'integration' | 'e2e';
-  deployType?: 'local' | 'dev' | 'demo' | 'release' | 'production';
+  testType?: 'unit' | "integration" | 'e2e';
+  deployType?: 'local' | 'dev' | 'demo' | 'release' | "production";
 }): Promise<TestConfig> {
   const { suiteName } = options;
   

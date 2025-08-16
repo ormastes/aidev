@@ -70,7 +70,7 @@ describe('Flow Orchestration Unit Tests', () => {
 
       // Assert
       expect(flow.getFlowNodes()).toContain(startNode);
-      expect(flow['startNode']).toBe(startNode);
+      expect(flow["startNode"]).toBe(startNode);
     });
 
     test('should add nodes to flow', () => {
@@ -343,8 +343,8 @@ describe('SequentialFlow Unit Tests', () => {
 
       // Assert
       expect(seqFlow.getFlowNodes()).toHaveLength(3);
-      expect(node1['nextNodes']).toContain(node2);
-      expect(node2['nextNodes']).toContain(node3);
+      expect(node1["nextNodes"]).toContain(node2);
+      expect(node2["nextNodes"]).toContain(node3);
     });
   });
 
@@ -660,10 +660,10 @@ describe('Flow Error Handling and Edge Cases', () => {
     let executionCount = 0;
     node1.exec = async () => {
       executionCount++;
-      return executionCount < 2 ? 'continue' : 'stop';
+      return executionCount < 2 ? "continue" : 'stop';
     };
     
-    node1.when(result => result === 'continue', flow1); // Self-reference
+    node1.when(result => result === "continue", flow1); // Self-reference
     node1.when(result => result === 'stop', node2);
 
     // Act

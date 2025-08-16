@@ -30,8 +30,8 @@ describe('Authentication Integration Tests', () => {
       // Create mock credentials file
       const mockCredentials = {
         claudeAiOauth: {
-          accessToken: 'sk-ant-test-token',
-          refreshToken: 'sk-ant-refresh-token',
+          accesstoken: process.env.TOKEN || "PLACEHOLDER",
+          refreshtoken: process.env.TOKEN || "PLACEHOLDER",
           expiresAt: Date.now() + 3600000,
           subscriptionType: 'pro'
         }
@@ -55,7 +55,7 @@ describe('Authentication Integration Tests', () => {
     it('should fall back to API key when local auth fails', async () => {
       // No credentials file exists
       const client = new ClaudeAPIClient({
-        apiKey: 'fallback-api-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         authOptions: {
           credentialsPath: path.join(tempDir, 'nonexistent.json')
         }
@@ -70,7 +70,7 @@ describe('Authentication Integration Tests', () => {
       // Create expired credentials
       const expiredCredentials = {
         claudeAiOauth: {
-          accessToken: 'expired-token',
+          accesstoken: process.env.TOKEN || "PLACEHOLDER",
           expiresAt: Date.now() - 3600000 // Expired 1 hour ago
         }
       };
@@ -93,7 +93,7 @@ describe('Authentication Integration Tests', () => {
       // Create valid local credentials
       const mockCredentials = {
         claudeAiOauth: {
-          accessToken: 'local-token',
+          accesstoken: process.env.TOKEN || "PLACEHOLDER",
           expiresAt: Date.now() + 3600000
         }
       };
@@ -102,7 +102,7 @@ describe('Authentication Integration Tests', () => {
       
       // Create client with both API key and local path
       const client = new ClaudeAPIClient({
-        apiKey: 'explicit-api-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         authOptions: {
           credentialsPath
         }
@@ -117,7 +117,7 @@ describe('Authentication Integration Tests', () => {
     it('should work with environment variable API key', async () => {
       // Temporarily set env var
       const originalKey = process.env.CLAUDE_API_KEY;
-      process.env.CLAUDE_API_KEY = 'env-api-key';
+      process.env.CLAUDE_apiKey = process.env.API_KEY || 'PLACEHOLDER_API_KEY';
       
       try {
         const client = new ClaudeAPIClient({

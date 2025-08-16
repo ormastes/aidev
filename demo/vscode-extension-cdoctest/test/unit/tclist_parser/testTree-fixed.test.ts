@@ -37,7 +37,7 @@ describe('TestTree - Fixed', () => {
     testData = testTreeModule.testData;
   });
 
-  describe('TestFile', () => {
+  describe("TestFile", () => {
     test('should create empty test file', () => {
       const file = new TestFile();
       
@@ -80,7 +80,7 @@ describe('TestTree - Fixed', () => {
     });
   });
 
-  describe('TestHeading', () => {
+  describe("TestHeading", () => {
     test('should create test heading with name and level', () => {
       const heading = new TestHeading('Test Suite', 2);
       
@@ -96,7 +96,7 @@ describe('TestTree - Fixed', () => {
     });
   });
 
-  describe('TestCase', () => {
+  describe("TestCase", () => {
     test('should create test case with all parameters', () => {
       const testCase = new TestCase('test1', 1, '+', 2, 3);
       

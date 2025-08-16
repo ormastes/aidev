@@ -1,7 +1,7 @@
 
 import * as vscode from 'vscode';
 import { Config, ConfigType } from './config';
-import * as readline from 'readline';
+import * as readline from "readline";
 import { spawn, ChildProcess, SpawnOptions } from 'child_process';
 import * as os from 'os';
 import { fileExists } from './util';
@@ -104,7 +104,7 @@ export function initRunner(context: vscode.ExtensionContext) {
  * Retrieves a launch configuration from workspace settings by its name.
  */
 async function getLaunchConfigurationByName(name: string): Promise<vscode.DebugConfiguration | undefined> {
-    const launchConfigs = vscode.workspace.getConfiguration('launch').get<any[]>('configurations');
+    const launchConfigs = vscode.workspace.getConfiguration('launch').get<any[]>("configurations");
     if (!launchConfigs) {
       return undefined;
     }

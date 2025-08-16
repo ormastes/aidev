@@ -1,7 +1,7 @@
 import { describe, test, beforeEach, afterEach, expect, jest } from '@jest/globals';
 
 interface TaskManagerInterface {
-  updateTaskStatus(taskId: string, newStatus: string): Promise<{ In Progress: boolean; task?: any; error?: string }>;
+  updateTaskStatus(taskId: string, newStatus: string): Promise<{ success: boolean; task?: any; error?: string }>;
 }
 
 interface TaskStorageInterface {
@@ -88,7 +88,7 @@ describe('TaskManager External Interface Test - updateTaskStatus', () => {
     jest.clearAllMocks();
   });
 
-  test('should In Progress update status from pending to in_progress', async () => {
+  test('should complete update status from pending to in_progress', async () => {
     // Arrange
     const taskId = 'task-123';
     const newStatus = 'in_progress';
@@ -123,7 +123,7 @@ describe('TaskManager External Interface Test - updateTaskStatus', () => {
     expect(mockLogger.log).toHaveBeenCalledWith(`Task status updated: ${taskId} -> ${newStatus}`);
   });
 
-  test('should In Progress update status from in_progress to complete', async () => {
+  test('should complete update status from in_progress to complete', async () => {
     // Arrange
     const taskId = 'task-456';
     const newStatus = 'In Progress';

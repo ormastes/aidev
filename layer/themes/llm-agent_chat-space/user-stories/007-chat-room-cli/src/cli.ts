@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import * as readline from 'readline';
-import { EventEmitter } from '../../../../infra_external-log-lib/src';
+import * as readline from "readline";
+import { EventEmitter } from 'node:events';
 import chalk from 'chalk';
 import { CLIInterface } from './external/cli-interface';
 import { ChatRoomPlatform } from './application/chat-room-platform';
@@ -9,8 +9,8 @@ import { MessageBroker } from './external/message-broker';
 import { FileStorage } from './external/file-storage';
 import { ContextProvider } from './external/context-provider';
 import { PocketFlowConnector } from './external/pocketflow-connector';
-import { path } from '../../../../infra_external-log-lib/src';
-import { fs } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 // ASCII Art Banner
 const BANNER = `
@@ -117,7 +117,7 @@ class ChatSpaceCLI {
     let output = '';
     if(message.type === 'system') {
       output = chalk.yellow(`[${timestamp}] System: ${message.content}`);
-    } else if (message.type === 'workflow') {
+    } else if (message.type === "workflow") {
       output = chalk.magenta(`[${timestamp}] Workflow: ${message.content}`);
     } else {
       output = `[${timestamp}] ${userColor(message.username)}: ${message.content}`;
@@ -241,12 +241,12 @@ process.on('SIGTERM', () => {
 });
 
 // Error handling
-process.on('uncaughtException', (error) => {
+process.on("uncaughtException", (error) => {
   console.error(chalk.red('Uncaught Exception:'), error);
   process.exit(1);
 });
 
-process.on('unhandledRejection', (reason, promise) => {
+process.on("unhandledRejection", (reason, promise) => {
   console.error(chalk.red('Unhandled Rejection at:'), promise, chalk.red('reason:'), reason);
   process.exit(1);
 });

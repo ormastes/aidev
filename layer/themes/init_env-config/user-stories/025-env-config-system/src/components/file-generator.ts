@@ -14,7 +14,7 @@ import * as yaml from 'js-yaml';
 export class FileGenerator {
   async generateEnvironmentFiles(config: EnvironmentConfig, outputPath: string): Promise<void> {
     // Create all required directories
-    const directories = ['config', 'data', 'logs', 'temp', 'services'];
+    const directories = ['config', 'data', 'logs', 'temp', "services"];
     for(const dir of directories) {
       await fileAPI.createDirectory(path.join(outputPath), { recursive: true });
     }
@@ -34,7 +34,7 @@ export class FileGenerator {
   }
 
   async generateServiceFile(environmentPath: string, serviceName: string, port: number): Promise<void> {
-    const serviceDir = path.join(environmentPath, 'services');
+    const serviceDir = path.join(environmentPath, "services");
     await fileAPI.createDirectory(serviceDir);
 
     const serviceConfig = {
@@ -52,7 +52,7 @@ export class FileGenerator {
     const dockerPath = path.join(environmentPath, 'docker-compose.yml');
     
     // Read existing docker-compose
-    const content = await fs.readFile(dockerPath, 'utf-8');
+    const content = await fileAPI.readFile(dockerPath, 'utf-8');
     const dockerConfig = yaml.load(content) as any;
 
     // Add new services
@@ -87,7 +87,7 @@ export class FileGenerator {
         
         // Validate JSON files
         if(file.path.endsWith('.json')) {
-          const content = await fs.readFile(path.join(environmentPath, file.path), 'utf-8');
+          const content = await fileAPI.readFile(path.join(environmentPath, file.path), 'utf-8');
           try {
             JSON.parse(content);
           } catch {
@@ -109,7 +109,7 @@ export class FileGenerator {
     const envPath = path.join(environmentPath, '.env');
     
     // Read existing content
-    let content = await fs.readFile(envPath, 'utf-8');
+    let content = await fileAPI.readFile(envPath, 'utf-8');
     
     // Check if key already exists
     const keyRegex = new RegExp(`^${key}=.*$`, 'm');

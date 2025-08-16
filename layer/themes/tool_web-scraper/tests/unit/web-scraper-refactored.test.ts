@@ -16,8 +16,8 @@ jest.mock('../../children/parser');
 jest.mock('../../children/selector');
 jest.mock('../../children/extractor');
 jest.mock('../../children/exporter');
-jest.mock('puppeteer');
-jest.mock('playwright');
+jest.mock("puppeteer");
+jest.mock("playwright");
 
 describe('WebScrapingQueue - Refactored', () => {
   let queue: WebScrapingQueue;
@@ -104,7 +104,7 @@ describe('WebScrapingQueue - Refactored', () => {
       for (let i = 0; i < 3; i++) {
         queue.markJobFailed(jobId, `Attempt ${i + 1}`);
         const job = queue.getJob(jobId);
-        if (job && job.status === 'retrying') {
+        if (job && job.status === "retrying") {
           priorities.push(job.priority);
         }
       }
@@ -130,7 +130,7 @@ describe('WebScrapingQueue - Refactored', () => {
     });
   });
 
-  describe('Performance', () => {
+  describe("Performance", () => {
     it('should handle large job queues efficiently', () => {
       const { duration } = PerformanceTestUtils.measureExecutionTime(() => {
         for (let i = 0; i < 1000; i++) {
@@ -281,7 +281,7 @@ describe('WebScraper - Refactored', () => {
       
       const options: ScrapingOptions = {
         browserOptions: {
-          engine: 'playwright',
+          engine: "playwright",
           headless: true,
           viewport: { width: 1920, height: 1080 }
         },
@@ -530,7 +530,7 @@ describe('WebScraper - Refactored', () => {
       const activeWorkers: number[] = [];
       
       // Track active workers during processing
-      jest.spyOn(setup.scraper as any, 'processNextJob').mockImplementation(async function(this: any) {
+      jest.spyOn(setup.scraper as any, "processNextJob").mockImplementation(async function(this: any) {
         activeWorkers.push(this.activeWorkers);
         await new Promise(resolve => setTimeout(resolve, 10));
       });
@@ -572,13 +572,13 @@ describe('Integration Tests', () => {
 
       // 3. Wait for completion
       await TestWaitUtils.waitForCondition(
-        () => setup.scraper.getJob(jobId)?.status === 'completed',
+        () => setup.scraper.getJob(jobId)?.status === "completed",
         5000
       );
 
       // 4. Verify results
       const job = setup.scraper.getJob(jobId);
-      TestAssertions.assertJobStateValid(job, 'completed');
+      TestAssertions.assertJobStateValid(job, "completed");
       expect(job?.result).toBeDefined();
 
       // 5. Stop processing

@@ -117,9 +117,9 @@ export class ManualTestGenerator {
 
     // Add data from step arguments
     if (step.argument) {
-      if (step.argument.type === 'docString') {
+      if (step.argument.type === "docString") {
         manualStep.inputData = step.argument.content as string;
-      } else if (step.argument.type === 'dataTable') {
+      } else if (step.argument.type === "dataTable") {
         manualStep.testDataTable = step.argument.content;
       }
     }
@@ -193,7 +193,7 @@ export class ManualTestGenerator {
     const tags = scenario.tags.map(t => t.toLowerCase());
     
     if (tags.includes('@auth') || scenario.name.toLowerCase().includes('login')) {
-      return 'Authentication';
+      return "Authentication";
     }
     if (tags.includes('@api')) {
       return 'API Testing';
@@ -202,10 +202,10 @@ export class ManualTestGenerator {
       return 'UI Testing';
     }
     if (tags.includes('@integration')) {
-      return 'Integration';
+      return "Integration";
     }
     
-    return 'Functional';
+    return "Functional";
   }
 
   private determinePriority(scenario: TestScenario): 'high' | 'medium' | 'low' {

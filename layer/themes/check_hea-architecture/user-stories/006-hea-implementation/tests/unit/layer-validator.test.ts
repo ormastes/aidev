@@ -6,7 +6,7 @@ import { LayerType, LayerConfig, DependencyType } from '../../src/interfaces/lay
 jest.mock('fs');
 const mockedFs = fs as jest.Mocked<typeof fs>;
 
-describe('LayerValidator', () => {
+describe("LayerValidator", () => {
   let layerValidator: LayerValidator;
 
   beforeEach(() => {
@@ -14,13 +14,13 @@ describe('LayerValidator', () => {
     jest.clearAllMocks();
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should create LayerValidator instance', () => {
       expect(layerValidator).toBeDefined();
     });
   });
 
-  describe('validateDependencies', () => {
+  describe("validateDependencies", () => {
     let coreLayer: LayerConfig;
     let sharedLayer: LayerConfig;
     let themesLayer: LayerConfig;
@@ -52,7 +52,7 @@ describe('LayerValidator', () => {
         version: '1.0.0' 
       };
       infraLayer = { 
-        name: 'infrastructure', 
+        name: "infrastructure", 
         type: LayerType.Infrastructure, 
         dependencies: [LayerType.Core, LayerType.Shared], 
         path: '/infrastructure', 
@@ -112,7 +112,7 @@ describe('LayerValidator', () => {
     });
   });
 
-  describe('validateStructure', () => {
+  describe("validateStructure", () => {
     beforeEach(() => {
       mockedFs.existsSync.mockClear();
     });
@@ -184,7 +184,7 @@ describe('LayerValidator', () => {
     });
   });
 
-  describe('checkCircularDependencies', () => {
+  describe("checkCircularDependencies", () => {
     it('should detect no circular dependencies in valid structure', () => {
       const layers = new Map([
         ['core', { 
@@ -229,7 +229,7 @@ describe('LayerValidator', () => {
     });
   });
 
-  describe('validateImport', () => {
+  describe("validateImport", () => {
     let layers: Map<string, LayerConfig>;
     let themesLayer: LayerConfig;
 

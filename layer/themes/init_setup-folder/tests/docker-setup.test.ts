@@ -2,11 +2,11 @@ import { DockerSetupService, DockerSetupOptions } from '../src/services/docker-s
 import { fs } from '../../infra_external-log-lib/src';
 import { path } from '../../infra_external-log-lib/src';
 import { exec } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 
 const execAsync = promisify(exec);
 
-describe('DockerSetupService', () => {
+describe("DockerSetupService", () => {
   let service: DockerSetupService;
   const testProjectName = 'test-project';
   const testOutputPath = path.join(process.cwd(), 'docker');
@@ -26,7 +26,7 @@ describe('DockerSetupService', () => {
     }
   });
 
-  describe('setupDockerEnvironment', () => {
+  describe("setupDockerEnvironment", () => {
     it('should create Docker environment for Node.js project', async () => {
       const options: DockerSetupOptions = {
         projectName: testProjectName,
@@ -79,7 +79,7 @@ describe('DockerSetupService', () => {
       expect(dockerfileContent).toContain('cmake');
       expect(dockerfileContent).toContain('ninja-build');
       expect(dockerfileContent).toContain('gdb');
-      expect(dockerfileContent).toContain('valgrind');
+      expect(dockerfileContent).toContain("valgrind");
       expect(dockerfileContent).toContain('EXPOSE 2345'); // GDB port
     });
 
@@ -99,7 +99,7 @@ describe('DockerSetupService', () => {
       expect(dockerfileContent).toContain('FROM node:18-alpine AS base');
       expect(dockerfileContent).toContain('FROM node:18-alpine AS production');
       expect(dockerfileContent).toContain('ENV NODE_ENV=production');
-      expect(dockerfileContent).toContain('HEALTHCHECK');
+      expect(dockerfileContent).toContain("HEALTHCHECK");
       expect(dockerfileContent).toContain('tini');
     });
 
@@ -249,7 +249,7 @@ describe('DockerSetupService', () => {
 
     it('should set correct resource limits per environment', async () => {
       const environments = [
-        { env: 'local', memory: 'unlimited', cpu: 'unlimited' },
+        { env: 'local', memory: "unlimited", cpu: "unlimited" },
         { env: 'demo', memory: '512M', cpu: '0.5' },
         { env: 'release', memory: '2G', cpu: '2' }
       ];
@@ -398,7 +398,7 @@ describe('DockerSetupService', () => {
         environment: 'dev',
         buildArgs: {
           NODE_VERSION: '18',
-          BUILD_ENV: 'development'
+          BUILD_ENV: "development"
         }
       };
 

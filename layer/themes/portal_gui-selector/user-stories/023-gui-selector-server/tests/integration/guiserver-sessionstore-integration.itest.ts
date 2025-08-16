@@ -8,7 +8,7 @@
 
 import express from 'express';
 import session from 'express-session';
-import { Server } from 'http';
+import { Server } from 'node:http';
 
 // SessionStore interface from external tests
 interface SessionData {
@@ -21,7 +21,7 @@ interface SessionData {
 }
 
 interface SessionStoreInterface {
-  create(sessionData: Omit<SessionData, 'sessionId'>): Promise<SessionData>;
+  create(sessionData: Omit<SessionData, "sessionId">): Promise<SessionData>;
   get(sessionId: string): Promise<SessionData | null>;
   update(sessionId: string, updates: Partial<SessionData>): Promise<SessionData | null>;
   delete(sessionId: string): Promise<boolean>;
@@ -36,7 +36,7 @@ interface TemplateInfo {
   id: string;
   name: string;
   description: string;
-  category: 'modern' | 'professional' | 'creative' | 'accessible';
+  category: 'modern' | "professional" | "creative" | "accessible";
   previewUrl: string;
   thumbnailUrl: string;
   features: string[];
@@ -62,7 +62,7 @@ class MockSessionStore implements SessionStoreInterface {
   private sessions: Map<string, SessionData> = new Map();
   private sessionCounter = 0;
 
-  async create(sessionData: Omit<SessionData, 'sessionId'>): Promise<SessionData> {
+  async create(sessionData: Omit<SessionData, "sessionId">): Promise<SessionData> {
     const sessionId = `session_${Date.now()}_${++this.sessionCounter}`;
     const newSession: SessionData = {
       ...sessionData,
@@ -173,19 +173,19 @@ class MockGUIServer implements GUIServerInterface {
         category: 'modern',
         previewUrl: '/preview/integration-modern-01',
         thumbnailUrl: '/thumbs/integration-modern-01.png',
-        features: ['Responsive', 'Dark Mode', 'Animations'],
+        features: ["Responsive", 'Dark Mode', "Animations"],
         metadata: {
           author: 'Integration Team',
           version: '1.0.0',
           lastUpdated: '2024-01-15',
-          tags: ['integration', 'modern', 'responsive']
+          tags: ["integration", 'modern', "responsive"]
         }
       },
       {
         id: 'integration-professional-01',
         name: 'Integration Professional Template',
         description: 'Professional template for integration testing',
-        category: 'professional',
+        category: "professional",
         previewUrl: '/preview/integration-professional-01',
         thumbnailUrl: '/thumbs/integration-professional-01.png',
         features: ['Business Ready', 'Forms', 'Tables'],
@@ -193,7 +193,7 @@ class MockGUIServer implements GUIServerInterface {
           author: 'Integration Team',
           version: '1.1.0',
           lastUpdated: '2024-01-10',
-          tags: ['integration', 'professional', 'business']
+          tags: ["integration", "professional", "business"]
         }
       }
     ];
@@ -623,9 +623,9 @@ class IntegratedGUIServer {
         "success": true,
         metrics: this.integrationMetrics,
         health: {
-          sessionStore: 'connected',
+          sessionStore: "connected",
           guiServer: 'ready',
-          integration: this.integrationMetrics.errors === 0 ? 'healthy' : 'degraded'
+          integration: this.integrationMetrics.errors === 0 ? 'healthy' : "degraded"
         }
       });
     });
@@ -1001,7 +1001,7 @@ describe('GUIServer + SessionStore Integration Test', () => {
       const metricsData = await response.json() as any;
       
       expect(metricsData.success).toBe(true);
-      expect(metricsData.health.sessionStore).toBe('connected');
+      expect(metricsData.health.sessionStore).toBe("connected");
       expect(metricsData.health.guiServer).toBe('ready');
       expect(metricsData.health.integration).toBeTruthy();
     });

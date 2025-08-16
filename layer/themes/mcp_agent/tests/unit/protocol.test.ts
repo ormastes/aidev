@@ -25,7 +25,7 @@ import {
 } from '../../children/src/domain/protocol';
 
 describe('MCP Protocol', () => {
-  describe('MCPRequest', () => {
+  describe("MCPRequest", () => {
     it('should create valid MCP request', () => {
       const request: MCPRequest = {
         jsonrpc: '2.0',
@@ -44,12 +44,12 @@ describe('MCP Protocol', () => {
       const request: MCPRequest = {
         jsonrpc: '2.0',
         id: 'test-123',
-        method: 'initialize'
+        method: "initialize"
       };
 
       expect(request.jsonrpc).toBe('2.0');
       expect(request.id).toBe('test-123');
-      expect(request.method).toBe('initialize');
+      expect(request.method).toBe("initialize");
       expect(request.params).toBeUndefined();
     });
 
@@ -71,7 +71,7 @@ describe('MCP Protocol', () => {
     });
   });
 
-  describe('MCPResponse', () => {
+  describe("MCPResponse", () => {
     it('should create successful response', () => {
       const response: MCPResponse = {
         jsonrpc: '2.0',
@@ -89,7 +89,7 @@ describe('MCP Protocol', () => {
       const error: MCPError = {
         code: -32602,
         message: 'Invalid params',
-        data: { field: 'required' }
+        data: { field: "required" }
       };
 
       const response: MCPResponse = {
@@ -105,7 +105,7 @@ describe('MCP Protocol', () => {
     });
   });
 
-  describe('MCPNotification', () => {
+  describe("MCPNotification", () => {
     it('should create notification without ID', () => {
       const notification: MCPNotification = {
         jsonrpc: '2.0',
@@ -122,9 +122,9 @@ describe('MCP Protocol', () => {
 
   describe('MCPMethod enum', () => {
     it('should contain all required methods', () => {
-      expect(MCPMethod.INITIALIZE).toBe('initialize');
-      expect(MCPMethod.INITIALIZED).toBe('initialized');
-      expect(MCPMethod.SHUTDOWN).toBe('shutdown');
+      expect(MCPMethod.INITIALIZE).toBe("initialize");
+      expect(MCPMethod.INITIALIZED).toBe("initialized");
+      expect(MCPMethod.SHUTDOWN).toBe("shutdown");
       expect(MCPMethod.LIST_TOOLS).toBe('tools/list');
       expect(MCPMethod.CALL_TOOL).toBe('tools/call');
       expect(MCPMethod.LIST_RESOURCES).toBe('resources/list');
@@ -203,14 +203,14 @@ describe('MCP Protocol', () => {
         content: [
           { 
             type: 'image', 
-            data: 'base64ImageData',
+            data: "base64ImageData",
             mimeType: 'image/png'
           }
         ]
       };
 
       expect(result.content[0].type).toBe('image');
-      expect(result.content[0].data).toBe('base64ImageData');
+      expect(result.content[0].data).toBe("base64ImageData");
       expect(result.content[0].mimeType).toBe('image/png');
     });
 
@@ -218,13 +218,13 @@ describe('MCP Protocol', () => {
       const result: ToolResult = {
         content: [
           { 
-            type: 'resource', 
+            type: "resource", 
             uri: 'file:///path/to/resource'
           }
         ]
       };
 
-      expect(result.content[0].type).toBe('resource');
+      expect(result.content[0].type).toBe("resource");
       expect(result.content[0].uri).toBe('file:///path/to/resource');
     });
   });
@@ -259,10 +259,10 @@ describe('MCP Protocol', () => {
       const content: ResourceContent = {
         uri: 'file:///path/to/image.png',
         mimeType: 'image/png',
-        blob: 'base64EncodedData'
+        blob: "base64EncodedData"
       };
 
-      expect(content.blob).toBe('base64EncodedData');
+      expect(content.blob).toBe("base64EncodedData");
       expect(content.text).toBeUndefined();
     });
   });
@@ -274,12 +274,12 @@ describe('MCP Protocol', () => {
         description: 'Generate code based on requirements',
         arguments: [
           {
-            name: 'language',
+            name: "language",
             description: 'Programming language',
             required: true
           },
           {
-            name: 'requirements',
+            name: "requirements",
             description: 'Code requirements',
             required: true
           }
@@ -307,16 +307,16 @@ describe('MCP Protocol', () => {
 
     it('should handle image PromptMessage', () => {
       const message: PromptMessage = {
-        role: 'assistant',
+        role: "assistant",
         content: {
           type: 'image',
-          data: 'base64ImageData',
+          data: "base64ImageData",
           mimeType: 'image/png'
         }
       };
 
       expect(message.content.type).toBe('image');
-      expect(message.content.data).toBe('base64ImageData');
+      expect(message.content.data).toBe("base64ImageData");
     });
   });
 
@@ -349,7 +349,7 @@ describe('MCP Protocol', () => {
           intelligencePriority: 0.2
         },
         systemPrompt: 'You are a helpful assistant',
-        includeContext: 'thisServer',
+        includeContext: "thisServer",
         temperature: 0.7,
         maxTokens: 1000,
         stopSequences: ['\\n\\n'],
@@ -363,7 +363,7 @@ describe('MCP Protocol', () => {
 
     it('should create valid CreateMessageResult', () => {
       const result: CreateMessageResult = {
-        role: 'assistant',
+        role: "assistant",
         content: {
           type: 'text',
           text: 'Generated response'
@@ -372,13 +372,13 @@ describe('MCP Protocol', () => {
         stopReason: 'endTurn'
       };
 
-      expect(result.role).toBe('assistant');
+      expect(result.role).toBe("assistant");
       expect(result.content.text).toBe('Generated response');
       expect(result.stopReason).toBe('endTurn');
     });
   });
 
-  describe('ServerCapabilities', () => {
+  describe("ServerCapabilities", () => {
     it('should define complete capabilities structure', () => {
       const capabilities: ServerCapabilities = {
         tools: {
@@ -411,7 +411,7 @@ describe('MCP Protocol', () => {
         protocolVersion: '1.0',
         capabilities: {
           roots: [
-            { uri: 'file:///workspace', name: 'Workspace' }
+            { uri: 'file:///workspace', name: "Workspace" }
           ],
           sampling: { temperature: 0.8 }
         },
@@ -443,10 +443,10 @@ describe('MCP Protocol', () => {
     });
   });
 
-  describe('Notifications', () => {
+  describe("Notifications", () => {
     it('should create valid ProgressNotification', () => {
       const progress: ProgressNotification = {
-        progressToken: 'task-123',
+        progresstoken: process.env.TOKEN || "PLACEHOLDER",
         progress: 50,
         total: 100
       };
@@ -484,21 +484,21 @@ describe('MCP Protocol', () => {
 
     it('should handle websocket transport config', () => {
       const config: MCPConnectionConfig = {
-        transport: 'websocket',
+        transport: "websocket",
         url: 'ws://localhost:8080',
         headers: {
-          'Authorization': 'Bearer token'
+          "Authorization": 'Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}'
         }
       };
 
-      expect(config.transport).toBe('websocket');
+      expect(config.transport).toBe("websocket");
       expect(config.url).toBe('ws://localhost:8080');
-      expect(config.headers!['Authorization']).toBe('Bearer token');
+      expect(config.headers!["Authorization"]).toBe('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
     });
   });
 
   describe('MCPProtocol helper class', () => {
-    describe('createRequest', () => {
+    describe("createRequest", () => {
       it('should create request with auto-generated ID', () => {
         const request = MCPProtocol.createRequest(MCPMethod.LIST_TOOLS, { category: 'test' });
 
@@ -522,7 +522,7 @@ describe('MCP Protocol', () => {
       });
     });
 
-    describe('createResponse', () => {
+    describe("createResponse", () => {
       it('should create success response', () => {
         const response = MCPProtocol.createResponse('test-id', { result: 'success' });
 
@@ -548,10 +548,10 @@ describe('MCP Protocol', () => {
       });
     });
 
-    describe('createNotification', () => {
+    describe("createNotification", () => {
       it('should create notification', () => {
         const notification = MCPProtocol.createNotification(MCPMethod.PROGRESS, {
-          progressToken: 'task-1',
+          progresstoken: process.env.TOKEN || "PLACEHOLDER",
           progress: 25
         });
 
@@ -562,7 +562,7 @@ describe('MCP Protocol', () => {
       });
     });
 
-    describe('createError', () => {
+    describe("createError", () => {
       it('should create error with code and message', () => {
         const error = MCPProtocol.createError(-32601, 'Method not found');
 
@@ -572,14 +572,14 @@ describe('MCP Protocol', () => {
       });
 
       it('should create error with additional data', () => {
-        const error = MCPProtocol.createError(-32602, 'Invalid params', { field: 'required' });
+        const error = MCPProtocol.createError(-32602, 'Invalid params', { field: "required" });
 
         expect(error.code).toBe(-32602);
-        expect(error.data).toEqual({ field: 'required' });
+        expect(error.data).toEqual({ field: "required" });
       });
     });
 
-    describe('ErrorCodes', () => {
+    describe("ErrorCodes", () => {
       it('should have standard JSON-RPC error codes', () => {
         expect(MCPProtocol.ErrorCodes.PARSE_ERROR).toBe(-32700);
         expect(MCPProtocol.ErrorCodes.INVALID_REQUEST).toBe(-32600);
@@ -644,7 +644,7 @@ describe('MCP Protocol', () => {
     it('should handle malformed URIs gracefully', () => {
       const resource: Resource = {
         uri: 'not://a valid/uri with spaces',
-        name: 'malformed'
+        name: "malformed"
       };
 
       expect(resource.uri).toBe('not://a valid/uri with spaces');

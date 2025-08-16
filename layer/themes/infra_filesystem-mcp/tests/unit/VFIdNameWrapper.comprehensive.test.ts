@@ -27,7 +27,7 @@ describe('VFIdNameWrapper - Comprehensive Tests', () => {
     await fs.promises.rm(testDir, { recursive: true, force: true });
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should create wrapper with default base path', () => {
       const defaultWrapper = new VFIdNameWrapper();
       expect(defaultWrapper).toBeDefined();
@@ -45,7 +45,7 @@ describe('VFIdNameWrapper - Comprehensive Tests', () => {
         {
           id: 'item-1',
           type: 'file',
-          namespace: 'namespace1',
+          namespace: "namespace1",
           name: 'Item1',
           full_path: '/path/item1',
           extension: '.ts',
@@ -54,7 +54,7 @@ describe('VFIdNameWrapper - Comprehensive Tests', () => {
         {
           id: 'item-2',
           type: 'class',
-          namespace: 'namespace2',
+          namespace: "namespace2",
           name: 'Item2',
           full_path: '/path/item2',
           extension: '.js',
@@ -77,8 +77,8 @@ describe('VFIdNameWrapper - Comprehensive Tests', () => {
       expect(storage.indices!.by_name['item2']).toContain('item-2');
 
       // Check namespace indices
-      expect(storage.indices!.by_namespace['namespace1']).toContain('item-1');
-      expect(storage.indices!.by_namespace['namespace2']).toContain('item-2');
+      expect(storage.indices!.by_namespace["namespace1"]).toContain('item-1');
+      expect(storage.indices!.by_namespace["namespace2"]).toContain('item-2');
 
       // Check tag indices (lowercase)
       expect(storage.indices!.by_tag['tag1']).toContain('item-1');
@@ -94,9 +94,9 @@ describe('VFIdNameWrapper - Comprehensive Tests', () => {
     it('should handle items without tags or extensions', async () => {
       const item: NameIdItem = {
         id: 'minimal-item',
-        type: 'function',
+        type: "function",
         namespace: 'utils',
-        name: 'MinimalFunction',
+        name: "MinimalFunction",
         full_path: '/utils/minimal'
         // No tags or extension
       };
@@ -104,7 +104,7 @@ describe('VFIdNameWrapper - Comprehensive Tests', () => {
       await wrapper.write(testFilePath, item);
       const storage = await wrapper.read(testFilePath) as IdNameStorage;
 
-      expect(storage.indices!.by_name['minimalfunction']).toContain('minimal-item');
+      expect(storage.indices!.by_name["minimalfunction"]).toContain('minimal-item');
       expect(storage.indices!.by_namespace['utils']).toContain('minimal-item');
       expect(Object.keys(storage.indices!.by_tag)).toHaveLength(0);
       expect(Object.keys(storage.indices!.by_extension)).toHaveLength(0);
@@ -118,7 +118,7 @@ describe('VFIdNameWrapper - Comprehensive Tests', () => {
           namespace: 'test',
           name: 'File1',
           full_path: '/test/file1',
-          tags: ['important']
+          tags: ["important"]
         },
         {
           id: 'item-2',
@@ -126,7 +126,7 @@ describe('VFIdNameWrapper - Comprehensive Tests', () => {
           namespace: 'test',
           name: 'File2',
           full_path: '/test/file2',
-          tags: ['important']
+          tags: ["important"]
         }
       ];
 
@@ -139,8 +139,8 @@ describe('VFIdNameWrapper - Comprehensive Tests', () => {
       expect(storage.indices!.by_name['file1']).toBeUndefined();
       expect(storage.indices!.by_namespace['test']).toContain('item-2');
       expect(storage.indices!.by_namespace['test']).not.toContain('item-1');
-      expect(storage.indices!.by_tag['important']).toContain('item-2');
-      expect(storage.indices!.by_tag['important']).not.toContain('item-1');
+      expect(storage.indices!.by_tag["important"]).toContain('item-2');
+      expect(storage.indices!.by_tag["important"]).not.toContain('item-1');
     });
   });
 
@@ -162,7 +162,7 @@ describe('VFIdNameWrapper - Comprehensive Tests', () => {
               name: 'App.tsx',
               full_path: '/src/App.tsx',
               extension: '.tsx',
-              tags: ['component', 'react'],
+              tags: ["component", 'react'],
               metadata: { author: 'john' }
             },
             {
@@ -256,8 +256,8 @@ describe('VFIdNameWrapper - Comprehensive Tests', () => {
   describe('type management', () => {
     it('should handle all predefined types', async () => {
       const types = [
-        'file', 'directory', 'function', 'class', 'method', 'variable',
-        'constant', 'interface', 'type', 'module', 'namespace', 'component',
+        'file', "directory", "function", 'class', 'method', "variable",
+        "constant", "interface", 'type', 'module', "namespace", "component",
         'concept', 'service', 'entity', 'schema', 'config', 'test', 'script', 'other'
       ];
 
@@ -286,7 +286,7 @@ describe('VFIdNameWrapper - Comprehensive Tests', () => {
         id: 'custom-1',
         type: 'custom-type',
         namespace: 'test',
-        name: 'CustomItem',
+        name: "CustomItem",
         full_path: '/test/custom'
       };
 
@@ -304,7 +304,7 @@ describe('VFIdNameWrapper - Comprehensive Tests', () => {
         id: 'preserve-1',
         type: 'file',
         namespace: 'test',
-        name: 'Original',
+        name: "Original",
         full_path: '/test/original'
       };
 
@@ -325,7 +325,7 @@ describe('VFIdNameWrapper - Comprehensive Tests', () => {
         id: 'time-1',
         type: 'file',
         namespace: 'test',
-        name: 'TimeTest',
+        name: "TimeTest",
         full_path: '/test/time',
         created_at: '2023-01-01T00:00:00.000Z'
       };
@@ -336,7 +336,7 @@ describe('VFIdNameWrapper - Comprehensive Tests', () => {
       await new Promise(resolve => setTimeout(resolve, 10));
       
       await wrapper.updateItem('time-1', {
-        name: 'UpdatedTime'
+        name: "UpdatedTime"
       }, testFilePath);
 
       const storage = await wrapper.read(testFilePath) as IdNameStorage;
@@ -353,7 +353,7 @@ describe('VFIdNameWrapper - Comprehensive Tests', () => {
         name: 'Partial',
         full_path: '/test/partial',
         description: 'Original description',
-        tags: ['original']
+        tags: ["original"]
       };
 
       await wrapper.write(testFilePath, item);
@@ -365,14 +365,14 @@ describe('VFIdNameWrapper - Comprehensive Tests', () => {
       const storage = await wrapper.read(testFilePath) as IdNameStorage;
       const updated = storage.types.file[0];
       expect(updated.description).toBe('New description');
-      expect(updated.tags).toEqual(['original']); // Original preserved
+      expect(updated.tags).toEqual(["original"]); // Original preserved
     });
   });
 
   describe('error handling', () => {
     it('should handle file system errors gracefully', async () => {
       // Create a read-only directory
-      const readOnlyDir = path.join(testDir, 'readonly');
+      const readOnlyDir = path.join(testDir, "readonly");
       await fs.promises.mkdir(readOnlyDir);
       
       if (process.platform !== 'win32') {

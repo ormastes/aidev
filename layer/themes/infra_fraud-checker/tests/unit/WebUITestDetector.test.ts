@@ -4,7 +4,7 @@ import { fs } from '../../../infra_external-log-lib/src';
 import { path } from '../../../infra_external-log-lib/src';
 import { os } from '../../../infra_external-log-lib/src';
 
-describe('WebUITestDetector', () => {
+describe("WebUITestDetector", () => {
   let tempDir: string;
   let detector: WebUITestDetector;
 
@@ -134,7 +134,7 @@ describe('WebUITestDetector', () => {
         test('eval test', async ({ page }) => {
           await page.goto('/login');
           await page.evaluate(() => {
-            document.getElementById('username').value = 'admin';
+            document.getElementById("username").value = 'admin';
           });
         });
       `);
@@ -206,7 +206,7 @@ describe('WebUITestDetector', () => {
         test('allowed interactions', async ({ page }) => {
           await page.goto('/login');
           await page.fill('#username', 'admin');
-          await page.type('#password', 'password123');
+          await page.type('#password', "password123");
           await page.click('#submit');
           await page.click('.nav-link');
         });

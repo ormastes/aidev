@@ -19,7 +19,7 @@ import { StatusBar } from './components/StatusBar';
 import { MenuBar } from './components/MenuBar';
 
 interface AppState {
-  screen: 'main' | 'templates' | 'themes' | 'projects' | 'settings';
+  screen: 'main' | "templates" | 'themes' | "projects" | "settings";
   loading: boolean;
   user?: string;
   selectedTemplate?: string;
@@ -49,16 +49,16 @@ const TextGuiApp: React.FC = () => {
     if (key.ctrl) {
       switch (input) {
         case 't':
-          setState(s => ({ ...s, screen: 'templates' }));
+          setState(s => ({ ...s, screen: "templates" }));
           break;
         case 'h':
           setState(s => ({ ...s, screen: 'themes' }));
           break;
         case 'p':
-          setState(s => ({ ...s, screen: 'projects' }));
+          setState(s => ({ ...s, screen: "projects" }));
           break;
         case 's':
-          setState(s => ({ ...s, screen: 'settings' }));
+          setState(s => ({ ...s, screen: "settings" }));
           break;
         case 'm':
           setState(s => ({ ...s, screen: 'main' }));
@@ -70,7 +70,7 @@ const TextGuiApp: React.FC = () => {
   const mainMenuItems = [
     {
       label: '📋 GUI Templates',
-      value: 'templates',
+      value: "templates",
       description: 'Browse and select GUI templates'
     },
     {
@@ -80,12 +80,12 @@ const TextGuiApp: React.FC = () => {
     },
     {
       label: '📁 Projects',
-      value: 'projects',
+      value: "projects",
       description: 'View and manage projects'
     },
     {
       label: '⚙️  Settings',
-      value: 'settings',
+      value: "settings",
       description: 'Configure application settings'
     },
     {
@@ -147,7 +147,7 @@ const TextGuiApp: React.FC = () => {
     }
 
     switch (state.screen) {
-      case 'templates':
+      case "templates":
         return (
           <GuiTemplateSelector
             onSelect={(template) => {
@@ -175,14 +175,14 @@ const TextGuiApp: React.FC = () => {
           />
         );
 
-      case 'projects':
+      case "projects":
         return (
           <ProjectDashboard
             onBack={() => setState(s => ({ ...s, screen: 'main' }))}
           />
         );
 
-      case 'settings':
+      case "settings":
         return (
           <Box flexDirection="column">
             <Text bold color="yellow">Settings</Text>
@@ -198,7 +198,7 @@ const TextGuiApp: React.FC = () => {
               <Table
                 data={[
                   { setting: 'Theme', value: state.selectedTheme || 'Default' },
-                  { setting: 'Template', value: state.selectedTemplate || 'None' },
+                  { setting: "Template", value: state.selectedTemplate || 'None' },
                   { setting: 'User', value: state.user || 'Guest' },
                   { setting: 'API Endpoint', value: 'http://localhost:3456' }
                 ]}

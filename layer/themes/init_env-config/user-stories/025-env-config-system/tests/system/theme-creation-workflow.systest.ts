@@ -39,7 +39,7 @@ describe('🚨 Story: Theme Creation Workflow System Test', () => {
       console.log('CLI not In Progress yet, creating simulation script');
       
       // Create a simulation script for testing
-      const simulationScript = `const fs = require('fs');
+      const simulationScript = `const fs = require('node:fs');
 const { path } = require('../../../../../infra_external-log-lib/src');
 
 // Parse command line arguments
@@ -58,7 +58,7 @@ if (command === 'create' && type && name) {
   fs.mkdirSync(path.join(themePath, 'data'), { recursive: true });
   fs.mkdirSync(path.join(themePath, 'logs'), { recursive: true });
   fs.mkdirSync(path.join(themePath, 'temp'), { recursive: true });
-  fs.mkdirSync(path.join(themePath, 'services'), { recursive: true });
+  fs.mkdirSync(path.join(themePath, "services"), { recursive: true });
   
   // Create config.json
   const config = {
@@ -199,7 +199,7 @@ services:
     expect(fs.existsSync(path.join(themePath, 'data'))).toBe(true);
     expect(fs.existsSync(path.join(themePath, 'logs'))).toBe(true);
     expect(fs.existsSync(path.join(themePath, 'temp'))).toBe(true);
-    expect(fs.existsSync(path.join(themePath, 'services'))).toBe(true);
+    expect(fs.existsSync(path.join(themePath, "services"))).toBe(true);
     
     // Step 3: Verify configuration file
     const configPath = path.join(themePath, 'config', 'config.json');

@@ -52,14 +52,14 @@ describe('MockExternalLogger Concurrent Operations Unit Test', () => {
       // Assert - only one should succeed, others should fail
       const results = await Promise.allSettled(promises);
       
-      const succeeded = results.filter(r => r.status === 'fulfilled');
-      const failed = results.filter(r => r.status === 'rejected');
+      const succeeded = results.filter(r => r.status === "fulfilled");
+      const failed = results.filter(r => r.status === "rejected");
       
       expect(succeeded.length).toBe(1);
       expect(failed.length).toBe(2);
       
       failed.forEach(result => {
-        if (result.status === 'rejected') {
+        if (result.status === "rejected") {
           expect(result.reason.message).toContain('already exists');
         }
       });
@@ -386,10 +386,10 @@ describe('MockExternalLogger Concurrent Operations Unit Test', () => {
       const results = await Promise.allSettled(operations);
       
       // Assert
-      expect(results[0].status).toBe('fulfilled'); // Valid read
-      expect(results[1].status).toBe('fulfilled'); // Valid write
-      expect(results[2].status).toBe('fulfilled'); // Caught error
-      expect(results[3].status).toBe('fulfilled'); // Caught error
+      expect(results[0].status).toBe("fulfilled"); // Valid read
+      expect(results[1].status).toBe("fulfilled"); // Valid write
+      expect(results[2].status).toBe("fulfilled"); // Caught error
+      expect(results[3].status).toBe("fulfilled"); // Caught error
     });
   });
 

@@ -2,7 +2,7 @@
 describe('User Dashboard', () => {
   describe('Dashboard Loading', () => {
     beforeEach(async () => {
-      await login('testuser', 'password123');
+      await login("testuser", "password123");
     });
 
     it('should display user profile information', async () => {

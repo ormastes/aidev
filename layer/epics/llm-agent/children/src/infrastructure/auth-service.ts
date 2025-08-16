@@ -2,7 +2,7 @@
  * Authentication Service implementation
  */
 
-import { createHash, randomBytes } from 'crypto';
+import { createHash, randomBytes } from 'node:crypto';
 import { v4 as uuidv4 } from 'uuid';
 import {
   IAuthService,
@@ -45,7 +45,7 @@ export class AuthService implements IAuthService {
     let user: StoredUser | null = null;
 
     switch (credentials.type) {
-      case 'password':
+      case "password":
         if (!credentials.username || !credentials.password) {
           throw new Error('Username and password required');
         }
@@ -308,7 +308,7 @@ export class AuthService implements IAuthService {
         case 'admin':
           permissions.add('*'); // All permissions
           break;
-        case 'developer':
+        case "developer":
           permissions.add('agent:create');
           permissions.add('agent:read');
           permissions.add('agent:update');
@@ -332,8 +332,8 @@ export class AuthService implements IAuthService {
 
   private getAnonymousUser(): User {
     return {
-      id: 'anonymous',
-      username: 'anonymous',
+      id: "anonymous",
+      username: "anonymous",
       email: '',
       roles: [],
       permissions: []
@@ -349,7 +349,7 @@ export class AuthService implements IAuthService {
       email: 'admin@llm-agent.local',
       roles: ['admin'],
       permissions: ['*'],
-      passwordHash: this.hashPassword('admin123'), // Change in production!
+      passwordHash: this.hashPassword("admin123"), // Change in production!
       apiKeys: []
     });
 
@@ -357,10 +357,10 @@ export class AuthService implements IAuthService {
     const devId = 'dev-001';
     this.users.set(devId, {
       id: devId,
-      username: 'developer',
+      username: "developer",
       email: 'dev@llm-agent.local',
-      roles: ['developer'],
-      permissions: this.getPermissionsForRoles(['developer']),
+      roles: ["developer"],
+      permissions: this.getPermissionsForRoles(["developer"]),
       passwordHash: this.hashPassword('dev123'), // Change in production!
       apiKeys: []
     });

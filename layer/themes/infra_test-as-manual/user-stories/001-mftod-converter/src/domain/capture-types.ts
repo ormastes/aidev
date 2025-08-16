@@ -6,7 +6,7 @@ export interface TestCapture {
   id: string;
   scenarioName: string;
   stepType: 'given' | 'when' | 'then';
-  captureType: 'screenshot' | 'log' | 'network' | 'performance';
+  captureType: "screenshot" | 'log' | 'network' | "performance";
   timestamp: Date;
   filePath: string;
   tempPath?: string;
@@ -48,7 +48,7 @@ export interface AppCaptureOptions extends CaptureConfiguration {
 }
 
 export interface ExternalLogConfiguration {
-  type: 'executable' | 'library' | 'file';
+  type: "executable" | 'library' | 'file';
   name: string;
   outputPath: string;
   format: 'json' | 'text' | 'csv';
@@ -99,13 +99,13 @@ export interface EnhancedTestStep {
   isAssertion?: boolean;
   element?: string;
   testData?: string;
-  interactionType?: 'click' | 'input' | 'select' | 'navigation' | 'wait' | 'generic';
+  interactionType?: 'click' | 'input' | 'select' | "navigation" | 'wait' | 'generic';
   verificationElement?: string;
   expectedValue?: string;
   matcher?: string;
   // Enhanced capture properties
   captureReference?: {
-    type: 'screenshot' | 'log' | 'network' | 'performance';
+    type: "screenshot" | 'log' | 'network' | "performance";
     fileName: string;
     caption: string;
   };
@@ -131,7 +131,7 @@ export interface ProfessionalManualTest {
   async?: boolean;
   // Enhanced documentation fields
   estimatedTime?: number; // in minutes
-  complexityLevel?: 'simple' | 'intermediate' | 'advanced';
+  complexityLevel?: 'simple' | "intermediate" | "advanced";
   riskLevel?: 'low' | 'medium' | 'high';
   businessValue?: string;
   troubleshooting?: TroubleshootingNote[];
@@ -141,7 +141,7 @@ export interface ProfessionalManualTest {
 export interface TroubleshootingNote {
   issue: string;
   solution: string;
-  category: 'technical' | 'user-error' | 'environment';
+  category: "technical" | 'user-error' | "environment";
 }
 
 export interface VisualGuideStep {
@@ -152,7 +152,7 @@ export interface VisualGuideStep {
 }
 
 export interface ScreenAnnotation {
-  type: 'arrow' | 'highlight' | 'text' | 'box';
+  type: 'arrow' | "highlight" | 'text' | 'box';
   position: { x: number; y: number };
   size?: { width: number; height: number };
   text?: string;
@@ -193,7 +193,7 @@ export { TestData, DocumentMetadata } from './types';
 
 // External log configuration
 export interface ExternalLogConfiguration {
-  type: 'executable' | 'library' | 'file';
+  type: "executable" | 'library' | 'file';
   name: string;
   outputPath: string;
   format: 'json' | 'text' | 'csv';

@@ -4,7 +4,7 @@
  * Initialize and manage development environments
  */
 
-import { Command } from 'commander';
+import { Command } from "commander";
 import chalk from 'chalk';
 import { EnvironmentSetupService, EnvironmentConfig } from '../services/EnvironmentSetupService';
 import { QEMURuntimeManager } from '../managers/QEMURuntimeManager';
@@ -135,7 +135,7 @@ program
   .command('docker <name>')
   .description('Setup Docker environment')
   .option('-i, --image <image>', 'Docker image', 'ubuntu:22.04')
-  .option('-p, --platform <platform>', 'Platform', 'linux/amd64')
+  .option('-p, --platform <platform>', "Platform", 'linux/amd64')
   .option('-m, --memory <size>', 'Memory limit')
   .option('-c, --cores <num>', 'CPU limit')
   .option('-d, --debug', 'Enable debugging')
@@ -207,7 +207,7 @@ program
   .command('build')
   .description('Build hello world program')
   .option('-l, --language <lang>', 'Language (c, cpp, rust, python)', 'c')
-  .option('-e, --env <env>', 'Environment', 'qemu')
+  .option('-e, --env <env>', "Environment", 'qemu')
   .action(async (options) => {
     try {
       console.log(chalk.cyan(`🔨 Building hello world (${options.language})...`));

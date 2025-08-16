@@ -1,14 +1,14 @@
 import { LSPClient } from '../../children/LSPClient';
 import { spawn } from 'child_process';
 import * as fs from 'fs/promises';
-import { EventEmitter } from '../../../infra_external-log-lib/src';
-import { Readable, Writable } from 'stream';
+import { EventEmitter } from 'node:events';
+import { Readable, Writable } from 'node:stream';
 
 // Mock types
 const mockSpawn = spawn as jest.MockedFunction<typeof spawn>;
 const mockFs = fs as jest.Mocked<typeof fs>;
 
-describe('LSPClient', () => {
+describe("LSPClient", () => {
   let client: LSPClient;
   let mockProcess: any;
   let mockStdout: Readable;
@@ -52,7 +52,7 @@ describe('LSPClient', () => {
     }
   });
   
-  describe('initialize', () => {
+  describe("initialize", () => {
     it('should start the language server process', async () => {
       // Mock the connection response
       const initPromise = client.initialize();
@@ -110,7 +110,7 @@ describe('LSPClient', () => {
     });
   });
   
-  describe('shutdown', () => {
+  describe("shutdown", () => {
     it('should send shutdown request and exit notification', async () => {
       // Initialize first
       const initPromise = client.initialize();
@@ -154,7 +154,7 @@ describe('LSPClient', () => {
     });
   });
   
-  describe('openDocument', () => {
+  describe("openDocument", () => {
     beforeEach(async () => {
       // Initialize client
       const initPromise = client.initialize();
@@ -205,7 +205,7 @@ describe('LSPClient', () => {
     });
   });
   
-  describe('getLanguageId', () => {
+  describe("getLanguageId", () => {
     it('should return correct language IDs for file extensions', async () => {
       // Initialize client to access private method through reflection
       const initPromise = client.initialize();
@@ -221,13 +221,13 @@ describe('LSPClient', () => {
       
       // Test various file extensions
       const testCases = [
-        { file: 'test.ts', expected: 'typescript' },
-        { file: 'test.tsx', expected: 'typescriptreact' },
-        { file: 'test.js', expected: 'javascript' },
-        { file: 'test.jsx', expected: 'javascriptreact' },
+        { file: 'test.ts', expected: "typescript" },
+        { file: 'test.tsx', expected: "typescriptreact" },
+        { file: 'test.js', expected: "javascript" },
+        { file: 'test.jsx', expected: "javascriptreact" },
         { file: 'test.json', expected: 'json' },
-        { file: 'test.txt', expected: 'plaintext' },
-        { file: 'test.unknown', expected: 'plaintext' }
+        { file: 'test.txt', expected: "plaintext" },
+        { file: 'test.unknown', expected: "plaintext" }
       ];
       
       // Access private method through prototype
@@ -239,7 +239,7 @@ describe('LSPClient', () => {
     });
   });
   
-  describe('normalizeUri', () => {
+  describe("normalizeUri", () => {
     it('should normalize file paths to URIs', () => {
       const testCases = [
         { input: '/home/user/file.ts', expected: 'file:///home/user/file.ts' },

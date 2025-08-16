@@ -61,7 +61,7 @@ export class FraudReportGenerator {
     await this.fileSystem.writeFile(htmlPath, htmlContent);
   }
 
-  private categorizeViolations(violations: FraudViolation[]): FraudReport['violations'] {
+  private categorizeViolations(violations: FraudViolation[]): FraudReport["violations"] {
     const bySeverity: Record<string, FraudViolation[]> = {
       critical: [],
       high: [],
@@ -86,7 +86,7 @@ export class FraudReportGenerator {
 
   private generateSummary(
     fraudCheckResult: FraudCheckResult,
-    categorizedViolations: FraudReport['violations']
+    categorizedViolations: FraudReport["violations"]
   ): FraudReport['summary'] {
     const criticalViolations = categorizedViolations.bySeverity.critical.length;
     const totalViolations = fraudCheckResult.violations.length;

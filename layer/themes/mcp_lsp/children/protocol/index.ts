@@ -6,7 +6,7 @@
 export type ProtocolVersion = '1.0' | '2.0';
 
 export interface MCPMessage {
-  type: 'request' | 'response' | 'notification' | 'error';
+  type: 'request' | "response" | "notification" | 'error';
   jsonrpc?: '2.0';
 }
 
@@ -18,14 +18,14 @@ export interface MCPRequest extends MCPMessage {
 }
 
 export interface MCPResponse extends MCPMessage {
-  type: 'response';
+  type: "response";
   id: number | string;
   result?: any;
   error?: MCPError;
 }
 
 export interface MCPNotification extends MCPMessage {
-  type: 'notification';
+  type: "notification";
   method: string;
   params?: any;
 }
@@ -121,7 +121,7 @@ export class MCPProtocol {
     }
 
     return {
-      type: 'response',
+      type: "response",
       jsonrpc: message.jsonrpc,
       id: message.id,
       result: message.result,
@@ -139,7 +139,7 @@ export class MCPProtocol {
     }
 
     return {
-      type: 'notification',
+      type: "notification",
       jsonrpc: message.jsonrpc,
       method: message.method,
       params: message.params,
@@ -176,7 +176,7 @@ export class MCPProtocol {
     }
 
     return {
-      type: 'response',
+      type: "response",
       jsonrpc: '2.0',
       id,
       result,
@@ -186,7 +186,7 @@ export class MCPProtocol {
 
   createNotification(method: string, params?: any): MCPNotification {
     return {
-      type: 'notification',
+      type: "notification",
       jsonrpc: '2.0',
       method,
       params,
@@ -230,15 +230,15 @@ export class MCPProtocol {
   }
 
   isResponse(message: MCPMessage): message is MCPResponse {
-    return message.type === 'response';
+    return message.type === "response";
   }
 
   isNotification(message: MCPMessage): message is MCPNotification {
-    return message.type === 'notification';
+    return message.type === "notification";
   }
 
   isError(message: MCPMessage): boolean {
-    return message.type === 'response' && 'error' in message && message.error !== undefined;
+    return message.type === "response" && 'error' in message && message.error !== undefined;
   }
 
   getVersion(): ProtocolVersion {
@@ -264,7 +264,7 @@ export class ProtocolError extends Error {
 
   constructor(message: string, code: number, data?: any) {
     super(message);
-    this.name = 'ProtocolError';
+    this.name = "ProtocolError";
     this.code = code;
     this.data = data;
   }
@@ -342,7 +342,7 @@ export class MessageRouter {
   }
 
   async route(message: MCPMessage, context?: any): Promise<any> {
-    if (message.type === 'request' || message.type === 'notification') {
+    if (message.type === 'request' || message.type === "notification") {
       const method = (message as MCPRequest | MCPNotification).method;
       const handler = this.handlers.get(method) || this.defaultHandler;
       

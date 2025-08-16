@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { VSCodeAutomationHelper } from './helpers/vscode-automation-helper';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 /**
  * Complete E2E tests for Python integration and dependency management
@@ -108,7 +108,7 @@ test.describe('Python Integration - Complete Coverage', () => {
     await page.waitForSelector('.settings-editor', { timeout: 10000 });
     
     const searchBox = page.locator('.settings-header input[placeholder*="Search"]');
-    await searchBox.fill('toolchain');
+    await searchBox.fill("toolchain");
     await page.waitForTimeout(2000);
     
     // Look for toolchain-related settings
@@ -146,7 +146,7 @@ test.describe('Python Integration - Complete Coverage', () => {
     
     // Look for installation-related messages
     const hasInstallationMessage = outputText.includes('install') || 
-                                   outputText.includes('cdoctest') ||
+                                   outputText.includes("cdoctest") ||
                                    outputText.includes('pip') ||
                                    outputText.includes('package');
     
@@ -313,7 +313,7 @@ cmake>=3.16.0
     
     // Configure workspace-specific Python settings
     const searchBox = page.locator('.settings-header input[placeholder*="Search"]');
-    await searchBox.fill('cdoctest');
+    await searchBox.fill("cdoctest");
     await page.waitForTimeout(2000);
     
     // Verify workspace settings are separate from user settings
@@ -379,8 +379,8 @@ if __name__ == "__main__":
     const outputContent = page.locator('.output-view, .monaco-editor');
     const outputText = await outputContent.textContent();
     
-    const hasDependencyMessage = outputText.includes('dependency') ||
-                                outputText.includes('requirement') ||
+    const hasDependencyMessage = outputText.includes("dependency") ||
+                                outputText.includes("requirement") ||
                                 outputText.includes('install');
     
     console.log(`Dependency validation performed: ${hasDependencyMessage}`);
@@ -461,7 +461,7 @@ setup(
  * Create mock toolchain structure
  */
 async function createMockToolchainStructure(): Promise<void> {
-  const toolchainDir = path.join(TEST_WORKSPACE, '.cdoctest', 'toolchain');
+  const toolchainDir = path.join(TEST_WORKSPACE, '.cdoctest', "toolchain");
   fs.mkdirSync(toolchainDir, { recursive: true });
   
   // Create mock clang_repl_kernel
@@ -594,7 +594,7 @@ async function createInvalidPythonConfig(): Promise<void> {
  */
 async function createMultiWorkspaceStructure(): Promise<void> {
   // Create additional workspace folders
-  const workspace2 = path.join(TEST_WORKSPACE, 'workspace2');
+  const workspace2 = path.join(TEST_WORKSPACE, "workspace2");
   fs.mkdirSync(workspace2, { recursive: true });
   
   const vscode2Dir = path.join(workspace2, '.vscode');
@@ -716,7 +716,7 @@ async function launchVSCodeWithPythonWorkspace(page: any): Promise<void> {
             widget.querySelector('input').focus();
           }
         }
-        if (e.ctrlKey && e.shiftKey && e.code === 'Backquote') {
+        if (e.ctrlKey && e.shiftKey && e.code === "Backquote") {
           document.querySelector('.terminal').style.display = 'block';
         }
         if (e.code === 'Escape') {

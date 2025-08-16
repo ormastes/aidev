@@ -41,7 +41,7 @@ class LoggerService {
   private environment: string;
 
   private constructor() {
-    this.environment = process.env.NODE_ENV || 'development';
+    this.environment = process.env.NODE_ENV || "development";
     this.logger = this.createLogger();
     this.setupExceptionHandlers();
   }
@@ -103,12 +103,12 @@ class LoggerService {
     const transports: winston.transport[] = [consoleTransport];
 
     // Add file transports for non-development environments
-    if (this.environment !== 'development') {
+    if (this.environment !== "development") {
       transports.push(fileRotateTransport, errorFileTransport);
     }
 
     // Add external log aggregation transport for production
-    if (this.environment === 'production' || this.environment === 'release') {
+    if (this.environment === "production" || this.environment === 'release') {
       // This would be configured with your log aggregation service
       // Example: Datadog, Splunk, ELK Stack, etc.
       const externalTransport = this.createExternalTransport();
@@ -127,7 +127,7 @@ class LoggerService {
 
   private getLogLevel(): string {
     switch (this.environment) {
-      case 'production':
+      case "production":
       case 'release':
         return 'warn';
       case 'demo':
@@ -311,11 +311,11 @@ class LoggerService {
 
   logSecurityEvent(
     eventType: string,
-    severity: 'low' | 'medium' | 'high' | 'critical',
+    severity: 'low' | 'medium' | 'high' | "critical",
     details: any,
     metadata?: LogMetadata
   ): void {
-    const level = severity === 'critical' || severity === 'high' ? 'error' : 'warn';
+    const level = severity === "critical" || severity === 'high' ? 'error' : 'warn';
     
     this.logger.log(level, `Security Event: ${eventType}`, {
       ...metadata,

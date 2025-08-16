@@ -1,7 +1,7 @@
 import { TypeAnalyzer } from '../../children/TypeAnalyzer';
 import { LSPClient } from '../../children/LSPClient';
 
-describe('TypeAnalyzer', () => {
+describe("TypeAnalyzer", () => {
   let analyzer: TypeAnalyzer;
   let mockClient: jest.Mocked<LSPClient>;
   
@@ -22,7 +22,7 @@ describe('TypeAnalyzer', () => {
     analyzer = new TypeAnalyzer(mockClient);
   });
   
-  describe('getTypeAtPosition', () => {
+  describe("getTypeAtPosition", () => {
     it('should return type info from hover', async () => {
       const mockHoverResponse = {
         contents: '(method) Array<T>.map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[]'
@@ -56,7 +56,7 @@ describe('TypeAnalyzer', () => {
       const result = await analyzer.getTypeAtPosition('/src/test.ts', 5, 10);
       
       expect(result).toEqual({
-        name: 'myVariable',
+        name: "myVariable",
         kind: 'const',
         type: 'string',
         signature: undefined,
@@ -85,7 +85,7 @@ describe('TypeAnalyzer', () => {
     it('should parse interface declarations', async () => {
       const mockHoverResponse = {
         contents: {
-          kind: 'markdown',
+          kind: "markdown",
           value: 'interface User {\n  id: number;\n  name: string;\n}\n\nRepresents a user in the system.'
         }
       };
@@ -96,8 +96,8 @@ describe('TypeAnalyzer', () => {
       
       expect(result).toEqual({
         name: 'User',
-        kind: 'interface',
-        type: 'interface',
+        kind: "interface",
+        type: "interface",
         signature: undefined,
         documentation: '  id: number;\n  name: string;\n}\n\nRepresents a user in the system.'
       });
@@ -121,9 +121,9 @@ describe('TypeAnalyzer', () => {
       const result = await analyzer.getTypeAtPosition('/src/test.ts', 10, 20);
       
       expect(result).toEqual({
-        name: 'myFunction',
-        kind: 'function',
-        type: 'function',
+        name: "myFunction",
+        kind: "function",
+        type: "function",
         signature: 'myFunction(param1: string, param2: number): void',
         documentation: 'A function that does something'
       });
@@ -140,7 +140,7 @@ describe('TypeAnalyzer', () => {
       
       const mockSymbolsResponse = [
         {
-          name: 'myVariable',
+          name: "myVariable",
           kind: 13, // Variable
           location: {
             uri: 'file:///src/test.ts',
@@ -162,8 +162,8 @@ describe('TypeAnalyzer', () => {
       const result = await analyzer.getTypeAtPosition('/src/test.ts', 10, 5);
       
       expect(result).toEqual({
-        name: 'myVariable',
-        kind: 'variable',
+        name: "myVariable",
+        kind: "variable",
         type: 'string'
       });
     });
@@ -177,7 +177,7 @@ describe('TypeAnalyzer', () => {
     });
   });
   
-  describe('parseTypeInfo', () => {
+  describe("parseTypeInfo", () => {
     it('should parse function signatures', async () => {
       const mockHoverResponse = {
         contents: '(function) calculateSum(a: number, b: number): number'
@@ -188,8 +188,8 @@ describe('TypeAnalyzer', () => {
       const result = await analyzer.getTypeAtPosition('/src/test.ts', 0, 0);
       
       expect(result).toEqual({
-        name: 'calculateSum',
-        kind: 'function',
+        name: "calculateSum",
+        kind: "function",
         type: 'number',
         signature: 'calculateSum(a: number, b: number): number',
         documentation: undefined
@@ -207,7 +207,7 @@ describe('TypeAnalyzer', () => {
       
       expect(result).toEqual({
         name: 'id',
-        kind: 'property',
+        kind: "property",
         type: 'number',
         signature: undefined,
         documentation: undefined
@@ -235,7 +235,7 @@ describe('TypeAnalyzer', () => {
     it('should handle complex markdown content', async () => {
       const mockHoverResponse = {
         contents: {
-          kind: 'markdown',
+          kind: "markdown",
           value: '```typescript\ntype Result<T> = { success: true; data: T } | { success: false; error: string }\n```\n\nA discriminated union type for handling results.'
         }
       };

@@ -3,14 +3,14 @@
  */
 
 import { FileViolationPreventer, FileViolationError } from '../../src/validators/FileViolationPreventer';
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import * as os from 'os';
 
 // Mock fs module
 jest.mock('fs');
 
-describe('FileViolationPreventer', () => {
+describe("FileViolationPreventer", () => {
   let preventer: FileViolationPreventer;
   let tempDir: string;
   const mockFs = fs as jest.Mocked<typeof fs>;
@@ -80,12 +80,12 @@ describe('FileViolationPreventer', () => {
         },
         templates: {
           workspace: {
-            id: 'workspace',
-            type: 'directory' as const,
+            id: "workspace",
+            type: "directory" as const,
             freeze: true,
             required_children: [
               { name: 'README.md', type: 'file' as const },
-              { name: 'layer', type: 'directory' as const }
+              { name: 'layer', type: "directory" as const }
             ],
             optional_children: [
               { name: 'package.json', type: 'file' as const }
@@ -252,7 +252,7 @@ describe('FileViolationPreventer', () => {
   });
 });
 
-describe('FileViolationError', () => {
+describe("FileViolationError", () => {
   it('should create error with proper properties', () => {
     const error = new FileViolationError(
       'Test message',
@@ -263,6 +263,6 @@ describe('FileViolationError', () => {
     expect(error.message).toBe('Test message');
     expect(error.path).toBe('/test/path');
     expect(error.violationType).toBe('freeze_violation');
-    expect(error.name).toBe('FileViolationError');
+    expect(error.name).toBe("FileViolationError");
   });
 });

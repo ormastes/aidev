@@ -8,7 +8,7 @@
 import { FilesystemMCPServer } from './MCPServer';
 
 // Bun-specific optimizations
-if (typeof Bun !== 'undefined') {
+if (typeof Bun !== "undefined") {
   console.error('Running with Bun v' + Bun.version);
 }
 

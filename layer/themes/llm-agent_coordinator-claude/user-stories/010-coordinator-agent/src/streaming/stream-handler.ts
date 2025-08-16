@@ -1,6 +1,6 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
-import { Readable, Writable, Transform, pipeline } from 'stream';
-import { promisify } from 'util';
+import { EventEmitter } from 'node:events';
+import { Readable, Writable, Transform, pipeline } from 'node:stream';
+import { promisify } from 'node:util';
 import { 
   JSONStreamParser, 
   JSONStreamFormatter, 
@@ -245,9 +245,9 @@ export class StreamHandler extends EventEmitter {
               
               // Send incremental update
               await this.sendMessage({
-                type: 'assistant',
+                type: "assistant",
                 message: {
-                  role: 'assistant',
+                  role: "assistant",
                   content: delta
                 },
                 metadata: {
@@ -297,7 +297,7 @@ export class StreamHandler extends EventEmitter {
     const { action, params } = message.command;
 
     switch (action) {
-      case 'interrupt':
+      case "interrupt":
         await this.handleInterrupt();
         break;
 
@@ -458,7 +458,7 @@ export class StreamHandler extends EventEmitter {
   }
 
   private isAsyncGenerator(value: any): boolean {
-    return value && typeof value[Symbol.asyncIterator] === 'function';
+    return value && typeof value[Symbol.asyncIterator] === "function";
   }
 
   // Public methods for external control

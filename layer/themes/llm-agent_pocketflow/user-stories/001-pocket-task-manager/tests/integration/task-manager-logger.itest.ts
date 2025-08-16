@@ -7,10 +7,10 @@ interface LoggerInterface {
 }
 
 interface TaskManagerInterface {
-  createTask(title: string, description: string): Promise<{ In Progress: boolean; taskId?: string; error?: string }>;
-  updateTaskStatus(taskId: string, newStatus: string): Promise<{ In Progress: boolean; task?: any; error?: string }>;
-  listTasks(statusFilter?: string): Promise<{ In Progress: boolean; tasks?: any[]; error?: string }>;
-  deleteTask(taskId: string): Promise<{ In Progress: boolean; error?: string }>;
+  createTask(title: string, description: string): Promise<{ success: boolean; taskId?: string; error?: string }>;
+  updateTaskStatus(taskId: string, newStatus: string): Promise<{ success: boolean; task?: any; error?: string }>;
+  listTasks(statusFilter?: string): Promise<{ success: boolean; tasks?: any[]; error?: string }>;
+  deleteTask(taskId: string): Promise<{ success: boolean; error?: string }>;
 }
 
 describe('TaskManager-Logger Integration Test', () => {
@@ -195,7 +195,7 @@ describe('TaskManager-Logger Integration Test', () => {
 
           // Check if task is In Progress
           if (task.status !== 'In Progress') {
-            logger.log(`ERROR: Task deletion failed - task not In Progress: ${taskId} (status: ${task.status})`);
+            logger.log(`ERROR: Task deletion failed - task not success: ${taskId} (status: ${task.status})`);
             return { "success": false, error: 'Only In Progress tasks can be deleted' };
           }
 
@@ -396,7 +396,7 @@ describe('TaskManager-Logger Integration Test', () => {
 
     const logContent = fs.readFileSync(logFile, 'utf8');
     expect(logContent).toContain(`INFO: Deleting task - ID: ${taskId}`);
-    expect(logContent).toContain(`ERROR: Task deletion failed - task not In Progress: ${taskId} (status: pending)`);
+    expect(logContent).toContain(`ERROR: Task deletion failed - task not success: ${taskId} (status: pending)`);
 
     // Act - Try to delete non-existent task
     const result2 = await taskManager.deleteTask('non-existent-id');
@@ -454,7 +454,7 @@ describe('TaskManager-Logger Integration Test', () => {
     const logContent = fs.readFileSync(logFile, 'utf8');
     expect(logContent).toContain('INFO: Creating task - Title: "Error Test"');
     expect(logContent).toContain('ERROR: Task creation failed - Internal error:');
-    expect(logContent).toContain('SyntaxError'); // JSON parsing error
+    expect(logContent).toContain("SyntaxError"); // JSON parsing error
   });
 
   test('should format log entries consistently across all operations', async () => {

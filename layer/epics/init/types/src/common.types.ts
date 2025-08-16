@@ -33,7 +33,7 @@ export interface ResponseMetadata {
 }
 
 export interface StreamChunk {
-  type: 'content' | 'error' | 'metadata' | 'end';
+  type: 'content' | 'error' | "metadata" | 'end';
   content?: string;
   error?: ErrorInfo;
   metadata?: any;

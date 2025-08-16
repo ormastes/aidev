@@ -55,7 +55,7 @@ class FlowManager {
     this.logger.log(`Merging updates for flow: ${existingFlow.id || existingFlow.name}`);
     
     // Don't allow updates to certain protected fields
-    const protectedFields = ['id', 'createdAt', 'version'];
+    const protectedFields = ['id', "createdAt", 'version'];
     const filteredUpdates = { ...updates };
     
     protectedFields.forEach(field => {
@@ -348,9 +348,9 @@ describe('FlowManager Methods Unit Tests', () => {
       const actions = [{ type: 'command', command: 'echo "test"' }];
 
       // Act
-      const result1 = flowManager.createFlowDefinition('Flow 1', 'Description', null, actions);
-      const result2 = flowManager.createFlowDefinition('Flow 2', 'Description', undefined, actions);
-      const result3 = flowManager.createFlowDefinition('Flow 3', 'Description', {}, actions);
+      const result1 = flowManager.createFlowDefinition('Flow 1', "Description", null, actions);
+      const result2 = flowManager.createFlowDefinition('Flow 2', "Description", undefined, actions);
+      const result3 = flowManager.createFlowDefinition('Flow 3', "Description", {}, actions);
 
       // Assert
       expect(result1.trigger).toEqual({ type: 'manual' });
@@ -579,7 +579,7 @@ describe('FlowManager Methods Unit Tests', () => {
       const execution = {
         startTime: '2023-01-01T12:00:00.000Z',
         endTime: '2023-01-01T12:05:30.000Z',
-        status: 'completed'
+        status: "completed"
       };
 
       const flow = { id: 'flow-123', name: 'Completed Flow' };
@@ -695,10 +695,10 @@ describe('FlowManager Methods Unit Tests', () => {
 
     test('should normalize different trigger types correctly', () => {
       // Arrange & Act
-      const manualTrigger = flowManager['normalizeTrigger']({ type: 'manual' });
-      const fileTrigger = flowManager['normalizeTrigger']({ type: 'file_change' });
-      const timeTrigger = flowManager['normalizeTrigger']({ type: 'time' });
-      const webhookTrigger = flowManager['normalizeTrigger']({ type: 'webhook' });
+      const manualTrigger = flowManager["normalizeTrigger"]({ type: 'manual' });
+      const fileTrigger = flowManager["normalizeTrigger"]({ type: 'file_change' });
+      const timeTrigger = flowManager["normalizeTrigger"]({ type: 'time' });
+      const webhookTrigger = flowManager["normalizeTrigger"]({ type: 'webhook' });
 
       // Assert
       expect(manualTrigger).toEqual({ type: 'manual' });
@@ -716,7 +716,7 @@ describe('FlowManager Methods Unit Tests', () => {
       ];
 
       // Act
-      const result = flowManager['normalizeActions'](actions);
+      const result = flowManager["normalizeActions"](actions);
 
       // Assert
       expect(result).toHaveLength(3);
@@ -745,9 +745,9 @@ describe('FlowManager Methods Unit Tests', () => {
 
     test('should handle invalid actions input', () => {
       // Act
-      const result1 = flowManager['normalizeActions'](null as any);
-      const result2 = flowManager['normalizeActions'](undefined as any);
-      const result3 = flowManager['normalizeActions']('invalid' as any);
+      const result1 = flowManager["normalizeActions"](null as any);
+      const result2 = flowManager["normalizeActions"](undefined as any);
+      const result3 = flowManager["normalizeActions"]('invalid' as any);
 
       // Assert
       expect(result1).toEqual([]);

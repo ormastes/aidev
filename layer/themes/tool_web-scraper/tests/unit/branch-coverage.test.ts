@@ -40,7 +40,7 @@ describe('Branch Coverage - WebScrapingQueue', () => {
       queue.markJobCompleted(jobId, result);
       
       const job = queue.getJob(jobId);
-      expect(job?.status).toBe('completed');
+      expect(job?.status).toBe("completed");
       expect(job?.result).toEqual(result);
       expect(job?.progress).toBe(100);
     });
@@ -59,7 +59,7 @@ describe('Branch Coverage - WebScrapingQueue', () => {
       
       // First failure - should retry
       queue.markJobFailed(jobId, 'Error 1');
-      expect(queue.getJob(jobId)?.status).toBe('retrying');
+      expect(queue.getJob(jobId)?.status).toBe("retrying");
       expect(queue.getJob(jobId)?.retryCount).toBe(1);
     });
 
@@ -89,7 +89,7 @@ describe('Branch Coverage - WebScrapingQueue', () => {
       }
       
       queue.markJobFailed(jobId, 'Error 1');
-      expect(queue.getJob(jobId)?.status).toBe('retrying');
+      expect(queue.getJob(jobId)?.status).toBe("retrying");
       
       queue.markJobFailed(jobId, 'Error 2');
       expect(queue.getJob(jobId)?.status).toBe('failed');
@@ -307,7 +307,7 @@ describe('Branch Coverage - WebScrapingCache', () => {
     });
 
     it('should return null when entry does not exist', () => {
-      expect(cache.get('nonexistent')).toBeNull();
+      expect(cache.get("nonexistent")).toBeNull();
     });
   });
 
@@ -493,7 +493,7 @@ describe('Branch Coverage - WebScraper', () => {
       (scraper as any).scrapeWithBrowser = jest.fn().mockResolvedValue(mockBrowserResult);
       
       const options: ScrapingOptions = {
-        browserOptions: { engine: 'playwright' }
+        browserOptions: { engine: "playwright" }
       };
       
       await scraper.scrape('https://example.com', options);
@@ -582,7 +582,7 @@ describe('Branch Coverage - WebScraper', () => {
       mockFetcher.fetch.mockRejectedValue(error);
       
       const errorSpy = jest.fn();
-      scraper.on('scrapeError', errorSpy);
+      scraper.on("scrapeError", errorSpy);
       
       await expect(scraper.scrape('https://example.com')).rejects.toThrow();
       
@@ -631,7 +631,7 @@ describe('Branch Coverage - WebScraper', () => {
       (scraper as any).activeWorkers = 0;
       (scraper as any).queue.getNextJob = jest.fn().mockReturnValue(null);
       
-      const setTimeoutSpy = jest.spyOn(global, 'setTimeout');
+      const setTimeoutSpy = jest.spyOn(global, "setTimeout");
       
       await (scraper as any).processNextJob();
       
@@ -682,7 +682,7 @@ describe('Branch Coverage - WebScraper', () => {
       
       scraper.startProcessing();
       
-      expect(emitSpy).not.toHaveBeenCalledWith('processingStart');
+      expect(emitSpy).not.toHaveBeenCalledWith("processingStart");
     });
 
     it('should start workers based on concurrency', () => {

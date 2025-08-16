@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { 
   ChatRoomPlatform, 
   User, 
@@ -10,7 +10,7 @@ import {
   ContextInterface
 } from '../../user-stories/007-chat-room-cli/src/application/chat-room-platform';
 
-describe('ChatRoomPlatform', () => {
+describe("ChatRoomPlatform", () => {
   let platform: ChatRoomPlatform;
   let eventBus: EventEmitter;
   let mockStorage: jest.Mocked<StorageInterface>;
@@ -63,7 +63,7 @@ describe('ChatRoomPlatform', () => {
     eventBus.removeAllListeners();
   });
 
-  describe('initialization', () => {
+  describe("initialization", () => {
     it('should initialize platform successfully', async () => {
       const mockWorkspaceContext = { workspace: 'test' };
       mockContext.loadAidevContext.mockResolvedValue(mockWorkspaceContext);
@@ -87,17 +87,17 @@ describe('ChatRoomPlatform', () => {
         eventBus.once('platform:user_registered', resolve);
       });
 
-      eventBus.emit('cli:register_user', { username: 'testuser' });
+      eventBus.emit('cli:register_user', { username: "testuser" });
       const event = await registeredPromise;
 
       expect(mockStorage.saveUser).toHaveBeenCalledWith(
         expect.objectContaining({
-          username: 'testuser',
+          username: "testuser",
           id: expect.stringMatching(/^user-\d+-[a-z0-9]{5}$/),
           registeredAt: expect.any(Date),
         })
       );
-      expect(event.user.username).toBe('testuser');
+      expect(event.user.username).toBe("testuser");
     });
   });
 
@@ -140,7 +140,7 @@ describe('ChatRoomPlatform', () => {
 
       const mockUser: User = {
         id: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         connectionId: 'conn-123',
         registeredAt: new Date(),
       };
@@ -150,7 +150,7 @@ describe('ChatRoomPlatform', () => {
           id: 'msg-1',
           roomId: 'room-123',
           userId: 'user-456',
-          username: 'otheruser',
+          username: "otheruser",
           content: 'Hello!',
           timestamp: new Date(),
           type: 'text',
@@ -208,7 +208,7 @@ describe('ChatRoomPlatform', () => {
 
       const mockUser: User = {
         id: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         connectionId: 'conn-123',
         registeredAt: new Date(),
       };
@@ -269,7 +269,7 @@ describe('ChatRoomPlatform', () => {
     });
   });
 
-  describe('messaging', () => {
+  describe("messaging", () => {
     it('should send message successfully', async () => {
       const mockRoom: Room = {
         id: 'room-123',
@@ -283,7 +283,7 @@ describe('ChatRoomPlatform', () => {
 
       const mockUser: User = {
         id: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         registeredAt: new Date(),
       };
 
@@ -305,7 +305,7 @@ describe('ChatRoomPlatform', () => {
         expect.objectContaining({
           roomId: 'room-123',
           userId: 'user-123',
-          username: 'testuser',
+          username: "testuser",
           content: 'Hello world!',
           type: 'text',
         })
@@ -532,7 +532,7 @@ describe('ChatRoomPlatform', () => {
     it('should get user by id', async () => {
       const mockUser: User = {
         id: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         registeredAt: new Date(),
       };
 

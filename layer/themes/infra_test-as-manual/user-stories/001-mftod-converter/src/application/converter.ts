@@ -2,9 +2,9 @@
  * Application layer converter for test-to-manual conversion
  */
 
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../../../../infra_external-log-lib/src';
-import * as Handlebars from 'handlebars';
+import * as Handlebars from "handlebars";
 import { TestParser } from '../domain/test-parser';
 import { BDDParser } from '../domain/bdd-parser';
 import { DocumentFormatter, MarkdownFormatter, HTMLFormatter, JSONFormatter } from '../domain/document-formatter';
@@ -28,10 +28,10 @@ export class MFTODConverter {
     this.parser = new TestParser();
     this.bddParser = new BDDParser();
     this.formatters = new Map([
-      ['markdown', new MarkdownFormatter()],
+      ["markdown", new MarkdownFormatter()],
       ['html', new HTMLFormatter()],
       ['json', new JSONFormatter()],
-      ['professional', new ProfessionalFormatter()],
+      ["professional", new ProfessionalFormatter()],
       ['enhanced-html', new EnhancedHTMLFormatter()]
     ]);
     this.templates = new Map();
@@ -48,7 +48,7 @@ export class MFTODConverter {
    */
   async convertFile(filePath: string, options: ConversionOptions = {}): Promise<string> {
     // Read test file
-    const code = await fs.readFile(filePath, 'utf-8');
+    const code = await fileAPI.readFile(filePath, 'utf-8');
     
     // Determine parser based on file extension or content
     const isBDD = filePath.endsWith('.feature') || code.includes('Feature:') || code.includes('Scenario:');
@@ -90,7 +90,7 @@ export class MFTODConverter {
     
     for (const file of files) {
       try {
-        const outputName = this.generateOutputName(file, options.format || 'markdown');
+        const outputName = this.generateOutputName(file, options.format || "markdown");
         const outputPath = options.outputPath 
           ? path.join(options.outputPath, outputName)
           : undefined;
@@ -109,7 +109,7 @@ export class MFTODConverter {
    * Register a custom template
    */
   async registerTemplate(name: string, templatePath: string): Promise<void> {
-    const templateContent = await fs.readFile(templatePath, 'utf-8');
+    const templateContent = await fileAPI.readFile(templatePath, 'utf-8');
     const template = Handlebars.compile(templateContent);
     this.templates.set(name, template);
   }
@@ -122,7 +122,7 @@ export class MFTODConverter {
   }
 
   private formatDocument(document: TestDocument, options: ConversionOptions): string {
-    const format = options.format || 'markdown';
+    const format = options.format || "markdown";
     
     // Use custom template if specified
     if (options.customTemplate && this.templates.has(options.customTemplate)) {
@@ -137,11 +137,11 @@ export class MFTODConverter {
     }
     
     // Configure formatter based on template
-    if (format === 'markdown') {
+    if (format === "markdown") {
       const markdownFormatter = new MarkdownFormatter({
         includeTableOfContents: options.template !== 'simple',
-        includeIndex: options.template === 'detailed',
-        includeGlossary: options.template === 'compliance'
+        includeIndex: options.template === "detailed",
+        includeGlossary: options.template === "compliance"
       });
       return markdownFormatter.format(document);
     }
@@ -163,7 +163,7 @@ export class MFTODConverter {
     }
     
     // Add version if specified
-    if (options.template === 'compliance') {
+    if (options.template === "compliance") {
       result.version = '1.0.0';
     }
     
@@ -249,7 +249,7 @@ export class MFTODConverter {
 
   private async generateOutputName(inputPath: string, format: string): string {
     const parsed = path.parse(inputPath);
-    const extension = format === 'markdown' ? '.md' : format === 'html' ? '.html' : '.json';
+    const extension = format === "markdown" ? '.md' : format === 'html' ? '.html' : '.json';
     return parsed.name.replace(/\.(test|spec)/, '') + '-manual' + extension;
   }
 
@@ -263,13 +263,13 @@ export class MFTODConverter {
     Handlebars.registerHelper('and', (a, b) => a && b);
     Handlebars.registerHelper('or', (a, b) => a || b);
     Handlebars.registerHelper('not', (a) => !a);
-    Handlebars.registerHelper('formatDate', (date) => {
+    Handlebars.registerHelper("formatDate", (date) => {
       return new Date(date).toLocaleDateString();
     });
     Handlebars.registerHelper('json', (obj) => JSON.stringify(obj, null, 2));
     Handlebars.registerHelper('upper', (str) => str?.toUpperCase());
     Handlebars.registerHelper('lower', (str) => str?.toLowerCase());
-    Handlebars.registerHelper('capitalize', (str) => {
+    Handlebars.registerHelper("capitalize", (str) => {
       return str?.charAt(0).toUpperCase() + str?.slice(1);
     });
   }
@@ -289,7 +289,7 @@ export class MFTODConverter {
     }
 
     // Read and parse test file
-    const code = await fs.readFile(filePath, 'utf-8');
+    const code = await fileAPI.readFile(filePath, 'utf-8');
     const parseResult = this.parser.parse(code, filePath);
     
     if (!parseResult.success || !parseResult.document) {
@@ -317,7 +317,7 @@ export class MFTODConverter {
             // Enhanced step with capture reference
             if (syncCapture.screenshot) {
               (step as any).captureReference = {
-                type: 'screenshot',
+                type: "screenshot",
                 fileName: syncCapture.screenshot.filePath,
                 caption: `Step ${step.order}: ${step.action}`
               };
@@ -337,7 +337,7 @@ export class MFTODConverter {
     }
 
     // Generate output with enhanced formatter
-    const format = options.format || 'professional';
+    const format = options.format || "professional";
     const formatter = this.formatters.get(format);
     if (!formatter) {
       throw new Error(`Unsupported format: ${format}`);

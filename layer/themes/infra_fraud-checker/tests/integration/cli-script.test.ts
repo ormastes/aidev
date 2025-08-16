@@ -1,5 +1,5 @@
 import { exec } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import * as fs from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
 import { os } from '../../../infra_external-log-lib/src';
@@ -133,11 +133,11 @@ describe('CLI Script Integration Tests', () => {
       const reportContent = await fs.readFile(outputFile, 'utf8');
       const report = JSON.parse(reportContent);
 
-      expect(report).toHaveProperty('timestamp');
+      expect(report).toHaveProperty("timestamp");
       expect(report).toHaveProperty('summary');
-      expect(report.summary).toHaveProperty('overallScore');
+      expect(report.summary).toHaveProperty("overallScore");
       expect(report.summary).toHaveProperty('passed');
-      expect(report).toHaveProperty('violations');
+      expect(report).toHaveProperty("violations");
     });
 
     it('should generate HTML report', async () => {

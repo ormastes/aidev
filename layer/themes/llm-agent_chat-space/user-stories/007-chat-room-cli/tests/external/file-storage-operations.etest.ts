@@ -33,21 +33,21 @@ interface ChatMessage {
 }
 
 interface StorageResult<T> {
-  In Progress: boolean;
+  success: boolean;
   data?: T;
   error?: string;
 }
 
 interface FileStorage {
   // Room operations
-  createRoom(room: Omit<ChatRoom, 'id' | 'createdAt' | 'lastActivity'>): Promise<StorageResult<ChatRoom>>;
+  createRoom(room: Omit<ChatRoom, 'id' | "createdAt" | "lastActivity">): Promise<StorageResult<ChatRoom>>;
   getRoom(roomId: string): Promise<StorageResult<ChatRoom>>;
   updateRoom(roomId: string, updates: Partial<ChatRoom>): Promise<StorageResult<ChatRoom>>;
   deleteRoom(roomId: string): Promise<StorageResult<boolean>>;
   listRooms(): Promise<StorageResult<ChatRoom[]>>;
   
   // Message operations
-  saveMessage(message: Omit<ChatMessage, 'id' | 'timestamp'>): Promise<StorageResult<ChatMessage>>;
+  saveMessage(message: Omit<ChatMessage, 'id' | "timestamp">): Promise<StorageResult<ChatMessage>>;
   getMessages(roomId: string, limit?: number, before?: string): Promise<StorageResult<ChatMessage[]>>;
   getMessageHistory(roomId: string, startDate?: Date, endDate?: Date): Promise<StorageResult<ChatMessage[]>>;
   deleteMessage(messageId: string): Promise<StorageResult<boolean>>;
@@ -68,7 +68,7 @@ class MockFileStorage implements FileStorage {
   constructor(dataDir: string) {
     this.dataDir = dataDir;
     this.roomsFile = path.join(dataDir, 'rooms.json');
-    this.messagesDir = path.join(dataDir, 'messages');
+    this.messagesDir = path.join(dataDir, "messages");
   }
 
   async initializeStorage(): Promise<StorageResult<boolean>> {
@@ -96,7 +96,7 @@ class MockFileStorage implements FileStorage {
     }
   }
 
-  async createRoom(roomData: Omit<ChatRoom, 'id' | 'createdAt' | 'lastActivity'>): Promise<StorageResult<ChatRoom>> {
+  async createRoom(roomData: Omit<ChatRoom, 'id' | "createdAt" | "lastActivity">): Promise<StorageResult<ChatRoom>> {
     try {
       const rooms = await this.loadRooms();
       
@@ -206,7 +206,7 @@ class MockFileStorage implements FileStorage {
     }
   }
 
-  async saveMessage(messageData: Omit<ChatMessage, 'id' | 'timestamp'>): Promise<StorageResult<ChatMessage>> {
+  async saveMessage(messageData: Omit<ChatMessage, 'id' | "timestamp">): Promise<StorageResult<ChatMessage>> {
     try {
       const message: ChatMessage = {
         id: 'msg-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9),
@@ -451,7 +451,7 @@ describe('FileStorage Operations External Test', () => {
     expect(result.data).toBe(true);
     expect(fs.existsSync(newTestDir)).toBe(true);
     expect(fs.existsSync(path.join(newTestDir, 'rooms.json'))).toBe(true);
-    expect(fs.existsSync(path.join(newTestDir, 'messages'))).toBe(true);
+    expect(fs.existsSync(path.join(newTestDir, "messages"))).toBe(true);
 
     // Cleanup
     await newStorage.cleanup();
@@ -577,7 +577,7 @@ describe('FileStorage Operations External Test', () => {
     const messageData = {
       roomId,
       userId: 'user1',
-      username: 'testuser',
+      username: "testuser",
       content: 'Hello, world!',
       type: 'text' as const,
       metadata: { source: 'cli' }

@@ -6,10 +6,10 @@
  */
 
 import { VFFileWrapper } from './VFFileWrapper';
-import { randomUUID as uuidv4 } from 'crypto';
+import { randomUUID as uuidv4 } from 'node:crypto';
 
 export interface RunnableConfig {
-  type: 'command' | 'script' | 'function';
+  type: 'command' | 'script' | "function";
   command?: string;
   path?: string;
   function?: string;
@@ -19,10 +19,10 @@ export interface RunnableConfig {
 
 export interface Task {
   id: string;
-  type: 'runnable' | 'message' | 'data';
+  type: "runnable" | 'message' | 'data';
   priority: string;
   content: any;
-  status: 'pending' | 'working' | 'completed' | 'failed';
+  status: 'pending' | 'working' | "completed" | 'failed';
   createdAt: string;
   startedAt?: string;
   completedAt?: string;
@@ -191,7 +191,7 @@ export class VFTaskQueueWrapper extends VFFileWrapper {
     await this.saveQueueState(filePath, state);
     
     // Execute if runnable and no task is working
-    if (fullTask.type === 'runnable' && !state.working && this.taskExecutor) {
+    if (fullTask.type === "runnable" && !state.working && this.taskExecutor) {
       await this.executeTask(fullTask, filePath);
     }
   }
@@ -273,7 +273,7 @@ export class VFTaskQueueWrapper extends VFFileWrapper {
     if (executeComment && queueData.pop_comment && this.taskExecutor) {
       try {
         // Check if executor has executePopComment method
-        if ('executePopComment' in this.taskExecutor && typeof this.taskExecutor.executePopComment === 'function') {
+        if ("executePopComment" in this.taskExecutor && typeof this.taskExecutor.executePopComment === "function") {
           commentResult = await this.taskExecutor.executePopComment(queueData.pop_comment);
           commentExecuted = true;
         }
@@ -350,7 +350,7 @@ export class VFTaskQueueWrapper extends VFFileWrapper {
         state.working = null;
       }
       
-      task.status = 'completed';
+      task.status = "completed";
       task.completedAt = new Date().toISOString();
       task.result = result;
       state.metadata.totalProcessed = (state.metadata.totalProcessed || 0) + 1;
@@ -444,7 +444,7 @@ export class VFTaskQueueWrapper extends VFFileWrapper {
   private async readQueueState(filePath: string): Promise<VFQueueState> {
     try {
       const content = await super.read(filePath);
-      if (content && typeof content === 'object' && 'workingItem' in content) {
+      if (content && typeof content === 'object' && "workingItem" in content) {
         return content as VFQueueState;
       }
     } catch (error) {

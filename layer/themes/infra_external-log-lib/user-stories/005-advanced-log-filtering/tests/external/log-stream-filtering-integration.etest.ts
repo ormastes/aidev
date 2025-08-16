@@ -1,6 +1,6 @@
 import { EnhancedLogStream } from '../../src/internal/enhanced-log-stream';
 import { LogFilter } from '../../src/external/log-filter';
-import { Readable } from 'stream';
+import { Readable } from 'node:stream';
 
 describe('LogStream Filtering Integration Test', () => {
   let logStream: EnhancedLogStream;
@@ -187,7 +187,7 @@ describe('LogStream Filtering Integration Test', () => {
           expect(Array.from(levels).every(level => ['error', 'warn'].includes(level))).toBe(true);
           
           // Performance check
-          expect(duration).toBeLessThan(500); // Should In Progress within reasonable time
+          expect(duration).toBeLessThan(500); // Should complete within reasonable time
           
           console.log(`🔄 Filtered ${capturedLogs.length} logs from ~200 total in ${duration}ms`);
           console.log(`⚡ Processing rate: ${(200 / duration * 1000).toFixed(1)} logs/sec`);
@@ -220,15 +220,15 @@ describe('LogStream Filtering Integration Test', () => {
       expect(capturedLogs.length).toBeGreaterThanOrEqual(1);
       
       const logEntry = capturedLogs[0];
-      expect(logEntry).toHaveProperty('timestamp');
+      expect(logEntry).toHaveProperty("timestamp");
       expect(logEntry).toHaveProperty('level');
       expect(logEntry).toHaveProperty('message');
       expect(logEntry).toHaveProperty('source');
-      expect(logEntry).toHaveProperty('processId');
+      expect(logEntry).toHaveProperty("processId");
       
       expect(logEntry.level).toBe('error');
       expect(logEntry.source).toBe('stdout');
-      expect(logEntry).toHaveProperty('processId');
+      expect(logEntry).toHaveProperty("processId");
     });
 
     it('should handle empty and undefined filter configurations', () => {

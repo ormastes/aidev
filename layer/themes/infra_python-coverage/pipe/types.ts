@@ -81,7 +81,7 @@ export interface EnforcementResult {
 }
 
 export interface ThresholdViolation {
-  type: 'line' | 'branch' | 'class' | 'method' | 'function';
+  type: 'line' | 'branch' | 'class' | 'method' | "function";
   required: number;
   actual: number;
   difference: number;
@@ -89,7 +89,7 @@ export interface ThresholdViolation {
 }
 
 export interface CoverageReport {
-  format: 'html' | 'json' | 'xml' | 'markdown' | 'console';
+  format: 'html' | 'json' | 'xml' | "markdown" | 'console';
   content?: string;
   outputPath?: string;
   summary: CoverageSummary;
@@ -130,7 +130,7 @@ export interface CoverageDiff {
 export interface FileChange {
   file: string;
   lines: number[];
-  type: 'added' | 'removed' | 'modified';
+  type: 'added' | 'removed' | "modified";
 }
 
 export interface TestRunOptions {
@@ -157,7 +157,7 @@ export interface CoverageSession {
   id: string;
   startTime: Date;
   endTime?: Date;
-  status: 'running' | 'completed' | 'failed';
+  status: 'running' | "completed" | 'failed';
   result?: CoverageResult;
   error?: string;
   command: string;

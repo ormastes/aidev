@@ -6,7 +6,7 @@
 import { TestDocument, ProcessorResult, ManualGeneratorOptions } from '../core/types';
 import { HTMLProcessor } from './HTMLProcessor';
 // Note: Puppeteer is installed but not imported to avoid heavy dependency in base implementation
-// Uncomment when ready to use: import * as puppeteer from 'puppeteer';
+// Uncomment when ready to use: import * as puppeteer from "puppeteer";
 
 export interface PDFOptions {
   format?: 'A4' | 'Letter' | 'Legal' | 'A3';
@@ -110,7 +110,7 @@ Document Statistics:
   private async _generatePDFWithPuppeteer(_document: TestDocument): Promise<string> {
     /* Uncomment and implement when ready:
     
-    const puppeteer = require('puppeteer');
+    const puppeteer = require("puppeteer");
     
     // Generate HTML content
     const htmlResult = await this.htmlProcessor.process(document);
@@ -129,7 +129,7 @@ Document Statistics:
       
       // Set content
       await page.setContent(htmlResult.output, {
-        waitUntil: 'networkidle0'
+        waitUntil: "networkidle0"
       });
       
       // Add custom header and footer if configured

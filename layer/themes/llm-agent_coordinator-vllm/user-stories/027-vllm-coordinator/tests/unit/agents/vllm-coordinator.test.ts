@@ -9,7 +9,7 @@ jest.mock('../../../src/services/vllm-client');
 jest.mock('../../../src/services/vllm-installer');
 jest.mock('../../../src/config/deepseek-r1');
 
-describe('VLLMCoordinatorAgent', () => {
+describe("VLLMCoordinatorAgent", () => {
   let coordinator: VLLMCoordinatorAgent;
   let mockVLLMClient: jest.Mocked<VLLMClient>;
   let mockVLLMInstaller: jest.Mocked<VLLMInstaller>;
@@ -31,7 +31,7 @@ describe('VLLMCoordinatorAgent', () => {
         model: 'deepseek-ai/DeepSeek-R1-32B-Chat',
         choices: [{
           index: 0,
-          message: { role: 'assistant', content: 'Hello!' },
+          message: { role: "assistant", content: 'Hello!' },
           finish_reason: 'stop'
         }]
       }),
@@ -77,14 +77,14 @@ describe('VLLMCoordinatorAgent', () => {
       vllmConfig: {
         model: 'deepseek-r1:32b',
         serverUrl: 'http://localhost:8000',
-        apiKey: 'test-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         autoInstall: false,
         streaming: false
       }
     };
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with provided config', () => {
       coordinator = new VLLMCoordinatorAgent(config);
       
@@ -102,7 +102,7 @@ describe('VLLMCoordinatorAgent', () => {
       
       expect(VLLMClient).toHaveBeenCalledWith({
         baseUrl: 'http://localhost:8000',
-        apiKey: 'test-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         timeout: 60000
       });
     });
@@ -220,7 +220,7 @@ describe('VLLMCoordinatorAgent', () => {
     });
   });
 
-  describe('generateResponse', () => {
+  describe("generateResponse", () => {
     beforeEach(async () => {
       coordinator = new VLLMCoordinatorAgent(config);
       await coordinator['onStart']();
@@ -235,7 +235,7 @@ describe('VLLMCoordinatorAgent', () => {
         roomId: 'test-room'
       };
       
-      const response = await coordinator['generateResponse'](message, []);
+      const response = await coordinator["generateResponse"](message, []);
       
       expect(response).toBe('Hello!');
       expect(mockVLLMClient.chat).toHaveBeenCalledWith(
@@ -282,7 +282,7 @@ describe('VLLMCoordinatorAgent', () => {
         roomId: 'test-room'
       };
       
-      const response = await coordinator['generateResponse'](message, []);
+      const response = await coordinator["generateResponse"](message, []);
       
       expect(response).toBe('Hello world!');
       expect(mockVLLMClient.chatStream).toHaveBeenCalled();
@@ -302,13 +302,13 @@ describe('VLLMCoordinatorAgent', () => {
         roomId: 'test-room'
       };
       
-      await coordinator['generateResponse'](message, context);
+      await coordinator["generateResponse"](message, context);
       
       expect(mockVLLMClient.chat).toHaveBeenCalledWith(
         expect.objectContaining({
           messages: expect.arrayContaining([
             { role: 'user', content: 'user1: What is 2+2?' },
-            { role: 'assistant', content: 'TestBot: 2+2 equals 4' },
+            { role: "assistant", content: 'TestBot: 2+2 equals 4' },
             { role: 'user', content: 'Can you explain more?' }
           ])
         })
@@ -324,7 +324,7 @@ describe('VLLMCoordinatorAgent', () => {
         roomId: 'test-room'
       };
       
-      const response = await coordinator['generateResponse'](message, []);
+      const response = await coordinator["generateResponse"](message, []);
       
       expect(response).toBe('Currently using model: deepseek-r1:32b (deepseek-ai/DeepSeek-R1-32B-Chat)');
     });
@@ -340,7 +340,7 @@ describe('VLLMCoordinatorAgent', () => {
         roomId: 'test-room'
       };
       
-      const response = await coordinator['generateResponse'](message, []);
+      const response = await coordinator["generateResponse"](message, []);
       
       expect(response).toBe('vLLM server is not running. Please start vLLM or enable auto-installation.');
     });
@@ -356,7 +356,7 @@ describe('VLLMCoordinatorAgent', () => {
         roomId: 'test-room'
       };
       
-      const response = await coordinator['generateResponse'](message, []);
+      const response = await coordinator["generateResponse"](message, []);
       
       expect(response).toBe('Invalid API key. Please check your vLLM API key configuration.');
     });
@@ -369,14 +369,14 @@ describe('VLLMCoordinatorAgent', () => {
     });
 
     it('should handle /models command', async () => {
-      const response = await coordinator['handleCommand']('/models');
+      const response = await coordinator["handleCommand"]('/models');
       
       expect(response).toContain('Available models:');
       expect(response).toContain('deepseek-ai/DeepSeek-R1-32B-Chat');
     });
 
     it('should handle /info command', async () => {
-      const response = await coordinator['handleCommand']('/info');
+      const response = await coordinator["handleCommand"]('/info');
       
       expect(response).toContain('vLLM Coordinator Info');
       expect(response).toContain('Model: deepseek-r1:32b');
@@ -384,14 +384,14 @@ describe('VLLMCoordinatorAgent', () => {
     });
 
     it('should handle /metrics command', async () => {
-      const response = await coordinator['handleCommand']('/metrics');
+      const response = await coordinator["handleCommand"]('/metrics');
       
       expect(response).toContain('Server Metrics:');
       expect(response).toContain('"requests": 100');
     });
 
     it('should handle /help command', async () => {
-      const response = await coordinator['handleCommand']('/help');
+      const response = await coordinator["handleCommand"]('/help');
       
       expect(response).toContain('vLLM Coordinator');
       expect(response).toContain('Chat Features:');
@@ -404,9 +404,9 @@ describe('VLLMCoordinatorAgent', () => {
         { id: '201', username: 'user', content: 'Hello', timestamp: new Date(), roomId: 'test-room' },
         { id: '202', username: 'TestBot', content: 'Hi there!', timestamp: new Date(), roomId: 'test-room' }
       ];
-      coordinator['messageHistory'] = context;
+      coordinator["messageHistory"] = context;
       
-      const response = await coordinator['handleCommand']('/summarize');
+      const response = await coordinator["handleCommand"]('/summarize');
       
       expect(response).toContain('Conversation Summary:');
       expect(mockVLLMClient.chat).toHaveBeenCalledWith(
@@ -422,7 +422,7 @@ describe('VLLMCoordinatorAgent', () => {
     });
 
     it('should handle unknown commands', async () => {
-      const response = await coordinator['handleCommand']('/unknown');
+      const response = await coordinator["handleCommand"]('/unknown');
       
       expect(response).toContain('Unknown command: /unknown');
       expect(response).toContain('/help');
@@ -459,7 +459,7 @@ describe('VLLMCoordinatorAgent', () => {
 
     it('should use environment variables', () => {
       process.env.VLLM_SERVER_URL = 'http://env-server:8000';
-      process.env.VLLM_API_KEY = 'env-key';
+      process.env.VLLM_apiKey = process.env.API_KEY || 'PLACEHOLDER_API_KEY';
       
       const coordinator = createVLLMCoordinator(
         'ws://localhost:3000',

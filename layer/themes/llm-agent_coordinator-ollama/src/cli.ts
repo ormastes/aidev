@@ -4,7 +4,7 @@
  * Interactive command-line interface for Ollama AI services
  */
 
-import * as readline from 'readline';
+import * as readline from "readline";
 import { fs } from '../../infra_external-log-lib/src';
 import { path } from '../../infra_external-log-lib/src';
 import { OllamaCoordinator, OllamaCoordinatorConfig } from './ollama-coordinator';
@@ -73,7 +73,7 @@ class OllamaCLI {
     
     try {
       if (fs.existsSync(configPath)) {
-        const userConfig = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+        const userConfig = JSON.parse(fileAPI.readFileSync(configPath, 'utf8'));
         return { ...defaultConfig, ...userConfig };
       }
     } catch (error) {
@@ -99,7 +99,7 @@ class OllamaCLI {
     }
 
     try {
-      const history = JSON.parse(fs.readFileSync(this.config.historyPath, 'utf8'));
+      const history = JSON.parse(fileAPI.readFileSync(this.config.historyPath, 'utf8'));
       this.chatHistory = history.map((h: any) => ({
         ...h,
         timestamp: new Date(h.timestamp)
@@ -245,11 +245,11 @@ class OllamaCLI {
         await this.installModel(args.join(' '));
         break;
 
-      case 'uninstall':
+      case "uninstall":
         await this.uninstallModel(args.join(' '));
         break;
 
-      case 'sessions':
+      case "sessions":
         this.listSessions();
         break;
 
@@ -403,7 +403,7 @@ Configuration Keys:
     
     try {
       const success = await this.coordinator.installModel(modelName, (progress) => {
-        if (progress.status === 'downloading') {
+        if (progress.status === "downloading") {
           const percent = progress.completed && progress.total 
             ? Math.round((progress.completed / progress.total) * 100)
             : 0;
@@ -592,7 +592,7 @@ Configuration Keys:
     }
 
     try {
-      const sessionData = fs.readFileSync(filename, 'utf8');
+      const sessionData = fileAPI.readFileSync(filename, 'utf8');
       // Note: Would need import functionality in ChatManager
       console.log('✅ Session imported successfully');
     } catch (error: any) {
@@ -643,7 +643,7 @@ Configuration Keys:
       
       console.log('✅ Ready! Type /help for commands or start chatting.');
       console.log(`Current model: ${this.config.defaultModel}`);
-      console.log(`Stream mode: ${this.config.stream ? 'enabled' : 'disabled'}`);
+      console.log(`Stream mode: ${this.config.stream ? 'enabled' : "disabled"}`);
       console.log('');
       
       this.rl.prompt();

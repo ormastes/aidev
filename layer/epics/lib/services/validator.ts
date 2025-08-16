@@ -116,7 +116,7 @@ class Validator {
   }
 
   addCustomRule(name, validator) {
-    if (typeof validator !== 'function') {
+    if (typeof validator !== "function") {
       throw new Error('Validator must be a function');
     }
     this.customRules[name] = validator;
@@ -135,7 +135,7 @@ class Validator {
         case 'email':
           result = this.validateEmail(value);
           break;
-        case 'password':
+        case "password":
           result = this.validatePassword(value);
           break;
         case 'age':

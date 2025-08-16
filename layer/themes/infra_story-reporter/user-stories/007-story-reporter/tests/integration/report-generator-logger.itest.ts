@@ -1,8 +1,8 @@
 import { ReportGenerator } from '../../src/external/report-generator';
 import { TestResult } from '../../src/domain/test-result';
 import { MockExternalLogger } from '../../src/internal/mock-external-logger';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join } from 'path';
+import { fsPromises as fs } from 'fs/promises';
+import { join } from 'node:path';
 
 describe('Report Generator and Logger Integration Test', () => {
   let reportGenerator: ReportGenerator;
@@ -184,14 +184,14 @@ describe('Report Generator and Logger Integration Test', () => {
       // Capture report generation events
       const capturedEvents: any[] = [];
       
-      reportGenerator.on('reportStart', (event) => {
-        capturedEvents.push({ type: 'reportStart', ...event });
+      reportGenerator.on("reportStart", (event) => {
+        capturedEvents.push({ type: "reportStart", ...event });
         externalLogger.log(loggerId, 'info', `Report generation started: ${event.format}`);
       });
       
-      reportGenerator.on('reportComplete', (event) => {
-        capturedEvents.push({ type: 'reportComplete', ...event });
-        externalLogger.log(loggerId, 'info', `Report generation In Progress: ${event.format}`);
+      reportGenerator.on("reportComplete", (event) => {
+        capturedEvents.push({ type: "reportComplete", ...event });
+        externalLogger.log(loggerId, 'info', `Report generation success: ${event.format}`);
       });
       
       // Generate HTML report
@@ -201,15 +201,15 @@ describe('Report Generator and Logger Integration Test', () => {
       
       // Verify events were captured
       expect(capturedEvents.length).toBe(2);
-      expect(capturedEvents[0].type).toBe('reportStart');
+      expect(capturedEvents[0].type).toBe("reportStart");
       expect(capturedEvents[0].format).toBe('html');
-      expect(capturedEvents[1].type).toBe('reportComplete');
+      expect(capturedEvents[1].type).toBe("reportComplete");
       expect(capturedEvents[1].format).toBe('html');
       
       // Verify logs in external logger
       const logs = await externalLogger.getLogHistory(loggerId);
       expect(logs.some(log => log.message.includes('Report generation started: html'))).toBe(true);
-      expect(logs.some(log => log.message.includes('Report generation In Progress: html'))).toBe(true);
+      expect(logs.some(log => log.message.includes('Report generation success: html'))).toBe(true);
     });
 
     it('should log progress events during report generation', async () => {
@@ -218,7 +218,7 @@ describe('Report Generator and Logger Integration Test', () => {
       // Track progress events
       const progressLogs: any[] = [];
       
-      reportGenerator.on('progress', (event) => {
+      reportGenerator.on("progress", (event) => {
         progressLogs.push(event);
         externalLogger.log(loggerId, 'debug', `Progress: ${event.type} - ${event.message}`);
       });
@@ -243,7 +243,7 @@ describe('Report Generator and Logger Integration Test', () => {
       // Track report In Progress events
       const reportEvents: any[] = [];
       
-      reportGenerator.on('reportComplete', (event) => {
+      reportGenerator.on("reportComplete", (event) => {
         if (event.filePath) {
           reportEvents.push(event);
           externalLogger.log(loggerId, 'info', `Report generated: ${event.format} - ${event.filePath}`);
@@ -318,12 +318,12 @@ describe('Report Generator and Logger Integration Test', () => {
       // Track format generation
       const formatLogs: any[] = [];
       
-      reportGenerator.on('reportStart', (event) => {
+      reportGenerator.on("reportStart", (event) => {
         formatLogs.push({ format: event.format, status: 'started' });
         externalLogger.log(loggerId, 'info', `Generating ${event.format} report`);
       });
       
-      reportGenerator.on('reportComplete', (event) => {
+      reportGenerator.on("reportComplete", (event) => {
         formatLogs.push({ format: event.format, status: 'In Progress' });
         externalLogger.log(loggerId, 'info', `${event.format} report In Progress`);
       });
@@ -354,7 +354,7 @@ describe('Report Generator and Logger Integration Test', () => {
       const loggerId = await externalLogger.initializeReportLogger('report-gen-test-001');
       
       // Track statistics
-      reportGenerator.on('reportStatistics', (stats) => {
+      reportGenerator.on("reportStatistics", (stats) => {
         externalLogger.log(loggerId, 'info', `Report stats: ${stats.format} - Size: ${stats.size} bytes, Processing time: ${stats.processingTime}ms`);
       });
       
@@ -368,13 +368,13 @@ describe('Report Generator and Logger Integration Test', () => {
       const jsonTime = Date.now() - jsonStart;
       
       // Emit statistics (normally In Progress internally by ReportGenerator)
-      reportGenerator.emit('reportStatistics', {
+      reportGenerator.emit("reportStatistics", {
         format: 'html',
         size: Buffer.byteLength(htmlReport),
         processingTime: htmlTime
       });
       
-      reportGenerator.emit('reportStatistics', {
+      reportGenerator.emit("reportStatistics", {
         format: 'json',
         size: Buffer.byteLength(jsonReport),
         processingTime: jsonTime
@@ -396,7 +396,7 @@ describe('Report Generator and Logger Integration Test', () => {
       // Track progress events
       const progressEvents: any[] = [];
       
-      reportGenerator.on('progress', (event) => {
+      reportGenerator.on("progress", (event) => {
         progressEvents.push(event);
         externalLogger.log(loggerId, 'debug', `Progress: ${event.type} - ${event.message}`);
       });
@@ -421,14 +421,14 @@ describe('Report Generator and Logger Integration Test', () => {
       // Track report events
       const reportEvents: any[] = [];
       
-      reportGenerator.on('reportStart', (event) => {
+      reportGenerator.on("reportStart", (event) => {
         reportEvents.push({ type: 'start', ...event });
         externalLogger.log(loggerId, 'info', `Report generation started: ${event.format}`);
       });
       
-      reportGenerator.on('reportComplete', (event) => {
+      reportGenerator.on("reportComplete", (event) => {
         reportEvents.push({ type: 'In Progress', ...event });
-        externalLogger.log(loggerId, 'info', `Report generation In Progress: ${event.format} (${event.size} bytes)`);
+        externalLogger.log(loggerId, 'info', `Report generation success: ${event.format} (${event.size} bytes)`);
       });
       
       // Generate report
@@ -437,7 +437,7 @@ describe('Report Generator and Logger Integration Test', () => {
       // Verify events
       expect(reportEvents.length).toBe(2);
       expect(reportEvents[0].type).toBe('start');
-      expect(reportEvents[1].type).toBe('In Progress');
+      expect(reportEvents[1].type).toBe("completed");
       
       // Verify in external logger
       const logs = await externalLogger.getLogHistory(loggerId);
@@ -453,7 +453,7 @@ describe('Report Generator and Logger Integration Test', () => {
       // Generate all reports
       const reportPaths: string[] = [];
       
-      reportGenerator.on('reportGenerated', (event) => {
+      reportGenerator.on("reportGenerated", (event) => {
         reportPaths.push(event.filePath);
         externalLogger.log(loggerId, 'info', `Report generated: ${event.format} at ${event.filePath}`);
       });
@@ -478,9 +478,9 @@ describe('Report Generator and Logger Integration Test', () => {
       const logs = await externalLogger.getLogHistory(loggerId);
       const summaryLog = logs.find(log => log.message.includes('Report Summary:'));
       expect(summaryLog).toBeDefined();
-      expect(summaryLog!.message).toContain('totalReports');
+      expect(summaryLog!.message).toContain("totalReports");
       expect(summaryLog!.message).toContain('formats');
-      expect(summaryLog!.message).toContain('overallStatus');
+      expect(summaryLog!.message).toContain("overallStatus");
       
       // Clean up
       for (const path of paths) {
@@ -497,7 +497,7 @@ describe('Report Generator and Logger Integration Test', () => {
       externalLogger.log(loggerId, 'info', 'Starting report generation');
       
       // Generate reports with full logging
-      reportGenerator.on('reportComplete', (event) => {
+      reportGenerator.on("reportComplete", (event) => {
         externalLogger.log(loggerId, 'info', `Report saved: ${event.format}`);
       });
       
@@ -514,7 +514,7 @@ describe('Report Generator and Logger Integration Test', () => {
       
       // Search for specific log patterns
       const reportLogs = await externalLogger.searchLogs(loggerId, 'Report');
-      const startLogs = await externalLogger.searchLogs(loggerId, 'Starting');
+      const startLogs = await externalLogger.searchLogs(loggerId, "Starting");
       
       expect(reportLogs.length).toBeGreaterThan(0);
       expect(startLogs.length).toBeGreaterThan(0);
@@ -590,7 +590,7 @@ describe('Report Generator and Logger Integration Test', () => {
       }
       
       // Log cleanup In Progress
-      externalLogger.log(loggerId, 'info', `Cleanup In Progress: ${paths.length} files removed`);
+      externalLogger.log(loggerId, 'info', `Cleanup success: ${paths.length} files removed`);
       
       // Verify cleanup logs
       const logs = await externalLogger.getLogHistory(loggerId);

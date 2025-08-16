@@ -1,7 +1,7 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join } from 'path';
-import { os } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
+import * as fs from 'fs/promises';
+import { join } from 'node:path';
+import * as os from 'os';
 import { MockExternalLogger } from '../../src/internal/mock-external-logger';
 
 describe('Monitor with Resource Tracking Integration Test', () => {
@@ -72,7 +72,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
       const resourceEvents: Array<{type: string, data: any, timestamp: Date}> = [];
       
       // System resource monitoring
-      eventBus.on('system:resource:measured', (data) => {
+      eventBus.on('system:resource:measured', (data: any) => {
         resourceEvents.push({
           type: 'system:resource:measured',
           data,
@@ -84,7 +84,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
           `System ${data.resourceType}: ${data.value}${data.unit || ''} (${data.percentage}%)`);
       });
 
-      eventBus.on('system:resource:threshold:warning', (data) => {
+      eventBus.on('system:resource:threshold:warning', (data: any) => {
         resourceEvents.push({
           type: 'system:resource:threshold:warning',
           data,
@@ -96,7 +96,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
           `Resource warning: ${data.resourceType} at ${data.currentValue}% (threshold: ${data.threshold}%)`);
       });
 
-      eventBus.on('system:resource:threshold:critical', (data) => {
+      eventBus.on('system:resource:threshold:critical', (data: any) => {
         resourceEvents.push({
           type: 'system:resource:threshold:critical',
           data,
@@ -109,7 +109,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
       });
 
       // Process-specific resource monitoring
-      eventBus.on('process:resource:measured', (data) => {
+      eventBus.on('process:resource:measured', (data: any) => {
         resourceEvents.push({
           type: 'process:resource:measured',
           data,
@@ -121,7 +121,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
           `Process ${data.processName} ${data.resourceType}: ${data.value}${data.unit || ''}`);
       });
 
-      eventBus.on('process:resource:anomaly', (data) => {
+      eventBus.on('process:resource:anomaly', (data: any) => {
         resourceEvents.push({
           type: 'process:resource:anomaly',
           data,
@@ -134,7 +134,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
       });
 
       // Performance metrics monitoring
-      eventBus.on('performance:metric:collected', (data) => {
+      eventBus.on('performance:metric:collected', (data: any) => {
         resourceEvents.push({
           type: 'performance:metric:collected',
           data,
@@ -146,7 +146,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
           `Performance metric: ${data.metricName} = ${data.value} (${data.trend})`);
       });
 
-      eventBus.on('performance:degradation:detected', (data) => {
+      eventBus.on('performance:degradation:detected', (data: any) => {
         resourceEvents.push({
           type: 'performance:degradation:detected',
           data,
@@ -240,7 +240,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
         metricName: 'test-execution-time',
         value: 2.3,
         unit: 'seconds',
-        trend: 'increasing',
+        trend: "increasing",
         timestamp: new Date()
       });
 
@@ -249,7 +249,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
         metricName: 'report-generation-time',
         value: 0.8,
         unit: 'seconds',
-        trend: 'UPDATING',
+        trend: "UPDATING",
         timestamp: new Date()
       });
 
@@ -344,7 +344,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
       // Setup alert handling and automated responses
       const alertEvents: Array<{type: string, data: any}> = [];
 
-      eventBus.on('resource:alert:triggered', (data) => {
+      eventBus.on('resource:alert:triggered', (data: any) => {
         alertEvents.push({type: 'resource:alert:triggered', data});
         
         // Monitor logs alert trigger
@@ -352,7 +352,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
           `Alert triggered: ${data.alertType} - ${data.description}`);
       });
 
-      eventBus.on('resource:alert:escalated', (data) => {
+      eventBus.on('resource:alert:escalated', (data: any) => {
         alertEvents.push({type: 'resource:alert:escalated', data});
         
         // Monitor logs alert escalation
@@ -360,7 +360,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
           `Alert escalated: ${data.alertType} - Level ${data.escalationLevel}`);
       });
 
-      eventBus.on('automated:response:initiated', (data) => {
+      eventBus.on('automated:response:initiated', (data: any) => {
         alertEvents.push({type: 'automated:response:initiated', data});
         
         // Monitor logs automated response start
@@ -368,15 +368,15 @@ describe('Monitor with Resource Tracking Integration Test', () => {
           `Automated response initiated: ${data.responseType} for ${data.alertType}`);
       });
 
-      eventBus.on('automated:response:In Progress', (data) => {
+      eventBus.on('automated:response:In Progress', (data: any) => {
         alertEvents.push({type: 'automated:response:In Progress', data});
         
         // Monitor logs automated response completion
         mockLogger.log('response-logger', 'info', 
-          `Automated response In Progress: ${data.responseType} - ${data.result}`);
+          `Automated response success: ${data.responseType} - ${data.result}`);
       });
 
-      eventBus.on('automated:response:failed', (data) => {
+      eventBus.on('automated:response:failed', (data: any) => {
         alertEvents.push({type: 'automated:response:failed', data});
         
         // Monitor logs automated response failure
@@ -391,7 +391,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
         monitorId: monitorConfig.monitorId,
         alertType: 'memory-critical',
         description: 'Memory usage at 92% - Critical threshold exceeded',
-        severity: 'critical',
+        severity: "critical",
         timestamp: new Date()
       });
 
@@ -437,7 +437,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
         monitorId: monitorConfig.monitorId,
         alertType: 'disk-full',
         description: 'Disk usage at 97% - Critical threshold exceeded',
-        severity: 'critical',
+        severity: "critical",
         timestamp: new Date()
       });
 
@@ -519,7 +519,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
       // Setup real-time data collection and analysis
       const realTimeEvents: Array<{type: string, data: any}> = [];
 
-      eventBus.on('realtime:data:collected', (data) => {
+      eventBus.on('realtime:data:collected', (data: any) => {
         realTimeEvents.push({type: 'realtime:data:collected', data});
         
         // Monitor logs real-time data collection
@@ -527,7 +527,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
           `RT Data: ${data.metric} = ${data.value} at ${data.timestamp}`);
       });
 
-      eventBus.on('realtime:analysis:In Progress', (data) => {
+      eventBus.on('realtime:analysis:In Progress', (data: any) => {
         realTimeEvents.push({type: 'realtime:analysis:In Progress', data});
         
         // Monitor logs real-time analysis
@@ -535,7 +535,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
           `RT Analysis: ${data.metric} - avg:${data.average}, min:${data.min}, max:${data.max}`);
       });
 
-      eventBus.on('realtime:trend:detected', (data) => {
+      eventBus.on('realtime:trend:detected', (data: any) => {
         realTimeEvents.push({type: 'realtime:trend:detected', data});
         
         // Monitor logs trend detection
@@ -543,7 +543,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
           `RT Trend: ${data.metric} ${data.trend} - ${data.description}`);
       });
 
-      eventBus.on('realtime:anomaly:detected', (data) => {
+      eventBus.on('realtime:anomaly:detected', (data: any) => {
         realTimeEvents.push({type: 'realtime:anomaly:detected', data});
         
         // Monitor logs anomaly detection
@@ -604,7 +604,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
       eventBus.emit('realtime:trend:detected', {
         monitorId: monitorConfig.monitorId,
         metric: 'memory',
-        trend: 'increasing',
+        trend: "increasing",
         description: 'Memory usage increased 24% over 2.5 seconds',
         severity: 'medium',
         timestamp: new Date()
@@ -669,7 +669,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
           },
           {
             name: 'error-rate',
-            type: 'percentage',
+            type: "percentage",
             unit: '%',
             thresholds: { warning: 5, critical: 10 }
           }
@@ -683,7 +683,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
       // Setup custom metrics tracking
       const customMetricsEvents: Array<{type: string, data: any}> = [];
 
-      eventBus.on('custom:metric:recorded', (data) => {
+      eventBus.on('custom:metric:recorded', (data: any) => {
         customMetricsEvents.push({type: 'custom:metric:recorded', data});
         
         // Monitor logs custom metric recording
@@ -691,15 +691,15 @@ describe('Monitor with Resource Tracking Integration Test', () => {
           `Custom metric: ${data.metricName} = ${data.value}${data.unit} (target: ${data.target})`);
       });
 
-      eventBus.on('custom:threshold:exceeded', (data) => {
+      eventBus.on('custom:threshold:exceeded', (data: any) => {
         customMetricsEvents.push({type: 'custom:threshold:exceeded', data});
         
         // Monitor logs custom threshold exceeded
-        mockLogger.log('custom-threshold-logger', data.severity === 'critical' ? 'error' : 'warn', 
+        mockLogger.log('custom-threshold-logger', data.severity === "critical" ? 'error' : 'warn', 
           `Custom threshold exceeded: ${data.metricName} ${data.value}${data.unit} > ${data.threshold}${data.unit}`);
       });
 
-      eventBus.on('custom:metric:trend:analyzed', (data) => {
+      eventBus.on('custom:metric:trend:analyzed', (data: any) => {
         customMetricsEvents.push({type: 'custom:metric:trend:analyzed', data});
         
         // Monitor logs custom metric trend analysis
@@ -795,8 +795,8 @@ describe('Monitor with Resource Tracking Integration Test', () => {
         value: 12.8,
         unit: '%',
         threshold: 10,
-        thresholdType: 'critical',
-        severity: 'critical',
+        thresholdType: "critical",
+        severity: "critical",
         timestamp: new Date()
       });
 
@@ -804,7 +804,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
       eventBus.emit('custom:metric:trend:analyzed', {
         monitorId: monitorConfig.monitorId,
         metricName: 'test-execution-rate',
-        trend: 'decreasing',
+        trend: "decreasing",
         timeWindow: '5min',
         significance: 'high',
         timestamp: new Date()
@@ -813,7 +813,7 @@ describe('Monitor with Resource Tracking Integration Test', () => {
       eventBus.emit('custom:metric:trend:analyzed', {
         monitorId: monitorConfig.monitorId,
         metricName: 'report-generation-latency',
-        trend: 'increasing',
+        trend: "increasing",
         timeWindow: '10min',
         significance: 'medium',
         timestamp: new Date()

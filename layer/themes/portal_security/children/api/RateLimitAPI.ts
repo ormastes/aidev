@@ -160,7 +160,7 @@ export class RateLimitAPI {
   private async getClients(req: Request, res: Response): Promise<void> {
     try {
       const clients = rateLimitMonitor.getClientUsage();
-      const sortBy = req.query.sortBy as string || 'totalRequests';
+      const sortBy = req.query.sortBy as string || "totalRequests";
       const order = req.query.order === 'asc' ? 1 : -1;
 
       // Sort clients

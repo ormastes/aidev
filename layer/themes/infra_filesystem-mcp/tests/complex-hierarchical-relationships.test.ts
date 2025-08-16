@@ -1,4 +1,4 @@
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 import { VFDistributedFeatureWrapper, DistributedFeatureFile, DistributedFeature } from '../children/VFDistributedFeatureWrapper';
 
@@ -70,15 +70,15 @@ describe('Complex Hierarchical Relationships', () => {
         features: {}
       });
 
-      const platformId = await rootWrapper.addFeature('platform', {
+      const platformId = await rootWrapper.addFeature("platform", {
         name: 'Complex Dependency Platform',
         data: {
           title: 'Multi-Tier Platform with Complex Dependencies',
           description: 'Platform demonstrating complex dependency relationships across multiple levels',
           level: 'root',
           status: 'in-progress',
-          priority: 'critical',
-          tags: ['platform', 'complex', 'dependencies'],
+          priority: "critical",
+          tags: ["platform", 'complex', "dependencies"],
           virtual_path: '/FEATURE.vf.json'
         }
       });
@@ -99,16 +99,16 @@ describe('Complex Hierarchical Relationships', () => {
         features: {}
       });
 
-      const infraEpicId = await infraWrapper.addFeature('infrastructure', {
-        name: 'Infrastructure',
+      const infraEpicId = await infraWrapper.addFeature("infrastructure", {
+        name: "Infrastructure",
         data: {
           title: 'Core Infrastructure Services',
           description: 'Foundation services including database, cache, and monitoring',
           level: 'epic',
           parent_feature_id: platformId,
           status: 'in-progress',
-          priority: 'critical',
-          tags: ['infrastructure', 'foundation'],
+          priority: "critical",
+          tags: ["infrastructure", "foundation"],
           virtual_path: '/layer/themes/infrastructure/FEATURE.vf.json'
         }
       });
@@ -138,7 +138,7 @@ describe('Complex Hierarchical Relationships', () => {
           parent_feature_id: platformId,
           status: 'planned',
           priority: 'high',
-          tags: ['api', 'rest', 'services'],
+          tags: ['api', 'rest', "services"],
           dependencies: [infraEpicId], // API depends on infrastructure
           virtual_path: '/layer/themes/api/FEATURE.vf.json'
         }
@@ -160,7 +160,7 @@ describe('Complex Hierarchical Relationships', () => {
         features: {}
       });
 
-      const frontendEpicId = await frontendWrapper.addFeature('frontend', {
+      const frontendEpicId = await frontendWrapper.addFeature("frontend", {
         name: 'Frontend Layer',
         data: {
           title: 'User Interface Layer',
@@ -169,7 +169,7 @@ describe('Complex Hierarchical Relationships', () => {
           parent_feature_id: platformId,
           status: 'planned',
           priority: 'high',
-          tags: ['frontend', 'react', 'ui'],
+          tags: ["frontend", 'react', 'ui'],
           dependencies: [apiEpicId], // Frontend depends on API
           virtual_path: '/layer/themes/frontend/FEATURE.vf.json'
         }
@@ -181,13 +181,13 @@ describe('Complex Hierarchical Relationships', () => {
           id: 'db-001', path: '001-database', name: 'Database Service',
           title: 'PostgreSQL Database Service',
           description: 'Core database service with connection pooling and migrations',
-          dependencies: [], status: 'completed', priority: 'critical'
+          dependencies: [], status: "completed", priority: "critical"
         },
         {
           id: 'cache-001', path: '002-cache', name: 'Cache Service',
           title: 'Redis Cache Service',
           description: 'Distributed caching service for performance optimization',
-          dependencies: ['db-001'], status: 'completed', priority: 'high'
+          dependencies: ['db-001'], status: "completed", priority: 'high'
         },
         {
           id: 'monitor-001', path: '003-monitoring', name: 'Monitoring Service',
@@ -223,7 +223,7 @@ describe('Complex Hierarchical Relationships', () => {
             epic_id: infraEpicId,
             status: story.status as any,
             priority: story.priority as any,
-            tags: ['infrastructure', story.path.split('-')[1]],
+            tags: ["infrastructure", story.path.split('-')[1]],
             dependencies: story.dependencies,
             components: [`${story.name.replace(' ', '')}.ts`, `${story.name.replace(' ', '')}Service.ts`],
             acceptanceCriteria: [
@@ -243,7 +243,7 @@ describe('Complex Hierarchical Relationships', () => {
           id: 'auth-api-001', path: '001-auth-api', name: 'Authentication API',
           title: 'User Authentication REST API',
           description: 'JWT-based authentication API with login, logout, and token refresh',
-          dependencies: ['db-001'], status: 'completed', priority: 'critical'
+          dependencies: ['db-001'], status: "completed", priority: "critical"
         },
         {
           id: 'user-api-001', path: '002-user-api', name: 'User Management API',
@@ -306,7 +306,7 @@ describe('Complex Hierarchical Relationships', () => {
           id: 'login-001', path: '001-login', name: 'Login Component',
           title: 'User Login Interface',
           description: 'React component for user authentication with form validation',
-          dependencies: ['auth-api-001'], status: 'completed', priority: 'critical'
+          dependencies: ['auth-api-001'], status: "completed", priority: "critical"
         },
         {
           id: 'dashboard-001', path: '002-dashboard', name: 'User Dashboard',
@@ -348,7 +348,7 @@ describe('Complex Hierarchical Relationships', () => {
             epic_id: frontendEpicId,
             status: story.status as any,
             priority: story.priority as any,
-            tags: ['frontend', 'react', story.path.split('-')[0]],
+            tags: ["frontend", 'react', story.path.split('-')[0]],
             dependencies: story.dependencies,
             components: [`${story.name.replace(' ', '')}.tsx`, `${story.name.replace(' ', '')}Container.tsx`, `use${story.name.replace(' ', '')}.ts`],
             acceptanceCriteria: [
@@ -461,7 +461,7 @@ describe('Complex Hierarchical Relationships', () => {
         features: {}
       });
 
-      const platformId = await rootWrapper.addFeature('platform', {
+      const platformId = await rootWrapper.addFeature("platform", {
         name: 'Dynamic Epic Platform',
         data: {
           title: 'Platform with Dynamic Epic Creation',
@@ -469,7 +469,7 @@ describe('Complex Hierarchical Relationships', () => {
           level: 'root',
           status: 'in-progress',
           priority: 'high',
-          tags: ['dynamic', 'epics', 'platform'],
+          tags: ['dynamic', 'epics', "platform"],
           virtual_path: '/FEATURE.vf.json'
         }
       });
@@ -477,13 +477,13 @@ describe('Complex Hierarchical Relationships', () => {
       // 2. Create orphaned theme 1 - no explicit epic, multiple orphaned stories
       for (let i = 0; i < 2; i++) {
         const storyNum = String(i + 1).padStart(3, '0');
-        const storyPath = path.join(dynamicDir, `layer/themes/orphaned-theme-1/user-stories/${storyNum}-${i === 0 ? 'lonely' : 'isolated'}/FEATURE.vf.json`);
+        const storyPath = path.join(dynamicDir, `layer/themes/orphaned-theme-1/user-stories/${storyNum}-${i === 0 ? 'lonely' : "isolated"}/FEATURE.vf.json`);
         const storyWrapper = new VFDistributedFeatureWrapper(storyPath);
         
         await storyWrapper.write(storyPath, {
           metadata: {
             level: 'user_story',
-            path: `/layer/themes/orphaned-theme-1/user-stories/${storyNum}-${i === 0 ? 'lonely' : 'isolated'}/FEATURE.vf.json`,
+            path: `/layer/themes/orphaned-theme-1/user-stories/${storyNum}-${i === 0 ? 'lonely' : "isolated"}/FEATURE.vf.json`,
             version: '1.0.0',
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
@@ -499,8 +499,8 @@ describe('Complex Hierarchical Relationships', () => {
             level: 'user_story',
             status: 'planned',
             priority: 'medium',
-            tags: ['orphaned', 'theme-1'],
-            virtual_path: `/layer/themes/orphaned-theme-1/user-stories/${storyNum}-${i === 0 ? 'lonely' : 'isolated'}/FEATURE.vf.json`
+            tags: ["orphaned", 'theme-1'],
+            virtual_path: `/layer/themes/orphaned-theme-1/user-stories/${storyNum}-${i === 0 ? 'lonely' : "isolated"}/FEATURE.vf.json`
           }
         });
       }
@@ -508,7 +508,7 @@ describe('Complex Hierarchical Relationships', () => {
       // 3. Create orphaned theme 2 - no explicit epic, multiple orphaned stories
       for (let i = 0; i < 3; i++) {
         const storyNum = String(i + 1).padStart(3, '0');
-        const storyNames = ['standalone', 'solo', 'independent'];
+        const storyNames = ["standalone", 'solo', "independent"];
         const storyPath = path.join(dynamicDir, `layer/themes/orphaned-theme-2/user-stories/${storyNum}-${storyNames[i]}/FEATURE.vf.json`);
         const storyWrapper = new VFDistributedFeatureWrapper(storyPath);
         
@@ -531,7 +531,7 @@ describe('Complex Hierarchical Relationships', () => {
             level: 'user_story',
             status: 'planned',
             priority: 'medium',
-            tags: ['orphaned', 'theme-2', storyNames[i]],
+            tags: ["orphaned", 'theme-2', storyNames[i]],
             virtual_path: `/layer/themes/orphaned-theme-2/user-stories/${storyNum}-${storyNames[i]}/FEATURE.vf.json`
           }
         });
@@ -591,7 +591,7 @@ describe('Complex Hierarchical Relationships', () => {
           level: 'user_story',
           parent_feature_id: mixedEpicId,
           epic_id: mixedEpicId,
-          status: 'completed',
+          status: "completed",
           priority: 'high',
           tags: ['mixed', 'with-epic'],
           virtual_path: '/layer/themes/mixed-theme/user-stories/001-with-epic/FEATURE.vf.json'
@@ -621,7 +621,7 @@ describe('Complex Hierarchical Relationships', () => {
           level: 'user_story',
           status: 'planned',
           priority: 'medium',
-          tags: ['mixed', 'orphaned'],
+          tags: ['mixed', "orphaned"],
           virtual_path: '/layer/themes/mixed-theme/user-stories/002-without-epic/FEATURE.vf.json'
         }
       });
@@ -731,15 +731,15 @@ describe('Complex Hierarchical Relationships', () => {
         features: {}
       });
 
-      const platformId = await rootWrapper.addFeature('platform', {
+      const platformId = await rootWrapper.addFeature("platform", {
         name: 'E-commerce Platform',
         data: {
           title: 'Multi-Epic E-commerce Platform',
           description: 'Complex e-commerce platform with multiple epics and cross-dependencies',
           level: 'root',
           status: 'in-progress',
-          priority: 'critical',
-          tags: ['e-commerce', 'multi-epic', 'platform'],
+          priority: "critical",
+          tags: ['e-commerce', 'multi-epic', "platform"],
           virtual_path: '/FEATURE.vf.json'
         }
       });
@@ -768,8 +768,8 @@ describe('Complex Hierarchical Relationships', () => {
           level: 'epic',
           parent_feature_id: platformId,
           status: 'in-progress',
-          priority: 'critical',
-          tags: ['coordinator', 'theme-level'],
+          priority: "critical",
+          tags: ["coordinator", 'theme-level'],
           virtual_path: `/layer/themes/${themeName}/FEATURE.vf.json`
         }
       });
@@ -793,11 +793,11 @@ describe('Complex Hierarchical Relationships', () => {
           features: {}
         });
 
-        const epicPriority = epic.name === 'user-management' ? 'critical' :
+        const epicPriority = epic.name === 'user-management' ? "critical" :
                            epic.name === 'product-catalog' ? 'high' :
                            epic.name === 'order-processing' ? 'high' : 'medium';
 
-        const epicStatus = epic.name === 'user-management' ? 'completed' :
+        const epicStatus = epic.name === 'user-management' ? "completed" :
                           epic.name === 'product-catalog' ? 'in-progress' :
                           epic.name === 'order-processing' ? 'planned' : 'planned';
 
@@ -824,12 +824,12 @@ describe('Complex Hierarchical Relationships', () => {
           '001-identity': {
             title: 'User Identity Management',
             description: 'Core user authentication and identity services',
-            dependencies: [], priority: 'critical', status: 'completed'
+            dependencies: [], priority: "critical", status: "completed"
           },
           '002-profiles': {
             title: 'User Profile Management',
             description: 'User profile creation and management',
-            dependencies: ['identity-001'], priority: 'high', status: 'completed'
+            dependencies: ['identity-001'], priority: 'high', status: "completed"
           },
           '003-preferences': {
             title: 'User Preferences',
@@ -841,7 +841,7 @@ describe('Complex Hierarchical Relationships', () => {
           '001-products': {
             title: 'Product Management',
             description: 'Product CRUD operations and inventory',
-            dependencies: ['identity-001'], priority: 'critical', status: 'completed'
+            dependencies: ['identity-001'], priority: "critical", status: "completed"
           },
           '002-categories': {
             title: 'Category Management',
@@ -858,17 +858,17 @@ describe('Complex Hierarchical Relationships', () => {
           '001-cart': {
             title: 'Shopping Cart',
             description: 'Shopping cart functionality and persistence',
-            dependencies: ['identity-001', 'products-001'], priority: 'critical', status: 'planned'
+            dependencies: ['identity-001', 'products-001'], priority: "critical", status: 'planned'
           },
           '002-checkout': {
             title: 'Checkout Process',
             description: 'Multi-step checkout workflow',
-            dependencies: ['cart-001', 'profiles-001'], priority: 'critical', status: 'planned'
+            dependencies: ['cart-001', 'profiles-001'], priority: "critical", status: 'planned'
           },
           '003-payment': {
             title: 'Payment Processing',
             description: 'Secure payment processing and transactions',
-            dependencies: ['checkout-001'], priority: 'critical', status: 'planned'
+            dependencies: ['checkout-001'], priority: "critical", status: 'planned'
           }
         },
         'support-system': {

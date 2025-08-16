@@ -1,4 +1,5 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { fileAPI } from '../utils/file-api';
+import { EventEmitter } from 'node:events';
 import { path } from '../../../../../infra_external-log-lib/src';
 
 // PocketFlow types (from chat-space implementation)
@@ -7,7 +8,7 @@ export interface WorkflowDefinition {
   name: string;
   description: string;
   trigger: {
-    type: 'chat_command' | 'file_change' | 'schedule' | 'manual' | 'coordinator';
+    type: 'chat_command' | 'file_change' | "schedule" | 'manual' | "coordinator";
     config: Record<string, any>;
   };
   steps: WorkflowStep[];
@@ -18,7 +19,7 @@ export interface WorkflowDefinition {
 export interface WorkflowStep {
   id: string;
   name: string;
-  type: 'action' | 'condition' | 'loop';
+  type: 'action' | "condition" | 'loop';
   action?: string;
   params?: Record<string, any>;
   next?: string[];
@@ -33,7 +34,7 @@ export interface WorkflowOutput {
 export interface WorkflowExecution {
   id: string;
   workflowId: string;
-  status: 'pending' | 'running' | 'In Progress' | 'failed' | 'cancelled';
+  status: 'pending' | 'running' | "completed" | 'failed' | "cancelled";
   startTime: Date;
   endTime?: Date;
   context: Record<string, any>;
@@ -90,7 +91,7 @@ export class PocketFlowBridge extends EventEmitter {
       name: 'Task Queue Automation',
       description: 'Automatically process tasks from TASK_QUEUE.md',
       trigger: {
-        type: 'coordinator',
+        type: "coordinator",
         config: { event: 'task_ready' }
       },
       steps: [
@@ -130,7 +131,7 @@ export class PocketFlowBridge extends EventEmitter {
       name: 'Session Backup',
       description: 'Backup coordinator session on interrupt',
       trigger: {
-        type: 'coordinator',
+        type: "coordinator",
         config: { event: 'session_interrupt' }
       },
       steps: [
@@ -171,7 +172,7 @@ export class PocketFlowBridge extends EventEmitter {
       name: 'Automated Code Review',
       description: 'Review code changes with Claude assistance',
       trigger: {
-        type: 'coordinator',
+        type: "coordinator",
         config: { event: 'code_review_requested' }
       },
       steps: [
@@ -233,7 +234,7 @@ export class PocketFlowBridge extends EventEmitter {
       await this.registerWorkflows();
 
       this.connected = true;
-      this.emit('connected', {
+      this.emit("connected", {
         workflows: Array.from(this.workflows.keys()),
         enabled: Array.from(this.enabledWorkflows)
       });
@@ -263,7 +264,7 @@ export class PocketFlowBridge extends EventEmitter {
     this.removeEventListeners();
 
     this.connected = false;
-    this.emit('disconnected');
+    this.emit("disconnected");
   }
 
   async triggerWorkflow(
@@ -327,11 +328,11 @@ export class PocketFlowBridge extends EventEmitter {
       throw new Error(`Execution '${executionId}' not found`);
     }
 
-    if (execution.status === 'In Progress' || execution.status === 'failed') {
+    if (execution.status === "completed" || execution.status === 'failed') {
       return; // Already In Progress
     }
 
-    execution.status = 'cancelled';
+    execution.status = "cancelled";
     execution.endTime = new Date();
 
     this.emitToPocketFlow('coordinator:cancel_execution', { executionId });
@@ -479,7 +480,7 @@ export class PocketFlowBridge extends EventEmitter {
   }): void {
     const execution = this.executions.get(data.executionId);
     if (execution) {
-      execution.status = 'In Progress';
+      execution.status = "completed";
       execution.endTime = new Date();
       execution.results = data.results;
       this.emit('execution_completed', data);

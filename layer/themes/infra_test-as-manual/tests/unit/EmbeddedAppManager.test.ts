@@ -5,7 +5,7 @@
 import { EmbeddedAppManager, EmbeddedAppConfig } from '../../children/EmbeddedAppManager';
 import { EmbeddedAppTester } from '../../children/EmbeddedAppTester';
 
-describe('EmbeddedAppManager', () => {
+describe("EmbeddedAppManager", () => {
   let manager: EmbeddedAppManager;
   let config: EmbeddedAppConfig;
 
@@ -49,7 +49,7 @@ describe('EmbeddedAppManager', () => {
     delete global.document;
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with provided config', () => {
       expect(manager).toBeDefined();
     });
@@ -59,7 +59,7 @@ describe('EmbeddedAppManager', () => {
     });
   });
 
-  describe('onMessage', () => {
+  describe("onMessage", () => {
     it('should register message handlers', () => {
       const handler = jest.fn();
       manager.onMessage('test-message', handler);
@@ -94,7 +94,7 @@ describe('EmbeddedAppManager', () => {
   });
 
   describe('static methods', () => {
-    describe('isEmbedded', () => {
+    describe("isEmbedded", () => {
       it('should return false when not in iframe', () => {
         global.window.self = global.window.top;
         expect(EmbeddedAppManager.isEmbedded()).toBe(false);
@@ -114,7 +114,7 @@ describe('EmbeddedAppManager', () => {
       });
     });
 
-    describe('getParentWindow', () => {
+    describe("getParentWindow", () => {
       it('should return null when not embedded', () => {
         global.window.self = global.window.top;
         expect(EmbeddedAppManager.getParentWindow()).toBeNull();
@@ -129,13 +129,13 @@ describe('EmbeddedAppManager', () => {
     });
   });
 
-  describe('embedApp', () => {
+  describe("embedApp", () => {
     it('should throw error when called from child', () => {
       // Make it think it's a child
       global.window.location.href = 'http://localhost:3001';
       const childManager = new EmbeddedAppManager(config);
       
-      expect(() => childManager.embedApp('container')).toThrow(
+      expect(() => childManager.embedApp("container")).toThrow(
         'embedApp can only be called from parent application'
       );
     });
@@ -160,7 +160,7 @@ describe('EmbeddedAppManager', () => {
       (document.getElementById as jest.Mock).mockReturnValue(mockContainer);
       (document.createElement as jest.Mock).mockReturnValue(mockIframe);
       
-      const iframe = manager.embedApp('container');
+      const iframe = manager.embedApp("container");
       
       expect(document.createElement).toHaveBeenCalledWith('iframe');
       expect(mockIframe.src).toBe('http://localhost:3001');
@@ -171,7 +171,7 @@ describe('EmbeddedAppManager', () => {
     });
   });
 
-  describe('sendMessage', () => {
+  describe("sendMessage", () => {
     it('should send message from parent to child iframe', () => {
       const mockIframe = {
         contentWindow: {
@@ -181,7 +181,7 @@ describe('EmbeddedAppManager', () => {
       
       // Setup as parent with iframe
       manager['iframe'] = mockIframe as any;
-      manager['isParent'] = true;
+      manager["isParent"] = true;
       
       manager.sendMessage('test', { data: 'value' });
       
@@ -201,7 +201,7 @@ describe('EmbeddedAppManager', () => {
       } as any;
       
       // Setup as child
-      manager['isParent'] = false;
+      manager["isParent"] = false;
       
       manager.sendMessage('test', { data: 'value' });
       
@@ -217,7 +217,7 @@ describe('EmbeddedAppManager', () => {
   });
 });
 
-describe('EmbeddedAppTester', () => {
+describe("EmbeddedAppTester", () => {
   let manager: EmbeddedAppManager;
   let tester: EmbeddedAppTester;
   let config: EmbeddedAppConfig;
@@ -258,17 +258,17 @@ describe('EmbeddedAppTester', () => {
     delete global.document;
   });
 
-  describe('testCommunication', () => {
+  describe("testCommunication", () => {
     it('should resolve true when ping response received', async () => {
       // Mock the message handling
-      jest.spyOn(manager, 'onMessage').mockImplementation((type, handler) => {
+      jest.spyOn(manager, "onMessage").mockImplementation((type, handler) => {
         if (type === 'ping-response') {
           // Simulate immediate response
           setTimeout(() => handler({ id: expect.any(String) }, 'http://localhost:3001'), 10);
         }
       });
       
-      jest.spyOn(manager, 'sendMessage').mockImplementation(() => {});
+      jest.spyOn(manager, "sendMessage").mockImplementation(() => {});
       
       const result = await tester.testCommunication();
       expect(result).toBe(true);
@@ -276,8 +276,8 @@ describe('EmbeddedAppTester', () => {
     });
 
     it('should resolve false on timeout', async () => {
-      jest.spyOn(manager, 'onMessage').mockImplementation(() => {});
-      jest.spyOn(manager, 'sendMessage').mockImplementation(() => {});
+      jest.spyOn(manager, "onMessage").mockImplementation(() => {});
+      jest.spyOn(manager, "sendMessage").mockImplementation(() => {});
       
       const result = await Promise.race([
         tester.testCommunication(),
@@ -288,15 +288,15 @@ describe('EmbeddedAppTester', () => {
     });
   });
 
-  describe('testSandboxRestrictions', () => {
+  describe("testSandboxRestrictions", () => {
     it('should test various sandbox restrictions', () => {
       const results = tester.testSandboxRestrictions();
       
       expect(results).toHaveProperty('scripts');
       expect(results).toHaveProperty('forms');
       expect(results).toHaveProperty('popups');
-      expect(results).toHaveProperty('pointerLock');
-      expect(results).toHaveProperty('sameOrigin');
+      expect(results).toHaveProperty("pointerLock");
+      expect(results).toHaveProperty("sameOrigin");
     });
 
     it('should return empty object when document is undefined', () => {
@@ -306,9 +306,9 @@ describe('EmbeddedAppTester', () => {
     });
   });
 
-  describe('testResponsiveBehavior', () => {
+  describe("testResponsiveBehavior", () => {
     it('should send resize messages for different viewport sizes', () => {
-      jest.spyOn(manager, 'sendMessage').mockImplementation(() => {});
+      jest.spyOn(manager, "sendMessage").mockImplementation(() => {});
       
       tester.testResponsiveBehavior();
       
@@ -319,9 +319,9 @@ describe('EmbeddedAppTester', () => {
     });
   });
 
-  describe('testEventPropagation', () => {
+  describe("testEventPropagation", () => {
     it('should setup event listeners for propagation testing', () => {
-      jest.spyOn(manager, 'sendMessage').mockImplementation(() => {});
+      jest.spyOn(manager, "sendMessage").mockImplementation(() => {});
       
       tester.testEventPropagation();
       

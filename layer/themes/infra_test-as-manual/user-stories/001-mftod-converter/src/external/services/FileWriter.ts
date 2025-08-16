@@ -2,7 +2,7 @@
  * File Writer Service - Outputs manual tests in various formats
  */
 
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../../../../../infra_external-log-lib/src';
 import { ManualTestSuite, ManualTest, ManualTestStep } from '../../logic/entities/ManualTest';
 import { getFileAPI, FileType } from '../../../../../../infra_external-log-lib/pipe';
@@ -10,7 +10,7 @@ import { getFileAPI, FileType } from '../../../../../../infra_external-log-lib/p
 const fileAPI = getFileAPI();
 
 
-export type OutputFormat = 'markdown' | 'html' | 'json';
+export type OutputFormat = "markdown" | 'html' | 'json';
 
 export class FileWriter {
   /**
@@ -19,7 +19,7 @@ export class FileWriter {
   async writeManualTestSuite(
     suite: ManualTestSuite,
     outputPath: string,
-    format: OutputFormat = 'markdown'
+    format: OutputFormat = "markdown"
   ): Promise<void> {
     await fileAPI.createDirectory(outputPath);
 
@@ -28,7 +28,7 @@ export class FileWriter {
 
     let content: string;
     switch (format) {
-      case 'markdown':
+      case "markdown":
         content = this.generateMarkdown(suite);
         break;
       case 'html':
@@ -63,14 +63,14 @@ export class FileWriter {
       
       for (const procedure of suite.commonProcedures) {
         const fileName = `${this.sanitizeFileName(procedure.title)}.${this.getFileExtension(format)}`;
-        const content = format === 'markdown' 
+        const content = format === "markdown" 
           ? this.generateMarkdownForTest(procedure)
           : this.generateHTMLForTest(procedure);
         await fileAPI.createFile(path.join(commonDir, fileName), { type: FileType.TEMPORARY }));
       await fileAPI.createDirectory(categoryDir);
       
       const fileName = `${this.sanitizeFileName(procedure.title)}.${this.getFileExtension(format)}`;
-      const content = format === 'markdown'
+      const content = format === "markdown"
         ? this.generateMarkdownForTest(procedure)
         : this.generateHTMLForTest(procedure);
       await fileAPI.createFile(path.join(categoryDir, fileName), { type: FileType.TEMPORARY });
@@ -78,7 +78,7 @@ export class FileWriter {
       
       for (const sequence of suite.sequences) {
         const fileName = `${this.sanitizeFileName(sequence.name)}.${this.getFileExtension(format)}`;
-        const content = format === 'markdown'
+        const content = format === "markdown"
           ? this.generateMarkdownForSequence(sequence)
           : this.generateHTMLForSequence(sequence);
         await fileAPI.createFile(path.join(sequencesDir, fileName), { type: FileType.TEMPORARY })) {
@@ -370,7 +370,7 @@ export class FileWriter {
   // Helper methods
   private async getFileExtension(format: OutputFormat): string {
     switch (format) {
-      case 'markdown': return 'md';
+      case "markdown": return 'md';
       case 'html': return 'html';
       case 'json': return 'json';
     }

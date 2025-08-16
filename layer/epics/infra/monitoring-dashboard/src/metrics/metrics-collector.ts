@@ -1,11 +1,12 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * MetricsCollector - System and application metrics collection with time-series storage
  */
 
-import { EventEmitter } from 'events';
-import { promisify } from 'util';
+import { EventEmitter } from 'node:events';
+import { promisify } from 'node:util';
 import * as os from 'os';
-import { fs } from '../../../../../themes/infra_external-log-lib/dist';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 import { exec } from 'child_process';
 import winston from 'winston';
 
@@ -67,7 +68,7 @@ export interface CustomMetric {
   value: number;
   timestamp: number;
   labels: Record<string, string>;
-  type: 'counter' | 'gauge' | 'histogram' | 'summary';
+  type: 'counter' | 'gauge' | "histogram" | 'summary';
 }
 
 export interface MetricQuery {
@@ -125,7 +126,7 @@ export class MetricsCollector extends EventEmitter {
         await this.collectSystemMetrics();
         await this.collectApplicationMetrics();
         this.cleanupOldData();
-        this.emit('metricsUpdated', await this.getCurrentMetrics());
+        this.emit("metricsUpdated", await this.getCurrentMetrics());
       } catch (error) {
         this.logger.error('Error during metrics collection:', error);
       }
@@ -167,7 +168,7 @@ export class MetricsCollector extends EventEmitter {
       this.systemMetrics.push(metrics);
       this.trimArray(this.systemMetrics, this.maxDataPoints);
       
-      this.emit('systemMetricsCollected', metrics);
+      this.emit("systemMetricsCollected", metrics);
     } catch (error) {
       this.logger.error('Error collecting system metrics:', error);
     }
@@ -291,7 +292,7 @@ export class MetricsCollector extends EventEmitter {
           this.trimArray(serviceMetrics, this.maxDataPoints);
           this.applicationMetrics.set(service, serviceMetrics);
           
-          this.emit('applicationMetricsCollected', metrics);
+          this.emit("applicationMetricsCollected", metrics);
         }
       } catch (error) {
         this.logger.error(`Error collecting metrics for service ${service}:`, error);
@@ -413,7 +414,7 @@ export class MetricsCollector extends EventEmitter {
       case 'gauge':
         this.gauges.set(name, value);
         break;
-      case 'histogram':
+      case "histogram":
         const histValues = this.histograms.get(name) || [];
         histValues.push(value);
         this.trimArray(histValues, 1000); // Keep last 1000 values
@@ -421,7 +422,7 @@ export class MetricsCollector extends EventEmitter {
         break;
     }
 
-    this.emit('customMetricRecorded', metric);
+    this.emit("customMetricRecorded", metric);
   }
 
   /**

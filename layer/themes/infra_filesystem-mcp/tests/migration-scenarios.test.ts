@@ -1,4 +1,4 @@
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 import { VFDistributedFeatureWrapper, DistributedFeatureFile, DistributedFeature } from '../children/VFDistributedFeatureWrapper';
 
@@ -37,10 +37,10 @@ describe('Migration Scenarios from Old to New Format', () => {
             id: 'platform-001',
             title: 'Core Platform',
             description: 'Main platform infrastructure',
-            type: 'platform',
+            type: "platform",
             status: 'in-progress',
-            priority: 'critical',
-            tags: ['platform', 'core'],
+            priority: "critical",
+            tags: ["platform", 'core'],
             owner: 'platform-team'
           },
           
@@ -50,8 +50,8 @@ describe('Migration Scenarios from Old to New Format', () => {
             title: 'User Authentication',
             description: 'Basic user login/logout',
             type: 'feature',
-            status: 'completed',
-            priority: 'critical',
+            status: "completed",
+            priority: "critical",
             tags: ['auth', 'login'],
             owner: 'auth-team',
             parent: 'platform-001'
@@ -74,7 +74,7 @@ describe('Migration Scenarios from Old to New Format', () => {
             type: 'feature',
             status: 'planned',
             priority: 'high',
-            tags: ['auth', 'mfa', 'security'],
+            tags: ['auth', 'mfa', "security"],
             owner: 'auth-team',
             parent: 'auth-001'
           },
@@ -85,9 +85,9 @@ describe('Migration Scenarios from Old to New Format', () => {
             title: 'Payment Gateway',
             description: 'Core payment processing',
             type: 'feature',
-            status: 'completed',
-            priority: 'critical',
-            tags: ['payments', 'gateway'],
+            status: "completed",
+            priority: "critical",
+            tags: ["payments", 'gateway'],
             owner: 'payments-team',
             parent: 'platform-001'
           },
@@ -96,9 +96,9 @@ describe('Migration Scenarios from Old to New Format', () => {
             title: 'Stripe Integration',
             description: 'Stripe payment processor',
             type: 'feature',
-            status: 'completed',
+            status: "completed",
             priority: 'high',
-            tags: ['payments', 'stripe'],
+            tags: ["payments", 'stripe'],
             owner: 'payments-team',
             parent: 'pay-001'
           },
@@ -109,7 +109,7 @@ describe('Migration Scenarios from Old to New Format', () => {
             type: 'feature',
             status: 'planned',
             priority: 'medium',
-            tags: ['payments', 'paypal'],
+            tags: ["payments", 'paypal'],
             owner: 'payments-team',
             parent: 'pay-001'
           },
@@ -122,7 +122,7 @@ describe('Migration Scenarios from Old to New Format', () => {
             type: 'feature',
             status: 'in-progress',
             priority: 'medium',
-            tags: ['analytics', 'tracking'],
+            tags: ["analytics", "tracking"],
             owner: 'analytics-team',
             parent: 'platform-001'
           },
@@ -133,7 +133,7 @@ describe('Migration Scenarios from Old to New Format', () => {
             type: 'feature',
             status: 'planned',
             priority: 'medium',
-            tags: ['analytics', 'dashboard'],
+            tags: ["analytics", "dashboard"],
             owner: 'analytics-team',
             parent: 'analytics-001'
           }
@@ -152,7 +152,7 @@ describe('Migration Scenarios from Old to New Format', () => {
         const rootFeatures: any[] = [];
 
         features.forEach((feature: any) => {
-          if (feature.type === 'platform') {
+          if (feature.type === "platform") {
             rootFeatures.push(feature);
           } else {
             // Group by tag domain or parent
@@ -180,15 +180,15 @@ describe('Migration Scenarios from Old to New Format', () => {
         // Migrate root features
         const epicIds: Record<string, string> = {};
         for (const rootFeature of rootFeatures) {
-          const platformId = await rootWrapper.addFeature('platform', {
+          const platformId = await rootWrapper.addFeature("platform", {
             name: rootFeature.title,
             data: {
               title: rootFeature.title,
               description: rootFeature.description,
               level: 'root',
               status: rootFeature.status === 'in-progress' ? 'in-progress' : 
-                     rootFeature.status === 'completed' ? 'completed' : 'planned',
-              priority: rootFeature.priority === 'critical' ? 'critical' :
+                     rootFeature.status === "completed" ? "completed" : 'planned',
+              priority: rootFeature.priority === "critical" ? "critical" :
                        rootFeature.priority === 'high' ? 'high' :
                        rootFeature.priority === 'medium' ? 'medium' : 'low',
               tags: rootFeature.tags || [],
@@ -225,7 +225,7 @@ describe('Migration Scenarios from Old to New Format', () => {
                 parent_feature_id: platformId,
                 status: 'in-progress',
                 priority: 'high',
-                tags: [domain, 'migrated'],
+                tags: [domain, "migrated"],
                 virtual_path: `/layer/themes/${domain}/FEATURE.vf.json`
               }
             });
@@ -265,8 +265,8 @@ describe('Migration Scenarios from Old to New Format', () => {
                   parent_feature_id: epicId,
                   epic_id: epicId,
                   status: feature.status === 'in-progress' ? 'in-progress' : 
-                         feature.status === 'completed' ? 'completed' : 'planned',
-                  priority: feature.priority === 'critical' ? 'critical' :
+                         feature.status === "completed" ? "completed" : 'planned',
+                  priority: feature.priority === "critical" ? "critical" :
                            feature.priority === 'high' ? 'high' :
                            feature.priority === 'medium' ? 'medium' : 'low',
                   tags: feature.tags || [],
@@ -300,7 +300,7 @@ describe('Migration Scenarios from Old to New Format', () => {
       };
 
       // 3. Perform migration
-      const migrationOutputDir = path.join(migrationDir, 'migrated');
+      const migrationOutputDir = path.join(migrationDir, "migrated");
       await fs.mkdir(migrationOutputDir, { recursive: true });
       
       const migrationResult = await migrateLegacyToDistributed(legacyPath, migrationOutputDir);
@@ -321,7 +321,7 @@ describe('Migration Scenarios from Old to New Format', () => {
 
       // Should have all user stories (3 auth + 3 payments + 2 analytics = 8 total)
       const allStoryKeys = Object.keys(migratedRoot.aggregated_view || {}).filter(key => 
-        !['platform', 'auth', 'payments', 'analytics'].includes(key)
+        !["platform", 'auth', "payments", "analytics"].includes(key)
       );
       expect(allStoryKeys.length).toBe(8);
 
@@ -332,7 +332,7 @@ describe('Migration Scenarios from Old to New Format', () => {
 
       // Verify statuses were preserved
       const userAuthStory = migratedRoot.aggregated_view?.user_authentication[0];
-      expect(userAuthStory.data.status).toBe('completed');
+      expect(userAuthStory.data.status).toBe("completed");
 
       const oauthStory = migratedRoot.aggregated_view?.oauth_integration[0];
       expect(oauthStory.data.status).toBe('in-progress');
@@ -367,8 +367,8 @@ describe('Migration Scenarios from Old to New Format', () => {
                   title: 'Platform V1',
                   description: 'Original platform implementation',
                   level: 'root',
-                  status: 'completed',
-                  priority: 'critical',
+                  status: "completed",
+                  priority: "critical",
                   // Missing new v2.0 fields: tags, assignee, components, acceptanceCriteria
                   virtual_path: '/root-v1.json'
                 },
@@ -564,7 +564,7 @@ describe('Migration Scenarios from Old to New Format', () => {
                 title: f.feature_name,
                 description: f.description,
                 level: 'user_story',
-                status: f.state === 'done' ? 'completed' : f.state === 'working' ? 'in-progress' : 'planned',
+                status: f.state === 'done' ? "completed" : f.state === 'working' ? 'in-progress' : 'planned',
                 priority: f.importance === 'high' ? 'high' : f.importance === 'medium' ? 'medium' : 'low',
                 virtual_path: '/feature-v1.0.json'
               },
@@ -653,15 +653,15 @@ describe('Migration Scenarios from Old to New Format', () => {
         await wrapper.write(v20Path, v20Content);
 
         // Add root platform feature
-        const platformId = await wrapper.addFeature('platform', {
+        const platformId = await wrapper.addFeature("platform", {
           name: 'Migrated Platform',
           data: {
             title: 'Platform Migrated Through Multiple Versions',
             description: 'Platform that went through v0.5 -> v1.0 -> v1.5 -> v2.0 migration',
             level: 'root',
             status: 'in-progress',
-            priority: 'critical',
-            tags: ['migrated', 'multi-version'],
+            priority: "critical",
+            tags: ["migrated", 'multi-version'],
             virtual_path: '/feature-v2.0.json'
           }
         });
@@ -676,7 +676,7 @@ describe('Migration Scenarios from Old to New Format', () => {
             parent_feature_id: platformId,
             status: 'in-progress',
             priority: 'high',
-            tags: ['auth', 'migrated'],
+            tags: ['auth', "migrated"],
             virtual_path: '/feature-v2.0.json'
           }
         });
@@ -693,7 +693,7 @@ describe('Migration Scenarios from Old to New Format', () => {
               epic_id: feature.data.epic_id || authEpicId,
               status: feature.data.status,
               priority: feature.data.priority,
-              tags: ['migrated', 'multi-version', 'legacy'],
+              tags: ["migrated", 'multi-version', 'legacy'],
               components: [`${feature.name.replace(/\s+/g, '')}.tsx`],
               acceptanceCriteria: [
                 'Original functionality is preserved',
@@ -773,7 +773,7 @@ describe('Migration Scenarios from Old to New Format', () => {
                 status: { name: 'Done' },
                 priority: { name: 'High' },
                 assignee: { displayName: 'John Doe' },
-                components: [{ name: 'Frontend' }, { name: 'Backend' }],
+                components: [{ name: "Frontend" }, { name: 'Backend' }],
                 created: '2024-03-01T09:00:00.000Z',
                 updated: '2024-03-15T14:30:00.000Z'
               },
@@ -830,10 +830,10 @@ describe('Migration Scenarios from Old to New Format', () => {
                 task_id: 'T001',
                 title: 'Database Migration Script',
                 body: 'Create script to migrate user data to new schema',
-                current_state: 'completed',
+                current_state: "completed",
                 urgency_level: 1,
                 team_member: 'dev-team',
-                tech_stack: ['PostgreSQL', 'Node.js'],
+                tech_stack: ["PostgreSQL", 'Node.js'],
                 checklist: [
                   'Design new schema',
                   'Write migration script',
@@ -878,7 +878,7 @@ describe('Migration Scenarios from Old to New Format', () => {
             level: 'epic',
             status: 'in-progress',
             priority: 'high',
-            tags: ['migrated', 'jira'],
+            tags: ["migrated", 'jira'],
             virtual_path: '/migrated-from-jira.json'
           }
         });
@@ -892,7 +892,7 @@ describe('Migration Scenarios from Old to New Format', () => {
               level: 'user_story',
               parent_feature_id: epicId,
               epic_id: epicId,
-              status: issue.status.name === 'Done' ? 'completed' :
+              status: issue.status.name === 'Done' ? "completed" :
                      issue.status.name === 'In Progress' ? 'in-progress' : 'planned',
               priority: issue.priority.name === 'High' ? 'high' :
                        issue.priority.name === 'Medium' ? 'medium' : 'low',
@@ -933,13 +933,13 @@ describe('Migration Scenarios from Old to New Format', () => {
             level: 'epic',
             status: 'in-progress',
             priority: 'high',
-            tags: ['migrated', 'trello'],
+            tags: ["migrated", 'trello'],
             virtual_path: '/migrated-from-trello.json'
           }
         });
 
         for (const card of trelloData.cards) {
-          const priorityLabel = card.labels.find((l: any) => l.name.includes('Priority'));
+          const priorityLabel = card.labels.find((l: any) => l.name.includes("Priority"));
           const priority = priorityLabel?.name.includes('High') ? 'high' :
                           priorityLabel?.name.includes('Medium') ? 'medium' : 'low';
 
@@ -951,7 +951,7 @@ describe('Migration Scenarios from Old to New Format', () => {
               level: 'user_story',
               parent_feature_id: epicId,
               epic_id: epicId,
-              status: card.list.name === 'Done' ? 'completed' :
+              status: card.list.name === 'Done' ? "completed" :
                      card.list.name === 'In Progress' ? 'in-progress' : 'planned',
               priority: priority as any,
               tags: ['trello-migrated', ...card.labels.map((l: any) => l.name.toLowerCase().replace(/\s+/g, '-'))],
@@ -991,7 +991,7 @@ describe('Migration Scenarios from Old to New Format', () => {
             level: 'epic',
             status: 'in-progress',
             priority: 'high',
-            tags: ['migrated', 'custom-tracker'],
+            tags: ["migrated", 'custom-tracker'],
             virtual_path: '/migrated-from-custom.json'
           }
         });
@@ -1005,9 +1005,9 @@ describe('Migration Scenarios from Old to New Format', () => {
               level: 'user_story',
               parent_feature_id: epicId,
               epic_id: epicId,
-              status: task.current_state === 'completed' ? 'completed' :
+              status: task.current_state === "completed" ? "completed" :
                      task.current_state === 'in-progress' ? 'in-progress' : 'planned',
-              priority: task.urgency_level === 1 ? 'critical' :
+              priority: task.urgency_level === 1 ? "critical" :
                        task.urgency_level === 2 ? 'high' :
                        task.urgency_level === 3 ? 'medium' : 'low',
               tags: ['custom-migrated', ...task.tech_stack.map((t: string) => t.toLowerCase())],
@@ -1053,12 +1053,12 @@ describe('Migration Scenarios from Old to New Format', () => {
         const result = await wrapper.read(transformation.target);
 
         // Should have migrated epic
-        const epicCategory = Object.keys(result.features).find(key => key.includes('migrated'));
+        const epicCategory = Object.keys(result.features).find(key => key.includes("migrated"));
         expect(epicCategory).toBeDefined();
         expect(result.features[epicCategory!]).toHaveLength(1);
 
         // Should have features
-        const featureCategory = Object.keys(result.features).find(key => key.includes('features'));
+        const featureCategory = Object.keys(result.features).find(key => key.includes("features"));
         expect(featureCategory).toBeDefined();
         expect(result.features[featureCategory!].length).toBeGreaterThan(0);
 
@@ -1069,7 +1069,7 @@ describe('Migration Scenarios from Old to New Format', () => {
           expect(feature.data.level).toBe('user_story');
           expect(feature.data.status).toMatch(/^(completed|in-progress|planned)$/);
           expect(feature.data.priority).toMatch(/^(critical|high|medium|low)$/);
-          expect(feature.data.tags).toContain('migrated');
+          expect(feature.data.tags).toContain("migrated");
           expect(feature.data.virtual_path).toBeDefined();
         });
       }
@@ -1094,15 +1094,15 @@ describe('Migration Scenarios from Old to New Format', () => {
         ]
       });
 
-      const platformId = await combinedWrapper.addFeature('platform', {
+      const platformId = await combinedWrapper.addFeature("platform", {
         name: 'Multi-Source Migration Platform',
         data: {
           title: 'Platform with Multi-Source Migrations',
           description: 'Platform combining features migrated from Jira, Trello, and custom tracker',
           level: 'root',
           status: 'in-progress',
-          priority: 'critical',
-          tags: ['platform', 'multi-migration'],
+          priority: "critical",
+          tags: ["platform", 'multi-migration'],
           virtual_path: '/all-migrations-combined.json'
         }
       });

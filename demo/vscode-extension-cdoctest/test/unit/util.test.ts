@@ -24,7 +24,7 @@ describe('Util Functions', () => {
     jest.clearAllMocks();
   });
 
-  describe('fileExists', () => {
+  describe("fileExists", () => {
     test('should return true when file exists', async () => {
       mockStat.mockResolvedValue({ type: 1, size: 100 });
       
@@ -37,7 +37,7 @@ describe('Util Functions', () => {
 
     test('should return false when file does not exist (FileNotFound)', async () => {
       const error = new Error('File not found');
-      (error as any).code = 'FileNotFound';
+      (error as any).code = "FileNotFound";
       mockStat.mockRejectedValue(error);
       
       const uri = { fsPath: '/test/missing.txt' } as vscode.Uri;
@@ -81,7 +81,7 @@ describe('Util Functions', () => {
     });
   });
 
-  describe('fileExistsText', () => {
+  describe("fileExistsText", () => {
     test('should return true when file exists using text path', async () => {
       mockStat.mockResolvedValue({ type: 1, size: 100 });
       
@@ -94,7 +94,7 @@ describe('Util Functions', () => {
 
     test('should return false when file does not exist using text path', async () => {
       const error = new Error('File not found');
-      (error as any).code = 'FileNotFound';
+      (error as any).code = "FileNotFound";
       mockStat.mockRejectedValue(error);
       
       const result = await fileExistsText('/test/missing.txt');

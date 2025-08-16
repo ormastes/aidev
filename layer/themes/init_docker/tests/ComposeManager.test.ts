@@ -12,7 +12,7 @@ jest.mock('fs', () => ({
 }));
 jest.mock('js-yaml');
 
-describe('ComposeManager', () => {
+describe("ComposeManager", () => {
   let composeManager: ComposeManager;
   const mockExecAsync = exec as unknown as jest.MockedFunction<typeof exec>;
 
@@ -21,7 +21,7 @@ describe('ComposeManager', () => {
     jest.clearAllMocks();
   });
 
-  describe('generateComposeFile', () => {
+  describe("generateComposeFile", () => {
     it('should generate docker-compose.yml from config', () => {
       const config: ComposeConfig = {
         version: '3.8',
@@ -30,7 +30,7 @@ describe('ComposeManager', () => {
             image: 'node:18',
             ports: ['3000:3000'],
             environment: {
-              NODE_ENV: 'production'
+              NODE_ENV: "production"
             }
           }
         }
@@ -111,7 +111,7 @@ networks:
     });
   });
 
-  describe('generatePlatformCompose', () => {
+  describe("generatePlatformCompose", () => {
     it('should generate compose config for platform themes', () => {
       const themes = ['mate-dealer', 'portal_gui-selector'];
       
@@ -142,7 +142,7 @@ networks:
     });
   });
 
-  describe('runCompose', () => {
+  describe("runCompose", () => {
     it('should run docker-compose command with options', async () => {
       (mockExecAsync as any).mockImplementation((cmd: string, options: any, callback: any) => {
         callback(null, { stdout: 'Success', stderr: '' });
@@ -180,7 +180,7 @@ networks:
 
   describe('up', () => {
     it('should start services with detach and build options', async () => {
-      jest.spyOn(composeManager, 'runCompose').mockResolvedValue('Started');
+      jest.spyOn(composeManager, "runCompose").mockResolvedValue('Started');
 
       const result = await composeManager.up({
         detach: true,
@@ -200,7 +200,7 @@ networks:
 
   describe('down', () => {
     it('should stop services with volumes option', async () => {
-      jest.spyOn(composeManager, 'runCompose').mockResolvedValue('Stopped');
+      jest.spyOn(composeManager, "runCompose").mockResolvedValue('Stopped');
 
       const result = await composeManager.down({
         volumes: true,
@@ -217,7 +217,7 @@ networks:
 
   describe('logs', () => {
     it('should get service logs with options', async () => {
-      jest.spyOn(composeManager, 'runCompose').mockResolvedValue('Log output');
+      jest.spyOn(composeManager, "runCompose").mockResolvedValue('Log output');
 
       const result = await composeManager.logs('app', {
         follow: false,
@@ -232,11 +232,11 @@ networks:
     });
   });
 
-  describe('validate', () => {
+  describe("validate", () => {
     it('should validate compose file successfully', async () => {
       (fs.promises.readFile as jest.MockedFunction<typeof fs.promises.readFile>).mockResolvedValue('valid yaml');
       (yaml.load as jest.MockedFunction<typeof yaml.load>).mockReturnValue({});
-      jest.spyOn(composeManager, 'runCompose').mockResolvedValue('Configuration is valid');
+      jest.spyOn(composeManager, "runCompose").mockResolvedValue('Configuration is valid');
 
       const result = await composeManager.validate('/path/to/docker-compose.yml');
 
@@ -258,7 +258,7 @@ networks:
     });
   });
 
-  describe('mergeConfigs', () => {
+  describe("mergeConfigs", () => {
     it('should merge multiple compose configurations', () => {
       const config1: ComposeConfig = {
         version: '3.8',
@@ -293,7 +293,7 @@ networks:
     });
   });
 
-  describe('saveComposeFile', () => {
+  describe("saveComposeFile", () => {
     it('should save compose file content', async () => {
       const content = 'version: "3.8"';
       const filepath = '/path/to/docker-compose.yml';
@@ -306,7 +306,7 @@ networks:
     });
   });
 
-  describe('loadComposeFile', () => {
+  describe("loadComposeFile", () => {
     it('should load and parse compose file', async () => {
       const content = 'version: "3.8"';
       const config = { version: '3.8', services: {} };

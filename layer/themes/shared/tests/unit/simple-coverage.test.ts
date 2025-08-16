@@ -19,13 +19,13 @@ describe('Simple Coverage Tests', () => {
 
   describe('String Utils', () => {
     it('should convert to camel case', () => {
-      expect(toCamelCase('hello-world')).toBe('helloWorld');
-      expect(toCamelCase('test_case_string')).toBe('testCaseString');
+      expect(toCamelCase('hello-world')).toBe("helloWorld");
+      expect(toCamelCase('test_case_string')).toBe("testCaseString");
     });
 
     it('should convert to kebab case', () => {
-      expect(toKebabCase('HelloWorld')).toBe('hello-world');
-      expect(toKebabCase('testCase')).toBe('test-case');
+      expect(toKebabCase("HelloWorld")).toBe('hello-world');
+      expect(toKebabCase("testCase")).toBe('test-case');
     });
 
     it('should capitalize strings', () => {

@@ -22,9 +22,9 @@ describe('MFTODConverter Integration Tests', () => {
     jest.clearAllMocks();
   });
 
-  describe('convertFile', () => {
+  describe("convertFile", () => {
     const testCode = `
-      describe('Calculator', () => {
+      describe("Calculator", () => {
         it('should add two numbers', () => {
           const result = add(2, 3);
           expect(result).toBe(5);
@@ -43,7 +43,7 @@ describe('MFTODConverter Integration Tests', () => {
       const result = await converter.convertFile('test.spec.ts');
 
       expect(mockFs.readFile).toHaveBeenCalledWith('test.spec.ts', 'utf-8');
-      expect(result).toContain('Calculator');
+      expect(result).toContain("Calculator");
       expect(result).toContain('add two numbers');
       expect(result).toContain('subtract two numbers');
     });
@@ -51,7 +51,7 @@ describe('MFTODConverter Integration Tests', () => {
     it('should support different output formats', async () => {
       mockFs.readFile.mockResolvedValue(testCode);
 
-      const markdownResult = await converter.convertFile('test.spec.ts', { format: 'markdown' });
+      const markdownResult = await converter.convertFile('test.spec.ts', { format: "markdown" });
       const htmlResult = await converter.convertFile('test.spec.ts', { format: 'html' });
       const jsonResult = await converter.convertFile('test.spec.ts', { format: 'json' });
 
@@ -64,7 +64,7 @@ describe('MFTODConverter Integration Tests', () => {
       mockFs.readFile.mockResolvedValue(testCode);
 
       const result = await converter.convertFile('test.spec.ts', { 
-        format: 'professional',
+        format: "professional",
         includeCodeSnippets: false
       });
 
@@ -85,7 +85,7 @@ describe('MFTODConverter Integration Tests', () => {
     });
   });
 
-  describe('convertDirectory', () => {
+  describe("convertDirectory", () => {
     it('should process multiple test files', async () => {
       const files = ['test1.test.ts', 'test2.spec.ts'];
       const dirEntries = files.map(name => ({ name, isFile: () => true, isDirectory: () => false }));

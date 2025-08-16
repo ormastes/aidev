@@ -80,7 +80,7 @@ test.describe('Filesystem MCP Protection System Tests', () => {
       expect(currentContent).toBe(originalContent);
       
       // Log result
-      console.log('CLAUDE.md protection test:', modificationBlocked ? 'PROTECTED' : 'NOT PROTECTED');
+      console.log('CLAUDE.md protection test:', modificationBlocked ? "PROTECTED" : 'NOT PROTECTED');
     });
 
     test('should prevent direct modification of .vf.json files', async () => {
@@ -130,7 +130,7 @@ test.describe('Filesystem MCP Protection System Tests', () => {
         expect(currentData).toEqual(originalData);
         expect(currentData.__test_modification__).toBeUndefined();
         
-        console.log(`${vfFile} protection test:`, modificationBlocked ? 'PROTECTED' : 'NOT PROTECTED');
+        console.log(`${vfFile} protection test:`, modificationBlocked ? "PROTECTED" : 'NOT PROTECTED');
       }
     });
   });
@@ -190,7 +190,7 @@ test.describe('Filesystem MCP Protection System Tests', () => {
       await new Promise(resolve => setTimeout(resolve, 5000));
 
       // Test TASK_QUEUE enforcement
-      const testResult = await runDockerTest('enhanced', {
+      const testResult = await runDockerTest("enhanced", {
         operation: 'modify_task_queue',
         filePath: 'TASK_QUEUE.vf.json',
         modification: {
@@ -428,7 +428,7 @@ test.describe('Filesystem MCP Protection System Tests', () => {
 
       // Write log file
       const logContent = violations.map(v => 
-        `[${v.timestamp}] ${v.scenario}: ${v.success ? 'NOT PROTECTED' : 'PROTECTED'} ${v.error || ''}`
+        `[${v.timestamp}] ${v.scenario}: ${v.success ? 'NOT PROTECTED' : "PROTECTED"} ${v.error || ''}`
       ).join('\n');
       
       await fs.writeFile(logFile, logContent);
@@ -464,7 +464,7 @@ test.describe('Filesystem MCP Protection System Tests', () => {
       report += '## Test Environment\n\n';
       report += `- Workspace: ${workspaceRoot}\n`;
       report += `- MCP Mode: strict\n`;
-      report += `- Docker: ${await isDockerAvailable() ? 'Available' : 'Not Available'}\n\n`;
+      report += `- Docker: ${await isDockerAvailable() ? "Available" : 'Not Available'}\n\n`;
       
       report += '## Protection Tests\n\n';
       

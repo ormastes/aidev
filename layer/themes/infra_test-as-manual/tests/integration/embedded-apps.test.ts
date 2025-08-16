@@ -59,7 +59,7 @@ test.describe('Embedded Web Apps - Manual Theme Tests', () => {
       const messageReceived = await page.evaluate(() => {
         return new Promise((resolve) => {
           window.addEventListener('message', (event) => {
-            if (event.data.type === 'selection') {
+            if (event.data.type === "selection") {
               resolve(event.data);
             }
           });
@@ -72,7 +72,7 @@ test.describe('Embedded Web Apps - Manual Theme Tests', () => {
       
       // Verify message received
       const message = await messageReceived;
-      expect(message).toHaveProperty('type', 'selection');
+      expect(message).toHaveProperty('type', "selection");
       expect(message).toHaveProperty('payload');
     });
 

@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach } from '@jest/globals';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { fs } from '../../../../../infra_external-log-lib/src';
 import { path } from '../../../../../infra_external-log-lib/src';
 import { os } from '../../../../../infra_external-log-lib/src';
@@ -41,7 +41,7 @@ interface Message {
   roomId: string;
   userId: string;
   content: string;
-  type: 'text' | 'command' | 'system' | 'workflow' | 'context';
+  type: 'text' | 'command' | 'system' | "workflow" | 'context';
   timestamp: Date;
   metadata?: Record<string, any>;
   delivered: boolean;
@@ -59,7 +59,7 @@ interface StorageEvent {
 }
 
 interface BrokerEvent {
-  type: 'message' | 'presence' | 'typing' | 'notification';
+  type: 'message' | "presence" | 'typing' | "notification";
   roomId?: string;
   userId?: string;
   data: any;
@@ -80,7 +80,7 @@ class FileStorageService {
 
   async initialize(): Promise<void> {
     // Create directory structure
-    const dirs = ['users', 'rooms', 'messages'].map(dir => 
+    const dirs = ['users', 'rooms', "messages"].map(dir => 
       path.join(this.dataDir, dir)
     );
     
@@ -345,7 +345,7 @@ class MessageBroker {
     
     // Emit presence event
     this.eventBus.emit('broker:event', {
-      type: 'presence',
+      type: "presence",
       userId,
       data: { status: 'online' },
       timestamp: new Date()
@@ -369,7 +369,7 @@ class MessageBroker {
     
     // Emit presence event
     this.eventBus.emit('broker:event', {
-      type: 'presence',
+      type: "presence",
       userId: connection.userId,
       data: { status: 'offline' },
       timestamp: new Date()
@@ -392,7 +392,7 @@ class MessageBroker {
     
     // Emit broker event for coordinator
     this.eventBus.emit('broker:event', {
-      type: 'presence',
+      type: "presence",
       roomId,
       userId: connection.userId,
       data: { action: 'joined' },
@@ -401,7 +401,7 @@ class MessageBroker {
     
     // Notify room members
     this.broadcastToRoom(roomId, {
-      type: 'presence',
+      type: "presence",
       roomId,
       userId: connection.userId,
       data: { action: 'joined' },
@@ -426,7 +426,7 @@ class MessageBroker {
     
     // Emit broker event for coordinator
     this.eventBus.emit('broker:event', {
-      type: 'presence',
+      type: "presence",
       roomId,
       userId: connection.userId,
       data: { action: 'left' },
@@ -435,7 +435,7 @@ class MessageBroker {
     
     // Notify room members
     this.broadcastToRoom(roomId, {
-      type: 'presence',
+      type: "presence",
       roomId,
       userId: connection.userId,
       data: { action: 'left' },
@@ -602,7 +602,7 @@ class StorageBrokerCoordinator {
 
     // Sync room member counts
     this.eventBus.on('broker:event', async (event: BrokerEvent) => {
-      if (event.type === 'presence' && event.roomId) {
+      if (event.type === "presence" && event.roomId) {
         await this.updateRoomActivity(event.roomId);
       }
     });
@@ -880,7 +880,7 @@ describe('Storage and Messaging Broker Coordination Integration Test', () => {
     // Create user but not room (to trigger storage failure)
     const user: User = {
       id: 'user-fail',
-      username: 'FailUser',
+      username: "FailUser",
       status: 'online',
       joinedAt: new Date(),
       lastActivity: new Date()
@@ -1083,7 +1083,7 @@ describe('Storage and Messaging Broker Coordination Integration Test', () => {
     // Create user and room
     const user: User = {
       id: 'user-reconnect',
-      username: 'ReconnectUser',
+      username: "ReconnectUser",
       status: 'online',
       joinedAt: new Date(),
       lastActivity: new Date()

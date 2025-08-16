@@ -1,3 +1,4 @@
+const { fileAPI } = require('../utils/file-api');
 #!/usr/bin/env node
 
 /**
@@ -5,7 +6,7 @@
  * Demonstrates recursive task queue embedding and simplified display
  */
 
-const fs = require('fs').promises;
+const fs = require('../../layer/themes/infra_external-log-lib/src').promises;
 const { path } = require('../../infra_external-log-lib/src');
 
 class VFTester {
@@ -63,7 +64,7 @@ class VFTester {
     
     let queueData;
     try {
-      const content = await fs.readFile(realPath, 'utf8');
+      const content = await fileAPI.readFile(realPath, 'utf8');
       queueData = JSON.parse(content);
       this.stats.totalQueues++;
     } catch (error) {
@@ -203,7 +204,7 @@ class VFTester {
     const possibleDirs = [
       path.join(parentDir, 'layer', 'themes'),
       path.join(parentDir, 'themes'),
-      path.join(parentDir, 'children')
+      path.join(parentDir, "children")
     ];
     
     for (const dir of possibleDirs) {
@@ -220,7 +221,7 @@ class VFTester {
               await fs.access(childRealPath);
               
               // Verify parent relationship
-              const childContent = await fs.readFile(childRealPath, 'utf8');
+              const childContent = await fileAPI.readFile(childRealPath, 'utf8');
               const childData = JSON.parse(childContent);
               
               // Check if this child references our queue as parent

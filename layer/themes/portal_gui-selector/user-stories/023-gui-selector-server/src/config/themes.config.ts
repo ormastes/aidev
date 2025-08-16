@@ -21,7 +21,7 @@ export interface WebTheme {
   id: string;
   name: string;
   description: string;
-  category: 'modern' | 'professional' | 'creative' | 'accessible';
+  category: 'modern' | "professional" | "creative" | "accessible";
   colors: {
     light: ThemeColors;
     dark: ThemeColors;
@@ -117,10 +117,10 @@ export const themes: WebTheme[] = [
     updatedAt: '2024-01-01T00:00:00Z'
   },
   {
-    id: 'professional',
+    id: "professional",
     name: 'Corporate Portal',
     description: 'Professional and trustworthy design for business applications',
-    category: 'professional',
+    category: "professional",
     colors: {
       light: {
         primary: '#059669',
@@ -158,10 +158,10 @@ export const themes: WebTheme[] = [
     updatedAt: '2024-01-01T00:00:00Z'
   },
   {
-    id: 'creative',
+    id: "creative",
     name: 'Artistic Showcase',
     description: 'Bold and expressive design for creative projects',
-    category: 'creative',
+    category: "creative",
     colors: {
       light: {
         primary: '#dc2626',
@@ -199,10 +199,10 @@ export const themes: WebTheme[] = [
     updatedAt: '2024-01-01T00:00:00Z'
   },
   {
-    id: 'accessible',
+    id: "accessible",
     name: 'Universal Access',
     description: 'High contrast design optimized for accessibility',
-    category: 'accessible',
+    category: "accessible",
     colors: {
       light: {
         primary: '#1f2937',

@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { path } from '../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import { Config, ConfigType } from '../config';
 import { exec } from 'child_process';
 import { promisify } from 'util';
@@ -45,11 +45,11 @@ export class CTestConfig extends Config {
 
         // Load CTest-specific configuration
         const config = vscode.workspace.getConfiguration('ctest');
-        this.ctestExecutable = config.get('ctestExecutable') || 'ctest';
-        this.testFilter = config.get('testFilter') || '';
-        this.parallelJobs = config.get('parallelJobs') || 1;
-        this.buildBeforeTest = config.get('buildBeforeTest') ?? true;
-        this.debuggerPath = config.get('debuggerPath') || 'gdb';
+        this.ctestExecutable = config.get("ctestExecutable") || 'ctest';
+        this.testFilter = config.get("testFilter") || '';
+        this.parallelJobs = config.get("parallelJobs") || 1;
+        this.buildBeforeTest = config.get("buildBeforeTest") ?? true;
+        this.debuggerPath = config.get("debuggerPath") || 'gdb';
 
         this.activateWorkspaceBaseOnCmakeSetting();
     }
@@ -315,7 +315,7 @@ export class CTestConfig extends Config {
         const errorLines = lines.filter(line => 
             line.includes('FAILED') || 
             line.includes('Error') || 
-            line.includes('Assertion')
+            line.includes("Assertion")
         );
         return errorLines.slice(0, 3).join('\n'); // Take first few error lines
     }

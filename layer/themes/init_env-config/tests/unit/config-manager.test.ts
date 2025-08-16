@@ -12,7 +12,7 @@ jest.mock('fs/promises');
 jest.mock('../../user-stories/025-env-config-system/src/components/port-allocator');
 jest.mock('../../user-stories/025-env-config-system/src/components/file-generator');
 
-describe('ConfigManager', () => {
+describe("ConfigManager", () => {
   let configManager: ConfigManager;
   let mockPortAllocator: jest.Mocked<PortAllocator>;
   let mockFileGenerator: jest.Mocked<FileGenerator>;
@@ -30,7 +30,7 @@ describe('ConfigManager', () => {
     configManager = new ConfigManager(mockPortAllocator, mockFileGenerator, testBasePath);
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should create instance with provided dependencies', () => {
       expect(configManager).toBeInstanceOf(ConfigManager);
     });
@@ -41,7 +41,7 @@ describe('ConfigManager', () => {
     });
   });
 
-  describe('createEnvironment', () => {
+  describe("createEnvironment", () => {
     it('should create new environment successfully', async () => {
       const options: CreateEnvironmentOptions = {
         name: 'test-env',
@@ -96,13 +96,13 @@ describe('ConfigManager', () => {
       const result = await configManager.createEnvironment(options);
 
       expect(result.database).toEqual({
-        type: 'postgresql',
+        type: "postgresql",
         connection: 'postgresql://localhost:5432/prod-release'
       });
     });
   });
 
-  describe('getEnvironment', () => {
+  describe("getEnvironment", () => {
     it('should return environment from memory store', async () => {
       // First create an environment
       const options: CreateEnvironmentOptions = {
@@ -159,7 +159,7 @@ describe('ConfigManager', () => {
     });
   });
 
-  describe('updateEnvironment', () => {
+  describe("updateEnvironment", () => {
     it('should update existing environment', async () => {
       // First create an environment
       const options: CreateEnvironmentOptions = {
@@ -195,7 +195,7 @@ describe('ConfigManager', () => {
     });
   });
 
-  describe('deleteEnvironment', () => {
+  describe("deleteEnvironment", () => {
     it('should delete existing environment', async () => {
       // First create an environment
       const options: CreateEnvironmentOptions = {
@@ -227,7 +227,7 @@ describe('ConfigManager', () => {
     });
   });
 
-  describe('listEnvironments', () => {
+  describe("listEnvironments", () => {
     it('should list all environments', async () => {
       (fs.readdir as jest.Mock).mockResolvedValue(['env1', 'env2']);
       (fs.readFile as jest.Mock)
@@ -282,7 +282,7 @@ describe('ConfigManager', () => {
     });
   });
 
-  describe('addService', () => {
+  describe("addService", () => {
     it('should add service to environment', async () => {
       // First create an environment
       const options: CreateEnvironmentOptions = {
@@ -328,7 +328,7 @@ describe('ConfigManager', () => {
     });
   });
 
-  describe('removeService', () => {
+  describe("removeService", () => {
     it('should remove service from environment', async () => {
       // First create an environment with a service
       const options: CreateEnvironmentOptions = {
@@ -377,7 +377,7 @@ describe('ConfigManager', () => {
     });
   });
 
-  describe('exportEnvironment', () => {
+  describe("exportEnvironment", () => {
     it('should export environment as JSON', async () => {
       // Create environment
       const options: CreateEnvironmentOptions = {
@@ -428,7 +428,7 @@ describe('ConfigManager', () => {
   });
 
   describe('utility methods', () => {
-    describe('suggestEnvironmentName', () => {
+    describe("suggestEnvironmentName", () => {
       it('should suggest unique environment name', async () => {
         (fs.readdir as jest.Mock).mockResolvedValue(['test-1', 'test-2']);
         (fs.readFile as jest.Mock)
@@ -451,7 +451,7 @@ describe('ConfigManager', () => {
       });
     });
 
-    describe('environmentExists', () => {
+    describe("environmentExists", () => {
       it('should return true if environment exists', async () => {
         // Create environment
         const options: CreateEnvironmentOptions = {
@@ -476,7 +476,7 @@ describe('ConfigManager', () => {
       });
     });
 
-    describe('validateConfig', () => {
+    describe("validateConfig", () => {
       it('should validate valid config', async () => {
         const result = await configManager.validateConfig({
           name: 'test',

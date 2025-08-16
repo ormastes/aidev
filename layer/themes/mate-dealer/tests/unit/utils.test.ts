@@ -7,7 +7,7 @@ describe('MateDealer Utilities', () => {
     mateDealer = new MateDealer();
   });
 
-  describe('createDeal', () => {
+  describe("createDeal", () => {
     test('should create a new deal with pending status', () => {
       const dealDetails: DealDetails = {
         title: 'Test Deal',
@@ -53,7 +53,7 @@ describe('MateDealer Utilities', () => {
     });
   });
 
-  describe('listDeals', () => {
+  describe("listDeals", () => {
     test('should return empty array when no deals exist', () => {
       const deals = mateDealer.listDeals();
       expect(deals).toEqual([]);
@@ -80,7 +80,7 @@ describe('MateDealer Utilities', () => {
     });
   });
 
-  describe('updateDealStatus', () => {
+  describe("updateDealStatus", () => {
     test('should update status of existing deal', () => {
       mateDealer.createDeal('deal-1', {
         title: 'Test Deal',
@@ -98,12 +98,12 @@ describe('MateDealer Utilities', () => {
     });
 
     test('should return false for non-existent deal', () => {
-      const result = mateDealer.updateDealStatus('non-existent', 'completed');
+      const result = mateDealer.updateDealStatus('non-existent', "completed");
       expect(result).toBe(false);
     });
   });
 
-  describe('calculateDealValue', () => {
+  describe("calculateDealValue", () => {
     test('should calculate deal value with margin', () => {
       const deal = mateDealer.createDeal('deal-1', {
         title: 'Test Deal',

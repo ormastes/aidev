@@ -3,7 +3,7 @@
  * Language Server Protocol server with MCP integration
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { MCPMessage, MCPRequest, MCPResponse, MCPNotification } from '../protocol';
 import { Transport } from '../transport';
 
@@ -11,7 +11,7 @@ export interface ServerCapabilities {
   // Text document sync
   textDocumentSync?: {
     openClose?: boolean;
-    change?: 'none' | 'full' | 'incremental';
+    change?: 'none' | 'full' | "incremental";
     save?: boolean | { includeText?: boolean };
   };
   
@@ -50,7 +50,7 @@ export interface ServerOptions {
   maxConnections?: number;
   requestTimeout?: number;
   workspaceRoot?: string;
-  trace?: 'off' | 'messages' | 'verbose';
+  trace?: 'off' | "messages" | 'verbose';
 }
 
 export interface ServerConfig {
@@ -58,7 +58,7 @@ export interface ServerConfig {
   options?: ServerOptions;
 }
 
-export type ServerStatus = 'stopped' | 'starting' | 'running' | 'stopping' | 'error';
+export type ServerStatus = 'stopped' | "starting" | 'running' | "stopping" | 'error';
 
 interface Connection {
   id: string;
@@ -100,12 +100,12 @@ export class LSPServer extends EventEmitter {
       throw new Error(`Server is already ${this.status}`);
     }
 
-    this.status = 'starting';
+    this.status = "starting";
     
     try {
       await this.config.transport.start();
       
-      this.config.transport.on('connection', (transport: Transport) => {
+      this.config.transport.on("connection", (transport: Transport) => {
         this.handleNewConnection(transport);
       });
       
@@ -126,7 +126,7 @@ export class LSPServer extends EventEmitter {
       return;
     }
 
-    this.status = 'stopping';
+    this.status = "stopping";
     
     // Close all connections
     for (const [id, connection] of this.connections) {
@@ -160,10 +160,10 @@ export class LSPServer extends EventEmitter {
     });
     
     transport.on('error', (error: Error) => {
-      this.emit('connectionError', { connectionId, error });
+      this.emit("connectionError", { connectionId, error });
     });
     
-    this.emit('connection', { connectionId });
+    this.emit("connection", { connectionId });
   }
 
   private async handleMessage(connectionId: string, message: MCPMessage): Promise<void> {
@@ -174,7 +174,7 @@ export class LSPServer extends EventEmitter {
     
     if (message.type === 'request') {
       await this.handleRequest(connection, message as MCPRequest);
-    } else if (message.type === 'notification') {
+    } else if (message.type === "notification") {
       await this.handleNotification(connection, message as MCPNotification);
     }
   }
@@ -213,7 +213,7 @@ export class LSPServer extends EventEmitter {
     try {
       await handler(connection, notification.params);
     } catch (error) {
-      this.emit('notificationError', { 
+      this.emit("notificationError", { 
         connectionId: connection.id, 
         method: notification.method, 
         error 
@@ -223,7 +223,7 @@ export class LSPServer extends EventEmitter {
 
   private registerDefaultHandlers(): void {
     // Lifecycle handlers
-    this.registerHandler('initialize', async (connection, params) => {
+    this.registerHandler("initialize", async (connection, params) => {
       connection.initialized = true;
       connection.capabilities = params.capabilities;
       
@@ -236,11 +236,11 @@ export class LSPServer extends EventEmitter {
       };
     });
     
-    this.registerHandler('initialized', async (connection) => {
-      this.emit('initialized', { connectionId: connection.id });
+    this.registerHandler("initialized", async (connection) => {
+      this.emit("initialized", { connectionId: connection.id });
     });
     
-    this.registerHandler('shutdown', async (connection) => {
+    this.registerHandler("shutdown", async (connection) => {
       // Prepare for shutdown
       connection.documents.clear();
       return null;
@@ -261,7 +261,7 @@ export class LSPServer extends EventEmitter {
       };
       
       connection.documents.set(textDocument.uri, doc);
-      this.emit('documentOpened', { connectionId: connection.id, document: doc });
+      this.emit("documentOpened", { connectionId: connection.id, document: doc });
     });
     
     this.registerHandler('textDocument/didChange', async (connection, params) => {
@@ -274,27 +274,27 @@ export class LSPServer extends EventEmitter {
         // Apply changes based on sync type
         if (this.capabilities.textDocumentSync?.change === 'full') {
           doc.content = contentChanges[0].text;
-        } else if (this.capabilities.textDocumentSync?.change === 'incremental') {
+        } else if (this.capabilities.textDocumentSync?.change === "incremental") {
           // Apply incremental changes
           for (const change of contentChanges) {
             this.applyIncrementalChange(doc, change);
           }
         }
         
-        this.emit('documentChanged', { connectionId: connection.id, document: doc });
+        this.emit("documentChanged", { connectionId: connection.id, document: doc });
       }
     });
     
     this.registerHandler('textDocument/didSave', async (connection, params) => {
       const doc = connection.documents.get(params.textDocument.uri);
       if (doc) {
-        this.emit('documentSaved', { connectionId: connection.id, document: doc });
+        this.emit("documentSaved", { connectionId: connection.id, document: doc });
       }
     });
     
     this.registerHandler('textDocument/didClose', async (connection, params) => {
       connection.documents.delete(params.textDocument.uri);
-      this.emit('documentClosed', { 
+      this.emit("documentClosed", { 
         connectionId: connection.id, 
         uri: params.textDocument.uri 
       });
@@ -302,7 +302,7 @@ export class LSPServer extends EventEmitter {
     
     // MCP specific handlers
     this.registerHandler('model/request', async (connection, params) => {
-      this.emit('modelRequest', { 
+      this.emit("modelRequest", { 
         connectionId: connection.id, 
         params 
       });
@@ -316,7 +316,7 @@ export class LSPServer extends EventEmitter {
     });
     
     this.registerHandler('context/update', async (connection, params) => {
-      this.emit('contextUpdate', { 
+      this.emit("contextUpdate", { 
         connectionId: connection.id, 
         context: params 
       });
@@ -355,7 +355,7 @@ export class LSPServer extends EventEmitter {
       }, this.config.options?.requestTimeout || 30000);
       
       const responseHandler = (message: MCPMessage) => {
-        if (message.type === 'response' && message.id === id) {
+        if (message.type === "response" && message.id === id) {
           clearTimeout(timeout);
           connection.transport.off('message', responseHandler);
           
@@ -379,7 +379,7 @@ export class LSPServer extends EventEmitter {
     }
     
     const notification: MCPNotification = {
-      type: 'notification',
+      type: "notification",
       method,
       params,
     };
@@ -389,7 +389,7 @@ export class LSPServer extends EventEmitter {
 
   private async sendResponse(connection: Connection, id: number, result: any): Promise<void> {
     const response: MCPResponse = {
-      type: 'response',
+      type: "response",
       id,
       result,
     };
@@ -399,7 +399,7 @@ export class LSPServer extends EventEmitter {
 
   private async sendError(connection: Connection, id: number, error: any): Promise<void> {
     const response: MCPResponse = {
-      type: 'response',
+      type: "response",
       id,
       error,
     };
@@ -446,7 +446,7 @@ export class LSPServer extends EventEmitter {
     
     await connection.transport.close();
     this.connections.delete(connectionId);
-    this.emit('connectionClosed', { connectionId });
+    this.emit("connectionClosed", { connectionId });
   }
 
   private generateConnectionId(): string {
@@ -477,7 +477,7 @@ export class LSPServer extends EventEmitter {
       },
       contextProvider: {
         maxContextSize: 32768,
-        supportedFormats: ['text', 'markdown', 'code'],
+        supportedFormats: ['text', "markdown", 'code'],
       },
     };
   }

@@ -51,8 +51,8 @@ describe('Log Aggregation Query External Test', () => {
     
     // Verify logs are properly structured
     capturedLogs.forEach(log => {
-      expect(log).toHaveProperty('processId');
-      expect(log).toHaveProperty('timestamp');
+      expect(log).toHaveProperty("processId");
+      expect(log).toHaveProperty("timestamp");
       expect(log).toHaveProperty('level');
       expect(log).toHaveProperty('message');
       expect(log).toHaveProperty('source'); // LogMonitor uses 'source' not 'stream'

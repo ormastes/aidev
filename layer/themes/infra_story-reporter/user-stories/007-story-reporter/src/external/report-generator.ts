@@ -1,6 +1,6 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join } from 'path';
+import { EventEmitter } from 'node:events';
+import { fsPromises as fs } from 'fs/promises';
+import { join } from 'node:path';
 import { TestResult } from '../domain/test-result';
 import { TestConfiguration, validateTestConfiguration } from '../domain/test-configuration';
 import { ReportConfig, MultiFormatReports, createDefaultReportConfig } from '../domain/report-config';
@@ -84,13 +84,13 @@ export class ReportGenerator extends EventEmitter {
    * @returns Generated HTML report content
    */
   async generateHTMLReport(testResult: TestResult): Promise<string> {
-    this.emit('reportStart', {
+    this.emit("reportStart", {
       format: 'html',
       testSuiteId: testResult.testSuiteId,
       timestamp: new Date()
     });
 
-    this.emit('progress', {
+    this.emit("progress", {
       type: 'html-generation',
       message: 'Generating HTML report',
       timestamp: new Date()
@@ -99,7 +99,7 @@ export class ReportGenerator extends EventEmitter {
     try {
       const htmlContent = this.buildHTMLReport(testResult);
       
-      this.emit('reportComplete', {
+      this.emit("reportComplete", {
         format: 'html',
         testSuiteId: testResult.testSuiteId,
         timestamp: new Date(),
@@ -124,7 +124,7 @@ export class ReportGenerator extends EventEmitter {
    * @returns Generated JSON report content
    */
   async generateJSONReport(testResult: TestResult): Promise<string> {
-    this.emit('reportStart', {
+    this.emit("reportStart", {
       format: 'json',
       testSuiteId: testResult.testSuiteId,
       timestamp: new Date()
@@ -135,7 +135,7 @@ export class ReportGenerator extends EventEmitter {
       this.externalLogger.log(this.configuration.testSuiteId, 'info', 'Generating JSON report');
     }
 
-    this.emit('progress', {
+    this.emit("progress", {
       type: 'json-generation',
       message: 'Generating JSON report',
       timestamp: new Date()
@@ -144,7 +144,7 @@ export class ReportGenerator extends EventEmitter {
     try {
       const jsonContent = await this.buildJSONReport(testResult);
       
-      this.emit('reportComplete', {
+      this.emit("reportComplete", {
         format: 'json',
         testSuiteId: testResult.testSuiteId,
         timestamp: new Date(),
@@ -169,13 +169,13 @@ export class ReportGenerator extends EventEmitter {
    * @returns Generated Markdown report content
    */
   async generateMarkdownReport(testResult: TestResult): Promise<string> {
-    this.emit('reportStart', {
-      format: 'markdown',
+    this.emit("reportStart", {
+      format: "markdown",
       testSuiteId: testResult.testSuiteId,
       timestamp: new Date()
     });
 
-    this.emit('progress', {
+    this.emit("progress", {
       type: 'markdown-generation',
       message: 'Generating Markdown report',
       timestamp: new Date()
@@ -184,8 +184,8 @@ export class ReportGenerator extends EventEmitter {
     try {
       const markdownContent = await this.buildMarkdownReport(testResult);
       
-      this.emit('reportComplete', {
-        format: 'markdown',
+      this.emit("reportComplete", {
+        format: "markdown",
         testSuiteId: testResult.testSuiteId,
         timestamp: new Date(),
         size: markdownContent.length
@@ -195,7 +195,7 @@ export class ReportGenerator extends EventEmitter {
     } catch (error) {
       this.emit('error', {
         error: error instanceof Error ? error.message : 'Unknown error',
-        format: 'markdown',
+        format: "markdown",
         testSuiteId: testResult.testSuiteId,
         timestamp: new Date()
       });
@@ -209,13 +209,13 @@ export class ReportGenerator extends EventEmitter {
    * @returns Generated XML report content
    */
   async generateXMLReport(testResult: TestResult): Promise<string> {
-    this.emit('reportStart', {
+    this.emit("reportStart", {
       format: 'xml',
       testSuiteId: testResult.testSuiteId,
       timestamp: new Date()
     });
 
-    this.emit('progress', {
+    this.emit("progress", {
       type: 'xml-generation',
       message: 'Generating XML report',
       timestamp: new Date()
@@ -224,7 +224,7 @@ export class ReportGenerator extends EventEmitter {
     try {
       const xmlContent = this.buildXMLReport(testResult);
       
-      this.emit('reportComplete', {
+      this.emit("reportComplete", {
         format: 'xml',
         testSuiteId: testResult.testSuiteId,
         timestamp: new Date(),
@@ -249,13 +249,13 @@ export class ReportGenerator extends EventEmitter {
    * @returns Generated CSV report content
    */
   async generateCSVReport(testResult: TestResult): Promise<string> {
-    this.emit('reportStart', {
+    this.emit("reportStart", {
       format: 'csv',
       testSuiteId: testResult.testSuiteId,
       timestamp: new Date()
     });
 
-    this.emit('progress', {
+    this.emit("progress", {
       type: 'csv-generation',
       message: 'Generating CSV report',
       timestamp: new Date()
@@ -264,7 +264,7 @@ export class ReportGenerator extends EventEmitter {
     try {
       const csvContent = this.buildCSVReport(testResult);
       
-      this.emit('reportComplete', {
+      this.emit("reportComplete", {
         format: 'csv',
         testSuiteId: testResult.testSuiteId,
         timestamp: new Date(),
@@ -292,7 +292,7 @@ export class ReportGenerator extends EventEmitter {
     const reports: MultiFormatReports = {};
     const outputFormats = this.configuration?.outputFormats || ['json'];
 
-    this.emit('progress', {
+    this.emit("progress", {
       type: 'multi-format-generation',
       message: `Generating reports in ${outputFormats.length} formats`,
       timestamp: new Date()
@@ -312,7 +312,7 @@ export class ReportGenerator extends EventEmitter {
         case 'csv':
           reports.csv = await this.generateCSVReport(testResult);
           break;
-        case 'markdown':
+        case "markdown":
         case 'md':
           reports.markdown = await this.generateMarkdownReport(testResult);
           break;
@@ -484,7 +484,7 @@ export class ReportGenerator extends EventEmitter {
                 <small>Duration: ${step.duration}ms</small>
                 ${step.errorMessage ? `<div class="error-message mt-2">${step.errorMessage}</div>` : ''}
             </div>
-            <span class="badge bg-${step.status === 'passed' ? 'success' : step.status === 'failed' ? 'danger' : 'secondary'} rounded-pill">
+            <span class="badge bg-${step.status === 'passed' ? 'success' : step.status === 'failed' ? 'danger' : "secondary"} rounded-pill">
                 ${step.status}
             </span>
         </li>
@@ -494,7 +494,7 @@ export class ReportGenerator extends EventEmitter {
         <div class="card mb-3">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="mb-0 scenario-${scenario.status}">${scenario.name}</h5>
-                <span class="badge bg-${scenario.status === 'passed' ? 'success' : scenario.status === 'failed' ? 'danger' : 'secondary'}">
+                <span class="badge bg-${scenario.status === 'passed' ? 'success' : scenario.status === 'failed' ? 'danger' : "secondary"}">
                     ${scenario.status}
                 </span>
             </div>
@@ -578,10 +578,10 @@ export class ReportGenerator extends EventEmitter {
         'error': 'danger',
         'warn': 'warning',
         'info': 'info',
-        'debug': 'secondary',
+        'debug': "secondary",
         'trace': 'light'
       };
-      const badgeClass = levelClass[log.level] || 'secondary';
+      const badgeClass = levelClass[log.level] || "secondary";
       
       return `
         <div class="log-entry mb-2">

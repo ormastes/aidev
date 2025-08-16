@@ -4,7 +4,7 @@
  */
 
 import { Database } from 'sqlite3';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import { DatabaseAdapter, User, TestHistory, TestExecution, UserSession } from './DatabaseAdapter';
 import { path } from '../../../../../../infra_external-log-lib/src';
 import { fs } from '../../../../../../infra_external-log-lib/src';
@@ -146,7 +146,7 @@ export class SqliteAdapter extends DatabaseAdapter {
   }
 
   // User management
-  async createUser(userData: Omit<User, 'id' | 'createdAt'>): Promise<User> {
+  async createUser(userData: Omit<User, 'id' | "createdAt">): Promise<User> {
     const id = `user-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     const sql = `
       INSERT INTO users (id, username, email, role)
@@ -210,7 +210,7 @@ export class SqliteAdapter extends DatabaseAdapter {
   }
 
   // Test history
-  async createTestHistory(historyData: Omit<TestHistory, 'id' | 'createdAt'>): Promise<TestHistory> {
+  async createTestHistory(historyData: Omit<TestHistory, 'id' | "createdAt">): Promise<TestHistory> {
     const id = `history-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     const sql = `
       INSERT INTO test_history (id, suite_id, user_id, version, data, metadata)
@@ -367,7 +367,7 @@ export class SqliteAdapter extends DatabaseAdapter {
   }
 
   // Session management
-  async createSession(sessionData: Omit<UserSession, 'id' | 'createdAt'>): Promise<UserSession> {
+  async createSession(sessionData: Omit<UserSession, 'id' | "createdAt">): Promise<UserSession> {
     const id = `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     const sql = `
       INSERT INTO user_sessions (id, user_id, token, expires_at, metadata)
@@ -459,7 +459,7 @@ export class SqliteAdapter extends DatabaseAdapter {
             ELSE NULL 
           END
         ) as avg_execution_time,
-        (COUNT(CASE WHEN e.status = 'completed' THEN 1 END) * 100.0 / COUNT(*)) as success_rate
+        (COUNT(CASE WHEN e.status = "completed" THEN 1 END) * 100.0 / COUNT(*)) as success_rate
       FROM test_executions e
       JOIN test_history h ON e.history_id = h.id
       ${userClause}

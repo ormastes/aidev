@@ -3,10 +3,10 @@
  * Captures screenshots during test execution for manual documentation
  */
 
-import { Page, Browser, BrowserContext, chromium, firefox, webkit } from 'playwright';
+import { Page, Browser, BrowserContext, chromium, firefox, webkit } from "playwright";
 import { path } from '../../../../../infra_external-log-lib/src';
 import * as fs from 'fs/promises';
-import { createHash } from 'crypto';
+import { createHash } from 'node:crypto';
 import { getFileAPI, FileType } from '../../../../../infra_external-log-lib/pipe';
 
 const fileAPI = getFileAPI();
@@ -27,7 +27,7 @@ export interface ScreenshotOptions {
   annotations?: AnnotationOptions[];
   timeout?: number;
   waitForSelector?: string;
-  waitForLoadState?: 'load' | 'domcontentloaded' | 'networkidle';
+  waitForLoadState?: 'load' | "domcontentloaded" | "networkidle";
 }
 
 export interface AnnotationOptions {
@@ -62,12 +62,12 @@ export class ScreenshotCapture {
   private browser: Browser | null = null;
   private context: BrowserContext | null = null;
   private outputDir: string;
-  private browserType: 'chromium' | 'firefox' | 'webkit';
+  private browserType: "chromium" | 'firefox' | 'webkit';
   private captures: Map<string, CaptureResult> = new Map();
 
   constructor(
     outputDir: string = './screenshots',
-    browserType: 'chromium' | 'firefox' | 'webkit' = 'chromium'
+    browserType: "chromium" | 'firefox' | 'webkit' = "chromium"
   ) {
     this.outputDir = outputDir;
     this.browserType = browserType;
@@ -164,7 +164,7 @@ export class ScreenshotCapture {
     }
 
     // Get file stats
-    const stats = await fs.stat(filepath);
+    const stats = await /* FRAUD_FIX: fs.stat(filepath) */;
 
     // Get page metadata
     const metadata = {

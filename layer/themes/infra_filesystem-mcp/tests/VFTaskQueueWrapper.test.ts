@@ -7,7 +7,7 @@ import * as fs from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 import { os } from '../../infra_external-log-lib/src';
 
-describe('VFTaskQueueWrapper', () => {
+describe("VFTaskQueueWrapper", () => {
   let tempDir: string;
   let wrapper: VFTaskQueueWrapper;
   let queueFile: string;
@@ -62,13 +62,13 @@ describe('VFTaskQueueWrapper', () => {
       let executed = false;
       const executor: TaskExecutor = async (task) => {
         executed = true;
-        return { result: 'executed' };
+        return { result: "executed" };
       };
       
       wrapper.setTaskExecutor(executor);
       
       await wrapper.push({
-        type: 'runnable',
+        type: "runnable",
         content: { command: 'test' }
       }, 'high', queueFile);
       
@@ -144,7 +144,7 @@ describe('VFTaskQueueWrapper', () => {
       await (wrapper as any).saveQueueState(queueFile, state);
       
       await wrapper.push({
-        type: 'runnable',
+        type: "runnable",
         content: { action: 'run' }
       }, 'high', queueFile);
       
@@ -156,7 +156,7 @@ describe('VFTaskQueueWrapper', () => {
       
       expect(executedTask).toBeTruthy();
       expect(executedTask!.content).toEqual({ action: 'run' });
-      expect(executedTask!.type).toBe('runnable');
+      expect(executedTask!.type).toBe("runnable");
     });
   });
 
@@ -199,7 +199,7 @@ describe('VFTaskQueueWrapper', () => {
       
       const task: Task = {
         id: 'test-id',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: { data: 'test' },
         status: 'pending',
@@ -210,7 +210,7 @@ describe('VFTaskQueueWrapper', () => {
       
       const status = await wrapper.getQueueStatus(queueFile);
       expect(status.totalProcessed).toBe(1);
-      expect(task.status).toBe('completed');
+      expect(task.status).toBe("completed");
       expect(task.result).toEqual({ processed: task.content });
     });
 
@@ -223,7 +223,7 @@ describe('VFTaskQueueWrapper', () => {
       
       const task: Task = {
         id: 'test-id',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'pending',
@@ -281,7 +281,7 @@ describe('VFTaskQueueWrapper', () => {
       
       // Manually execute the task
       if (task) {
-        task.type = 'runnable'; // Change type for execution
+        task.type = "runnable"; // Change type for execution
         await cleanWrapper.executeTask(task, testQueueFile);
       }
       
@@ -298,7 +298,7 @@ describe('VFTaskQueueWrapper', () => {
     });
 
     test('should handle custom priority levels', async () => {
-      await wrapper.push({ content: 'Critical task' }, 'critical', queueFile);
+      await wrapper.push({ content: 'Critical task' }, "critical", queueFile);
       await wrapper.push({ content: 'Urgent task' }, 'urgent', queueFile);
       
       const status = await wrapper.getQueueStatus(queueFile);
@@ -306,7 +306,7 @@ describe('VFTaskQueueWrapper', () => {
       expect(status.queueSizes.urgent).toBe(1);
       
       // Custom priorities should work with pop
-      const result = await wrapper.pop('critical', queueFile);
+      const result = await wrapper.pop("critical", queueFile);
       const task = result?.workingItem;
       expect(task?.content).toBe('Critical task');
     });
@@ -324,7 +324,7 @@ describe('VFTaskQueueWrapper', () => {
       
       // Complete first task
       if (first) {
-        first.status = 'completed';
+        first.status = "completed";
         const state = await (wrapper as any).readQueueState(queueFile);
         state.workingItem = null;
         await (wrapper as any).saveQueueState(queueFile, state);

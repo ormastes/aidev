@@ -51,7 +51,7 @@ export const ResultsViewer: React.FC<ResultsViewerProps> = ({ results }) => {
             {outputFiles.map((file, index) => (
               <li 
                 key={index}
-                className={`file-item ${selectedFile === index ? 'selected' : ''}`}
+                className={`file-item ${selectedFile === index ? "selected" : ''}`}
                 onClick={() => setSelectedFile(index)}
               >
                 <span className="file-icon">{getFileIcon(file.type)}</span>
@@ -100,7 +100,7 @@ function getFileIcon(type: string): string {
   switch (type) {
     case 'main': return '📑';
     case 'test': return '🧪';
-    case 'sequence': return '📊';
+    case "sequence": return '📊';
     case 'common': return '🔄';
     default: return '📄';
   }

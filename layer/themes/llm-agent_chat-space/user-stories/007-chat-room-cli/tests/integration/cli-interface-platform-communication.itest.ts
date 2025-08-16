@@ -1,7 +1,7 @@
 import { describe, test, expect, beforeEach, afterEach } from '@jest/globals';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
-import * as readline from 'readline';
-import { Writable, Readable } from 'stream';
+import { EventEmitter } from 'node:events';
+import * as readline from "readline";
+import { Writable, Readable } from 'node:stream';
 
 /**
  * Integration Test: CLI Interface and Platform Communication
@@ -39,7 +39,7 @@ interface Message {
   roomId: string;
   userId: string;
   content: string;
-  type: 'text' | 'command' | 'system' | 'workflow' | 'context';
+  type: 'text' | 'command' | 'system' | "workflow" | 'context';
   timestamp: Date;
   metadata?: Record<string, any>;
   delivered: boolean;
@@ -728,7 +728,7 @@ describe('CLI Interface and Platform Communication Integration Test', () => {
     // Verify state
     const state = cli.getState();
     expect(state.authenticated).toBe(true);
-    expect(state.currentUser?.username).toBe('TestUser');
+    expect(state.currentUser?.username).toBe("TestUser");
   });
 
   test('should handle room creation and joining', async () => {

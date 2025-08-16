@@ -8,7 +8,7 @@ interface Theme {
   name: string;
   description: string;
   category: 'check' | 'infra' | 'init' | 'lib' | 'llm-agent' | 'mcp' | 'portal' | 'tool';
-  status: 'active' | 'development' | 'deprecated';
+  status: 'active' | "development" | "deprecated";
   features: string[];
 }
 
@@ -44,7 +44,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({
     }
   });
 
-  const getCategoryIcon = (category: Theme['category']) => {
+  const getCategoryIcon = (category: Theme["category"]) => {
     switch (category) {
       case 'check': return '✓';
       case 'infra': return '🏗️';
@@ -61,8 +61,8 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({
   const getStatusColor = (status: Theme['status']) => {
     switch (status) {
       case 'active': return 'green';
-      case 'development': return 'yellow';
-      case 'deprecated': return 'red';
+      case "development": return 'yellow';
+      case "deprecated": return 'red';
       default: return 'gray';
     }
   };

@@ -447,7 +447,7 @@ describe('Test Result Aggregation Integration Test', () => {
 
       const trendAnalysis = statisticsAnalyzer.generateTrendAnalysis(currentResult, historicalResults);
 
-      expect(trendAnalysis.performanceTrend).toBe('improving');
+      expect(trendAnalysis.performanceTrend).toBe("improving");
       expect(trendAnalysis.improvementPercentage).toBeGreaterThan(0);
       expect(trendAnalysis.historicalComparison.averageDurationChange).toBeLessThan(0);
       expect(trendAnalysis.improvements.length).toBeGreaterThan(0);

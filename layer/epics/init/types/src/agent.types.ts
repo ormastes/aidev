@@ -16,7 +16,7 @@ export interface AgentConfig {
 }
 
 export interface AgentMessage {
-  role: 'system' | 'user' | 'assistant' | 'tool';
+  role: 'system' | 'user' | "assistant" | 'tool';
   content: string;
   toolCalls?: ToolCall[];
   toolResults?: ToolResult[];

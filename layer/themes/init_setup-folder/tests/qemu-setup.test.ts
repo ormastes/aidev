@@ -3,7 +3,7 @@ import { fs } from '../../infra_external-log-lib/src';
 import { path } from '../../infra_external-log-lib/src';
 import { crypto } from '../../infra_external-log-lib/src';
 
-describe('QEMUSetupService', () => {
+describe("QEMUSetupService", () => {
   let service: QEMUSetupService;
   const testQemuPath = path.join(process.cwd(), '.qemu');
 
@@ -26,9 +26,9 @@ describe('QEMUSetupService', () => {
     it('should create required directories on initialization', () => {
       expect(fs.existsSync(testQemuPath)).toBe(true);
       expect(fs.existsSync(path.join(testQemuPath, 'images'))).toBe(true);
-      expect(fs.existsSync(path.join(testQemuPath, 'containers'))).toBe(true);
+      expect(fs.existsSync(path.join(testQemuPath, "containers"))).toBe(true);
       expect(fs.existsSync(path.join(testQemuPath, 'volumes'))).toBe(true);
-      expect(fs.existsSync(path.join(testQemuPath, 'snapshots'))).toBe(true);
+      expect(fs.existsSync(path.join(testQemuPath, "snapshots"))).toBe(true);
       expect(fs.existsSync(path.join(testQemuPath, 'configs'))).toBe(true);
     });
   });
@@ -70,7 +70,7 @@ describe('QEMUSetupService', () => {
       };
 
       const container = await service.createContainer(options);
-      const containerPath = path.join(testQemuPath, 'containers', container.id);
+      const containerPath = path.join(testQemuPath, "containers", container.id);
 
       expect(fs.existsSync(containerPath)).toBe(true);
       expect(fs.existsSync(path.join(containerPath, 'config.json'))).toBe(true);
@@ -97,7 +97,7 @@ describe('QEMUSetupService', () => {
       };
 
       const container = await service.createContainer(options);
-      const containerPath = path.join(testQemuPath, 'containers', container.id);
+      const containerPath = path.join(testQemuPath, "containers", container.id);
       const configPath = path.join(containerPath, 'config.json');
       const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
 
@@ -151,14 +151,14 @@ describe('QEMUSetupService', () => {
         image: 'alpine:latest',
         networkMode: 'nat',
         environment: {
-          NODE_ENV: 'production',
+          NODE_ENV: "production",
           PORT: '3000',
           DEBUG: 'true'
         }
       };
 
       const container = await service.createContainer(options);
-      const initScriptPath = path.join(testQemuPath, 'containers', container.id, 'init.sh');
+      const initScriptPath = path.join(testQemuPath, "containers", container.id, 'init.sh');
       const initScript = fs.readFileSync(initScriptPath, 'utf-8');
 
       expect(initScript).toContain('export NODE_ENV="production"');
@@ -182,7 +182,7 @@ describe('QEMUSetupService', () => {
       };
 
       const container = await service.createContainer(options);
-      const initScriptPath = path.join(testQemuPath, 'containers', container.id, 'init.sh');
+      const initScriptPath = path.join(testQemuPath, "containers", container.id, 'init.sh');
       const initScript = fs.readFileSync(initScriptPath, 'utf-8');
 
       expect(initScript).toContain('mkdir -p /data');
@@ -260,7 +260,7 @@ describe('QEMUSetupService', () => {
         networkMode: 'nat'
       });
 
-      const containerPath = path.join(testQemuPath, 'containers', container.id);
+      const containerPath = path.join(testQemuPath, "containers", container.id);
       expect(fs.existsSync(containerPath)).toBe(true);
 
       await service.removeContainer(container.id);
@@ -288,7 +288,7 @@ describe('QEMUSetupService', () => {
       };
 
       const container = await service.createContainer(options);
-      const containerPath = path.join(testQemuPath, 'containers', container.id);
+      const containerPath = path.join(testQemuPath, "containers", container.id);
       const config = JSON.parse(fs.readFileSync(path.join(containerPath, 'config.json'), 'utf-8'));
 
       // Test command building logic
@@ -311,7 +311,7 @@ describe('QEMUSetupService', () => {
       };
 
       const container = await service.createContainer(options);
-      const containerPath = path.join(testQemuPath, 'containers', container.id);
+      const containerPath = path.join(testQemuPath, "containers", container.id);
       const config = JSON.parse(fs.readFileSync(path.join(containerPath, 'config.json'), 'utf-8'));
 
       expect(config.qemuBinary).toBe('qemu-system-aarch64');
@@ -320,7 +320,7 @@ describe('QEMUSetupService', () => {
     });
 
     it('should support multiple architectures', async () => {
-      const architectures: Array<{ arch: QEMUSetupOptions['architecture'], binary: string }> = [
+      const architectures: Array<{ arch: QEMUSetupOptions["architecture"], binary: string }> = [
         { arch: 'x86_64', binary: 'qemu-system-x86_64' },
         { arch: 'aarch64', binary: 'qemu-system-aarch64' },
         { arch: 'armv7', binary: 'qemu-system-arm' },
@@ -340,7 +340,7 @@ describe('QEMUSetupService', () => {
         };
 
         const container = await service.createContainer(options);
-        const containerPath = path.join(testQemuPath, 'containers', container.id);
+        const containerPath = path.join(testQemuPath, "containers", container.id);
         const config = JSON.parse(fs.readFileSync(path.join(containerPath, 'config.json'), 'utf-8'));
 
         expect(config.qemuBinary).toBe(binary);
@@ -348,7 +348,7 @@ describe('QEMUSetupService', () => {
     });
   });
 
-  describe('Networking', () => {
+  describe("Networking", () => {
     it('should configure NAT networking with port forwarding', async () => {
       const options: QEMUSetupOptions = {
         name: 'nat-container',
@@ -439,7 +439,7 @@ describe('QEMUSetupService', () => {
       
       const snapshotPath = path.join(
         testQemuPath,
-        'snapshots',
+        "snapshots",
         `${container.id}-${snapshotName}.qcow2`
       );
       

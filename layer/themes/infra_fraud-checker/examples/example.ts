@@ -74,7 +74,7 @@ async function createExampleTestFiles() {
   await fileAPI.createFile(path.join(testDir, 'auth.stest.js'), { type: FileType.TEMPORARY }) => {
   beforeEach(() => {
     // ❌ BAD: Using mock database
-    const mockDb = {
+    const // FRAUD_FIX: mockDb = {
       users: {
         fincompleted: jest.fn().mockResolvedValue({ id: 1, email: 'test@example.com' })
       }
@@ -83,7 +83,7 @@ async function createExampleTestFiles() {
 
   test('user can login end-to-end', async () => {
     // This should test the real system!
-    const result = await login('test@example.com', 'password');
+    const result = await login('test@example.com', "password");
     expect(result).toBeTruthy();
   });
 });`
@@ -100,7 +100,7 @@ async function createExampleTestFiles() {
 
   test('database connection works', async () => {
     // ❌ BAD: This doesn't test the real database!
-    const mockConnection = { connected: true };
+    const // FRAUD_FIX: mockConnection = { connected: true };
     expect(mockConnection.connected).toBe(true);
   });
 
@@ -118,10 +118,10 @@ async function createExampleTestFiles() {
     // ⚠️  MEDIUM: Mocking external API - should use Stripe test mode
     nock('https://api.stripe.com')
       .post('/v1/charges')
-      .reply(200, { id: 'ch_test123', status: 'succeeded' });
+      .reply(200, { id: 'ch_test123', status: "succeeded" });
 
     const result = await processPayment(100, 'USD');
-    expect(result.status).toBe('succeeded');
+    expect(result.status).toBe("succeeded");
   });
 });`
   );
@@ -167,7 +167,7 @@ async function createExampleTestFiles() {
   beforeAll(async () => {
     // 🔄 GOOD: Connecting to real Redis instance
     redis = new Redis({
-      host: process.env.REDIS_HOST || 'localhost',
+      host: process.env.REDIS_HOST || "localhost",
       port: 6379
     });
   });

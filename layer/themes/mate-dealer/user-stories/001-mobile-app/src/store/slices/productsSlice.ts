@@ -7,7 +7,7 @@ export interface MateProduct {
   price: number;
   originalPrice?: number;
   images: string[];
-  category: 'yerba_mate' | 'bombillas' | 'gourds' | 'accessories' | 'sets';
+  category: 'yerba_mate' | "bombillas" | 'gourds' | "accessories" | 'sets';
   brand: string;
   origin: string;
   weight?: string;
@@ -43,7 +43,7 @@ interface ProductsState {
   categories: string[];
   brands: string[];
   filters: ProductFilters;
-  sortBy: 'name' | 'price' | 'rating' | 'popularity';
+  sortBy: 'name' | 'price' | 'rating' | "popularity";
   sortOrder: 'asc' | 'desc';
   loading: boolean;
   error: string | null;
@@ -53,7 +53,7 @@ interface ProductsState {
 const initialState: ProductsState = {
   products: [],
   featuredProducts: [],
-  categories: ['yerba_mate', 'bombillas', 'gourds', 'accessories', 'sets'],
+  categories: ['yerba_mate', "bombillas", 'gourds', "accessories", 'sets'],
   brands: [],
   filters: {
     category: null,
@@ -64,7 +64,7 @@ const initialState: ProductsState = {
     onSale: false,
     searchQuery: '',
   },
-  sortBy: 'popularity',
+  sortBy: "popularity",
   sortOrder: 'desc',
   loading: false,
   error: null,
@@ -72,7 +72,7 @@ const initialState: ProductsState = {
 };
 
 const productsSlice = createSlice({
-  name: 'products',
+  name: "products",
   initialState,
   reducers: {
     fetchProductsStart: (state) => {
@@ -98,7 +98,7 @@ const productsSlice = createSlice({
     updateFilters: (state, action: PayloadAction<Partial<ProductFilters>>) => {
       state.filters = { ...state.filters, ...action.payload };
     },
-    setSorting: (state, action: PayloadAction<{ sortBy: ProductsState['sortBy']; sortOrder: ProductsState['sortOrder'] }>) => {
+    setSorting: (state, action: PayloadAction<{ sortBy: ProductsState['sortBy']; sortOrder: ProductsState["sortOrder"] }>) => {
       state.sortBy = action.payload.sortBy;
       state.sortOrder = action.payload.sortOrder;
     },

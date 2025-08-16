@@ -17,7 +17,7 @@ import {
 import { useTheme } from '../../styles/ThemeContext';
 
 export interface ButtonProps extends TouchableOpacityProps {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+  variant?: 'primary' | "secondary" | 'outline' | 'ghost' | 'danger';
   size?: 'small' | 'medium' | 'large';
   children: ReactNode;
   loading?: boolean;
@@ -73,7 +73,7 @@ export const Button: React.FC<ButtonProps> = ({
     const colors = theme.colors;
     
     switch (variant) {
-      case 'secondary':
+      case "secondary":
         return {
           button: {
             backgroundColor: colors.secondary,
@@ -85,7 +85,7 @@ export const Button: React.FC<ButtonProps> = ({
       case 'outline':
         return {
           button: {
-            backgroundColor: 'transparent',
+            backgroundColor: "transparent",
             borderWidth: 1,
             borderColor: colors.primary,
           },
@@ -96,7 +96,7 @@ export const Button: React.FC<ButtonProps> = ({
       case 'ghost':
         return {
           button: {
-            backgroundColor: 'transparent',
+            backgroundColor: "transparent",
           },
           text: {
             color: colors.primary,

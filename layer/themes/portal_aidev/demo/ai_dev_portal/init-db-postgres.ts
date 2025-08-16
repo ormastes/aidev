@@ -1,5 +1,5 @@
 import { createConnection, query, getDbConfig } from './config/database';
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
 import { fs } from '../../../infra_external-log-lib/src';
 import { path } from '../../../infra_external-log-lib/src';
 
@@ -98,13 +98,13 @@ async function initializeDatabase(): Promise<void> {
         ($9, $10, $11, $12)
       `, [
         'admin', 'admin@aidev.com', demoPassword, 'admin',
-        'developer', 'dev@aidev.com', demoPassword, 'developer',
+        "developer", 'dev@aidev.com', demoPassword, "developer",
         'tester', 'test@aidev.com', demoPassword, 'tester'
       ]);
       
       // Get admin user ID
       const adminUser = await query<UserId>(db, 'SELECT id FROM users WHERE username = $1', ['admin']);
-      const devUser = await query<UserId>(db, 'SELECT id FROM users WHERE username = $1', ['developer']);
+      const devUser = await query<UserId>(db, 'SELECT id FROM users WHERE username = $1', ["developer"]);
       
       // Insert projects
       await query(db, `

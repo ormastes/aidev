@@ -1,7 +1,7 @@
 import { PythonLogPlatform } from '../../src/application/python-log-platform';
 import { ProcessSimulator } from '../../../../tests/utils/process-simulator';
 
-describe('PythonLogPlatform', () => {
+describe("PythonLogPlatform", () => {
   let platform: PythonLogPlatform;
 
   beforeAll(async () => {
@@ -24,7 +24,7 @@ describe('PythonLogPlatform', () => {
     }
   });
 
-  describe('startPythonLogCapture', () => {
+  describe("startPythonLogCapture", () => {
     it('should create a log capture session with Python configuration', async () => {
       const config = {
         command: 'node',

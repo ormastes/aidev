@@ -78,11 +78,11 @@ describe('CTest Controller Integration Tests', () => {
       getConfiguration: jest.fn().mockReturnValue({
         get: jest.fn((key: string) => {
           const defaults: { [key: string]: any } = {
-            'ctestExecutable': 'ctest',
-            'testFilter': '',
-            'parallelJobs': 1,
-            'buildBeforeTest': true,
-            'debuggerPath': 'gdb'
+            "ctestExecutable": 'ctest',
+            "testFilter": '',
+            "parallelJobs": 1,
+            "buildBeforeTest": true,
+            "debuggerPath": 'gdb'
           };
           return defaults[key];
         }),
@@ -223,8 +223,8 @@ describe('CTest Controller Integration Tests', () => {
       // Mock test request
       const mockTestItem = {
         id: 'MathTests.Addition',
-        label: 'Addition',
-        parent: { id: 'MathTests' },
+        label: "Addition",
+        parent: { id: "MathTests" },
       } as any;
 
       const mockRequest = {
@@ -284,11 +284,11 @@ describe('CTest Controller Integration Tests', () => {
 
       // Mock test suite with children
       const mockTestSuite = {
-        id: 'MathTests',
-        label: 'MathTests',
+        id: "MathTests",
+        label: "MathTests",
         children: new Map([
-          ['MathTests.Addition', { id: 'MathTests.Addition', label: 'Addition', parent: { id: 'MathTests' } }],
-          ['MathTests.Subtraction', { id: 'MathTests.Subtraction', label: 'Subtraction', parent: { id: 'MathTests' } }],
+          ['MathTests.Addition', { id: 'MathTests.Addition', label: "Addition", parent: { id: "MathTests" } }],
+          ['MathTests.Subtraction', { id: 'MathTests.Subtraction', label: "Subtraction", parent: { id: "MathTests" } }],
         ]),
       } as any;
 
@@ -318,7 +318,7 @@ describe('CTest Controller Integration Tests', () => {
       let callCount = 0;
       mockRunner.mockImplementation(async (args, buildDir, useFile, resultFile, config, cancellation, handler) => {
         callCount++;
-        const testName = callCount === 1 ? 'Addition' : 'Subtraction';
+        const testName = callCount === 1 ? "Addition" : "Subtraction";
         const mockOutput = `Test #${callCount}: MathTests.${testName} ..... Passed 0.05 sec`;
         handler(mockOutput);
         return Promise.resolve();
@@ -344,8 +344,8 @@ describe('CTest Controller Integration Tests', () => {
 
       const mockTestItem = {
         id: 'MathTests.Addition',
-        label: 'Addition',
-        parent: { id: 'MathTests' },
+        label: "Addition",
+        parent: { id: "MathTests" },
       } as any;
 
       const mockRequest = { include: [mockTestItem] } as any;
@@ -389,9 +389,9 @@ describe('CTest Controller Integration Tests', () => {
       // Mock configuration change
       const newConfig = jest.fn((key: string) => {
         const newDefaults: { [key: string]: any } = {
-          'ctestExecutable': '/custom/ctest',
-          'parallelJobs': 4,
-          'buildBeforeTest': false,
+          "ctestExecutable": '/custom/ctest',
+          "parallelJobs": 4,
+          "buildBeforeTest": false,
         };
         return newDefaults[key] || 'default';
       });
@@ -437,8 +437,8 @@ describe('CTest Controller Integration Tests', () => {
 
       // Test item without parent
       const mockTestItem = {
-        id: 'OrphanTest',
-        label: 'OrphanTest',
+        id: "OrphanTest",
+        label: "OrphanTest",
         parent: undefined,
       } as any;
 
@@ -474,8 +474,8 @@ describe('CTest Controller Integration Tests', () => {
 
       const mockTestItem = {
         id: 'MathTests.Addition',
-        label: 'Addition',
-        parent: { id: 'MathTests' },
+        label: "Addition",
+        parent: { id: "MathTests" },
       } as any;
 
       const mockRequest = { include: [mockTestItem] } as any;

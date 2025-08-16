@@ -4,7 +4,7 @@
 
 // Set test environment
 process.env.NODE_ENV = 'test';
-process.env.VLLM_API_KEY = 'test-api-key';
+process.env.VLLM_apiKey = process.env.API_KEY || 'PLACEHOLDER_API_KEY';
 process.env.VLLM_SERVER_URL = 'http://localhost:8000';
 
 // Mock console methods to reduce noise during tests
@@ -39,7 +39,7 @@ export const mockVLLMResponse = (content: string) => ({
   choices: [{
     index: 0,
     message: {
-      role: 'assistant',
+      role: "assistant",
       content,
     },
     finish_reason: 'stop',

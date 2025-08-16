@@ -257,7 +257,7 @@ async function generateExampleStoryReport() {
       ]
     },
     metadata: {
-      tags: ['authentication', 'security', 'jwt'],
+      tags: ["authentication", "security", 'jwt'],
       project: 'User Portal',
       version: '1.0.0',
       customFields: {

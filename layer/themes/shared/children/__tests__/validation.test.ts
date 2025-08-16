@@ -11,7 +11,7 @@ import {
 } from '../utils/validation';
 
 describe('Validation Utilities', () => {
-  describe('validateNonEmptyString', () => {
+  describe("validateNonEmptyString", () => {
     test('should validate non-empty strings', () => {
       const result = validateNonEmptyString('test', 'Name');
       expect(result.isValid).toBe(true);
@@ -42,7 +42,7 @@ describe('Validation Utilities', () => {
     });
   });
 
-  describe('validateRange', () => {
+  describe("validateRange", () => {
     test('should validate numbers within range', () => {
       const result = validateRange(50, 0, 100, 'Score');
       expect(result.isValid).toBe(true);
@@ -71,7 +71,7 @@ describe('Validation Utilities', () => {
     });
   });
 
-  describe('validateEmail', () => {
+  describe("validateEmail", () => {
     test('should validate correct email formats', () => {
       const validEmails = [
         'test@example.com',
@@ -87,7 +87,7 @@ describe('Validation Utilities', () => {
 
     test('should reject invalid email formats', () => {
       const invalidEmails = [
-        'notanemail',
+        "notanemail",
         '@example.com',
         'test@',
         'test @example.com',
@@ -106,7 +106,7 @@ describe('Validation Utilities', () => {
     });
   });
 
-  describe('validateArrayLength', () => {
+  describe("validateArrayLength", () => {
     test('should validate arrays within length bounds', () => {
       const result = validateArrayLength([1, 2, 3], 1, 5, 'Items');
       expect(result.isValid).toBe(true);
@@ -136,7 +136,7 @@ describe('Validation Utilities', () => {
     });
   });
 
-  describe('validateUrl', () => {
+  describe("validateUrl", () => {
     test('should validate correct URLs', () => {
       const validUrls = [
         'http://example.com',
@@ -166,7 +166,7 @@ describe('Validation Utilities', () => {
     });
   });
 
-  describe('validatePort', () => {
+  describe("validatePort", () => {
     test('should validate valid port numbers', () => {
       expect(validatePort(80).isValid).toBe(true);
       expect(validatePort(443).isValid).toBe(true);
@@ -181,7 +181,7 @@ describe('Validation Utilities', () => {
     });
   });
 
-  describe('validateFilePath', () => {
+  describe("validateFilePath", () => {
     test('should validate valid file paths', () => {
       const validPaths = [
         '/home/user/file.txt',
@@ -218,7 +218,7 @@ describe('Validation Utilities', () => {
     });
   });
 
-  describe('validateRequiredFields', () => {
+  describe("validateRequiredFields", () => {
     test('should validate objects with all required fields', () => {
       const obj = { name: 'Test', age: 25, email: 'test@example.com' };
       const result = validateRequiredFields(obj, ['name', 'age', 'email']);

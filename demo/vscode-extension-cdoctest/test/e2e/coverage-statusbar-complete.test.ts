@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
-import { _electron as electron } from 'playwright';
-import { Page, ElectronApplication } from 'playwright';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { _electron as electron } from "playwright";
+import { Page, ElectronApplication } from "playwright";
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 test.describe('CoverageStatusBarItem - System Test', () => {
     let electronApp: ElectronApplication;

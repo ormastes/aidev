@@ -40,7 +40,7 @@ export class JsonDocumentHandler {
    */
   async readJson(filePath: string): Promise<any> {
     try {
-      const content = await fs.readFile(filePath, 'utf-8');
+      const content = await fileAPI.readFile(filePath, 'utf-8');
       return JSON.parse(content);
     } catch (error) {
       if (error instanceof SyntaxError) {

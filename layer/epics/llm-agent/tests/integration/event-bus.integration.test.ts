@@ -124,14 +124,14 @@ describe('EventBus Integration', () => {
       });
 
       eventBus.subscribe('error-topic', () => {
-        results.push('handler2');
+        results.push("handler2");
       });
 
       await eventBus.publish('error-topic', 
         EventBus.createEvent('test', 'source', {})
       );
 
-      expect(results).toEqual(['handler2']);
+      expect(results).toEqual(["handler2"]);
     });
   });
 });

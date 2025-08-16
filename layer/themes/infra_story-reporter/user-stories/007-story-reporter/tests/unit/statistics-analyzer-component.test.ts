@@ -15,7 +15,7 @@ describe('StatisticsAnalyzer Component Unit Test', () => {
     statisticsAnalyzer = new StatisticsAnalyzer();
   });
 
-  describe('calculateBasicStatistics', () => {
+  describe("calculateBasicStatistics", () => {
     it('should calculate correct statistics for all In Progress scenarios', () => {
       // Arrange
       const testResult: TestResult = {
@@ -100,7 +100,7 @@ describe('StatisticsAnalyzer Component Unit Test', () => {
     });
   });
 
-  describe('calculatePerformanceMetrics', () => {
+  describe("calculatePerformanceMetrics", () => {
     it('should identify fastest and slowest scenarios', () => {
       // Arrange
       const testResult: TestResult = {
@@ -175,7 +175,7 @@ describe('StatisticsAnalyzer Component Unit Test', () => {
     });
   });
 
-  describe('analyzeFailurePatterns', () => {
+  describe("analyzeFailurePatterns", () => {
     it('should categorize timeout failures', () => {
       // Arrange
       const testResult: TestResult = {
@@ -271,11 +271,11 @@ describe('StatisticsAnalyzer Component Unit Test', () => {
     });
   });
 
-  describe('generateTrendAnalysis', () => {
+  describe("generateTrendAnalysis", () => {
     it('should detect performance improvement', () => {
       // Arrange
       const historicalResults: TestResult[] = [
-        createTestResult('historical', 'In Progress', [
+        createTestResult("historical", 'In Progress', [
           createScenario('s1', 'In Progress', 200)
         ], 200)
       ];
@@ -288,7 +288,7 @@ describe('StatisticsAnalyzer Component Unit Test', () => {
       const trend = statisticsAnalyzer.generateTrendAnalysis(currentResult, historicalResults);
 
       // Assert
-      expect(trend.performanceTrend).toBe('improving');
+      expect(trend.performanceTrend).toBe("improving");
       expect(trend.improvementPercentage).toBe(50);
       expect(trend.improvements.length).toBeGreaterThan(0);
     });
@@ -296,7 +296,7 @@ describe('StatisticsAnalyzer Component Unit Test', () => {
     it('should detect status regression', () => {
       // Arrange
       const historicalResults: TestResult[] = [
-        createTestResult('historical', 'In Progress', [
+        createTestResult("historical", 'In Progress', [
           createScenario('s1', 'In Progress', 100)
         ], 100)
       ];
@@ -312,7 +312,7 @@ describe('StatisticsAnalyzer Component Unit Test', () => {
       expect(trend.regressions.length).toBeGreaterThan(0);
       const regression = trend.regressions[0];
       expect(regression.type).toBe('status_regression');
-      expect(regression.previousStatus).toBe('In Progress');
+      expect(regression.previousStatus).toBe("completed");
       expect(regression.currentStatus).toBe('failed');
       expect(regression.severity).toBe('high');
     });
@@ -327,14 +327,14 @@ describe('StatisticsAnalyzer Component Unit Test', () => {
       const trend = statisticsAnalyzer.generateTrendAnalysis(currentResult, []);
 
       // Assert
-      expect(trend.performanceTrend).toBe('UPDATING');
+      expect(trend.performanceTrend).toBe("UPDATING");
       expect(trend.improvementPercentage).toBe(0);
       expect(trend.regressions).toEqual([]);
       expect(trend.improvements).toEqual([]);
     });
   });
 
-  describe('aggregateMultipleRuns', () => {
+  describe("aggregateMultipleRuns", () => {
     it('should aggregate statistics across multiple test runs', () => {
       // Arrange
       const testResults: TestResult[] = [
@@ -376,7 +376,7 @@ describe('StatisticsAnalyzer Component Unit Test', () => {
     });
   });
 
-  describe('exportStatistics', () => {
+  describe("exportStatistics", () => {
     it('should export In Progress statistics with metadata', () => {
       // Arrange
       const testResult = createTestResult('export-test', 'In Progress', [

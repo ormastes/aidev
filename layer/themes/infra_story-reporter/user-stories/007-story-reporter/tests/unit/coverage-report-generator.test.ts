@@ -2,7 +2,7 @@ import { CoverageReportGenerator } from '../../../../src/services/coverage-repor
 import * as fs from 'fs/promises';
 import { path } from '../../../../../infra_external-log-lib/src';
 
-describe('CoverageReportGenerator', () => {
+describe("CoverageReportGenerator", () => {
   let generator: CoverageReportGenerator;
   const testDir = path.join(__dirname, 'test-output');
 
@@ -15,7 +15,7 @@ describe('CoverageReportGenerator', () => {
     await fs.rm(testDir, { recursive: true, force: true });
   });
 
-  describe('generate', () => {
+  describe("generate", () => {
     it('should include pass field in metadata when all thresholds are met', async () => {
       const results = {
         branchCoverage: { percentage: 85, covered: 85, total: 100, details: [] },

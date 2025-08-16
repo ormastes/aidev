@@ -1,13 +1,13 @@
 import { TestAnalyzer, TestAnalysis } from '../../children/TestAnalyzer';
 
-describe('TestAnalyzer', () => {
+describe("TestAnalyzer", () => {
   let analyzer: TestAnalyzer;
 
   beforeEach(() => {
     analyzer = new TestAnalyzer();
   });
 
-  describe('analyzeTestResults', () => {
+  describe("analyzeTestResults", () => {
     it('should analyze basic test metrics correctly', () => {
       const testResults = {
         totalTests: 10,
@@ -257,7 +257,7 @@ describe('TestAnalyzer', () => {
     });
   });
 
-  describe('compareTestRuns', () => {
+  describe("compareTestRuns", () => {
     it('should detect improvements when tests are added', () => {
       const previous: TestAnalysis = {
         metrics: { totalTests: 10, passedTests: 8, failedTests: 1, skippedTests: 1, testDuration: 1000, averageTestTime: 100 },

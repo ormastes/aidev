@@ -27,7 +27,7 @@ export class OpenAIService {
       const completion = await this.client.chat.completions.create({
         model: provider.config.model || 'gpt-4-turbo-preview',
         messages: messages.map(msg => ({
-          role: msg.role as 'user' | 'assistant' | 'system',
+          role: msg.role as 'user' | "assistant" | 'system',
           content: msg.content,
         })),
         temperature: settings.temperature || 0.7,
@@ -37,7 +37,7 @@ export class OpenAIService {
 
       return {
         content: completion.choices[0].message.content || '',
-        role: 'assistant',
+        role: "assistant",
         timestamp: new Date(),
         provider: provider.id,
         model: provider.config.model || 'gpt-4-turbo-preview',
@@ -68,7 +68,7 @@ export class OpenAIService {
       const stream = await this.client.chat.completions.create({
         model: provider.config.model || 'gpt-4-turbo-preview',
         messages: messages.map(msg => ({
-          role: msg.role as 'user' | 'assistant' | 'system',
+          role: msg.role as 'user' | "assistant" | 'system',
           content: msg.content,
         })),
         temperature: settings.temperature || 0.7,
@@ -97,7 +97,7 @@ export class OpenAIService {
 
       return {
         content: fullContent,
-        role: 'assistant',
+        role: "assistant",
         timestamp: new Date(),
         provider: provider.id,
         model: provider.config.model || 'gpt-4-turbo-preview',

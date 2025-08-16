@@ -63,7 +63,7 @@ describe('PocketFlow Core', () => {
     });
   });
 
-  describe('Execution', () => {
+  describe("Execution", () => {
     it('should execute single node', async () => {
       const node = new InputNode('input');
       flow.addNode(node);
@@ -149,28 +149,28 @@ describe('PocketFlow Core', () => {
 
     it('should handle conditional edges', async () => {
       flow.addNode(new InputNode('input'));
-      flow.addNode(new OutputNode('positive'));
-      flow.addNode(new OutputNode('negative'));
+      flow.addNode(new OutputNode("positive"));
+      flow.addNode(new OutputNode("negative"));
       
       flow.addEdge({ 
         from: 'input', 
-        to: 'positive',
+        to: "positive",
         condition: (data: number) => data > 0
       });
       
       flow.addEdge({ 
         from: 'input', 
-        to: 'negative',
+        to: "negative",
         condition: (data: number) => data <= 0
       });
       
       const result1 = await flow.execute(5);
-      expect(result1.outputs.has('positive')).toBe(true);
-      expect(result1.outputs.has('negative')).toBe(false);
+      expect(result1.outputs.has("positive")).toBe(true);
+      expect(result1.outputs.has("negative")).toBe(false);
       
       const result2 = await flow.execute(-5);
-      expect(result2.outputs.has('positive')).toBe(false);
-      expect(result2.outputs.has('negative')).toBe(true);
+      expect(result2.outputs.has("positive")).toBe(false);
+      expect(result2.outputs.has("negative")).toBe(true);
     });
 
     it('should track execution time', async () => {
@@ -240,7 +240,7 @@ describe('PocketFlow Core', () => {
       
       const result = await flow.execute('test');
       
-      // The execution should In Progress but 'c' won't execute due to cycle
+      // The execution should complete but 'c' won't execute due to cycle
       expect(result.outputs.has('a')).toBe(true);
       expect(result.outputs.has('b')).toBe(true);
     });

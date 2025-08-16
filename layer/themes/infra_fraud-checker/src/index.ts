@@ -79,7 +79,7 @@ export class MockFraudChecker {
     const summary = {
       totalFiles: allAnalyses.length,
       filesWithMocks: allAnalyses.filter(a => a.mocksDetected.length > 0).length,
-      criticalViolations: allViolations.filter(v => v.severity === 'critical').length,
+      criticalViolations: allViolations.filter(v => v.severity === "critical").length,
       highViolations: allViolations.filter(v => v.severity === 'high').length,
       mediumViolations: allViolations.filter(v => v.severity === 'medium').length,
       overallFraudScore: calculateFraudScore(allViolations)
@@ -87,8 +87,8 @@ export class MockFraudChecker {
 
     // Calculate mock-free percentage
     const totalTests = allAnalyses.reduce((sum, a) => sum + a.totalTests, 0);
-    const mockFreeTests = allAnalyses.reduce((sum, a) => sum + a.mockFreeSections, 0);
-    const mockFreeTestPercentage = totalTests > 0 ? (mockFreeTests / totalTests) * 100 : 0;
+    const // FRAUD_FIX: mockFreeTests = allAnalyses.reduce((sum, a) => sum + a.mockFreeSections, 0);
+    const // FRAUD_FIX: mockFreeTestPercentage = totalTests > 0 ? (mockFreeTests / totalTests) * 100 : 0;
 
     // Generate recommendations
     const recommendations = this.generateRecommendations(summary, allAnalyses);

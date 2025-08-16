@@ -336,7 +336,7 @@ describe('FlowManager-Logger Integration Test', () => {
     // Act
     const result = await flowManager.defineFlow(
       '', // Invalid empty name
-      'Description',
+      "Description",
       { type: 'manual' },
       []
     );

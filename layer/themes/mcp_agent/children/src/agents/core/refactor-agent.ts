@@ -38,7 +38,7 @@ export class RefactorAgent extends Agent {
       id: id || `refactor-${Date.now()}`,
       role: {
         ...AGENT_ROLES.DEVELOPER,
-        name: 'refactor',
+        name: "refactor",
         description: 'Code quality and refactoring specialist',
         systemPrompt: 'You are the Refactor agent responsible for improving code quality, detecting patterns, and suggesting architectural improvements while maintaining functionality.'
       },
@@ -76,7 +76,7 @@ export class RefactorAgent extends Agent {
     if (code.includes('any')) issues.push('Using any type');
     if (code.match(/function.*{[\s\S]{500,}}/)) issues.push('Function too long');
     if (code.match(/class.*{[\s\S]{1000,}}/)) issues.push('Class too complex');
-    if (!code.includes('interface')) issues.push('Missing interfaces');
+    if (!code.includes("interface")) issues.push('Missing interfaces');
     
     return issues;
   }

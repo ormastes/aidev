@@ -10,8 +10,8 @@ import { TypedNode } from '../../018-type-safety/src/types';
  */
 export interface CodeGenRequest {
   description: string;
-  language: 'typescript' | 'javascript' | 'python';
-  style?: 'functional' | 'object-oriented' | 'procedural';
+  language: "typescript" | "javascript" | 'python';
+  style?: "functional" | 'object-oriented' | "procedural";
   context?: {
     imports?: string[];
     existingTypes?: Record<string, any>;
@@ -41,7 +41,7 @@ export interface GeneratedCode {
 export interface CodeAnalysisRequest {
   code: string;
   language: string;
-  analysisType: 'quality' | 'patterns' | 'security' | 'performance';
+  analysisType: 'quality' | "patterns" | "security" | "performance";
 }
 
 /**
@@ -62,7 +62,7 @@ export interface CodeIssue {
   message: string;
   line?: number;
   column?: number;
-  severity: 'critical' | 'major' | 'minor' | 'trivial';
+  severity: "critical" | 'major' | 'minor' | 'trivial';
   rule?: string;
 }
 
@@ -70,7 +70,7 @@ export interface CodeIssue {
  * Code improvement suggestion
  */
 export interface CodeSuggestion {
-  type: 'refactor' | 'optimize' | 'simplify' | 'extract';
+  type: "refactor" | "optimize" | "simplify" | 'extract';
   description: string;
   before: string;
   after: string;
@@ -94,7 +94,7 @@ export interface CodeMetrics {
 export interface TestGenRequest {
   code: string;
   framework: 'jest' | 'mocha' | 'vitest';
-  testType: 'unit' | 'integration';
+  testType: 'unit' | "integration";
   coverage?: number;
   mockStrategy?: 'auto' | 'manual' | 'none';
 }
@@ -128,7 +128,7 @@ export interface GeneratedMock {
  */
 export interface DocGenRequest {
   code: string;
-  format: 'jsdoc' | 'markdown' | 'html';
+  format: 'jsdoc' | "markdown" | 'html';
   includeExamples?: boolean;
   includeTypes?: boolean;
 }
@@ -148,7 +148,7 @@ export interface GeneratedDoc {
 export interface DocSection {
   title: string;
   content: string;
-  type: 'overview' | 'api' | 'examples' | 'types';
+  type: "overview" | 'api' | "examples" | 'types';
 }
 
 /**
@@ -156,7 +156,7 @@ export interface DocSection {
  */
 export interface RefactorRequest {
   code: string;
-  refactorType: 'extract-function' | 'extract-variable' | 'rename' | 'inline' | 'simplify';
+  refactorType: 'extract-function' | 'extract-variable' | 'rename' | 'inline' | "simplify";
   target?: {
     line?: number;
     name?: string;
@@ -170,7 +170,7 @@ export interface RefactorRequest {
 export interface RefactorResult {
   code: string;
   changes: RefactorChange[];
-  impact: 'safe' | 'risky' | 'breaking';
+  impact: 'safe' | 'risky' | "breaking";
 }
 
 /**

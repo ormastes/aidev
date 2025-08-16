@@ -80,7 +80,7 @@ export const ENFORCED_THEMES = [
   'check_*',
   'llm-agent_*',
   'mcp_*',
-  'research',
+  "research",
   'shared',
   'layer/themes/**',
   'layer/epics/**',
@@ -95,22 +95,22 @@ export const ENFORCED_THEMES = [
  */
 export const TYPE_ROUTING_MAP: Record<string, string> = {
   'doc': 'gen/doc',
-  'document': 'gen/doc',
+  "document": 'gen/doc',
   'report': 'gen/reports',
   'temp': 'temp',
-  'temporary': 'temp',
+  "temporary": 'temp',
   'log': 'gen/logs',
   'data': 'data',
   'cache': 'data/cache',
   'config': 'config',
   'test': 'test',
   'source': 'src',
-  'generated': 'gen',
+  "generated": 'gen',
   'gen': 'gen',
   'demo': 'demo',
   'script': 'scripts',
-  'fixture': 'fixtures',
-  'coverage': 'coverage',
+  'fixture': "fixtures",
+  "coverage": "coverage",
   'build': 'build',
   'dist': 'dist',
   'output': 'output'
@@ -318,22 +318,22 @@ export class EnforcementValidator {
     isExempt: boolean;
     mustUseAPI: boolean;
     requiresType: boolean;
-    enforcementLevel: 'none' | 'optional' | 'required' | 'strict';
+    enforcementLevel: 'none' | "optional" | "required" | 'strict';
   } {
     const theme = this.extractThemeName(filePath);
     const isExempt = this.isExempt(filePath);
     const mustUseAPI = this.mustUseFileAPI(filePath);
     const requiresType = this.isTypeRequired(filePath);
     
-    let enforcementLevel: 'none' | 'optional' | 'required' | 'strict';
+    let enforcementLevel: 'none' | "optional" | "required" | 'strict';
     if (isExempt) {
       enforcementLevel = 'none';
     } else if (mustUseAPI && requiresType) {
       enforcementLevel = 'strict';
     } else if (mustUseAPI) {
-      enforcementLevel = 'required';
+      enforcementLevel = "required";
     } else {
-      enforcementLevel = 'optional';
+      enforcementLevel = "optional";
     }
     
     return {

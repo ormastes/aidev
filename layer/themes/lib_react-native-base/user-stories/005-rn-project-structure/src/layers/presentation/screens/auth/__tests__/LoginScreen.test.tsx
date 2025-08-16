@@ -45,7 +45,7 @@ const mockNavigation = {
   goBack: jest.fn(),
 };
 
-describe('LoginScreen', () => {
+describe("LoginScreen", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -71,10 +71,10 @@ describe('LoginScreen', () => {
     const passwordInput = getByPlaceholderText('Enter your password');
 
     fireEvent.changeText(emailInput, 'test@example.com');
-    fireEvent.changeText(passwordInput, 'password123');
+    fireEvent.changeText(passwordInput, "password123");
 
     expect(emailInput.props.value).toBe('test@example.com');
-    expect(passwordInput.props.value).toBe('password123');
+    expect(passwordInput.props.value).toBe("password123");
   });
 
   it('should show error for invalid email', async () => {
@@ -130,7 +130,7 @@ describe('LoginScreen', () => {
     const signInButton = getByText('Sign In');
 
     fireEvent.changeText(emailInput, 'test@example.com');
-    fireEvent.changeText(passwordInput, 'password123');
+    fireEvent.changeText(passwordInput, "password123");
     fireEvent.press(signInButton);
 
     // Since the mock is not being called directly, we check that no alerts were shown
@@ -147,7 +147,7 @@ describe('LoginScreen', () => {
     const createAccountButton = getByText('Create Account');
     fireEvent.press(createAccountButton);
 
-    expect(mockNavigation.navigate).toHaveBeenCalledWith('Register');
+    expect(mockNavigation.navigate).toHaveBeenCalledWith("Register");
   });
 
   it('should navigate to forgot password screen', () => {
@@ -158,7 +158,7 @@ describe('LoginScreen', () => {
     const forgotPasswordButton = getByText('Forgot Password?');
     fireEvent.press(forgotPasswordButton);
 
-    expect(mockNavigation.navigate).toHaveBeenCalledWith('ForgotPassword');
+    expect(mockNavigation.navigate).toHaveBeenCalledWith("ForgotPassword");
   });
 
   it('should show loading state', () => {
@@ -202,7 +202,7 @@ describe('LoginScreen', () => {
     const signInButton = getByText('Sign In');
 
     fireEvent.changeText(emailInput, 'test@example.com');
-    fireEvent.changeText(passwordInput, 'wrongpassword');
+    fireEvent.changeText(passwordInput, "wrongpassword");
     fireEvent.press(signInButton);
 
     // The error handling happens in the try-catch block

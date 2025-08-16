@@ -1,7 +1,7 @@
 import { validateReportConfig, createDefaultReportConfig } from '../../src/domain/report-config';
 
 describe('Report Config Validation', () => {
-  describe('validateReportConfig', () => {
+  describe("validateReportConfig", () => {
     it('should validate valid minimal configuration', () => {
       const validConfig = {
         title: 'Test Report',
@@ -70,7 +70,7 @@ describe('Report Config Validation', () => {
       });
 
       it('should throw error for array description', () => {
-        const config = { description: ['description'] };
+        const config = { description: ["description"] };
         expect(() => validateReportConfig(config)).toThrow('Invalid report config: description must be a string');
       });
     });
@@ -253,7 +253,7 @@ describe('Report Config Validation', () => {
           metadata: {
             author: 'Test Author',
             version: '1.0.0',
-            tags: ['regression', 'smoke']
+            tags: ["regression", 'smoke']
           }
         };
         
@@ -273,19 +273,19 @@ describe('Report Config Validation', () => {
     });
   });
 
-  describe('createDefaultReportConfig', () => {
+  describe("createDefaultReportConfig", () => {
     it('should create a valid default configuration', () => {
       const defaultConfig = createDefaultReportConfig();
       
       expect(() => validateReportConfig(defaultConfig)).not.toThrow();
       expect(defaultConfig).toHaveProperty('title');
-      expect(defaultConfig).toHaveProperty('description');
-      expect(defaultConfig).toHaveProperty('includeScreenshots');
-      expect(defaultConfig).toHaveProperty('includeLogs');
-      expect(defaultConfig).toHaveProperty('fileNamePattern');
-      expect(defaultConfig).toHaveProperty('jsonFormatting');
-      expect(defaultConfig).toHaveProperty('htmlStyling');
-      expect(defaultConfig).toHaveProperty('xmlFormatting');
+      expect(defaultConfig).toHaveProperty("description");
+      expect(defaultConfig).toHaveProperty("includeScreenshots");
+      expect(defaultConfig).toHaveProperty("includeLogs");
+      expect(defaultConfig).toHaveProperty("fileNamePattern");
+      expect(defaultConfig).toHaveProperty("jsonFormatting");
+      expect(defaultConfig).toHaveProperty("htmlStyling");
+      expect(defaultConfig).toHaveProperty("xmlFormatting");
     });
 
     it('should create configuration with expected default values', () => {

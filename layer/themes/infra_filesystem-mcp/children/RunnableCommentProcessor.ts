@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 import { StoryReportValidator, ValidationCriteria } from './StoryReportValidator';
 import * as fs from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
@@ -83,7 +84,7 @@ export class RunnableCommentProcessor {
         }
 
         // Read and validate retrospect content
-        const content = await fs.readFile(retrospectPath, 'utf8');
+        const content = await fileAPI.readFile(retrospectPath, 'utf8');
         const hasLessonsLearned = content.includes('## Lessons Learned') || content.includes('# Lessons Learned');
         const hasRuleSuggestions = content.includes('## Rule Suggestions') || content.includes('# Rule Suggestions');
         const hasKnowHowUpdates = content.includes('KNOW_HOW.md') || content.includes('know-how');
@@ -133,18 +134,18 @@ export class RunnableCommentProcessor {
       const validations: Record<string, () => Promise<{ valid: boolean; message: string }>> = {
         'system-test': async () => {
           // Check if system test has corresponding environment, external, and integration tests
-          const hasEnvironmentTest = itemDescription.includes('environment') || itemDescription.includes('env');
-          const hasExternalTest = itemDescription.includes('external') || itemDescription.includes('ext');
-          const hasIntegrationTest = itemDescription.includes('integration') || itemDescription.includes('int');
+          const hasEnvironmentTest = itemDescription.includes("environment") || itemDescription.includes('env');
+          const hasExternalTest = itemDescription.includes("external") || itemDescription.includes('ext');
+          const hasIntegrationTest = itemDescription.includes("integration") || itemDescription.includes('int');
 
           return {
             valid: hasEnvironmentTest && hasExternalTest && hasIntegrationTest,
             message: 'System test must reference environment, external, and integration test coverage'
           };
         },
-        'scenario': async () => {
+        "scenario": async () => {
           // Check if scenario has research files referenced
-          const hasResearch = itemDescription.includes('research') || itemDescription.includes('/research/');
+          const hasResearch = itemDescription.includes("research") || itemDescription.includes('/research/');
           return {
             valid: hasResearch,
             message: 'Scenario must reference research files (domain/external)'
@@ -152,7 +153,7 @@ export class RunnableCommentProcessor {
         },
         'user-story': async () => {
           // Check if user story is registered in NAME_ID.vf.json
-          const hasRegistration = itemDescription.includes('registered') || itemDescription.includes('NAME_ID');
+          const hasRegistration = itemDescription.includes("registered") || itemDescription.includes('NAME_ID');
           return {
             valid: hasRegistration,
             message: 'User story must be registered in NAME_ID.vf.json'
@@ -213,7 +214,7 @@ export class RunnableCommentProcessor {
    */
   async processFile(filePath: string): Promise<RunnableCommentResult[]> {
     try {
-      const content = await fs.readFile(filePath, 'utf8');
+      const content = await fileAPI.readFile(filePath, 'utf8');
       const commentPattern = /<!-- runnable:[^>]+ -->/g;
       const comments = content.match(commentPattern) || [];
       

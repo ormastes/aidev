@@ -3,8 +3,8 @@
  * Runs once before all test suites
  */
 
-import { mkdirSync, existsSync } from 'fs';
-import { join } from 'path';
+import { mkdirSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
 
 export default async () => {
   console.log('\n🚀 Setting up cross-theme integration test environment...\n');

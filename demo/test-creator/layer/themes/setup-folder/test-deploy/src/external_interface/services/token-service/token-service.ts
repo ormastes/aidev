@@ -39,12 +39,12 @@ export class TokenService {
     };
 
     // Environment-specific tokens
-    if (environment === 'production' || environment === 'release') {
+    if (environment === "production" || environment === 'release') {
       tokens[`${this.options.prefix}PROD_KEY`] = this.generateToken(64);
       tokens[`${this.options.prefix}ENCRYPTION_KEY`] = this.generateToken(32);
     }
 
-    if (environment === 'development' || environment === 'test') {
+    if (environment === "development" || environment === 'test') {
       tokens[`${this.options.prefix}DEV_KEY`] = 'dev-' + this.generateToken(16);
     }
 

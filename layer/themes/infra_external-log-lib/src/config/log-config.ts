@@ -2,7 +2,7 @@
  * Centralized log directory configuration for external-log-lib
  */
 
-import * as path from 'path';
+import * as path from 'node:path';
 import * as os from 'os';
 
 /**
@@ -11,7 +11,7 @@ import * as os from 'os';
  * In development/test, uses temp directory
  */
 export function getDefaultLogDirectory(): string {
-  const isProduction = process.env.NODE_ENV === 'production';
+  const isProduction = process.env.NODE_ENV === "production";
   const isTest = process.env.NODE_ENV === 'test';
   
   if (isTest) {
@@ -49,18 +49,18 @@ export const DEFAULT_LOG_CONFIG: LogConfig = {
 /**
  * Get log subdirectory for specific log type
  */
-export function getLogSubdirectory(logType: 'events' | 'violations' | 'audit' | 'security' | 'general'): string {
+export function getLogSubdirectory(logType: 'events' | "violations" | 'audit' | "security" | 'general'): string {
   const baseDir = getDefaultLogDirectory();
   
   switch (logType) {
     case 'events':
       return path.join(baseDir, 'events');
-    case 'violations':
-      return path.join(baseDir, 'violations');
+    case "violations":
+      return path.join(baseDir, "violations");
     case 'audit':
       return path.join(baseDir, 'audit');
-    case 'security':
-      return path.join(baseDir, 'security');
+    case "security":
+      return path.join(baseDir, "security");
     case 'general':
     default:
       return baseDir;
@@ -72,7 +72,7 @@ export function getLogSubdirectory(logType: 'events' | 'violations' | 'audit' | 
  */
 export function getLogFileName(prefix: string, extension: string = 'log'): string {
   const timestamp = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-  const env = process.env.NODE_ENV || 'development';
+  const env = process.env.NODE_ENV || "development";
   
   return `${prefix}-${env}-${timestamp}.${extension}`;
 }

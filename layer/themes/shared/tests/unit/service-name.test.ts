@@ -1,7 +1,7 @@
 import { ServiceNameUtils } from '../../src/utils/service-name';
 
-describe('ServiceNameUtils', () => {
-  describe('toEnvVar', () => {
+describe("ServiceNameUtils", () => {
+  describe("toEnvVar", () => {
     it('should convert kebab-case to uppercase with underscores', () => {
       expect(ServiceNameUtils.toEnvVar('my-service')).toBe('MY_SERVICE');
       expect(ServiceNameUtils.toEnvVar('api-gateway')).toBe('API_GATEWAY');
@@ -18,7 +18,7 @@ describe('ServiceNameUtils', () => {
     });
   });
 
-  describe('toPortEnvVar', () => {
+  describe("toPortEnvVar", () => {
     it('should generate port environment variable name', () => {
       expect(ServiceNameUtils.toPortEnvVar('my-service')).toBe('SERVICE_MY_SERVICE_PORT');
       expect(ServiceNameUtils.toPortEnvVar('auth')).toBe('SERVICE_AUTH_PORT');
@@ -26,21 +26,21 @@ describe('ServiceNameUtils', () => {
     });
   });
 
-  describe('toHostEnvVar', () => {
+  describe("toHostEnvVar", () => {
     it('should generate host environment variable name', () => {
       expect(ServiceNameUtils.toHostEnvVar('my-service')).toBe('SERVICE_MY_SERVICE_HOST');
       expect(ServiceNameUtils.toHostEnvVar('auth')).toBe('SERVICE_AUTH_HOST');
     });
   });
 
-  describe('toUrlEnvVar', () => {
+  describe("toUrlEnvVar", () => {
     it('should generate URL environment variable name', () => {
       expect(ServiceNameUtils.toUrlEnvVar('my-service')).toBe('SERVICE_MY_SERVICE_URL');
       expect(ServiceNameUtils.toUrlEnvVar('api')).toBe('SERVICE_API_URL');
     });
   });
 
-  describe('fromEnvVar', () => {
+  describe("fromEnvVar", () => {
     it('should convert environment variable to service name', () => {
       expect(ServiceNameUtils.fromEnvVar('MY_SERVICE')).toBe('my-service');
       expect(ServiceNameUtils.fromEnvVar('API_GATEWAY')).toBe('api-gateway');
@@ -52,7 +52,7 @@ describe('ServiceNameUtils', () => {
     });
   });
 
-  describe('fromPortEnvVar', () => {
+  describe("fromPortEnvVar", () => {
     it('should extract service name from port env var', () => {
       expect(ServiceNameUtils.fromPortEnvVar('SERVICE_MY_SERVICE_PORT')).toBe('my-service');
       expect(ServiceNameUtils.fromPortEnvVar('SERVICE_AUTH_PORT')).toBe('auth');
@@ -66,11 +66,11 @@ describe('ServiceNameUtils', () => {
     });
   });
 
-  describe('normalize', () => {
+  describe("normalize", () => {
     it('should convert camelCase to kebab-case', () => {
-      expect(ServiceNameUtils.normalize('MyService')).toBe('my-service');
-      expect(ServiceNameUtils.normalize('apiGateway')).toBe('api-gateway');
-      expect(ServiceNameUtils.normalize('AuthService')).toBe('auth-service');
+      expect(ServiceNameUtils.normalize("MyService")).toBe('my-service');
+      expect(ServiceNameUtils.normalize("apiGateway")).toBe('api-gateway');
+      expect(ServiceNameUtils.normalize("AuthService")).toBe('auth-service');
     });
 
     it('should handle already normalized names', () => {
@@ -79,8 +79,8 @@ describe('ServiceNameUtils', () => {
     });
 
     it('should handle consecutive capitals', () => {
-      expect(ServiceNameUtils.normalize('APIGateway')).toBe('a-p-i-gateway');
-      expect(ServiceNameUtils.normalize('HTTPServer')).toBe('h-t-t-p-server');
+      expect(ServiceNameUtils.normalize("APIGateway")).toBe('a-p-i-gateway');
+      expect(ServiceNameUtils.normalize("HTTPServer")).toBe('h-t-t-p-server');
     });
 
     it('should remove leading hyphens', () => {
@@ -93,7 +93,7 @@ describe('ServiceNameUtils', () => {
     });
   });
 
-  describe('toDockerImage', () => {
+  describe("toDockerImage", () => {
     it('should generate Docker image name with default tag', () => {
       expect(ServiceNameUtils.toDockerImage('my-service')).toBe('aidev/my-service:latest');
       expect(ServiceNameUtils.toDockerImage('api-gateway')).toBe('aidev/api-gateway:latest');
@@ -105,7 +105,7 @@ describe('ServiceNameUtils', () => {
     });
   });
 
-  describe('isValidServiceName', () => {
+  describe("isValidServiceName", () => {
     it('should validate correct service names', () => {
       expect(ServiceNameUtils.isValidServiceName('my-service')).toBe(true);
       expect(ServiceNameUtils.isValidServiceName('api-gateway')).toBe(true);
@@ -125,7 +125,7 @@ describe('ServiceNameUtils', () => {
     });
   });
 
-  describe('generateEnvVars', () => {
+  describe("generateEnvVars", () => {
     it('should generate all environment variables for a service', () => {
       const vars = ServiceNameUtils.generateEnvVars('my-service');
       
@@ -138,7 +138,7 @@ describe('ServiceNameUtils', () => {
     });
 
     it('should normalize service name before generating', () => {
-      const vars = ServiceNameUtils.generateEnvVars('MyService');
+      const vars = ServiceNameUtils.generateEnvVars("MyService");
       
       expect(vars).toEqual({
         port: 'SERVICE_MY_SERVICE_PORT',

@@ -1,8 +1,8 @@
 import * as fs from 'fs/promises';
 import { path } from '../../../../../infra_external-log-lib/src';
 import { os } from '../../../../../infra_external-log-lib/src';
-import { createServer, Server, IncomingMessage, ServerResponse } from 'http';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { createServer, Server, IncomingMessage, ServerResponse } from 'node:http';
+import { EventEmitter } from 'node:events';
 
 /**
  * Creates a temporary directory for testing

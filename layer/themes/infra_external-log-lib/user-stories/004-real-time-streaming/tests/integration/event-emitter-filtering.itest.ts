@@ -1,10 +1,10 @@
 import { LogMonitor } from '../../src/external/log-monitor';
 import { LogStream } from '../../src/external/log-stream';
 import { LogEntry } from '../../src/domain/log-entry';
-import { EventEmitter } from 'events';
-import { Readable } from 'stream';
-import * as path from 'path';
-import * as fs from 'fs';
+import { EventEmitter } from 'node:events';
+import { Readable } from 'node:stream';
+import * as path from 'node:path';
+import * as fs from 'node:fs';
 
 describe('EventEmitter and Filtering Integration Test', () => {
   let logMonitor: LogMonitor;

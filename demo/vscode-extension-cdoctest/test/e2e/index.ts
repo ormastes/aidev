@@ -1,4 +1,4 @@
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import { glob } from 'glob';
 
 export async function run(): Promise<void> {

@@ -18,7 +18,7 @@ describe('IntegratedCoverageService - Unmocked Dependencies', () => {
     jest.restoreAllMocks();
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with default paths', () => {
       service = new IntegratedCoverageService();
       
@@ -37,7 +37,7 @@ describe('IntegratedCoverageService - Unmocked Dependencies', () => {
     });
   });
 
-  describe('loadSetupCoverage', () => {
+  describe("loadSetupCoverage", () => {
     beforeEach(() => {
       service = new IntegratedCoverageService();
     });
@@ -100,7 +100,7 @@ describe('IntegratedCoverageService - Unmocked Dependencies', () => {
     });
   });
 
-  describe('mergeThemeCoverage', () => {
+  describe("mergeThemeCoverage", () => {
     beforeEach(() => {
       service = new IntegratedCoverageService();
     });
@@ -129,7 +129,7 @@ describe('IntegratedCoverageService - Unmocked Dependencies', () => {
         children: [
           {
             name: 'story1',
-            type: 'userStory' as const,
+            type: "userStory" as const,
             path: '/test/theme/story1',
             coverage: {
               lines: { total: 50, covered: 35, pct: 70 },

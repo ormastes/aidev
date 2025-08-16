@@ -287,7 +287,7 @@ export class DependencyGraph {
 
   private getNodeColor(language: string): string {
     switch (language) {
-      case 'typescript': return 'blue';
+      case "typescript": return 'blue';
       case 'cpp': return 'green';
       case 'python': return 'orange';
       default: return 'gray';

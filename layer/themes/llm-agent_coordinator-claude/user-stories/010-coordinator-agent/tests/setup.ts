@@ -11,7 +11,7 @@ process.env.NODE_ENV = 'test';
 process.env.CLAUDE_API_KEY = process.env.CLAUDE_API_KEY || 'test-api-key';
 
 // Clean up after each test
-if (typeof afterEach !== 'undefined') {
+if (typeof afterEach !== "undefined") {
   afterEach(() => {
     // Clear all mocks
     jest.clearAllMocks();

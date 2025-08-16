@@ -14,7 +14,7 @@ import type { User } from '@models/User';
 // Import with special name
 const { loginSuccess } = require('../authSlice');
 
-describe('authSlice', () => {
+describe("authSlice", () => {
   const initialState = {
     isAuthenticated: false,
     user: null,
@@ -27,7 +27,7 @@ describe('authSlice', () => {
   const mockUser: User = {
     id: '1',
     email: 'test@example.com',
-    username: 'testuser',
+    username: "testuser",
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
@@ -36,7 +36,7 @@ describe('authSlice', () => {
     expect(authReducer(undefined, { type: 'unknown' })).toEqual(initialState);
   });
 
-  describe('loginStart', () => {
+  describe("loginStart", () => {
     it('should set loading state and clear error', () => {
       const previousState = {
         ...initialState,
@@ -50,12 +50,12 @@ describe('authSlice', () => {
     });
   });
 
-  describe('loginSuccess', () => {
+  describe("loginSuccess", () => {
     it('should set authenticated state with user data', () => {
       const payload = {
         user: mockUser,
-        token: 'access-token',
-        refreshToken: 'refresh-token',
+        token: process.env.TOKEN || "PLACEHOLDER",
+        refreshtoken: process.env.TOKEN || "PLACEHOLDER",
       };
 
       const state = authReducer(initialState, loginSuccess(payload));
@@ -77,8 +77,8 @@ describe('authSlice', () => {
 
       const payload = {
         user: mockUser,
-        token: 'access-token',
-        refreshToken: 'refresh-token',
+        token: process.env.TOKEN || "PLACEHOLDER",
+        refreshtoken: process.env.TOKEN || "PLACEHOLDER",
       };
 
       const state = authReducer(previousState, loginSuccess(payload));
@@ -88,7 +88,7 @@ describe('authSlice', () => {
     });
   });
 
-  describe('loginFailure', () => {
+  describe("loginFailure", () => {
     it('should set error and clear loading state', () => {
       const previousState = {
         ...initialState,
@@ -108,8 +108,8 @@ describe('authSlice', () => {
       const previousState = {
         isAuthenticated: true,
         user: mockUser,
-        token: 'access-token',
-        refreshToken: 'refresh-token',
+        token: process.env.TOKEN || "PLACEHOLDER",
+        refreshtoken: process.env.TOKEN || "PLACEHOLDER",
         isLoading: false,
         error: 'Some error',
       };
@@ -123,7 +123,7 @@ describe('authSlice', () => {
     });
   });
 
-  describe('updateUser', () => {
+  describe("updateUser", () => {
     it('should update user data when user exists', () => {
       const previousState = {
         ...initialState,
@@ -132,7 +132,7 @@ describe('authSlice', () => {
       };
 
       const updates = {
-        username: 'newusername',
+        username: "newusername",
         email: 'newemail@example.com',
       };
 
@@ -157,17 +157,17 @@ describe('authSlice', () => {
         user: mockUser,
       };
 
-      const state = authReducer(previousState, updateUser({ username: 'onlyusername' }));
+      const state = authReducer(previousState, updateUser({ username: "onlyusername" }));
 
       expect(state.user).toEqual({
         ...mockUser,
-        username: 'onlyusername',
+        username: "onlyusername",
       });
       expect(state.user?.email).toBe(mockUser.email); // Other fields unchanged
     });
   });
 
-  describe('clearError', () => {
+  describe("clearError", () => {
     it('should clear error state', () => {
       const previousState = {
         ...initialState,

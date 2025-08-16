@@ -18,7 +18,7 @@ export enum ScenarioEntityType {
   EXTERNAL_TEST = 'external_test',
   INTEGRATION_TEST = 'integration_test',
   COVERAGE_CHECK = 'coverage_check',
-  SCENARIO = 'scenario'
+  SCENARIO = "scenario"
 }
 
 /**
@@ -226,7 +226,7 @@ export class VFScenarioEntityManager {
       
       // Add to scenario queue
       await this.taskQueue.push({
-        name: 'scenario',
+        name: "scenario",
         data: newScenario,
         priority: 'medium'
       }, 'SCENARIO_QUEUE.vf.json');
@@ -243,7 +243,7 @@ export class VFScenarioEntityManager {
         parentId: ssdEntity.id,
         nextEntities: [],
         data: {
-          testType: 'environment',
+          testType: "environment",
           target: envTests[i].target,
           description: envTests[i].description
         },
@@ -264,7 +264,7 @@ export class VFScenarioEntityManager {
         parentId: ssdEntity.id,
         nextEntities: [],
         data: {
-          testType: 'external',
+          testType: "external",
           interface: extTests[i].interface,
           description: extTests[i].description
         },
@@ -285,7 +285,7 @@ export class VFScenarioEntityManager {
         parentId: ssdEntity.id,
         nextEntities: [],
         data: {
-          testType: 'integration',
+          testType: "integration",
           components: intTests[i].components,
           description: intTests[i].description
         },
@@ -304,7 +304,7 @@ export class VFScenarioEntityManager {
       parentId: ssdEntity.id,
       nextEntities: [],
       data: {
-        testType: 'coverage',
+        testType: "coverage",
         threshold: 100,
         checkDuplication: true
       },
@@ -347,7 +347,7 @@ export class VFScenarioEntityManager {
     try {
       // Read FEATURE.md to check existing patterns
       const featurePath = 'FEATURE.md';
-      const featureContent = await fs.readFile(featurePath, 'utf-8');
+      const featureContent = await fileAPI.readFile(featurePath, 'utf-8');
       
       // Simple pattern detection (can be enhanced)
       const patterns = [
@@ -381,7 +381,7 @@ export class VFScenarioEntityManager {
     const tests = [
       {
         name: 'Database Connection',
-        target: 'database',
+        target: "database",
         description: 'Verify database connectivity and schema'
       }
     ];
@@ -389,7 +389,7 @@ export class VFScenarioEntityManager {
     // Add tests based on scenario name patterns
     const scenarioLower = config.scenarioName.toLowerCase();
     
-    if (scenarioLower.includes('api') || scenarioLower.includes('external')) {
+    if (scenarioLower.includes('api') || scenarioLower.includes("external")) {
       tests.push({
         name: 'External API Availability',
         target: 'external_api',
@@ -426,7 +426,7 @@ export class VFScenarioEntityManager {
     // Always test main external interface
     tests.push({
       name: 'Main External Interface',
-      interface: 'IMainService',
+      interface: "IMainService",
       description: 'Test main service external interface'
     });
 
@@ -434,7 +434,7 @@ export class VFScenarioEntityManager {
     if (scenarioLower.includes('auth')) {
       tests.push({
         name: 'Authentication Interface',
-        interface: 'IAuthService',
+        interface: "IAuthService",
         description: 'Test authentication service interface'
       });
     }
@@ -442,15 +442,15 @@ export class VFScenarioEntityManager {
     if (scenarioLower.includes('payment')) {
       tests.push({
         name: 'Payment Gateway Interface',
-        interface: 'IPaymentGateway',
+        interface: "IPaymentGateway",
         description: 'Test payment gateway interface'
       });
     }
 
-    if (scenarioLower.includes('notification')) {
+    if (scenarioLower.includes("notification")) {
       tests.push({
         name: 'Notification Service Interface',
-        interface: 'INotificationService',
+        interface: "INotificationService",
         description: 'Test notification service interface'
       });
     }
@@ -467,24 +467,24 @@ export class VFScenarioEntityManager {
     // Always test core integrations
     tests.push({
       name: 'Core Components Integration',
-      components: ['Controller', 'Service', 'Repository'],
+      components: ["Controller", 'Service', "Repository"],
       description: 'Test integration between core application layers'
     });
 
     const scenarioLower = config.scenarioName.toLowerCase();
 
-    if (scenarioLower.includes('workflow') || scenarioLower.includes('process')) {
+    if (scenarioLower.includes("workflow") || scenarioLower.includes('process')) {
       tests.push({
         name: 'Workflow Integration',
-        components: ['WorkflowEngine', 'StateManager', 'EventBus'],
+        components: ["WorkflowEngine", "StateManager", "EventBus"],
         description: 'Test workflow component integration'
       });
     }
 
-    if (scenarioLower.includes('report') || scenarioLower.includes('analytics')) {
+    if (scenarioLower.includes('report') || scenarioLower.includes("analytics")) {
       tests.push({
         name: 'Reporting Integration',
-        components: ['DataAggregator', 'ReportGenerator', 'ExportService'],
+        components: ["DataAggregator", "ReportGenerator", "ExportService"],
         description: 'Test reporting component integration'
       });
     }

@@ -21,7 +21,7 @@ import {
 // Real implementation of ServiceDiscovery for testing
 class RealServiceDiscovery implements ServiceDiscovery {
   private registryFile: string;
-  private watchers: Array<(event: 'registered' | 'unregistered' | 'updated', service: ServiceInfo) => void> = [];
+  private watchers: Array<(event: "registered" | "unregistered" | 'updated', service: ServiceInfo) => void> = [];
   
   constructor(registryFile: string) {
     this.registryFile = registryFile;
@@ -67,7 +67,7 @@ class RealServiceDiscovery implements ServiceDiscovery {
     const serviceInfo: ServiceInfo = {
       name: registration.name,
       port: registration.port,
-      host: registration.host || 'localhost',
+      host: registration.host || "localhost",
       protocol: registration.protocol || 'http',
       environment: registration.environment,
       status: 'unknown',
@@ -111,7 +111,7 @@ class RealServiceDiscovery implements ServiceDiscovery {
       await this.saveRegistry(registry);
       
       // Notify watchers
-      this.watchers.forEach(watcher => watcher('registered', serviceInfo));
+      this.watchers.forEach(watcher => watcher("registered", serviceInfo));
       
       // Check health immediately (don't await to prevent blocking)
       this.checkServiceHealth(registration.name, registration.environment).catch(() => {
@@ -137,7 +137,7 @@ class RealServiceDiscovery implements ServiceDiscovery {
       await this.saveRegistry(registry);
       
       // Notify watchers
-      this.watchers.forEach(watcher => watcher('unregistered', service));
+      this.watchers.forEach(watcher => watcher("unregistered", service));
     }
   }
   
@@ -229,7 +229,7 @@ class RealServiceDiscovery implements ServiceDiscovery {
         };
         
         // Update service status
-        this.updateServiceStatus(name, environment, healthy ? 'healthy' : 'unhealthy')
+        this.updateServiceStatus(name, environment, healthy ? 'healthy' : "unhealthy")
           .then(() => resolve(health));
       });
       
@@ -242,7 +242,7 @@ class RealServiceDiscovery implements ServiceDiscovery {
         };
         
         // Update service status
-        this.updateServiceStatus(name, environment, 'unhealthy')
+        this.updateServiceStatus(name, environment, "unhealthy")
           .then(() => resolve(health));
       });
       
@@ -256,7 +256,7 @@ class RealServiceDiscovery implements ServiceDiscovery {
         };
         
         // Update service status
-        this.updateServiceStatus(name, environment, 'unhealthy')
+        this.updateServiceStatus(name, environment, "unhealthy")
           .then(() => resolve(health));
       });
     });
@@ -296,7 +296,7 @@ class RealServiceDiscovery implements ServiceDiscovery {
     return dependents;
   }
   
-  async updateServiceStatus(name: string, environment: string, status: 'healthy' | 'unhealthy' | 'unknown'): Promise<void> {
+  async updateServiceStatus(name: string, environment: string, status: 'healthy' | "unhealthy" | 'unknown'): Promise<void> {
     const registry = await this.loadRegistry();
     const key = this.getServiceKey(name, environment);
     
@@ -310,7 +310,7 @@ class RealServiceDiscovery implements ServiceDiscovery {
     }
   }
   
-  watchServices(callback: (event: 'registered' | 'unregistered' | 'updated', service: ServiceInfo) => void): () => void {
+  watchServices(callback: (event: "registered" | "unregistered" | 'updated', service: ServiceInfo) => void): () => void {
     this.watchers.push(callback);
     
     // Return unsubscribe function
@@ -365,7 +365,7 @@ describe('ServiceDiscovery External Interface Test', () => {
     const registration: ServiceRegistration = {
       name: 'user-service',
       port: 3001,
-      environment: 'development',
+      environment: "development",
       healthCheckPath: '/api/health'
     };
     
@@ -373,12 +373,12 @@ describe('ServiceDiscovery External Interface Test', () => {
     
     expect(registered.name).toBe('user-service');
     expect(registered.port).toBe(3001);
-    expect(registered.environment).toBe('development');
+    expect(registered.environment).toBe("development");
     expect(registered.protocol).toBe('http');
-    expect(registered.host).toBe('localhost');
+    expect(registered.host).toBe("localhost");
     
     // Discover the service
-    const discovered = await discovery.discoverService('user-service', 'development');
+    const discovered = await discovery.discoverService('user-service', "development");
     expect(discovered).not.toBeNull();
     expect(discovered?.name).toBe('user-service');
     expect(discovered?.metadata?.healthCheckPath).toBe('/api/health');
@@ -388,15 +388,15 @@ describe('ServiceDiscovery External Interface Test', () => {
     await discovery.registerService({
       name: 'api-gateway',
       port: 8080,
-      environment: 'production',
+      environment: "production",
       protocol: 'https'
     });
     
-    const url = await discovery.getServiceUrl('api-gateway', 'production');
+    const url = await discovery.getServiceUrl('api-gateway', "production");
     expect(url).toBe('https://localhost:8080');
     
     // Should throw for non-existent service
-    await expect(discovery.getServiceUrl('non-existent', 'production'))
+    await expect(discovery.getServiceUrl('non-existent', "production"))
       .rejects.toThrow('Service non-existent not found');
   });
   
@@ -405,30 +405,30 @@ describe('ServiceDiscovery External Interface Test', () => {
     await discovery.registerService({
       name: 'auth-service',
       port: 3001,
-      environment: 'development'
+      environment: "development"
     });
     
     await discovery.registerService({
       name: 'auth-service',
       port: 3002,
-      environment: 'production'
+      environment: "production"
     });
     
     await discovery.registerService({
       name: 'payment-service',
       port: 3003,
-      environment: 'development'
+      environment: "development"
     });
     
     // Query by environment
-    const devServices = await discovery.discoverServices({ environment: 'development' });
+    const devServices = await discovery.discoverServices({ environment: "development" });
     expect(devServices.length).toBe(2);
     expect(devServices.map(s => s.name).sort()).toEqual(['auth-service', 'payment-service']);
     
     // Query by name
     const authServices = await discovery.discoverServices({ name: 'auth-service' });
     expect(authServices.length).toBe(2);
-    expect(authServices.map(s => s.environment).sort()).toEqual(['development', 'production']);
+    expect(authServices.map(s => s.environment).sort()).toEqual(["development", "production"]);
     
     // Query all
     const allServices = await discovery.discoverServices({});
@@ -488,13 +488,13 @@ describe('ServiceDiscovery External Interface Test', () => {
     
     // Service should be marked as unhealthy
     const service = await discovery.discoverService('unhealthy-service', 'test');
-    expect(service?.status).toBe('unhealthy');
+    expect(service?.status).toBe("unhealthy");
   });
   
   test('should manage service dependencies', async () => {
     // Register services with dependencies
     await discovery.registerService({
-      name: 'frontend',
+      name: "frontend",
       port: 3000,
       environment: 'dev',
       dependencies: ['backend', 'auth']
@@ -504,29 +504,29 @@ describe('ServiceDiscovery External Interface Test', () => {
       name: 'backend',
       port: 3001,
       environment: 'dev',
-      dependencies: ['database', 'cache']
+      dependencies: ["database", 'cache']
     });
     
     await discovery.registerService({
       name: 'auth',
       port: 3002,
       environment: 'dev',
-      dependencies: ['database']
+      dependencies: ["database"]
     });
     
     // Get dependencies
-    const frontendDeps = await discovery.getServiceDependencies('frontend', 'dev');
+    const frontendDeps = await discovery.getServiceDependencies("frontend", 'dev');
     expect(frontendDeps).toEqual(['backend', 'auth']);
     
     // Get dependent services
-    const databaseDependents = await discovery.getDependentServices('database', 'dev');
+    const databaseDependents = await discovery.getDependentServices("database", 'dev');
     expect(databaseDependents.sort()).toEqual(['auth', 'backend']);
   });
   
   test('should get multiple service URLs', async () => {
     // Register services sequentially with small delays to avoid conflicts
     await discovery.registerService({
-      name: 'service1',
+      name: "service1",
       port: 3001,
       environment: 'dev'
     });
@@ -534,7 +534,7 @@ describe('ServiceDiscovery External Interface Test', () => {
     await new Promise(resolve => setTimeout(resolve, 50));
     
     await discovery.registerService({
-      name: 'service2',
+      name: "service2",
       port: 3002,
       environment: 'dev',
       protocol: 'https'
@@ -543,7 +543,7 @@ describe('ServiceDiscovery External Interface Test', () => {
     await new Promise(resolve => setTimeout(resolve, 50));
     
     await discovery.registerService({
-      name: 'service3',
+      name: "service3",
       port: 3003,
       environment: 'prod'
     });
@@ -552,13 +552,13 @@ describe('ServiceDiscovery External Interface Test', () => {
     await new Promise(resolve => setTimeout(resolve, 200));
     
     // Verify service3 was registered
-    const service3 = await discovery.discoverService('service3', 'prod');
+    const service3 = await discovery.discoverService("service3", 'prod');
     expect(service3).not.toBeNull();
     
     const urls = await discovery.getServiceUrls([
-      { name: 'service1', environment: 'dev' },
-      { name: 'service2', environment: 'dev' },
-      { name: 'service3', environment: 'prod' },
+      { name: "service1", environment: 'dev' },
+      { name: "service2", environment: 'dev' },
+      { name: "service3", environment: 'prod' },
       { name: 'non-existent', environment: 'dev' } // Should be skipped
     ]);
     
@@ -594,10 +594,10 @@ describe('ServiceDiscovery External Interface Test', () => {
     
     // Should have received events (register, auto-health-update, manual-update, unregister)
     expect(events.length).toBeGreaterThanOrEqual(3);
-    expect(events[0]).toEqual({ event: 'registered', service: 'watched-service' });
+    expect(events[0]).toEqual({ event: "registered", service: 'watched-service' });
     // Health check update may or may not In Progress before manual update
     const lastEvent = events[events.length - 1];
-    expect(lastEvent).toEqual({ event: 'unregistered', service: 'watched-service' });
+    expect(lastEvent).toEqual({ event: "unregistered", service: 'watched-service' });
     
     // Unsubscribe
     unsubscribe();
@@ -637,19 +637,19 @@ describe('ServiceDiscovery External Interface Test', () => {
     
     // Register services
     await discovery.registerService({
-      name: 'service1',
+      name: "service1",
       port: 3007,
       environment: 'test'
     });
     
     await discovery.registerService({
-      name: 'service2',
+      name: "service2",
       port: 3008,
       environment: 'test'
     });
     
     await discovery.registerService({
-      name: 'service3',
+      name: "service3",
       port: 9999, // No server
       environment: 'prod'
     });

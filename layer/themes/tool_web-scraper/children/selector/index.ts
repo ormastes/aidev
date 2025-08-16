@@ -6,7 +6,7 @@
 import { DOMNode, DOMTraversal } from '../parser';
 
 export type SelectorToken = {
-  type: 'tag' | 'id' | 'class' | 'attribute' | 'pseudo' | 'combinator' | 'universal';
+  type: 'tag' | 'id' | 'class' | "attribute" | 'pseudo' | "combinator" | "universal";
   value: string;
   operator?: string;
   attribute?: string;
@@ -89,7 +89,7 @@ export class CSSSelector {
           tokens.push(this.parseToken(current));
           current = '';
         }
-        tokens.push({ type: 'universal', value: '*' });
+        tokens.push({ type: "universal", value: '*' });
         i++;
         continue;
       }
@@ -159,13 +159,13 @@ export class CSSSelector {
           while (selector[i] === ' ') i++;
           // Check if next char is a combinator
           if (selector[i] === '>' || selector[i] === '+' || selector[i] === '~') {
-            tokens.push({ type: 'combinator', value: selector[i] });
+            tokens.push({ type: "combinator", value: selector[i] });
             i++;
           } else {
-            tokens.push({ type: 'combinator', value: ' ' });
+            tokens.push({ type: "combinator", value: ' ' });
           }
         } else {
-          tokens.push({ type: 'combinator', value: char });
+          tokens.push({ type: "combinator", value: char });
           i++;
           // Skip trailing spaces
           while (selector[i] === ' ') i++;
@@ -215,7 +215,7 @@ export class CSSSelector {
     const [, attribute, operator, value] = match;
     
     return {
-      type: 'attribute',
+      type: "attribute",
       value: value || '',
       attribute,
       operator: operator || ''
@@ -256,13 +256,13 @@ export class CSSSelector {
     for (let i = 0; i < selector.tokens.length; i++) {
       const token = selector.tokens[i];
 
-      if (token.type === 'combinator') {
+      if (token.type === "combinator") {
         continue; // Combinators are handled in context
       }
 
       // Get previous combinator
       const prevToken = i > 0 ? selector.tokens[i - 1] : null;
-      const combinator = prevToken?.type === 'combinator' ? prevToken.value : null;
+      const combinator = prevToken?.type === "combinator" ? prevToken.value : null;
 
       // Apply selector based on combinator
       if (combinator === '>') {
@@ -324,7 +324,7 @@ export class CSSSelector {
     for (let i = selector.tokens.length - 1; i >= 0; i--) {
       const token = selector.tokens[i];
       
-      if (token.type === 'combinator') {
+      if (token.type === "combinator") {
         const combinator = token.value;
         const prevToken = selector.tokens[i - 1];
         
@@ -382,7 +382,7 @@ export class CSSSelector {
     if (node.type !== 'element') return false;
 
     switch (token.type) {
-      case 'universal':
+      case "universal":
         return true;
 
       case 'tag':
@@ -395,7 +395,7 @@ export class CSSSelector {
         const classes = node.attributes?.class?.split(/\s+/) || [];
         return classes.includes(token.value);
 
-      case 'attribute':
+      case "attribute":
         return this.matchesAttribute(node, token);
 
       case 'pseudo':

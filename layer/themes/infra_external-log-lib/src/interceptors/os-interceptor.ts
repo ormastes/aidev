@@ -17,9 +17,9 @@ export class OsInterceptor extends BaseInterceptor<typeof originalOs> {
       ...this.originalModule,
       
       // Wrap sensitive methods
-      hostname: this.wrapMethod('os', 'hostname', this.originalModule.hostname),
-      userInfo: this.wrapMethod('os', 'userInfo', this.originalModule.userInfo),
-      networkInterfaces: this.wrapMethod('os', 'networkInterfaces', this.originalModule.networkInterfaces),
+      hostname: this.wrapMethod('os', "hostname", this.originalModule.hostname),
+      userInfo: this.wrapMethod('os', "userInfo", this.originalModule.userInfo),
+      networkInterfaces: this.wrapMethod('os', "networkInterfaces", this.originalModule.networkInterfaces),
       
       // Keep other methods as-is
       arch: this.originalModule.arch,

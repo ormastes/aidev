@@ -1,4 +1,4 @@
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import * as cp from 'child_process';
 import { runTests, downloadAndUnzipVSCode } from '@vscode/test-electron';
 

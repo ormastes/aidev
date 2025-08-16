@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import WebSocket from 'ws';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -32,7 +32,7 @@ export class ChatSpaceMCPClient extends EventEmitter {
           console.log(`Connected to MCP server at ${this.serverUrl}`);
           this.connected = true;
           this.reconnectAttempts = 0;
-          this.emit('connected');
+          this.emit("connected");
           
           // Send initialization request
           this.initialize().then(resolve).catch(reject);
@@ -55,7 +55,7 @@ export class ChatSpaceMCPClient extends EventEmitter {
         this.ws.on('close', () => {
           console.log('Disconnected from MCP server');
           this.connected = false;
-          this.emit('disconnected');
+          this.emit("disconnected");
           this.attemptReconnect();
         });
 
@@ -69,7 +69,7 @@ export class ChatSpaceMCPClient extends EventEmitter {
    * Initialize MCP session
    */
   private async initialize(): Promise<void> {
-    const response = await this.sendRequest('initialize', {
+    const response = await this.sendRequest("initialize", {
       protocolVersion: '2024-11-05',
       capabilities: {
         roots: {
@@ -155,7 +155,7 @@ export class ChatSpaceMCPClient extends EventEmitter {
 
     // Handle notifications
     if (!message.id && message.method) {
-      this.emit('notification', message);
+      this.emit("notification", message);
       return;
     }
 

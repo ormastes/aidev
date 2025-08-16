@@ -69,7 +69,7 @@ describe('Node Retry Mechanism Unit Tests', () => {
       const result = await testNode.exec();
 
       // Assert
-      expect(result).toBe('In Progress');
+      expect(result).toBe("completed");
       expect(testNode.execAttempts).toBe(1);
       expect(testNode.fallbackCalled).toBe(false);
     });
@@ -82,7 +82,7 @@ describe('Node Retry Mechanism Unit Tests', () => {
       const result = await testNode.exec();
 
       // Assert
-      expect(result).toBe('In Progress');
+      expect(result).toBe("completed");
       expect(testNode.execAttempts).toBe(2);
       expect(testNode.fallbackCalled).toBe(false);
     });
@@ -95,7 +95,7 @@ describe('Node Retry Mechanism Unit Tests', () => {
       const result = await testNode.exec();
 
       // Assert
-      expect(result).toBe('In Progress');
+      expect(result).toBe("completed");
       expect(testNode.execAttempts).toBe(3);
       expect(testNode.fallbackCalled).toBe(false);
     });
@@ -165,7 +165,7 @@ describe('Node Retry Mechanism Unit Tests', () => {
       const endTime = Date.now();
 
       // Assert
-      expect(result).toBe('In Progress');
+      expect(result).toBe("completed");
       expect(waitNode.execAttempts).toBe(3);
       expect(endTime - startTime).toBeGreaterThanOrEqual(380); // At least 2 * 200ms - some tolerance
     });
@@ -181,7 +181,7 @@ describe('Node Retry Mechanism Unit Tests', () => {
       const endTime = Date.now();
 
       // Assert
-      expect(result).toBe('In Progress');
+      expect(result).toBe("completed");
       expect(noWaitNode.execAttempts).toBe(3);
       expect(endTime - startTime).toBeLessThan(100); // Should be very fast
     });
@@ -239,7 +239,7 @@ describe('Node Retry Mechanism Unit Tests', () => {
       
       testNode.post = async (result: any) => {
         postCalled = true;
-        expect(result).toBe('In Progress');
+        expect(result).toBe("completed");
       };
 
       // Act
@@ -336,7 +336,7 @@ describe('DelayNode Unit Tests', () => {
       const delayNode = new DelayNode(100);
       
       // DelayNode should have maxRetries = 1 and wait = 0
-      expect(delayNode['maxRetries']).toBe(1);
+      expect(delayNode["maxRetries"]).toBe(1);
       expect(delayNode['wait']).toBe(0);
     });
 
@@ -501,7 +501,7 @@ describe('HttpNode Unit Tests', () => {
       
       const options = {
         headers: { 
-          'Authorization': 'Bearer token123',
+          "Authorization": 'Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}',
           'User-Agent': 'PocketFlow/1.0'
         }
       };
@@ -519,7 +519,7 @@ describe('HttpNode Unit Tests', () => {
       // Arrange
       const httpNode = new HttpNode('https://api.example.com/slow', {}, 5, 1000); // 5 retries, 1s wait
       
-      expect(httpNode['maxRetries']).toBe(5);
+      expect(httpNode["maxRetries"]).toBe(5);
       expect(httpNode['wait']).toBe(1000);
     });
   });

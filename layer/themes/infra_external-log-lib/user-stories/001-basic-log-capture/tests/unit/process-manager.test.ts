@@ -124,7 +124,7 @@ describe('ProcessManager Unit Test', () => {
     });
   });
 
-  describe('getActiveCount', () => {
+  describe("getActiveCount", () => {
     it('should return 0 for new ProcessManager', () => {
       expect(processManager.getActiveCount()).toBe(0);
     });
@@ -150,7 +150,7 @@ describe('ProcessManager Unit Test', () => {
     });
   });
 
-  describe('terminateAll', () => {
+  describe("terminateAll", () => {
     it('should terminate all active processes', async () => {
       // Create multiple long-running processes
       const handles = await Promise.all([

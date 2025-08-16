@@ -1,12 +1,12 @@
 import { ClaudeAPIClient, ClaudeAPIConfig, ClaudeMessage, APIError } from '../../../src/core/claude-api-client';
 import { ClaudeAuthManager } from '../../../src/core/claude-auth';
 import { https } from '../../../../../../infra_external-log-lib/src';
-import { EventEmitter } from '../../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 jest.mock('../../../src/core/claude-auth');
 jest.mock('https');
 
-describe('ClaudeAPIClient', () => {
+describe("ClaudeAPIClient", () => {
   let client: ClaudeAPIClient;
   let mockAuthManager: jest.Mocked<ClaudeAuthManager>;
   let mockRequest: jest.MockedFunction<typeof https.request>;
@@ -26,7 +26,7 @@ describe('ClaudeAPIClient', () => {
     mockRequest = https.request as jest.MockedFunction<typeof https.request>;
 
     const config: ClaudeAPIConfig = {
-      apiKey: 'test-api-key',
+      api_key: process.env.API_KEY || "PLACEHOLDER",
       baseUrl: 'https://api.anthropic.com',
       model: 'claude-opus-4-20250514',
       maxTokens: 4096,
@@ -40,7 +40,7 @@ describe('ClaudeAPIClient', () => {
     jest.clearAllMocks();
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with default values', () => {
       const config: ClaudeAPIConfig = {};
       const defaultClient = new ClaudeAPIClient(config);
@@ -50,13 +50,13 @@ describe('ClaudeAPIClient', () => {
       });
       expect(defaultClient['baseUrl']).toBe('https://api.anthropic.com');
       expect(defaultClient['model']).toBe('claude-opus-4-20250514');
-      expect(defaultClient['maxTokens']).toBe(4096);
+      expect(defaultClient["maxTokens"]).toBe(4096);
       expect(defaultClient['timeout']).toBe(60000);
     });
 
     it('should initialize with custom config', () => {
       const config: ClaudeAPIConfig = {
-        apiKey: 'custom-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         baseUrl: 'https://custom.api.com',
         model: 'claude-3-sonnet',
         maxTokens: 2048,
@@ -67,17 +67,17 @@ describe('ClaudeAPIClient', () => {
       const customClient = new ClaudeAPIClient(config);
 
       expect(ClaudeAuthManager).toHaveBeenCalledWith({
-        apiKey: 'custom-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         useOAuth: true
       });
       expect(customClient['baseUrl']).toBe('https://custom.api.com');
       expect(customClient['model']).toBe('claude-3-sonnet');
-      expect(customClient['maxTokens']).toBe(2048);
+      expect(customClient["maxTokens"]).toBe(2048);
       expect(customClient['timeout']).toBe(15000);
     });
   });
 
-  describe('createMessage', () => {
+  describe("createMessage", () => {
     const messages: ClaudeMessage[] = [
       { role: 'user', content: 'Hello, Claude!' }
     ];
@@ -126,7 +126,7 @@ describe('ClaudeAPIClient', () => {
           headers: expect.objectContaining({
             'Content-Type': 'application/json',
             'anthropic-version': '2023-06-01',
-            'x-api-key': 'test-key'
+            'x-apiKey: process.env.API_KEY || "PLACEHOLDER"
           })
         }),
         expect.any(Function)
@@ -134,7 +134,7 @@ describe('ClaudeAPIClient', () => {
     });
 
     it('should create streaming message', async () => {
-      mockAuthManager.getAuthHeader.mockResolvedValue('Bearer oauth-token');
+      mockAuthManager.getAuthHeader.mockResolvedValue('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
 
       const mockResponse = {
         statusCode: 200,
@@ -333,7 +333,7 @@ describe('ClaudeAPIClient', () => {
 
       mockResponse.on.mockImplementation((event, callback) => {
         if (event === 'data') {
-          callback(JSON.stringify({ content: [{ text: 'response' }] }));
+          callback(JSON.stringify({ content: [{ text: "response" }] }));
         } else if (event === 'end') {
           callback();
         }
@@ -361,13 +361,13 @@ describe('ClaudeAPIClient', () => {
     });
   });
 
-  describe('abortStream', () => {
+  describe("abortStream", () => {
     it('should abort active stream', () => {
       const mockStream = {
         destroy: jest.fn()
       };
 
-      client['activeStreams'].set('stream-1', mockStream as any);
+      client["activeStreams"].set('stream-1', mockStream as any);
 
       const abortListener = jest.fn();
       client.on('stream_aborted', abortListener);
@@ -376,7 +376,7 @@ describe('ClaudeAPIClient', () => {
 
       expect(result).toBe(true);
       expect(mockStream.destroy).toHaveBeenCalled();
-      expect(client['activeStreams'].has('stream-1')).toBe(false);
+      expect(client["activeStreams"].has('stream-1')).toBe(false);
       expect(abortListener).toHaveBeenCalledWith({ streamId: 'stream-1' });
     });
 
@@ -386,13 +386,13 @@ describe('ClaudeAPIClient', () => {
     });
   });
 
-  describe('abortAllStreams', () => {
+  describe("abortAllStreams", () => {
     it('should abort all active streams', () => {
       const mockStream1 = { destroy: jest.fn() };
       const mockStream2 = { destroy: jest.fn() };
 
-      client['activeStreams'].set('stream-1', mockStream1 as any);
-      client['activeStreams'].set('stream-2', mockStream2 as any);
+      client["activeStreams"].set('stream-1', mockStream1 as any);
+      client["activeStreams"].set('stream-2', mockStream2 as any);
 
       const abortListener = jest.fn();
       client.on('stream_aborted', abortListener);
@@ -401,25 +401,25 @@ describe('ClaudeAPIClient', () => {
 
       expect(mockStream1.destroy).toHaveBeenCalled();
       expect(mockStream2.destroy).toHaveBeenCalled();
-      expect(client['activeStreams'].size).toBe(0);
+      expect(client["activeStreams"].size).toBe(0);
       expect(abortListener).toHaveBeenCalledTimes(2);
     });
   });
 
-  describe('getActiveStreamCount', () => {
+  describe("getActiveStreamCount", () => {
     it('should return correct stream count', () => {
       expect(client.getActiveStreamCount()).toBe(0);
 
-      client['activeStreams'].set('stream-1', {} as any);
-      client['activeStreams'].set('stream-2', {} as any);
+      client["activeStreams"].set('stream-1', {} as any);
+      client["activeStreams"].set('stream-2', {} as any);
 
       expect(client.getActiveStreamCount()).toBe(2);
     });
   });
 
-  describe('isStreamActive', () => {
+  describe("isStreamActive", () => {
     it('should return true for active stream', () => {
-      client['activeStreams'].set('stream-1', {} as any);
+      client["activeStreams"].set('stream-1', {} as any);
       expect(client.isStreamActive('stream-1')).toBe(true);
     });
 
@@ -428,13 +428,13 @@ describe('ClaudeAPIClient', () => {
     });
   });
 
-  describe('createMessageWithRetry', () => {
+  describe("createMessageWithRetry", () => {
     const messages: ClaudeMessage[] = [
       { role: 'user', content: 'Test message' }
     ];
 
     it('should succeed on first attempt', async () => {
-      const createMessageSpy = jest.spyOn(client, 'createMessage')
+      const createMessageSpy = jest.spyOn(client, "createMessage")
         .mockResolvedValue('Success response');
 
       const result = await client.createMessageWithRetry(messages);
@@ -450,7 +450,7 @@ describe('ClaudeAPIClient', () => {
         status: 500
       };
 
-      const createMessageSpy = jest.spyOn(client, 'createMessage')
+      const createMessageSpy = jest.spyOn(client, "createMessage")
         .mockRejectedValueOnce(serverError)
         .mockRejectedValueOnce(serverError)
         .mockResolvedValue('Success after retry');
@@ -472,7 +472,7 @@ describe('ClaudeAPIClient', () => {
         status: 400
       };
 
-      const createMessageSpy = jest.spyOn(client, 'createMessage')
+      const createMessageSpy = jest.spyOn(client, "createMessage")
         .mockRejectedValue(clientError);
 
       await expect(client.createMessageWithRetry(messages))
@@ -488,7 +488,7 @@ describe('ClaudeAPIClient', () => {
         status: 500
       };
 
-      const createMessageSpy = jest.spyOn(client, 'createMessage')
+      const createMessageSpy = jest.spyOn(client, "createMessage")
         .mockRejectedValue(serverError);
 
       await expect(client.createMessageWithRetry(messages, {}, 2))
@@ -506,7 +506,7 @@ describe('ClaudeAPIClient', () => {
         status: 500
       };
 
-      const createMessageSpy = jest.spyOn(client, 'createMessage')
+      const createMessageSpy = jest.spyOn(client, "createMessage")
         .mockRejectedValue(serverError);
 
       const retryPromise = client.createMessageWithRetry(messages, {}, 3);
@@ -553,7 +553,7 @@ describe('ClaudeAPIClient', () => {
     });
   });
 
-  describe('parseSSEStream', () => {
+  describe("parseSSEStream", () => {
     it('should handle stream end correctly', async () => {
       const mockStream = {
         [Symbol.asyncIterator]: jest.fn().mockReturnValue({
@@ -569,7 +569,7 @@ describe('ClaudeAPIClient', () => {
       const endListener = jest.fn();
       client.on('stream_end', endListener);
 
-      const generator = client['parseSSEStream'](mockStream as any, 'test-stream');
+      const generator = client["parseSSEStream"](mockStream as any, 'test-stream');
       
       // Consume the generator
       const results = [];
@@ -600,7 +600,7 @@ describe('ClaudeAPIClient', () => {
       const streamEventListener = jest.fn();
       client.on('stream_event', streamEventListener);
 
-      const generator = client['parseSSEStream'](mockStream as any, 'test-stream');
+      const generator = client["parseSSEStream"](mockStream as any, 'test-stream');
       
       const results = [];
       for await (const event of generator) {
@@ -634,7 +634,7 @@ describe('ClaudeAPIClient', () => {
       const streamErrorListener = jest.fn();
       client.on('stream_error', streamErrorListener);
 
-      const generator = client['parseSSEStream'](mockStream as any, 'test-stream');
+      const generator = client["parseSSEStream"](mockStream as any, 'test-stream');
       
       const results = [];
       for await (const event of generator) {

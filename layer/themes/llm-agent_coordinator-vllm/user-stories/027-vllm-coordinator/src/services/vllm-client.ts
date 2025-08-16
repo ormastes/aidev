@@ -28,7 +28,7 @@ export interface VLLMModel {
 export interface VLLMChatRequest {
   model: string;
   messages: Array<{
-    role: 'system' | 'user' | 'assistant';
+    role: 'system' | 'user' | "assistant";
     content: string;
   }>;
   temperature?: number;
@@ -188,7 +188,7 @@ export class VLLMClient {
         path: url.pathname + url.search,
         headers: {
           'Content-Type': 'application/json',
-          ...(this.apiKey && { 'Authorization': `Bearer ${this.apiKey}` }),
+          ...(this.apiKey && { "Authorization": `Bearer ${this.apiKey}` }),
         },
         timeout: this.timeout,
       };
@@ -233,7 +233,7 @@ export class VLLMClient {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'text/event-stream',
-        ...(this.apiKey && { 'Authorization': `Bearer ${this.apiKey}` }),
+        ...(this.apiKey && { "Authorization": `Bearer ${this.apiKey}` }),
       },
     };
     

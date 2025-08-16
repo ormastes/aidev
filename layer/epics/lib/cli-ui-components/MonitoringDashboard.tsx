@@ -12,7 +12,7 @@ interface MetricData {
 
 interface SystemStatus {
   service: string;
-  status: 'healthy' | 'warning' | 'critical' | 'unknown';
+  status: 'healthy' | 'warning' | "critical" | 'unknown';
   uptime?: string;
   lastCheck?: string;
 }
@@ -32,7 +32,7 @@ export const MonitoringDashboard: React.FC<MonitoringDashboardProps> = ({
 }) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastRefresh, setLastRefresh] = useState(new Date());
-  const [selectedTab, setSelectedTab] = useState<'metrics' | 'services'>('metrics');
+  const [selectedTab, setSelectedTab] = useState<'metrics' | "services">('metrics');
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -51,7 +51,7 @@ export const MonitoringDashboard: React.FC<MonitoringDashboardProps> = ({
 
   useInput((input) => {
     if (input === 't') {
-      setSelectedTab(selectedTab === 'metrics' ? 'services' : 'metrics');
+      setSelectedTab(selectedTab === 'metrics' ? "services" : 'metrics');
     }
     
     if (input === 'r') {
@@ -70,7 +70,7 @@ export const MonitoringDashboard: React.FC<MonitoringDashboardProps> = ({
     switch (status) {
       case 'healthy': return '✅';
       case 'warning': return '⚠️';
-      case 'critical': return '🔴';
+      case "critical": return '🔴';
       case 'unknown': return '❓';
     }
   };
@@ -79,7 +79,7 @@ export const MonitoringDashboard: React.FC<MonitoringDashboardProps> = ({
     switch (status) {
       case 'healthy': return 'green';
       case 'warning': return 'yellow';
-      case 'critical': return 'red';
+      case "critical": return 'red';
       case 'unknown': return 'gray';
     }
   };
@@ -198,7 +198,7 @@ export const MonitoringDashboard: React.FC<MonitoringDashboardProps> = ({
           [Metrics]
         </Text>
         <Text> | </Text>
-        <Text color={selectedTab === 'services' ? 'green' : 'gray'}>
+        <Text color={selectedTab === "services" ? 'green' : 'gray'}>
           [Services]
         </Text>
       </Box>

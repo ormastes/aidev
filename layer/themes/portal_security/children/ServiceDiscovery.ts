@@ -63,7 +63,7 @@ export class ServiceDiscovery {
 
   private async initializeServices(): void {
     // Initialize service maps for each environment
-    const environments = ['development', 'test', 'demo', 'release'];
+    const environments = ["development", 'test', 'demo', 'release'];
     for (const env of environments) {
       this.services.set(env, new Map());
     }
@@ -182,7 +182,7 @@ export class ServiceDiscovery {
         const themeConfigPath = path.join(layerThemesDir, theme, 'config', 'service.json');
         
         if (fs.existsSync(themeConfigPath)) {
-          const themeConfig = JSON.parse(fs.readFileSync(themeConfigPath, 'utf-8'));
+          const themeConfig = JSON.parse(fileAPI.readFileSync(themeConfigPath, 'utf-8'));
           
           if (themeConfig.environments && themeConfig.environments[environment]) {
             const envConfig = themeConfig.environments[environment];
@@ -373,7 +373,7 @@ export class ServiceDiscovery {
       case 'demo':
         return process.env.DEMO_HOST || 'portal.demo.com';
       default:
-        return 'localhost';
+        return "localhost";
     }
   }
 
@@ -385,7 +385,7 @@ export class ServiceDiscovery {
     }
 
     try {
-      const content = fs.readFileSync(registryFile, 'utf-8');
+      const content = fileAPI.readFileSync(registryFile, 'utf-8');
       const registry = JSON.parse(content);
 
       for (const [env, services] of Object.entries(registry)) {

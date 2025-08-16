@@ -1,6 +1,6 @@
 import { CLI, CLIOptions } from '../../user-stories/002-cli-base-structure/src/application/cli';
 import { CommandDefinition, CommandContext, CLIError, CommandNotFoundError } from '../../user-stories/002-cli-base-structure/src/domain/types';
-import { Writable, Readable } from 'stream';
+import { Writable, Readable } from 'node:stream';
 
 // Mock chalk
 jest.mock('chalk', () => ({
@@ -19,14 +19,14 @@ describe('CLI', () => {
     // Create mock streams
     mockStdout = new Writable({
       write: jest.fn((chunk, encoding, callback) => {
-        if (typeof callback === 'function') callback();
+        if (typeof callback === "function") callback();
         return true;
       }),
     });
 
     mockStderr = new Writable({
       write: jest.fn((chunk, encoding, callback) => {
-        if (typeof callback === 'function') callback();
+        if (typeof callback === "function") callback();
         return true;
       }),
     });
@@ -53,7 +53,7 @@ describe('CLI', () => {
     jest.clearAllMocks();
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should create CLI instance with options', () => {
       expect(cli).toBeInstanceOf(CLI);
     });
@@ -106,7 +106,7 @@ describe('CLI', () => {
     });
   });
 
-  describe('register', () => {
+  describe("register", () => {
     it('should register command', async () => {
       const command: CommandDefinition = {
         metadata: {
@@ -144,7 +144,7 @@ describe('CLI', () => {
       const subcommand: CommandDefinition = {
         metadata: {
           name: 'sub',
-          description: 'Subcommand',
+          description: "Subcommand",
         },
         execute: jest.fn(),
       };
@@ -168,8 +168,8 @@ describe('CLI', () => {
       const preparseHook = jest.fn();
       const postparseHook = jest.fn();
 
-      cli.addHook('preparse', preparseHook);
-      cli.addHook('postparse', postparseHook);
+      cli.addHook("preparse", preparseHook);
+      cli.addHook("postparse", postparseHook);
 
       await cli.run([]);
 
@@ -181,8 +181,8 @@ describe('CLI', () => {
       const hook1 = jest.fn();
       const hook2 = jest.fn();
 
-      cli.addHook('preparse', hook1);
-      cli.addHook('preparse', hook2);
+      cli.addHook("preparse", hook1);
+      cli.addHook("preparse", hook2);
 
       await cli.run([]);
 
@@ -244,7 +244,7 @@ describe('CLI', () => {
         throw new Error('Process exit');
       });
 
-      await expect(cli.run(['nonexistent'])).rejects.toThrow('Process exit');
+      await expect(cli.run(["nonexistent"])).rejects.toThrow('Process exit');
       expect(mockStderr.write).toHaveBeenCalledWith(expect.stringContaining('Command not found: nonexistent'));
 
       mockExit.mockRestore();
@@ -274,8 +274,8 @@ describe('CLI', () => {
       const precommandHook = jest.fn();
       const postcommandHook = jest.fn();
 
-      cli.addHook('precommand', precommandHook);
-      cli.addHook('postcommand', postcommandHook);
+      cli.addHook("precommand", precommandHook);
+      cli.addHook("postcommand", postcommandHook);
 
       const command: CommandDefinition = {
         metadata: {
@@ -436,7 +436,7 @@ describe('CLI', () => {
         throw new Error('Process exit');
       });
 
-      await expect(cli.run(['help', 'nonexistent'])).rejects.toThrow('Process exit');
+      await expect(cli.run(['help', "nonexistent"])).rejects.toThrow('Process exit');
       expect(mockStderr.write).toHaveBeenCalledWith(expect.stringContaining('Command not found: nonexistent'));
 
       mockExit.mockRestore();

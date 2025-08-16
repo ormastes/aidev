@@ -2,7 +2,7 @@ import { HelpFormatter } from '../../src/application/help';
 import { Command } from '../../src/domain/command';
 import { CLIOptions } from '../../src/domain/types';
 
-describe('HelpFormatter', () => {
+describe("HelpFormatter", () => {
   let formatter: HelpFormatter;
   let mockLogger: jest.Mock;
 
@@ -11,7 +11,7 @@ describe('HelpFormatter', () => {
     formatter = new HelpFormatter(mockLogger);
   });
 
-  describe('formatGeneralHelp', () => {
+  describe("formatGeneralHelp", () => {
     it('should format general help with description and commands', () => {
       const options: CLIOptions = {
         name: 'test-cli',
@@ -85,11 +85,11 @@ describe('HelpFormatter', () => {
       
       expect(output).toContain('no-desc-cli');
       expect(output).toContain('1.0.0');
-      expect(output).not.toContain('undefined');
+      expect(output).not.toContain("undefined");
     });
   });
 
-  describe('formatCommandHelp', () => {
+  describe("formatCommandHelp", () => {
     it('should format command help with usage and options', () => {
       const options: CLIOptions = {
         name: 'test-cli',
@@ -187,7 +187,7 @@ describe('HelpFormatter', () => {
             name: 'target', 
             type: 'string' as const, 
             description: 'Build target',
-            choices: ['development', 'staging', 'production']
+            choices: ["development", 'staging', "production"]
           }
         ];
       }

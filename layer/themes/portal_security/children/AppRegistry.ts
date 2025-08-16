@@ -56,8 +56,8 @@ export class AppRegistry {
         order: 3
       },
       {
-        id: 'pocketflow',
-        name: 'PocketFlow',
+        id: "pocketflow",
+        name: "PocketFlow",
         url: 'http://localhost:3500',
         icon: '📋',
         description: 'Task management',
@@ -164,7 +164,7 @@ export class AppRegistry {
             try {
               const response = await fetch('/api/auth/check');
               const data = await response.json();
-              const navUserInfo = document.getElementById('navUserInfo');
+              const navUserInfo = document.getElementById("navUserInfo");
               
               if (navUserInfo && data.authenticated) {
                 navUserInfo.textContent = '👤 ' + data.user.username;
@@ -176,7 +176,7 @@ export class AppRegistry {
           
           // Update on page load
           if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', updateNavUser);
+            document.addEventListener("DOMContentLoaded", updateNavUser);
           } else {
             updateNavUser();
           }

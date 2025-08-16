@@ -68,7 +68,7 @@ export interface BrowserCapabilities {
 
 export interface CompatibilityIssue {
   feature: string;
-  severity: 'critical' | 'warning' | 'info';
+  severity: "critical" | 'warning' | 'info';
   browser: string;
   version: string;
   description: string;
@@ -83,7 +83,7 @@ export interface CompatibilityReport {
   issues: CompatibilityIssue[];
   score: number; // 0-100
   recommendation: string;
-  supportLevel: 'full' | 'partial' | 'limited' | 'unsupported';
+  supportLevel: 'full' | 'partial' | 'limited' | "unsupported";
 }
 
 export class BrowserCompatibilityService {
@@ -114,7 +114,7 @@ export class BrowserCompatibilityService {
       ['resize-observer', 'https://cdn.jsdelivr.net/npm/resize-observer-polyfill@1/dist/ResizeObserver.global.js'],
       ['custom-elements', 'https://cdn.jsdelivr.net/npm/@webcomponents/custom-elements@1/custom-elements.min.js'],
       ['object-fit', 'https://cdn.jsdelivr.net/npm/object-fit-images@3/dist/ofi.min.js'],
-      ['smoothscroll', 'https://cdn.jsdelivr.net/npm/smoothscroll-polyfill@0.4/dist/smoothscroll.min.js']
+      ["smoothscroll", 'https://cdn.jsdelivr.net/npm/smoothscroll-polyfill@0.4/dist/smoothscroll.min.js']
     ]);
   }
 
@@ -214,8 +214,8 @@ export class BrowserCompatibilityService {
       grid: this.checkCSSSupport('display', 'grid'),
       flexbox: this.checkCSSSupport('display', 'flex'),
       customProperties: this.checkCSSSupport('--test', 'test'),
-      transforms3d: this.checkCSSSupport('transform', 'translateZ(0)'),
-      animations: this.checkCSSSupport('animation', 'test 1s'),
+      transforms3d: this.checkCSSSupport("transform", 'translateZ(0)'),
+      animations: this.checkCSSSupport("animation", 'test 1s'),
       filters: this.checkCSSSupport('filter', 'blur(1px)'),
       backdropFilter: this.checkCSSSupport('backdrop-filter', 'blur(1px)'),
       clipPath: this.checkCSSSupport('clip-path', 'circle()'),
@@ -227,15 +227,15 @@ export class BrowserCompatibilityService {
   /**
    * Detect JavaScript capabilities
    */
-  private detectJavaScriptCapabilities(): BrowserCapabilities['javascript'] {
+  private detectJavaScriptCapabilities(): BrowserCapabilities["javascript"] {
     return {
-      promises: typeof Promise !== 'undefined',
+      promises: typeof Promise !== "undefined",
       asyncAwait: this.checkAsyncAwaitSupport(),
-      modules: 'noModule' in document.createElement('script'),
-      webComponents: 'customElements' in window,
-      serviceWorker: 'serviceWorker' in navigator,
-      webAssembly: typeof WebAssembly !== 'undefined',
-      bigInt: typeof BigInt !== 'undefined',
+      modules: "noModule" in document.createElement('script'),
+      webComponents: "customElements" in window,
+      serviceWorker: "serviceWorker" in navigator,
+      webAssembly: typeof WebAssembly !== "undefined",
+      bigInt: typeof BigInt !== "undefined",
       optionalChaining: this.checkOptionalChainingSupport(),
       nullishCoalescing: this.checkNullishCoalescingSupport()
     };
@@ -246,18 +246,18 @@ export class BrowserCompatibilityService {
    */
   private detectAPICapabilities(): BrowserCapabilities['apis'] {
     return {
-      localStorage: this.checkStorageSupport('localStorage'),
-      sessionStorage: this.checkStorageSupport('sessionStorage'),
-      indexedDB: 'indexedDB' in window,
-      webSockets: 'WebSocket' in window,
-      webRTC: 'RTCPeerConnection' in window,
-      notifications: 'Notification' in window,
-      geolocation: 'geolocation' in navigator,
-      clipboard: 'clipboard' in navigator,
-      intersectionObserver: 'IntersectionObserver' in window,
-      resizeObserver: 'ResizeObserver' in window,
-      mutationObserver: 'MutationObserver' in window,
-      performanceObserver: 'PerformanceObserver' in window
+      localStorage: this.checkStorageSupport("localStorage"),
+      sessionStorage: this.checkStorageSupport("sessionStorage"),
+      indexedDB: "indexedDB" in window,
+      webSockets: "WebSocket" in window,
+      webRTC: "RTCPeerConnection" in window,
+      notifications: "Notification" in window,
+      geolocation: "geolocation" in navigator,
+      clipboard: "clipboard" in navigator,
+      intersectionObserver: "IntersectionObserver" in window,
+      resizeObserver: "ResizeObserver" in window,
+      mutationObserver: "MutationObserver" in window,
+      performanceObserver: "PerformanceObserver" in window
     };
   }
 
@@ -286,7 +286,7 @@ export class BrowserCompatibilityService {
       return this.featureDetectionCache.get(key)!;
     }
 
-    if (typeof document === 'undefined') return false;
+    if (typeof document === "undefined") return false;
     
     const element = document.createElement('div');
     const style = element.style as any;
@@ -351,7 +351,7 @@ export class BrowserCompatibilityService {
   /**
    * Check storage support
    */
-  private checkStorageSupport(type: 'localStorage' | 'sessionStorage'): boolean {
+  private checkStorageSupport(type: "localStorage" | "sessionStorage"): boolean {
     try {
       const storage = window[type];
       const test = '__storage_test__';
@@ -367,7 +367,7 @@ export class BrowserCompatibilityService {
    * Check media support
    */
   private checkMediaSupport(type: 'audio' | 'video'): boolean {
-    if (typeof document === 'undefined') return false;
+    if (typeof document === "undefined") return false;
     const element = document.createElement(type);
     return !!element.canPlayType;
   }
@@ -376,7 +376,7 @@ export class BrowserCompatibilityService {
    * Check WebGL support
    */
   private checkWebGLSupport(): boolean {
-    if (typeof document === 'undefined') return false;
+    if (typeof document === "undefined") return false;
     const canvas = document.createElement('canvas');
     const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
     return !!gl;
@@ -386,7 +386,7 @@ export class BrowserCompatibilityService {
    * Check WebGL2 support
    */
   private checkWebGL2Support(): boolean {
-    if (typeof document === 'undefined') return false;
+    if (typeof document === "undefined") return false;
     const canvas = document.createElement('canvas');
     return !!canvas.getContext('webgl2');
   }
@@ -395,7 +395,7 @@ export class BrowserCompatibilityService {
    * Check Canvas support
    */
   private checkCanvasSupport(): boolean {
-    if (typeof document === 'undefined') return false;
+    if (typeof document === "undefined") return false;
     const canvas = document.createElement('canvas');
     return !!canvas.getContext('2d');
   }
@@ -404,7 +404,7 @@ export class BrowserCompatibilityService {
    * Check SVG support
    */
   private checkSVGSupport(): boolean {
-    if (typeof document === 'undefined') return false;
+    if (typeof document === "undefined") return false;
     return !!document.createElementNS && 
            !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect;
   }
@@ -413,7 +413,7 @@ export class BrowserCompatibilityService {
    * Check image format support
    */
   private checkImageFormatSupport(format: string): boolean {
-    if (typeof document === 'undefined') return false;
+    if (typeof document === "undefined") return false;
     const canvas = document.createElement('canvas');
     canvas.width = canvas.height = 1;
     const ctx = canvas.getContext('2d');
@@ -434,7 +434,7 @@ export class BrowserCompatibilityService {
     if (minVersion && browserInfo.majorVersion < minVersion) {
       issues.push({
         feature: 'browser-version',
-        severity: 'critical',
+        severity: "critical",
         browser: browserInfo.name,
         version: browserInfo.version,
         description: `Your browser version is below the minimum supported version (${minVersion})`,
@@ -447,7 +447,7 @@ export class BrowserCompatibilityService {
     if (!capabilities.css.flexbox) {
       issues.push({
         feature: 'css-flexbox',
-        severity: 'critical',
+        severity: "critical",
         browser: browserInfo.name,
         version: browserInfo.version,
         description: 'Flexbox is not supported',
@@ -472,7 +472,7 @@ export class BrowserCompatibilityService {
     if (!capabilities.javascript.promises) {
       issues.push({
         feature: 'js-promises',
-        severity: 'critical',
+        severity: "critical",
         browser: browserInfo.name,
         version: browserInfo.version,
         description: 'JavaScript Promises are not supported',
@@ -495,7 +495,7 @@ export class BrowserCompatibilityService {
     if (!capabilities.apis.localStorage) {
       issues.push({
         feature: 'local-storage',
-        severity: 'critical',
+        severity: "critical",
         browser: browserInfo.name,
         version: browserInfo.version,
         description: 'LocalStorage is not available',
@@ -526,7 +526,7 @@ export class BrowserCompatibilityService {
     let score = 100;
     
     // Deduct points for missing features
-    const criticalIssues = issues.filter(i => i.severity === 'critical').length;
+    const criticalIssues = issues.filter(i => i.severity === "critical").length;
     const warningIssues = issues.filter(i => i.severity === 'warning').length;
     
     score -= criticalIssues * 20;
@@ -543,11 +543,11 @@ export class BrowserCompatibilityService {
   /**
    * Determine support level
    */
-  determineSupportLevel(score: number): CompatibilityReport['supportLevel'] {
+  determineSupportLevel(score: number): CompatibilityReport["supportLevel"] {
     if (score >= 90) return 'full';
     if (score >= 70) return 'partial';
     if (score >= 50) return 'limited';
-    return 'unsupported';
+    return "unsupported";
   }
 
   /**
@@ -674,7 +674,7 @@ export class BrowserCompatibilityService {
    */
   private applySafariFixes(): void {
     // Fix Safari's date input
-    if (typeof document !== 'undefined') {
+    if (typeof document !== "undefined") {
       const style = document.createElement('style');
       style.textContent = `
         input[type="date"]::-webkit-inner-spin-button,
@@ -692,7 +692,7 @@ export class BrowserCompatibilityService {
    */
   private applyFirefoxFixes(): void {
     // Fix Firefox's number input
-    if (typeof document !== 'undefined') {
+    if (typeof document !== "undefined") {
       const style = document.createElement('style');
       style.textContent = `
         input[type="number"] {
@@ -713,7 +713,7 @@ export class BrowserCompatibilityService {
    */
   private applyLegacyFixes(): void {
     // Add classList polyfill for IE
-    if (!('classList' in document.createElement('_'))) {
+    if (!("classList" in document.createElement('_'))) {
       this.addClassListPolyfill();
     }
   }
@@ -723,7 +723,7 @@ export class BrowserCompatibilityService {
    */
   private addClassListPolyfill(): void {
     // Simplified classList polyfill implementation
-    Object.defineProperty(Element.prototype, 'classList', {
+    Object.defineProperty(Element.prototype, "classList", {
       get: function() {
         const self = this;
         return {

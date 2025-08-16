@@ -3,12 +3,12 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import { FileCreationAPI, FileType, FileCreationOptions } from '../../src/file-manager/FileCreationAPI';
 import { MCPIntegratedFileManager } from '../../src/file-manager/MCPIntegratedFileManager';
 
-describe('FileCreationAPI', () => {
+describe("FileCreationAPI", () => {
   let api: FileCreationAPI;
   let tempDir: string;
 
@@ -124,9 +124,9 @@ describe('FileCreationAPI', () => {
   describe('Batch Operations', () => {
     it('should create multiple files in batch', async () => {
       const files = [
-        { path: 'file1.txt', content: 'content1', options: { type: FileType.TEMPORARY } as FileCreationOptions },
-        { path: 'file2.txt', content: 'content2', options: { type: FileType.TEMPORARY } as FileCreationOptions },
-        { path: 'file3.txt', content: 'content3', options: { type: FileType.TEMPORARY } as FileCreationOptions }
+        { path: 'file1.txt', content: "content1", options: { type: FileType.TEMPORARY } as FileCreationOptions },
+        { path: 'file2.txt', content: "content2", options: { type: FileType.TEMPORARY } as FileCreationOptions },
+        { path: 'file3.txt', content: "content3", options: { type: FileType.TEMPORARY } as FileCreationOptions }
       ];
 
       const results = await api.createBatch(files);
@@ -137,8 +137,8 @@ describe('FileCreationAPI', () => {
 
     it('should rollback batch on failure', async () => {
       const files = [
-        { path: 'file1.txt', content: 'content1', options: { type: FileType.TEMPORARY } as FileCreationOptions },
-        { path: 'invalid/\0/path.txt', content: 'content2', options: { type: FileType.TEMPORARY } as FileCreationOptions }
+        { path: 'file1.txt', content: "content1", options: { type: FileType.TEMPORARY } as FileCreationOptions },
+        { path: 'invalid/\0/path.txt', content: "content2", options: { type: FileType.TEMPORARY } as FileCreationOptions }
       ];
 
       await expect(api.createBatch(files)).rejects.toThrow();
@@ -192,7 +192,7 @@ describe('FileCreationAPI', () => {
     });
 
     it('should prevent file creation outside project', async () => {
-      const result = await api.createFile('../../../etc/passwd', 'malicious', {
+      const result = await api.createFile('../../../etc/passwd', "malicious", {
         type: FileType.TEMPORARY
       });
 
@@ -202,7 +202,7 @@ describe('FileCreationAPI', () => {
   });
 });
 
-describe('MCPIntegratedFileManager', () => {
+describe("MCPIntegratedFileManager", () => {
   let manager: MCPIntegratedFileManager;
   let tempDir: string;
 
@@ -218,8 +218,8 @@ describe('MCPIntegratedFileManager', () => {
           freeze: true,
           freeze_message: 'Root is frozen',
           required_children: [
-            { name: 'gen', type: 'directory' },
-            { name: 'temp', type: 'directory' }
+            { name: 'gen', type: "directory" },
+            { name: 'temp', type: "directory" }
           ]
         }
       }
@@ -318,7 +318,7 @@ describe('MCPIntegratedFileManager', () => {
       await expect(
         manager.createTypedFile(
           '../../../etc/passwd',
-          'malicious',
+          "malicious",
           FileType.CONFIG
         )
       ).rejects.toThrow();

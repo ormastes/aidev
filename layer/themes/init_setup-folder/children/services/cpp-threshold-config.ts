@@ -75,7 +75,7 @@ export class CppThresholdConfig {
       excludePatterns: ['*/test/*', '*/tests/*', '*/mock/*']
     },
     {
-      name: 'standard',
+      name: "standard",
       description: 'Standard coverage requirements',
       thresholds: {
         line: 80,
@@ -117,7 +117,7 @@ export class CppThresholdConfig {
     
     const config: ThresholdConfig = {
       profiles: this.defaultProfiles,
-      activeProfile: profileName || 'standard',
+      activeProfile: profileName || "standard",
       globalExclude: [
         '*/build/*',
         '*/cmake-build-*/*',
@@ -161,7 +161,7 @@ export class CppThresholdConfig {
     metrics: CoverageMetrics
   ): Promise<{ passed: boolean; violations: string[] }> {
     const configPath = path.join(projectPath, '.coverage', 'thresholds.json');
-    const config: ThresholdConfig = JSON.parse(await fs.readFile(configPath, 'utf-8'));
+    const config: ThresholdConfig = JSON.parse(await fileAPI.readFile(configPath, 'utf-8'));
     
     const activeProfile = config.profiles.find(p => p.name === config.activeProfile);
     if (!activeProfile) {
@@ -175,7 +175,7 @@ export class CppThresholdConfig {
     const checks = [
       { type: 'line', metric: metrics.line, threshold: activeProfile.thresholds.line },
       { type: 'branch', metric: metrics.branch, threshold: activeProfile.thresholds.branch },
-      { type: 'function', metric: metrics.function, threshold: activeProfile.thresholds.function },
+      { type: "function", metric: metrics.function, threshold: activeProfile.thresholds.function },
       { type: 'class', metric: metrics.class, threshold: activeProfile.thresholds.class }
     ];
     
@@ -245,9 +245,9 @@ export class CppThresholdConfig {
     
     try {
       const fullPath = path.join(projectPath, baselinePath);
-      const baseline: CoverageMetrics = JSON.parse(await fs.readFile(fullPath, 'utf-8'));
+      const baseline: CoverageMetrics = JSON.parse(await fileAPI.readFile(fullPath, 'utf-8'));
       
-      const types: Array<keyof CoverageMetrics> = ['line', 'branch', 'function', 'class'];
+      const types: Array<keyof CoverageMetrics> = ['line', 'branch', "function", 'class'];
       
       for (const type of types) {
         if (baseline[type] && current[type]) {
@@ -278,7 +278,7 @@ export class CppThresholdConfig {
     rule: CustomThresholdRule
   ): Promise<void> {
     const configPath = path.join(projectPath, '.coverage', 'thresholds.json');
-    const config: ThresholdConfig = JSON.parse(await fs.readFile(configPath, 'utf-8'));
+    const config: ThresholdConfig = JSON.parse(await fileAPI.readFile(configPath, 'utf-8'));
     
     if (!config.customRules) {
       config.customRules = [];
@@ -298,7 +298,7 @@ export class CppThresholdConfig {
 
   async setProfile(projectPath: string, profileName: string): Promise<void> {
     const configPath = path.join(projectPath, '.coverage', 'thresholds.json');
-    const config: ThresholdConfig = JSON.parse(await fs.readFile(configPath, 'utf-8'));
+    const config: ThresholdConfig = JSON.parse(await fileAPI.readFile(configPath, 'utf-8'));
     
     if (!config.profiles.find(p => p.name === profileName)) {
       throw new Error(`Profile '${profileName}' not found. Available profiles: ${
@@ -348,7 +348,7 @@ validator.validate('${projectPath}', '$COVERAGE_JSON').then(result => {
     await fileAPI.createFile(scriptPath, script);
     await fs.chmod(scriptPath, { type: FileType.TEMPORARY }): Promise<string> {
     const configPath = path.join(projectPath, '.coverage', 'thresholds.json');
-    const config: ThresholdConfig = JSON.parse(await fs.readFile(configPath, 'utf-8'));
+    const config: ThresholdConfig = JSON.parse(await fileAPI.readFile(configPath, 'utf-8'));
     
     const activeProfile = config.profiles.find(p => p.name === config.activeProfile);
     if (!activeProfile) {
@@ -366,7 +366,7 @@ validator.validate('${projectPath}', '$COVERAGE_JSON').then(result => {
 |------|----------|-----------|--------|
 `;
     
-    const types = ['line', 'branch', 'function', 'class'] as const;
+    const types = ['line', 'branch', "function", 'class'] as const;
     
     for (const type of types) {
       const metric = metrics[type];
@@ -409,7 +409,7 @@ export class CppThresholdValidator {
     const config = new CppThresholdConfig();
     
     // Parse coverage JSON
-    const coverageData = JSON.parse(await fs.readFile(coverageJsonPath, 'utf-8'));
+    const coverageData = JSON.parse(await fileAPI.readFile(coverageJsonPath, 'utf-8'));
     const metrics = this.parseCoverageData(coverageData);
     
     return config.validateThresholds(projectPath, metrics);

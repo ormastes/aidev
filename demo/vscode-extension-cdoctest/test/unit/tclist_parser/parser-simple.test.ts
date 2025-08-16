@@ -34,7 +34,7 @@ describe('Parser - Simple', () => {
     parseMarkdown = parserModule.parseMarkdown;
   });
 
-  describe('parseMarkdown', () => {
+  describe("parseMarkdown", () => {
     test('should parse basic test cases', () => {
       const content = '1 + 1 = 2\n2 + 3 = 5';
       const onTest = jest.fn();
@@ -70,7 +70,7 @@ describe('Parser - Simple', () => {
       );
       expect(onHeading).toHaveBeenCalledWith(
         expect.any(Object), // range
-        'Subsection',
+        "Subsection",
         2
       );
     });

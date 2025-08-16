@@ -77,32 +77,32 @@ export function validateTestConfiguration(config: any): void {
   
   validateString(config.testSuiteId, { 
     errorPrefix, 
-    fieldName: 'testSuiteId', 
+    fieldName: "testSuiteId", 
     required: true 
   });
   
   validateArray(config.featureFiles, { 
     errorPrefix, 
-    fieldName: 'featureFiles', 
+    fieldName: "featureFiles", 
     required: true, 
     minLength: 1 
   });
   
   validateArray(config.stepDefinitions, { 
     errorPrefix, 
-    fieldName: 'stepDefinitions', 
+    fieldName: "stepDefinitions", 
     required: true, 
     minLength: 1 
   });
   
   validateArray(config.outputFormats, { 
     errorPrefix, 
-    fieldName: 'outputFormats' 
+    fieldName: "outputFormats" 
   });
   
   validateEnum(config.logLevel, {
     errorPrefix,
-    fieldName: 'logLevel',
+    fieldName: "logLevel",
     allowedValues: ['trace', 'debug', 'info', 'warn', 'error']
   });
   

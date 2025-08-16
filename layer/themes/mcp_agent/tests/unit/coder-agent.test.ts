@@ -6,7 +6,7 @@ import { MCPMethod, ToolCall, ToolResult } from '../../children/src/domain/proto
 jest.mock('../../children/src/server/mcp-connection');
 const MockedMCPConnection = MCPConnection as jest.MockedClass<typeof MCPConnection>;
 
-describe('CoderAgent', () => {
+describe("CoderAgent", () => {
   let coderAgent: CoderAgent;
   let mockMcpConnection: jest.Mocked<MCPConnection>;
 
@@ -21,7 +21,7 @@ describe('CoderAgent', () => {
     jest.clearAllMocks();
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should create CoderAgent instance with correct capabilities', () => {
       expect(coderAgent).toBeDefined();
       
@@ -42,15 +42,15 @@ describe('CoderAgent', () => {
     });
   });
 
-  describe('setMCPConnection', () => {
+  describe("setMCPConnection", () => {
     it('should set MCP connection', () => {
       const newAgent = new CoderAgent();
       expect(() => newAgent.setMCPConnection(mockMcpConnection)).not.toThrow();
     });
   });
 
-  describe('implementFeature', () => {
-    const featureName = 'TestFeature';
+  describe("implementFeature", () => {
+    const featureName = "TestFeature";
     const requirements = ['should handle input validation', 'should process data correctly'];
 
     beforeEach(() => {
@@ -87,7 +87,7 @@ describe('CoderAgent', () => {
   });
 
   describe('feature implementation workflow', () => {
-    const featureName = 'TestFeature';
+    const featureName = "TestFeature";
     const requirements = ['should handle input validation', 'should process data correctly'];
 
     beforeEach(() => {
@@ -115,7 +115,7 @@ describe('CoderAgent', () => {
     it('should handle MCP connection errors gracefully', async () => {
       mockMcpConnection.request.mockRejectedValue(new Error('Connection failed'));
       
-      await expect(coderAgent.implementFeature('TestFeature', []))
+      await expect(coderAgent.implementFeature("TestFeature", []))
         .rejects.toThrow('Connection failed');
     });
   });
@@ -126,7 +126,7 @@ describe('CoderAgent', () => {
         content: [{ text: '[]' }]
       } as ToolResult);
 
-      await coderAgent.implementFeature('EmptyFeature', []);
+      await coderAgent.implementFeature("EmptyFeature", []);
       expect(mockMcpConnection.request).toHaveBeenCalled();
     });
 
@@ -137,7 +137,7 @@ describe('CoderAgent', () => {
         content: [{ text: 'success' }]
       } as ToolResult);
 
-      await coderAgent.implementFeature(longName, ['requirement']);
+      await coderAgent.implementFeature(longName, ["requirement"]);
       expect(mockMcpConnection.request).toHaveBeenCalled();
     });
 
@@ -148,7 +148,7 @@ describe('CoderAgent', () => {
         content: [{ text: 'success' }]
       } as ToolResult);
 
-      await coderAgent.implementFeature(specialName, ['requirement']);
+      await coderAgent.implementFeature(specialName, ["requirement"]);
       expect(mockMcpConnection.request).toHaveBeenCalled();
     });
   });

@@ -4,7 +4,7 @@
  * Command-line interface for running vLLM coordinator agent
  */
 
-import { Command } from 'commander';
+import { Command } from "commander";
 import * as dotenv from 'dotenv';
 import chalk from 'chalk';
 import { createVLLMCoordinator } from '../agents/vllm-coordinator';

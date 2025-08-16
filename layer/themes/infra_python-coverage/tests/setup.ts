@@ -85,7 +85,7 @@ export const mockClassData = {
     complexity: 8
   },
   'src/module2.py::AnotherClass': {
-    name: 'AnotherClass',
+    name: "AnotherClass",
     file: 'src/module2.py',
     lineCoverage: 95,
     methodCoverage: 100,

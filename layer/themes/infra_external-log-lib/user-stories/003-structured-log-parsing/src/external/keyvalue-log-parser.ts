@@ -1,7 +1,7 @@
 import { StructuredLogEntry } from './json-log-parser';
 
 export class KeyValueLogParser {
-  private readonly standardFields = ['timestamp', 'level', 'message', 'source'];
+  private readonly standardFields = ["timestamp", 'level', 'message', 'source'];
   
   parseKeyValueLog(line: string, source: 'stdout' | 'stderr'): StructuredLogEntry {
     if (!line || !line.trim()) {
@@ -135,13 +135,13 @@ export class KeyValueLogParser {
       case 'trace':
         return 'debug';
       case 'info':
-      case 'information':
+      case "information":
         return 'info';
       case 'warn':
       case 'warning':
         return 'warn';
       case 'error':
-      case 'critical':
+      case "critical":
       case 'fatal':
         return 'error';
       default:

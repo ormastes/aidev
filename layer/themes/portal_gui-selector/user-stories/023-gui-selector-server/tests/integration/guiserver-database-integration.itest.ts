@@ -8,14 +8,14 @@
 
 import express from 'express';
 import session from 'express-session';
-import { Server } from 'http';
+import { Server } from 'node:http';
 
 // Database interface from external tests
 interface ThemeData {
   id: string;
   name: string;
   description: string;
-  category: 'modern' | 'professional' | 'creative' | 'accessible';
+  category: 'modern' | "professional" | "creative" | "accessible";
   styles: Record<string, any>;
   metadata: {
     author: string;
@@ -55,14 +55,14 @@ interface SelectionData {
 
 interface DatabaseInterface {
   // Theme operations
-  createTheme(theme: Omit<ThemeData, 'createdAt' | 'updatedAt'>): Promise<ThemeData>;
+  createTheme(theme: Omit<ThemeData, "createdAt" | "updatedAt">): Promise<ThemeData>;
   getTheme(id: string): Promise<ThemeData | null>;
   updateTheme(id: string, updates: Partial<ThemeData>): Promise<ThemeData | null>;
   deleteTheme(id: string): Promise<boolean>;
   listThemes(category?: string): Promise<ThemeData[]>;
   
   // Screen operations
-  createScreen(screen: Omit<ScreenData, 'createdAt'>): Promise<ScreenData>;
+  createScreen(screen: Omit<ScreenData, "createdAt">): Promise<ScreenData>;
   getScreen(id: string): Promise<ScreenData | null>;
   listScreens(): Promise<ScreenData[]>;
   
@@ -72,7 +72,7 @@ interface DatabaseInterface {
   getScreenThemes(screenId: string): Promise<ThemeData[]>;
   
   // Selection operations
-  createSelection(selection: Omit<SelectionData, 'id' | 'createdAt' | 'updatedAt'>): Promise<SelectionData>;
+  createSelection(selection: Omit<SelectionData, 'id' | "createdAt" | "updatedAt">): Promise<SelectionData>;
   getSelection(id: string): Promise<SelectionData | null>;
   getUserSelections(userId: string): Promise<SelectionData[]>;
   
@@ -88,7 +88,7 @@ interface TemplateInfo {
   id: string;
   name: string;
   description: string;
-  category: 'modern' | 'professional' | 'creative' | 'accessible';
+  category: 'modern' | "professional" | "creative" | "accessible";
   previewUrl: string;
   thumbnailUrl: string;
   features: string[];
@@ -124,7 +124,7 @@ class MockDatabase implements DatabaseInterface {
 
   private initializeTestData(): void {
     // Create initial themes
-    const themes: Omit<ThemeData, 'createdAt' | 'updatedAt'>[] = [
+    const themes: Omit<ThemeData, "createdAt" | "updatedAt">[] = [
       {
         id: 'db-integration-modern-01',
         name: 'Database Modern Theme',
@@ -140,14 +140,14 @@ class MockDatabase implements DatabaseInterface {
           author: 'Database Team',
           version: '1.0.0',
           lastUpdated: '2024-01-15',
-          tags: ['database', 'modern', 'integration']
+          tags: ["database", 'modern', "integration"]
         }
       },
       {
         id: 'db-integration-professional-01',
         name: 'Database Professional Theme',
         description: 'Professional theme for database integration testing',
-        category: 'professional',
+        category: "professional",
         styles: {
           primaryColor: '#6c757d',
           backgroundColor: '#f8f9fa',
@@ -158,7 +158,7 @@ class MockDatabase implements DatabaseInterface {
           author: 'Database Team',
           version: '1.1.0',
           lastUpdated: '2024-01-10',
-          tags: ['database', 'professional', 'integration']
+          tags: ["database", "professional", "integration"]
         }
       }
     ];
@@ -173,7 +173,7 @@ class MockDatabase implements DatabaseInterface {
     });
 
     // Create initial screens
-    const screens: Omit<ScreenData, 'createdAt'>[] = [
+    const screens: Omit<ScreenData, "createdAt">[] = [
       {
         id: 'db-screen-dashboard',
         name: 'Dashboard Screen',
@@ -189,7 +189,7 @@ class MockDatabase implements DatabaseInterface {
         templatePath: '/templates/settings.html',
         componentData: {
           layout: 'tabs',
-          sections: ['profile', 'preferences', 'security']
+          sections: ['profile', "preferences", "security"]
         }
       }
     ];
@@ -217,7 +217,7 @@ class MockDatabase implements DatabaseInterface {
     });
   }
 
-  async createTheme(theme: Omit<ThemeData, 'createdAt' | 'updatedAt'>): Promise<ThemeData> {
+  async createTheme(theme: Omit<ThemeData, "createdAt" | "updatedAt">): Promise<ThemeData> {
     const now = new Date();
     const newTheme: ThemeData = {
       ...theme,
@@ -263,7 +263,7 @@ class MockDatabase implements DatabaseInterface {
     return themes.map(theme => ({ ...theme }));
   }
 
-  async createScreen(screen: Omit<ScreenData, 'createdAt'>): Promise<ScreenData> {
+  async createScreen(screen: Omit<ScreenData, "createdAt">): Promise<ScreenData> {
     const newScreen: ScreenData = {
       ...screen,
       createdAt: new Date()
@@ -322,7 +322,7 @@ class MockDatabase implements DatabaseInterface {
     return themes;
   }
 
-  async createSelection(selection: Omit<SelectionData, 'id' | 'createdAt' | 'updatedAt'>): Promise<SelectionData> {
+  async createSelection(selection: Omit<SelectionData, 'id' | "createdAt" | "updatedAt">): Promise<SelectionData> {
     const now = new Date();
     const newSelection: SelectionData = {
       ...selection,
@@ -804,7 +804,7 @@ class IntegratedGUIDBServer {
                 author: 'Transaction Test',
                 version: '1.0.0',
                 lastUpdated: new Date().toISOString(),
-                tags: ['transaction', 'test']
+                tags: ["transaction", 'test']
               }
             });
             await this.database.commitTransaction();
@@ -822,7 +822,7 @@ class IntegratedGUIDBServer {
                 author: 'Rollback Test',
                 version: '1.0.0',
                 lastUpdated: new Date().toISOString(),
-                tags: ['rollback', 'test']
+                tags: ["rollback", 'test']
               }
             });
             await this.database.rollbackTransaction();
@@ -857,7 +857,7 @@ class IntegratedGUIDBServer {
           "success": true,
           status: 'healthy',
           services: {
-            database: dbHealthy ? 'healthy' : 'unhealthy',
+            database: dbHealthy ? 'healthy' : "unhealthy",
             guiServer: 'healthy',
             integration: 'healthy'
           },
@@ -940,8 +940,8 @@ describe('GUIServer + Database Integration Test', () => {
       expect(data.templates).toHaveLength(2);
       expect(data.templates[0].id).toMatch(/db-integration/);
       expect(data.templates[0]).toHaveProperty('name');
-      expect(data.templates[0]).toHaveProperty('category');
-      expect(data.templates[0]).toHaveProperty('previewUrl');
+      expect(data.templates[0]).toHaveProperty("category");
+      expect(data.templates[0]).toHaveProperty("previewUrl");
     });
 
     test('should filter templates by category', async () => {
@@ -1108,13 +1108,13 @@ describe('GUIServer + Database Integration Test', () => {
         body: JSON.stringify({
           name: 'My Custom Theme',
           description: 'A personalized theme for my project',
-          category: 'creative',
+          category: "creative",
           styles: {
             primaryColor: '#9c27b0',
             backgroundColor: '#fce4ec',
             borderRadius: '12px'
           },
-          tags: ['custom', 'purple', 'creative']
+          tags: ['custom', 'purple', "creative"]
         })
       });
 
@@ -1122,7 +1122,7 @@ describe('GUIServer + Database Integration Test', () => {
       const data = await response.json() as any;
       expect(data.success).toBe(true);
       expect(data.customTheme.theme.name).toBe('My Custom Theme');
-      expect(data.customTheme.theme.category).toBe('creative');
+      expect(data.customTheme.theme.category).toBe("creative");
       expect(data.customTheme.theme.metadata.author).toBe(userId);
       expect(data.customTheme.template.id).toMatch(/^custom_/);
 
@@ -1183,7 +1183,7 @@ describe('GUIServer + Database Integration Test', () => {
       const screensData = await screensResponse.json() as any;
       expect(screensData.success).toBe(true);
       expect(screensData.screens).toHaveLength(2);
-      expect(screensData.screens[0]).toHaveProperty('templatePath');
+      expect(screensData.screens[0]).toHaveProperty("templatePath");
     });
 
     test('should create theme-screen associations', async () => {
@@ -1222,7 +1222,7 @@ describe('GUIServer + Database Integration Test', () => {
       const data = await response.json() as any;
       expect(data.success).toBe(true);
       expect(data.themes).toHaveLength(1);
-      expect(data.themes[0].category).toBe('professional');
+      expect(data.themes[0].category).toBe("professional");
     });
   });
 

@@ -43,7 +43,7 @@ export class RAGPattern extends BasePattern {
     flow.addEdge({ from: 'input', to: 'query-processor' });
     
     // Create retriever node
-    const retrieverNode = new AgentNode('retriever', retrieverAgent, {
+    const retrieverNode = new AgentNode("retriever", retrieverAgent, {
       extractInput: (data: any) => ({
         messages: [{
           role: 'system',
@@ -62,7 +62,7 @@ export class RAGPattern extends BasePattern {
     });
     
     flow.addNode(retrieverNode);
-    flow.addEdge({ from: 'query-processor', to: 'retriever' });
+    flow.addEdge({ from: 'query-processor', to: "retriever" });
     
     // Create context processor
     const contextNode = new TransformNode('context-processor', (data: any[]) => {
@@ -81,11 +81,11 @@ export class RAGPattern extends BasePattern {
     
     flow.addNode(contextNode);
     flow.addEdge({ from: 'query-processor', to: 'context-processor' });
-    flow.addEdge({ from: 'retriever', to: 'context-processor' });
+    flow.addEdge({ from: "retriever", to: 'context-processor' });
     
     // Re-ranking node (optional)
     if (config?.reranking) {
-      const rerankNode = new TransformNode('reranker', (data: any) => {
+      const rerankNode = new TransformNode("reranker", (data: any) => {
         // Simple relevance scoring (in real implementation, use embeddings)
         const contextItems = data.context.split('\n').filter((c: string) => c.trim());
         const query = data.query.toLowerCase();
@@ -112,28 +112,28 @@ export class RAGPattern extends BasePattern {
       });
       
       flow.addNode(rerankNode);
-      flow.addEdge({ from: 'context-processor', to: 'reranker' });
+      flow.addEdge({ from: 'context-processor', to: "reranker" });
       
       // Generator receives reranked context
       const generatorNode = this.createGeneratorNode(generatorAgent, hasRetriever);
       flow.addNode(generatorNode);
-      flow.addEdge({ from: 'reranker', to: 'generator' });
+      flow.addEdge({ from: "reranker", to: "generator" });
     } else {
       // Generator receives context directly
       const generatorNode = this.createGeneratorNode(generatorAgent, hasRetriever);
       flow.addNode(generatorNode);
-      flow.addEdge({ from: 'context-processor', to: 'generator' });
+      flow.addEdge({ from: 'context-processor', to: "generator" });
     }
     
     // Output
     flow.addNode(new OutputNode('output'));
-    flow.addEdge({ from: 'generator', to: 'output' });
+    flow.addEdge({ from: "generator", to: 'output' });
     
     return flow;
   }
 
   private createGeneratorNode(agent: Agent, hasRetriever: boolean) {
-    return new AgentNode('generator', agent, {
+    return new AgentNode("generator", agent, {
       extractInput: (data: any) => ({
         messages: [{
           role: 'system',
@@ -162,7 +162,7 @@ export class RAGPattern extends BasePattern {
           .filter(word => word.length > 3)
           .join(' ');
           
-      case 'similarity':
+      case "similarity":
         // Prepare for embedding search
         return query.replace(/[?!.,]/g, '').trim();
         

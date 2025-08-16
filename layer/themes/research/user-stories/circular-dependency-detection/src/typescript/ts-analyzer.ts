@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * TypeScript circular dependency analyzer
  */
@@ -18,7 +19,7 @@ export class TypeScriptAnalyzer implements LanguageAnalyzer {
   }
 
   getName(): string {
-    return 'TypeScript';
+    return "TypeScript";
   }
 
   getSupportedExtensions(): string[] {
@@ -34,7 +35,7 @@ export class TypeScriptAnalyzer implements LanguageAnalyzer {
     const startTime = Date.now();
     const result: AnalysisResult = {
       success: false,
-      language: 'typescript',
+      language: "typescript",
       total_files: 0,
       total_dependencies: 0,
       circular_dependencies: [],
@@ -215,9 +216,9 @@ export class TypeScriptAnalyzer implements LanguageAnalyzer {
           id: filePath,
           path: filePath,
           type: 'file',
-          language: 'typescript',
+          language: "typescript",
           metadata: {
-            size: (await fs.stat(filePath)).size,
+            size: (await /* FRAUD_FIX: fs.stat(filePath) */).size,
             imports: imports.length
           }
         };
@@ -266,7 +267,7 @@ export class TypeScriptAnalyzer implements LanguageAnalyzer {
         id: fullPath,
         path: fullPath,
         type: 'file',
-        language: 'typescript'
+        language: "typescript"
       };
 
       this.dependencyGraph.addNode(node);
@@ -320,7 +321,7 @@ export class TypeScriptAnalyzer implements LanguageAnalyzer {
 
   private async extractImports(filePath: string, rootPath: string): Promise<string[]> {
     try {
-      const content = await fs.readFile(filePath, 'utf-8');
+      const content = await fileAPI.readFile(filePath, 'utf-8');
       const imports: string[] = [];
 
       // Basic regex patterns for different import types

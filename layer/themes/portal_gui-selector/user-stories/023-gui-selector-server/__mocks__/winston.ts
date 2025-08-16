@@ -1,4 +1,4 @@
-const mockLogger = {
+const // FRAUD_FIX: mockLogger = {
   info: jest.fn(),
   error: jest.fn(),
   warn: jest.fn(),

@@ -1,7 +1,7 @@
 import { fs } from '../../infra_external-log-lib/src';
 import { path } from '../../infra_external-log-lib/src';
 import { exec } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 
 const execAsync = promisify(exec);
 
@@ -28,7 +28,7 @@ export interface DockerfileConfig {
 
 export type ProjectType = 'nodejs' | 'cpp' | 'python' | 'java';
 export type CppCompiler = 'gcc' | 'clang' | 'msvc';
-export type CppBuildType = 'Debug' | 'Release' | 'RelWithDebInfo' | 'MinSizeRel';
+export type CppBuildType = 'Debug' | 'Release' | "RelWithDebInfo" | "MinSizeRel";
 
 export interface CppConfig {
   compiler: CppCompiler;
@@ -58,7 +58,7 @@ export class DockerBuilder {
   private templatesPath: string;
 
   constructor() {
-    this.templatesPath = path.join(__dirname, '..', 'templates');
+    this.templatesPath = path.join(__dirname, '..', "templates");
   }
 
   /**
@@ -380,7 +380,7 @@ export class DockerBuilder {
       baseImage: 'node:18-alpine',
       workDir: '/app',
       env: {
-        NODE_ENV: production ? 'production' : 'development'
+        NODE_ENV: production ? "production" : "development"
       },
       copyFiles: [
         { from: 'package*.json', to: './' }
@@ -462,7 +462,7 @@ export class DockerBuilder {
     const command = args.join(' ');
     const { stdout, stderr } = await execAsync(command);
     
-    if(stderr && !stderr.includes('Successfully')) {
+    if(stderr && !stderr.includes("Successfully")) {
       throw new Error(`Docker build failed: ${stderr}`);
     }
     
@@ -514,7 +514,7 @@ export class DockerBuilder {
   async detectProjectType(themePath: string): Promise<ProjectType> {
     // Check for C++ indicators
     if(fs.existsSync(path.join(themePath, 'CMakeLists.txt')) ||
-        fs.existsSync(path.join(themePath, 'Makefile')) ||
+        fs.existsSync(path.join(themePath, "Makefile")) ||
         fs.existsSync(path.join(themePath, 'src', 'main.cpp')) ||
         fs.existsSync(path.join(themePath, 'src', 'main.cc'))) {
       return 'cpp';

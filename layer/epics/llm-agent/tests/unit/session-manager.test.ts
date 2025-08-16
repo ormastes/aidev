@@ -1,10 +1,10 @@
 import { SessionManager } from '../../children/src/infrastructure/session-manager';
-import { fs } from '../../../../themes/infra_external-log-lib/dist';
-import { path } from '../../../../themes/infra_external-log-lib/dist';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 jest.mock('fs');
 
-describe('SessionManager', () => {
+describe("SessionManager", () => {
   let sessionManager: SessionManager;
   const mockFs = fs as jest.Mocked<typeof fs>;
   const testSessionDir = '/test/sessions';
@@ -22,7 +22,7 @@ describe('SessionManager', () => {
     mockFs.unlinkSync.mockImplementation(() => {});
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should create session directory if it does not exist', () => {
       mockFs.existsSync.mockReturnValue(false);
       
@@ -40,7 +40,7 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('createSession', () => {
+  describe("createSession", () => {
     it('should create a new session with unique ID', () => {
       const userId = 'user123';
       const metadata = { browser: 'chrome' };
@@ -75,10 +75,10 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('getSession', () => {
+  describe("getSession", () => {
     it('should retrieve existing session', () => {
       const sessionData = {
-        id: 'session123',
+        id: "session123",
         userId: 'user123',
         createdAt: new Date().toISOString(),
         expiresAt: new Date(Date.now() + 3600000).toISOString(),
@@ -90,24 +90,24 @@ describe('SessionManager', () => {
       mockFs.existsSync.mockReturnValue(true);
       mockFs.readFileSync.mockReturnValue(JSON.stringify(sessionData));
       
-      const session = sessionManager.getSession('session123');
+      const session = sessionManager.getSession("session123");
       
       expect(session).toBeTruthy();
-      expect(session?.id).toBe('session123');
+      expect(session?.id).toBe("session123");
       expect(session?.userId).toBe('user123');
     });
 
     it('should return null for non-existent session', () => {
       mockFs.existsSync.mockReturnValue(false);
       
-      const session = sessionManager.getSession('nonexistent');
+      const session = sessionManager.getSession("nonexistent");
       
       expect(session).toBeNull();
     });
 
     it('should return null for expired session', () => {
       const expiredSessionData = {
-        id: 'expired123',
+        id: "expired123",
         userId: 'user123',
         createdAt: new Date(Date.now() - 7200000).toISOString(),
         expiresAt: new Date(Date.now() - 3600000).toISOString(),
@@ -119,14 +119,14 @@ describe('SessionManager', () => {
       mockFs.existsSync.mockReturnValue(true);
       mockFs.readFileSync.mockReturnValue(JSON.stringify(expiredSessionData));
       
-      const session = sessionManager.getSession('expired123');
+      const session = sessionManager.getSession("expired123");
       
       expect(session).toBeNull();
     });
 
     it('should update lastAccessedAt on retrieval', () => {
       const sessionData = {
-        id: 'session123',
+        id: "session123",
         userId: 'user123',
         createdAt: new Date().toISOString(),
         expiresAt: new Date(Date.now() + 3600000).toISOString(),
@@ -139,17 +139,17 @@ describe('SessionManager', () => {
       mockFs.readFileSync.mockReturnValue(JSON.stringify(sessionData));
       
       const beforeAccess = new Date();
-      const session = sessionManager.getSession('session123');
+      const session = sessionManager.getSession("session123");
       
       expect(session?.lastAccessedAt.getTime()).toBeGreaterThanOrEqual(beforeAccess.getTime());
       expect(mockFs.writeFileSync).toHaveBeenCalled();
     });
   });
 
-  describe('updateSession', () => {
+  describe("updateSession", () => {
     beforeEach(() => {
       const sessionData = {
-        id: 'update123',
+        id: "update123",
         userId: 'user123',
         createdAt: new Date().toISOString(),
         expiresAt: new Date(Date.now() + 3600000).toISOString(),
@@ -165,7 +165,7 @@ describe('SessionManager', () => {
     it('should update session context', () => {
       const updates = { context: { theme: 'dark' } };
       
-      sessionManager.updateSession('update123', updates);
+      sessionManager.updateSession("update123", updates);
       
       expect(mockFs.writeFileSync).toHaveBeenCalledWith(
         expect.any(String),
@@ -177,16 +177,16 @@ describe('SessionManager', () => {
       mockFs.existsSync.mockReturnValue(false);
       
       expect(() => {
-        sessionManager.updateSession('nonexistent', {});
+        sessionManager.updateSession("nonexistent", {});
       }).toThrow('Session not found');
     });
   });
 
-  describe('deleteSession', () => {
+  describe("deleteSession", () => {
     it('should delete session file', () => {
       mockFs.existsSync.mockReturnValue(true);
       
-      sessionManager.deleteSession('delete123');
+      sessionManager.deleteSession("delete123");
       
       expect(mockFs.unlinkSync).toHaveBeenCalledWith(
         path.join(testSessionDir, 'delete123.json')
@@ -197,12 +197,12 @@ describe('SessionManager', () => {
       mockFs.existsSync.mockReturnValue(false);
       
       expect(() => {
-        sessionManager.deleteSession('nonexistent');
+        sessionManager.deleteSession("nonexistent");
       }).not.toThrow();
     });
   });
 
-  describe('addMessage', () => {
+  describe("addMessage", () => {
     beforeEach(() => {
       const sessionData = {
         id: 'msg123',
@@ -234,7 +234,7 @@ describe('SessionManager', () => {
 
     it('should add timestamp to message', () => {
       const message = {
-        role: 'assistant' as const,
+        role: "assistant" as const,
         content: 'Hello, human!'
       };
       
@@ -243,21 +243,21 @@ describe('SessionManager', () => {
       const writeCall = mockFs.writeFileSync.mock.calls[0];
       const savedData = JSON.parse(writeCall[1] as string);
       
-      expect(savedData.messages[0]).toHaveProperty('timestamp');
+      expect(savedData.messages[0]).toHaveProperty("timestamp");
     });
   });
 
-  describe('getMessages', () => {
+  describe("getMessages", () => {
     it('should return all messages for session', () => {
       const sessionData = {
-        id: 'getmsg123',
+        id: "getmsg123",
         userId: 'user123',
         createdAt: new Date().toISOString(),
         expiresAt: new Date(Date.now() + 3600000).toISOString(),
         lastAccessedAt: new Date().toISOString(),
         messages: [
           { role: 'user', content: 'Question?', timestamp: new Date().toISOString() },
-          { role: 'assistant', content: 'Answer!', timestamp: new Date().toISOString() }
+          { role: "assistant", content: 'Answer!', timestamp: new Date().toISOString() }
         ],
         context: {}
       };
@@ -265,7 +265,7 @@ describe('SessionManager', () => {
       mockFs.existsSync.mockReturnValue(true);
       mockFs.readFileSync.mockReturnValue(JSON.stringify(sessionData));
       
-      const messages = sessionManager.getMessages('getmsg123');
+      const messages = sessionManager.getMessages("getmsg123");
       
       expect(messages).toHaveLength(2);
       expect(messages[0].content).toBe('Question?');
@@ -275,13 +275,13 @@ describe('SessionManager', () => {
     it('should return empty array for non-existent session', () => {
       mockFs.existsSync.mockReturnValue(false);
       
-      const messages = sessionManager.getMessages('nonexistent');
+      const messages = sessionManager.getMessages("nonexistent");
       
       expect(messages).toEqual([]);
     });
   });
 
-  describe('listUserSessions', () => {
+  describe("listUserSessions", () => {
     it('should return all sessions for a user', () => {
       const session1 = {
         id: 'sess1',
@@ -323,7 +323,7 @@ describe('SessionManager', () => {
   describe('cleanup', () => {
     it('should delete expired sessions', () => {
       const expiredSession = {
-        id: 'expired1',
+        id: "expired1",
         userId: 'user123',
         createdAt: new Date(Date.now() - 7200000).toISOString(),
         expiresAt: new Date(Date.now() - 3600000).toISOString()
@@ -338,7 +338,7 @@ describe('SessionManager', () => {
       
       mockFs.readdirSync.mockReturnValue(['expired1.json', 'valid1.json'] as any);
       mockFs.readFileSync.mockImplementation((filePath) => {
-        if (filePath.toString().includes('expired1')) return JSON.stringify(expiredSession);
+        if (filePath.toString().includes("expired1")) return JSON.stringify(expiredSession);
         if (filePath.toString().includes('valid1')) return JSON.stringify(validSession);
         return '{}';
       });
@@ -354,10 +354,10 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('exportSession', () => {
+  describe("exportSession", () => {
     it('should export session data', () => {
       const sessionData = {
-        id: 'export123',
+        id: "export123",
         userId: 'user123',
         createdAt: new Date().toISOString(),
         expiresAt: new Date(Date.now() + 3600000).toISOString(),
@@ -368,16 +368,16 @@ describe('SessionManager', () => {
       mockFs.existsSync.mockReturnValue(true);
       mockFs.readFileSync.mockReturnValue(JSON.stringify(sessionData));
       
-      const exported = sessionManager.exportSession('export123');
+      const exported = sessionManager.exportSession("export123");
       
       expect(exported).toEqual(sessionData);
     });
   });
 
-  describe('importSession', () => {
+  describe("importSession", () => {
     it('should import session data', () => {
       const sessionData = {
-        id: 'import123',
+        id: "import123",
         userId: 'user123',
         createdAt: new Date().toISOString(),
         expiresAt: new Date(Date.now() + 3600000).toISOString(),

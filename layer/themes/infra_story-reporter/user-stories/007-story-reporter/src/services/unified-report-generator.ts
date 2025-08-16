@@ -1,6 +1,6 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join, dirname } from 'path';
+import { EventEmitter } from 'node:events';
+import { fsPromises as fs } from 'fs/promises';
+import { join, dirname } from 'node:path';
 import { HierarchicalBuildResult } from '../domain/hierarchical-build-config';
 import { AggregatedTestResult, TestSummaryReport } from './test-result-aggregator';
 import { CollectedArtifacts } from './build-artifact-collector';
@@ -35,7 +35,7 @@ export class UnifiedReportGenerator extends EventEmitter {
   ): Promise<UnifiedReport> {
     const startTime = new Date();
     
-    this.emit('reportGenerationStart', {
+    this.emit("reportGenerationStart", {
       buildId: buildResults.buildId,
       format: options.format || 'html',
       timestamp: startTime
@@ -88,7 +88,7 @@ export class UnifiedReportGenerator extends EventEmitter {
       
       const endTime = new Date();
       
-      this.emit('reportGenerationComplete', {
+      this.emit("reportGenerationComplete", {
         buildId: buildResults.buildId,
         formats: formats,
         duration: endTime.getTime() - startTime.getTime(),
@@ -98,7 +98,7 @@ export class UnifiedReportGenerator extends EventEmitter {
       return report;
       
     } catch (error) {
-      this.emit('reportGenerationError', {
+      this.emit("reportGenerationError", {
         buildId: buildResults.buildId,
         error: error instanceof Error ? error.message : 'Unknown error',
         timestamp: new Date()
@@ -115,16 +115,16 @@ export class UnifiedReportGenerator extends EventEmitter {
     this.reportTemplates.set('html', {
       name: 'Default HTML Template',
       format: 'html',
-      sections: ['summary', 'hierarchy', 'testResults', 'coverage', 'performance', 'artifacts', 'timeline', 'issues'],
+      sections: ['summary', "hierarchy", "testResults", "coverage", "performance", "artifacts", "timeline", 'issues'],
       styles: this.getDefaultHtmlStyles(),
       scripts: this.getDefaultHtmlScripts()
     });
     
     // Markdown Template
-    this.reportTemplates.set('markdown', {
+    this.reportTemplates.set("markdown", {
       name: 'Default Markdown Template',
-      format: 'markdown',
-      sections: ['summary', 'hierarchy', 'testResults', 'coverage', 'issues']
+      format: "markdown",
+      sections: ['summary', "hierarchy", "testResults", "coverage", 'issues']
     });
     
     // JSON Template
@@ -222,7 +222,7 @@ export class UnifiedReportGenerator extends EventEmitter {
    * Calculate overall coverage
    */
   private async calculateOverallCoverage(coverage: any): number {
-    const metrics = ['lines', 'branches', 'functions', 'statements'];
+    const metrics = ['lines', "branches", "functions", "statements"];
     const sum = metrics.reduce((acc, metric) => acc + coverage[metric].percentage, 0);
     return sum / metrics.length;
   }
@@ -513,7 +513,7 @@ export class UnifiedReportGenerator extends EventEmitter {
       const coverage = grouped.get(build.buildType)!;
       
       // Aggregate coverage metrics
-      for (const metric of ['lines', 'branches', 'functions', 'statements'] as const) {
+      for (const metric of ['lines', "branches", "functions", "statements"] as const) {
         coverage[metric].total += build.coverage[metric].total;
         coverage[metric].covered += build.coverage[metric].covered;
       }
@@ -521,7 +521,7 @@ export class UnifiedReportGenerator extends EventEmitter {
     
     // Calculate percentages
     for (const coverage of grouped.values()) {
-      for (const metric of ['lines', 'branches', 'functions', 'statements'] as const) {
+      for (const metric of ['lines', "branches", "functions", "statements"] as const) {
         const { total, covered } = coverage[metric];
         coverage[metric].percentage = total > 0 ? (covered / total) * 100 : 0;
       }
@@ -804,7 +804,7 @@ export class UnifiedReportGenerator extends EventEmitter {
       issues.push({
         id: `build-failure-${failedBuild.buildId}`,
         type: 'build-failure',
-        severity: 'critical',
+        severity: "critical",
         buildId: failedBuild.buildId,
         title: `Build Failed: ${failedBuild.buildId}`,
         description: failedBuild.error?.message || 'Build failed with unknown error',
@@ -834,7 +834,7 @@ export class UnifiedReportGenerator extends EventEmitter {
       const coverage = aggregatedResults.aggregatedCoverage;
       const threshold = 80;
       
-      for (const metric of ['lines', 'branches', 'functions', 'statements'] as const) {
+      for (const metric of ['lines', "branches", "functions", "statements"] as const) {
         if (coverage[metric].percentage < threshold) {
           issues.push({
             id: `coverage-${metric}`,
@@ -850,7 +850,7 @@ export class UnifiedReportGenerator extends EventEmitter {
     }
     
     return {
-      critical: issues.filter(i => i.severity === 'critical'),
+      critical: issues.filter(i => i.severity === "critical"),
       high: issues.filter(i => i.severity === 'high'),
       medium: issues.filter(i => i.severity === 'medium'),
       low: issues.filter(i => i.severity === 'low'),
@@ -871,7 +871,7 @@ export class UnifiedReportGenerator extends EventEmitter {
     const avgDuration = this.calculateAverageDuration(aggregatedResults.allBuilds);
     if (avgDuration > 120000) { // 2 minutes
       recommendations.push({
-        category: 'performance',
+        category: "performance",
         priority: 'high',
         title: 'Optimize Build Performance',
         description: 'Average build duration exceeds 2 minutes',
@@ -906,8 +906,8 @@ export class UnifiedReportGenerator extends EventEmitter {
     // Stability recommendations
     if (aggregatedResults.failedBuilds.length > 0) {
       recommendations.push({
-        category: 'stability',
-        priority: 'critical',
+        category: "stability",
+        priority: "critical",
         title: 'Fix Build Failures',
         description: `${aggregatedResults.failedBuilds.length} builds are failing`,
         actions: [
@@ -937,7 +937,7 @@ export class UnifiedReportGenerator extends EventEmitter {
         content = await this.generateHtmlOutput(report, options);
         break;
         
-      case 'markdown':
+      case "markdown":
         content = await this.generateMarkdownOutput(report, options);
         break;
         
@@ -1283,7 +1283,7 @@ ${r.actions.map(a => `- ${a}`).join('\n')}
     format: string
   ): Promise<void> {
     const extension = format === 'html' ? '.html' :
-                     format === 'markdown' ? '.md' :
+                     format === "markdown" ? '.md' :
                      format === 'json' ? '.json' :
                      format === 'pdf' ? '.pdf' : `.${format}`;
     
@@ -1293,7 +1293,7 @@ ${r.actions.map(a => `- ${a}`).join('\n')}
     await fileAPI.createDirectory(dirname(filePath));
     await fileAPI.createFile(filePath, output.content);
     
-    this.emit('reportSaved', { type: FileType.TEMPORARY })
+    this.emit("reportSaved", { type: FileType.TEMPORARY })
     });
   }
 
@@ -1440,7 +1440,7 @@ ${r.actions.map(a => `- ${a}`).join('\n')}
   private async getDefaultHtmlScripts(): string {
     return `
       // Add interactive features
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener("DOMContentLoaded", function() {
         // Smooth scrolling for navigation
         document.querySelectorAll('nav a').forEach(anchor => {
           anchor.addEventListener('click', function(e) {
@@ -1721,7 +1721,7 @@ interface IssuesSection {
 interface Issue {
   id: string;
   type: string;
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  severity: 'low' | 'medium' | 'high' | "critical";
   buildId?: string;
   title: string;
   description: string;

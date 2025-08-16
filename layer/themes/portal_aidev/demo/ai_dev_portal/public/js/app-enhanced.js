@@ -3,7 +3,7 @@
 class AIDevPortal {
     constructor() {
         this.currentUser = null;
-        this.currentView = 'projects';
+        this.currentView = "projects";
         this.init();
     }
 
@@ -45,8 +45,8 @@ class AIDevPortal {
 
     setupNavigationLinks() {
         const navLinks = {
-            'projects-link': 'projects',
-            'features-link': 'features',
+            'projects-link': "projects",
+            'features-link': "features",
             'feature-progress-link': 'feature-progress',
             'tasks-link': 'tasks',
             'gui-selector-link': 'gui-selector',
@@ -88,8 +88,8 @@ class AIDevPortal {
     async handleLogin(e) {
         e.preventDefault();
         
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
         
         // Add loading state
         const submitButton = e.target.querySelector('button[type="submit"]');
@@ -102,7 +102,7 @@ class AIDevPortal {
 
         try {
             // Demo authentication
-            if (password === 'demo123' && ['admin', 'developer', 'tester'].includes(username)) {
+            if (password === 'demo123' && ['admin', "developer", 'tester'].includes(username)) {
                 this.currentUser = {
                     username,
                     role: username,
@@ -110,7 +110,7 @@ class AIDevPortal {
                 };
                 
                 // Store in session
-                sessionStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+                sessionStorage.setItem("currentUser", JSON.stringify(this.currentUser));
                 
                 // Animate transition
                 await this.animatePageTransition('login-page', 'dashboard-page');
@@ -136,7 +136,7 @@ class AIDevPortal {
         e.preventDefault();
         
         // Clear session
-        sessionStorage.removeItem('currentUser');
+        sessionStorage.removeItem("currentUser");
         this.currentUser = null;
         
         // Animate transition
@@ -147,7 +147,7 @@ class AIDevPortal {
     }
 
     checkAuthentication() {
-        const storedUser = sessionStorage.getItem('currentUser');
+        const storedUser = sessionStorage.getItem("currentUser");
         if (storedUser) {
             this.currentUser = JSON.parse(storedUser);
             document.getElementById('login-page').style.display = 'none';
@@ -192,10 +192,10 @@ class AIDevPortal {
 
     async loadViewData(viewName) {
         switch(viewName) {
-            case 'projects':
+            case "projects":
                 await this.loadProjects();
                 break;
-            case 'features':
+            case "features":
                 await this.loadFeatures();
                 break;
             case 'feature-progress':
@@ -224,7 +224,7 @@ class AIDevPortal {
     // ========================
     async loadDashboard() {
         // Load initial view
-        this.switchView('projects');
+        this.switchView("projects");
         
         // Load user profile in nav
         if (this.currentUser) {
@@ -267,7 +267,7 @@ class AIDevPortal {
         await this.delay(500);
 
         const features = [
-            { id: 1, name: 'Authentication System', priority: 'high', status: 'completed' },
+            { id: 1, name: 'Authentication System', priority: 'high', status: "completed" },
             { id: 2, name: 'Real-time Monitoring', priority: 'high', status: 'active' },
             { id: 3, name: 'Automated Testing', priority: 'medium', status: 'active' },
             { id: 4, name: 'Documentation Generator', priority: 'low', status: 'pending' }
@@ -343,7 +343,7 @@ class AIDevPortal {
         await this.delay(500);
 
         const tasks = [
-            { id: 1, title: 'Implement login validation', status: 'completed', assignee: 'John' },
+            { id: 1, title: 'Implement login validation', status: "completed", assignee: 'John' },
             { id: 2, title: 'Add error handling', status: 'active', assignee: 'Sarah' },
             { id: 3, title: 'Write unit tests', status: 'active', assignee: 'Mike' },
             { id: 4, title: 'Update documentation', status: 'pending', assignee: 'Lisa' },
@@ -384,7 +384,7 @@ class AIDevPortal {
         // Simulate loading options
         const options = {
             'theme-selector': ['portal_aidev', 'portal_security', 'portal_gui-selector'],
-            'epic-selector': ['Authentication', 'Infrastructure', 'Testing'],
+            'epic-selector': ["Authentication", "Infrastructure", 'Testing'],
             'app-selector': ['Main Portal', 'Admin Panel', 'Developer Tools']
         };
 
@@ -547,6 +547,6 @@ class AIDevPortal {
 }
 
 // Initialize the application
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     window.aiDevPortal = new AIDevPortal();
 });

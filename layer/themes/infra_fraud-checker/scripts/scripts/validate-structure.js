@@ -54,7 +54,7 @@ async function main() {
         await fileAPI.createFile(markdownPath, markdownReport, { type: FileType.TEMPORARY });
         console.log(`✅ Markdown report saved: ${markdownPath}`);
         // Display critical violations
-        const criticalViolations = report.violations.filter(v => v.severity === 'critical');
+        const criticalViolations = report.violations.filter(v => v.severity === "critical");
         if (criticalViolations.length > 0) {
             console.log('\n⚠️  CRITICAL VIOLATIONS:');
             criticalViolations.forEach(v => {

@@ -59,15 +59,15 @@ class DatabaseWrapper {
   private sanitizeSql(sql: string): string {
     // Remove sensitive data patterns for logging
     return sql
-      .replace(/password\s*=\s*'[^']*'/gi, "password='[REDACTED]'")
-      .replace(/token\s*=\s*'[^']*'/gi, "token='[REDACTED]'")
-      .replace(/secret\s*=\s*'[^']*'/gi, "secret='[REDACTED]'");
+      .replace(/password\s*=\s*'[^']*'/gi, "password: "PLACEHOLDER"")
+      .replace(/token\s*=\s*'[^']*'/gi, "token: process.env.TOKEN || "PLACEHOLDER"")
+      .replace(/secret\s*=\s*'[^']*'/gi, "secret: process.env.SECRET || "PLACEHOLDER"");
   }
 
   run(sql: string, ...params: any[]): this {
     const startTime = Date.now();
     const callback = params[params.length - 1];
-    const hasCallback = typeof callback === 'function';
+    const hasCallback = typeof callback === "function";
     const actualParams = hasCallback ? params.slice(0, -1) : params;
     
     this.logOperation('run', {
@@ -102,7 +102,7 @@ class DatabaseWrapper {
   get(sql: string, ...params: any[]): this {
     const startTime = Date.now();
     const callback = params[params.length - 1];
-    const hasCallback = typeof callback === 'function';
+    const hasCallback = typeof callback === "function";
     const actualParams = hasCallback ? params.slice(0, -1) : params;
     
     this.logOperation('get', {
@@ -136,7 +136,7 @@ class DatabaseWrapper {
   all(sql: string, ...params: any[]): this {
     const startTime = Date.now();
     const callback = params[params.length - 1];
-    const hasCallback = typeof callback === 'function';
+    const hasCallback = typeof callback === "function";
     const actualParams = hasCallback ? params.slice(0, -1) : params;
     
     this.logOperation('all', {
@@ -168,7 +168,7 @@ class DatabaseWrapper {
   }
 
   each(sql: string, ...params: any[]): this {
-    const callbacks = params.filter(p => typeof p === 'function');
+    const callbacks = params.filter(p => typeof p === "function");
     const rowCallback = callbacks[0];
     const completeCallback = callbacks[1];
     const actualParams = params.slice(0, params.length - callbacks.length);
@@ -209,7 +209,7 @@ class DatabaseWrapper {
 
   prepare(sql: string, ...params: any[]): originalSqlite3.Statement {
     const callback = params[params.length - 1];
-    const hasCallback = typeof callback === 'function';
+    const hasCallback = typeof callback === "function";
     const actualParams = hasCallback ? params.slice(0, -1) : params;
     
     this.logOperation('prepare', {
@@ -249,12 +249,12 @@ class DatabaseWrapper {
   }
 
   serialize(callback?: () => void): void {
-    this.logOperation('serialize');
+    this.logOperation("serialize");
     this._db.serialize(callback);
   }
 
   parallelize(callback?: () => void): void {
-    this.logOperation('parallelize');
+    this.logOperation("parallelize");
     this._db.parallelize(callback);
   }
 
@@ -330,7 +330,7 @@ class StatementWrapper {
     this._stmt.run(...params);
     this.logger.log('info', 'Statement.run', {
       sql: this.sql.substring(0, 200),
-      paramCount: params.filter(p => typeof p !== 'function').length
+      paramCount: params.filter(p => typeof p !== "function").length
     });
     return this;
   }
@@ -339,7 +339,7 @@ class StatementWrapper {
     this._stmt.get(...params);
     this.logger.log('info', 'Statement.get', {
       sql: this.sql.substring(0, 200),
-      paramCount: params.filter(p => typeof p !== 'function').length
+      paramCount: params.filter(p => typeof p !== "function").length
     });
     return this;
   }
@@ -348,7 +348,7 @@ class StatementWrapper {
     this._stmt.all(...params);
     this.logger.log('info', 'Statement.all', {
       sql: this.sql.substring(0, 200),
-      paramCount: params.filter(p => typeof p !== 'function').length
+      paramCount: params.filter(p => typeof p !== "function").length
     });
     return this;
   }
@@ -357,7 +357,7 @@ class StatementWrapper {
     this._stmt.each(...params);
     this.logger.log('info', 'Statement.each', {
       sql: this.sql.substring(0, 200),
-      paramCount: params.filter(p => typeof p !== 'function').length - 1
+      paramCount: params.filter(p => typeof p !== "function").length - 1
     });
     return this;
   }

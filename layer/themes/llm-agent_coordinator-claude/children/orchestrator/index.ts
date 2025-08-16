@@ -3,16 +3,16 @@
  * Manages multiple agents and task distribution
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 export type AgentRole = 
-  | 'coordinator'
-  | 'researcher'
+  | "coordinator"
+  | "researcher"
   | 'coder'
-  | 'reviewer'
+  | "reviewer"
   | 'tester'
-  | 'documenter'
-  | 'specialist';
+  | "documenter"
+  | "specialist";
 
 export interface AgentCapability {
   name: string;
@@ -39,10 +39,10 @@ export interface Task {
   id: string;
   type: string;
   description: string;
-  priority: 'low' | 'medium' | 'high' | 'critical';
+  priority: 'low' | 'medium' | 'high' | "critical";
   assignedTo?: string;
   dependencies?: string[];
-  status: 'pending' | 'assigned' | 'in_progress' | 'completed' | 'failed';
+  status: 'pending' | "assigned" | 'in_progress' | "completed" | 'failed';
   result?: TaskResult;
   createdAt: Date;
   startedAt?: Date;
@@ -65,7 +65,7 @@ export type OrchestrationStrategy =
   | 'least-loaded'
   | 'capability-based'
   | 'priority-based'
-  | 'hierarchical';
+  | "hierarchical";
 
 export interface AgentPool {
   agents: Agent[];
@@ -97,7 +97,7 @@ export class AgentOrchestrator extends EventEmitter {
     };
 
     this.agents.set(agent.id, agent);
-    this.emit('agentRegistered', agent);
+    this.emit("agentRegistered", agent);
     
     if (this.running) {
       this.processQueue();
@@ -118,12 +118,12 @@ export class AgentOrchestrator extends EventEmitter {
     }
 
     this.agents.delete(agentId);
-    this.emit('agentUnregistered', agent);
+    this.emit("agentUnregistered", agent);
     
     return true;
   }
 
-  createTask(config: Omit<Task, 'id' | 'status' | 'createdAt'>): Task {
+  createTask(config: Omit<Task, 'id' | 'status' | "createdAt">): Task {
     const task: Task = {
       ...config,
       id: this.generateTaskId(),
@@ -134,7 +134,7 @@ export class AgentOrchestrator extends EventEmitter {
     this.tasks.set(task.id, task);
     this.taskQueue.push(task);
     
-    this.emit('taskCreated', task);
+    this.emit("taskCreated", task);
     
     if (this.running) {
       this.processQueue();
@@ -147,14 +147,14 @@ export class AgentOrchestrator extends EventEmitter {
     if (this.running) return;
     
     this.running = true;
-    this.emit('orchestratorStarted');
+    this.emit("orchestratorStarted");
     
     await this.processQueue();
   }
 
   stop(): void {
     this.running = false;
-    this.emit('orchestratorStopped');
+    this.emit("orchestratorStopped");
   }
 
   private async processQueue(): Promise<void> {
@@ -182,7 +182,7 @@ export class AgentOrchestrator extends EventEmitter {
       
       return task.dependencies.every(depId => {
         const dep = this.tasks.get(depId);
-        return dep && dep.status === 'completed';
+        return dep && dep.status === "completed";
       });
     });
 
@@ -224,7 +224,7 @@ export class AgentOrchestrator extends EventEmitter {
         // Select based on task priority and agent role
         return this.selectByPriority(availableAgents, task);
         
-      case 'hierarchical':
+      case "hierarchical":
         // Coordinators assign to specialists
         return this.selectHierarchical(availableAgents, task);
         
@@ -251,9 +251,9 @@ export class AgentOrchestrator extends EventEmitter {
 
   private selectByPriority(agents: Agent[], task: Task): Agent | undefined {
     // High priority tasks go to coordinators or specialists
-    if (task.priority === 'critical' || task.priority === 'high') {
+    if (task.priority === "critical" || task.priority === 'high') {
       const specialist = agents.find(a => 
-        a.role === 'coordinator' || a.role === 'specialist'
+        a.role === "coordinator" || a.role === "specialist"
       );
       if (specialist) return specialist;
     }
@@ -282,29 +282,29 @@ export class AgentOrchestrator extends EventEmitter {
 
   private async assignTask(task: Task, agent: Agent): Promise<void> {
     task.assignedTo = agent.id;
-    task.status = 'assigned';
+    task.status = "assigned";
     task.startedAt = new Date();
     
     agent.status = 'busy';
     agent.currentTask = task;
     
-    this.emit('taskAssigned', { task, agent });
+    this.emit("taskAssigned", { task, agent });
     
     // Simulate task execution
     try {
       task.status = 'in_progress';
-      this.emit('taskStarted', { task, agent });
+      this.emit("taskStarted", { task, agent });
       
       const result = await this.executeTask(task, agent);
       
-      task.status = 'completed';
+      task.status = "completed";
       task.completedAt = new Date();
       task.result = result;
       
       agent.status = 'idle';
       agent.currentTask = undefined;
       
-      this.emit('taskCompleted', { task, agent, result });
+      this.emit("taskCompleted", { task, agent, result });
     } catch (error: any) {
       task.status = 'failed';
       task.completedAt = new Date();
@@ -316,7 +316,7 @@ export class AgentOrchestrator extends EventEmitter {
       agent.status = 'idle';
       agent.currentTask = undefined;
       
-      this.emit('taskFailed', { task, agent, error });
+      this.emit("taskFailed", { task, agent, error });
     }
     
     // Continue processing queue
@@ -359,7 +359,7 @@ export class AgentOrchestrator extends EventEmitter {
     
     task.assignedTo = toAgentId;
     
-    this.emit('taskDelegated', { task, from: fromAgent, to: toAgent });
+    this.emit("taskDelegated", { task, from: fromAgent, to: toAgent });
     return true;
   }
 
@@ -379,7 +379,7 @@ export class AgentOrchestrator extends EventEmitter {
 
     return {
       current: agent.currentTask,
-      completed: agentTasks.filter(t => t.status === 'completed'),
+      completed: agentTasks.filter(t => t.status === "completed"),
       failed: agentTasks.filter(t => t.status === 'failed'),
       totalTasks: agentTasks.length,
     };
@@ -395,7 +395,7 @@ export class AgentOrchestrator extends EventEmitter {
     averageCompletionTime: number;
   } {
     const tasks = Array.from(this.tasks.values());
-    const completedTasks = tasks.filter(t => t.status === 'completed');
+    const completedTasks = tasks.filter(t => t.status === "completed");
     
     const completionTimes = completedTasks
       .filter(t => t.startedAt && t.completedAt)

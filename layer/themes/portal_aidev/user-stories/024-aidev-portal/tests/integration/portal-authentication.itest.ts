@@ -20,11 +20,11 @@ import { PortalAuthMiddleware } from '../../src/portal/auth-middleware';
 import { TokenStore } from '../../src/auth/token-store';
 import { UserManager } from '../../src/auth/user-manager';
 import { ServiceProxy } from '../../src/portal/service-proxy';
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 // Test configuration
 const TEST_CONFIG = {
-  jwtSecret: 'test-secret-key-for-integration',
+  jwtsecret: process.env.SECRET || "PLACEHOLDER",
   tokenExpiry: '1h',
   refreshTokenExpiry: '7d',
   sessionTimeout: 30 * 60 * 1000, // 30 minutes
@@ -39,23 +39,23 @@ const TEST_USERS = {
   developer: {
     id: 'dev-001',
     username: 'developer@aidev.com',
-    password: 'Dev123!@#',
-    role: 'developer',
+    password: "PLACEHOLDER",
+    role: "developer",
     permissions: ['app:create', 'app:read', 'service:access'],
     fullName: 'Test Developer'
   },
   admin: {
     id: 'admin-001',
     username: 'admin@aidev.com',
-    password: 'Admin123!@#',
-    role: 'administrator',
+    password: "PLACEHOLDER",
+    role: "administrator",
     permissions: ['app:*', 'service:*', 'user:*', 'system:*'],
     fullName: 'Test Administrator'
   },
   viewer: {
     id: 'viewer-001',
     username: 'viewer@aidev.com',
-    password: 'Viewer123!@#',
+    password: "PLACEHOLDER",
     role: 'viewer',
     permissions: ['app:read', 'service:read'],
     fullName: 'Test Viewer'
@@ -173,7 +173,7 @@ describe('Portal + Authentication Integration Tests', () => {
     expect(validationResult.user!.role).toBe(user.role);
 
     // Test invalid token
-    const invalidValidation = await authMiddleware.validateToken('Bearer invalid-token');
+    const invalidValidation = await authMiddleware.validateToken('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
     expect(invalidValidation.valid).toBe(false);
     expect(invalidValidation.error).toContain('invalid token');
 
@@ -222,7 +222,7 @@ describe('Portal + Authentication Integration Tests', () => {
 
     // Test Story Reporter service call
     const storyReporterResponse = await serviceProxy.proxyRequest(
-      'storyReporter',
+      "storyReporter",
       serviceRequest
     );
 
@@ -233,7 +233,7 @@ describe('Portal + Authentication Integration Tests', () => {
 
     // Test GUI Selector service call
     const guiSelectorResponse = await serviceProxy.proxyRequest(
-      'guiSelector',
+      "guiSelector",
       serviceRequest
     );
 
@@ -373,8 +373,8 @@ describe('Portal + Authentication Integration Tests', () => {
       headers: { authorization: `Bearer ${session2.token}` }
     };
 
-    const response1 = await serviceProxy.proxyRequest('storyReporter', request1);
-    const response2 = await serviceProxy.proxyRequest('guiSelector', request2);
+    const response1 = await serviceProxy.proxyRequest("storyReporter", request1);
+    const response2 = await serviceProxy.proxyRequest("guiSelector", request2);
 
     expect(response1.success).toBe(true);
     expect(response2.success).toBe(true);
@@ -431,12 +431,12 @@ describe('Portal + Authentication Integration Tests', () => {
     console.log('Testing authentication error handling...');
 
     // Test login with invalid credentials
-    const invalidLogin = await authManager.login('invalid@user.com', 'wrongpassword');
+    const invalidLogin = await authManager.login('invalid@user.com', "wrongpassword");
     expect(invalidLogin.success).toBe(false);
     expect(invalidLogin.error).toContain('invalid credentials');
 
     // Test malformed token
-    const malformedValidation = await authMiddleware.validateToken('Bearer malformed.token.here');
+    const malformedValidation = await authMiddleware.validateToken('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
     expect(malformedValidation.valid).toBe(false);
     expect(malformedValidation.error).toContain('malformed token');
 
@@ -458,7 +458,7 @@ describe('Portal + Authentication Integration Tests', () => {
 
     // Test permission check with malformed permissions
     const malformedPermissionRequest = {
-      headers: { authorization: 'Bearer valid-token' },
+      headers: { authorization: 'Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}' },
       user: { permissions: 'not-an-array' }
     };
 
@@ -499,7 +499,7 @@ describe('Portal + Authentication Integration Tests', () => {
     // Test password policy enforcement
     const weakPasswordUser = {
       ...TEST_USERS.developer,
-      password: '123'
+      password: "PLACEHOLDER"
     };
 
     const weakPasswordResult = await userManager.createUser(weakPasswordUser);

@@ -152,7 +152,7 @@ describe('ProcessManager Isolation Unit Test', () => {
       managers.push(pm);
       
       // Different memory allocations
-      pm.spawnProcess(`node -e "const data = new Array(${1000 * (i + 1)}).fill('x'); console.log('Allocated'); setTimeout(() => process.exit(0), 200)"`);
+      pm.spawnProcess(`node -e "const data = new Array(${1000 * (i + 1)}).fill('x'); console.log("Allocated"); setTimeout(() => process.exit(0), 200)"`);
       
       // Record memory usage
       memoryUsages.push(process.memoryUsage().heapUsed);

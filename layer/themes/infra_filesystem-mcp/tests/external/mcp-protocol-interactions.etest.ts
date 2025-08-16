@@ -188,7 +188,7 @@ describe('MCP Protocol External Interaction Tests', () => {
       expect(readData).toEqual(testData);
 
       // 2. Name-ID operations
-      const entityId = await nameIdWrapper.addEntity('external', {
+      const entityId = await nameIdWrapper.addEntity("external", {
         title: 'External Test Entity',
         type: 'test',
         created_via: 'external_protocol_test'
@@ -217,17 +217,17 @@ describe('MCP Protocol External Interaction Tests', () => {
       const nameIdWrapper = new VFNameIdWrapper(tempDir);
 
       // Create test data
-      await nameIdWrapper.addEntity('testType', {
+      await nameIdWrapper.addEntity("testType", {
         title: 'High Priority Task',
         priority: 'high',
         status: 'active',
         external: true
       }, 'query-test.vf.json');
 
-      await nameIdWrapper.addEntity('testType', {
+      await nameIdWrapper.addEntity("testType", {
         title: 'Low Priority Task',
         priority: 'low',
-        status: 'inactive',
+        status: "inactive",
         external: true
       }, 'query-test.vf.json');
 
@@ -315,7 +315,7 @@ describe('MCP Protocol External Interaction Tests', () => {
           } else if (schemaFile.includes('task_queue')) {
             testData = {
               id: 'task-id',
-              type: 'runnable',
+              type: "runnable",
               priority: 'high',
               content: { test: true },
               status: 'pending',

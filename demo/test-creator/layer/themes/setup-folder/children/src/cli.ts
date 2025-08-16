@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { Command } from 'commander';
+import { Command } from "commander";
 import chalk from 'chalk';
 import { demoCommand } from './commands/demo';
 import { epicCommand } from './commands/epic';

@@ -143,13 +143,13 @@ async function checkForWebUITests(themePath: string): Promise<boolean> {
     const packageJson = JSON.parse(await fs.promises.readFile(packageJsonPath, 'utf8'));
     
     const webUIIndicators = [
-      'playwright',
-      'puppeteer',
+      "playwright",
+      "puppeteer",
       'cypress',
-      'selenium',
+      "selenium",
       'react',
       'react-native',
-      'electron',
+      "electron",
       '@testing-library/react'
     ];
 

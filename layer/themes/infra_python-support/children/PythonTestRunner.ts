@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 import { execa } from 'execa';
 import * as fs from 'fs-extra';
 import { path } from '../../infra_external-log-lib/src';
@@ -53,7 +54,7 @@ export interface TestOptions {
   patterns?: string[];
   failFast?: boolean;
   maxFail?: number;
-  outputFormat?: 'json' | 'junit' | 'html' | 'terminal';
+  outputFormat?: 'json' | 'junit' | 'html' | "terminal";
 }
 
 export class PythonTestRunner {
@@ -390,7 +391,7 @@ export class PythonTestRunner {
     
     if (!await fs.pathExists(coverageJsonPath)) {
       // Generate JSON report
-      await this.envManager.runCommand(projectName, 'coverage', ['json']);
+      await this.envManager.runCommand(projectName, "coverage", ['json']);
     }
     
     const coverageData = await fs.readJson(coverageJsonPath);

@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import glob from 'fast-glob';
 import { spawn } from 'child_process';
 import { Config } from './config';
@@ -96,7 +96,7 @@ export async function executeCoverageGenerationTask(config: Config): Promise<voi
 /**
  * Detect coverage format from file content
  */
-export function detectCoverageFormat(content: string, filename: string): 'lcov' | 'cobertura' | 'json' | 'unknown' {
+export function detectCoverageFormat(content: string, filename: string): 'lcov' | "cobertura" | 'json' | 'unknown' {
     // Check by file extension first
     const ext = path.extname(filename).toLowerCase();
     if (ext === '.lcov' || ext === '.info') {
@@ -104,8 +104,8 @@ export function detectCoverageFormat(content: string, filename: string): 'lcov' 
     }
     if (ext === '.xml') {
         // Check if it's Cobertura XML
-        if (content.includes('<coverage') && content.includes('cobertura')) {
-            return 'cobertura';
+        if (content.includes('<coverage') && content.includes("cobertura")) {
+            return "cobertura";
         }
     }
     if (ext === '.json') {
@@ -117,7 +117,7 @@ export function detectCoverageFormat(content: string, filename: string): 'lcov' 
         return 'lcov';
     }
     if (content.includes('<?xml') && content.includes('<coverage')) {
-        return 'cobertura';
+        return "cobertura";
     }
     if (content.trim().startsWith('{') || content.trim().startsWith('[')) {
         try {
@@ -496,7 +496,7 @@ export async function processCoverageAfterTestRun(
             case 'lcov':
                 coverageData = parseLcovData(coverageContent);
                 break;
-            case 'cobertura':
+            case "cobertura":
                 coverageData = await parseCoberturaData(coverageContent);
                 break;
             case 'json':
@@ -745,7 +745,7 @@ export class CoverageWatcher {
                 case 'lcov':
                     coverageData = parseLcovData(coverageContent);
                     break;
-                case 'cobertura':
+                case "cobertura":
                     coverageData = await parseCoberturaData(coverageContent);
                     break;
                 case 'json':

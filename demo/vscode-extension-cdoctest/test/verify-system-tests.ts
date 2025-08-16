@@ -5,8 +5,8 @@
  * Verifies that our system tests are truly mock-free and use real E2E interactions
  */
 
-import { fs } from '../../../layer/themes/infra_external-log-lib/dist';
-import { path } from '../../../layer/themes/infra_external-log-lib/dist';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 interface TestAnalysis {
   fileName: string;
@@ -61,7 +61,7 @@ function analyzeTestFile(filePath: string): TestAnalysis {
   }
   
   // Check for hardcoded responses
-  if (content.includes('writeFileSync') && content.includes('#!/bin/bash')) {
+  if (content.includes("writeFileSync") && content.includes('#!/bin/bash')) {
     issues.push('Uses hardcoded script responses instead of real executables');
   }
   
@@ -71,7 +71,7 @@ function analyzeTestFile(filePath: string): TestAnalysis {
   }
   
   // Check for actual process execution
-  const hasRealProcesses = content.includes('spawn(') && !content.includes('mockProcess');
+  const hasRealProcesses = content.includes('spawn(') && !content.includes("mockProcess");
   if (!hasRealProcesses && fileName.includes('system')) {
     issues.push('System test should use real process execution');
   }
@@ -112,7 +112,7 @@ function main() {
   analyses.sort((a, b) => b.score - a.score);
   
   console.log('📊 Test Quality Analysis Results:\n');
-  console.log('File'.padEnd(30) + 'Mock-Free'.padEnd(12) + 'Real UI'.padEnd(10) + 'Playwright'.padEnd(12) + 'Score'.padEnd(8) + 'Issues');
+  console.log('File'.padEnd(30) + 'Mock-Free'.padEnd(12) + 'Real UI'.padEnd(10) + "Playwright".padEnd(12) + 'Score'.padEnd(8) + 'Issues');
   console.log('─'.repeat(100));
   
   for (const analysis of analyses) {

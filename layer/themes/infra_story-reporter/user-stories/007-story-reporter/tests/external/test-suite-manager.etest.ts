@@ -127,7 +127,7 @@ describe('Test Suite Manager External Interface Test', () => {
       testSuiteManager.configure(testConfig);
       
       const progressEvents: any[] = [];
-      testSuiteManager.on('progress', (event) => {
+      testSuiteManager.on("progress", (event) => {
         progressEvents.push(event);
       });
 
@@ -136,7 +136,7 @@ describe('Test Suite Manager External Interface Test', () => {
       expect(progressEvents.length).toBeGreaterThan(0);
       expect(progressEvents[0]).toHaveProperty('type');
       expect(progressEvents[0]).toHaveProperty('message');
-      expect(progressEvents[0]).toHaveProperty('timestamp');
+      expect(progressEvents[0]).toHaveProperty("timestamp");
     });
 
     it('should handle test suite execution errors gracefully', async () => {
@@ -278,16 +278,16 @@ describe('Test Suite Manager External Interface Test', () => {
       testSuiteManager.configure(testConfig);
       
       const initEvents: any[] = [];
-      testSuiteManager.on('logLibraryInit', (event) => {
+      testSuiteManager.on("logLibraryInit", (event) => {
         initEvents.push(event);
       });
       
       await testSuiteManager.initializeLogLibrary();
       
       expect(initEvents.length).toBe(1);
-      expect(initEvents[0]).toHaveProperty('testSuiteId');
+      expect(initEvents[0]).toHaveProperty("testSuiteId");
       expect(initEvents[0]).toHaveProperty('status');
-      expect(initEvents[0].status).toBe('initialized');
+      expect(initEvents[0].status).toBe("initialized");
     });
 
     it('should capture test logs using external log library', async () => {
@@ -306,8 +306,8 @@ describe('Test Suite Manager External Interface Test', () => {
       expect(logEntries.length).toBeGreaterThan(0);
       expect(logEntries[0]).toHaveProperty('level');
       expect(logEntries[0]).toHaveProperty('message');
-      expect(logEntries[0]).toHaveProperty('timestamp');
-      expect(logEntries[0]).toHaveProperty('testSuiteId');
+      expect(logEntries[0]).toHaveProperty("timestamp");
+      expect(logEntries[0]).toHaveProperty("testSuiteId");
     });
 
     it('should aggregate test logs in final report', async () => {
@@ -342,14 +342,14 @@ describe('Test Suite Manager External Interface Test', () => {
       await testSuiteManager.initializeLogLibrary();
       
       const cleanupEvents: any[] = [];
-      testSuiteManager.on('logLibraryCleanup', (event) => {
+      testSuiteManager.on("logLibraryCleanup", (event) => {
         cleanupEvents.push(event);
       });
       
       await testSuiteManager.cleanup();
       
       expect(cleanupEvents.length).toBe(1);
-      expect(cleanupEvents[0]).toHaveProperty('testSuiteId');
+      expect(cleanupEvents[0]).toHaveProperty("testSuiteId");
       expect(cleanupEvents[0]).toHaveProperty('status');
       expect(cleanupEvents[0].status).toBe('cleaned');
     });
@@ -360,43 +360,43 @@ describe('Test Suite Manager External Interface Test', () => {
       testSuiteManager.configure(testConfig);
       
       const startEvents: any[] = [];
-      testSuiteManager.on('testSuiteStart', (event) => {
+      testSuiteManager.on("testSuiteStart", (event) => {
         startEvents.push(event);
       });
 
       await testSuiteManager.executeTestSuite();
       
       expect(startEvents.length).toBe(1);
-      expect(startEvents[0]).toHaveProperty('testSuiteId');
-      expect(startEvents[0]).toHaveProperty('timestamp');
-      expect(startEvents[0]).toHaveProperty('configuration');
+      expect(startEvents[0]).toHaveProperty("testSuiteId");
+      expect(startEvents[0]).toHaveProperty("timestamp");
+      expect(startEvents[0]).toHaveProperty("configuration");
     });
 
     it('should emit test suite completion events', async () => {
       testSuiteManager.configure(testConfig);
       
       const completeEvents: any[] = [];
-      testSuiteManager.on('testSuiteComplete', (event) => {
+      testSuiteManager.on("testSuiteComplete", (event) => {
         completeEvents.push(event);
       });
 
       await testSuiteManager.executeTestSuite();
       
       expect(completeEvents.length).toBe(1);
-      expect(completeEvents[0]).toHaveProperty('testSuiteId');
+      expect(completeEvents[0]).toHaveProperty("testSuiteId");
       expect(completeEvents[0]).toHaveProperty('results');
-      expect(completeEvents[0]).toHaveProperty('timestamp');
-      expect(completeEvents[0]).toHaveProperty('duration');
+      expect(completeEvents[0]).toHaveProperty("timestamp");
+      expect(completeEvents[0]).toHaveProperty("duration");
     });
 
     it('should emit feature execution events', async () => {
       testSuiteManager.configure(testConfig);
       
       const featureEvents: any[] = [];
-      testSuiteManager.on('featureStart', (event) => {
+      testSuiteManager.on("featureStart", (event) => {
         featureEvents.push({ type: 'start', ...event });
       });
-      testSuiteManager.on('featureComplete', (event) => {
+      testSuiteManager.on("featureComplete", (event) => {
         featureEvents.push({ type: 'In Progress', ...event });
       });
 
@@ -411,7 +411,7 @@ describe('Test Suite Manager External Interface Test', () => {
       testSuiteManager.configure(testConfig);
       
       const reportEvents: any[] = [];
-      testSuiteManager.on('reportGenerated', (event) => {
+      testSuiteManager.on("reportGenerated", (event) => {
         reportEvents.push(event);
       });
 
@@ -420,7 +420,7 @@ describe('Test Suite Manager External Interface Test', () => {
       
       expect(reportEvents.length).toBeGreaterThan(0);
       expect(reportEvents[0]).toHaveProperty('format');
-      expect(reportEvents[0]).toHaveProperty('filePath');
+      expect(reportEvents[0]).toHaveProperty("filePath");
       expect(reportEvents[0]).toHaveProperty('size');
     });
   });
@@ -445,7 +445,7 @@ describe('Test Suite Manager External Interface Test', () => {
       // Start second execution while first is running
       const promise2 = testSuiteManager.executeTestSuite();
       
-      // First execution should In Progress In Progress
+      // First execution should complete In Progress
       await expect(promise1).resolves.toBeDefined();
       
       // Second execution should be rejected
@@ -464,8 +464,8 @@ describe('Test Suite Manager External Interface Test', () => {
       
       const testResults = await executionPromise;
       
-      expect(testResults.status).toBe('cancelled');
-      expect(testResults.errorMessage).toContain('cancelled');
+      expect(testResults.status).toBe("cancelled");
+      expect(testResults.errorMessage).toContain("cancelled");
     });
 
     it('should track test suite execution state', () => {
@@ -525,14 +525,14 @@ describe('Test Suite Manager External Interface Test', () => {
 
     it('should pass configuration to Mock Free Test Oriented Development Test Runner', async () => {
       const configEvents: any[] = [];
-      testSuiteManager.on('bddRunnerConfigured', (event) => {
+      testSuiteManager.on("bddRunnerConfigured", (event) => {
         configEvents.push(event);
       });
       
       testSuiteManager.configure(testConfig);
       
       expect(configEvents.length).toBe(1);
-      expect(configEvents[0]).toHaveProperty('configuration');
+      expect(configEvents[0]).toHaveProperty("configuration");
       expect(configEvents[0].configuration.testSuiteId).toBe('test-suite-001');
     });
   });
@@ -564,14 +564,14 @@ describe('Test Suite Manager External Interface Test', () => {
 
     it('should pass configuration to Report Generator', async () => {
       const configEvents: any[] = [];
-      testSuiteManager.on('reportGeneratorConfigured', (event) => {
+      testSuiteManager.on("reportGeneratorConfigured", (event) => {
         configEvents.push(event);
       });
       
       testSuiteManager.configure(testConfig);
       
       expect(configEvents.length).toBe(1);
-      expect(configEvents[0]).toHaveProperty('configuration');
+      expect(configEvents[0]).toHaveProperty("configuration");
       expect(configEvents[0].configuration.testSuiteId).toBe('test-suite-001');
     });
   });

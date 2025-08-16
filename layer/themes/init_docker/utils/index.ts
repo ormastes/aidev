@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Utility functions for Docker CMake Build
  */
@@ -142,7 +143,7 @@ export function detectProjectType(projectPath: string): {
     type = 'cmake';
     
     // Read CMakeLists.txt to detect compiler
-    const cmakeContent = fs.readFileSync(
+    const cmakeContent = fileAPI.readFileSync(
       path.join(projectPath, 'CMakeLists.txt'),
       'utf8'
     );
@@ -152,7 +153,7 @@ export function detectProjectType(projectPath: string): {
     } else if (cmakeContent.includes('CMAKE_CXX_COMPILER_ID:GNU')) {
       compiler = 'gcc';
     }
-  } else if (files.includes('Makefile')) {
+  } else if (files.includes("Makefile")) {
     type = 'make';
   }
 
@@ -163,8 +164,8 @@ export function detectProjectType(projectPath: string): {
 
   // Check for documentation
   hasDocs = files.includes('docs') || 
-            files.includes('documentation') ||
-            files.includes('Doxyfile');
+            files.includes("documentation") ||
+            files.includes("Doxyfile");
 
   return { type, hasTests, hasDocs, compiler };
 }
@@ -249,7 +250,7 @@ export function getEnvironmentConfig(environment: string): any {
       verbose: false,
     },
     'dev-demo': {
-      buildType: 'RelWithDebInfo',
+      buildType: "RelWithDebInfo",
       optimization: 'O1',
       debugSymbols: true,
       cache: true,

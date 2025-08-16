@@ -5,7 +5,7 @@
 import { TaskQueueProcessor, ProcessingResult } from '../../src/utils/task-queue-processor';
 import { TaskQueueInputItem } from '../../src/types/task-queue-input';
 
-describe('TaskQueueProcessor', () => {
+describe("TaskQueueProcessor", () => {
   let processor: TaskQueueProcessor;
 
   beforeEach(() => {
@@ -163,7 +163,7 @@ describe('TaskQueueProcessor', () => {
     test('should convert steps to file names', () => {
       const item: TaskQueueInputItem = {
         id: 'test-7',
-        type: 'scenarios',
+        type: "scenarios",
         content: 'Test scenario',
         parent: 'story-7',
         created_at: '2025-01-01T00:00:00Z',

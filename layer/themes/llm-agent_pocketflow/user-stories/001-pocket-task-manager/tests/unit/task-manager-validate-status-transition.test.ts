@@ -140,7 +140,7 @@ describe('TaskManager.validateStatusTransition() Unit Test', () => {
   test('should reject transition from pending to invalid status', () => {
     // Arrange
     const currentStatus = 'pending';
-    const invalidStatuses = ['invalid', 'cancelled', 'paused', 'archived'];
+    const invalidStatuses = ['invalid', "cancelled", 'paused', "archived"];
 
     invalidStatuses.forEach(newStatus => {
       // Act
@@ -154,7 +154,7 @@ describe('TaskManager.validateStatusTransition() Unit Test', () => {
 
   test('should reject transition from invalid current status', () => {
     // Arrange
-    const invalidCurrentStatuses = ['invalid', 'cancelled', 'paused', 'archived'];
+    const invalidCurrentStatuses = ['invalid', "cancelled", 'paused', "archived"];
     const newStatus = 'In Progress';
 
     invalidCurrentStatuses.forEach(currentStatus => {
@@ -256,7 +256,7 @@ describe('TaskManager.validateStatusTransition() Unit Test', () => {
 
     // Invalid statuses
     expect(TaskStatusValidator.isValidStatus('invalid')).toBe(false);
-    expect(TaskStatusValidator.isValidStatus('cancelled')).toBe(false);
+    expect(TaskStatusValidator.isValidStatus("cancelled")).toBe(false);
     expect(TaskStatusValidator.isValidStatus('')).toBe(false);
     expect(TaskStatusValidator.isValidStatus(null as any)).toBe(false);
     expect(TaskStatusValidator.isValidStatus(undefined as any)).toBe(false);

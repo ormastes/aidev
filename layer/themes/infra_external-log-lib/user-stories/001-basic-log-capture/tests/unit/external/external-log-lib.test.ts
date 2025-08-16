@@ -5,7 +5,7 @@ import {
   externalLogLib 
 } from '../../../src/external/external-log-lib';
 import { ChildProcess } from 'child_process';
-import { EventEmitter } from 'events';
+import { EventEmitter } from 'node:events';
 
 // Mock ChildProcess for testing
 class MockChildProcess extends EventEmitter {
@@ -17,7 +17,7 @@ class MockChildProcess extends EventEmitter {
   }
 }
 
-describe('ExternalLogLib', () => {
+describe("ExternalLogLib", () => {
   let logLib: ExternalLogLibImpl;
   let mockProcess: MockChildProcess;
 
@@ -32,21 +32,21 @@ describe('ExternalLogLib', () => {
     mockProcess.stderr.removeAllListeners();
   });
 
-  describe('ExternalLogLibImpl', () => {
-    describe('createCapturer', () => {
+  describe("ExternalLogLibImpl", () => {
+    describe("createCapturer", () => {
       it('should create a log capturer instance', () => {
         const capturer = logLib.createCapturer(mockProcess as any);
         
         expect(capturer).toBeDefined();
-        expect(typeof capturer.start).toBe('function');
-        expect(typeof capturer.stop).toBe('function');
-        expect(typeof capturer.getEntries).toBe('function');
-        expect(typeof capturer.clear).toBe('function');
-        expect(typeof capturer.onLog).toBe('function');
+        expect(typeof capturer.start).toBe("function");
+        expect(typeof capturer.stop).toBe("function");
+        expect(typeof capturer.getEntries).toBe("function");
+        expect(typeof capturer.clear).toBe("function");
+        expect(typeof capturer.onLog).toBe("function");
       });
     });
 
-    describe('parseLogLine', () => {
+    describe("parseLogLine", () => {
       it('should parse structured log format', () => {
         const line = '2023-06-01T12:00:00.123Z [INFO] This is a test message';
         const entry = logLib.parseLogLine(line, 'stdout');
@@ -114,7 +114,7 @@ describe('ExternalLogLib', () => {
     });
   });
 
-  describe('LogCapturer', () => {
+  describe("LogCapturer", () => {
     let capturer: LogCapturer;
 
     beforeEach(() => {
@@ -256,7 +256,7 @@ describe('ExternalLogLib', () => {
       });
     });
 
-    describe('getEntries', () => {
+    describe("getEntries", () => {
       it('should return copy of entries array', () => {
         capturer.start();
         mockProcess.stdout.emit('data', Buffer.from('[INFO] Test message\n'));
@@ -414,8 +414,8 @@ describe('ExternalLogLib', () => {
   describe('singleton export', () => {
     it('should export a singleton instance', () => {
       expect(externalLogLib).toBeInstanceOf(ExternalLogLibImpl);
-      expect(typeof externalLogLib.createCapturer).toBe('function');
-      expect(typeof externalLogLib.parseLogLine).toBe('function');
+      expect(typeof externalLogLib.createCapturer).toBe("function");
+      expect(typeof externalLogLib.parseLogLine).toBe("function");
     });
 
     it('should maintain same instance across imports', () => {

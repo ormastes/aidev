@@ -2,11 +2,11 @@ import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
 import { VFSearchWrapper } from '../children/VFSearchWrapper';
 import { VFDistributedFeatureWrapper } from '../children/VFDistributedFeatureWrapper';
 import { VFNameIdWrapper } from '../children/VFNameIdWrapper';
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 import { os } from '../../infra_external-log-lib/src';
 
-describe('VFSearchWrapper', () => {
+describe("VFSearchWrapper", () => {
   let tempDir: string;
   let searchWrapper: VFSearchWrapper;
   let featureWrapper: VFDistributedFeatureWrapper;
@@ -51,7 +51,7 @@ describe('VFSearchWrapper', () => {
               level: 'root',
               status: 'in-progress',
               priority: 'high',
-              tags: ['platform', 'core'],
+              tags: ["platform", 'core'],
               virtual_path: '/'
             },
             createdAt: new Date().toISOString(),
@@ -80,7 +80,7 @@ describe('VFSearchWrapper', () => {
               level: 'epic',
               status: 'in-progress',
               priority: 'high',
-              tags: ['auth', 'security'],
+              tags: ['auth', "security"],
               assignee: 'dev-team-1',
               virtual_path: '/layer/themes/auth-theme'
             },
@@ -162,7 +162,7 @@ describe('VFSearchWrapper', () => {
           id: 'comp-001',
           name: 'login-component',
           data: {
-            type: 'component',
+            type: "component",
             namespace: 'auth-theme',
             tags: ['auth', 'ui', 'login']
           },
@@ -247,7 +247,7 @@ describe('VFSearchWrapper', () => {
       expect(response.facets.status).toHaveProperty('planned');
       
       expect(response.facets.tags).toHaveProperty('auth');
-      expect(response.facets.tags).toHaveProperty('security');
+      expect(response.facets.tags).toHaveProperty("security");
     });
   });
 

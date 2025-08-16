@@ -3,7 +3,7 @@
  * Monitors cryptographic operations
  */
 
-import * as originalCrypto from 'crypto';
+import * as originalCrypto from 'node:crypto';
 import { BaseInterceptor, CallInfo, ValidationResult } from './base-interceptor';
 
 export class CryptoInterceptor extends BaseInterceptor<typeof originalCrypto> {
@@ -17,10 +17,10 @@ export class CryptoInterceptor extends BaseInterceptor<typeof originalCrypto> {
       ...this.originalModule,
       
       // Wrap key generation methods for logging
-      generateKeyPair: this.wrapMethod('crypto', 'generateKeyPair', this.originalModule.generateKeyPair),
-      generateKeyPairSync: this.wrapMethod('crypto', 'generateKeyPairSync', this.originalModule.generateKeyPairSync),
-      randomBytes: this.wrapMethod('crypto', 'randomBytes', this.originalModule.randomBytes),
-      randomUUID: this.wrapMethod('crypto', 'randomUUID', this.originalModule.randomUUID),
+      generateKeyPair: this.wrapMethod('crypto', "generateKeyPair", this.originalModule.generateKeyPair),
+      generateKeyPairSync: this.wrapMethod('crypto', "generateKeyPairSync", this.originalModule.generateKeyPairSync),
+      randomBytes: this.wrapMethod('crypto', "randomBytes", this.originalModule.randomBytes),
+      randomUUID: this.wrapMethod('crypto', "randomUUID", this.originalModule.randomUUID),
       
       // Keep other methods as-is
       createHash: this.originalModule.createHash,

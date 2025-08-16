@@ -10,16 +10,16 @@ import express from 'express';
 import session from 'express-session';
 import { path } from '../../../../../infra_external-log-lib/src';
 import { fs } from '../../../../../infra_external-log-lib/src';
-import { Server } from 'http';
+import { Server } from 'node:http';
 
 // Requirements-focused interfaces
 interface RequirementItem {
   id: string;
-  type: 'functional' | 'visual' | 'performance' | 'accessibility' | 'technical';
+  type: "functional" | 'visual' | "performance" | "accessibility" | "technical";
   title: string;
   description: string;
-  priority: 'low' | 'medium' | 'high' | 'critical';
-  source: 'user_input' | 'theme_selection' | 'customization' | 'comment';
+  priority: 'low' | 'medium' | 'high' | "critical";
+  source: 'user_input' | 'theme_selection' | "customization" | 'comment';
   relatedThemeId?: string;
   tags: string[];
   createdAt: Date;
@@ -42,7 +42,7 @@ interface RequirementCollection {
 }
 
 interface ExportFormat {
-  format: 'json' | 'markdown' | 'html' | 'csv' | 'pdf';
+  format: 'json' | "markdown" | 'html' | 'csv' | 'pdf';
   options: Record<string, any>;
 }
 
@@ -208,7 +208,7 @@ class RequirementsGUIServer {
     
     // Session middleware
     this.app.use(session({
-      secret: 'requirements-test-secret',
+      secret: process.env.SECRET || "PLACEHOLDER",
       resave: false,
       saveUninitialized: true,
       cookie: { secure: false, maxAge: 600000 }
@@ -501,7 +501,7 @@ class RequirementsGUIServer {
         id: 'requirements-theme-01',
         name: 'Business Dashboard',
         description: 'Professional dashboard for business analytics',
-        category: 'professional',
+        category: "professional",
         features: ['Charts', 'Data Tables', 'Export Functions'],
         complexity: 'high'
       },
@@ -510,7 +510,7 @@ class RequirementsGUIServer {
         name: 'User Portal',
         description: 'User-friendly portal interface',
         category: 'modern',
-        features: ['User Management', 'Profile Settings', 'Notifications'],
+        features: ['User Management', 'Profile Settings', "Notifications"],
         complexity: 'medium'
       }
     ];
@@ -524,7 +524,7 @@ class RequirementsGUIServer {
 
   private initializeExportTemplates(): void {
     const exportTemplates = this.readExportTemplates();
-    exportTemplates.set('markdown', `
+    exportTemplates.set("markdown", `
 # {{projectName}} - Requirements Document
 
 Generated on: {{generatedAt}}
@@ -626,7 +626,7 @@ Total Requirements: {{totalRequirements}}
       userRequirements.forEach(req => {
         const requirement: RequirementItem = {
           id: `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-          type: req.type || 'functional',
+          type: req.type || "functional",
           title: req.title,
           description: req.description,
           priority: req.priority || 'medium',
@@ -644,7 +644,7 @@ Total Requirements: {{totalRequirements}}
     if (comments) {
       const commentRequirement: RequirementItem = {
         id: `req_comment_${Date.now()}`,
-        type: 'functional',
+        type: "functional",
         title: 'User Feedback',
         description: comments,
         priority: 'medium',
@@ -686,13 +686,13 @@ Total Requirements: {{totalRequirements}}
     if (customizations && Object.keys(customizations).length > 0) {
       const customizationRequirement: RequirementItem = {
         id: `req_custom_${Date.now()}`,
-        type: 'technical',
+        type: "technical",
         title: 'Customization Requirements',
         description: `Custom settings: ${JSON.stringify(customizations)}`,
         priority: 'medium',
-        source: 'customization',
+        source: "customization",
         relatedThemeId: theme.id,
-        tags: ['customization'],
+        tags: ["customization"],
         createdAt: new Date(),
         updatedAt: new Date()
       };
@@ -746,8 +746,8 @@ Total Requirements: {{totalRequirements}}
         filename = `requirements_${collection.userId}_${Date.now()}.json`;
         break;
 
-      case 'markdown':
-        content = this.renderTemplate('markdown', collection);
+      case "markdown":
+        content = this.renderTemplate("markdown", collection);
         filename = `requirements_${collection.userId}_${Date.now()}.md`;
         break;
 
@@ -806,7 +806,7 @@ Total Requirements: {{totalRequirements}}
   }
 
   private generateCSV(collection: RequirementCollection): string {
-    const headers = ['ID', 'Type', 'Title', 'Description', 'Priority', 'Source', 'Tags', 'Created At'];
+    const headers = ['ID', 'Type', 'Title', "Description", "Priority", 'Source', 'Tags', 'Created At'];
     const rows = collection.requirements.map(req => [
       req.id,
       req.type,
@@ -840,7 +840,7 @@ Total Requirements: {{totalRequirements}}
         averageRequirementsPerSelection: collection.selections.length > 0 
           ? collection.requirements.length / collection.selections.length 
           : 0,
-        mostCommonType: Object.keys(byType).reduce((a, b) => byType[a] > byType[b] ? a : b, 'functional'),
+        mostCommonType: Object.keys(byType).reduce((a, b) => byType[a] > byType[b] ? a : b, "functional"),
         mostCommonPriority: Object.keys(byPriority).reduce((a, b) => byPriority[a] > byPriority[b] ? a : b, 'medium')
       }
     };
@@ -962,7 +962,7 @@ Total Requirements: {{totalRequirements}}
           }
 
           function renderRequirements(requirements) {
-            const container = document.getElementById('requirementsList');
+            const container = document.getElementById("requirementsList");
             if (requirements.length === 0) {
               container.innerHTML = '<p>No requirements yet. Select themes or add requirements manually.</p>';
               return;
@@ -991,7 +991,7 @@ Total Requirements: {{totalRequirements}}
           }
 
           function renderThemes(themes) {
-            const container = document.getElementById('themesContainer');
+            const container = document.getElementById("themesContainer");
             container.innerHTML = themes.map(theme => 
               '<div style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 4px;">' +
                 '<h4>' + theme.name + '</h4>' +
@@ -1013,7 +1013,7 @@ Total Requirements: {{totalRequirements}}
                   comments: 'Theme selected for requirements capture',
                   requirements: [
                     {
-                      type: 'functional',
+                      type: "functional",
                       title: 'Theme Selection Requirement',
                       description: 'User requires this specific theme functionality',
                       priority: 'high',
@@ -1036,9 +1036,9 @@ Total Requirements: {{totalRequirements}}
 
           async function addRequirement() {
             const type = document.getElementById('reqType').value;
-            const priority = document.getElementById('reqPriority').value;
-            const title = document.getElementById('reqTitle').value;
-            const description = document.getElementById('reqDescription').value;
+            const priority = document.getElementById("reqPriority").value;
+            const title = document.getElementById("reqTitle").value;
+            const description = document.getElementById("reqDescription").value;
             const tags = document.getElementById('reqTags').value.split(',').map(t => t.trim()).filter(t => t);
 
             if (!title || !description) {
@@ -1059,7 +1059,7 @@ Total Requirements: {{totalRequirements}}
               
               if (data.success) {
                 alert('Requirement added! Total: ' + data.totalRequirements);
-                document.getElementById('requirementForm').reset();
+                document.getElementById("requirementForm").reset();
                 loadRequirements();
               }
             } catch (error) {
@@ -1068,7 +1068,7 @@ Total Requirements: {{totalRequirements}}
           }
 
           async function setProjectName() {
-            const projectName = document.getElementById('projectName').value;
+            const projectName = document.getElementById("projectName").value;
             if (!projectName) {
               alert('Please enter a project name');
               return;
@@ -1091,7 +1091,7 @@ Total Requirements: {{totalRequirements}}
           }
 
           async function exportRequirements() {
-            const format = document.getElementById('exportFormat').value;
+            const format = document.getElementById("exportFormat").value;
 
             try {
               const response = await fetch('/api/requirements/export', {
@@ -1242,18 +1242,18 @@ describe('🚨 Story: Requirements Export Workflow - System Test', () => {
           comments: 'This theme looks perfect for our business needs',
           requirements: [
             {
-              type: 'functional',
+              type: "functional",
               title: 'Real-time Data Updates',
               description: 'Dashboard must update data in real-time',
               priority: 'high',
               tags: ['real-time', 'data']
             },
             {
-              type: 'performance',
+              type: "performance",
               title: 'Fast Loading',
               description: 'Page must load within 2 seconds',
               priority: 'medium',
-              tags: ['performance', 'speed']
+              tags: ["performance", 'speed']
             }
           ]
         })
@@ -1302,19 +1302,19 @@ describe('🚨 Story: Requirements Export Workflow - System Test', () => {
           'Cookie': sessionCookie
         },
         body: JSON.stringify({
-          type: 'accessibility',
+          type: "accessibility",
           title: 'WCAG Compliance',
           description: 'Interface must meet WCAG 2.1 AA standards',
-          priority: 'critical',
-          tags: ['accessibility', 'wcag', 'compliance']
+          priority: "critical",
+          tags: ["accessibility", 'wcag', "compliance"]
         })
       });
 
       const addData = await addRequirementResponse.json() as any;
       expect(addData.success).toBe(true);
-      expect(addData.requirement.type).toBe('accessibility');
+      expect(addData.requirement.type).toBe("accessibility");
       expect(addData.requirement.title).toBe('WCAG Compliance');
-      expect(addData.requirement.priority).toBe('critical');
+      expect(addData.requirement.priority).toBe("critical");
       expect(addData.totalRequirements).toBe(1);
 
       // Verify requirement was stored
@@ -1337,9 +1337,9 @@ describe('🚨 Story: Requirements Export Workflow - System Test', () => {
 
       // Add multiple requirements
       const requirements = [
-        { type: 'functional', priority: 'high', title: 'Feature A', description: 'Description A' },
-        { type: 'functional', priority: 'low', title: 'Feature B', description: 'Description B' },
-        { type: 'performance', priority: 'high', title: 'Performance A', description: 'Description A' },
+        { type: "functional", priority: 'high', title: 'Feature A', description: 'Description A' },
+        { type: "functional", priority: 'low', title: 'Feature B', description: 'Description B' },
+        { type: "performance", priority: 'high', title: 'Performance A', description: 'Description A' },
         { type: 'visual', priority: 'medium', title: 'Visual A', description: 'Description A' }
       ];
 
@@ -1361,7 +1361,7 @@ describe('🚨 Story: Requirements Export Workflow - System Test', () => {
       const functionalData = await functionalResponse.json() as any;
       expect(functionalData.success).toBe(true);
       expect(functionalData.requirements).toHaveLength(2);
-      expect(functionalData.requirements.every((req: any) => req.type === 'functional')).toBe(true);
+      expect(functionalData.requirements.every((req: any) => req.type === "functional")).toBe(true);
 
       // Filter by priority
       const highPriorityResponse = await fetch(`${baseUrl}/api/requirements?priority=high`, {
@@ -1401,7 +1401,7 @@ describe('🚨 Story: Requirements Export Workflow - System Test', () => {
           'Cookie': sessionCookie
         },
         body: JSON.stringify({
-          type: 'functional',
+          type: "functional",
           title: 'Export Test Requirement',
           description: 'This requirement is for testing export functionality',
           priority: 'medium',
@@ -1462,11 +1462,11 @@ describe('🚨 Story: Requirements Export Workflow - System Test', () => {
           'Cookie': sessionCookie
         },
         body: JSON.stringify({
-          type: 'functional',
+          type: "functional",
           title: 'Markdown Test',
           description: 'Testing markdown export',
           priority: 'high',
-          tags: ['markdown', 'export']
+          tags: ["markdown", 'export']
         })
       });
 
@@ -1478,14 +1478,14 @@ describe('🚨 Story: Requirements Export Workflow - System Test', () => {
           'Cookie': sessionCookie
         },
         body: JSON.stringify({
-          format: 'markdown',
+          format: "markdown",
           options: {}
         })
       });
 
       const exportData = await exportResponse.json() as any;
       expect(exportData.success).toBe(true);
-      expect(exportData.export.format).toBe('markdown');
+      expect(exportData.export.format).toBe("markdown");
       expect(exportData.export.filename).toMatch(/requirements_.*\.md$/);
 
       // Verify markdown content
@@ -1570,7 +1570,7 @@ describe('🚨 Story: Requirements Export Workflow - System Test', () => {
           'Cookie': sessionCookie
         },
         body: JSON.stringify({
-          type: 'performance',
+          type: "performance",
           title: 'CSV Test',
           description: 'Testing CSV export',
           priority: 'low',
@@ -1600,7 +1600,7 @@ describe('🚨 Story: Requirements Export Workflow - System Test', () => {
       const csvContent = exportData.export.content;
       const lines = csvContent.split('\n');
       expect(lines[0]).toBe('ID,Type,Title,Description,Priority,Source,Tags,Created At');
-      expect(lines[1]).toContain('performance');
+      expect(lines[1]).toContain("performance");
       expect(lines[1]).toContain('"CSV Test"');
       expect(lines[1]).toContain('"Testing CSV export"');
       expect(lines[1]).toContain('low');
@@ -1618,11 +1618,11 @@ describe('🚨 Story: Requirements Export Workflow - System Test', () => {
       const sessionCookie = response.headers.get('set-cookie')!.split(';')[0];
 
       const requirements = [
-        { type: 'functional', priority: 'high', title: 'Func A', description: 'Desc A' },
-        { type: 'functional', priority: 'medium', title: 'Func B', description: 'Desc B' },
-        { type: 'performance', priority: 'high', title: 'Perf A', description: 'Desc A' },
+        { type: "functional", priority: 'high', title: 'Func A', description: 'Desc A' },
+        { type: "functional", priority: 'medium', title: 'Func B', description: 'Desc B' },
+        { type: "performance", priority: 'high', title: 'Perf A', description: 'Desc A' },
         { type: 'visual', priority: 'low', title: 'Visual A', description: 'Desc A' },
-        { type: 'accessibility', priority: 'critical', title: 'Access A', description: 'Desc A' }
+        { type: "accessibility", priority: "critical", title: 'Access A', description: 'Desc A' }
       ];
 
       for (const req of requirements) {
@@ -1658,13 +1658,13 @@ describe('🚨 Story: Requirements Export Workflow - System Test', () => {
       expect(analyticsData.analytics.byPriority.critical).toBe(1);
 
       // Check trends
-      expect(analyticsData.analytics.trends.mostCommonType).toBe('functional');
+      expect(analyticsData.analytics.trends.mostCommonType).toBe("functional");
       expect(analyticsData.analytics.trends.mostCommonPriority).toBe('high');
     });
   });
 
   describe('🚨 Story: In Progress Workflow Integration', () => {
-    test('should In Progress full requirements capture and export workflow', async () => {
+    test('should complete full requirements capture and export workflow', async () => {
       // Given: The system is in a valid state
       // When: In Progress full requirements capture and export workflow
       // Then: The expected behavior occurs
@@ -1706,10 +1706,10 @@ describe('🚨 Story: Requirements Export Workflow - System Test', () => {
           comments: 'Perfect for our business dashboard needs',
           requirements: [
             {
-              type: 'functional',
+              type: "functional",
               title: 'User Authentication',
               description: 'Must support SSO login',
-              priority: 'critical',
+              priority: "critical",
               tags: ['auth', 'sso']
             }
           ]
@@ -1726,11 +1726,11 @@ describe('🚨 Story: Requirements Export Workflow - System Test', () => {
           'Cookie': sessionCookie
         },
         body: JSON.stringify({
-          type: 'performance',
+          type: "performance",
           title: 'Page Load Speed',
           description: 'All pages must load within 3 seconds',
           priority: 'high',
-          tags: ['performance', 'speed']
+          tags: ["performance", 'speed']
         })
       });
 
@@ -1743,7 +1743,7 @@ describe('🚨 Story: Requirements Export Workflow - System Test', () => {
       expect(requirementsData.requirements.length).toBeGreaterThanOrEqual(4); // User + auto-generated
 
       // Step 6: Export in multiple formats
-      const formats = ['json', 'markdown', 'html', 'csv'];
+      const formats = ['json', "markdown", 'html', 'csv'];
       const exports: any[] = [];
 
       for (const format of formats) {
@@ -1778,10 +1778,10 @@ describe('🚨 Story: Requirements Export Workflow - System Test', () => {
 
       // Step 9: Verify In Progress workflow results
       expect(requirementsData.collection.projectName).toBe('In Progress Workflow Test');
-      expect(analyticsData.analytics.byType).toHaveProperty('functional');
-      expect(analyticsData.analytics.byType).toHaveProperty('performance');
+      expect(analyticsData.analytics.byType).toHaveProperty("functional");
+      expect(analyticsData.analytics.byType).toHaveProperty("performance");
       expect(exports.find(e => e.format === 'json')).toBeTruthy();
-      expect(exports.find(e => e.format === 'markdown')).toBeTruthy();
+      expect(exports.find(e => e.format === "markdown")).toBeTruthy();
       expect(exports.find(e => e.format === 'html')).toBeTruthy();
       expect(exports.find(e => e.format === 'csv')).toBeTruthy();
     });
@@ -1800,8 +1800,8 @@ describe('🚨 Story: Requirements Export Workflow - System Test', () => {
       expect(healthData.services.requirementsEngine).toBe('active');
       expect(healthData.services.exportService).toBe('ready');
       expect(healthData.services.analytics).toBe('ready');
-      expect(healthData.stats).toHaveProperty('activeCollections');
-      expect(healthData.stats).toHaveProperty('totalRequirements');
+      expect(healthData.stats).toHaveProperty("activeCollections");
+      expect(healthData.stats).toHaveProperty("totalRequirements");
     });
   });
 });

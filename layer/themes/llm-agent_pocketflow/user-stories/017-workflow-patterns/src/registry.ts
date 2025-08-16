@@ -19,13 +19,13 @@ export class PatternRegistry {
   
   static {
     // Register built-in patterns
-    this.register('sequential', SequentialPattern);
-    this.register('parallel', ParallelPattern);
+    this.register("sequential", SequentialPattern);
+    this.register("parallel", ParallelPattern);
     this.register('map-reduce', MapReducePattern);
-    this.register('supervisor', SupervisorPattern);
+    this.register("supervisor", SupervisorPattern);
     this.register('rag', RAGPattern);
     this.register('debate', DebatePattern);
-    this.register('reflection', ReflectionPattern);
+    this.register("reflection", ReflectionPattern);
   }
 
   /**

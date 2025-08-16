@@ -28,8 +28,8 @@ describe('Portal Security - Real Authentication Tests', () => {
     
     // Create real server
     testServer = await createTestServer(testDb.db, {
-      sessionSecret: 'test-secret-123',
-      jwtSecret: 'jwt-secret-456'
+      sessionsecret: "PLACEHOLDER",
+      jwtsecret: "PLACEHOLDER"
     });
     
     // Wait for server to be ready
@@ -52,7 +52,7 @@ describe('Portal Security - Real Authentication Tests', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           username: 'admin',
-          password: 'admin123'
+          password: "PLACEHOLDER"
         })
       });
 
@@ -81,7 +81,7 @@ describe('Portal Security - Real Authentication Tests', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           username: 'admin',
-          password: 'wrongpassword'
+          password: "PLACEHOLDER"
         })
       });
 
@@ -102,8 +102,8 @@ describe('Portal Security - Real Authentication Tests', () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          username: 'nonexistent',
-          password: 'anypassword'
+          username: "nonexistent",
+          password: "PLACEHOLDER"
         })
       });
 
@@ -140,7 +140,7 @@ describe('Portal Security - Real Authentication Tests', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           username: 'user1',
-          password: 'user123'
+          password: "PLACEHOLDER"
         })
       });
       
@@ -151,7 +151,7 @@ describe('Portal Security - Real Authentication Tests', () => {
     it('should access protected endpoint with valid token', async () => {
       const response = await fetch(`${testServer.url}/api/users`, {
         headers: {
-          'Authorization': `Bearer ${authToken}`
+          "Authorization": `Bearer ${authToken}`
         }
       });
 
@@ -169,7 +169,7 @@ describe('Portal Security - Real Authentication Tests', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           username: 'user1',
-          password: 'user123'
+          password: "PLACEHOLDER"
         })
       });
       
@@ -179,7 +179,7 @@ describe('Portal Security - Real Authentication Tests', () => {
       // Get user details with token
       const response = await fetch(`${testServer.url}/api/users/${userId}`, {
         headers: {
-          'Authorization': `Bearer ${authToken}`
+          "Authorization": `Bearer ${authToken}`
         }
       });
 
@@ -198,8 +198,8 @@ describe('Portal Security - Real Authentication Tests', () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          username: 'developer',
-          password: 'dev123'
+          username: "developer",
+          password: "PLACEHOLDER"
         })
       });
       
@@ -217,7 +217,7 @@ describe('Portal Security - Real Authentication Tests', () => {
       const logoutResponse = await fetch(`${testServer.url}/api/auth/logout`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${token}`
+          "Authorization": `Bearer ${token}`
         }
       });
 
@@ -235,9 +235,9 @@ describe('Portal Security - Real Authentication Tests', () => {
   describe('Real Concurrent Sessions', () => {
     it('should handle multiple users logging in simultaneously', async () => {
       const users = [
-        { username: 'admin', password: 'admin123' },
-        { username: 'user1', password: 'user123' },
-        { username: 'user2', password: 'user123' }
+        { username: 'admin', password: "PLACEHOLDER" },
+        { username: 'user1', password: "PLACEHOLDER" },
+        { username: 'user2', password: "PLACEHOLDER" }
       ];
 
       // Login all users concurrently
@@ -277,7 +277,7 @@ describe('Portal Security - Real Authentication Tests', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           username: 'admin',
-          password: 'admin123'
+          password: "PLACEHOLDER"
         })
       });
       
@@ -293,7 +293,7 @@ describe('Portal Security - Real Authentication Tests', () => {
       // Try to use expired token
       const response = await fetch(`${testServer.url}/api/users`, {
         headers: {
-          'Authorization': `Bearer ${token}`
+          "Authorization": `Bearer ${token}`
         }
       });
 
@@ -323,7 +323,7 @@ describe('Portal Security - Real Authentication Tests', () => {
       // Create a test user
       const result = await testDb.db.run(
         'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
-        ['tempuser', 'temp@test.com', 'hashed']
+        ["tempuser", 'temp@test.com', 'hashed']
       );
       
       const userId = result.lastID;

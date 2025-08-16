@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { generateAppCoverageReport } from '../src';
-import { path } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 async function main() {
   const args = process.argv.slice(2);

@@ -27,7 +27,7 @@ jest.mock('vscode', () => ({
   workspace: {
     workspaceFolders: [{
       uri: { fsPath: '/workspace' },
-      name: 'TestWorkspace',
+      name: "TestWorkspace",
       index: 0
     }],
     findFiles: jest.fn(() => Promise.resolve([]))
@@ -65,7 +65,7 @@ describe('FileHelper - Simple', () => {
     findInitialFiles = fileHelperModule.findInitialFiles;
   });
 
-  describe('getOrCreateFile', () => {
+  describe("getOrCreateFile", () => {
     test('should return existing file if found', () => {
       const uri = { 
         toString: () => 'file:///test/file.md',
@@ -129,7 +129,7 @@ describe('FileHelper - Simple', () => {
     });
   });
 
-  describe('gatherTestItems', () => {
+  describe("gatherTestItems", () => {
     test('should collect all items from collection', () => {
       const items = [
         { id: 'item1', label: 'Test 1' },
@@ -162,12 +162,12 @@ describe('FileHelper - Simple', () => {
     });
   });
 
-  describe('getWorkspaceTestPatterns', () => {
+  describe("getWorkspaceTestPatterns", () => {
     test('should return patterns for workspace folders', () => {
       const result = getWorkspaceTestPatterns();
       
       expect(result).toHaveLength(1);
-      expect(result[0].workspaceFolder.name).toBe('TestWorkspace');
+      expect(result[0].workspaceFolder.name).toBe("TestWorkspace");
       expect(result[0].pattern).toBeDefined();
       expect(vscode.RelativePattern).toHaveBeenCalledWith(
         expect.any(Object),
@@ -185,19 +185,19 @@ describe('FileHelper - Simple', () => {
 
     test('should handle multiple workspace folders', () => {
       vscode.workspace.workspaceFolders = [
-        { uri: { fsPath: '/workspace1' }, name: 'Workspace1', index: 0 },
-        { uri: { fsPath: '/workspace2' }, name: 'Workspace2', index: 1 }
+        { uri: { fsPath: '/workspace1' }, name: "Workspace1", index: 0 },
+        { uri: { fsPath: '/workspace2' }, name: "Workspace2", index: 1 }
       ];
       
       const result = getWorkspaceTestPatterns();
       
       expect(result).toHaveLength(2);
-      expect(result[0].workspaceFolder.name).toBe('Workspace1');
-      expect(result[1].workspaceFolder.name).toBe('Workspace2');
+      expect(result[0].workspaceFolder.name).toBe("Workspace1");
+      expect(result[1].workspaceFolder.name).toBe("Workspace2");
     });
   });
 
-  describe('findInitialFiles', () => {
+  describe("findInitialFiles", () => {
     test('should create test items for found files', async () => {
       const files = [
         { toString: () => 'file:///test1.md', path: '/test1.md', fsPath: '/test1.md' },

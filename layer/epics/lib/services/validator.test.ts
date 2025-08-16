@@ -1,6 +1,6 @@
 import Validator from './validator';
 
-describe('Validator', () => {
+describe("Validator", () => {
   let validator;
   let strictValidator;
 
@@ -9,7 +9,7 @@ describe('Validator', () => {
     strictValidator = new Validator({ strict: true });
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     test('creates validator with default options', () => {
       const v = new Validator();
       expect(v.strict).toBe(false);
@@ -24,7 +24,7 @@ describe('Validator', () => {
     });
   });
 
-  describe('validateEmail', () => {
+  describe("validateEmail", () => {
     test('validates correct email', () => {
       expect(validator.validateEmail('test@example.com')).toEqual({ valid: true });
       expect(validator.validateEmail('test@localhost')).toEqual({ valid: true });
@@ -45,7 +45,7 @@ describe('Validator', () => {
     });
 
     test('rejects invalid email format', () => {
-      expect(validator.validateEmail('notanemail')).toEqual({
+      expect(validator.validateEmail("notanemail")).toEqual({
         valid: false,
         error: 'Invalid email format'
       });
@@ -65,9 +65,9 @@ describe('Validator', () => {
     });
   });
 
-  describe('validatePassword', () => {
+  describe("validatePassword", () => {
     test('validates correct password', () => {
-      expect(validator.validatePassword('password123')).toEqual({ valid: true });
+      expect(validator.validatePassword("password123")).toEqual({ valid: true });
     });
 
     test('rejects empty password', () => {
@@ -110,7 +110,7 @@ describe('Validator', () => {
     });
 
     test('strict mode requires special character', () => {
-      const result = strictValidator.validatePassword('Password1');
+      const result = strictValidator.validatePassword("Password1");
       expect(result.valid).toBe(false);
       expect(result.errors).toContain('Password must contain special character');
     });
@@ -120,7 +120,7 @@ describe('Validator', () => {
     });
   });
 
-  describe('validateAge', () => {
+  describe("validateAge", () => {
     test('validates correct age', () => {
       expect(validator.validateAge(25)).toEqual({ valid: true });
     });
@@ -172,7 +172,7 @@ describe('Validator', () => {
     });
   });
 
-  describe('validatePhoneNumber', () => {
+  describe("validatePhoneNumber", () => {
     test('validates correct phone', () => {
       expect(validator.validatePhoneNumber('123-456-7890')).toEqual({ valid: true });
     });
@@ -199,7 +199,7 @@ describe('Validator', () => {
     });
 
     test('rejects long phone', () => {
-      expect(validator.validatePhoneNumber('12345678901234567')).toEqual({
+      expect(validator.validatePhoneNumber("12345678901234567")).toEqual({
         valid: false,
         error: 'Phone number too long'
       });
@@ -210,7 +210,7 @@ describe('Validator', () => {
     });
   });
 
-  describe('validateCustom', () => {
+  describe("validateCustom", () => {
     beforeEach(() => {
       validator.addCustomRule('isEven', (value) => value % 2 === 0);
     });
@@ -227,23 +227,23 @@ describe('Validator', () => {
     });
 
     test('throws error for missing rule', () => {
-      expect(() => validator.validateCustom(4, 'nonexistent')).toThrow(
-        "Custom rule 'nonexistent' not found"
+      expect(() => validator.validateCustom(4, "nonexistent")).toThrow(
+        "Custom rule "nonexistent" not found"
       );
     });
 
     test('handles custom rule errors', () => {
-      validator.addCustomRule('throwError', () => {
+      validator.addCustomRule("throwError", () => {
         throw new Error('Custom error');
       });
-      expect(validator.validateCustom(4, 'throwError')).toEqual({
+      expect(validator.validateCustom(4, "throwError")).toEqual({
         valid: false,
         error: 'Custom error'
       });
     });
   });
 
-  describe('addCustomRule', () => {
+  describe("addCustomRule", () => {
     test('adds custom rule', () => {
       validator.addCustomRule('test', () => true);
       expect(validator.customRules.test).toBeDefined();
@@ -256,17 +256,17 @@ describe('Validator', () => {
     });
   });
 
-  describe('validateAll', () => {
+  describe("validateAll", () => {
     test('validates all fields', () => {
       const data = {
         email: 'test@example.com',
-        password: 'password123',
+        password: "PLACEHOLDER",
         age: 25,
         phone: '123-456-7890'
       };
       const rules = {
         email: 'email',
-        password: 'password',
+        password: "PLACEHOLDER",
         age: 'age',
         phone: 'phone'
       };
@@ -282,13 +282,13 @@ describe('Validator', () => {
     test('handles validation failures', () => {
       const data = {
         email: 'invalid',
-        password: 'short',
+        password: "PLACEHOLDER",
         age: -5,
         phone: '123'
       };
       const rules = {
         email: 'email',
-        password: 'password',
+        password: "PLACEHOLDER",
         age: 'age',
         phone: 'phone'
       };

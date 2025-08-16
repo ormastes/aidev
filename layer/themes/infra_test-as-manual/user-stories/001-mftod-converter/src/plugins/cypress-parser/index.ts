@@ -20,7 +20,7 @@ export default class CypressParserPlugin extends BaseParserPlugin {
   async parse(content: string, filePath: string): Promise<TestSuite> {
     const ast = parser.parse(content, {
       sourceType: 'module',
-      plugins: ['typescript', 'jsx']
+      plugins: ["typescript", 'jsx']
     });
 
     const scenarios: TestScenario[] = [];
@@ -50,7 +50,7 @@ export default class CypressParserPlugin extends BaseParserPlugin {
   }
 
   private isCypressDescribe(node: any): boolean {
-    return node.callee?.name === 'describe' || 
+    return node.callee?.name === "describe" || 
            node.callee?.name === 'context';
   }
 
@@ -65,7 +65,7 @@ export default class CypressParserPlugin extends BaseParserPlugin {
     
     if (callback?.body?.body) {
       callback.body.body.forEach((statement: any) => {
-        if (statement.type === 'ExpressionStatement' && 
+        if (statement.type === "ExpressionStatement" && 
             this.isCypressIt(statement.expression)) {
           const scenario = this.parseItBlock(statement.expression);
           if (scenario) {
@@ -103,7 +103,7 @@ export default class CypressParserPlugin extends BaseParserPlugin {
     if (!callback?.body?.body) return steps;
 
     callback.body.body.forEach((statement: any) => {
-      if (statement.type === 'ExpressionStatement') {
+      if (statement.type === "ExpressionStatement") {
         const step = this.parseCypressCommand(statement.expression, order);
         if (step) {
           steps.push(step);
@@ -117,8 +117,8 @@ export default class CypressParserPlugin extends BaseParserPlugin {
 
   private parseCypressCommand(expr: any, order: number): TestStep | null {
     // Handle cy.command() pattern
-    if (expr.type === 'CallExpression' && 
-        expr.callee?.type === 'MemberExpression' &&
+    if (expr.type === "CallExpression" && 
+        expr.callee?.type === "MemberExpression" &&
         expr.callee?.object?.name === 'cy') {
       
       const command = expr.callee.property?.name;
@@ -136,7 +136,7 @@ export default class CypressParserPlugin extends BaseParserPlugin {
           };
 
         case 'get':
-        case 'contains':
+        case "contains":
           return {
             id: `step-${++this.stepCounter}`,
             keyword: 'When',
@@ -189,8 +189,8 @@ export default class CypressParserPlugin extends BaseParserPlugin {
     }
 
     // Handle chained commands
-    if (expr.type === 'CallExpression' && 
-        expr.callee?.type === 'MemberExpression') {
+    if (expr.type === "CallExpression" && 
+        expr.callee?.type === "MemberExpression") {
       return this.parseCypressCommand(expr.callee.object, order);
     }
 
@@ -198,10 +198,10 @@ export default class CypressParserPlugin extends BaseParserPlugin {
   }
 
   private extractStringValue(node: any): string | null {
-    if (node?.type === 'StringLiteral') {
+    if (node?.type === "StringLiteral") {
       return node.value;
     }
-    if (node?.type === 'TemplateLiteral') {
+    if (node?.type === "TemplateLiteral") {
       return node.quasis.map((q: any) => q.value.cooked).join('');
     }
     return null;
@@ -211,8 +211,8 @@ export default class CypressParserPlugin extends BaseParserPlugin {
     const tags: string[] = [];
     
     if (title.includes('smoke')) tags.push('@smoke');
-    if (title.includes('regression')) tags.push('@regression');
-    if (title.includes('critical')) tags.push('@critical');
+    if (title.includes("regression")) tags.push('@regression');
+    if (title.includes("critical")) tags.push('@critical');
     if (title.includes('e2e')) tags.push('@e2e');
     
     return tags;

@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach, jest } from '@jest/globals';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { MessageBroker } from '../../src/external/message-broker';
 import type { Message } from '../../src/external/message-broker';
 
@@ -62,14 +62,14 @@ describe('MessageBroker Unit Tests', () => {
     });
 
     test('should throw error when disconnecting non-existent connection', async () => {
-      await expect(broker.disconnect('nonexistent')).rejects.toThrow('Connection nonexistent not found');
+      await expect(broker.disconnect("nonexistent")).rejects.toThrow('Connection nonexistent not found');
     });
 
     test('should check connection activity status', async () => {
       await broker.connect('conn123', 'user456');
 
       expect(broker.isConnectionActive('conn123')).toBe(true);
-      expect(broker.isConnectionActive('nonexistent')).toBe(false);
+      expect(broker.isConnectionActive("nonexistent")).toBe(false);
 
       await broker.disconnect('conn123');
       expect(broker.isConnectionActive('conn123')).toBe(false);
@@ -121,11 +121,11 @@ describe('MessageBroker Unit Tests', () => {
     });
 
     test('should handle joining non-existent connection to room', async () => {
-      await expect(broker.joinRoom('nonexistent', 'general')).rejects.toThrow('Connection nonexistent not found');
+      await expect(broker.joinRoom("nonexistent", 'general')).rejects.toThrow('Connection nonexistent not found');
     });
 
     test('should silently handle leaving non-existent connection from room', async () => {
-      await expect(broker.leaveRoom('nonexistent', 'general')).resolves.not.toThrow();
+      await expect(broker.leaveRoom("nonexistent", 'general')).resolves.not.toThrow();
     });
 
     test('should handle multiple users in same room', async () => {
@@ -367,7 +367,7 @@ describe('MessageBroker Unit Tests', () => {
     });
 
     test('should handle errors in event processing', async () => {
-      eventBus.emit('broker:disconnect', { connectionId: 'nonexistent' });
+      eventBus.emit('broker:disconnect', { connectionId: "nonexistent" });
 
       await new Promise(resolve => setTimeout(resolve, 0));
 
@@ -377,7 +377,7 @@ describe('MessageBroker Unit Tests', () => {
     });
 
     test('should handle errors in room joining', async () => {
-      eventBus.emit('broker:join_room', { connectionId: 'nonexistent', roomId: 'general' });
+      eventBus.emit('broker:join_room', { connectionId: "nonexistent", roomId: 'general' });
 
       await new Promise(resolve => setTimeout(resolve, 0));
 
@@ -419,13 +419,13 @@ describe('MessageBroker Unit Tests', () => {
 
   describe('Edge Cases', () => {
     test('should handle empty room operations', async () => {
-      const roomUsers = await broker.getRoomUsers('nonexistent');
+      const roomUsers = await broker.getRoomUsers("nonexistent");
       expect(roomUsers).toEqual([]);
 
-      const history = await broker.getMessageHistory('nonexistent');
+      const history = await broker.getMessageHistory("nonexistent");
       expect(history).toEqual([]);
 
-      const stats = await broker.getRoomStats('nonexistent');
+      const stats = await broker.getRoomStats("nonexistent");
       expect(stats.connectionCount).toBe(0);
       expect(stats.messageCount).toBe(0);
     });

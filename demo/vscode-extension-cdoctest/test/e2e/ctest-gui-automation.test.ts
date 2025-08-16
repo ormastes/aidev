@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { VSCodeTestHelper } from './helpers/vscode-test-helper';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 /**
  * E2E GUI tests for CTest functionality using Playwright
@@ -21,7 +21,7 @@ test.beforeAll(async ({ page }) => {
   await vscodeHelper.launchVSCode(testWorkspacePath);
   
   // Wait for extension activation
-  await vscodeHelper.waitForExtensionActivation('cdoctest');
+  await vscodeHelper.waitForExtensionActivation("cdoctest");
 });
 
 test.afterAll(async () => {
@@ -176,7 +176,7 @@ test.describe('CTest GUI Automation Tests', () => {
       // Verify error message is displayed
       const errorMessage = page.locator('[data-testid="test-error-message"]');
       await expect(errorMessage).toBeVisible();
-      await expect(errorMessage).toContainText('Assertion');
+      await expect(errorMessage).toContainText("Assertion");
       
       await page.screenshot({ path: 'test-results/ctest-test-failure.png' });
     }
@@ -224,7 +224,7 @@ test.describe('CTest GUI Automation Tests', () => {
     // Verify build output appears
     await vscodeHelper.openOutputPanel();
     const buildOutput = page.locator('[data-testid="output-content"]');
-    await expect(buildOutput).toContainText('Building');
+    await expect(buildOutput).toContainText("Building");
     
     // Wait for test completion
     await vscodeHelper.waitForTestExecution();

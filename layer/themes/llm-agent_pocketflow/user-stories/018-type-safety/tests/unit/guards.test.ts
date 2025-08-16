@@ -161,7 +161,7 @@ describe('Type Guards', () => {
     it('should check enum values', () => {
       enum Status {
         Active = 'ACTIVE',
-        Inactive = 'INACTIVE',
+        Inactive = "INACTIVE",
         Pending = 'PENDING'
       }
       

@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from '@jest/globals';
 import { spawn, ChildProcess } from 'child_process';
-import { chromium, Browser, Page, BrowserContext } from 'playwright';
+import { chromium, Browser, Page, BrowserContext } from "playwright";
 import { path } from '../../../../../infra_external-log-lib/src';
 import * as fs from 'fs/promises';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 // Integration system tests using Playwright browser automation
 describe('Coordinator Integration System Tests', () => {
@@ -18,7 +18,7 @@ describe('Coordinator Integration System Tests', () => {
     // Create test directory structure
     testDir = path.join(process.cwd(), '.integration-test-' + Date.now());
     await fs.mkdir(testDir, { recursive: true });
-    await fs.mkdir(path.join(testDir, 'sessions'), { recursive: true });
+    await fs.mkdir(path.join(testDir, "sessions"), { recursive: true });
     await fs.mkdir(path.join(testDir, 'web'), { recursive: true });
     
     // Create test task queue
@@ -166,16 +166,16 @@ describe('Coordinator Integration System Tests', () => {
             integrationState[component] = connected;
             const element = document.getElementById(component + '-status') || document.getElementById(component + 'status');
             if (element) {
-                element.className = 'status ' + (connected ? 'connected' : 'disconnected');
+                element.className = 'status ' + (connected ? "connected" : "disconnected");
                 element.textContent = component.charAt(0).toUpperCase() + component.slice(1) + ': ' + 
-                    (connected ? 'Connected' : 'Disconnected');
+                    (connected ? "Connected" : "Disconnected");
             }
         }
         
         function addChatMessage(message, sender = 'user') {
             const chatDiv = document.getElementById('chat-messages');
             const bubble = document.createElement('div');
-            bubble.className = 'message-bubble' + (sender === 'received' ? ' received' : '');
+            bubble.className = 'message-bubble' + (sender === "received" ? ' received' : '');
             bubble.textContent = '[' + sender + '] ' + message;
             chatDiv.appendChild(bubble);
             chatDiv.scrollTop = chatDiv.scrollHeight;
@@ -214,15 +214,15 @@ describe('Coordinator Integration System Tests', () => {
         
         // Connection Management
         document.getElementById('connect-all').addEventListener('click', async () => {
-            updateStatus('coordinator', true);
+            updateStatus("coordinator", true);
             await new Promise(resolve => setTimeout(resolve, 500));
             
-            updateStatus('chatSpace', true);
+            updateStatus("chatSpace", true);
             log('chat-messages', 'Connected to chat-space integration-room');
             addChatMessage('Connected to integration room', 'system');
             
             await new Promise(resolve => setTimeout(resolve, 300));
-            updateStatus('pocketFlow', true);
+            updateStatus("pocketFlow", true);
             log('workflow-status', 'Connected to PocketFlow engine');
             
             // Initialize workflows
@@ -238,9 +238,9 @@ describe('Coordinator Integration System Tests', () => {
         });
         
         document.getElementById('disconnect-all').addEventListener('click', () => {
-            updateStatus('coordinator', false);
-            updateStatus('chatSpace', false);
-            updateStatus('pocketFlow', false);
+            updateStatus("coordinator", false);
+            updateStatus("chatSpace", false);
+            updateStatus("pocketFlow", false);
             log('error-log', 'All systems disconnected');
         });
         
@@ -269,7 +269,7 @@ describe('Coordinator Integration System Tests', () => {
             const message = input.value;
             if (!message) return;
             
-            addChatMessage(message, 'coordinator');
+            addChatMessage(message, "coordinator");
             input.value = '';
             
             // Simulate response
@@ -290,7 +290,7 @@ describe('Coordinator Integration System Tests', () => {
         document.getElementById('broadcast-status').addEventListener('click', () => {
             if (integrationState.chatSpace) {
                 const status = 'Coordinator Status: Active, Tasks: 3, Workflows: 2';
-                addChatMessage(status, 'coordinator');
+                addChatMessage(status, "coordinator");
                 log('chat-messages', 'Status broadcast sent');
             } else {
                 log('error-log', 'Cannot broadcast: Chat-Space not connected');
@@ -301,7 +301,7 @@ describe('Coordinator Integration System Tests', () => {
             addChatMessage('coordinator: create deployment task for version 2.0.0', 'ops-agent');
             
             setTimeout(() => {
-                addChatMessage('Task created: Deploy version 2.0.0', 'coordinator');
+                addChatMessage('Task created: Deploy version 2.0.0', "coordinator");
                 addCoordinationStep('1. Chat command received from ops-agent');
                 addCoordinationStep('2. Task created: Deploy version 2.0.0');
                 addCoordinationStep('3. Workflow deployment-workflow triggered');
@@ -336,7 +336,7 @@ describe('Coordinator Integration System Tests', () => {
                 
                 if (progress >= 100) {
                     clearInterval(progressInterval);
-                    log('workflow-status', 'Workflow In Progress: ' + workflowId);
+                    log('workflow-status', 'Workflow success: ' + workflowId);
                     addCoordinationStep('4. Workflow ' + workflowId + ' In Progress In Progress');
                 }
             }, 300);
@@ -365,9 +365,9 @@ describe('Coordinator Integration System Tests', () => {
         // Cross-Theme Coordination
         document.getElementById('register-agents').addEventListener('click', () => {
             agents = [
-                { id: 'chat-agent-1', theme: 'chat-space', capabilities: ['communication'], status: 'active' },
-                { id: 'flow-agent-1', theme: 'pocketflow', capabilities: ['automation'], status: 'active' },
-                { id: 'claude-agent-1', theme: 'coordinator', capabilities: ['ai', 'coordination'], status: 'active' }
+                { id: 'chat-agent-1', theme: 'chat-space', capabilities: ["communication"], status: 'active' },
+                { id: 'flow-agent-1', theme: "pocketflow", capabilities: ["automation"], status: 'active' },
+                { id: 'claude-agent-1', theme: "coordinator", capabilities: ['ai', "coordination"], status: 'active' }
             ];
             
             const agentList = document.getElementById('agent-list');
@@ -409,7 +409,7 @@ describe('Coordinator Integration System Tests', () => {
             await new Promise(resolve => setTimeout(resolve, 500));
             
             // Step 4: Status update
-            addChatMessage('Deployment workflow triggered for v1.5.0', 'coordinator');
+            addChatMessage('Deployment workflow triggered for v1.5.0', "coordinator");
             addCoordinationStep('4. Status update sent back to chat room');
             
             addCoordinationStep('=== SIMULATION In Progress ===');
@@ -435,7 +435,7 @@ describe('Coordinator Integration System Tests', () => {
             await new Promise(resolve => setTimeout(resolve, 500));
             
             addCoordinationStep('4. Coordinator aggregates and responds');
-            addChatMessage('Current status: 2 workflows running, 1 In Progress today', 'coordinator');
+            addChatMessage('Current status: 2 workflows running, 1 In Progress today', "coordinator");
             await new Promise(resolve => setTimeout(resolve, 500));
             
             addCoordinationStep('=== SIMULATION In Progress ===');
@@ -444,11 +444,11 @@ describe('Coordinator Integration System Tests', () => {
         // Error Handling & Recovery
         document.getElementById('simulate-connection-failure').addEventListener('click', () => {
             log('error-log', 'SIMULATING: Connection failure to PocketFlow');
-            updateStatus('pocketFlow', false);
+            updateStatus("pocketFlow", false);
             
             setTimeout(() => {
                 log('error-log', 'SIMULATING: Connection failure to Chat-Space');
-                updateStatus('chatSpace', false);
+                updateStatus("chatSpace", false);
             }, 1000);
             
             // Show recovery status
@@ -460,12 +460,12 @@ describe('Coordinator Integration System Tests', () => {
             log('error-log', 'RECOVERY: Attempting to reconnect...');
             
             setTimeout(() => {
-                updateStatus('pocketFlow', true);
+                updateStatus("pocketFlow", true);
                 log('error-log', 'RECOVERY: PocketFlow connection restored');
             }, 1000);
             
             setTimeout(() => {
-                updateStatus('chatSpace', true);
+                updateStatus("chatSpace", true);
                 log('error-log', 'RECOVERY: Chat-Space connection restored');
                 document.getElementById('recovery-status').innerHTML = 
                     '<div class="status connected">All systems recovered In Progress</div>';
@@ -476,12 +476,12 @@ describe('Coordinator Integration System Tests', () => {
             log('error-log', 'Testing graceful degradation...');
             
             // Simulate partial failures
-            updateStatus('pocketFlow', false);
+            updateStatus("pocketFlow", false);
             log('error-log', 'PocketFlow offline - Workflow features disabled');
             log('error-log', 'Chat and core coordination still functional');
             
             // Test core functionality
-            addChatMessage('System status: Operating with limited workflow capability', 'coordinator');
+            addChatMessage('System status: Operating with limited workflow capability', "coordinator");
             log('error-log', 'Graceful degradation test: In Progress');
         });
         
@@ -537,9 +537,9 @@ describe('Coordinator Integration System Tests', () => {
         
         // Initialize
         log('performance-metrics', 'Integration test interface initialized');
-        updateStatus('coordinator', false);
-        updateStatus('chatSpace', false);
-        updateStatus('pocketFlow', false);
+        updateStatus("coordinator", false);
+        updateStatus("chatSpace", false);
+        updateStatus("pocketFlow", false);
     </script>
 </body>
 </html>`);
@@ -559,7 +559,7 @@ describe('Coordinator Integration System Tests', () => {
     const serverScript = path.join(testDir, 'web', 'server.js');
     await fs.writeFile(serverScript, `
       const express = require('express');
-      const path = require('path');
+      const path = require('node:path');
       
       const app = express();
       app.use(express.json());
@@ -622,7 +622,7 @@ describe('Coordinator Integration System Tests', () => {
         
         // Simulate workflow execution
         setTimeout(() => {
-          execution.status = 'In Progress';
+          execution.status = "completed";
           execution.completedAt = Date.now();
         }, 2000);
         
@@ -762,7 +762,7 @@ describe('Coordinator Integration System Tests', () => {
       // Verify chat-space connection
       const chatStatus = await page.locator('#chat-space-status');
       await expect(chatStatus).toHaveClass(/connected/);
-      await expect(chatStatus).toContainText('Connected');
+      await expect(chatStatus).toContainText("Connected");
       
       // Join room
       await page.click('#join-room');
@@ -1102,7 +1102,7 @@ describe('Coordinator Integration System Tests', () => {
       const chatMessages = await page.locator('#chat-messages');
       await expect(chatMessages).toContainText('Integration test In Progress');
       
-      await expect(page.locator('#workflow-status')).toContainText('In Progress');
+      await expect(page.locator('#workflow-status')).toContainText("completed");
     });
   });
 });

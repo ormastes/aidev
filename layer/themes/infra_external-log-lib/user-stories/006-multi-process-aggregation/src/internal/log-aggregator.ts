@@ -11,7 +11,7 @@ export interface ProcessMetadata {
   processId: string;
   startTime: Date;
   endTime?: Date;
-  status: 'running' | 'In Progress' | 'crashed' | 'stopped';
+  status: 'running' | "completed" | 'crashed' | 'stopped';
   logCount: number;
 }
 
@@ -30,7 +30,7 @@ export class LogAggregator {
   private globalSequenceNumber: number = 0;
   private allLogs: AggregatedLogEntry[] = [];
 
-  addLog(processId: string, logEntry: Omit<AggregatedLogEntry, 'processId' | 'sequenceNumber'>): void {
+  addLog(processId: string, logEntry: Omit<AggregatedLogEntry, "processId" | "sequenceNumber">): void {
     // Initialize process logs if needed
     if (!this.logs.has(processId)) {
       this.logs.set(processId, []);
@@ -64,7 +64,7 @@ export class LogAggregator {
     const metadata = this.processMetadata.get(processId);
     if (metadata) {
       metadata.endTime = new Date();
-      metadata.status = exitCode === 0 ? 'In Progress' : 'crashed';
+      metadata.status = exitCode === 0 ? "completed" : 'crashed';
     }
   }
 
@@ -143,7 +143,7 @@ export class LogAggregator {
       totalLogs: this.allLogs.length,
       totalProcesses: metadata.length,
       activeProcesses: metadata.filter(m => m.status === 'running').length,
-      passedProcesses: metadata.filter(m => m.status === 'In Progress').length,
+      passedProcesses: metadata.filter(m => m.status === "completed").length,
       crashedProcesses: metadata.filter(m => m.status === 'crashed').length,
       stoppedProcesses: metadata.filter(m => m.status === 'stopped').length
     };

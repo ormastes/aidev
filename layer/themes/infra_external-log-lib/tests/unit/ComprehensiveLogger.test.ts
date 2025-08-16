@@ -1,10 +1,10 @@
 import { ComprehensiveLogger, startComprehensiveLogging } from '../../src/loggers/ComprehensiveLogger';
 import { RejectionType } from '../../src/loggers/RejectionTracker';
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import * as os from 'os';
 
-describe('ComprehensiveLogger', () => {
+describe("ComprehensiveLogger", () => {
   let logger: ComprehensiveLogger;
   const testLogDir = path.join(os.tmpdir(), 'test-comprehensive-logger');
 
@@ -25,7 +25,7 @@ describe('ComprehensiveLogger', () => {
     }
   });
 
-  describe('initialization', () => {
+  describe("initialization", () => {
     it('should create logger with default configuration', () => {
       logger = new ComprehensiveLogger();
       expect(logger).toBeDefined();
@@ -108,7 +108,7 @@ describe('ComprehensiveLogger', () => {
         status: 'in_progress'
       });
       
-      logger.logTaskChange('completed', 'TASK-001');
+      logger.logTaskChange("completed", 'TASK-001');
       
       const summary = logger.getSummary();
       expect(summary.eventsLogged).toBeGreaterThan(0);
@@ -124,7 +124,7 @@ describe('ComprehensiveLogger', () => {
         status: 'in_progress'
       });
       
-      logger.logFeatureChange('completed', 'FEAT-001');
+      logger.logFeatureChange("completed", 'FEAT-001');
       
       const summary = logger.getSummary();
       expect(summary.eventsLogged).toBeGreaterThan(0);
@@ -151,7 +151,7 @@ describe('ComprehensiveLogger', () => {
         size: 1024
       });
       
-      logger.logFileOperation('modified', '/test/file.txt', {
+      logger.logFileOperation("modified", '/test/file.txt', {
         size: 2048
       });
       
@@ -206,7 +206,7 @@ describe('ComprehensiveLogger', () => {
     });
   });
 
-  describe('querying', () => {
+  describe("querying", () => {
     beforeEach(async () => {
       logger = await startComprehensiveLogging({
         logDir: testLogDir
@@ -227,12 +227,12 @@ describe('ComprehensiveLogger', () => {
     });
 
     it('should query logs by search term', async () => {
-      logger.logEvent('Important message', 'info', { tag: 'important' });
+      logger.logEvent('Important message', 'info', { tag: "important" });
       logger.logEvent('Regular message', 'info');
       logger.logEvent('Another important note', 'info');
       
       const results = await logger.queryLogs({
-        search: 'important'
+        search: "important"
       });
       
       expect(results.length).toBeGreaterThanOrEqual(2);
@@ -272,7 +272,7 @@ describe('ComprehensiveLogger', () => {
     });
   });
 
-  describe('lifecycle', () => {
+  describe("lifecycle", () => {
     it('should start and stop properly', async () => {
       logger = new ComprehensiveLogger({
         logDir: testLogDir

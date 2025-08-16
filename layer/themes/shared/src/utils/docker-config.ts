@@ -71,7 +71,7 @@ export class DockerConfigGenerator {
     
     // Convert environment object to array format
     const envArray = Object.entries({
-      NODE_ENV: process.env.NODE_ENV || 'development',
+      NODE_ENV: process.env.NODE_ENV || "development",
       PORT: port,
       ...environment
     }).map(([key, value]) => `${key}=${value}`);
@@ -144,7 +144,7 @@ export class DockerConfigGenerator {
     interval: string = '30s',
     timeout: string = '10s',
     retries: number = 3
-  ): DockerComposeService['healthcheck'] {
+  ): DockerComposeService["healthcheck"] {
     return {
       test: ['CMD', 'curl', '-f', `http://localhost:${port}${path}`, '||', 'exit', '1'],
       interval,

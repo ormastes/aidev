@@ -6,7 +6,7 @@ import chalk from 'chalk';
 
 // Mocks are configured in jest.setup.js
 
-describe('ThemeSetup', () => {
+describe("ThemeSetup", () => {
   let themeSetup: ThemeSetup;
   const mockOptions: ThemeSetupOptions = {
     appName: 'test-theme-app',
@@ -27,12 +27,12 @@ describe('ThemeSetup', () => {
     jest.restoreAllMocks();
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with theme-specific properties', () => {
-      expect(themeSetup['themeName']).toBe('Test Theme');
-      expect(themeSetup['description']).toBe('Test theme description');
+      expect(themeSetup["themeName"]).toBe('Test Theme');
+      expect(themeSetup["description"]).toBe('Test theme description');
       expect(themeSetup['epicId']).toBe('epic-123');
-      expect(themeSetup['deploymentType']).toBe('theme');
+      expect(themeSetup["deploymentType"]).toBe('theme');
     });
 
     it('should generate default description when not provided', () => {
@@ -40,7 +40,7 @@ describe('ThemeSetup', () => {
         ...mockOptions,
         description: undefined,
       });
-      expect(setupWithoutDesc['description']).toBe('Agile theme: Test Theme');
+      expect(setupWithoutDesc["description"]).toBe('Agile theme: Test Theme');
     });
 
     it('should handle missing epicId', () => {
@@ -52,21 +52,21 @@ describe('ThemeSetup', () => {
     });
   });
 
-  describe('getDeployDir', () => {
+  describe("getDeployDir", () => {
     it('should return correct deployment directory path', () => {
       const deployDir = themeSetup.getDeployDir();
       expect(deployDir).toContain('scripts/setup/agile/themes/test-theme-app');
     });
   });
 
-  describe('getDbPassword', () => {
+  describe("getDbPassword", () => {
     it('should return theme-specific database password', () => {
       const password = themeSetup.getDbPassword();
       expect(password).toBe('theme_password_2024');
     });
   });
 
-  describe('getEnvConfig', () => {
+  describe("getEnvConfig", () => {
     it('should generate correct environment configuration with epic', () => {
       const envConfig = themeSetup.getEnvConfig();
       
@@ -94,35 +94,35 @@ describe('ThemeSetup', () => {
     });
   });
 
-  describe('getPortAllocation', () => {
+  describe("getPortAllocation", () => {
     it('should return correct port for theme deployment', () => {
-      const port = themeSetup['getPortAllocation']();
+      const port = themeSetup["getPortAllocation"]();
       const expectedPort = PORT_ALLOCATIONS.agile.main + 10;
       expect(port).toBe(expectedPort);
     });
   });
 
-  describe('createDeploymentConfig', () => {
+  describe("createDeploymentConfig", () => {
     beforeEach(() => {
       // Mock all the internal methods
-      themeSetup['createThemeDocumentation'] = jest.fn().mockResolvedValue(true);
-      themeSetup['createThemeStructure'] = jest.fn().mockResolvedValue(true);
-      themeSetup['createThemePackageJson'] = jest.fn().mockResolvedValue(true);
-      themeSetup['createStoryTemplates'] = jest.fn().mockResolvedValue(true);
+      themeSetup["createThemeDocumentation"] = jest.fn().mockResolvedValue(true);
+      themeSetup["createThemeStructure"] = jest.fn().mockResolvedValue(true);
+      themeSetup["createThemePackageJson"] = jest.fn().mockResolvedValue(true);
+      themeSetup["createStoryTemplates"] = jest.fn().mockResolvedValue(true);
     });
 
     it('should successfully create deployment configuration', async () => {
       const result = await themeSetup.createDeploymentConfig();
       
       expect(result).toBe(true);
-      expect(themeSetup['createThemeDocumentation']).toHaveBeenCalled();
-      expect(themeSetup['createThemeStructure']).toHaveBeenCalled();
-      expect(themeSetup['createThemePackageJson']).toHaveBeenCalled();
-      expect(themeSetup['createStoryTemplates']).toHaveBeenCalled();
+      expect(themeSetup["createThemeDocumentation"]).toHaveBeenCalled();
+      expect(themeSetup["createThemeStructure"]).toHaveBeenCalled();
+      expect(themeSetup["createThemePackageJson"]).toHaveBeenCalled();
+      expect(themeSetup["createStoryTemplates"]).toHaveBeenCalled();
     });
 
     it('should handle errors during deployment config creation', async () => {
-      themeSetup['createThemeDocumentation'] = jest.fn().mockRejectedValue(new Error('Doc creation failed'));
+      themeSetup["createThemeDocumentation"] = jest.fn().mockRejectedValue(new Error('Doc creation failed'));
       
       const result = await themeSetup.createDeploymentConfig();
       
@@ -131,11 +131,11 @@ describe('ThemeSetup', () => {
     });
   });
 
-  describe('createThemeDocumentation', () => {
+  describe("createThemeDocumentation", () => {
     it('should create theme documentation files', async () => {
       (fs.writeFile as unknown as jest.Mock).mockResolvedValue(undefined);
       
-      await themeSetup['createThemeDocumentation']();
+      await themeSetup["createThemeDocumentation"]();
       
       // Check THEME.md creation
       expect(fs.writeFile).toHaveBeenCalledWith(
@@ -145,26 +145,26 @@ describe('ThemeSetup', () => {
     });
   });
 
-  describe('createThemeStructure', () => {
+  describe("createThemeStructure", () => {
     it('should create theme directory structure', async () => {
       (fs.ensureDir as jest.Mock).mockResolvedValue(undefined);
       
-      await themeSetup['createThemeStructure']();
+      await themeSetup["createThemeStructure"]();
       
       // Check that theme directories are created
       expect(fs.ensureDir).toHaveBeenCalledWith(expect.stringContaining('stories'));
       expect(fs.ensureDir).toHaveBeenCalledWith(expect.stringContaining('designs'));
-      expect(fs.ensureDir).toHaveBeenCalledWith(expect.stringContaining('documentation'));
+      expect(fs.ensureDir).toHaveBeenCalledWith(expect.stringContaining("documentation"));
       expect(fs.ensureDir).toHaveBeenCalledWith(expect.stringContaining('tests'));
-      expect(fs.ensureDir).toHaveBeenCalledWith(expect.stringContaining('resources'));
+      expect(fs.ensureDir).toHaveBeenCalledWith(expect.stringContaining("resources"));
     });
   });
 
-  describe('createThemePackageJson', () => {
+  describe("createThemePackageJson", () => {
     it('should create theme-specific package.json', async () => {
       (fs.writeJson as jest.Mock).mockResolvedValue(undefined);
       
-      await themeSetup['createThemePackageJson']();
+      await themeSetup["createThemePackageJson"]();
       
       expect(fs.writeJson).toHaveBeenCalledWith(
         expect.stringContaining('package.json'),
@@ -176,11 +176,11 @@ describe('ThemeSetup', () => {
     });
   });
 
-  describe('createStoryTemplates', () => {
+  describe("createStoryTemplates", () => {
     it('should create story template files', async () => {
       (fs.writeFile as unknown as jest.Mock).mockResolvedValue(undefined);
       
-      await themeSetup['createStoryTemplates']();
+      await themeSetup["createStoryTemplates"]();
       
       // Check story template creation
       expect(fs.writeFile).toHaveBeenCalledWith(
@@ -190,7 +190,7 @@ describe('ThemeSetup', () => {
     });
   });
 
-  describe('printSuccessMessage', () => {
+  describe("printSuccessMessage", () => {
     it('should print theme-specific success message', () => {
       themeSetup.printSuccessMessage();
       

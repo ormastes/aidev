@@ -1,4 +1,5 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { fileAPI } from '../utils/file-api';
+import { EventEmitter } from 'node:events';
 import { path } from '../../../../../infra_external-log-lib/src';
 
 // Import types from chat-space theme
@@ -9,7 +10,7 @@ export interface ChatMessage {
   username: string;
   content: string;
   timestamp: Date;
-  type: 'text' | 'command' | 'system' | 'workflow';
+  type: 'text' | 'command' | 'system' | "workflow";
 }
 
 export interface ChatRoom {
@@ -62,7 +63,7 @@ export class ChatSpaceConnector extends EventEmitter {
       path.join(__dirname, '../../../../../../chat-space');
     this.sharedEventBus = config.eventBus;
     this.connected = false;
-    this.botUsername = config.botUsername || 'CoordinatorBot';
+    this.botUsername = config.botUsername || "CoordinatorBot";
     this.messageHandlers = new Map();
     this.commandHandlers = new Map();
 
@@ -71,7 +72,7 @@ export class ChatSpaceConnector extends EventEmitter {
 
     // Auto-join rooms if specified
     if (config.autoJoinRooms && config.autoJoinRooms.length > 0) {
-      this.once('connected', () => {
+      this.once("connected", () => {
         config.autoJoinRooms!.forEach(room => this.joinRoom(room));
       });
     }
@@ -96,7 +97,7 @@ export class ChatSpaceConnector extends EventEmitter {
       this.setupEventListeners();
 
       this.connected = true;
-      this.emit('connected', { 
+      this.emit("connected", { 
         username: this.botUsername,
         userId: this.currentUser?.id 
       });
@@ -126,14 +127,14 @@ export class ChatSpaceConnector extends EventEmitter {
     this.connected = false;
     this.currentUser = undefined;
     
-    this.emit('disconnected');
+    this.emit("disconnected");
   }
 
   async sendMessage(
     content: string,
     options: {
       roomId?: string;
-      type?: 'text' | 'system' | 'workflow';
+      type?: 'text' | 'system' | "workflow";
       metadata?: Record<string, any>;
     } = {}
   ): Promise<void> {
@@ -226,7 +227,7 @@ export class ChatSpaceConnector extends EventEmitter {
 
   private registerDefaultHandlers(): void {
     // Handle coordinator-specific commands
-    this.onCommand('coordinator', async (cmd) => {
+    this.onCommand("coordinator", async (cmd) => {
       const subCommand = cmd.args[0];
       
       switch (subCommand) {
@@ -248,11 +249,11 @@ export class ChatSpaceConnector extends EventEmitter {
           );
           break;
           
-        case 'permissions':
+        case "permissions":
           this.emit('permissions_requested', { roomId: cmd.roomId });
           break;
           
-        case 'dangerous':
+        case "dangerous":
           const mode = cmd.args[1];
           this.emit('dangerous_mode_requested', { 
             roomId: cmd.roomId,
@@ -267,7 +268,7 @@ export class ChatSpaceConnector extends EventEmitter {
     });
 
     // Handle workflow triggers
-    this.onCommand('workflow', async (cmd) => {
+    this.onCommand("workflow", async (cmd) => {
       this.emit('workflow_triggered', {
         roomId: cmd.roomId,
         userId: cmd.userId,
@@ -443,7 +444,7 @@ export class ChatSpaceConnector extends EventEmitter {
   async sendWorkflowUpdate(
     roomId: string,
     workflow: string,
-    status: 'started' | 'In Progress' | 'failed',
+    status: 'started' | "completed" | 'failed',
     details?: any
   ): Promise<void> {
     const message = `Workflow ${workflow} ${status}` + 
@@ -451,7 +452,7 @@ export class ChatSpaceConnector extends EventEmitter {
     
     await this.sendMessage(message, {
       roomId,
-      type: 'workflow',
+      type: "workflow",
       metadata: { workflow, status, details }
     });
   }

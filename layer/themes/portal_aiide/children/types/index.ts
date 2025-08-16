@@ -17,7 +17,7 @@ export interface ChatSession {
 
 export interface ChatMessage {
   id: string;
-  role: 'user' | 'assistant' | 'system';
+  role: 'user' | "assistant" | 'system';
   content: string;
   timestamp: Date;
   tokens?: number;
@@ -28,7 +28,7 @@ export interface ChatMessage {
 export interface LLMProvider {
   id: string;
   name: string;
-  type: 'claude' | 'ollama' | 'deepseek' | 'openai' | 'custom';
+  type: 'claude' | 'ollama' | "deepseek" | 'openai' | 'custom';
   endpoint?: string;
   apiKey?: string;
   models: string[];
@@ -57,7 +57,7 @@ export interface FileNode {
   id: string;
   name: string;
   path: string;
-  type: 'file' | 'directory';
+  type: 'file' | "directory";
   children?: FileNode[];
   size?: number;
   modified?: Date;
@@ -76,7 +76,7 @@ export interface OpenFile {
 }
 
 export interface GitStatus {
-  status: 'modified' | 'added' | 'deleted' | 'renamed' | 'untracked';
+  status: "modified" | 'added' | 'deleted' | 'renamed' | "untracked";
   staged: boolean;
 }
 
@@ -146,7 +146,7 @@ export interface LayoutConfig {
 
 export interface PanelConfig {
   id: string;
-  type: 'file-explorer' | 'editor' | 'chat' | 'terminal' | 'context' | 'preview';
+  type: 'file-explorer' | 'editor' | 'chat' | "terminal" | 'context' | 'preview';
   position: PanelPosition;
   size: PanelSize;
   visible: boolean;

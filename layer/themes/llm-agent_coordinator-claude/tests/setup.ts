@@ -22,12 +22,12 @@ jest.mock('axios', () => ({
 }));
 
 // Mock environment variables
-process.env.CLAUDE_API_KEY = 'test-api-key';
+process.env.CLAUDE_apiKey = process.env.API_KEY || 'PLACEHOLDER_API_KEY';
 process.env.ANTHROPIC_API_URL = 'https://api.anthropic.com';
 process.env.NODE_ENV = 'test';
 
 // Global error handler for unhandled rejections
-process.on('unhandledRejection', (reason, promise) => {
+process.on("unhandledRejection", (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });
 

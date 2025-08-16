@@ -1,13 +1,13 @@
 import { VLLMClient } from '../../../src/services/vllm-client';
 import { http } from '../../../../../../infra_external-log-lib/src';
 import { https } from '../../../../../../infra_external-log-lib/src';
-import { EventEmitter, PassThrough } from 'stream';
+import { EventEmitter, PassThrough } from 'node:stream';
 
 // Mock dependencies
 jest.mock('http');
 jest.mock('https');
 
-describe('VLLMClient', () => {
+describe("VLLMClient", () => {
   let client: VLLMClient;
   let mockRequest: jest.MockedFunction<typeof http.request>;
   let mockHttpsRequest: jest.MockedFunction<typeof https.request>;
@@ -22,19 +22,19 @@ describe('VLLMClient', () => {
     delete process.env.VLLM_API_KEY;
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should use default configuration', () => {
       client = new VLLMClient();
       expect(client['baseUrl']).toBe('http://localhost:8000');
       expect(client['apiKey']).toBeUndefined();
       expect(client['timeout']).toBe(30000);
-      expect(client['maxRetries']).toBe(3);
+      expect(client["maxRetries"]).toBe(3);
     });
 
     it('should use provided configuration', () => {
       client = new VLLMClient({
         baseUrl: 'http://custom:9000',
-        apiKey: 'test-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         timeout: 60000,
         maxRetries: 5
       });
@@ -42,12 +42,12 @@ describe('VLLMClient', () => {
       expect(client['baseUrl']).toBe('http://custom:9000');
       expect(client['apiKey']).toBe('test-key');
       expect(client['timeout']).toBe(60000);
-      expect(client['maxRetries']).toBe(5);
+      expect(client["maxRetries"]).toBe(5);
     });
 
     it('should use environment variables', () => {
       process.env.VLLM_SERVER_URL = 'http://env-server:8080';
-      process.env.VLLM_API_KEY = 'env-key';
+      process.env.VLLM_apiKey = process.env.API_KEY || 'PLACEHOLDER_API_KEY';
       
       client = new VLLMClient();
       expect(client['baseUrl']).toBe('http://env-server:8080');
@@ -56,7 +56,7 @@ describe('VLLMClient', () => {
 
   });
 
-  describe('checkHealth', () => {
+  describe("checkHealth", () => {
     beforeEach(() => {
       client = new VLLMClient();
     });
@@ -66,7 +66,7 @@ describe('VLLMClient', () => {
       mockRequest.mockImplementation((_options: any, callback: any) => {
         const req = createMockRequest();
         setImmediate(() => {
-          if (typeof callback === 'function') callback(mockResponse as any);
+          if (typeof callback === "function") callback(mockResponse as any);
           mockResponse.emit('data', JSON.stringify({ status: 'ok' }));
           mockResponse.emit('end');
         });
@@ -82,7 +82,7 @@ describe('VLLMClient', () => {
       mockRequest.mockImplementation((_options: any, callback: any) => {
         const req = createMockRequest();
         setImmediate(() => {
-          if (typeof callback === 'function') callback(mockResponse as any);
+          if (typeof callback === "function") callback(mockResponse as any);
           mockResponse.emit('data', JSON.stringify({ status: 'healthy' }));
           mockResponse.emit('end');
         });
@@ -108,7 +108,7 @@ describe('VLLMClient', () => {
       mockRequest.mockImplementationOnce((_options: any, callback: any) => {
         const req = createMockRequest();
         setImmediate(() => {
-          if (typeof callback === 'function') callback(mockResponse as any);
+          if (typeof callback === "function") callback(mockResponse as any);
           mockResponse.emit('data', JSON.stringify({ 
             data: [{ id: 'model-1', object: 'model' }] 
           }));
@@ -135,7 +135,7 @@ describe('VLLMClient', () => {
     });
   });
 
-  describe('listModels', () => {
+  describe("listModels", () => {
     beforeEach(() => {
       client = new VLLMClient();
     });
@@ -152,7 +152,7 @@ describe('VLLMClient', () => {
       mockRequest.mockImplementation((_options: any, callback: any) => {
         const req = createMockRequest();
         setImmediate(() => {
-          if (typeof callback === 'function') callback(mockResponse as any);
+          if (typeof callback === "function") callback(mockResponse as any);
           mockResponse.emit('data', JSON.stringify(mockModels));
           mockResponse.emit('end');
         });
@@ -177,7 +177,7 @@ describe('VLLMClient', () => {
     });
   });
 
-  describe('hasModel', () => {
+  describe("hasModel", () => {
     beforeEach(() => {
       client = new VLLMClient();
     });
@@ -187,7 +187,7 @@ describe('VLLMClient', () => {
       mockRequest.mockImplementation((_options: any, callback: any) => {
         const req = createMockRequest();
         setImmediate(() => {
-          if (typeof callback === 'function') callback(mockResponse as any);
+          if (typeof callback === "function") callback(mockResponse as any);
           mockResponse.emit('data', JSON.stringify({
             data: [
               { id: 'model-1', object: 'model' },
@@ -208,7 +208,7 @@ describe('VLLMClient', () => {
       mockRequest.mockImplementation((_options: any, callback: any) => {
         const req = createMockRequest();
         setImmediate(() => {
-          if (typeof callback === 'function') callback(mockResponse as any);
+          if (typeof callback === "function") callback(mockResponse as any);
           mockResponse.emit('data', JSON.stringify({
             data: [{ id: 'model-1', object: 'model' }]
           }));
@@ -240,7 +240,7 @@ describe('VLLMClient', () => {
         model: 'test-model',
         choices: [{
           index: 0,
-          message: { role: 'assistant', content: 'Direct response' },
+          message: { role: "assistant", content: 'Direct response' },
           finish_reason: 'stop'
         }]
       };
@@ -248,7 +248,7 @@ describe('VLLMClient', () => {
       mockRequest.mockImplementation((_options: any, callback: any) => {
         const req = createMockRequest();
         setImmediate(() => {
-          if (typeof callback === 'function') callback(mockResponse as any);
+          if (typeof callback === "function") callback(mockResponse as any);
           mockResponse.emit('data', JSON.stringify(chatResponse));
           mockResponse.emit('end');
         });
@@ -262,7 +262,7 @@ describe('VLLMClient', () => {
     });
   });
 
-  describe('chatStream', () => {
+  describe("chatStream", () => {
     const chatRequest = {
       model: 'test-model',
       messages: [
@@ -278,8 +278,8 @@ describe('VLLMClient', () => {
         })
       };
 
-      client = new VLLMClient({ apiKey: 'test-key' });
-      client['openaiClient'] = mockOpenAIClient as any;
+      client = new VLLMClient({ api_key: process.env.API_KEY || "PLACEHOLDER" });
+      client["openaiClient"] = mockOpenAIClient as any;
 
       const generator = client.chatStream(chatRequest);
       const results: any[] = [];
@@ -311,7 +311,7 @@ describe('VLLMClient', () => {
       mockRequest.mockImplementation((_options: any, callback: any) => {
         const req = createMockRequest();
         setImmediate(() => {
-          if (typeof callback === 'function') callback(mockResponse as any);
+          if (typeof callback === "function") callback(mockResponse as any);
           mockResponse.statusCode = 200;
           
           // Simulate SSE data
@@ -334,7 +334,7 @@ describe('VLLMClient', () => {
     });
   });
 
-  describe('getMetrics', () => {
+  describe("getMetrics", () => {
     beforeEach(() => {
       client = new VLLMClient();
     });
@@ -349,7 +349,7 @@ describe('VLLMClient', () => {
       mockRequest.mockImplementation((_options: any, callback: any) => {
         const req = createMockRequest();
         setImmediate(() => {
-          if (typeof callback === 'function') callback(mockResponse as any);
+          if (typeof callback === "function") callback(mockResponse as any);
           mockResponse.emit('data', JSON.stringify(mockMetrics));
           mockResponse.emit('end');
         });
@@ -395,7 +395,7 @@ describe('VLLMClient', () => {
             req.emit('error', new Error('Connection failed'));
           } else {
             const mockResponse = createMockResponse();
-            if (typeof callback === 'function') callback(mockResponse as any);
+            if (typeof callback === "function") callback(mockResponse as any);
             mockResponse.emit('data', JSON.stringify({ status: 'ok' }));
             mockResponse.emit('end');
           }
@@ -439,7 +439,7 @@ describe('VLLMClient', () => {
       mockHttpsRequest.mockImplementation((options, callback) => {
         const req = createMockRequest();
         setImmediate(() => {
-          if (typeof callback === 'function') callback(mockResponse as any);
+          if (typeof callback === "function") callback(mockResponse as any);
           mockResponse.emit('data', JSON.stringify({ status: 'ok' }));
           mockResponse.emit('end');
         });

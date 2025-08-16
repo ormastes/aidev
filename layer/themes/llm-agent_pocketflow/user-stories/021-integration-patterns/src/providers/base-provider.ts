@@ -107,7 +107,7 @@ export abstract class BaseProvider implements LLMProvider {
     };
 
     if (this.config.apiKey) {
-      headers['Authorization'] = `Bearer ${this.config.apiKey}`;
+      headers["Authorization"] = `Bearer ${this.config.apiKey}`;
     }
 
     return headers;
@@ -137,7 +137,7 @@ export abstract class BaseProvider implements LLMProvider {
       return response;
     } catch (error) {
       const err = error as Error;
-      if (err.name === 'AbortError') {
+      if (err.name === "AbortError") {
         throw new Error('Request timeout');
       }
       throw error;

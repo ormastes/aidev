@@ -6,7 +6,7 @@
 import * as fs from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
 import { exec } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import { CppCoverageChecker } from './cpp-coverage-setup';
 import { CppDuplicationAnalyzer } from './cpp-duplication-setup';
 import { CppThresholdValidator } from './cpp-threshold-config';
@@ -27,7 +27,7 @@ export interface UnifiedMetricsConfig {
 }
 
 export interface LanguageConfig {
-  language: 'typescript' | 'javascript' | 'cpp' | 'c';
+  language: "typescript" | "javascript" | 'cpp' | 'c';
   enabled: boolean;
   tools: {
     coverage?: string;
@@ -39,10 +39,10 @@ export interface LanguageConfig {
   exclude: string[];
 }
 
-export type MetricType = 'coverage' | 'duplication' | 'complexity' | 'maintainability' | 'security' | 'performance';
+export type MetricType = "coverage" | "duplication" | "complexity" | "maintainability" | "security" | "performance";
 
 export interface ReportingConfig {
-  formats: ('html' | 'json' | 'markdown' | 'xml' | 'badge')[];
+  formats: ('html' | 'json' | "markdown" | 'xml' | 'badge')[];
   outputDirectory: string;
   unifiedReport: boolean;
   perLanguageReports: boolean;
@@ -148,7 +148,7 @@ export class UnifiedQualitySetup {
   private defaultConfig: UnifiedMetricsConfig = {
     languages: [
       {
-        language: 'typescript',
+        language: "typescript",
         enabled: true,
         tools: {
           coverage: 'jest',
@@ -157,7 +157,7 @@ export class UnifiedQualitySetup {
           linting: 'eslint'
         },
         paths: ['src', 'lib'],
-        exclude: ['node_modules', 'dist', 'coverage']
+        exclude: ['node_modules', 'dist', "coverage"]
       },
       {
         language: 'cpp',
@@ -169,10 +169,10 @@ export class UnifiedQualitySetup {
           linting: 'clang-tidy'
         },
         paths: ['src', 'include'],
-        exclude: ['build', 'third_party', 'external']
+        exclude: ['build', 'third_party', "external"]
       }
     ],
-    metrics: ['coverage', 'duplication', 'complexity', 'maintainability'],
+    metrics: ["coverage", "duplication", "complexity", "maintainability"],
     reporting: {
       formats: ['html', 'json', 'badge'],
       outputDirectory: 'quality-reports',
@@ -254,7 +254,7 @@ export class UnifiedQualitySetup {
       path.join(projectPath, config.reporting.outputDirectory),
       path.join(projectPath, config.reporting.outputDirectory, 'history'),
       path.join(projectPath, config.reporting.outputDirectory, 'badges'),
-      path.join(projectPath, config.reporting.outputDirectory, 'typescript'),
+      path.join(projectPath, config.reporting.outputDirectory, "typescript"),
       path.join(projectPath, config.reporting.outputDirectory, 'cpp')
     ];
     
@@ -276,8 +276,8 @@ export class UnifiedQualitySetup {
     console.log(`  Setting up ${langConfig.language} quality tools...`);
     
     switch (langConfig.language) {
-      case 'typescript':
-      case 'javascript':
+      case "typescript":
+      case "javascript":
         await this.setupTypeScriptQuality(projectPath, langConfig, config);
         break;
       case 'cpp':
@@ -296,7 +296,7 @@ export class UnifiedQualitySetup {
     if (langConfig.tools.coverage === 'jest') {
       const jestConfig = {
         collectCoverage: true,
-        coverageDirectory: path.join(config.reporting.outputDirectory, 'typescript', 'coverage'),
+        coverageDirectory: path.join(config.reporting.outputDirectory, "typescript", "coverage"),
         coverageReporters: ['json', 'lcov', 'text', 'html'],
         coverageThreshold: {
           global: {
@@ -320,9 +320,9 @@ export class UnifiedQualitySetup {
         threshold: config.thresholds.duplication.ratio,
         minTokens: config.thresholds.duplication.minTokens,
         reporters: ['json', 'html'],
-        output: path.join(config.reporting.outputDirectory, 'typescript', 'duplication'),
+        output: path.join(config.reporting.outputDirectory, "typescript", "duplication"),
         ignore: langConfig.exclude,
-        format: ['typescript', 'javascript']
+        format: ["typescript", "javascript"]
       };
       
       const jscpdConfigPath = path.join(projectPath, '.jscpd.json');
@@ -332,7 +332,7 @@ export class UnifiedQualitySetup {
     // ESLint configuration for complexity
     if (langConfig.tools.complexity === 'eslint') {
       const eslintRules = {
-        'complexity': ['error', config.thresholds.complexity.cyclomatic],
+        "complexity": ['error', config.thresholds.complexity.cyclomatic],
         'max-depth': ['error', 4],
         'max-lines': ['error', 300],
         'max-lines-per-function': ['error', 50],
@@ -439,7 +439,7 @@ analyzer.runFullAnalysis('${projectPath}').then(metrics => {
   }
 
   private async createMetricScripts(projectPath: string, config: UnifiedMetricsConfig): Promise<void> {
-    const metrics = ['coverage', 'duplication', 'complexity', 'maintainability'];
+    const metrics = ["coverage", "duplication", "complexity", "maintainability"];
     
     for (const metric of metrics) {
       const script = `#!/bin/bash
@@ -587,8 +587,8 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          const fs = require('fs');
-          const report = JSON.parse(fs.readFileSync('${config.reporting.outputDirectory}/unified-report.json', 'utf-8'));
+          const fs = require('../../layer/themes/infra_external-log-lib/src');
+          const report = JSON.parse(fileAPI.readFileSync('${config.reporting.outputDirectory}/unified-report.json', 'utf-8'));
           
           const comment = \`## 📊 Quality Metrics Report
           
@@ -615,7 +615,7 @@ jobs:
           });
 `;
     
-    const workflowDir = path.join(projectPath, '.github', 'workflows');
+    const workflowDir = path.join(projectPath, '.github', "workflows");
     await fileAPI.createDirectory(workflowDir);
     await fileAPI.createFile(path.join(workflowDir, 'quality.yml'), { type: FileType.TEMPORARY });
   }
@@ -786,19 +786,19 @@ echo "✅ Quality checks passed!"
             document.getElementById('quality-grade').textContent = 'Grade: ' + data.overall.grade;
             
             const coverage = data.languages.overall?.coverage || {};
-            document.getElementById('coverage').textContent = (coverage.line || 0).toFixed(1) + '%';
-            document.getElementById('coverage').className = 'metric-value ' + getScoreClass(coverage.line);
+            document.getElementById("coverage").textContent = (coverage.line || 0).toFixed(1) + '%';
+            document.getElementById("coverage").className = 'metric-value ' + getScoreClass(coverage.line);
             document.getElementById('coverage-details').textContent = 
                 \`Line: \${coverage.line?.toFixed(1) || 0}% | Branch: \${coverage.branch?.toFixed(1) || 0}%\`;
             
             const duplication = data.languages.overall?.duplication || {};
-            document.getElementById('duplication').textContent = (duplication.ratio || 0).toFixed(1) + '%';
-            document.getElementById('duplication').className = 'metric-value ' + (duplication.ratio < 5 ? 'good' : duplication.ratio < 10 ? 'warning' : 'bad');
+            document.getElementById("duplication").textContent = (duplication.ratio || 0).toFixed(1) + '%';
+            document.getElementById("duplication").className = 'metric-value ' + (duplication.ratio < 5 ? 'good' : duplication.ratio < 10 ? 'warning' : 'bad');
             document.getElementById('duplication-details').textContent = \`\${duplication.duplications || 0} duplications found\`;
             
             const complexity = data.languages.overall?.complexity || {};
-            document.getElementById('complexity').textContent = (complexity.average || 0).toFixed(1);
-            document.getElementById('complexity').className = 'metric-value ' + (complexity.average < 10 ? 'good' : complexity.average < 20 ? 'warning' : 'bad');
+            document.getElementById("complexity").textContent = (complexity.average || 0).toFixed(1);
+            document.getElementById("complexity").className = 'metric-value ' + (complexity.average < 10 ? 'good' : complexity.average < 20 ? 'warning' : 'bad');
             document.getElementById('complexity-details').textContent = \`Max: \${complexity.max || 0}\`;
             
             document.getElementById('last-updated').textContent = 'Last updated: ' + new Date(data.timestamp).toLocaleString();
@@ -833,13 +833,13 @@ echo "✅ Quality checks passed!"
                             tension: 0.1
                         },
                         {
-                            label: 'Coverage',
+                            label: "Coverage",
                             data: trends.map(t => t.coverage),
                             borderColor: 'rgb(54, 162, 235)',
                             tension: 0.1
                         },
                         {
-                            label: 'Duplication',
+                            label: "Duplication",
                             data: trends.map(t => t.duplication),
                             borderColor: 'rgb(255, 99, 132)',
                             tension: 0.1
@@ -933,7 +933,7 @@ const server = http.createServer((req, { type: FileType.TEMPORARY }) => {
   if (req.url === '/api/metrics') {
     try {
       const metricsPath = path.join(REPORTS_DIR, 'unified-report.json');
-      const metrics = JSON.parse(fs.readFileSync(metricsPath, 'utf-8'));
+      const metrics = JSON.parse(fileAPI.readFileSync(metricsPath, 'utf-8'));
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify(metrics));
     } catch (error) {
@@ -941,7 +941,7 @@ const server = http.createServer((req, { type: FileType.TEMPORARY }) => {
       res.end(JSON.stringify({ error: 'Failed to load metrics' }));
     }
   } else if (req.url === '/') {
-    const html = fs.readFileSync(path.join(REPORTS_DIR, 'dashboard.html'), 'utf-8');
+    const html = fileAPI.readFileSync(path.join(REPORTS_DIR, 'dashboard.html'), 'utf-8');
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end(html);
   } else {
@@ -1022,7 +1022,7 @@ server.listen(PORT, () => {
 export class UnifiedQualityAnalyzer {
   async runFullAnalysis(projectPath: string): Promise<QualityMetrics> {
     const configPath = path.join(projectPath, '.quality', 'config.json');
-    const config: UnifiedMetricsConfig = JSON.parse(await fs.readFile(configPath, 'utf-8'));
+    const config: UnifiedMetricsConfig = JSON.parse(await fileAPI.readFile(configPath, 'utf-8'));
     
     const metrics: QualityMetrics = {
       timestamp: new Date().toISOString(),
@@ -1073,22 +1073,22 @@ export class UnifiedQualityAnalyzer {
     const metrics: LanguageMetrics = {};
     
     // Get coverage
-    if (config.metrics.includes('coverage')) {
+    if (config.metrics.includes("coverage")) {
       metrics.coverage = await this.getCoverageMetrics(projectPath, langConfig);
     }
     
     // Get duplication
-    if (config.metrics.includes('duplication')) {
+    if (config.metrics.includes("duplication")) {
       metrics.duplication = await this.getDuplicationMetrics(projectPath, langConfig);
     }
     
     // Get complexity
-    if (config.metrics.includes('complexity')) {
+    if (config.metrics.includes("complexity")) {
       metrics.complexity = await this.getComplexityMetrics(projectPath, langConfig);
     }
     
     // Calculate maintainability
-    if (config.metrics.includes('maintainability')) {
+    if (config.metrics.includes("maintainability")) {
       metrics.maintainability = this.calculateMaintainability(metrics);
     }
     
@@ -1216,7 +1216,7 @@ export class UnifiedQualityAnalyzer {
     const trendsPath = path.join(projectPath, config.reporting.outputDirectory, 'history', 'trends.json');
     
     try {
-      const content = await fs.readFile(trendsPath, 'utf-8');
+      const content = await fileAPI.readFile(trendsPath, 'utf-8');
       return JSON.parse(content);
     } catch {
       return [];

@@ -15,7 +15,7 @@ import { useTheme } from '../../styles/ThemeContext';
 
 export interface CardProps {
   children: ReactNode;
-  variant?: 'elevated' | 'outlined' | 'filled';
+  variant?: "elevated" | "outlined" | 'filled';
   onPress?: () => void;
   style?: ViewStyle;
   padding?: boolean;
@@ -85,12 +85,12 @@ export const Card: React.FC<CardProps> & {
   Header: typeof CardHeader;
   Body: typeof CardBody;
   Footer: typeof CardFooter;
-} = ({ children, variant = 'elevated', onPress, style, padding = true }) => {
+} = ({ children, variant = "elevated", onPress, style, padding = true }) => {
   const theme = useTheme();
 
   const getVariantStyles = (): ViewStyle => {
     switch (variant) {
-      case 'outlined':
+      case "outlined":
         return {
           backgroundColor: theme.colors.surface,
           borderWidth: 1,

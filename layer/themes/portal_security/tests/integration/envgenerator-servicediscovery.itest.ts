@@ -124,7 +124,7 @@ describe('EnvGenerator integrates with ServiceDiscovery', () => {
     it('should handle services with dependencies', async () => {
       // Register services with dependencies
       await serviceDiscovery.registerService('test', {
-        name: 'database',
+        name: "database",
         port: 5432,
         protocol: 'http'
       });
@@ -139,7 +139,7 @@ describe('EnvGenerator integrates with ServiceDiscovery', () => {
         name: 'api',
         port: 3000,
         protocol: 'http',
-        dependencies: ['database', 'cache']
+        dependencies: ["database", 'cache']
       });
 
       // Generate env file
@@ -164,7 +164,7 @@ describe('EnvGenerator integrates with ServiceDiscovery', () => {
       });
 
       // Register service for development environment
-      await serviceDiscovery.registerService('development', {
+      await serviceDiscovery.registerService("development", {
         name: 'dev-api',
         port: 3000,
         protocol: 'http'
@@ -180,7 +180,7 @@ describe('EnvGenerator integrates with ServiceDiscovery', () => {
 
       // Generate development env
       const devResult = await envGenerator.generateEnvFile({
-        environment: 'development',
+        environment: "development",
         outputPath: path.join(testOutputDir, '.env.dev'),
         includeServiceUrls: true,
         includeSecrets: false
@@ -231,7 +231,7 @@ describe('EnvGenerator integrates with ServiceDiscovery', () => {
     it('should include base URLs for the environment', async () => {
       // Generate for different environments
       const devResult = await envGenerator.generateEnvFile({
-        environment: 'development',
+        environment: "development",
         outputPath: path.join(testOutputDir, '.env.dev.urls'),
         includeServiceUrls: true,
         includeSecrets: false
@@ -266,7 +266,7 @@ describe('EnvGenerator integrates with ServiceDiscovery', () => {
       });
 
       // Spy on health check
-      const healthCheckSpy = jest.spyOn(serviceDiscovery, 'checkServiceHealth');
+      const healthCheckSpy = jest.spyOn(serviceDiscovery, "checkServiceHealth");
 
       // Manually set service status
       authService.status = 'online';
@@ -339,7 +339,7 @@ describe('EnvGenerator integrates with ServiceDiscovery', () => {
   describe('Multiple Environments', () => {
     it('should maintain separate service registrations per environment', async () => {
       // Register different services for different environments
-      await serviceDiscovery.registerService('development', {
+      await serviceDiscovery.registerService("development", {
         name: 'dev-only-service',
         port: 3001,
         protocol: 'http'
@@ -359,7 +359,7 @@ describe('EnvGenerator integrates with ServiceDiscovery', () => {
 
       // Generate env files for each environment
       const devResult = await envGenerator.generateEnvFile({
-        environment: 'development',
+        environment: "development",
         outputPath: path.join(testOutputDir, '.env.dev.multi'),
         includeServiceUrls: true,
         includeSecrets: false

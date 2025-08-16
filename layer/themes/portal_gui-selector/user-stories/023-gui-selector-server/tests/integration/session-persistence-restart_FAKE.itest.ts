@@ -11,7 +11,7 @@ import express from 'express';
 import session from 'express-session';
 import { path } from '../../../../../infra_external-log-lib/src';
 import { fs } from '../../../../../infra_external-log-lib/src';
-import { Server } from 'http';
+import { Server } from 'node:http';
 
 // Session interfaces
 interface SessionData {
@@ -24,7 +24,7 @@ interface SessionData {
 }
 
 interface SessionStoreInterface {
-  create(sessionData: Omit<SessionData, 'sessionId'>): Promise<SessionData>;
+  create(sessionData: Omit<SessionData, "sessionId">): Promise<SessionData>;
   get(sessionId: string): Promise<SessionData | null>;
   update(sessionId: string, updates: Partial<SessionData>): Promise<SessionData | null>;
   delete(sessionId: string): Promise<boolean>;
@@ -54,7 +54,7 @@ class FileSessionStore implements SessionStoreInterface {
     return path.join(this.storePath, `session_${sessionId}.json`);
   }
 
-  async create(sessionData: Omit<SessionData, 'sessionId'>): Promise<SessionData> {
+  async create(sessionData: Omit<SessionData, "sessionId">): Promise<SessionData> {
     const sessionId = `session_${Date.now()}_${++this.sessionCounter}`;
     const newSession: SessionData = {
       ...sessionData,
@@ -272,14 +272,14 @@ class PersistentServerSimulator {
   };
 
   constructor(private storageDir: string) {
-    this.sessionStore = new FileSessionStore(path.join(storageDir, 'sessions'));
+    this.sessionStore = new FileSessionStore(path.join(storageDir, "sessions"));
     this.dataStore = new MockDataStore(path.join(storageDir, 'data.json'));
     this.serverState = {
-      restartCount: this.dataStore.get('restartCount') || 0,
+      restartCount: this.dataStore.get("restartCount") || 0,
       recoveredSessions: 0,
       startTime: new Date(),
-      lastRestartTime: this.dataStore.get('lastRestartTime') ? 
-        new Date(this.dataStore.get('lastRestartTime')) : undefined
+      lastRestartTime: this.dataStore.get("lastRestartTime") ? 
+        new Date(this.dataStore.get("lastRestartTime")) : undefined
     };
   }
 
@@ -313,8 +313,8 @@ class PersistentServerSimulator {
   async simulateRestart(): Promise<void> {
     this.serverState.restartCount++;
     this.serverState.lastRestartTime = new Date();
-    this.dataStore.set('restartCount', this.serverState.restartCount);
-    this.dataStore.set('lastRestartTime', this.serverState.lastRestartTime.toISOString());
+    this.dataStore.set("restartCount", this.serverState.restartCount);
+    this.dataStore.set("lastRestartTime", this.serverState.lastRestartTime.toISOString());
     
     // Cleanup expired sessions during "restart"
     await this.sessionStore.cleanup();
@@ -402,7 +402,7 @@ describe('Session Persistence Restart Integration Test (FAKE)', () => {
       expect(session.data.userPreferences.theme).toBe('dark');
 
       // Step 2: Store some application data
-      persistentServer.storeData('userSelection', { templateId: 'modern-theme' });
+      persistentServer.storeData("userSelection", { templateId: 'modern-theme' });
 
       // Step 3: Simulate server restart
       await persistentServer.simulateRestart();
@@ -415,7 +415,7 @@ describe('Session Persistence Restart Integration Test (FAKE)', () => {
       expect(recoveredSession!.data.userPreferences.theme).toBe('dark');
 
       // Step 5: Verify data persistence
-      const recoveredData = persistentServer.getData('userSelection');
+      const recoveredData = persistentServer.getData("userSelection");
       expect(recoveredData.templateId).toBe('modern-theme');
 
       // Step 6: Verify restart tracking
@@ -468,7 +468,7 @@ describe('Session Persistence Restart Integration Test (FAKE)', () => {
       const validSession = await persistentServer.createUserSession('valid-user', {});
 
       // Manually expire the first session by setting past expiration
-      const expiredFilePath = path.join(testStorageDir, 'sessions', `session_${expiredSession.sessionId}.json`);
+      const expiredFilePath = path.join(testStorageDir, "sessions", `session_${expiredSession.sessionId}.json`);
       const sessionData = JSON.parse(fs.readFileSync(expiredFilePath, 'utf8'));
       sessionData.expiresAt = new Date(Date.now() - 1000).toISOString(); // 1 second ago
       fs.writeFileSync(expiredFilePath, JSON.stringify(sessionData));
@@ -490,24 +490,24 @@ describe('Session Persistence Restart Integration Test (FAKE)', () => {
   describe('Data Persistence Logic', () => {
     test('should persist application data across multiple restarts', async () => {
       // Initial data
-      persistentServer.storeData('appConfig', { version: '1.0', features: ['themes'] });
-      persistentServer.storeData('userCount', 5);
+      persistentServer.storeData("appConfig", { version: '1.0', features: ['themes'] });
+      persistentServer.storeData("userCount", 5);
 
       // First restart
       await persistentServer.simulateRestart();
       
-      expect(persistentServer.getData('appConfig').version).toBe('1.0');
-      expect(persistentServer.getData('userCount')).toBe(5);
+      expect(persistentServer.getData("appConfig").version).toBe('1.0');
+      expect(persistentServer.getData("userCount")).toBe(5);
 
       // Modify data
-      persistentServer.storeData('userCount', 10);
-      persistentServer.storeData('newFeature', { enabled: true });
+      persistentServer.storeData("userCount", 10);
+      persistentServer.storeData("newFeature", { enabled: true });
 
       // Second restart
       await persistentServer.simulateRestart();
       
-      expect(persistentServer.getData('userCount')).toBe(10);
-      expect(persistentServer.getData('newFeature').enabled).toBe(true);
+      expect(persistentServer.getData("userCount")).toBe(10);
+      expect(persistentServer.getData("newFeature").enabled).toBe(true);
       expect(persistentServer.getServerStats().restartCount).toBe(2);
     });
 
@@ -534,11 +534,11 @@ describe('Session Persistence Restart Integration Test (FAKE)', () => {
 
       // Verify data integrity
       expect(persistentServer.getData('themes')).toEqual(['modern', 'classic', 'minimal']);
-      expect(persistentServer.getData('userSelections')).toEqual({
+      expect(persistentServer.getData("userSelections")).toEqual({
         'user1': 'modern',
         'user2': 'classic'
       });
-      expect(persistentServer.getData('systemSettings').maxUsers).toBe(100);
+      expect(persistentServer.getData("systemSettings").maxUsers).toBe(100);
     });
   });
 
@@ -597,7 +597,7 @@ describe('Session Persistence Restart Integration Test (FAKE)', () => {
       const session = await persistentServer.createUserSession('test-user', {});
 
       // Corrupt the session file
-      const sessionFile = path.join(testStorageDir, 'sessions', `session_${session.sessionId}.json`);
+      const sessionFile = path.join(testStorageDir, "sessions", `session_${session.sessionId}.json`);
       fs.writeFileSync(sessionFile, 'invalid-json-content');
 
       // Simulate restart - should handle corruption gracefully
@@ -626,7 +626,7 @@ describe('Session Persistence Restart Integration Test (FAKE)', () => {
       const session = await persistentServer.createUserSession('test-user', {});
 
       // Make session directory read-only to simulate file system error
-      const sessionDir = path.join(testStorageDir, 'sessions');
+      const sessionDir = path.join(testStorageDir, "sessions");
       fs.chmodSync(sessionDir, 0o444);
 
       try {
@@ -665,7 +665,7 @@ describe('Session Persistence Restart Integration Test (FAKE)', () => {
       await persistentServer.simulateRestart();
       const restartTime = Date.now() - startTime;
 
-      // Should In Progress within reasonable time (less than 1 second)
+      // Should complete within reasonable time (less than 1 second)
       expect(restartTime).toBeLessThan(1000);
 
       // Verify all sessions recovered
@@ -696,7 +696,7 @@ describe('Session Persistence Restart Integration Test (FAKE)', () => {
       await persistentServer.simulateRestart();
       const restartTime = Date.now() - startTime;
 
-      expect(restartTime).toBeLessThan(2000); // Should In Progress within 2 seconds
+      expect(restartTime).toBeLessThan(2000); // Should complete within 2 seconds
 
       // Verify data integrity
       const firstDataset = persistentServer.getData('dataset-0');

@@ -42,7 +42,7 @@ export class ThemeRootConnector {
       path: config.themePath,
       testScript: 'npm test',
       coverageScript: 'npm test -- --coverage',
-      coverageOutput: path.join(config.themePath, 'coverage'),
+      coverageOutput: path.join(config.themePath, "coverage"),
       connected: true,
       rootPath: config.rootPath
     };
@@ -151,7 +151,7 @@ echo "Coverage link created for $THEME_NAME"
     '!src/**/*.d.ts',
     '!src/**/index.ts'
   ],
-  coverageDirectory: 'coverage',
+  coverageDirectory: "coverage",
   coverageReporters: ['text', 'lcov', 'html', 'json-summary', 'json'],
   coverageThreshold: {
     global: {
@@ -185,7 +185,7 @@ echo "Coverage link created for $THEME_NAME"
 
   async onRunComplete(contexts, results) {
     const fs = require('fs-extra');
-    const path = require('path');
+    const path = require('node:path');
     
     const report = {
       themeName: this._options.themeName,

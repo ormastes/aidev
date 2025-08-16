@@ -14,7 +14,7 @@ export class MultiLanguageAnalyzer {
   constructor(config?: ConfigurationFile) {
     this.config = config;
     this.analyzers = new Map() as Map<string, LanguageAnalyzer>;
-    this.analyzers.set('typescript', new TypeScriptAnalyzer());
+    this.analyzers.set("typescript", new TypeScriptAnalyzer());
     this.analyzers.set('cpp', new CppAnalyzer());
     this.analyzers.set('python', new PythonAnalyzer());
   }
@@ -94,7 +94,7 @@ export class MultiLanguageAnalyzer {
       const result = analysisResults[i];
       const language = languages[i];
 
-      if (result.status === 'fulfilled') {
+      if (result.status === "fulfilled") {
         results.push(result.value);
       } else {
         results.push({

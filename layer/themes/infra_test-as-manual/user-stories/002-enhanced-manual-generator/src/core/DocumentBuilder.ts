@@ -84,7 +84,7 @@ export class DocumentBuilder {
   /**
    * Export document in specific format
    */
-  async export(document: TestDocument, format: 'html' | 'pdf' | 'markdown' | 'json'): Promise<string> {
+  async export(document: TestDocument, format: 'html' | 'pdf' | "markdown" | 'json'): Promise<string> {
     // Use the new processors if available
     try {
       const { ProcessorFactory } = await import('../processors');
@@ -102,7 +102,7 @@ export class DocumentBuilder {
         return this.exportHTML(document);
       case 'pdf':
         return this.exportPDF(document);
-      case 'markdown':
+      case "markdown":
         return this.exportMarkdown(document);
       case 'json':
         return JSON.stringify(document, null, 2);
@@ -161,7 +161,7 @@ export class DocumentBuilder {
     
     return {
       id: `section-${id}`,
-      title: 'Overview',
+      title: "Overview",
       level: 1,
       content: `
 This document provides comprehensive manual test documentation for ${test.name}.
@@ -194,7 +194,7 @@ ${test.description || 'This test suite ensures the functionality and reliability
 
     return {
       id: `section-${id}`,
-      title: 'Prerequisites',
+      title: "Prerequisites",
       level: 1,
       content: `
 Before executing these tests, ensure the following prerequisites are met:
@@ -358,11 +358,11 @@ ${JSON.stringify(test.metadata, null, 2)}
 
   private initializeGlossary(): void {
     // Add common testing terms
-    this.glossaryTerms.set('Assertion', 'A statement that checks if a condition is true');
+    this.glossaryTerms.set("Assertion", 'A statement that checks if a condition is true');
     this.glossaryTerms.set('Test Case', 'A set of conditions or steps to verify specific functionality');
     this.glossaryTerms.set('Test Suite', 'A collection of related test cases');
-    this.glossaryTerms.set('Precondition', 'A requirement that must be met before test execution');
-    this.glossaryTerms.set('Postcondition', 'A state that should exist after test execution');
+    this.glossaryTerms.set("Precondition", 'A requirement that must be met before test execution');
+    this.glossaryTerms.set("Postcondition", 'A state that should exist after test execution');
     this.glossaryTerms.set('Test Step', 'An individual action or verification in a test case');
     this.glossaryTerms.set('Expected Result', 'The anticipated outcome of a test step');
     this.glossaryTerms.set('Actual Result', 'The observed outcome of a test step');
@@ -418,7 +418,7 @@ ${JSON.stringify(test.metadata, null, 2)}
     test.suites.forEach(suite => {
       suite.testCases.forEach(testCase => {
         switch (testCase.priority) {
-          case 'critical': stats.critical++; break;
+          case "critical": stats.critical++; break;
           case 'high': stats.high++; break;
           case 'medium': stats.medium++; break;
           case 'low': stats.low++; break;

@@ -5,7 +5,7 @@
 
 export interface Message {
   id: string;
-  role: 'system' | 'user' | 'assistant' | 'tool' | 'result';
+  role: 'system' | 'user' | "assistant" | 'tool' | 'result';
   content: string;
   timestamp: Date;
   metadata?: {
@@ -66,7 +66,7 @@ export class Session {
   }
 
   // Message management
-  addMessage(message: Omit<Message, 'id' | 'timestamp'>): Message {
+  addMessage(message: Omit<Message, 'id' | "timestamp">): Message {
     const fullMessage: Message = {
       ...message,
       id: this.generateMessageId(),
@@ -93,9 +93,9 @@ export class Session {
     });
   }
 
-  addAssistantMessage(content: string, metadata?: Message['metadata']): Message {
+  addAssistantMessage(content: string, metadata?: Message["metadata"]): Message {
     return this.addMessage({
-      role: 'assistant',
+      role: "assistant",
       content,
       metadata
     });
@@ -189,7 +189,7 @@ export class Session {
 
   getTurnCount(): number {
     return this.messages.filter(m => 
-      m.role === 'user' || m.role === 'assistant'
+      m.role === 'user' || m.role === "assistant"
     ).length;
   }
 

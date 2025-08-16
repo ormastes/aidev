@@ -162,7 +162,7 @@ describe('JSON File Operations Environment Test', () => {
 
   test('should support atomic write operations', () => {
     // Arrange
-    const originalData = { version: 1, data: 'original' };
+    const originalData = { version: 1, data: "original" };
     const updatedData = { version: 2, data: 'updated' };
     
     // Write original

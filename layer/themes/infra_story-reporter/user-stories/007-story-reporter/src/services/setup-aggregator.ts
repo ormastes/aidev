@@ -1,5 +1,6 @@
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join } from 'path';
+import { fileAPI } from '../utils/file-api';
+import { fsPromises as fs } from 'fs/promises';
+import { join } from 'node:path';
 
 /**
  * Setup Aggregator Service
@@ -44,7 +45,7 @@ export class SetupAggregator {
     const registryPath = join(rootPath, 'gen', 'themes-registry.json');
     
     try {
-      const content = await fs.readFile(registryPath, 'utf8');
+      const content = await fileAPI.readFile(registryPath, 'utf8');
       const registry = JSON.parse(content);
       
       if (registry.themes && Array.isArray(registry.themes)) {
@@ -145,7 +146,7 @@ export class SetupAggregator {
       for (const configPath of testConfigPaths) {
         try {
           if (configPath.includes('coverage-summary.json') || configPath.includes('coverage.json')) {
-            const content = await fs.readFile(configPath, 'utf8');
+            const content = await fileAPI.readFile(configPath, 'utf8');
             const data = JSON.parse(content);
             coverageData = this.parseCoverageData(data);
             break;
@@ -160,7 +161,7 @@ export class SetupAggregator {
       let duplicationData: DuplicationData | null = null;
       
       try {
-        const content = await fs.readFile(duplicationPath, 'utf8');
+        const content = await fileAPI.readFile(duplicationPath, 'utf8');
         duplicationData = JSON.parse(content);
       } catch (error) {
         // Default duplication data
@@ -373,7 +374,7 @@ export class SetupAggregator {
     try {
       // Try to read package.json for test framework info
       const packageJsonPath = join(themePath, 'package.json');
-      const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf8'));
+      const packageJson = JSON.parse(await fileAPI.readFile(packageJsonPath, 'utf8'));
       
       if (packageJson.devDependencies) {
         if (packageJson.devDependencies.vitest) {
@@ -392,7 +393,7 @@ export class SetupAggregator {
       
       for (const configPath of configPaths) {
         try {
-          const content = await fs.readFile(configPath, 'utf8');
+          const content = await fileAPI.readFile(configPath, 'utf8');
           
           // Parse coverage thresholds from config
           const thresholdMatch = content.match(/coverageThreshold[^{]*{([^}]+)}/);

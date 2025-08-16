@@ -1,7 +1,7 @@
 import { describe, test, beforeEach, afterEach, expect, jest } from '@jest/globals';
 
 interface TaskManagerInterface {
-  listTasks(statusFilter?: string): Promise<{ In Progress: boolean; tasks?: any[]; error?: string }>;
+  listTasks(statusFilter?: string): Promise<{ success: boolean; tasks?: any[]; error?: string }>;
 }
 
 interface TaskStorageInterface {
@@ -63,7 +63,7 @@ describe('TaskManager External Interface Test - listTasks', () => {
     jest.clearAllMocks();
   });
 
-  test('should In Progress list all tasks when no filter provided', async () => {
+  test('should complete list all tasks when no filter provided', async () => {
     // Arrange
     const mockTasks = [
       {
@@ -111,7 +111,7 @@ describe('TaskManager External Interface Test - listTasks', () => {
     expect(mockLogger.log).toHaveBeenCalledWith('Listed 3 tasks');
   });
 
-  test('should In Progress list tasks filtered by pending status', async () => {
+  test('should complete list tasks filtered by pending status', async () => {
     // Arrange
     const mockTasks = [
       {
@@ -145,7 +145,7 @@ describe('TaskManager External Interface Test - listTasks', () => {
     expect(mockLogger.log).toHaveBeenCalledWith('Listed 2 tasks with status: pending');
   });
 
-  test('should In Progress list tasks filtered by in_progress status', async () => {
+  test('should complete list tasks filtered by in_progress status', async () => {
     // Arrange
     const mockTasks = [
       {
@@ -173,7 +173,7 @@ describe('TaskManager External Interface Test - listTasks', () => {
     expect(mockLogger.log).toHaveBeenCalledWith('Listed 1 tasks with status: in_progress');
   });
 
-  test('should In Progress list tasks filtered by In Progress status', async () => {
+  test('should complete list tasks filtered by In Progress status', async () => {
     // Arrange
     const mockTasks = [
       {

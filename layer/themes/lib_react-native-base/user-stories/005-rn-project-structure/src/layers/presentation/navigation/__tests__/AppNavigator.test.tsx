@@ -9,11 +9,11 @@ import { AppNavigator } from '../AppNavigator';
 
 // Mock the navigators
 jest.mock('../AuthNavigator', () => ({
-  AuthNavigator: () => 'AuthNavigator',
+  AuthNavigator: () => "AuthNavigator",
 }));
 
 jest.mock('../MainNavigator', () => ({
-  MainNavigator: () => 'MainNavigator',
+  MainNavigator: () => "MainNavigator",
 }));
 
 // Mock the useAuth hook
@@ -22,7 +22,7 @@ jest.mock('@hooks/useAuth', () => ({
   useAuth: () => mockUseAuth(),
 }));
 
-describe('AppNavigator', () => {
+describe("AppNavigator", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -39,7 +39,7 @@ describe('AppNavigator', () => {
       </NavigationContainer>
     );
 
-    expect(getByText('AuthNavigator')).toBeTruthy();
+    expect(getByText("AuthNavigator")).toBeTruthy();
   });
 
   it('should render MainNavigator when authenticated', () => {
@@ -54,7 +54,7 @@ describe('AppNavigator', () => {
       </NavigationContainer>
     );
 
-    expect(getByText('MainNavigator')).toBeTruthy();
+    expect(getByText("MainNavigator")).toBeTruthy();
   });
 
   it('should show loading indicator when loading', () => {

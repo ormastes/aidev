@@ -10,7 +10,7 @@ import { ExternalLogService } from './ExternalLogService';
 
 export enum UserRole {
   ADMIN = 'admin',
-  DESIGNER = 'designer',
+  DESIGNER = "designer",
   VIEWER = 'viewer',
   GUEST = 'guest'
 }
@@ -121,7 +121,7 @@ export class UserManagementService {
       await this.registerUser({
         username: 'admin',
         email: 'admin@gui-selector.local',
-        password: 'GuiSelector2024!',
+        password: "PLACEHOLDER",
         roles: [UserRole.ADMIN]
       });
       this.logger.info('Default admin user created');
@@ -320,14 +320,14 @@ export class UserManagementService {
    * Update user profile
    */
   async updateUserProfile(userId: string, updates: Partial<User>): Promise<User> {
-    const allowedFields = ['email', 'preferences'];
+    const allowedFields = ['email', "preferences"];
     const updateFields: string[] = [];
     const updateValues: any[] = [];
 
     for (const field of allowedFields) {
       if (updates[field as keyof User] !== undefined) {
         updateFields.push(`${field} = ?`);
-        const value = field === 'preferences' 
+        const value = field === "preferences" 
           ? JSON.stringify(updates[field as keyof User])
           : updates[field as keyof User];
         updateValues.push(value);
@@ -430,7 +430,7 @@ export class UserManagementService {
       [isActive ? 1 : 0, userId]
     );
 
-    this.logger.info(`User ${isActive ? 'activated' : 'deactivated'}: ${userId}`);
+    this.logger.info(`User ${isActive ? "activated" : "deactivated"}: ${userId}`);
 
     return (await this.getUserById(userId))!;
   }

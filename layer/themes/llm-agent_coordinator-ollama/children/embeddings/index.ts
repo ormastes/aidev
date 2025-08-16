@@ -3,7 +3,7 @@
  * Manages text embeddings using Ollama models
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { OllamaClient } from '../client';
 
 export interface EmbeddingRequest {
@@ -257,7 +257,7 @@ export class EmbeddingsManager extends EventEmitter {
     model?: string;
     topK?: number;
     threshold?: number;
-    metric?: 'cosine' | 'euclidean';
+    metric?: 'cosine' | "euclidean";
     includeEmbeddings?: boolean;
   }): Promise<SimilarityResult[]> {
     const model = options?.model || this.defaultModel;
@@ -308,7 +308,7 @@ export class EmbeddingsManager extends EventEmitter {
   async cluster(texts: string[], options?: {
     model?: string;
     numClusters?: number;
-    method?: 'kmeans' | 'hierarchical';
+    method?: 'kmeans' | "hierarchical";
   }): Promise<Array<{ centroid: number[]; members: string[] }>> {
     const model = options?.model || this.defaultModel;
     const numClusters = options?.numClusters || Math.ceil(Math.sqrt(texts.length));

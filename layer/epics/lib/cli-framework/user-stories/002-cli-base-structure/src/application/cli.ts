@@ -98,13 +98,13 @@ export class CLI implements CLIInstance {
 
     try {
       // Pre-parse hook
-      await this.runHooks('preparse', { command: '', args: { command: [], options: {}, positionals: [], raw: args }, context });
+      await this.runHooks("preparse", { command: '', args: { command: [], options: {}, positionals: [], raw: args }, context });
 
       // Parse arguments
       const parsed = this.parser.parse(args);
       
       // Post-parse hook
-      await this.runHooks('postparse', { command: parsed.command.join(' '), args: parsed, context });
+      await this.runHooks("postparse", { command: parsed.command.join(' '), args: parsed, context });
 
       // Handle special global options first
       if (parsed.options['help']) {
@@ -144,7 +144,7 @@ export class CLI implements CLIInstance {
       }
 
       // Pre-command hook
-      await this.runHooks('precommand', { command: command.metadata.name, args: parsed, context });
+      await this.runHooks("precommand", { command: command.metadata.name, args: parsed, context });
 
       // Execute command
       if (command.execute) {
@@ -155,7 +155,7 @@ export class CLI implements CLIInstance {
       }
 
       // Post-command hook
-      await this.runHooks('postcommand', { command: command.metadata.name, args: parsed, context });
+      await this.runHooks("postcommand", { command: command.metadata.name, args: parsed, context });
 
     } catch (error) {
       // Error hook

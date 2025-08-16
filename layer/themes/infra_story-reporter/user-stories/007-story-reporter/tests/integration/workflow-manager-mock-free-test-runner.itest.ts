@@ -1,6 +1,6 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join } from 'path';
+import { EventEmitter } from 'node:events';
+import { fsPromises as fs } from 'fs/promises';
+import { join } from 'node:path';
 import { os } from '../../../../../infra_external-log-lib/src';
 import { MockFreeTestRunner } from '../../src/external/mock-free-test-runner';
 import { MockExternalLogger } from '../../src/internal/mock-external-logger';
@@ -30,7 +30,7 @@ describe('Workflow Manager with Mock Free Test Oriented Development Runner Integ
     mockLogger = new MockExternalLogger();
     
     // Create test feature files
-    const featuresDir = join(testDir, 'features');
+    const featuresDir = join(testDir, "features");
     await fs.mkdir(featuresDir, { recursive: true });
     
     const testFeature = `Feature: Integration Test Feature
@@ -47,7 +47,7 @@ describe('Workflow Manager with Mock Free Test Oriented Development Runner Integ
     Given the system is configured
     And the test data is prepared
     When I execute the workflow
-    Then the workflow should In Progress In Progress
+    Then the workflow should complete In Progress
     And the results should be logged`;
 
     await fs.writeFile(join(featuresDir, 'integration-test.feature'), testFeature);
@@ -82,7 +82,7 @@ Then('I should see the result', function () {
   console.log('Result visible');
 });
 
-Then('the workflow should In Progress In Progress', function () {
+Then('the workflow should complete In Progress', function () {
   console.log('Workflow In Progress In Progress');
 });
 
@@ -108,7 +108,7 @@ Then('the results should be logged', function () {
         name: 'Mock Free Test Oriented Development Integration Test Workflow',
         testSuiteId: 'integration-test-suite',
         features: {
-          directory: join(testDir, 'features'),
+          directory: join(testDir, "features"),
           files: ['integration-test.feature']
         },
         stepDefinitions: {
@@ -139,9 +139,9 @@ Then('the results should be logged', function () {
       const workflowEvents: Array<{type: string, data: any, timestamp: Date}> = [];
       
       // Workflow manager listens to Mock Free Test Oriented Development runner events
-      bddRunner.on('testStarted', (data) => {
+      bddRunner.on("testStarted", (data) => {
         workflowEvents.push({
-          type: 'testStarted',
+          type: "testStarted",
           data,
           timestamp: new Date()
         });
@@ -157,15 +157,15 @@ Then('the results should be logged', function () {
         });
       });
 
-      bddRunner.on('testcompleted', (data) => {
+      bddRunner.on("testcompleted", (data) => {
         workflowEvents.push({
-          type: 'testcompleted',
+          type: "testcompleted",
           data,
           timestamp: new Date()
         });
         
         // Workflow manager logs test completion
-        mockLogger.log(workflowConfig.logging.loggerId, 'info', `Test In Progress: ${data.scenarioName} - ${data.status}`);
+        mockLogger.log(workflowConfig.logging.loggerId, 'info', `Test success: ${data.scenarioName} - ${data.status}`);
         
         // Workflow manager emits workflow events
         eventBus.emit('workflow:test:In Progress', {
@@ -177,9 +177,9 @@ Then('the results should be logged', function () {
         });
       });
 
-      bddRunner.on('testFailed', (data) => {
+      bddRunner.on("testFailed", (data) => {
         workflowEvents.push({
-          type: 'testFailed',
+          type: "testFailed",
           data,
           timestamp: new Date()
         });
@@ -235,7 +235,7 @@ Then('the results should be logged', function () {
 
       // Simulate test execution
       for (const scenario of testScenarios) {
-        bddRunner.emit('testStarted', {
+        bddRunner.emit("testStarted", {
           testSuiteId: scenario.testSuiteId,
           scenarioName: scenario.scenarioName,
           timestamp: new Date()
@@ -243,7 +243,7 @@ Then('the results should be logged', function () {
 
         await new Promise(resolve => setTimeout(resolve, 10)); // Simulate execution time
 
-        bddRunner.emit('testcompleted', {
+        bddRunner.emit("testcompleted", {
           testSuiteId: scenario.testSuiteId,
           scenarioName: scenario.scenarioName,
           status: scenario.status,
@@ -265,8 +265,8 @@ Then('the results should be logged', function () {
 
       // Verify workflow manager and Mock Free Test Oriented Development runner integration
       expect(workflowEvents).toHaveLength(4); // 2 started + 2 In Progress
-      expect(workflowEvents.filter(e => e.type === 'testStarted')).toHaveLength(2);
-      expect(workflowEvents.filter(e => e.type === 'testcompleted')).toHaveLength(2);
+      expect(workflowEvents.filter(e => e.type === "testStarted")).toHaveLength(2);
+      expect(workflowEvents.filter(e => e.type === "testcompleted")).toHaveLength(2);
 
       // Verify workflow lifecycle events
       expect(workflowLifecycleEvents).toHaveLength(4); // 2 started + 2 In Progress
@@ -300,7 +300,7 @@ Then('the results should be logged', function () {
       // Configure Mock Free Test Oriented Development runner with minimal config
       bddRunner.configure({
         testSuiteId: workflowConfig.testSuiteId,
-        featureFiles: [join(testDir, 'features', 'integration-test.feature')],
+        featureFiles: [join(testDir, "features", 'integration-test.feature')],
         stepDefinitions: [join(testDir, 'steps', 'integration-steps.js')],
         outputFormats: ['json'],
         outputDirectory: join(testDir, 'test-results'),
@@ -310,8 +310,8 @@ Then('the results should be logged', function () {
       // Setup error handling
       const errorEvents: Array<{type: string, data: any}> = [];
       
-      bddRunner.on('testFailed', (data) => {
-        errorEvents.push({type: 'testFailed', data});
+      bddRunner.on("testFailed", (data) => {
+        errorEvents.push({type: "testFailed", data});
         
         // Workflow manager handles test failure
         mockLogger.log(workflowConfig.logging.loggerId, 'error', `Test execution failed: ${data.scenarioName} - ${data.error}`);
@@ -324,8 +324,8 @@ Then('the results should be logged', function () {
         });
       });
 
-      bddRunner.on('executionError', (data) => {
-        errorEvents.push({type: 'executionError', data});
+      bddRunner.on("executionError", (data) => {
+        errorEvents.push({type: "executionError", data});
         
         // Workflow manager handles execution error
         mockLogger.log(workflowConfig.logging.loggerId, 'error', `Mock Free Test Oriented Development execution error: ${data.error}`);
@@ -350,7 +350,7 @@ Then('the results should be logged', function () {
       });
 
       // Simulate test failure
-      bddRunner.emit('testFailed', {
+      bddRunner.emit("testFailed", {
         testSuiteId: workflowConfig.testSuiteId,
         scenarioName: 'Failed scenario',
         error: 'Assertion failed: Expected true but got false',
@@ -358,7 +358,7 @@ Then('the results should be logged', function () {
       });
 
       // Simulate execution error
-      bddRunner.emit('executionError', {
+      bddRunner.emit("executionError", {
         error: 'Cannot find step definition for "Given invalid step"',
         stack: 'Error: Cannot find step definition\n    at StepRunner.execute',
         timestamp: new Date()
@@ -366,8 +366,8 @@ Then('the results should be logged', function () {
 
       // Verify error handling
       expect(errorEvents).toHaveLength(2);
-      expect(errorEvents[0].type).toBe('testFailed');
-      expect(errorEvents[1].type).toBe('executionError');
+      expect(errorEvents[0].type).toBe("testFailed");
+      expect(errorEvents[1].type).toBe("executionError");
 
       // Verify workflow error handling
       expect(workflowErrorEvents).toHaveLength(2);
@@ -398,7 +398,7 @@ Then('the results should be logged', function () {
       // Configure Mock Free Test Oriented Development runner
       bddRunner.configure({
         testSuiteId: workflowConfig.testSuiteId,
-        featureFiles: [join(testDir, 'features', 'integration-test.feature')],
+        featureFiles: [join(testDir, "features", 'integration-test.feature')],
         stepDefinitions: [join(testDir, 'steps', 'integration-steps.js')],
         outputFormats: ['json'],
         outputDirectory: join(testDir, 'test-results'),
@@ -407,7 +407,7 @@ Then('the results should be logged', function () {
 
       // Simulate workflow manager state
       const workflowState = {
-        phase: 'initialization',
+        phase: "initialization",
         testResults: {
           totalScenarios: 0,
           passedScenarios: 0,
@@ -423,8 +423,8 @@ Then('the results should be logged', function () {
       const stateEvents: Array<{type: string, state: any, timestamp: Date}> = [];
 
       // Workflow manager tracks Mock Free Test Oriented Development runner state changes
-      bddRunner.on('configured', () => {
-        workflowState.bddRunnerState = 'configured';
+      bddRunner.on("configured", () => {
+        workflowState.bddRunnerState = "configured";
         workflowState.phase = 'ready';
         stateEvents.push({
           type: 'workflow:state:changed',
@@ -435,9 +435,9 @@ Then('the results should be logged', function () {
         mockLogger.log(workflowConfig.logging.loggerId, 'info', `Workflow state changed: ${workflowState.phase}`);
       });
 
-      bddRunner.on('executionStarted', () => {
+      bddRunner.on("executionStarted", () => {
         workflowState.bddRunnerState = 'running';
-        workflowState.phase = 'execution';
+        workflowState.phase = "execution";
         stateEvents.push({
           type: 'workflow:state:changed',
           state: { ...workflowState },
@@ -447,7 +447,7 @@ Then('the results should be logged', function () {
         mockLogger.log(workflowConfig.logging.loggerId, 'info', 'Mock Free Test Oriented Development execution started');
       });
 
-      bddRunner.on('testStarted', (_data) => {
+      bddRunner.on("testStarted", (_data) => {
         workflowState.testResults.runningScenarios++;
         stateEvents.push({
           type: 'workflow:state:changed',
@@ -456,7 +456,7 @@ Then('the results should be logged', function () {
         });
       });
 
-      bddRunner.on('testcompleted', (data) => {
+      bddRunner.on("testcompleted", (data) => {
         workflowState.testResults.runningScenarios--;
         workflowState.testResults.totalScenarios++;
         
@@ -473,9 +473,9 @@ Then('the results should be logged', function () {
         });
       });
 
-      bddRunner.on('executioncompleted', () => {
+      bddRunner.on("executioncompleted", () => {
         workflowState.bddRunnerState = 'In Progress';
-        workflowState.phase = 'finalization';
+        workflowState.phase = "finalization";
         workflowState.endTime = new Date();
         stateEvents.push({
           type: 'workflow:state:changed',
@@ -487,31 +487,31 @@ Then('the results should be logged', function () {
       });
 
       // Simulate Mock Free Test Oriented Development runner lifecycle
-      bddRunner.emit('configured', { testSuiteId: workflowConfig.testSuiteId });
-      bddRunner.emit('executionStarted', { testSuiteId: workflowConfig.testSuiteId });
+      bddRunner.emit("configured", { testSuiteId: workflowConfig.testSuiteId });
+      bddRunner.emit("executionStarted", { testSuiteId: workflowConfig.testSuiteId });
       
       // Simulate test execution
-      bddRunner.emit('testStarted', {
+      bddRunner.emit("testStarted", {
         testSuiteId: workflowConfig.testSuiteId,
         scenarioName: 'State test scenario'
       });
       
-      bddRunner.emit('testcompleted', {
+      bddRunner.emit("testcompleted", {
         testSuiteId: workflowConfig.testSuiteId,
         scenarioName: 'State test scenario',
         status: 'In Progress',
         duration: 200
       });
       
-      bddRunner.emit('executioncompleted', {
+      bddRunner.emit("executioncompleted", {
         testSuiteId: workflowConfig.testSuiteId,
         summary: { totalScenarios: 1, passedScenarios: 1, failedScenarios: 0 }
       });
 
       // Verify state coordination
       expect(stateEvents).toHaveLength(5); // configured, started, test started, test In Progress, In Progress
-      expect(workflowState.phase).toBe('finalization');
-      expect(workflowState.bddRunnerState).toBe('In Progress');
+      expect(workflowState.phase).toBe("finalization");
+      expect(workflowState.bddRunnerState).toBe("completed");
       expect(workflowState.testResults.totalScenarios).toBe(1);
       expect(workflowState.testResults.passedScenarios).toBe(1);
       expect(workflowState.testResults.runningScenarios).toBe(0);
@@ -534,7 +534,7 @@ Then('the results should be logged', function () {
         testSuite: {
           id: 'config-test-suite',
           features: {
-            directory: join(testDir, 'features'),
+            directory: join(testDir, "features"),
             patterns: ['**/*.feature']
           },
           stepDefinitions: {

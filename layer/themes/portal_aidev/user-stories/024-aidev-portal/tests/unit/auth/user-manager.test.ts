@@ -7,19 +7,19 @@ import { crypto } from '../../../../../../infra_external-log-lib/src';
 jest.mock('../../../src/auth/authentication-manager');
 jest.mock('../../../src/auth/token-store');
 
-describe('UserManager', () => {
+describe("UserManager", () => {
   let userManager: UserManager;
   let mockAuthManager: jest.Mocked<AuthenticationManager>;
   let mockTokenStore: jest.Mocked<TokenStore>;
   
-  const validPassword = 'Test@123Password';
+  const validpassword: "PLACEHOLDER";
   const hashedPassword = crypto.createHash('sha256').update(validPassword + 'salt').digest('hex');
 
   beforeEach(() => {
     jest.clearAllMocks();
     
     mockAuthManager = new AuthenticationManager({
-      jwtSecret: 'test',
+      jwtsecret: process.env.SECRET || "PLACEHOLDER",
       tokenExpiry: '1h'
     }) as jest.Mocked<AuthenticationManager>;
     
@@ -34,10 +34,10 @@ describe('UserManager', () => {
     });
   });
 
-  describe('createUser', () => {
+  describe("createUser", () => {
     const validUser = {
       id: 'user123',
-      username: 'testuser',
+      username: "testuser",
       password: validPassword,
       role: 'user',
       permissions: ['read'],
@@ -56,7 +56,7 @@ describe('UserManager', () => {
       // Verify user was stored
       const user = await userManager.getUser('user123');
       expect(user).toBeDefined();
-      expect(user?.username).toBe('testuser');
+      expect(user?.username).toBe("testuser");
       expect(user?.password).toBe(hashedPassword);
       expect(user?.active).toBe(true);
       expect(user?.createdAt).toBeDefined();
@@ -65,7 +65,7 @@ describe('UserManager', () => {
     it('should fail with weak password', async () => {
       const result = await userManager.createUser({
         ...validUser,
-        password: 'weak'
+        password: "PLACEHOLDER"
       });
       
       expect(result.success).toBe(false);
@@ -104,7 +104,7 @@ describe('UserManager', () => {
   describe('password validation', () => {
     const baseUser = {
       id: 'user123',
-      username: 'testuser',
+      username: "testuser",
       role: 'user',
       permissions: ['read'],
       fullName: 'Test User',
@@ -114,7 +114,7 @@ describe('UserManager', () => {
     it('should require minimum length', async () => {
       const result = await userManager.createUser({
         ...baseUser,
-        password: 'Sh0rt!'
+        password: "PLACEHOLDER"
       });
       
       expect(result.success).toBe(false);
@@ -123,7 +123,7 @@ describe('UserManager', () => {
     it('should require uppercase letters', async () => {
       const result = await userManager.createUser({
         ...baseUser,
-        password: 'lowercase123!'
+        password: "PLACEHOLDER"
       });
       
       expect(result.success).toBe(false);
@@ -132,7 +132,7 @@ describe('UserManager', () => {
     it('should require lowercase letters', async () => {
       const result = await userManager.createUser({
         ...baseUser,
-        password: 'UPPERCASE123!'
+        password: "PLACEHOLDER"
       });
       
       expect(result.success).toBe(false);
@@ -141,7 +141,7 @@ describe('UserManager', () => {
     it('should require numbers', async () => {
       const result = await userManager.createUser({
         ...baseUser,
-        password: 'NoNumbers!'
+        password: "PLACEHOLDER"
       });
       
       expect(result.success).toBe(false);
@@ -150,7 +150,7 @@ describe('UserManager', () => {
     it('should require special characters', async () => {
       const result = await userManager.createUser({
         ...baseUser,
-        password: 'NoSpecialChars123'
+        password: "PLACEHOLDER"
       });
       
       expect(result.success).toBe(false);
@@ -161,7 +161,7 @@ describe('UserManager', () => {
     beforeEach(async () => {
       await userManager.createUser({
         id: 'user123',
-        username: 'testuser',
+        username: "testuser",
         password: validPassword,
         role: 'user',
         permissions: ['read'],
@@ -174,7 +174,7 @@ describe('UserManager', () => {
       
       expect(user).toBeDefined();
       expect(user?.id).toBe('user123');
-      expect(user?.username).toBe('testuser');
+      expect(user?.username).toBe("testuser");
     });
 
     it('should return null for non-existent user', async () => {
@@ -183,11 +183,11 @@ describe('UserManager', () => {
     });
   });
 
-  describe('getUserByUsername', () => {
+  describe("getUserByUsername", () => {
     beforeEach(async () => {
       await userManager.createUser({
         id: 'user123',
-        username: 'testuser',
+        username: "testuser",
         password: validPassword,
         role: 'user',
         permissions: ['read'],
@@ -196,11 +196,11 @@ describe('UserManager', () => {
     });
 
     it('should get user by username', async () => {
-      const user = await userManager.getUserByUsername('testuser');
+      const user = await userManager.getUserByUsername("testuser");
       
       expect(user).toBeDefined();
       expect(user?.id).toBe('user123');
-      expect(user?.username).toBe('testuser');
+      expect(user?.username).toBe("testuser");
     });
 
     it('should return null for non-existent username', async () => {
@@ -209,11 +209,11 @@ describe('UserManager', () => {
     });
   });
 
-  describe('validateCredentials', () => {
+  describe("validateCredentials", () => {
     beforeEach(async () => {
       await userManager.createUser({
         id: 'user123',
-        username: 'testuser',
+        username: "testuser",
         password: validPassword,
         role: 'user',
         permissions: ['read'],
@@ -222,7 +222,7 @@ describe('UserManager', () => {
     });
 
     it('should validate correct credentials', async () => {
-      const user = await userManager.validateCredentials('testuser', validPassword);
+      const user = await userManager.validateCredentials("testuser", validPassword);
       
       expect(user).toBeDefined();
       expect(user?.id).toBe('user123');
@@ -230,19 +230,19 @@ describe('UserManager', () => {
     });
 
     it('should return null for incorrect password', async () => {
-      const user = await userManager.validateCredentials('testuser', 'wrongpassword');
+      const user = await userManager.validateCredentials("testuser", "wrongpassword");
       expect(user).toBeNull();
     });
 
     it('should return null for non-existent user', async () => {
-      const user = await userManager.validateCredentials('nonexistent', validPassword);
+      const user = await userManager.validateCredentials("nonexistent", validPassword);
       expect(user).toBeNull();
     });
 
     it('should return null for inactive user', async () => {
       await userManager.updateUser('user123', { active: false });
       
-      const user = await userManager.validateCredentials('testuser', validPassword);
+      const user = await userManager.validateCredentials("testuser", validPassword);
       expect(user).toBeNull();
     });
 
@@ -252,11 +252,11 @@ describe('UserManager', () => {
       
       // Make 5 failed attempts
       for (let i = 0; i < 5; i++) {
-        await userManager.validateCredentials('testuser', 'wrongpassword');
+        await userManager.validateCredentials("testuser", "wrongpassword");
       }
       
       // Next attempt should be rate limited
-      await expect(userManager.validateCredentials('testuser', validPassword))
+      await expect(userManager.validateCredentials("testuser", validPassword))
         .rejects.toThrow('rate limit exceeded');
         
       delete process.env.NODE_ENV;
@@ -264,24 +264,24 @@ describe('UserManager', () => {
 
     it('should clear failed attempts on successful login', async () => {
       // Make some failed attempts
-      await userManager.validateCredentials('testuser', 'wrongpassword');
-      await userManager.validateCredentials('testuser', 'wrongpassword');
+      await userManager.validateCredentials("testuser", "wrongpassword");
+      await userManager.validateCredentials("testuser", "wrongpassword");
       
       // Successful login
-      const user = await userManager.validateCredentials('testuser', validPassword);
+      const user = await userManager.validateCredentials("testuser", validPassword);
       expect(user).toBeDefined();
       
       // Failed attempts should be cleared, so one more wrong attempt is allowed
-      const failedUser = await userManager.validateCredentials('testuser', 'wrongpassword');
+      const failedUser = await userManager.validateCredentials("testuser", "wrongpassword");
       expect(failedUser).toBeNull();
     });
   });
 
-  describe('updateUser', () => {
+  describe("updateUser", () => {
     beforeEach(async () => {
       await userManager.createUser({
         id: 'user123',
-        username: 'testuser',
+        username: "testuser",
         password: validPassword,
         role: 'user',
         permissions: ['read'],
@@ -304,23 +304,23 @@ describe('UserManager', () => {
 
     it('should update username and maintain mapping', async () => {
       const result = await userManager.updateUser('user123', {
-        username: 'newusername'
+        username: "newusername"
       });
       
       expect(result).toBe(true);
       
       // Old username should not work
-      const oldUser = await userManager.getUserByUsername('testuser');
+      const oldUser = await userManager.getUserByUsername("testuser");
       expect(oldUser).toBeNull();
       
       // New username should work
-      const newUser = await userManager.getUserByUsername('newusername');
+      const newUser = await userManager.getUserByUsername("newusername");
       expect(newUser).toBeDefined();
       expect(newUser?.id).toBe('user123');
     });
 
     it('should update and hash new password', async () => {
-      const newPassword = 'NewPass@123';
+      const newpassword: "PLACEHOLDER";
       
       const result = await userManager.updateUser('user123', {
         password: newPassword
@@ -329,13 +329,13 @@ describe('UserManager', () => {
       expect(result).toBe(true);
       
       // Should be able to login with new password
-      const user = await userManager.validateCredentials('testuser', newPassword);
+      const user = await userManager.validateCredentials("testuser", newPassword);
       expect(user).toBeDefined();
     });
 
     it('should fail to update with weak password', async () => {
       await expect(userManager.updateUser('user123', {
-        password: 'weak'
+        password: "PLACEHOLDER"
       })).rejects.toThrow('password does not meet policy requirements');
     });
 
@@ -348,11 +348,11 @@ describe('UserManager', () => {
     });
   });
 
-  describe('deleteUser', () => {
+  describe("deleteUser", () => {
     beforeEach(async () => {
       await userManager.createUser({
         id: 'user123',
-        username: 'testuser',
+        username: "testuser",
         password: validPassword,
         role: 'user',
         permissions: ['read'],
@@ -373,7 +373,7 @@ describe('UserManager', () => {
       expect(user).toBeNull();
       
       // Username mapping should be gone
-      const userByUsername = await userManager.getUserByUsername('testuser');
+      const userByUsername = await userManager.getUserByUsername("testuser");
       expect(userByUsername).toBeNull();
     });
 
@@ -392,7 +392,7 @@ describe('UserManager', () => {
     });
   });
 
-  describe('listUsers', () => {
+  describe("listUsers", () => {
     beforeEach(async () => {
       await userManager.createUser({
         id: 'user1',
@@ -434,7 +434,7 @@ describe('UserManager', () => {
       
       await userManager.createUser({
         id: 'user123',
-        username: 'testuser',
+        username: "testuser",
         password: validPassword,
         role: 'user',
         permissions: ['read'],
@@ -449,18 +449,18 @@ describe('UserManager', () => {
     it('should allow rate limit to expire', async () => {
       // Make 5 failed attempts
       for (let i = 0; i < 5; i++) {
-        await userManager.validateCredentials('testuser', 'wrongpassword');
+        await userManager.validateCredentials("testuser", "wrongpassword");
       }
       
       // Should be rate limited
-      await expect(userManager.validateCredentials('testuser', validPassword))
+      await expect(userManager.validateCredentials("testuser", validPassword))
         .rejects.toThrow('rate limit exceeded');
       
       // Wait for rate limit window to expire (100ms in test mode)
       await new Promise(resolve => setTimeout(resolve, 150));
       
       // Should be able to login now
-      const user = await userManager.validateCredentials('testuser', validPassword);
+      const user = await userManager.validateCredentials("testuser", validPassword);
       expect(user).toBeDefined();
     });
   });

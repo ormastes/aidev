@@ -6,7 +6,7 @@ import { path } from '../../../infra_external-log-lib/src';
 jest.mock('fs/promises');
 jest.mock('path');
 
-describe('FileSystemWrapper', () => {
+describe("FileSystemWrapper", () => {
   let wrapper: FileSystemWrapper;
   let mockFs: jest.Mocked<typeof fs>;
   let mockPath: jest.Mocked<typeof path>;
@@ -23,7 +23,7 @@ describe('FileSystemWrapper', () => {
     wrapper = new FileSystemWrapper('/base/path');
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with provided base path', () => {
       const customWrapper = new FileSystemWrapper('/custom/path');
       expect(customWrapper).toBeDefined();
@@ -35,7 +35,7 @@ describe('FileSystemWrapper', () => {
     });
   });
 
-  describe('readFile', () => {
+  describe("readFile", () => {
     it('should read file successfully and update metrics', async () => {
       const fileContent = 'test file content';
       const filePath = 'test.txt';
@@ -100,7 +100,7 @@ describe('FileSystemWrapper', () => {
     });
   });
 
-  describe('writeFile', () => {
+  describe("writeFile", () => {
     it('should write file successfully and update metrics', async () => {
       const fileContent = 'content to write';
       const filePath = 'test.txt';
@@ -200,7 +200,7 @@ describe('FileSystemWrapper', () => {
     });
 
     it('should handle readdir errors', async () => {
-      const dirPath = 'nonexistent';
+      const dirPath = "nonexistent";
       const error = new Error('Directory not found');
 
       mockFs.readdir.mockRejectedValue(error);
@@ -283,20 +283,20 @@ describe('FileSystemWrapper', () => {
 
   describe('metrics management', () => {
     it('should track multiple operations correctly', async () => {
-      mockFs.readFile.mockResolvedValue('content1');
+      mockFs.readFile.mockResolvedValue("content1");
       mockFs.writeFile.mockResolvedValue();
       mockFs.mkdir.mockResolvedValue(undefined);
 
       await wrapper.readFile('file1.txt');
       await wrapper.readFile('file2.txt');
-      await wrapper.writeFile('file3.txt', 'content2');
+      await wrapper.writeFile('file3.txt', "content2");
 
       const metrics = wrapper.getMetrics();
 
       expect(metrics.readCount).toBe(2);
       expect(metrics.writeCount).toBe(1);
-      expect(metrics.totalBytesRead).toBe(Buffer.byteLength('content1') * 2);
-      expect(metrics.totalBytesWritten).toBe(Buffer.byteLength('content2'));
+      expect(metrics.totalBytesRead).toBe(Buffer.byteLength("content1") * 2);
+      expect(metrics.totalBytesWritten).toBe(Buffer.byteLength("content2"));
       expect(metrics.errors).toHaveLength(0);
     });
 

@@ -2,7 +2,7 @@
  * Base Server implementation
  */
 
-import { EventEmitter } from 'eventemitter3';
+import { EventEmitter } from "eventemitter3";
 import { IServer, HealthStatus } from '../interfaces/base.interfaces';
 
 export abstract class BaseServer extends EventEmitter implements IServer {
@@ -22,7 +22,7 @@ export abstract class BaseServer extends EventEmitter implements IServer {
 
   async initialize(config: any): Promise<void> {
     this.config = config;
-    this.emit('initialized', { config });
+    this.emit("initialized", { config });
   }
 
   async start(): Promise<void> {
@@ -31,7 +31,7 @@ export abstract class BaseServer extends EventEmitter implements IServer {
     }
 
     try {
-      this.emit('starting');
+      this.emit("starting");
       await this.onStart();
       this.running = true;
       this.startTime = new Date();
@@ -48,7 +48,7 @@ export abstract class BaseServer extends EventEmitter implements IServer {
     }
 
     try {
-      this.emit('stopping');
+      this.emit("stopping");
       await this.onStop();
       this.running = false;
       this.startTime = undefined;
@@ -73,7 +73,7 @@ export abstract class BaseServer extends EventEmitter implements IServer {
   async getHealth(): Promise<HealthStatus> {
     if (!this.running) {
       return {
-        status: 'unhealthy',
+        status: "unhealthy",
         timestamp: new Date(),
         message: 'Server is not running'
       };
@@ -88,7 +88,7 @@ export abstract class BaseServer extends EventEmitter implements IServer {
       };
     } catch (error) {
       return {
-        status: 'unhealthy',
+        status: "unhealthy",
         timestamp: new Date(),
         message: error instanceof Error ? error.message : 'Health check failed',
         details: { error }

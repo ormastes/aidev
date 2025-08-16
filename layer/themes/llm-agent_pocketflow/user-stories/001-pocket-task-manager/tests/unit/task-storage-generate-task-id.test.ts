@@ -26,7 +26,7 @@ class TaskIdGenerator {
     
     // Generate random component (alphanumeric)
     const randomLength = 9;
-    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
     let randomPart = '';
     
     for (let i = 0; i < randomLength; i++) {

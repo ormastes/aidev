@@ -11,7 +11,7 @@ declare global {
 }
 
 // Set longer timeout for integration tests
-if (process.env.TEST_TYPE === 'integration') {
+if (process.env.TEST_TYPE === "integration") {
   jest.setTimeout(30000);
 }
 

@@ -1,7 +1,7 @@
 import { Given, When, Then, Before, After } from '@cucumber/cucumber';
 import { strict as assert } from 'assert';
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 export interface ValidationWorld {
   registryPath: string;

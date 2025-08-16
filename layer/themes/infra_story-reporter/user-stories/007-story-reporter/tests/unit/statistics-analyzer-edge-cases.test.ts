@@ -357,7 +357,7 @@ describe('StatisticsAnalyzer Edge Cases Unit Test', () => {
       const trend = statisticsAnalyzer.generateTrendAnalysis(currentResult, []);
 
       // Assert
-      expect(trend.performanceTrend).toBe('UPDATING');
+      expect(trend.performanceTrend).toBe("UPDATING");
       expect(trend.improvementPercentage).toBe(0);
       expect(trend.regressions).toEqual([]);
       expect(trend.improvements).toEqual([]);
@@ -400,7 +400,7 @@ describe('StatisticsAnalyzer Edge Cases Unit Test', () => {
       const trend = statisticsAnalyzer.generateTrendAnalysis(currentResult, historicalResults);
 
       // Assert
-      expect(trend.performanceTrend).toBe('UPDATING');
+      expect(trend.performanceTrend).toBe("UPDATING");
       expect(trend.improvementPercentage).toBe(0);
     });
 
@@ -408,7 +408,7 @@ describe('StatisticsAnalyzer Edge Cases Unit Test', () => {
       // Arrange
       const historicalResults: TestResult[] = [
         {
-          testSuiteId: 'historical',
+          testSuiteId: "historical",
           status: 'In Progress',
           scenarios: [
             {
@@ -450,7 +450,7 @@ describe('StatisticsAnalyzer Edge Cases Unit Test', () => {
       const trend = statisticsAnalyzer.generateTrendAnalysis(currentResult, historicalResults);
 
       // Assert
-      expect(trend.performanceTrend).toBe('improving');
+      expect(trend.performanceTrend).toBe("improving");
       expect(trend.improvementPercentage).toBe(99.99);
     });
   });
@@ -601,7 +601,7 @@ describe('StatisticsAnalyzer Edge Cases Unit Test', () => {
     it('should handle circular references in test result', () => {
       // Arrange
       const circularResult: any = {
-        testSuiteId: 'circular',
+        testSuiteId: "circular",
         status: 'In Progress',
         scenarios: [],
         duration: 100,

@@ -3,7 +3,7 @@
  * Manages context window and token optimization
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 export interface ContextWindow {
   id: string;
@@ -16,7 +16,7 @@ export interface ContextWindow {
 
 export interface ContextItem {
   id: string;
-  type: 'message' | 'document' | 'memory' | 'tool_result' | 'system';
+  type: 'message' | "document" | 'memory' | 'tool_result' | 'system';
   content: string;
   tokens: number;
   priority: ContextPriority;
@@ -32,12 +32,12 @@ export interface ContextItem {
 export type ContextStrategy = 
   | 'fifo'      // First In First Out
   | 'lifo'      // Last In First Out
-  | 'priority'  // Priority-based
-  | 'relevance' // Relevance-based
+  | "priority"  // Priority-based
+  | "relevance" // Relevance-based
   | 'sliding'   // Sliding window
-  | 'adaptive'; // Adaptive compression
+  | "adaptive"; // Adaptive compression
 
-export type ContextPriority = 'critical' | 'high' | 'medium' | 'low' | 'optional';
+export type ContextPriority = "critical" | 'high' | 'medium' | 'low' | "optional";
 
 export interface ContextMetadata {
   model: string;
@@ -99,7 +99,7 @@ export class ContextManager extends EventEmitter {
     this.windows.set(id, window);
     this.activeWindow = window;
     
-    this.emit('windowCreated', window);
+    this.emit("windowCreated", window);
     return window;
   }
 
@@ -108,7 +108,7 @@ export class ContextManager extends EventEmitter {
     options?: {
       type?: ContextItem['type'];
       priority?: ContextPriority;
-      metadata?: ContextItem['metadata'];
+      metadata?: ContextItem["metadata"];
       windowId?: string;
     }
   ): ContextItem {
@@ -145,7 +145,7 @@ export class ContextManager extends EventEmitter {
     window.items.push(item);
     window.usedTokens += item.tokens;
     
-    this.emit('itemAdded', { window, item });
+    this.emit("itemAdded", { window, item });
     return item;
   }
 
@@ -159,16 +159,16 @@ export class ContextManager extends EventEmitter {
       case 'lifo':
         this.evictLIFO(window, targetTokens);
         break;
-      case 'priority':
+      case "priority":
         this.evictByPriority(window, targetTokens);
         break;
-      case 'relevance':
+      case "relevance":
         this.evictByRelevance(window, targetTokens);
         break;
       case 'sliding':
         this.evictSliding(window, targetTokens);
         break;
-      case 'adaptive':
+      case "adaptive":
         this.evictAdaptive(window, targetTokens);
         break;
     }
@@ -179,7 +179,7 @@ export class ContextManager extends EventEmitter {
       const item = window.items.shift();
       if (item && !item.metadata?.persistent) {
         window.usedTokens -= item.tokens;
-        this.emit('itemEvicted', { window, item, reason: 'fifo' });
+        this.emit("itemEvicted", { window, item, reason: 'fifo' });
       }
     }
   }
@@ -189,13 +189,13 @@ export class ContextManager extends EventEmitter {
       const item = window.items.pop();
       if (item && !item.metadata?.persistent) {
         window.usedTokens -= item.tokens;
-        this.emit('itemEvicted', { window, item, reason: 'lifo' });
+        this.emit("itemEvicted", { window, item, reason: 'lifo' });
       }
     }
   }
 
   private evictByPriority(window: ContextWindow, targetTokens: number): void {
-    const priorityOrder: ContextPriority[] = ['optional', 'low', 'medium', 'high', 'critical'];
+    const priorityOrder: ContextPriority[] = ["optional", 'low', 'medium', 'high', "critical"];
     
     for (const priority of priorityOrder) {
       const candidates = window.items
@@ -209,7 +209,7 @@ export class ContextManager extends EventEmitter {
         if (index !== -1) {
           window.items.splice(index, 1);
           window.usedTokens -= item.tokens;
-          this.emit('itemEvicted', { window, item, reason: 'priority' });
+          this.emit("itemEvicted", { window, item, reason: "priority" });
         }
       }
     }
@@ -231,7 +231,7 @@ export class ContextManager extends EventEmitter {
       if (index !== -1) {
         window.items.splice(index, 1);
         window.usedTokens -= item.tokens;
-        this.emit('itemEvicted', { window, item, reason: 'relevance' });
+        this.emit("itemEvicted", { window, item, reason: "relevance" });
       }
     }
   }
@@ -249,7 +249,7 @@ export class ContextManager extends EventEmitter {
       if (index !== -1) {
         window.items.splice(index, 1);
         window.usedTokens -= item.tokens;
-        this.emit('itemEvicted', { window, item, reason: 'sliding' });
+        this.emit("itemEvicted", { window, item, reason: 'sliding' });
       }
     }
   }
@@ -276,7 +276,7 @@ export class ContextManager extends EventEmitter {
       if (index !== -1) {
         window.items.splice(index, 1);
         window.usedTokens -= item.tokens;
-        this.emit('itemEvicted', { window, item, reason: 'adaptive' });
+        this.emit("itemEvicted", { window, item, reason: "adaptive" });
       }
     }
   }
@@ -329,7 +329,7 @@ export class ContextManager extends EventEmitter {
       window.metadata.compressionRatio = after / before;
     }
     
-    this.emit('windowOptimized', { window, saved });
+    this.emit("windowOptimized", { window, saved });
   }
 
   private compressWindow(window: ContextWindow): void {
@@ -435,7 +435,7 @@ export class ContextManager extends EventEmitter {
     const window = this.windows.get(id);
     if (window) {
       this.activeWindow = window;
-      this.emit('windowActivated', window);
+      this.emit("windowActivated", window);
       return true;
     }
     return false;
@@ -448,7 +448,7 @@ export class ContextManager extends EventEmitter {
     window.items = [];
     window.usedTokens = 0;
     
-    this.emit('windowCleared', window);
+    this.emit("windowCleared", window);
   }
 
   deleteWindow(id: string): boolean {
@@ -461,7 +461,7 @@ export class ContextManager extends EventEmitter {
       this.activeWindow = undefined;
     }
     
-    this.emit('windowDeleted', window);
+    this.emit("windowDeleted", window);
     return true;
   }
 
@@ -481,7 +481,7 @@ export class ContextManager extends EventEmitter {
     };
     
     this.windows.set(window.id, window);
-    this.emit('windowImported', window);
+    this.emit("windowImported", window);
     
     return window;
   }

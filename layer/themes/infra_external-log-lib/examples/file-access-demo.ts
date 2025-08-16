@@ -8,7 +8,7 @@
  */
 
 import { auditedFS, fileAccessAuditor } from '../pipe';
-import * as path from 'path';
+import * as path from 'node:path';
 import * as os from 'os';
 
 async function demonstrateFileAccessAuditing() {
@@ -32,7 +32,7 @@ async function demonstrateFileAccessAuditing() {
     console.log(`  📁 ${event.operation}: ${event.path} [${event.result.success ? '✅' : '❌'}]`);
   });
   
-  fileAccessAuditor.on('violation', (event) => {
+  fileAccessAuditor.on("violation", (event) => {
     console.log(`  ⚠️  VIOLATION: ${event.operation} on ${event.path}`);
     if (event.validation?.violations) {
       console.log(`     Reasons: ${event.validation.violations.join(', ')}`);

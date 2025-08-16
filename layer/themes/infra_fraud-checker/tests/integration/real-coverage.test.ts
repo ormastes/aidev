@@ -83,7 +83,7 @@ describe('Real Coverage Integration Tests', () => {
       
       expect(patterns.length).toBeGreaterThan(0);
       patterns.forEach(pattern => {
-        expect(['critical', 'high', 'medium', 'low']).toContain(pattern.severity);
+        expect(["critical", 'high', 'medium', 'low']).toContain(pattern.severity);
       });
     });
   });
@@ -142,7 +142,7 @@ describe('Real Coverage Integration Tests', () => {
         violations: [
           {
             type: 'fake-assertions' as const,
-            severity: 'critical' as const,
+            severity: "critical" as const,
             message: 'Always-true assertion found',
             location: 'test.js:10:5'
           },
@@ -201,7 +201,7 @@ describe('Real Coverage Integration Tests', () => {
           score,
           violations: Array(critical).fill({
             type: 'fake-assertions' as const,
-            severity: 'critical' as const,
+            severity: "critical" as const,
             message: 'Test violation',
             location: 'test.js:1:1'
           }),

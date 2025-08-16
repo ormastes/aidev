@@ -7,7 +7,7 @@ export interface CrossReference {
   id: string;
   source: string;
   target: string;
-  type: 'test' | 'section' | 'requirement' | 'glossary' | 'external';
+  type: 'test' | 'section' | "requirement" | "glossary" | "external";
   text: string;
   context?: string;
 }
@@ -160,10 +160,10 @@ export class CrossReferenceBuilder {
   private formatTypeName(type: string): string {
     const typeNames: Record<string, string> = {
       'test': 'Test Cases',
-      'section': 'Sections',
-      'requirement': 'Requirements',
-      'glossary': 'Glossary',
-      'external': 'External Links'
+      'section': "Sections",
+      "requirement": "Requirements",
+      "glossary": "Glossary",
+      "external": 'External Links'
     };
     
     return typeNames[type] || type.charAt(0).toUpperCase() + type.slice(1);

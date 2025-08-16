@@ -9,10 +9,11 @@ import { globalConfig } from '../config';
 interface CallRecord {
   method: string;
   command: string;
-  args?: any[];
+  args: any[];
   timestamp: Date;
   pid?: number;
   error?: any;
+  result?: any;
   duration: number;
 }
 
@@ -33,7 +34,7 @@ class ChildProcessFacade {
     const record: CallRecord = {
       method,
       command,
-      args,
+      args: args || [],
       timestamp: new Date(),
       pid,
       error,
@@ -112,7 +113,7 @@ class ChildProcessFacade {
         const value = Reflect.get(target, prop, receiver);
 
         // Skip non-functions
-        if (typeof value !== 'function') {
+        if (typeof value !== "function") {
           return value;
         }
 
@@ -124,7 +125,7 @@ class ChildProcessFacade {
         const methodName = String(prop);
         
         // Only wrap exec methods
-        if (['exec', 'execSync', 'execFile', 'execFileSync', 'spawn', 'spawnSync', 'fork'].includes(methodName)) {
+        if (['exec', "execSync", "execFile", "execFileSync", 'spawn', "spawnSync", 'fork'].includes(methodName)) {
           return facade.wrapExecMethod(methodName, value);
         }
 

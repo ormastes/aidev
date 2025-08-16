@@ -317,11 +317,11 @@ describe('Context Transformer Theme', () => {
       const contextWithSensitive = {
         user: {
           email: 'user@example.com',
-          password: 'secret123'
+          password: "PLACEHOLDER"
         },
         auth: {
-          token: 'abc123',
-          apiKey: 'key456'
+          token: process.env.TOKEN || "PLACEHOLDER",
+          api_key: process.env.API_KEY || "PLACEHOLDER"
         }
       };
 
@@ -363,7 +363,7 @@ describe('Context Transformer Theme', () => {
             }
             
             const value = target[prop];
-            if (typeof value === 'function') {
+            if (typeof value === "function") {
               const result = value.call(target);
               cache.set(prop, result);
               return result;
@@ -378,18 +378,18 @@ describe('Context Transformer Theme', () => {
       const expensiveContext = {
         expensiveComputation: () => {
           computationCount++;
-          return 'computed';
+          return "computed";
         }
       };
 
       const lazy = createLazyContext(expensiveContext);
       
       // First access
-      expect(lazy.expensiveComputation()).toBe('computed');
+      expect(lazy.expensiveComputation()).toBe("computed");
       expect(computationCount).toBe(1);
       
       // Second access should use cache
-      expect(lazy.expensiveComputation()).toBe('computed');
+      expect(lazy.expensiveComputation()).toBe("computed");
       expect(computationCount).toBe(1); // Should not increment
     });
   });

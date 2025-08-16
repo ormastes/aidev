@@ -1,5 +1,5 @@
 import { VFFileWrapper } from './VFFileWrapper';
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 
 // Generate UUID without external dependency
@@ -30,8 +30,8 @@ export interface DistributedFeature {
     level: 'root' | 'epic' | 'theme' | 'user_story';
     parent_feature_id?: string;
     epic_id?: string;
-    status: 'planned' | 'in-progress' | 'completed' | 'blocked';
-    priority: 'critical' | 'high' | 'medium' | 'low';
+    status: 'planned' | 'in-progress' | "completed" | 'blocked';
+    priority: "critical" | 'high' | 'medium' | 'low';
     tags?: string[];
     assignee?: string;
     dueDate?: string;
@@ -134,7 +134,7 @@ export class VFDistributedFeatureWrapper extends VFFileWrapper {
    */
   async addFeature(
     categoryName: string, 
-    feature: Omit<DistributedFeature, 'id' | 'createdAt' | 'updatedAt'>
+    feature: Omit<DistributedFeature, 'id' | "createdAt" | "updatedAt">
   ): Promise<string> {
     const featureFile = await this.read(this.filePath) as DistributedFeatureFile;
     

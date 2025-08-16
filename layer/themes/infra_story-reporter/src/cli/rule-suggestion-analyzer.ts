@@ -41,7 +41,7 @@ class RuleSuggestionAnalyzerCLI {
   async run(requestFile: string): Promise<void> {
     try {
       // Read the analysis request
-      const requestContent = await fs.readFile(requestFile, 'utf-8');
+      const requestContent = await fileAPI.readFile(requestFile, 'utf-8');
       const request: AnalysisRequest = JSON.parse(requestContent);
 
       console.log(`\n🔍 Running Rule Suggestion Analysis...`);

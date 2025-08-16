@@ -6,7 +6,7 @@
 import * as fs from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
 import { exec } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 
 const execAsync = promisify(exec);
 
@@ -23,7 +23,7 @@ export interface ReportConfig {
   historicalTracking: boolean;
 }
 
-export type ReportFormat = 'html' | 'json' | 'lcov' | 'xml' | 'markdown' | 'badge' | 'console';
+export type ReportFormat = 'html' | 'json' | 'lcov' | 'xml' | "markdown" | 'badge' | 'console';
 
 export interface ReportMetadata {
   generatedAt: string;
@@ -48,7 +48,7 @@ export interface HistoricalData {
 export class CppReportSetup {
   private defaultConfig: ReportConfig = {
     formats: ['html', 'json', 'lcov', 'console'],
-    outputDirectory: 'coverage',
+    outputDirectory: "coverage",
     includeSourceCode: true,
     includeBranchDetails: true,
     includeFileList: true,
@@ -193,8 +193,8 @@ if [ "$COVERAGE_TOOL" = "llvm" ]; then
 else
     # Convert lcov to JSON
     node -e "
-    const fs = require('fs');
-    const lcov = fs.readFileSync('coverage.info', 'utf-8');
+    const fs = require('../../layer/themes/infra_external-log-lib/src');
+    const lcov = fileAPI.readFileSync('coverage.info', 'utf-8');
     // Simple lcov to JSON conversion
     const json = { /* conversion logic */ };
     await fileAPI.createFile('$OUTPUT_DIR/json/coverage.json', JSON.stringify(json, { type: FileType.TEMPORARY }));
@@ -217,7 +217,7 @@ fi
 `);
     }
     
-    if (config.formats.includes('markdown')) {
+    if (config.formats.includes("markdown")) {
       commands.push(`
 # Markdown report
 echo "Generating Markdown report..."
@@ -372,8 +372,8 @@ fi
 # Add new entry to history
 node -e "
 const { fs } = require('../../../infra_external-log-lib/src');
-const history = JSON.parse(fs.readFileSync('$HISTORY_FILE', 'utf-8'));
-const coverage = JSON.parse(fs.readFileSync('$COVERAGE_JSON', 'utf-8'));
+const history = JSON.parse(fileAPI.readFileSync('$HISTORY_FILE', 'utf-8'));
+const coverage = JSON.parse(fileAPI.readFileSync('$COVERAGE_JSON', 'utf-8'));
 
 const entry = {
   date: new Date().toISOString(),
@@ -434,7 +434,7 @@ fi
     format: ReportFormat
   ): Promise<string> {
     switch (format) {
-      case 'markdown':
+      case "markdown":
         return this.generateMarkdownReport(coverageData);
       case 'html':
         return this.generateHtmlSummary(coverageData);
@@ -546,9 +546,9 @@ Function Coverage: ${summary.functions?.percent?.toFixed(2)}% (${summary.functio
  */
 export class CppReportGenerator {
   async generateMarkdown(jsonPath: string, outputPath: string): Promise<void> {
-    const data = JSON.parse(await fs.readFile(jsonPath, 'utf-8'));
+    const data = JSON.parse(await fileAPI.readFile(jsonPath, 'utf-8'));
     const generator = new CppReportSetup();
-    const report = await generator.generateReport('', data, 'markdown');
+    const report = await generator.generateReport('', data, "markdown");
     await fileAPI.createFile(outputPath, report, { type: FileType.REPORT });
   }
 
@@ -595,7 +595,7 @@ export class CppReportGenerator {
  */
 export class CppReportConverter {
   async jsonToCobertura(jsonPath: string, { type: FileType.TEMPORARY }): Promise<void> {
-    const data = JSON.parse(await fs.readFile(jsonPath, 'utf-8'));
+    const data = JSON.parse(await fileAPI.readFile(jsonPath, 'utf-8'));
     
     // Simple Cobertura XML generation
     const xml = `<?xml version="1.0" ?>

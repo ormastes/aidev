@@ -1,9 +1,9 @@
 import { PermissionManager } from '../../children/src/infrastructure/permission-manager';
-import { fs } from '../../../../themes/infra_external-log-lib/dist';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 jest.mock('fs');
 
-describe('PermissionManager', () => {
+describe("PermissionManager", () => {
   let permissionManager: PermissionManager;
   const mockFs = fs as jest.Mocked<typeof fs>;
   const testAuditFile = '/test/audit.log';
@@ -17,7 +17,7 @@ describe('PermissionManager', () => {
     mockFs.readFileSync.mockReturnValue('');
   });
 
-  describe('checkPermission', () => {
+  describe("checkPermission", () => {
     it('should allow action when user has exact permission', () => {
       const result = permissionManager.checkPermission(
         'user123',
@@ -40,7 +40,7 @@ describe('PermissionManager', () => {
 
     it('should allow action with admin wildcard', () => {
       const result = permissionManager.checkPermission(
-        'superadmin',
+        "superadmin",
         'system:shutdown',
         ['admin:*']
       );
@@ -133,9 +133,9 @@ describe('PermissionManager', () => {
     });
   });
 
-  describe('enableDangerousMode', () => {
+  describe("enableDangerousMode", () => {
     it('should enable dangerous mode', () => {
-      permissionManager.enableDangerousMode('admin123', 'System maintenance');
+      permissionManager.enableDangerousMode("admin123", 'System maintenance');
       
       expect(mockFs.appendFileSync).toHaveBeenCalledWith(
         testAuditFile,
@@ -144,10 +144,10 @@ describe('PermissionManager', () => {
     });
 
     it('should allow any action in dangerous mode', () => {
-      permissionManager.enableDangerousMode('admin123', 'Emergency');
+      permissionManager.enableDangerousMode("admin123", "Emergency");
       
       const result = permissionManager.checkPermission(
-        'admin123',
+        "admin123",
         'system:destroy-everything',
         []
       );
@@ -156,7 +156,7 @@ describe('PermissionManager', () => {
     });
 
     it('should not affect other users', () => {
-      permissionManager.enableDangerousMode('admin123', 'Maintenance');
+      permissionManager.enableDangerousMode("admin123", "Maintenance");
       
       const result = permissionManager.checkPermission(
         'user456',
@@ -168,13 +168,13 @@ describe('PermissionManager', () => {
     });
   });
 
-  describe('disableDangerousMode', () => {
+  describe("disableDangerousMode", () => {
     it('should disable dangerous mode', () => {
-      permissionManager.enableDangerousMode('admin123', 'Test');
-      permissionManager.disableDangerousMode('admin123');
+      permissionManager.enableDangerousMode("admin123", 'Test');
+      permissionManager.disableDangerousMode("admin123");
       
       const result = permissionManager.checkPermission(
-        'admin123',
+        "admin123",
         'restricted:action',
         []
       );
@@ -187,11 +187,11 @@ describe('PermissionManager', () => {
     });
   });
 
-  describe('isDangerousModeEnabled', () => {
+  describe("isDangerousModeEnabled", () => {
     it('should return true when enabled', () => {
-      permissionManager.enableDangerousMode('admin123', 'Test');
+      permissionManager.enableDangerousMode("admin123", 'Test');
       
-      const result = permissionManager.isDangerousModeEnabled('admin123');
+      const result = permissionManager.isDangerousModeEnabled("admin123");
       
       expect(result).toBe(true);
     });
@@ -203,10 +203,10 @@ describe('PermissionManager', () => {
     });
 
     it('should return false after disabling', () => {
-      permissionManager.enableDangerousMode('admin123', 'Test');
-      permissionManager.disableDangerousMode('admin123');
+      permissionManager.enableDangerousMode("admin123", 'Test');
+      permissionManager.disableDangerousMode("admin123");
       
-      const result = permissionManager.isDangerousModeEnabled('admin123');
+      const result = permissionManager.isDangerousModeEnabled("admin123");
       
       expect(result).toBe(false);
     });
@@ -248,12 +248,12 @@ describe('PermissionManager', () => {
       const auditCall = mockFs.appendFileSync.mock.calls[0];
       const auditEntry = JSON.parse(auditCall[1] as string);
       
-      expect(auditEntry).toHaveProperty('timestamp');
+      expect(auditEntry).toHaveProperty("timestamp");
       expect(new Date(auditEntry.timestamp)).toBeInstanceOf(Date);
     });
   });
 
-  describe('getAuditLog', () => {
+  describe("getAuditLog", () => {
     it('should return parsed audit entries', () => {
       const auditData = [
         { timestamp: new Date().toISOString(), userId: 'user1', action: 'read', result: 'allowed' },
@@ -344,7 +344,7 @@ describe('PermissionManager', () => {
     });
   });
 
-  describe('getStatistics', () => {
+  describe("getStatistics", () => {
     it('should calculate statistics from audit log', () => {
       const auditData = [
         { timestamp: new Date().toISOString(), userId: 'user1', action: 'read', result: 'allowed' },
@@ -380,7 +380,7 @@ describe('PermissionManager', () => {
     });
   });
 
-  describe('exportAuditLog', () => {
+  describe("exportAuditLog", () => {
     it('should export audit log to file', () => {
       const auditData = [
         { timestamp: new Date().toISOString(), userId: 'user1', action: 'read' }

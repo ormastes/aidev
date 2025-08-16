@@ -7,7 +7,7 @@
 
 import { TestSuiteManager } from '../../src/external/test-suite-manager';
 import { MockExternalLogger } from '../../src/internal/mock-external-logger';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 describe('TestSuiteManager setExternalLogger Unit Test', () => {
   let testSuiteManager: TestSuiteManager;
@@ -135,7 +135,7 @@ describe('TestSuiteManager setExternalLogger Unit Test', () => {
       const otherListener = jest.fn();
       
       testSuiteManager.on('log', logListener);
-      testSuiteManager.on('progress', otherListener);
+      testSuiteManager.on("progress", otherListener);
       
       // Act
       testSuiteManager.setExternalLogger(mockExternalLogger);

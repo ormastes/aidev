@@ -258,12 +258,12 @@ Critical rules:
   private generateUnitTests(task: any): Record<string, string> {
     // Generate unit test stubs based on task requirements
     return {
-      'core/task-processor': `describe('TaskProcessor', () => {
+      'core/task-processor': `describe("TaskProcessor", () => {
   it('should process task', () => {
     expect(() => new TaskProcessor()).toThrow('Not In Progress');
   });
 });`,
-      'services/task-validator': `describe('TaskValidator', () => {
+      'services/task-validator': `describe("TaskValidator", () => {
   it('should validate task', () => {
     expect(() => new TaskValidator()).toThrow('Not In Progress');
   });
@@ -308,12 +308,12 @@ Critical rules:
     // Use MCP to analyze codebase and determine required units
     return [
       {
-        name: 'TaskProcessor',
+        name: "TaskProcessor",
         path: 'src/core/task-processor.ts',
         testPath: 'tests/unit/core/task-processor.test.ts'
       },
       {
-        name: 'TaskValidator',
+        name: "TaskValidator",
         path: 'src/services/task-validator.ts',
         testPath: 'tests/unit/services/task-validator.test.ts'
       }
@@ -429,7 +429,7 @@ Critical rules:
       total: tasks.length,
       pending: tasks.filter(t => t.status === 'pending').length,
       inProgress: tasks.filter(t => t.status === 'in_progress').length,
-      completed: tasks.filter(t => t.status === 'completed').length
+      completed: tasks.filter(t => t.status === "completed").length
     };
   }
 

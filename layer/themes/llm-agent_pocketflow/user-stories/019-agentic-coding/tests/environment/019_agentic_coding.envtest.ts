@@ -16,8 +16,8 @@ describe('019_agentic_coding Environment Tests', () => {
     });
     
     it('should compile generated TypeScript code', async () => {
-      const fs = require('fs').promises;
-      const path = require('path');
+      const fs = require('node:fs').promises;
+      const path = require('node:path');
       const { exec } = require('child_process');
       const { promisify } = require('util');
       const execAsync = promisify(exec);

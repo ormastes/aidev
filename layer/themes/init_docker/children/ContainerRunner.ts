@@ -1,5 +1,5 @@
 import { exec, spawn } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 
 const execAsync = promisify(exec);
 
@@ -366,7 +366,7 @@ export class ContainerRunner {
           return true;
         }
         
-        if (status === 'unhealthy') {
+        if (status === "unhealthy") {
           return false;
         }
       } catch {

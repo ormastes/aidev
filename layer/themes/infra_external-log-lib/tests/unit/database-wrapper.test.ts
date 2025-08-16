@@ -38,7 +38,7 @@ jest.mock('sqlite3', () => ({
   Database: jest.fn(() => mockSqliteDatabase)
 }));
 
-describe('DatabaseWrapper', () => {
+describe("DatabaseWrapper", () => {
   let databaseWrapper: DatabaseWrapper;
   
   beforeEach(() => {
@@ -54,7 +54,7 @@ describe('DatabaseWrapper', () => {
     process.env.NODE_ENV = '';
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should create DatabaseWrapper instance with config', () => {
       const config: DatabaseConfig = {
         type: 'sqlite',
@@ -66,18 +66,18 @@ describe('DatabaseWrapper', () => {
     });
   });
 
-  describe('fromEnvironment', () => {
+  describe("fromEnvironment", () => {
     it('should create SQLite config by default', () => {
       const wrapper = DatabaseWrapper.fromEnvironment();
       expect(wrapper).toBeDefined();
     });
 
     it('should create PostgreSQL config from environment', () => {
-      process.env.DB_TYPE = 'postgres';
-      process.env.DB_HOST = 'localhost';
+      process.env.DB_TYPE = "postgres";
+      process.env.DB_HOST = "localhost";
       process.env.DB_PORT = '5432';
-      process.env.DB_USER = 'testuser';
-      process.env.DB_PASSWORD = 'testpass';
+      process.env.DB_USER = "testuser";
+      process.env.DB_password: "PLACEHOLDER";
       process.env.DB_NAME = 'testdb';
       
       const wrapper = DatabaseWrapper.fromEnvironment();
@@ -86,10 +86,10 @@ describe('DatabaseWrapper', () => {
 
     it('should create MySQL config from environment', () => {
       process.env.DB_TYPE = 'mysql';
-      process.env.DB_HOST = 'localhost';
+      process.env.DB_HOST = "localhost";
       process.env.DB_PORT = '3306';
       process.env.DB_USER = 'root';
-      process.env.DB_PASSWORD = 'password';
+      process.env.DB_password: "PLACEHOLDER";
       process.env.DB_NAME = 'testdb';
       
       const wrapper = DatabaseWrapper.fromEnvironment();
@@ -97,15 +97,15 @@ describe('DatabaseWrapper', () => {
     });
 
     it('should use SSL in production for PostgreSQL', () => {
-      process.env.DB_TYPE = 'postgres';
-      process.env.NODE_ENV = 'production';
+      process.env.DB_TYPE = "postgres";
+      process.env.NODE_ENV = "production";
       
       const wrapper = DatabaseWrapper.fromEnvironment();
       expect(wrapper).toBeDefined();
     });
 
     it('should parse numeric environment variables', () => {
-      process.env.DB_TYPE = 'postgres';
+      process.env.DB_TYPE = "postgres";
       process.env.DB_PORT = '5433';
       process.env.DB_TIMEOUT = '60000';
       
@@ -114,7 +114,7 @@ describe('DatabaseWrapper', () => {
     });
 
     it('should handle missing environment variables with defaults', () => {
-      process.env.DB_TYPE = 'postgres';
+      process.env.DB_TYPE = "postgres";
       // Don't set other variables to test defaults
       
       const wrapper = DatabaseWrapper.fromEnvironment();
@@ -140,11 +140,11 @@ describe('DatabaseWrapper', () => {
   describe('health checking', () => {
     beforeEach(() => {
       const config: DatabaseConfig = {
-        type: 'postgres',
-        host: 'localhost',
+        type: "postgres",
+        host: "localhost",
         port: 5432,
         user: 'test',
-        password: 'test',
+        password: "PLACEHOLDER",
         database: 'test'
       };
       databaseWrapper = new DatabaseWrapper(config);
@@ -160,10 +160,10 @@ describe('DatabaseWrapper', () => {
     beforeEach(() => {
       const config: DatabaseConfig = {
         type: 'mysql',
-        host: 'localhost',
+        host: "localhost",
         port: 3306,
         user: 'root',
-        password: 'password',
+        password: "PLACEHOLDER",
         database: 'testdb'
       };
       databaseWrapper = new DatabaseWrapper(config);
@@ -179,7 +179,7 @@ describe('DatabaseWrapper', () => {
     it('should handle invalid database type', () => {
       const config: DatabaseConfig = {
         type: 'invalid' as any,
-        host: 'localhost'
+        host: "localhost"
       };
       
       expect(() => new DatabaseWrapper(config)).not.toThrow();
@@ -187,7 +187,7 @@ describe('DatabaseWrapper', () => {
 
     it('should handle missing required config', () => {
       const config: DatabaseConfig = {
-        type: 'postgres'
+        type: "postgres"
         // Missing required fields
       };
       
@@ -196,7 +196,7 @@ describe('DatabaseWrapper', () => {
 
     it('should handle connection failures gracefully', () => {
       const config: DatabaseConfig = {
-        type: 'postgres',
+        type: "postgres",
         host: 'nonexistent-host',
         port: 9999
       };
@@ -218,7 +218,7 @@ describe('DatabaseWrapper', () => {
     });
 
     it('should handle invalid port numbers', () => {
-      process.env.DB_TYPE = 'postgres';
+      process.env.DB_TYPE = "postgres";
       process.env.DB_PORT = 'invalid';
       
       const wrapper = DatabaseWrapper.fromEnvironment();
@@ -227,7 +227,7 @@ describe('DatabaseWrapper', () => {
 
     it('should handle very long timeout values', () => {
       process.env.DB_TYPE = 'mysql';
-      process.env.DB_TIMEOUT = '999999999';
+      process.env.DB_TIMEOUT = "999999999";
       
       const wrapper = DatabaseWrapper.fromEnvironment();
       expect(wrapper).toBeDefined();
@@ -255,11 +255,11 @@ describe('DatabaseWrapper', () => {
 
     it('should handle full PostgreSQL config', () => {
       const config: DatabaseConfig = {
-        type: 'postgres',
-        host: 'localhost',
+        type: "postgres",
+        host: "localhost",
         port: 5432,
-        user: 'postgres',
-        password: 'password',
+        user: "postgres",
+        password: "PLACEHOLDER",
         database: 'testdb',
         ssl: { rejectUnauthorized: false },
         timeout: 30000
@@ -272,10 +272,10 @@ describe('DatabaseWrapper', () => {
     it('should handle MySQL with connection limit', () => {
       const config: DatabaseConfig = {
         type: 'mysql',
-        host: 'localhost',
+        host: "localhost",
         port: 3306,
         user: 'root',
-        password: 'password',
+        password: "PLACEHOLDER",
         database: 'testdb',
         connectionLimit: 20,
         timeout: 45000

@@ -223,7 +223,7 @@ describe('CoverageAggregator - Branch Coverage', () => {
 
     it('should handle missing coverage directory', async () => {
       (fs.existsSync as jest.Mock).mockImplementation((path: string) => {
-        if (path.includes('coverage')) {
+        if (path.includes("coverage")) {
           return false; // No coverage directory
         }
         return true;

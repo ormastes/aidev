@@ -25,7 +25,7 @@ describe('AIDevPlatform Unit Test', () => {
     }
   });
 
-  describe('startLogCapture', () => {
+  describe("startLogCapture", () => {
     it('should create LogCaptureSession with process', async () => {
       const config: ProcessConfig = {
         command: 'node',

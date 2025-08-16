@@ -2,8 +2,8 @@
 import * as vscode from 'vscode';
 import { CMakeToolsApi, getCMakeToolsApi, Project, Version } from 'vscode-cmake-tools';
 
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import fg from 'fast-glob';
 
 interface Artifact {
@@ -470,48 +470,48 @@ export class Config {
         this.type = ConfigType.Config;
         this.workspaceFolder = workspaceFolder;
         this.controllerId = "cdoctest";
-        this.useCmakeTarget = vscode.workspace.getConfiguration('cdoctest').get('useCmakeTarget') as boolean;
-        this._pythonExePath = vscode.workspace.getConfiguration('cdoctest').get('pythonExePath') as string;
-        this._testRunArgPattern = vscode.workspace.getConfiguration('cdoctest').get('testRunArgPattern') as string;
-        this._listTestArgPattern = vscode.workspace.getConfiguration('cdoctest').get('listTestArgPattern') as string;
-        this._exe_testRunArgPattern = vscode.workspace.getConfiguration('cdoctest').get('exe_testRunArgPattern') as string;
-        this._exe_listTestArgPattern = vscode.workspace.getConfiguration('cdoctest').get('exe_listTestArgPattern') as string;
-        this._bin_testRunArgPattern = vscode.workspace.getConfiguration('cdoctest').get('bin_testRunArgPattern') as string;
-        this._bin_listTestArgPattern = vscode.workspace.getConfiguration('cdoctest').get('bin_listTestArgPattern') as string;
-        this._resultFile = vscode.workspace.getConfiguration('cdoctest').get('resultFile') as string;
-        this._exe_resultFile = vscode.workspace.getConfiguration('cdoctest').get('exe_resultFile') as string;
-        this._bin_resultFile = vscode.workspace.getConfiguration('cdoctest').get('bin_resultFile') as string;
-        this._resultSuccessRgex = vscode.workspace.getConfiguration('cdoctest').get('resultSuccessRgex') as string;
+        this.useCmakeTarget = vscode.workspace.getConfiguration("cdoctest").get("useCmakeTarget") as boolean;
+        this._pythonExePath = vscode.workspace.getConfiguration("cdoctest").get("pythonExePath") as string;
+        this._testRunArgPattern = vscode.workspace.getConfiguration("cdoctest").get("testRunArgPattern") as string;
+        this._listTestArgPattern = vscode.workspace.getConfiguration("cdoctest").get("listTestArgPattern") as string;
+        this._exe_testRunArgPattern = vscode.workspace.getConfiguration("cdoctest").get('exe_testRunArgPattern') as string;
+        this._exe_listTestArgPattern = vscode.workspace.getConfiguration("cdoctest").get('exe_listTestArgPattern') as string;
+        this._bin_testRunArgPattern = vscode.workspace.getConfiguration("cdoctest").get('bin_testRunArgPattern') as string;
+        this._bin_listTestArgPattern = vscode.workspace.getConfiguration("cdoctest").get('bin_listTestArgPattern') as string;
+        this._resultFile = vscode.workspace.getConfiguration("cdoctest").get("resultFile") as string;
+        this._exe_resultFile = vscode.workspace.getConfiguration("cdoctest").get('exe_resultFile') as string;
+        this._bin_resultFile = vscode.workspace.getConfiguration("cdoctest").get('bin_resultFile') as string;
+        this._resultSuccessRgex = vscode.workspace.getConfiguration("cdoctest").get("resultSuccessRgex") as string;
 
-        this._srcDirectory = vscode.workspace.getConfiguration('cdoctest').get('srcDirectory') as string;
-        this._buildDirectory = vscode.workspace.getConfiguration('cdoctest').get('buildDirectory') as string;
-        this._executable = vscode.workspace.getConfiguration('cdoctest').get('executable') as string;
-        this._exe_executable = vscode.workspace.getConfiguration('cdoctest').get('exe_executable') as string;
-        this._bin_executable = vscode.workspace.getConfiguration('cdoctest').get('bin_executable') as string;
+        this._srcDirectory = vscode.workspace.getConfiguration("cdoctest").get("srcDirectory") as string;
+        this._buildDirectory = vscode.workspace.getConfiguration("cdoctest").get("buildDirectory") as string;
+        this._executable = vscode.workspace.getConfiguration("cdoctest").get("executable") as string;
+        this._exe_executable = vscode.workspace.getConfiguration("cdoctest").get('exe_executable') as string;
+        this._bin_executable = vscode.workspace.getConfiguration("cdoctest").get('bin_executable') as string;
 
-        this._testRunUseFile = vscode.workspace.getConfiguration('cdoctest').get('testRunUseFile') as boolean;
-        this._listTestUseFile = vscode.workspace.getConfiguration('cdoctest').get('listTestUseFile') as boolean;
-        this.exe_testRunUseFile = vscode.workspace.getConfiguration('cdoctest').get('exe_testRunUseFile') as boolean;
-        this.exe_listTestUseFile = vscode.workspace.getConfiguration('cdoctest').get('exe_listTestUseFile') as boolean;
-        this.bin_testRunUseFile = vscode.workspace.getConfiguration('cdoctest').get('bin_testRunUseFile') as boolean;
-        this.bin_listTestUseFile = vscode.workspace.getConfiguration('cdoctest').get('bin_listTestUseFile') as boolean;
-        this.libPaths = vscode.workspace.getConfiguration('cdoctest').get('libPaths') as string;
-        this.configName = vscode.workspace.getConfiguration('cdoctest').get('configName') as string;
-        this.testcaseSeparator = vscode.workspace.getConfiguration('cdoctest').get('testcaseSeparator') as string;
-        this.exe_testcaseSeparator = vscode.workspace.getConfiguration('cdoctest').get('exe_testcaseSeparator') as string;
-        this.bin_testcaseSeparator = vscode.workspace.getConfiguration('cdoctest').get('bin_testcaseSeparator') as string;
-        this.buildBeforeTest = vscode.workspace.getConfiguration('cdoctest').get('buildBeforeTest') ?? true;
-        this.exe_buildBeforeTest = vscode.workspace.getConfiguration('cdoctest').get('exe_buildBeforeTest') ?? true;
-        this.bin_buildBeforeTest = vscode.workspace.getConfiguration('cdoctest').get('bin_buildBeforeTest') ?? true;
+        this._testRunUseFile = vscode.workspace.getConfiguration("cdoctest").get("testRunUseFile") as boolean;
+        this._listTestUseFile = vscode.workspace.getConfiguration("cdoctest").get("listTestUseFile") as boolean;
+        this.exe_testRunUseFile = vscode.workspace.getConfiguration("cdoctest").get('exe_testRunUseFile') as boolean;
+        this.exe_listTestUseFile = vscode.workspace.getConfiguration("cdoctest").get('exe_listTestUseFile') as boolean;
+        this.bin_testRunUseFile = vscode.workspace.getConfiguration("cdoctest").get('bin_testRunUseFile') as boolean;
+        this.bin_listTestUseFile = vscode.workspace.getConfiguration("cdoctest").get('bin_listTestUseFile') as boolean;
+        this.libPaths = vscode.workspace.getConfiguration("cdoctest").get("libPaths") as string;
+        this.configName = vscode.workspace.getConfiguration("cdoctest").get("configName") as string;
+        this.testcaseSeparator = vscode.workspace.getConfiguration("cdoctest").get("testcaseSeparator") as string;
+        this.exe_testcaseSeparator = vscode.workspace.getConfiguration("cdoctest").get('exe_testcaseSeparator') as string;
+        this.bin_testcaseSeparator = vscode.workspace.getConfiguration("cdoctest").get('bin_testcaseSeparator') as string;
+        this.buildBeforeTest = vscode.workspace.getConfiguration("cdoctest").get("buildBeforeTest") ?? true;
+        this.exe_buildBeforeTest = vscode.workspace.getConfiguration("cdoctest").get('exe_buildBeforeTest') ?? true;
+        this.bin_buildBeforeTest = vscode.workspace.getConfiguration("cdoctest").get('bin_buildBeforeTest') ?? true;
 
         // Initialize coverage configuration
-        this.coverageLocation = vscode.workspace.getConfiguration('cdoctest').get('coverageLocation') as string || '';
-        this.coverageGenerateTask = vscode.workspace.getConfiguration('cdoctest').get('coverageGenerateTask') as string || '';
-        this.coverageRawFilePattern = vscode.workspace.getConfiguration('cdoctest').get('coverageRawFilePattern') as string || '';
-        this.coverageThresholdLine = vscode.workspace.getConfiguration('cdoctest').get('coverageThresholdLine') as number || 0;
-        this.coverageThresholdFunction = vscode.workspace.getConfiguration('cdoctest').get('coverageThresholdFunction') as number || 0;
-        this.coverageThresholdBranch = vscode.workspace.getConfiguration('cdoctest').get('coverageThresholdBranch') as number || 0;
-        this.coverageWarnIfBelowThreshold = vscode.workspace.getConfiguration('cdoctest').get('coverageWarnIfBelowThreshold') as boolean || false;
+        this.coverageLocation = vscode.workspace.getConfiguration("cdoctest").get("coverageLocation") as string || '';
+        this.coverageGenerateTask = vscode.workspace.getConfiguration("cdoctest").get("coverageGenerateTask") as string || '';
+        this.coverageRawFilePattern = vscode.workspace.getConfiguration("cdoctest").get("coverageRawFilePattern") as string || '';
+        this.coverageThresholdLine = vscode.workspace.getConfiguration("cdoctest").get("coverageThresholdLine") as number || 0;
+        this.coverageThresholdFunction = vscode.workspace.getConfiguration("cdoctest").get("coverageThresholdFunction") as number || 0;
+        this.coverageThresholdBranch = vscode.workspace.getConfiguration("cdoctest").get("coverageThresholdBranch") as number || 0;
+        this.coverageWarnIfBelowThreshold = vscode.workspace.getConfiguration("cdoctest").get("coverageWarnIfBelowThreshold") as boolean || false;
 
         this.updateProject = this.updateProject.bind(this);
 

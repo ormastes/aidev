@@ -8,9 +8,9 @@ import { TemplateEngine } from '../src/core/TemplateEngine';
 import { MetadataExtractor } from '../src/core/MetadataExtractor';
 import { DocumentBuilder } from '../src/core/DocumentBuilder';
 import * as fs from 'fs/promises';
-import { path } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
-describe('ManualGenerator', () => {
+describe("ManualGenerator", () => {
   let generator: ManualGenerator;
 
   beforeEach(() => {
@@ -34,11 +34,11 @@ describe('ManualGenerator', () => {
     it('should configure generator options', () => {
       generator.configure({
         includeMetadata: false,
-        template: 'professional'
+        template: "professional"
       });
       const config = generator.getConfiguration();
       expect(config.includeMetadata).toBe(false);
-      expect(config.template).toBe('professional');
+      expect(config.template).toBe("professional");
     });
   });
 
@@ -46,7 +46,7 @@ describe('ManualGenerator', () => {
     it('should parse Jest test content', async () => {
       const parser = new TestParser();
       const testContent = `
-        describe('Calculator', () => {
+        describe("Calculator", () => {
           it('should add two numbers', () => {
             expect(add(2, 3)).toBe(5);
           });
@@ -60,7 +60,7 @@ describe('ManualGenerator', () => {
       const parsed = parser.parse(testContent, 'jest');
       expect(parsed.type).toBe('unit');
       expect(parsed.suites).toHaveLength(1);
-      expect(parsed.suites[0].name).toBe('Calculator');
+      expect(parsed.suites[0].name).toBe("Calculator");
       expect(parsed.suites[0].testCases).toHaveLength(2);
     });
 
@@ -99,18 +99,18 @@ describe('ManualGenerator', () => {
             name: 'Test Case',
             steps: [
               { id: 'step-1', order: 0, type: 'action' as const, action: 'Click button' },
-              { id: 'step-2', order: 1, type: 'assertion' as const, action: 'Verify result' }
+              { id: 'step-2', order: 1, type: "assertion" as const, action: 'Verify result' }
             ],
             priority: 'high' as const,
-            tags: ['regression', 'ui']
+            tags: ["regression", 'ui']
           }]
         }]
       };
       
       const metadata = await extractor.extract(parsedTest);
-      expect(metadata.tags).toContain('integration');
+      expect(metadata.tags).toContain("integration");
       expect(metadata.tags).toContain('smoke');
-      expect(metadata.tags).toContain('regression');
+      expect(metadata.tags).toContain("regression");
       expect(metadata.tags).toContain('ui');
       expect(metadata.estimatedDuration).toBeGreaterThan(0);
     });
@@ -135,7 +135,7 @@ describe('ManualGenerator', () => {
       expect(metadata.author).toBe('John Doe');
       expect(metadata.version).toBe('1.0.0');
       expect(metadata.tags).toContain('unit');
-      expect(metadata.tags).toContain('critical');
+      expect(metadata.tags).toContain("critical");
       expect(metadata.requirements).toContain('REQ-001');
       expect(metadata.dependencies).toContain('auth-service');
     });
@@ -196,13 +196,13 @@ describe('ManualGenerator', () => {
         metadata: {},
         sections: [{
           id: 'section-1',
-          title: 'Overview',
+          title: "Overview",
           level: 1,
           content: 'Test overview content'
         }]
       };
       
-      const markdown = await builder.export(document, 'markdown');
+      const markdown = await builder.export(document, "markdown");
       expect(markdown).toContain('# Test Manual');
       expect(markdown).toContain('## Overview');
       
@@ -270,9 +270,9 @@ describe('ManualGenerator', () => {
               { id: 's1', order: 0, type: 'setup' as const, action: 'Open application' },
               { id: 's2', order: 1, type: 'action' as const, action: 'Navigate to login' },
               { id: 's3', order: 2, type: 'action' as const, action: 'Enter credentials' },
-              { id: 's4', order: 3, type: 'assertion' as const, action: 'Verify dashboard displayed' }
+              { id: 's4', order: 3, type: "assertion" as const, action: 'Verify dashboard displayed' }
             ],
-            priority: 'critical' as const,
+            priority: "critical" as const,
             preconditions: ['User account exists', 'Application is running'],
             postconditions: ['User is logged in', 'Session is active']
           }]

@@ -1,8 +1,8 @@
 // Mock API Server for AI Dev Portal
 import express from 'express';
 import cors from 'cors';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from 'uuid';
 
 const app = express();
@@ -17,7 +17,7 @@ app.use(express.json());
 const db = {
   users: [
     { id: '1', username: 'admin', email: 'admin@aidev.com', password: bcrypt.hashSync('demo123', 10), role: 'admin' },
-    { id: '2', username: 'developer', email: 'dev@aidev.com', password: bcrypt.hashSync('demo123', 10), role: 'developer' },
+    { id: '2', username: "developer", email: 'dev@aidev.com', password: bcrypt.hashSync('demo123', 10), role: "developer" },
     { id: '3', username: 'tester', email: 'test@aidev.com', password: bcrypt.hashSync('demo123', 10), role: 'tester' }
   ],
   projects: [
@@ -26,14 +26,14 @@ const db = {
     { id: '3', name: 'GUI Generator', status: 'pending', description: 'Automated UI generation system', createdAt: new Date('2024-03-01'), owner: '2' }
   ],
   features: [
-    { id: '1', projectId: '1', name: 'Authentication System', priority: 'high', status: 'completed', progress: 100 },
+    { id: '1', projectId: '1', name: 'Authentication System', priority: 'high', status: "completed", progress: 100 },
     { id: '2', projectId: '1', name: 'Real-time Monitoring', priority: 'high', status: 'active', progress: 75 },
     { id: '3', projectId: '2', name: 'Automated Testing', priority: 'medium', status: 'active', progress: 60 },
     { id: '4', projectId: '2', name: 'Documentation Generator', priority: 'low', status: 'pending', progress: 0 }
   ],
   tasks: [
-    { id: '1', featureId: '1', title: 'Implement login validation', status: 'completed', assignee: '1', priority: 'high' },
-    { id: '2', featureId: '1', title: 'Add error handling', status: 'completed', assignee: '2', priority: 'high' },
+    { id: '1', featureId: '1', title: 'Implement login validation', status: "completed", assignee: '1', priority: 'high' },
+    { id: '2', featureId: '1', title: 'Add error handling', status: "completed", assignee: '2', priority: 'high' },
     { id: '3', featureId: '2', title: 'Write unit tests', status: 'active', assignee: '3', priority: 'medium' },
     { id: '4', featureId: '2', title: 'Update documentation', status: 'pending', assignee: '1', priority: 'low' },
     { id: '5', featureId: '3', title: 'Performance optimization', status: 'pending', assignee: '2', priority: 'medium' }
@@ -43,7 +43,7 @@ const db = {
 
 // Middleware to verify JWT
 const authenticateToken = (req: any, res: any, next: any) => {
-  const authHeader = req.headers['authorization'];
+  const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
@@ -98,7 +98,7 @@ app.post('/api/auth/login', async (req, res) => {
 });
 
 app.post('/api/auth/logout', authenticateToken, (req, res) => {
-  const token = req.headers['authorization']?.split(' ')[1];
+  const token = req.headers["authorization"]?.split(' ')[1];
   db.sessions = db.sessions.filter(s => s.token !== token);
   res.json({ success: true, message: 'Logged out successfully' });
 });
@@ -342,7 +342,7 @@ app.patch('/api/tasks/:id/status', authenticateToken, (req, res) => {
     return res.status(404).json({ error: 'Task not found' });
   }
 
-  if (!['pending', 'active', 'completed'].includes(status)) {
+  if (!['pending', 'active', "completed"].includes(status)) {
     return res.status(400).json({ error: 'Invalid status' });
   }
 
@@ -415,12 +415,12 @@ app.get('/api/stats', authenticateToken, (req, res) => {
     totalProjects: db.projects.length,
     activeProjects: db.projects.filter(p => p.status === 'active').length,
     totalFeatures: db.features.length,
-    completedFeatures: db.features.filter(f => f.status === 'completed').length,
+    completedFeatures: db.features.filter(f => f.status === "completed").length,
     inProgressFeatures: db.features.filter(f => f.status === 'active').length,
     totalTasks: db.tasks.length,
     pendingTasks: db.tasks.filter(t => t.status === 'pending').length,
     activeTasks: db.tasks.filter(t => t.status === 'active').length,
-    completedTasks: db.tasks.filter(t => t.status === 'completed').length
+    completedTasks: db.tasks.filter(t => t.status === "completed").length
   };
 
   res.json({ success: true, data: stats });
@@ -435,7 +435,7 @@ app.get('/api/health', (req, res) => {
     status: 'healthy',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || "development"
   });
 });
 
@@ -447,7 +447,7 @@ app.use((err: any, req: any, res: any, next: any) => {
   console.error(err.stack);
   res.status(500).json({
     error: 'Internal server error',
-    message: process.env.NODE_ENV === 'development' ? err.message : undefined
+    message: process.env.NODE_ENV === "development" ? err.message : undefined
   });
 });
 

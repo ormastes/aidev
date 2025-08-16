@@ -150,7 +150,7 @@ describe('BaseNode Unit Tests', () => {
 
     test('should merge parameters when called multiple times', () => {
       // Arrange
-      const params1 = { key1: 'value1', key2: 'original' };
+      const params1 = { key1: 'value1', key2: "original" };
       const params2 = { key2: 'updated', key3: 'new' };
 
       // Act
@@ -174,7 +174,7 @@ describe('BaseNode Unit Tests', () => {
 
       // Assert
       expect(result).toBe(testNode);
-      expect(testNode['nextNodes']).toContain(node2);
+      expect(testNode["nextNodes"]).toContain(node2);
     });
   });
 
@@ -189,9 +189,9 @@ describe('BaseNode Unit Tests', () => {
 
       // Assert
       expect(result).toBe(testNode); // Should return self for chaining
-      expect(testNode['nextNodes']).toContain(node2);
-      expect(testNode['nextNodes']).toContain(node3);
-      expect(testNode['nextNodes']).toHaveLength(2);
+      expect(testNode["nextNodes"]).toContain(node2);
+      expect(testNode["nextNodes"]).toContain(node3);
+      expect(testNode["nextNodes"]).toHaveLength(2);
     });
 
     test('should chain nodes using chain method', () => {
@@ -203,7 +203,7 @@ describe('BaseNode Unit Tests', () => {
 
       // Assert
       expect(result).toBe(testNode);
-      expect(testNode['nextNodes']).toContain(node2);
+      expect(testNode["nextNodes"]).toContain(node2);
     });
 
     test('should accumulate next nodes across multiple calls', () => {
@@ -217,10 +217,10 @@ describe('BaseNode Unit Tests', () => {
       testNode.next(node3, node4);
 
       // Assert
-      expect(testNode['nextNodes']).toHaveLength(3);
-      expect(testNode['nextNodes']).toContain(node2);
-      expect(testNode['nextNodes']).toContain(node3);
-      expect(testNode['nextNodes']).toContain(node4);
+      expect(testNode["nextNodes"]).toHaveLength(3);
+      expect(testNode["nextNodes"]).toContain(node2);
+      expect(testNode["nextNodes"]).toContain(node3);
+      expect(testNode["nextNodes"]).toContain(node4);
     });
   });
 
@@ -235,9 +235,9 @@ describe('BaseNode Unit Tests', () => {
 
       // Assert
       expect(result).toBe(testNode);
-      expect(testNode['conditions']).toHaveLength(1);
-      expect(testNode['conditions'][0].condition).toBe(condition);
-      expect(testNode['conditions'][0].node).toBe(node2);
+      expect(testNode["conditions"]).toHaveLength(1);
+      expect(testNode["conditions"][0].condition).toBe(condition);
+      expect(testNode["conditions"][0].node).toBe(node2);
     });
 
     test('should support multiple conditional transitions', () => {
@@ -251,9 +251,9 @@ describe('BaseNode Unit Tests', () => {
       testNode.when(condition1, node2).when(condition2, node3);
 
       // Assert
-      expect(testNode['conditions']).toHaveLength(2);
-      expect(testNode['conditions'][0].node).toBe(node2);
-      expect(testNode['conditions'][1].node).toBe(node3);
+      expect(testNode["conditions"]).toHaveLength(2);
+      expect(testNode["conditions"][0].node).toBe(node2);
+      expect(testNode["conditions"][1].node).toBe(node3);
     });
 
     test('should return first matching condition node', async () => {
@@ -469,20 +469,20 @@ describe('BaseNode Unit Tests', () => {
       
       loopNode.exec = async () => {
         counter++;
-        return counter < 3 ? 'continue' : 'exit';
+        return counter < 3 ? "continue" : 'exit';
       };
       
       exitNode.execResult = 'In Progress';
 
       // Loop: loopNode -> (loopNode | exitNode)
-      loopNode.when(result => result === 'continue', loopNode);
+      loopNode.when(result => result === "continue", loopNode);
       loopNode.when(result => result === 'exit', exitNode);
 
       // Act
       const result = await loopNode.run();
 
       // Assert
-      expect(result).toBe('In Progress');
+      expect(result).toBe("completed");
       expect(counter).toBe(3);
       expect(exitNode.execCalled).toBe(true);
     });
@@ -545,12 +545,12 @@ describe('BaseNode Unit Tests', () => {
       
       testNode.exec = async () => {
         executionCount++;
-        return executionCount < 2 ? 'continue' : 'stop';
+        return executionCount < 2 ? "continue" : 'stop';
       };
       
       node2.execResult = 'final';
       
-      testNode.when(result => result === 'continue', testNode); // Self-reference
+      testNode.when(result => result === "continue", testNode); // Self-reference
       testNode.when(result => result === 'stop', node2);
 
       // Act

@@ -5,7 +5,7 @@ import { path } from '../../../../../infra_external-log-lib/src';
 
 jest.mock('fs');
 
-describe('CoverageReportGenerator', () => {
+describe("CoverageReportGenerator", () => {
   let generator: CoverageReportGenerator;
   const mockOutputDir = '/mock/output';
 
@@ -17,7 +17,7 @@ describe('CoverageReportGenerator', () => {
     (fs.writeFileSync as jest.Mock).mockImplementation(() => {});
   });
 
-  describe('generateReport', () => {
+  describe("generateReport", () => {
     const mockAppCoverage: AggregatedCoverage = {
       name: 'Test App',
       type: 'app',

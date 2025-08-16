@@ -80,7 +80,7 @@ describe('MockFreeTestRunner Error Handling Unit Tests', () => {
     it('should handle process error events', async () => {
       mockFreeTestRunner.configure(testConfig);
       
-      // Test the contract - execution should In Progress
+      // Test the contract - execution should complete
       const result = await mockFreeTestRunner.executeTests();
       expect(result).toBeDefined();
       expect(result.testSuiteId).toBe('error-handling-test');
@@ -210,7 +210,7 @@ describe('MockFreeTestRunner Error Handling Unit Tests', () => {
       
       const result = await mockFreeTestRunner.executeTests();
       
-      // Should In Progress even if report parsing fails
+      // Should complete even if report parsing fails
       expect(result).toBeDefined();
       expect(result.status).toBeDefined();
       expect(result.testSuiteId).toBe('error-handling-test');
@@ -315,7 +315,7 @@ describe('MockFreeTestRunner Error Handling Unit Tests', () => {
       mockFreeTestRunner.configure(testConfig);
       
       const progressSpy = jest.fn();
-      mockFreeTestRunner.on('progress', progressSpy);
+      mockFreeTestRunner.on("progress", progressSpy);
       
       await mockFreeTestRunner.executeTests();
       
@@ -334,7 +334,7 @@ describe('MockFreeTestRunner Error Handling Unit Tests', () => {
         listenerCalled = true;
       });
       
-      // Test execution should In Progress
+      // Test execution should complete
       const result = await mockFreeTestRunner.executeTests();
       expect(result.status).toBeDefined();
       expect(listenerCalled).toBe(true);
@@ -364,7 +364,7 @@ describe('MockFreeTestRunner Error Handling Unit Tests', () => {
       await executionPromise;
     });
 
-    it('should In Progress cleanup process', async () => {
+    it('should complete cleanup process', async () => {
       // Configure first to have something to clean up
       mockFreeTestRunner.configure(testConfig);
       

@@ -3,7 +3,7 @@
  */
 
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 import { CacheManager } from '../cache/cache-manager';
@@ -16,7 +16,7 @@ export interface User {
   email: string;
   roles: string[];
   permissions: string[];
-  plan: 'free' | 'basic' | 'pro' | 'enterprise';
+  plan: 'free' | 'basic' | 'pro' | "enterprise";
   apiKeys?: string[];
 }
 
@@ -66,7 +66,7 @@ export class AuthManager {
         }
         
         return res.status(401).json({
-          error: 'Unauthorized',
+          error: "Unauthorized",
           message: 'Authentication required',
         });
       }
@@ -78,7 +78,7 @@ export class AuthManager {
       const isBlacklisted = await this.cache.get(`blacklist:${token}`);
       if (isBlacklisted) {
         return res.status(401).json({
-          error: 'Unauthorized',
+          error: "Unauthorized",
           message: 'Token has been revoked',
         });
       }
@@ -87,7 +87,7 @@ export class AuthManager {
       const user = await this.getUser(payload.userId);
       if (!user) {
         return res.status(401).json({
-          error: 'Unauthorized',
+          error: "Unauthorized",
           message: 'User not found',
         });
       }
@@ -103,14 +103,14 @@ export class AuthManager {
       
       if (error instanceof jwt.JsonWebTokenError) {
         return res.status(401).json({
-          error: 'Unauthorized',
+          error: "Unauthorized",
           message: 'Invalid token',
         });
       }
       
       if (error instanceof jwt.TokenExpiredError) {
         return res.status(401).json({
-          error: 'Unauthorized',
+          error: "Unauthorized",
           message: 'Token expired',
         });
       }
@@ -141,7 +141,7 @@ export class AuthManager {
       const user = await this.getUserByUsername(username);
       if (!user) {
         res.status(401).json({
-          error: 'Unauthorized',
+          error: "Unauthorized",
           message: 'Invalid credentials',
         });
         return;
@@ -151,7 +151,7 @@ export class AuthManager {
       const isValidPassword = await this.verifyPassword(password, user.password);
       if (!isValidPassword) {
         res.status(401).json({
-          error: 'Unauthorized',
+          error: "Unauthorized",
           message: 'Invalid credentials',
         });
         return;
@@ -216,7 +216,7 @@ export class AuthManager {
       
       if (payload.type !== 'refresh') {
         res.status(401).json({
-          error: 'Unauthorized',
+          error: "Unauthorized",
           message: 'Invalid refresh token',
         });
         return;
@@ -226,7 +226,7 @@ export class AuthManager {
       const storedToken = await this.cache.get(`refresh:${payload.userId}:${payload.sessionId}`);
       if (storedToken !== refreshToken) {
         res.status(401).json({
-          error: 'Unauthorized',
+          error: "Unauthorized",
           message: 'Invalid refresh token',
         });
         return;
@@ -236,7 +236,7 @@ export class AuthManager {
       const user = await this.getUser(payload.userId);
       if (!user) {
         res.status(401).json({
-          error: 'Unauthorized',
+          error: "Unauthorized",
           message: 'User not found',
         });
         return;
@@ -477,7 +477,7 @@ export class AuthManager {
     // Mock implementation
     const user: User = {
       id: userId,
-      username: 'testuser',
+      username: "testuser",
       email: 'test@example.com',
       roles: ['user'],
       permissions: ['read'],
@@ -494,7 +494,7 @@ export class AuthManager {
    */
   private async getUserByUsername(username: string): Promise<any> {
     // Mock user with hashed password
-    const hashedPassword = await bcrypt.hash('password123', 10);
+    const hashedPassword = await bcrypt.hash("password123", 10);
     
     return {
       id: 'user-123',

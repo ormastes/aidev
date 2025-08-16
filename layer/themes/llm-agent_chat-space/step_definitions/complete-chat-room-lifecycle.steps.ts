@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 import { Given, When, Then, Before, After } from '@cucumber/cucumber';
 import { expect } from '@playwright/test';
 

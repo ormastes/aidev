@@ -1,4 +1,4 @@
-import request from 'supertest';
+import request from "supertest";
 import express from 'express';
 import { messagesRouter } from '../../../src/routes/messages';
 import { DatabaseService } from '../../../src/services/DatabaseService';
@@ -44,7 +44,7 @@ describe('Messages Routes', () => {
       expect(response.body).toHaveProperty('success', true);
       expect(response.body).toHaveProperty('message', 'Message saved successfully');
       expect(response.body).toHaveProperty('id', 1);
-      expect(response.body).toHaveProperty('timestamp', '2024-01-01T00:00:00Z');
+      expect(response.body).toHaveProperty("timestamp", '2024-01-01T00:00:00Z');
     });
 
     it('should save a message with type and data', async () => {
@@ -78,7 +78,7 @@ describe('Messages Routes', () => {
       const afterTime = new Date().toISOString();
 
       expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('timestamp');
+      expect(response.body).toHaveProperty("timestamp");
       expect(new Date(response.body.timestamp).getTime()).toBeGreaterThanOrEqual(new Date(beforeTime).getTime());
       expect(new Date(response.body.timestamp).getTime()).toBeLessThanOrEqual(new Date(afterTime).getTime());
     });
@@ -126,7 +126,7 @@ describe('Messages Routes', () => {
 
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('success', true);
-      expect(response.body).toHaveProperty('messages');
+      expect(response.body).toHaveProperty("messages");
       expect(response.body.messages).toHaveLength(2);
       expect(response.body).toHaveProperty('total', 2);
       expect(response.body).toHaveProperty('limit', 50);
@@ -276,7 +276,7 @@ describe('Messages Routes', () => {
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('success', true);
       expect(response.body).toHaveProperty('message', 'Cleared 10 messages');
-      expect(response.body).toHaveProperty('deletedCount', 10);
+      expect(response.body).toHaveProperty("deletedCount", 10);
     });
 
     it('should handle no messages to delete', async () => {
@@ -289,7 +289,7 @@ describe('Messages Routes', () => {
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('success', true);
       expect(response.body).toHaveProperty('message', 'Cleared 0 messages');
-      expect(response.body).toHaveProperty('deletedCount', 0);
+      expect(response.body).toHaveProperty("deletedCount", 0);
     });
 
     it('should handle database errors', async () => {
@@ -330,7 +330,7 @@ describe('Messages Routes', () => {
       expect(response.body).toHaveProperty('stats');
       expect(response.body.stats).toHaveProperty('total_messages', 100);
       expect(response.body.stats).toHaveProperty('avg_message_length', 45.5);
-      expect(response.body).toHaveProperty('dailyStats');
+      expect(response.body).toHaveProperty("dailyStats");
       expect(response.body.dailyStats).toHaveLength(2);
     });
 

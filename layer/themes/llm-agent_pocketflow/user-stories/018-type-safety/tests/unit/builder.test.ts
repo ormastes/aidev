@@ -3,7 +3,7 @@ import { nodes } from '../../src/nodes';
 import { createValidator } from '../../src/guards';
 import { z } from 'zod';
 
-describe('WorkflowBuilder', () => {
+describe("WorkflowBuilder", () => {
   describe('Type-safe node connections', () => {
     it('should build a simple workflow', async () => {
       const numberValidator = createValidator(z.number());
@@ -12,14 +12,14 @@ describe('WorkflowBuilder', () => {
       const flow = workflow()
         .addNode('input', nodes.input('input', numberValidator))
         .addNode('double', nodes.transform('double', (n: number) => n * 2))
-        .addNode('toString', nodes.transform('toString', (n: number) => String(n), {
+        .addNode("toString", nodes.transform("toString", (n: number) => String(n), {
           input: numberValidator,
           output: stringValidator
         }))
         .addNode('output', nodes.output('output', stringValidator))
         .connect('input', 'double')
-        .connect('double', 'toString')
-        .connect('toString', 'output')
+        .connect('double', "toString")
+        .connect("toString", 'output')
         .build();
       
       const result = await flow.execute(42);
@@ -92,13 +92,13 @@ describe('WorkflowBuilder', () => {
       
       const flow = workflow()
         .addNode('input', nodes.input<User>('input', createValidator(userSchema)))
-        .addNode('transform', nodes.transform<User, UserDTO>('transform', (user) => ({
+        .addNode("transform", nodes.transform<User, UserDTO>("transform", (user) => ({
           userId: user.id,
           displayName: user.name
         })))
         .addNode('output', nodes.output<UserDTO>('output'))
-        .connect('input', 'transform')
-        .connect('transform', 'output')
+        .connect('input', "transform")
+        .connect("transform", 'output')
         .build();
       
       const result = await flow.execute({

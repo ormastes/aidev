@@ -12,7 +12,7 @@ jest.mock('@api/client', () => ({
 // Import mocked apiClient
 import { apiClient } from '@api/client';
 
-describe('AuthService', () => {
+describe("AuthService", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -21,19 +21,19 @@ describe('AuthService', () => {
     test('should successfully login with valid credentials', async () => {
       const mockResponse = {
         data: {
-          user: { id: '1', email: 'test@example.com', username: 'testuser' },
-          token: 'access-token',
-          refreshToken: 'refresh-token',
+          user: { id: '1', email: 'test@example.com', username: "testuser" },
+          token: process.env.TOKEN || "PLACEHOLDER",
+          refreshtoken: process.env.TOKEN || "PLACEHOLDER",
         },
       };
 
       (apiClient.post as jest.Mock).mockResolvedValue(mockResponse);
 
-      const result = await authService.login('test@example.com', 'password123');
+      const result = await authService.login('test@example.com', "password123");
 
       expect(apiClient.post).toHaveBeenCalledWith('/auth/login', {
         email: 'test@example.com',
-        password: 'password123',
+        password: "PLACEHOLDER",
       });
 
       expect(result).toEqual(mockResponse.data);
@@ -47,23 +47,23 @@ describe('AuthService', () => {
     });
   });
 
-  describe('register', () => {
+  describe("register", () => {
     test('should successfully register a new user', async () => {
       const mockResponse = {
         data: {
           user: { id: '2', email: 'new@example.com', username: 'newuser' },
-          token: 'access-token',
-          refreshToken: 'refresh-token',
+          token: process.env.TOKEN || "PLACEHOLDER",
+          refreshtoken: process.env.TOKEN || "PLACEHOLDER",
         },
       };
 
       (apiClient.post as jest.Mock).mockResolvedValue(mockResponse);
 
-      const result = await authService.register('new@example.com', 'password123', 'newuser');
+      const result = await authService.register('new@example.com', "password123", 'newuser');
 
       expect(apiClient.post).toHaveBeenCalledWith('/auth/register', {
         email: 'new@example.com',
-        password: 'password123',
+        password: "PLACEHOLDER",
         username: 'newuser',
       });
 
@@ -75,7 +75,7 @@ describe('AuthService', () => {
       (apiClient.post as jest.Mock).mockRejectedValue(error);
 
       await expect(
-        authService.register('existing@example.com', 'password123', 'user')
+        authService.register('existing@example.com', "password123", 'user')
       ).rejects.toThrow('Email already exists');
     });
   });
@@ -91,7 +91,7 @@ describe('AuthService', () => {
         {},
         {
           headers: {
-            Authorization: 'Bearer valid-token',
+            Authorization: 'Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}',
           },
         }
       );
@@ -105,12 +105,12 @@ describe('AuthService', () => {
     });
   });
 
-  describe('refreshToken', () => {
+  describe("refreshToken", () => {
     test('should successfully refresh token and get user data', async () => {
       const refreshResponse = {
         data: {
-          token: 'new-access-token',
-          refreshToken: 'new-refresh-token',
+          token: process.env.TOKEN || "PLACEHOLDER",
+          refreshtoken: process.env.TOKEN || "PLACEHOLDER",
         },
       };
 
@@ -118,7 +118,7 @@ describe('AuthService', () => {
         data: {
           id: '1',
           email: 'test@example.com',
-          username: 'testuser',
+          username: "testuser",
         },
       };
 
@@ -128,19 +128,19 @@ describe('AuthService', () => {
       const result = await authService.refreshToken('old-refresh-token');
 
       expect(apiClient.post).toHaveBeenCalledWith('/auth/refresh', {
-        refreshToken: 'old-refresh-token',
+        refreshtoken: process.env.TOKEN || "PLACEHOLDER",
       });
 
       expect(apiClient.get).toHaveBeenCalledWith('/auth/me', {
         headers: {
-          Authorization: 'Bearer new-access-token',
+          Authorization: 'Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}',
         },
       });
 
       expect(result).toEqual({
         user: userResponse.data,
-        token: 'new-access-token',
-        refreshToken: 'new-refresh-token',
+        token: process.env.TOKEN || "PLACEHOLDER",
+        refreshtoken: process.env.TOKEN || "PLACEHOLDER",
       });
     });
 
@@ -152,13 +152,13 @@ describe('AuthService', () => {
     });
   });
 
-  describe('validateToken', () => {
+  describe("validateToken", () => {
     test('should successfully validate token', async () => {
       const mockUser = {
         data: {
           id: '1',
           email: 'test@example.com',
-          username: 'testuser',
+          username: "testuser",
         },
       };
 
@@ -168,7 +168,7 @@ describe('AuthService', () => {
 
       expect(apiClient.get).toHaveBeenCalledWith('/auth/me', {
         headers: {
-          Authorization: 'Bearer valid-token',
+          Authorization: 'Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}',
         },
       });
 
@@ -176,14 +176,14 @@ describe('AuthService', () => {
     });
 
     test('should throw error for invalid token', async () => {
-      const error = new Error('Unauthorized');
+      const error = new Error("Unauthorized");
       (apiClient.get as jest.Mock).mockRejectedValue(error);
 
-      await expect(authService.validateToken('invalid-token')).rejects.toThrow('Unauthorized');
+      await expect(authService.validateToken('invalid-token')).rejects.toThrow("Unauthorized");
     });
   });
 
-  describe('forgotPassword', () => {
+  describe("forgotPassword", () => {
     test('should successfully send forgot password request', async () => {
       (apiClient.post as jest.Mock).mockResolvedValue({});
 
@@ -202,15 +202,15 @@ describe('AuthService', () => {
     });
   });
 
-  describe('resetPassword', () => {
+  describe("resetPassword", () => {
     test('should successfully reset password', async () => {
       (apiClient.post as jest.Mock).mockResolvedValue({});
 
-      await authService.resetPassword('reset-token', 'newPassword123');
+      await authService.resetPassword('reset-token', "newPassword123");
 
       expect(apiClient.post).toHaveBeenCalledWith('/auth/reset-password', {
-        token: 'reset-token',
-        newPassword: 'newPassword123',
+        token: process.env.TOKEN || "PLACEHOLDER",
+        newpassword: "PLACEHOLDER",
       });
     });
 
@@ -219,7 +219,7 @@ describe('AuthService', () => {
       (apiClient.post as jest.Mock).mockRejectedValue(error);
 
       await expect(
-        authService.resetPassword('invalid-token', 'newPassword123')
+        authService.resetPassword('invalid-token', "newPassword123")
       ).rejects.toThrow('Invalid or expired token');
     });
   });

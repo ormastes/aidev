@@ -92,7 +92,7 @@ export const MAX_TOKENS = {
 
 export const ROLES = {
   USER: 'user',
-  ASSISTANT: 'assistant',
+  ASSISTANT: "assistant",
   SYSTEM: 'system',
   TOOL: 'tool',
 } as const;

@@ -15,7 +15,7 @@ export class CodeGenAgent extends BaseCodeAgent {
     maxRetries?: number;
   }) {
     super(
-      'CodeGenAgent',
+      "CodeGenAgent",
       'Generates code from natural language descriptions',
       config
     );
@@ -58,7 +58,7 @@ export class CodeGenAgent extends BaseCodeAgent {
     
     return {
       code,
-      language: 'typescript', // Default for now
+      language: "typescript", // Default for now
       imports,
       exports,
       metadata: {
@@ -99,7 +99,7 @@ export function generatedFunction(input: any): any {
   }
 
   private generateEmailValidatorResponse(language: string): string {
-    if (language === 'typescript') {
+    if (language === "typescript") {
       return `Here's a TypeScript function to validate email addresses:
 
 \`\`\`typescript
@@ -114,7 +114,7 @@ export function validateEmail(email: string): boolean {
 }
 
 // Type-safe version with branded types
-export type ValidEmail = string & { __brand: 'ValidEmail' };
+export type ValidEmail = string & { __brand: "ValidEmail" };
 
 export function isValidEmail(email: string): email is ValidEmail {
   return validateEmail(email);
@@ -137,7 +137,7 @@ function validateEmail(email) {
   }
 
   private generateArraySortResponse(language: string): string {
-    if (language === 'typescript') {
+    if (language === "typescript") {
       return `\`\`\`typescript
 /**
  * Sorts an array of objects by a specified key
@@ -175,7 +175,7 @@ function sortArray(array, key, order = 'asc') {
   }
 
   private generateFetchDataResponse(language: string): string {
-    if (language === 'typescript') {
+    if (language === "typescript") {
       return `\`\`\`typescript
 interface FetchOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -215,7 +215,7 @@ export async function fetchData<T>(
     
     return await response.json();
   } catch (error) {
-    if (error.name === 'AbortError') {
+    if (error.name === "AbortError") {
       throw new Error('Request timeout');
     }
     throw error;

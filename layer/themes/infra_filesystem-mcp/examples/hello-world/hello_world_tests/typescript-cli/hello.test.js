@@ -1,5 +1,5 @@
 const { execSync } = require('child_process');
-const path = require('path');
+const path = require('node:path');
 
 test('should output hello message', () => {
     const helloPath = path.join(__dirname, 'hello.js');

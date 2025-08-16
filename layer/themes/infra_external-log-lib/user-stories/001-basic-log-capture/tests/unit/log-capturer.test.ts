@@ -1,5 +1,5 @@
 import { ChildProcess } from 'child_process';
-import { EventEmitter } from 'events';
+import { EventEmitter } from 'node:events';
 import { ExternalLogLibImpl, LogEntry } from '../../src/external/external-log-lib';
 
 // Mock readable stream
@@ -67,8 +67,8 @@ describe('LogCapturer Unit Test', () => {
     it('should stop capturing when stop() is called', () => {
       const capturer = externalLogLib.createCapturer(mockProcess);
       
-      const stdoutRemoveSpy = jest.spyOn(mockStdout, 'removeListener');
-      const stderrRemoveSpy = jest.spyOn(mockStderr, 'removeListener');
+      const stdoutRemoveSpy = jest.spyOn(mockStdout, "removeListener");
+      const stderrRemoveSpy = jest.spyOn(mockStderr, "removeListener");
 
       capturer.start();
       capturer.stop();
@@ -80,8 +80,8 @@ describe('LogCapturer Unit Test', () => {
     it('should not remove listeners if not capturing', () => {
       const capturer = externalLogLib.createCapturer(mockProcess);
       
-      const stdoutRemoveSpy = jest.spyOn(mockStdout, 'removeListener');
-      const stderrRemoveSpy = jest.spyOn(mockStderr, 'removeListener');
+      const stdoutRemoveSpy = jest.spyOn(mockStdout, "removeListener");
+      const stderrRemoveSpy = jest.spyOn(mockStderr, "removeListener");
 
       capturer.stop(); // Stop without start
 

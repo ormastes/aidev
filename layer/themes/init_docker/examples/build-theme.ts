@@ -26,7 +26,7 @@ async function buildThemeImage(themeName: string) {
       base: 'node:18-alpine',
       ports: [3000],
       environment: {
-        NODE_ENV: 'production',
+        NODE_ENV: "production",
         THEME_NAME: themeName
       },
       healthcheck: {

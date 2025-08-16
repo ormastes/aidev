@@ -1,6 +1,6 @@
 import { Plugin, CLI, Command, CommandContext } from '../src/index.js';
 import * as fs from 'fs/promises';
-import { path } from '../../../../../../themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 /**
  * Example: Config management plugin
@@ -16,7 +16,7 @@ export const configPlugin: Plugin = {
     cli.register(new ConfigCommand().getDefinition());
     
     // Add hooks for config loading
-    cli.addHook('precommand', async (context) => {
+    cli.addHook("precommand", async (context) => {
       // Load config before each command
       const config = await loadConfig();
       Object.assign(context.context.env, {
@@ -206,7 +206,7 @@ async function getConfigPath(): Promise<string> {
 async function loadConfig(): Promise<Record<string, any>> {
   try {
     const configPath = await getConfigPath();
-    const content = await fs.readFile(configPath, 'utf8');
+    const content = await fileAPI.readFile(configPath, 'utf8');
     return JSON.parse(content);
   } catch (e) {
     return getDefaultConfig();
@@ -215,7 +215,7 @@ async function loadConfig(): Promise<Record<string, any>> {
 
 async function saveConfig(config: Record<string, any>): Promise<void> {
   const configPath = await getConfigPath();
-  await fs.writeFile(configPath, JSON.stringify(config, null, 2));
+  await fileAPI.writeFile(configPath, JSON.stringify(config, null, 2));
 }
 
 async function getDefaultConfig(): Record<string, any> {

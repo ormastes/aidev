@@ -1,8 +1,8 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
-import { Transform, Readable } from 'stream';
+import { EventEmitter } from 'node:events';
+import { Transform, Readable } from 'node:stream';
 
 export interface JSONStreamMessage {
-  type: 'user' | 'assistant' | 'system' | 'command' | 'response' | 'error';
+  type: 'user' | "assistant" | 'system' | 'command' | "response" | 'error';
   message?: {
     role?: string;
     content?: any;
@@ -183,7 +183,7 @@ export class JSONStreamParser extends Transform {
       throw new Error('Message missing required field: type');
     }
 
-    const validTypes = ['user', 'assistant', 'system', 'command', 'response', 'error'];
+    const validTypes = ['user', "assistant", 'system', 'command', "response", 'error'];
     if (!validTypes.includes(message.type)) {
       throw new Error(`Invalid message type: ${message.type}`);
     }
@@ -191,8 +191,8 @@ export class JSONStreamParser extends Transform {
     // Type-specific validation
     switch (message.type) {
       case 'user':
-      case 'assistant':
-        if (!message.message || typeof message.message.content === 'undefined') {
+      case "assistant":
+        if (!message.message || typeof message.message.content === "undefined") {
           throw new Error(`${message.type} message missing content`);
         }
         break;
@@ -203,7 +203,7 @@ export class JSONStreamParser extends Transform {
         }
         break;
         
-      case 'response':
+      case "response":
         if (!message.response || !message.response.status) {
           throw new Error('Response message missing status');
         }
@@ -354,9 +354,9 @@ export class MessageBuilder {
 
   static assistantMessage(content: string, metadata?: any): JSONStreamMessage {
     return {
-      type: 'assistant',
+      type: "assistant",
       message: {
-        role: 'assistant',
+        role: "assistant",
         content
       },
       metadata: {
@@ -387,7 +387,7 @@ export class MessageBuilder {
     metadata?: any
   ): JSONStreamMessage {
     return {
-      type: 'response',
+      type: "response",
       response: {
         status,
         data,

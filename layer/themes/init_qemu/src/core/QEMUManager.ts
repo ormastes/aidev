@@ -3,7 +3,7 @@
  * Core service for managing QEMU virtual machines as Docker container alternatives
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { spawn, ChildProcess } from 'child_process';
 import * as fs from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
@@ -150,7 +150,7 @@ export class QEMUManager extends EventEmitter {
     await this.loadInstances();
     await this.loadImages();
     
-    this.emit('initialized');
+    this.emit("initialized");
   }
 
   /**
@@ -167,7 +167,7 @@ export class QEMUManager extends EventEmitter {
     }
     
     // Create instance directory
-    const instanceDir = path.join(this.dataDir, 'instances', id);
+    const instanceDir = path.join(this.dataDir, "instances", id);
     await fileAPI.createDirectory(instanceDir);
     
     // Create disk image for the instance
@@ -329,7 +329,7 @@ export class QEMUManager extends EventEmitter {
     }
     
     // Clean up instance files
-    const instanceDir = path.join(this.dataDir, 'instances', instanceId);
+    const instanceDir = path.join(this.dataDir, "instances", instanceId);
     await fs.rm(instanceDir, { recursive: true, force: true });
     
     // Clean up network
@@ -446,10 +446,10 @@ export class QEMUManager extends EventEmitter {
       throw new Error(`Instance '${instanceId}' not found`);
     }
     
-    const logPath = path.join(this.dataDir, 'instances', instanceId, 'console.log');
+    const logPath = path.join(this.dataDir, "instances", instanceId, 'console.log');
     
     try {
-      let logs = await fs.readFile(logPath, 'utf-8');
+      let logs = await fileAPI.readFile(logPath, 'utf-8');
       
       if (options?.tail) {
         const lines = logs.split('\n');
@@ -510,7 +510,7 @@ export class QEMUManager extends EventEmitter {
     args.push('-smp', String(instance.config.cpus || 1));
     
     // Disk
-    const diskPath = path.join(this.dataDir, 'instances', instance.id, 'disk.qcow2');
+    const diskPath = path.join(this.dataDir, "instances", instance.id, 'disk.qcow2');
     args.push('-drive', `file=${diskPath},format=qcow2,if=virtio`);
     
     // Network
@@ -520,11 +520,11 @@ export class QEMUManager extends EventEmitter {
     }
     
     // Serial console
-    const consolePath = path.join(this.dataDir, 'instances', instance.id, 'console.log');
+    const consolePath = path.join(this.dataDir, "instances", instance.id, 'console.log');
     args.push('-serial', `file:${consolePath}`);
     
     // Monitor
-    const monitorPath = path.join(this.dataDir, 'instances', instance.id, 'monitor.sock');
+    const monitorPath = path.join(this.dataDir, "instances", instance.id, 'monitor.sock');
     args.push('-monitor', `unix:${monitorPath},server,nowait`);
     
     // VNC
@@ -634,7 +634,7 @@ export class QEMUManager extends EventEmitter {
     
     for (const port of instance.config.ports) {
       // Port forwarding is handled by QEMU netdev configuration
-      this.emit('portForwarded', instance.id, port);
+      this.emit("portForwarded", instance.id, port);
     }
   }
 
@@ -660,7 +660,7 @@ export class QEMUManager extends EventEmitter {
    */
   private async setup9PMount(instance: QEMUInstance, volume: VolumeMount): Promise<void> {
     // 9P mount configuration would be added to QEMU command
-    this.emit('volumeMounted', instance.id, volume);
+    this.emit("volumeMounted", instance.id, volume);
   }
 
   /**
@@ -669,14 +669,14 @@ export class QEMUManager extends EventEmitter {
   private async setupVolumeMount(instance: QEMUInstance, volume: VolumeMount): Promise<void> {
     const volumePath = path.join(this.dataDir, 'volumes', volume.source);
     await fileAPI.createDirectory(volumePath);
-    this.emit('volumeMounted', instance.id, volume);
+    this.emit("volumeMounted", instance.id, volume);
   }
 
   /**
    * Send monitor command
    */
   private async sendMonitorCommand(instance: QEMUInstance, command: string): Promise<string> {
-    const monitorPath = path.join(this.dataDir, 'instances', instance.id, 'monitor.sock');
+    const monitorPath = path.join(this.dataDir, "instances", instance.id, 'monitor.sock');
     // Implementation would connect to monitor socket and send command
     return '';
   }
@@ -739,13 +739,13 @@ export class QEMUManager extends EventEmitter {
    * Load instances from disk
    */
   private async loadInstances(): Promise<void> {
-    const instancesDir = path.join(this.dataDir, 'instances');
+    const instancesDir = path.join(this.dataDir, "instances");
     try {
       const dirs = await fs.readdir(instancesDir);
       for (const dir of dirs) {
         const configPath = path.join(instancesDir, dir, 'config.json');
         try {
-          const config = JSON.parse(await fs.readFile(configPath, 'utf-8'));
+          const config = JSON.parse(await fileAPI.readFile(configPath, 'utf-8'));
           this.instances.set(dir, config);
         } catch (error) {
           // Skip invalid instances
@@ -766,7 +766,7 @@ export class QEMUManager extends EventEmitter {
       for (const dir of dirs) {
         const metaPath = path.join(imagesDir, dir, 'metadata.json');
         try {
-          const meta = JSON.parse(await fs.readFile(metaPath, 'utf-8'));
+          const meta = JSON.parse(await fileAPI.readFile(metaPath, 'utf-8'));
           this.images.set(meta.name, meta);
         } catch (error) {
           // Skip invalid images
@@ -781,7 +781,7 @@ export class QEMUManager extends EventEmitter {
    * Save instance configuration
    */
   private async saveInstance(instance: QEMUInstance): Promise<void> {
-    const configPath = path.join(this.dataDir, 'instances', instance.id, 'config.json');
+    const configPath = path.join(this.dataDir, "instances", instance.id, 'config.json');
     await fileAPI.createFile(configPath, JSON.stringify(instance, { type: FileType.TEMPORARY }));
   }
 
@@ -798,7 +798,7 @@ export class QEMUManager extends EventEmitter {
   private async isKVMAvailable(): boolean {
     try {
       // Check /dev/kvm exists
-      return require('fs').existsSync('/dev/kvm');
+      return require('node:fs').existsSync('/dev/kvm');
     } catch {
       return false;
     }

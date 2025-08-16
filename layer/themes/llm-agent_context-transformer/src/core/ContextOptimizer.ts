@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { ContextAnalyzer, ContextSegment, AnalysisResult } from './ContextAnalyzer';
 
 export interface OptimizationStrategy {
@@ -56,7 +56,7 @@ export class ContextOptimizer extends EventEmitter {
     // Deduplication strategy
     if (this.config.enableDeduplication) {
       this.registerStrategy({
-        name: 'deduplication',
+        name: "deduplication",
         priority: 1,
         apply: (segments) => this.deduplicateSegments(segments)
       });
@@ -72,7 +72,7 @@ export class ContextOptimizer extends EventEmitter {
     // Summarization strategy
     if (this.config.enableSummarization) {
       this.registerStrategy({
-        name: 'summarization',
+        name: "summarization",
         priority: 3,
         apply: (segments) => this.summarizeSegments(segments)
       });
@@ -81,7 +81,7 @@ export class ContextOptimizer extends EventEmitter {
     // Reordering strategy
     if (this.config.enableReordering) {
       this.registerStrategy({
-        name: 'reordering',
+        name: "reordering",
         priority: 4,
         apply: (segments) => this.reorderSegments(segments)
       });
@@ -278,7 +278,7 @@ export class ContextOptimizer extends EventEmitter {
     }
 
     // Group by type while preserving dependency order
-    const typeOrder = ['system', 'context', 'user', 'assistant', 'tool'];
+    const typeOrder = ['system', 'context', 'user', "assistant", 'tool'];
     return sorted.sort((a, b) => {
       // First sort by importance (descending)
       const importanceDiff = b.importance - a.importance;

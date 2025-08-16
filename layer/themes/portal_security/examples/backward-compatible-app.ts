@@ -14,9 +14,9 @@ import express from 'express';
 const app = express();
 
 // GUI Selector's existing port configuration - NO CHANGES NEEDED
-const ENV = process.env.NODE_ENV || 'development';
+const ENV = process.env.NODE_ENV || "development";
 const PORT = process.env.PORT || (
-  ENV === 'production' || ENV === 'release' ? 3456 :
+  ENV === "production" || ENV === 'release' ? 3456 :
   ENV === 'demo' ? 3356 :
   3256
 );

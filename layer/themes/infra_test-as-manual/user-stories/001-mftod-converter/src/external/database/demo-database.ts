@@ -70,7 +70,7 @@ async function runDatabaseDemo() {
           id: 'test-valid-login',
           title: 'Valid Login Test',
           description: 'Test successful login with valid credentials',
-          category: 'Authentication',
+          category: "Authentication",
           priority: 'high' as const,
           estimatedTime: 5,
           prerequisites: ['User account exists', 'Browser is open'],
@@ -100,7 +100,7 @@ async function runDatabaseDemo() {
           id: 'test-invalid-login',
           title: 'Invalid Login Test',
           description: 'Test login failure with invalid credentials',
-          category: 'Authentication',
+          category: "Authentication",
           priority: 'medium' as const,
           estimatedTime: 3,
           prerequisites: ['Browser is open'],
@@ -147,7 +147,7 @@ async function runDatabaseDemo() {
           id: 'test-forgot-password',
           title: 'Forgot Password Test',
           description: 'Test password reset functionality',
-          category: 'Authentication',
+          category: "Authentication",
           priority: 'low' as const,
           estimatedTime: 7,
           prerequisites: ['User account exists'],
@@ -218,10 +218,10 @@ async function runDatabaseDemo() {
         details: {
           'test-valid-login': 'PASS',
           'test-invalid-login': 'PASS',
-          'test-forgot-password': 'FAIL - Email service unavailable'
+          'test-forgot-password: "PLACEHOLDER"
         }
       },
-      'completed',
+      "completed",
       'One test failed due to email service being down'
     );
     console.log(`✅ Completed execution with status: ${completedExecution.status}`);

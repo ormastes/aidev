@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { PermissionManager, PermissionRequest, PermissionDecision } from './permission-manager';
 
 export interface DangerousModeConfig {
@@ -165,7 +165,7 @@ To confirm, you must acknowledge these risks.
     this.permissionManager.disableDangerousMode();
 
     // Emit event
-    this.emit('disabled', {
+    this.emit("disabled", {
       session: this.currentSession,
       reason,
       stats: this.getSessionStats()
@@ -403,7 +403,7 @@ To confirm, you must acknowledge these risks.
 
   // Get risk assessment for current session
   getRiskAssessment(): {
-    level: 'low' | 'medium' | 'high' | 'critical';
+    level: 'low' | 'medium' | 'high' | "critical";
     factors: string[];
     recommendations: string[];
   } {
@@ -452,9 +452,9 @@ To confirm, you must acknowledge these risks.
     }
 
     // Determine risk level
-    let level: 'low' | 'medium' | 'high' | 'critical';
+    let level: 'low' | 'medium' | 'high' | "critical";
     if (riskScore >= 8) {
-      level = 'critical';
+      level = "critical";
       recommendations.push('Immediately disable dangerous mode and review all actions');
     } else if (riskScore >= 5) {
       level = 'high';

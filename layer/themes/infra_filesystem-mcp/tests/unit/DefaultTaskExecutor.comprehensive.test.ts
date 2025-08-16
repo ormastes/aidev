@@ -49,7 +49,7 @@ describe('DefaultTaskExecutor Comprehensive Tests', () => {
 
       const task: Task = {
         id: 'cmd-1',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
@@ -77,7 +77,7 @@ describe('DefaultTaskExecutor Comprehensive Tests', () => {
 
       const task: Task = {
         id: 'cmd-2',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
@@ -106,7 +106,7 @@ describe('DefaultTaskExecutor Comprehensive Tests', () => {
 
       const task: Task = {
         id: 'cmd-3',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
@@ -137,7 +137,7 @@ describe('DefaultTaskExecutor Comprehensive Tests', () => {
 
       const task: Task = {
         id: 'script-1',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
@@ -167,7 +167,7 @@ describe('DefaultTaskExecutor Comprehensive Tests', () => {
 
       const task: Task = {
         id: 'script-2',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
@@ -192,7 +192,7 @@ describe('DefaultTaskExecutor Comprehensive Tests', () => {
     it('should handle non-existent script', async () => {
       const task: Task = {
         id: 'script-3',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
@@ -217,7 +217,7 @@ describe('DefaultTaskExecutor Comprehensive Tests', () => {
 
       const task: Task = {
         id: 'script-4',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
@@ -241,18 +241,18 @@ describe('DefaultTaskExecutor Comprehensive Tests', () => {
   describe('Function Execution', () => {
     it('should execute registered function', async () => {
       const mockFn = jest.fn(() => Promise.resolve({ result: 'function result' }));
-      executor.registerFunction('testFunc', mockFn);
+      executor.registerFunction("testFunc", mockFn);
 
       const task: Task = {
         id: 'func-1',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
-          function: 'testFunc',
+          type: "function",
+          function: "testFunc",
           args: ['arg1', 'arg2']
         }
       };
@@ -265,20 +265,20 @@ describe('DefaultTaskExecutor Comprehensive Tests', () => {
     });
 
     it('should handle function execution errors', async () => {
-      executor.registerFunction('errorFunc', async () => {
+      executor.registerFunction("errorFunc", async () => {
         throw new Error('Function error');
       });
 
       const task: Task = {
         id: 'func-2',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
-          function: 'errorFunc'
+          type: "function",
+          function: "errorFunc"
         }
       };
 
@@ -292,14 +292,14 @@ describe('DefaultTaskExecutor Comprehensive Tests', () => {
     it('should throw error for unregistered function', async () => {
       const task: Task = {
         id: 'func-3',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
-          function: 'unknownFunc'
+          type: "function",
+          function: "unknownFunc"
         }
       };
 
@@ -318,13 +318,13 @@ describe('DefaultTaskExecutor Comprehensive Tests', () => {
 
       const task: Task = {
         id: 'builtin-1',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
+          type: "function",
           function: 'fs:writeFile',
           args: ['test-file.txt', 'test content']
         }
@@ -344,7 +344,7 @@ describe('DefaultTaskExecutor Comprehensive Tests', () => {
     it('should throw error for unknown runnable type', async () => {
       const task: Task = {
         id: 'error-1',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
@@ -368,7 +368,7 @@ describe('DefaultTaskExecutor Comprehensive Tests', () => {
 
       const task: Task = {
         id: 'cmd-no-args',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
@@ -395,7 +395,7 @@ describe('DefaultTaskExecutor Comprehensive Tests', () => {
 
       const task: Task = {
         id: 'cwd-test',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',

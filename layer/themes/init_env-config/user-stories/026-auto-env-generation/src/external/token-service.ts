@@ -19,7 +19,7 @@ export interface TokenOptions {
   length?: number;
   prefix?: string;
   environment?: string;
-  format?: 'hex' | 'base64' | 'base64url' | 'uuid';
+  format?: 'hex' | 'base64' | "base64url" | 'uuid';
 }
 
 export interface GeneratedToken {
@@ -86,5 +86,5 @@ export interface TokenService {
   /**
    * Generate a cryptographically secure random string
    */
-  generateSecureRandom(length: number, format: 'hex' | 'base64' | 'base64url'): string;
+  generateSecureRandom(length: number, format: 'hex' | 'base64' | "base64url"): string;
 }

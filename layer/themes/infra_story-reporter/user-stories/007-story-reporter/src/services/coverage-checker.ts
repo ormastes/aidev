@@ -1,8 +1,9 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { fileAPI } from '../utils/file-api';
+import { EventEmitter } from 'node:events';
 import { exec } from 'child_process';
-import { promisify } from 'util';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join } from 'path';
+import { promisify } from 'node:util';
+import { fsPromises as fs } from 'fs/promises';
+import { join } from 'node:path';
 import { CoverageReport, CoverageMetric, CoverageDetail } from '../domain/story';
 
 const execAsync = promisify(exec);
@@ -25,7 +26,7 @@ export class CoverageChecker extends EventEmitter {
    * Check coverage for a project directory
    */
   async checkCoverage(projectPath: string): Promise<CoverageReport> {
-    this.emit('coverageCheckStarted', { projectPath });
+    this.emit("coverageCheckStarted", { projectPath });
 
     try {
       // Detect project type
@@ -34,10 +35,10 @@ export class CoverageChecker extends EventEmitter {
       let report: CoverageReport;
       
       switch (projectType) {
-        case 'javascript':
+        case "javascript":
           report = await this.checkJavaScriptCoverage(projectPath);
           break;
-        case 'typescript':
+        case "typescript":
           report = await this.checkTypeScriptCoverage(projectPath);
           break;
         case 'python':
@@ -50,7 +51,7 @@ export class CoverageChecker extends EventEmitter {
       // Validate against threshold
       const passed = report.overall >= this.coverageThreshold;
       
-      this.emit('coverageCheckcompleted', { 
+      this.emit("coverageCheckcompleted", { 
         projectPath, 
         report, 
         passed,
@@ -59,7 +60,7 @@ export class CoverageChecker extends EventEmitter {
 
       return report;
     } catch (error) {
-      this.emit('coverageCheckFailed', { 
+      this.emit("coverageCheckFailed", { 
         projectPath, 
         error: error instanceof Error ? error.message : 'Unknown error'
       });
@@ -75,13 +76,13 @@ export class CoverageChecker extends EventEmitter {
     
     if (files.includes('package.json')) {
       const packageJson = JSON.parse(
-        await fs.readFile(join(projectPath, 'package.json'), 'utf8')
+        await fileAPI.readFile(join(projectPath, 'package.json'), 'utf8')
       );
       
       if (packageJson.devDependencies?.typescript || files.includes('tsconfig.json')) {
-        return 'typescript';
+        return "typescript";
       }
-      return 'javascript';
+      return "javascript";
     }
     
     if (files.includes('setup.py') || files.includes('requirements.txt') || 
@@ -136,7 +137,7 @@ export class CoverageChecker extends EventEmitter {
 
       // Parse coverage.json
       const coverageFile = join(projectPath, 'coverage.json');
-      const coverageData = JSON.parse(await fs.readFile(coverageFile, 'utf8'));
+      const coverageData = JSON.parse(await fileAPI.readFile(coverageFile, 'utf8'));
       
       return this.parsePythonCoverage(coverageData);
     } catch (error) {
@@ -155,8 +156,8 @@ export class CoverageChecker extends EventEmitter {
     );
 
     // Parse coverage-summary.json
-    const summaryFile = join(projectPath, 'coverage', 'coverage-summary.json');
-    const summaryData = JSON.parse(await fs.readFile(summaryFile, 'utf8'));
+    const summaryFile = join(projectPath, "coverage", 'coverage-summary.json');
+    const summaryData = JSON.parse(await fileAPI.readFile(summaryFile, 'utf8'));
     
     return this.parseJestCoverage(summaryData);
   }
@@ -171,8 +172,8 @@ export class CoverageChecker extends EventEmitter {
     );
 
     // Parse coverage-summary.json
-    const summaryFile = join(projectPath, 'coverage', 'coverage-summary.json');
-    const summaryData = JSON.parse(await fs.readFile(summaryFile, 'utf8'));
+    const summaryFile = join(projectPath, "coverage", 'coverage-summary.json');
+    const summaryData = JSON.parse(await fileAPI.readFile(summaryFile, 'utf8'));
     
     return this.parseJestCoverage(summaryData); // Same format as Jest
   }
@@ -290,7 +291,7 @@ export class CoverageChecker extends EventEmitter {
     for (const file of possibleFiles) {
       try {
         const fullPath = join(projectPath, file);
-        const data = await fs.readFile(fullPath, 'utf8');
+        const data = await fileAPI.readFile(fullPath, 'utf8');
         const parsed = JSON.parse(data);
         
         // Try to determine format and parse

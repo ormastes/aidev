@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 // Interface definitions based on sequence diagrams
 export interface CLICommand {
@@ -34,7 +34,7 @@ export interface Message {
   username: string;
   content: string;
   timestamp: Date;
-  type: 'text' | 'command' | 'system' | 'workflow';
+  type: 'text' | 'command' | 'system' | "workflow";
 }
 
 export class CLIInterface {
@@ -224,7 +224,7 @@ export class CLIInterface {
   private getTypePrefix(type: Message['type']): string {
     switch (type) {
       case 'system': return '🔧 ';
-      case 'workflow': return '🔄 ';
+      case "workflow": return '🔄 ';
       case 'command': return '⚡ ';
       default: return '';
     }

@@ -5,7 +5,7 @@ import { AGENT_ROLES } from '../../../../children/src/domain/agent';
 
 jest.mock('../../../../children/src/server/mcp-connection');
 
-describe('CoderAgent', () => {
+describe("CoderAgent", () => {
   let coderAgent: CoderAgent;
   let mockMCPConnection: jest.Mocked<MCPConnection>;
 
@@ -20,7 +20,7 @@ describe('CoderAgent', () => {
     coderAgent.setMCPConnection(mockMCPConnection);
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with correct role and capabilities', () => {
       const agent = new CoderAgent();
       expect(agent.getRole().name).toBe('coder');
@@ -42,17 +42,17 @@ describe('CoderAgent', () => {
     });
   });
 
-  describe('setMCPConnection', () => {
+  describe("setMCPConnection", () => {
     it('should set MCP connection', () => {
       const newConnection = {} as MCPConnection;
       coderAgent.setMCPConnection(newConnection);
-      expect(coderAgent['mcpConnection']).toBe(newConnection);
+      expect(coderAgent["mcpConnection"]).toBe(newConnection);
     });
   });
 
-  describe('implementFeature', () => {
+  describe("implementFeature", () => {
     it('should implement feature through all phases', async () => {
-      const featureName = 'UserManagement';
+      const featureName = "UserManagement";
       const requirements = [
         'User should be able to create account',
         'User should be able to update profile',
@@ -77,7 +77,7 @@ describe('CoderAgent', () => {
     });
   });
 
-  describe('analyzeInterfaceNeeds', () => {
+  describe("analyzeInterfaceNeeds", () => {
     it('should extract interface structure from requirements', () => {
       const requirements = [
         'User should be able to create account',
@@ -85,31 +85,31 @@ describe('CoderAgent', () => {
         'Order should track status and items'
       ];
 
-      const interfaces = coderAgent['analyzeInterfaceNeeds'](requirements);
+      const interfaces = coderAgent["analyzeInterfaceNeeds"](requirements);
 
       expect(interfaces).toHaveLength(3);
-      expect(interfaces[0].name).toBe('UserInterface');
+      expect(interfaces[0].name).toBe("UserInterface");
       expect(interfaces[0].methods).toContain('create');
-      expect(interfaces[1].name).toBe('ProductInterface');
-      expect(interfaces[2].name).toBe('OrderInterface');
+      expect(interfaces[1].name).toBe("ProductInterface");
+      expect(interfaces[2].name).toBe("OrderInterface");
     });
   });
 
-  describe('extractEntityName', () => {
+  describe("extractEntityName", () => {
     it('should extract entity name from requirement', () => {
-      expect(coderAgent['extractEntityName']('User should be able to login'))
+      expect(coderAgent["extractEntityName"]('User should be able to login'))
         .toBe('User');
-      expect(coderAgent['extractEntityName']('Product should have price'))
+      expect(coderAgent["extractEntityName"]('Product should have price'))
         .toBe('Product');
-      expect(coderAgent['extractEntityName']('Invalid requirement'))
+      expect(coderAgent["extractEntityName"]('Invalid requirement'))
         .toBe('Entity');
     });
   });
 
-  describe('extractMethods', () => {
+  describe("extractMethods", () => {
     it('should extract methods from requirement', () => {
       const requirement = 'User should be able to create, update, and delete profiles';
-      const methods = coderAgent['extractMethods'](requirement);
+      const methods = coderAgent["extractMethods"](requirement);
 
       expect(methods).toContain('create');
       expect(methods).toContain('update');
@@ -118,16 +118,16 @@ describe('CoderAgent', () => {
 
     it('should extract find method', () => {
       const requirement = 'User should be able to find products';
-      const methods = coderAgent['extractMethods'](requirement);
+      const methods = coderAgent["extractMethods"](requirement);
 
       expect(methods).toContain('find');
     });
   });
 
-  describe('extractProperties', () => {
+  describe("extractProperties", () => {
     it('should extract properties from requirement', () => {
       const requirement = 'User should have name, id, and status';
-      const properties = coderAgent['extractProperties'](requirement);
+      const properties = coderAgent["extractProperties"](requirement);
 
       expect(properties).toContain('name: string');
       expect(properties).toContain('id: string');
@@ -135,15 +135,15 @@ describe('CoderAgent', () => {
     });
   });
 
-  describe('createInterface', () => {
+  describe("createInterface", () => {
     it('should create interface file with proper structure', async () => {
       const iface = {
-        name: 'UserInterface',
+        name: "UserInterface",
         methods: ['create', 'update'],
         properties: ['id: string', 'name: string']
       };
 
-      await coderAgent['createInterface'](iface);
+      await coderAgent["createInterface"](iface);
 
       expect(mockMCPConnection.request).toHaveBeenCalledWith(
         MCPMethod.CALL_TOOL,
@@ -158,30 +158,30 @@ describe('CoderAgent', () => {
     });
   });
 
-  describe('identifyUnits', () => {
+  describe("identifyUnits", () => {
     it('should identify all units needed for feature', async () => {
-      const units = await coderAgent['identifyUnits']('User', ['create user']);
+      const units = await coderAgent["identifyUnits"]('User', ['create user']);
 
       expect(units).toHaveLength(3);
       expect(units.map(u => u.type)).toContain('entity');
       expect(units.map(u => u.type)).toContain('service');
-      expect(units.map(u => u.type)).toContain('repository');
+      expect(units.map(u => u.type)).toContain("repository");
       expect(units[0].path).toBe('src/core/entities/user.ts');
       expect(units[1].path).toBe('src/core/services/user-service.ts');
       expect(units[2].path).toBe('src/external_interface/repositories/user-repository.ts');
     });
   });
 
-  describe('writeFailingTest', () => {
+  describe("writeFailingTest", () => {
     it('should generate entity test', async () => {
       const unit = {
-        name: 'UserEntity',
+        name: "UserEntity",
         path: 'src/core/entities/user.ts',
         testPath: 'tests/unit/core/entities/user.test.ts',
         type: 'entity'
       };
 
-      await coderAgent['writeFailingTest'](unit);
+      await coderAgent["writeFailingTest"](unit);
 
       expect(mockMCPConnection.request).toHaveBeenCalledWith(
         MCPMethod.CALL_TOOL,
@@ -189,7 +189,7 @@ describe('CoderAgent', () => {
           name: 'write_file',
           arguments: {
             path: unit.testPath,
-            content: expect.stringContaining("describe('UserEntity'")
+            content: expect.stringContaining("describe("UserEntity"")
           }
         })
       );
@@ -197,13 +197,13 @@ describe('CoderAgent', () => {
 
     it('should generate service test', async () => {
       const unit = {
-        name: 'UserService',
+        name: "UserService",
         path: 'src/core/services/user-service.ts',
         testPath: 'tests/unit/core/services/user-service.test.ts',
         type: 'service'
       };
 
-      await coderAgent['writeFailingTest'](unit);
+      await coderAgent["writeFailingTest"](unit);
 
       expect(mockMCPConnection.request).toHaveBeenCalledWith(
         MCPMethod.CALL_TOOL,
@@ -211,7 +211,7 @@ describe('CoderAgent', () => {
           name: 'write_file',
           arguments: {
             path: unit.testPath,
-            content: expect.stringContaining("describe('UserService'")
+            content: expect.stringContaining("describe("UserService"")
           }
         })
       );
@@ -219,13 +219,13 @@ describe('CoderAgent', () => {
 
     it('should generate repository test', async () => {
       const unit = {
-        name: 'UserRepository',
+        name: "UserRepository",
         path: 'src/external_interface/repositories/user-repository.ts',
         testPath: 'tests/unit/external_interface/repositories/user-repository.test.ts',
-        type: 'repository'
+        type: "repository"
       };
 
-      await coderAgent['writeFailingTest'](unit);
+      await coderAgent["writeFailingTest"](unit);
 
       expect(mockMCPConnection.request).toHaveBeenCalledWith(
         MCPMethod.CALL_TOOL,
@@ -233,39 +233,39 @@ describe('CoderAgent', () => {
           name: 'write_file',
           arguments: {
             path: unit.testPath,
-            content: expect.stringContaining("describe('UserRepository'")
+            content: expect.stringContaining("describe("UserRepository"")
           }
         })
       );
     });
   });
 
-  describe('getRelativeImportPath', () => {
+  describe("getRelativeImportPath", () => {
     it('should calculate correct relative import paths', () => {
-      expect(coderAgent['getRelativeImportPath'](
+      expect(coderAgent["getRelativeImportPath"](
         'tests/unit/core/service.test.ts',
         'src/core/service.ts'
       )).toBe('../../../children/src/core/service');
 
-      expect(coderAgent['getRelativeImportPath'](
+      expect(coderAgent["getRelativeImportPath"](
         'tests/unit/service.test.ts',
         'src/service.ts'
       )).toBe('../../children/src/service');
 
-      expect(coderAgent['getRelativeImportPath'](
+      expect(coderAgent["getRelativeImportPath"](
         'src/test.ts',
         'src/module.ts'
       )).toBe('./module');
     });
   });
 
-  describe('runUnitTest', () => {
+  describe("runUnitTest", () => {
     it('should run unit test successfully', async () => {
       mockMCPConnection.request.mockResolvedValue({
         content: [{ text: 'Test passing' }]
       } as ToolResult);
 
-      await coderAgent['runUnitTest']('tests/unit/test.test.ts');
+      await coderAgent["runUnitTest"]('tests/unit/test.test.ts');
 
       expect(mockMCPConnection.request).toHaveBeenCalledWith(
         MCPMethod.CALL_TOOL,
@@ -284,22 +284,22 @@ describe('CoderAgent', () => {
         content: [{ text: 'Test failed' }]
       } as ToolResult);
 
-      await expect(coderAgent['runUnitTest']('tests/unit/test.test.ts'))
+      await expect(coderAgent["runUnitTest"]('tests/unit/test.test.ts'))
         .rejects.toThrow('Test failed: tests/unit/test.test.ts');
     });
   });
 
-  describe('checkImportCompliance', () => {
+  describe("checkImportCompliance", () => {
     it('should detect forbidden imports', async () => {
       mockMCPConnection.request
         .mockResolvedValueOnce({
           content: [{ text: '["src/file.ts"]' }]
         } as ToolResult)
         .mockResolvedValueOnce({
-          content: [{ text: 'import { fs } from '../../../../../infra_external-log-lib/dist';' }]
+          content: [{ text: 'import { fs } from '../../layer/themes/infra_external-log-lib/src';' }]
         } as ToolResult);
 
-      await expect(coderAgent['checkImportCompliance']('Feature'))
+      await expect(coderAgent["checkImportCompliance"]('Feature'))
         .rejects.toThrow('Direct external import found');
     });
 
@@ -312,12 +312,12 @@ describe('CoderAgent', () => {
           content: [{ text: 'import { FileSystem } from "../xlib_fs"' }]
         } as ToolResult);
 
-      await expect(coderAgent['checkImportCompliance']('Feature'))
+      await expect(coderAgent["checkImportCompliance"]('Feature'))
         .resolves.not.toThrow();
     });
   });
 
-  describe('checkXlibCompliance', () => {
+  describe("checkXlibCompliance", () => {
     it('should verify xlib directories contain only index.ts', async () => {
       mockMCPConnection.request
         .mockResolvedValueOnce({
@@ -330,7 +330,7 @@ describe('CoderAgent', () => {
           content: [{ text: '["index.ts"]' }]
         } as ToolResult);
 
-      await expect(coderAgent['checkXlibCompliance']('Feature'))
+      await expect(coderAgent["checkXlibCompliance"]('Feature'))
         .resolves.not.toThrow();
     });
 
@@ -343,18 +343,18 @@ describe('CoderAgent', () => {
           content: [{ text: '["index.ts", "utils.ts"]' }]
         } as ToolResult);
 
-      await expect(coderAgent['checkXlibCompliance']('Feature'))
+      await expect(coderAgent["checkXlibCompliance"]('Feature'))
         .rejects.toThrow('xlib directory src/xlib_fs must contain only index.ts');
     });
   });
 
-  describe('verifyCoverage', () => {
+  describe("verifyCoverage", () => {
     it('should verify 100% coverage', async () => {
       mockMCPConnection.request.mockResolvedValue({
         content: [{ text: 'Coverage: 100%' }]
       } as ToolResult);
 
-      await expect(coderAgent['verifyCoverage']('Feature'))
+      await expect(coderAgent["verifyCoverage"]('Feature'))
         .resolves.not.toThrow();
 
       expect(mockMCPConnection.request).toHaveBeenCalledWith(
@@ -374,12 +374,12 @@ describe('CoderAgent', () => {
         content: [{ text: 'Coverage: 85%' }]
       } as ToolResult);
 
-      await expect(coderAgent['verifyCoverage']('Feature'))
+      await expect(coderAgent["verifyCoverage"]('Feature'))
         .rejects.toThrow('Coverage is 85%, but Improving is required');
     });
   });
 
-  describe('analyzeCodeQuality', () => {
+  describe("analyzeCodeQuality", () => {
     it('should detect real problems', async () => {
       mockMCPConnection.request.mockResolvedValue({
         content: [{ text: 'const data: any = {}; console.log(data); // TODO: fix this' }]
@@ -428,7 +428,7 @@ describe('CoderAgent', () => {
     });
   });
 
-  describe('createXlibWrapper', () => {
+  describe("createXlibWrapper", () => {
     it('should create xlib wrapper for external library', async () => {
       await coderAgent.createXlibWrapper('axios', ['get', 'post', 'put']);
 
@@ -438,7 +438,7 @@ describe('CoderAgent', () => {
           name: 'write_file',
           arguments: {
             path: 'src/xlib_axios/index.ts',
-            content: expect.stringContaining('AxiosWrapper')
+            content: expect.stringContaining("AxiosWrapper")
           }
         })
       );
@@ -450,7 +450,7 @@ describe('CoderAgent', () => {
     });
   });
 
-  describe('isAllowedAnalysisPath', () => {
+  describe("isAllowedAnalysisPath", () => {
     it('should allow direct children', () => {
       expect(coderAgent.isAllowedAnalysisPath(
         'src/core/service.ts',
@@ -494,11 +494,11 @@ describe('CoderAgent', () => {
     });
   });
 
-  describe('capitalize', () => {
+  describe("capitalize", () => {
     it('should capitalize first letter', () => {
-      expect(coderAgent['capitalize']('axios')).toBe('Axios');
-      expect(coderAgent['capitalize']('HTTP')).toBe('HTTP');
-      expect(coderAgent['capitalize']('a')).toBe('A');
+      expect(coderAgent["capitalize"]('axios')).toBe('Axios');
+      expect(coderAgent["capitalize"]('HTTP')).toBe('HTTP');
+      expect(coderAgent["capitalize"]('a')).toBe('A');
     });
   });
 });

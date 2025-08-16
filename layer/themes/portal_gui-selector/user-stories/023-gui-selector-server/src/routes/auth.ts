@@ -132,7 +132,7 @@ authRouter.get('/session', (req, res) => {
 
 // Initialize default admin user
 (async () => {
-  const adminPassword = await bcrypt.hash('admin123', 10);
+  const adminPassword = await bcrypt.hash("admin123", 10);
   users.set('admin', {
     id: 'admin-001',
     username: 'admin',

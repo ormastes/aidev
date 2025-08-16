@@ -1,6 +1,6 @@
 import { EnvGenerator, ConfigManager } from '../../src/external_interface/pipe';
 import * as fs from 'fs-extra';
-import { path } from '../../../../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 describe('ConfigManager integrates with EnvGenerator', () => {
   const testDir = path.join(process.cwd(), 'temp/test-config-env');
@@ -24,7 +24,7 @@ describe('ConfigManager integrates with EnvGenerator', () => {
   describe('Then ConfigManager integrates with EnvGenerator for In Progress .env generation', () => {
     it('should provide port allocations for environment configuration', async () => {
       // Given: ConfigManager with environment configurations
-      configManager.setEnvironmentConfig('development', {
+      configManager.setEnvironmentConfig("development", {
         portRange: { start: 3000, end: 3099 },
         mainPort: 3000,
         services: {
@@ -34,7 +34,7 @@ describe('ConfigManager integrates with EnvGenerator', () => {
         }
       });
 
-      configManager.setEnvironmentConfig('production', {
+      configManager.setEnvironmentConfig("production", {
         portRange: { start: 3400, end: 3499 },
         mainPort: 3456,
         services: {
@@ -52,7 +52,7 @@ describe('ConfigManager integrates with EnvGenerator', () => {
       const devPath = path.join(testDir, '.env.development');
       const devContent = await envGenerator.generate({
         outputPath: devPath,
-        environment: 'development',
+        environment: "development",
         includePortAllocations: true
       });
 
@@ -69,7 +69,7 @@ describe('ConfigManager integrates with EnvGenerator', () => {
       const prodPath = path.join(testDir, '.env.production');
       const prodContent = await envGenerator.generate({
         outputPath: prodPath,
-        environment: 'production',
+        environment: "production",
         includePortAllocations: true
       });
 
@@ -81,13 +81,13 @@ describe('ConfigManager integrates with EnvGenerator', () => {
 
     it('should provide database configuration based on environment', async () => {
       // Given: ConfigManager with database configurations
-      configManager.setDatabaseConfig('development', {
+      configManager.setDatabaseConfig("development", {
         type: 'sqlite',
         path: './data/dev.db'
       });
 
-      configManager.setDatabaseConfig('production', {
-        type: 'postgres',
+      configManager.setDatabaseConfig("production", {
+        type: "postgres",
         host: 'db.example.com',
         port: 5432,
         database: 'prod_db',
@@ -100,7 +100,7 @@ describe('ConfigManager integrates with EnvGenerator', () => {
       const devPath = path.join(testDir, '.env.dev');
       const devContent = await envGenerator.generate({
         outputPath: devPath,
-        environment: 'development',
+        environment: "development",
         includeDatabaseConfig: true
       });
 
@@ -113,7 +113,7 @@ describe('ConfigManager integrates with EnvGenerator', () => {
       const prodPath = path.join(testDir, '.env.prod');
       const prodContent = await envGenerator.generate({
         outputPath: prodPath,
-        environment: 'production',
+        environment: "production",
         includeDatabaseConfig: true
       });
 
@@ -147,7 +147,7 @@ describe('ConfigManager integrates with EnvGenerator', () => {
       const outputPath = path.join(testDir, '.env');
       const content = await envGenerator.generate({
         outputPath,
-        environment: 'development',
+        environment: "development",
         includeFeatureFlags: true,
         includeGlobalConfig: true
       });
@@ -188,7 +188,7 @@ describe('ConfigManager integrates with EnvGenerator', () => {
       });
 
       configManager.setDatabaseConfig('staging', {
-        type: 'postgres',
+        type: "postgres",
         host: 'staging-db.local',
         port: 5432,
         database: 'staging'
@@ -267,7 +267,7 @@ describe('ConfigManager integrates with EnvGenerator', () => {
           }
         },
         database: {
-          postgres: { host: 'localhost', port: 5432 },
+          postgres: { host: "localhost", port: 5432 },
           sqlite: { path: './data/${env}.db' }
         },
         features: {

@@ -9,7 +9,7 @@ export interface SearchDocument {
   id: string;
   title: string;
   content: string;
-  type: 'test' | 'section' | 'step' | 'requirement' | 'note';
+  type: 'test' | 'section' | 'step' | "requirement" | 'note';
   tags?: string[];
   metadata?: Record<string, any>;
   url?: string;

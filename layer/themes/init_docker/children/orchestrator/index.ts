@@ -1,9 +1,10 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Build Orchestrator
  * Orchestrates the complete build pipeline
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { DockerCMakeBuilder, BuildConfig, BuildOptions, BuildResult } from '../builder';
 import { VolumeManager, VolumeConfig, MountPoint } from '../volume';
 import { path } from '../../../infra_external-log-lib/src';
@@ -33,7 +34,7 @@ export interface BuildPipeline {
 export interface BuildArtifact {
   name: string;
   path: string;
-  type: 'executable' | 'library' | 'package' | 'documentation' | 'other';
+  type: "executable" | 'library' | 'package' | "documentation" | 'other';
   size: number;
   timestamp: Date;
 }
@@ -150,7 +151,7 @@ export class BuildOrchestrator extends EventEmitter {
     const volumeConfig: VolumeConfig = {
       projectPath: this.config.projectPath,
       mounts: this.getEnvironmentMounts(),
-      cacheStrategy: this.config.cache ? 'persistent' : 'ephemeral',
+      cacheStrategy: this.config.cache ? "persistent" : "ephemeral",
       ...this.config.volumeConfig,
     };
 
@@ -249,7 +250,7 @@ export class BuildOrchestrator extends EventEmitter {
     });
   }
 
-  private getOptimizationLevel(): BuildConfig['compiler']['optimization'] {
+  private getOptimizationLevel(): BuildConfig["compiler"]["optimization"] {
     switch (this.currentPipeline!.environment) {
       case 'local':
       case 'dev':
@@ -270,13 +271,13 @@ export class BuildOrchestrator extends EventEmitter {
     return env === 'local' || env === 'dev' || env === 'dev-demo';
   }
 
-  private getBuildType(): BuildConfig['cmake']['buildType'] {
+  private getBuildType(): BuildConfig['cmake']["buildType"] {
     switch (this.currentPipeline!.environment) {
       case 'local':
       case 'dev':
         return 'Debug';
       case 'dev-demo':
-        return 'RelWithDebInfo';
+        return "RelWithDebInfo";
       case 'demo':
       case 'release':
         return 'Release';
@@ -440,7 +441,7 @@ export class BuildOrchestrator extends EventEmitter {
     if (['.exe', ''].includes(ext)) {
       const stats = fs.statSync(file);
       if (stats.mode & 0o111) {
-        return 'executable';
+        return "executable";
       }
     }
     
@@ -453,7 +454,7 @@ export class BuildOrchestrator extends EventEmitter {
     }
     
     if (['.pdf', '.md', '.html'].includes(ext)) {
-      return 'documentation';
+      return "documentation";
     }
     
     return 'other';

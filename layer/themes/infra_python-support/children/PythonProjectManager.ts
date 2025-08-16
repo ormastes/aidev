@@ -67,10 +67,10 @@ export class PythonProjectManager {
   private envManager: UVEnvironmentManager;
   private templatesDir: string;
 
-  constructor(projectsDir: string = 'projects', envDir: string = '.venvs') {
+  constructor(projectsDir: string = "projects", envDir: string = '.venvs') {
     this.projectsDir = path.resolve(projectsDir);
     this.envManager = new UVEnvironmentManager(envDir);
-    this.templatesDir = path.join(__dirname, '..', 'templates');
+    this.templatesDir = path.join(__dirname, '..', "templates");
     
     // Ensure directories exist
     fs.ensureDirSync(this.projectsDir);
@@ -461,7 +461,7 @@ class LibraryClass:
         break;
 
       case 'data-science':
-        baseStructure.directories.push('notebooks', 'data', 'models', 'reports');
+        baseStructure.directories.push("notebooks", 'data', 'models', 'reports');
         baseStructure.files.push({
           path: 'src/analysis.py',
           content: `"""Data analysis module."""
@@ -528,7 +528,7 @@ def analyze_data(df: pd.DataFrame) -> dict:
         }
       },
       'build-system': {
-        requires: ['hatchling'],
+        requires: ["hatchling"],
         'build-backend': 'hatchling.build'
       }
     };
@@ -673,7 +673,7 @@ COPY src/ ./src/
 
 CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
 `;
-        await fileAPI.createFile(path.join(projectPath, 'Dockerfile'), { type: FileType.TEMPORARY });
+        await fileAPI.createFile(path.join(projectPath, "Dockerfile"), { type: FileType.TEMPORARY });
         break;
 
       case 'cli-app':

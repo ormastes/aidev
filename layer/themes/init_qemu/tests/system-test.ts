@@ -4,7 +4,7 @@
  */
 
 import { spawn, exec } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import * as fs from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 

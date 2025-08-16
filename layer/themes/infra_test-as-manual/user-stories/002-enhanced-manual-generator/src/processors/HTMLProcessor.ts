@@ -4,7 +4,7 @@
  */
 
 import { TestDocument, ProcessorResult, ManualGeneratorOptions } from '../core/types';
-import * as Handlebars from 'handlebars';
+import * as Handlebars from "handlebars";
 
 export class HTMLProcessor {
   private options: ManualGeneratorOptions;
@@ -606,7 +606,7 @@ body {
   private getScripts(): string {
     return `
 // Scroll to top functionality
-const scrollBtn = document.getElementById('scrollTop');
+const scrollBtn = document.getElementById("scrollTop");
 window.addEventListener('scroll', () => {
     if (window.pageYOffset > 300) {
         scrollBtn.classList.add('visible');
@@ -657,7 +657,7 @@ document.querySelectorAll('.test-case h4').forEach(header => {
     header.style.cursor = 'pointer';
     header.addEventListener('click', () => {
         const testCase = header.parentElement;
-        testCase.classList.toggle('collapsed');
+        testCase.classList.toggle("collapsed");
     });
 });
 

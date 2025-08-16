@@ -2,7 +2,7 @@ import { JSONLogParser, StructuredLogEntry } from './json-log-parser';
 import { KeyValueLogParser } from './keyvalue-log-parser';
 import { LogSchemaValidator, LogSchema } from './schema-validator';
 
-export type LogFormat = 'json' | 'keyvalue' | 'auto';
+export type LogFormat = 'json' | "keyvalue" | 'auto';
 
 export interface StructuredLogParserConfig {
   format?: LogFormat;
@@ -42,7 +42,7 @@ export class StructuredLogParser {
       case 'json':
         result = this.jsonParser.parseJSONLog(line, source);
         break;
-      case 'keyvalue':
+      case "keyvalue":
         result = this.keyValueParser.parseKeyValueLog(line, source);
         break;
       case 'auto':

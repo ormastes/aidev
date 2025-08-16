@@ -3,9 +3,9 @@
  * Manages conversation state and history
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
-export type MessageRole = 'user' | 'assistant' | 'system' | 'tool';
+export type MessageRole = 'user' | "assistant" | 'system' | 'tool';
 
 export interface Message {
   id: string;
@@ -75,9 +75,9 @@ export interface ConversationMetadata {
 export type ConversationState = 
   | 'active'
   | 'paused'
-  | 'completed'
+  | "completed"
   | 'error'
-  | 'archived';
+  | "archived";
 
 export interface ConversationHistory {
   conversations: Conversation[];
@@ -138,7 +138,7 @@ export class ConversationManager extends EventEmitter {
     this.conversations.set(id, conversation);
     this.activeConversation = conversation;
     
-    this.emit('conversationCreated', conversation);
+    this.emit("conversationCreated", conversation);
     return conversation;
   }
 
@@ -150,7 +150,7 @@ export class ConversationManager extends EventEmitter {
     const conversation = this.conversations.get(id);
     if (conversation) {
       this.activeConversation = conversation;
-      this.emit('conversationActivated', conversation);
+      this.emit("conversationActivated", conversation);
       return true;
     }
     return false;
@@ -181,7 +181,7 @@ export class ConversationManager extends EventEmitter {
     // Manage conversation size
     this.manageConversationSize(conversation);
 
-    this.emit('messageAdded', { conversation, message });
+    this.emit("messageAdded", { conversation, message });
     return message;
   }
 
@@ -195,7 +195,7 @@ export class ConversationManager extends EventEmitter {
 
   addAssistantMessage(content: string, metadata?: MessageMetadata): Message {
     return this.addMessage(undefined, {
-      role: 'assistant',
+      role: "assistant",
       content,
       metadata,
     });
@@ -203,7 +203,7 @@ export class ConversationManager extends EventEmitter {
 
   addToolCall(toolCall: ToolCall): Message {
     return this.addMessage(undefined, {
-      role: 'assistant',
+      role: "assistant",
       content: `Calling tool: ${toolCall.name}`,
       toolCalls: [toolCall],
     });
@@ -245,14 +245,14 @@ export class ConversationManager extends EventEmitter {
         conversation.messages = conversation.messages.slice(overflow);
       }
       
-      this.emit('conversationTruncated', { conversation, removed: overflow });
+      this.emit("conversationTruncated", { conversation, removed: overflow });
     }
 
     // Check token limit
     if (this.options.maxTokens) {
       const totalTokens = this.estimateTotalTokens(conversation);
       if (totalTokens > this.options.maxTokens) {
-        this.emit('tokenLimitExceeded', { conversation, tokens: totalTokens });
+        this.emit("tokenLimitExceeded", { conversation, tokens: totalTokens });
       }
     }
   }
@@ -360,7 +360,7 @@ export class ConversationManager extends EventEmitter {
     // Copy messages up to branch point
     branch.messages = current.messages.slice(0, branchIndex + 1).map(m => ({ ...m }));
     
-    this.emit('conversationBranched', { parent: current, branch, branchPoint });
+    this.emit("conversationBranched", { parent: current, branch, branchPoint });
     return branch;
   }
 
@@ -379,7 +379,7 @@ export class ConversationManager extends EventEmitter {
     // Remove source conversation
     this.conversations.delete(sourceId);
     
-    this.emit('conversationsMerged', { source, target });
+    this.emit("conversationsMerged", { source, target });
     return target;
   }
 
@@ -391,7 +391,7 @@ export class ConversationManager extends EventEmitter {
     conversation.messages = systemMessage ? [systemMessage] : [];
     conversation.updatedAt = new Date();
     
-    this.emit('conversationCleared', conversation);
+    this.emit("conversationCleared", conversation);
   }
 
   deleteConversation(conversationId: string): boolean {
@@ -404,7 +404,7 @@ export class ConversationManager extends EventEmitter {
       this.activeConversation = undefined;
     }
     
-    this.emit('conversationDeleted', conversation);
+    this.emit("conversationDeleted", conversation);
     return true;
   }
 
@@ -430,7 +430,7 @@ export class ConversationManager extends EventEmitter {
     };
 
     this.conversations.set(conversation.id, conversation);
-    this.emit('conversationImported', conversation);
+    this.emit("conversationImported", conversation);
     
     return conversation;
   }

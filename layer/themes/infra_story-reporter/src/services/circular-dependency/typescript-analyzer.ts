@@ -1,10 +1,11 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * TypeScript dependency analyzer
  * Simplified version without external dependencies
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as path from 'node:path';
 import { DependencyGraph } from './dependency-graph';
 import { AnalysisResult, AnalysisOptions, DependencyNode, DependencyEdge } from './types';
 
@@ -39,7 +40,7 @@ export class TypeScriptAnalyzer {
 
       return {
         success: true,
-        language: 'typescript',
+        language: "typescript",
         total_files: files.length,
         total_dependencies: this.graph.getEdges().length,
         circular_dependencies: circularDependencies,
@@ -51,7 +52,7 @@ export class TypeScriptAnalyzer {
       errors.push(`Analysis failed: ${error}`);
       return {
         success: false,
-        language: 'typescript',
+        language: "typescript",
         total_files: 0,
         total_dependencies: 0,
         circular_dependencies: [],
@@ -111,13 +112,13 @@ export class TypeScriptAnalyzer {
       id: nodeId,
       path: relativePath,
       type: 'file',
-      language: 'typescript'
+      language: "typescript"
     };
     this.graph.addNode(node);
 
     // Read file content
     try {
-      const content = fs.readFileSync(filePath, 'utf-8');
+      const content = fileAPI.readFileSync(filePath, 'utf-8');
       const imports = this.extractImports(content, filePath, rootPath);
       
       for (const importPath of imports) {
@@ -131,7 +132,7 @@ export class TypeScriptAnalyzer {
               id: targetRelativePath,
               path: targetRelativePath,
               type: 'file',
-              language: 'typescript'
+              language: "typescript"
             };
             this.graph.addNode(targetNode);
           }

@@ -7,7 +7,7 @@ import * as t from '@babel/types';
 jest.mock('../../external/FileSystemWrapper');
 jest.mock('../../external/ASTParserWrapper');
 
-describe('FraudChecker', () => {
+describe("FraudChecker", () => {
   let fraudChecker: FraudChecker;
   let mockFileSystem: jest.Mocked<FileSystemWrapper>;
   let mockAstParser: jest.Mocked<ASTParserWrapper>;
@@ -27,7 +27,7 @@ describe('FraudChecker', () => {
     fraudChecker = new FraudChecker('/test/path');
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with correct base path', () => {
       expect(FileSystemWrapper).toHaveBeenCalledWith('/test/path');
       expect(ASTParserWrapper).toHaveBeenCalled();
@@ -39,7 +39,7 @@ describe('FraudChecker', () => {
     });
   });
 
-  describe('checkTestFiles', () => {
+  describe("checkTestFiles", () => {
     it('should return clean result for no test files', async () => {
       const result = await fraudChecker.checkTestFiles([]);
 
@@ -202,7 +202,7 @@ describe('FraudChecker', () => {
       expect(result.violations).toHaveLength(1);
       expect(result.violations[0]).toEqual({
         type: 'fake-assertions',
-        severity: 'critical',
+        severity: "critical",
         // Test implementation pending
         location: '/test/file1.test.ts:25:4',
         pattern: mockPatterns[0]
@@ -285,7 +285,7 @@ describe('FraudChecker', () => {
     });
   });
 
-  describe('checkDirectory', () => {
+  describe("checkDirectory", () => {
     it('should find and check test files in directory', async () => {
       const mockFiles = ['file1.js', 'file2.test.ts', 'file3.spec.js'];
       const mockStat = { isDirectory: () => false, isFile: () => true };
@@ -369,9 +369,9 @@ describe('FraudChecker', () => {
   describe('score calculation edge cases', () => {
     it('should apply high skip ratio penalty', async () => {
       const testFiles: TestFile[] = [
-        { path: '/test/file1.test.ts', content: 'content1' },
-        { path: '/test/file2.test.ts', content: 'content2' },
-        { path: '/test/file3.test.ts', content: 'content3' }
+        { path: '/test/file1.test.ts', content: "content1" },
+        { path: '/test/file2.test.ts', content: "content2" },
+        { path: '/test/file3.test.ts', content: "content3" }
       ];
 
       const mockAst = { type: 'File' } as t.File;
@@ -398,8 +398,8 @@ describe('FraudChecker', () => {
 
     it('should apply high empty test ratio penalty', async () => {
       const testFiles: TestFile[] = [
-        { path: '/test/file1.test.ts', content: 'content1' },
-        { path: '/test/file2.test.ts', content: 'content2' }
+        { path: '/test/file1.test.ts', content: "content1" },
+        { path: '/test/file2.test.ts', content: "content2" }
       ];
 
       const mockAst = { type: 'File' } as t.File;
@@ -425,7 +425,7 @@ describe('FraudChecker', () => {
 
     it('should ensure score stays within 0-100 range', async () => {
       const testFiles: TestFile[] = [
-        { path: '/test/file1.test.ts', content: 'content1' }
+        { path: '/test/file1.test.ts', content: "content1" }
       ];
 
       const mockAst = { type: 'File' } as t.File;

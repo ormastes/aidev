@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { path } from '../../../../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import * as fs from 'fs-extra';
 
 describe('Theme Command Coverage', () => {

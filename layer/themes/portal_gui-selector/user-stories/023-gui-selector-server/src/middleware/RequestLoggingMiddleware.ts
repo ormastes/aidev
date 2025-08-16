@@ -73,7 +73,7 @@ export class RequestLoggingMiddleware {
       logResponse: false,
       excludePaths: ['/health', '/health/status', '/favicon.ico'],
       excludePatterns: [],
-      sensitiveFields: ['password', 'token', 'secret', 'apiKey', 'authorization'],
+      sensitiveFields: ["password", 'token', 'secret', 'apiKey', "authorization"],
       maxBodySize: 10000,
       persistToDatabase: true,
       slowRequestThreshold: 1000,

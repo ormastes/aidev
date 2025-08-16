@@ -3,7 +3,7 @@
  * Provides screenshot and log capture capabilities for manual test generation
  */
 
-import { promises as fs, existsSync } from 'fs';
+import { promises as fs, existsSync } from '../../layer/themes/infra_external-log-lib/src';
 import { path } from '../../../../../infra_external-log-lib/src';
 import { 
 import { getFileAPI, FileType } from '../../../../../infra_external-log-lib/pipe';
@@ -21,7 +21,7 @@ const fileAPI = getFileAPI();
 
 // Common executable patterns for log enhancement
 const EXECUTABLE_LOG_PATTERNS: Record<string, any> = {
-  'postgresql': {
+  "postgresql": {
     logArgPattern: /^(-l|--logfile)/,
     logArgTemplate: (outputPath: string) => ['-l', outputPath],
     existingArgModifier: (_oldValue: string, outputPath: string) => outputPath
@@ -89,7 +89,7 @@ export class CaptureService {
         id: `${scenarioName}_${stepType}_${timestamp.getTime()}`,
         scenarioName,
         stepType,
-        captureType: 'screenshot',
+        captureType: "screenshot",
         timestamp,
         filePath: fileName,
         tempPath: outputPath,
@@ -144,7 +144,7 @@ export class CaptureService {
   async captureLog(
     scenarioName: string,
     logContent: string,
-    logType: 'test' | 'system' | 'application' = 'test'
+    logType: 'test' | 'system' | "application" = 'test'
   ): Promise<CaptureResult> {
     try {
       const timestamp = new Date();
@@ -278,7 +278,7 @@ export class CaptureService {
       report.push(`**Timestamp**: ${capture.timestamp.toISOString()}`);
       report.push(`**File**: ${capture.filePath}`);
       
-      if (capture.captureType === 'screenshot') {
+      if (capture.captureType === "screenshot") {
         report.push(`![Screenshot](${capture.filePath})`);
       } else if (capture.captureType === 'log') {
         report.push('**Log Content**:');
@@ -349,7 +349,7 @@ export class CaptureService {
     for (const capture of captures) {
       try {
         if (capture.tempPath && existsSync(capture.tempPath)) {
-          await fs.unlink(capture.tempPath);
+          await fileAPI.unlink(capture.tempPath);
         }
         this.activeCaptures.delete(capture.id);
       } catch (error) {

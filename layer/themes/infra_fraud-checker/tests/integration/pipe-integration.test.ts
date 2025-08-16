@@ -25,10 +25,10 @@ describe('Pipe Integration Tests', () => {
       const fraudChecker = createFraudChecker();
       
       expect(fraudChecker).toBeDefined();
-      expect(typeof fraudChecker.checkTestFiles).toBe('function');
-      expect(typeof fraudChecker.checkDirectory).toBe('function');
-      expect(typeof fraudChecker.getFileSystemMetrics).toBe('function');
-      expect(typeof fraudChecker.getParserMetrics).toBe('function');
+      expect(typeof fraudChecker.checkTestFiles).toBe("function");
+      expect(typeof fraudChecker.checkDirectory).toBe("function");
+      expect(typeof fraudChecker.getFileSystemMetrics).toBe("function");
+      expect(typeof fraudChecker.getParserMetrics).toBe("function");
     });
 
     it('should create fraud checker with custom base path', async () => {
@@ -70,7 +70,7 @@ describe('Pipe Integration Tests', () => {
       await fraudChecker.checkDirectory('.');
       
       expect(logEntries.length).toBeGreaterThan(0);
-      expect(logEntries[0]).toHaveProperty('timestamp');
+      expect(logEntries[0]).toHaveProperty("timestamp");
       expect(logEntries[0]).toHaveProperty('level');
       expect(logEntries[0]).toHaveProperty('message');
     });
@@ -81,8 +81,8 @@ describe('Pipe Integration Tests', () => {
       const testAnalyzer = createTestAnalyzer();
       
       expect(testAnalyzer).toBeDefined();
-      expect(typeof testAnalyzer.analyzeTestResults).toBe('function');
-      expect(typeof testAnalyzer.compareTestRuns).toBe('function');
+      expect(typeof testAnalyzer.analyzeTestResults).toBe("function");
+      expect(typeof testAnalyzer.compareTestRuns).toBe("function");
     });
 
     it('should analyze test results correctly through pipe interface', () => {
@@ -137,9 +137,9 @@ describe('Pipe Integration Tests', () => {
       const reportGenerator = createFraudReportGenerator();
       
       expect(reportGenerator).toBeDefined();
-      expect(typeof reportGenerator.generateReport).toBe('function');
-      expect(typeof reportGenerator.saveReport).toBe('function');
-      expect(typeof reportGenerator.generateMarkdownReport).toBe('function');
+      expect(typeof reportGenerator.generateReport).toBe("function");
+      expect(typeof reportGenerator.saveReport).toBe("function");
+      expect(typeof reportGenerator.generateMarkdownReport).toBe("function");
     });
 
     it('should generate report correctly through pipe interface', async () => {
@@ -373,7 +373,7 @@ describe('Pipe Integration Tests', () => {
       
       // Set up logging for fraud checker
       fraudChecker.onLog((entry) => {
-        allLogEntries.push({ component: 'fraudChecker', ...entry });
+        allLogEntries.push({ component: "fraudChecker", ...entry });
       });
       
       // Create a test file to trigger logging
@@ -441,9 +441,9 @@ describe('Pipe Integration Tests', () => {
       expect(reportGenerator).toBeDefined();
       
       // Test that they have expected methods
-      expect(typeof fraudChecker.checkTestFiles).toBe('function');
-      expect(typeof testAnalyzer.analyzeTestResults).toBe('function');
-      expect(typeof reportGenerator.generateReport).toBe('function');
+      expect(typeof fraudChecker.checkTestFiles).toBe("function");
+      expect(typeof testAnalyzer.analyzeTestResults).toBe("function");
+      expect(typeof reportGenerator.generateReport).toBe("function");
     });
 
     it('should create instances with custom configurations', () => {
@@ -456,8 +456,8 @@ describe('Pipe Integration Tests', () => {
       expect(reportGenerator).toBeDefined();
       
       // These should still work even with custom paths
-      expect(typeof fraudChecker.getFileSystemMetrics).toBe('function');
-      expect(typeof reportGenerator.saveReport).toBe('function');
+      expect(typeof fraudChecker.getFileSystemMetrics).toBe("function");
+      expect(typeof reportGenerator.saveReport).toBe("function");
     });
 
     it('should support method chaining and fluent interface', async () => {

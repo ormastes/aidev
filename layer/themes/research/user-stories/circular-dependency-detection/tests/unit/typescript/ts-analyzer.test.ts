@@ -6,7 +6,7 @@ import * as fs from 'fs-extra';
 import { path } from '../../../../../../infra_external-log-lib/src';
 import { TypeScriptAnalyzer } from '../../../src/typescript/ts-analyzer';
 
-describe('TypeScriptAnalyzer', () => {
+describe("TypeScriptAnalyzer", () => {
   let analyzer: TypeScriptAnalyzer;
   let tempDir: string;
 
@@ -26,7 +26,7 @@ describe('TypeScriptAnalyzer', () => {
 
   describe('Basic Functionality', () => {
     it('should have correct name and supported extensions', () => {
-      expect(analyzer.getName()).toBe('TypeScript');
+      expect(analyzer.getName()).toBe("TypeScript");
       expect(analyzer.getSupportedExtensions()).toEqual(['.ts', '.tsx', '.js', '.jsx', '.mjs']);
     });
 
@@ -59,7 +59,7 @@ describe('TypeScriptAnalyzer', () => {
       const result = await analyzer.analyze(tempDir);
 
       expect(result.success).toBe(true);
-      expect(result.language).toBe('typescript');
+      expect(result.language).toBe("typescript");
       expect(result.total_files).toBeGreaterThan(0);
       // Note: Actual cycle detection depends on external tools being available
       // This test mainly verifies the analyzer runs without crashing
@@ -141,7 +141,7 @@ describe('TypeScriptAnalyzer', () => {
 
       // Should not crash, might report warnings or errors
       expect(result).toBeDefined();
-      expect(result.language).toBe('typescript');
+      expect(result.language).toBe("typescript");
     });
   });
 });

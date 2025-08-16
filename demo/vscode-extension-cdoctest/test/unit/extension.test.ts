@@ -19,7 +19,7 @@ jest.mock('../../src/controller/controller');
 jest.mock('../../src/runner');
 jest.mock('../../src/pyAdapter');
 
-describe('Extension', () => {
+describe("Extension", () => {
     let mockContext: vscode.ExtensionContext;
     let mockWorkspaceFolder: vscode.WorkspaceFolder;
     let mockDisposable: vscode.Disposable;
@@ -68,12 +68,12 @@ describe('Extension', () => {
         };
         
         // Mock vscode.workspace
-        Object.defineProperty(vscode.workspace, 'workspaceFolders', {
+        Object.defineProperty(vscode.workspace, "workspaceFolders", {
             value: [mockWorkspaceFolder],
             configurable: true
         });
         
-        Object.defineProperty(vscode.workspace, 'onDidChangeWorkspaceFolders', {
+        Object.defineProperty(vscode.workspace, "onDidChangeWorkspaceFolders", {
             value: jest.fn((callback: any) => {
                 // Store callback for testing
                 (vscode.workspace.onDidChangeWorkspaceFolders as any).callback = callback;
@@ -97,11 +97,11 @@ describe('Extension', () => {
         MockCoverageWatcher.prototype.stop = jest.fn();
         
         // Mock config properties
-        Object.defineProperty(MockConfig.prototype, 'coverageLocation', {
+        Object.defineProperty(MockConfig.prototype, "coverageLocation", {
             value: 'coverage.info',
             configurable: true
         });
-        Object.defineProperty(MockConfig.prototype, 'coverageRawFilePattern', {
+        Object.defineProperty(MockConfig.prototype, "coverageRawFilePattern", {
             value: '*.gcda',
             configurable: true
         });
@@ -111,7 +111,7 @@ describe('Extension', () => {
         jest.restoreAllMocks();
     });
 
-    describe('activate', () => {
+    describe("activate", () => {
         test('should initialize extension components', async () => {
             await activate(mockContext);
             
@@ -169,7 +169,7 @@ describe('Extension', () => {
         });
 
         test('should handle workspace without folders', async () => {
-            Object.defineProperty(vscode.workspace, 'workspaceFolders', {
+            Object.defineProperty(vscode.workspace, "workspaceFolders", {
                 value: undefined,
                 configurable: true
             });
@@ -231,7 +231,7 @@ describe('Extension', () => {
                 name: 'new-workspace',
                 index: 0
             };
-            Object.defineProperty(vscode.workspace, 'workspaceFolders', {
+            Object.defineProperty(vscode.workspace, "workspaceFolders", {
                 value: [newWorkspaceFolder],
                 configurable: true
             });
@@ -274,11 +274,11 @@ describe('Extension', () => {
         });
 
         test('should not create coverage watcher when coverage not configured', async () => {
-            Object.defineProperty(MockConfig.prototype, 'coverageLocation', {
+            Object.defineProperty(MockConfig.prototype, "coverageLocation", {
                 value: '',
                 configurable: true
             });
-            Object.defineProperty(MockConfig.prototype, 'coverageRawFilePattern', {
+            Object.defineProperty(MockConfig.prototype, "coverageRawFilePattern", {
                 value: '',
                 configurable: true
             });
@@ -290,7 +290,7 @@ describe('Extension', () => {
         });
     });
 
-    describe('deactivate', () => {
+    describe("deactivate", () => {
         test('should clean up all resources', async () => {
             // First activate to create resources
             await activate(mockContext);
@@ -313,7 +313,7 @@ describe('Extension', () => {
 
         test('should handle partial initialization', async () => {
             // Partially initialize by not having workspace folders
-            Object.defineProperty(vscode.workspace, 'workspaceFolders', {
+            Object.defineProperty(vscode.workspace, "workspaceFolders", {
                 value: undefined,
                 configurable: true
             });

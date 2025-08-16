@@ -58,7 +58,7 @@ describe('Story Reporter Fraud Detection', () => {
   describe('Test Result Validation', () => {
     it('should detect mock usage in test results', async () => {
       const testResults = {
-        testSuite: 'UserService',
+        testSuite: "UserService",
         tests: [
           {
             name: 'should create user',
@@ -125,7 +125,7 @@ describe('Story Reporter Fraud Detection', () => {
         projectName: 'Test Project',
         testResults: [
           {
-            suite: 'SecurityTest',
+            suite: "SecurityTest",
             test: 'XSS Prevention',
             description: '<img src=x onerror=alert(1)>',
             result: 'passed'
@@ -201,7 +201,7 @@ describe('Story Reporter Fraud Detection', () => {
         testSuite: 'Suspicious Suite',
         tests: [
           { name: 'test'.repeat(50), result: 'passed' }, // Repeated pattern
-          { name: '0xDEADBEEF'.repeat(10), result: 'passed' }, // Hex pattern
+          { name: "0xDEADBEEF".repeat(10), result: 'passed' }, // Hex pattern
           { name: btoa('malicious payload'), result: 'passed' } // Base64
         ]
       };
@@ -236,7 +236,7 @@ describe('Story Reporter Fraud Detection', () => {
       expect(fraudResult.passed).toBe(false);
       expect(fraudResult.aggregatedViolations).toContainEqual(
         expect.objectContaining({
-          message: expect.stringContaining('plaintext')
+          message: expect.stringContaining("plaintext")
         })
       );
     });
@@ -325,7 +325,7 @@ describe('Story Reporter Fraud Detection', () => {
 
       // Execute tests with various patterns
       await storyReporter.runTests({
-        suite: 'MonitoredSuite',
+        suite: "MonitoredSuite",
         tests: [
           {
             name: 'Normal test',
@@ -368,7 +368,7 @@ describe('Story Reporter Fraud Detection', () => {
               name: 'Database test',
               code: `
                 // This test contains security vulnerabilities
-                const password = 'admin123';
+                const password: "PLACEHOLDER";
                 const privateKey = '-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEA...';
                 const sqlQuery = "DELETE FROM users WHERE 1=1";
               `

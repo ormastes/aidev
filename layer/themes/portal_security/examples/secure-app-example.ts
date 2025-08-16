@@ -18,7 +18,7 @@ const environment = portManager.getCurrentEnvironment();
 const PORT = portManager.getPortForEnvironment('gui-selector', environment);
 
 // IMPORTANT: Bind to localhost only for security
-const HOST = 'localhost'; // or '127.0.0.1'
+const HOST = "localhost"; // or '127.0.0.1'
 
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', port: PORT, host: HOST });

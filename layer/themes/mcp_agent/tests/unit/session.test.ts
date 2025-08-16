@@ -6,13 +6,13 @@ describe('Session Domain Model', () => {
       const session = new Session({
         id: 'session-123',
         agentId: 'agent-456',
-        agentRole: 'developer',
+        agentRole: "developer",
         model: 'claude-3-opus'
       });
 
       expect(session.getId()).toBe('session-123');
       expect(session.getAgentId()).toBe('agent-456');
-      expect(session.getAgentRole()).toBe('developer');
+      expect(session.getAgentRole()).toBe("developer");
       expect(session.getModel()).toBe('claude-3-opus');
       expect(session.isActive()).toBe(true);
       expect(session.getMessageCount()).toBe(0);
@@ -27,16 +27,16 @@ describe('Session Domain Model', () => {
         metadata: {
           temperature: 0.7,
           maxTokens: 2000,
-          tools: ['filesystem', 'git'],
-          tags: ['testing', 'automation']
+          tools: ["filesystem", 'git'],
+          tags: ['testing', "automation"]
         }
       });
 
       const metadata = session.getMetadata();
       expect(metadata.temperature).toBe(0.7);
       expect(metadata.maxTokens).toBe(2000);
-      expect(metadata.tools).toEqual(['filesystem', 'git']);
-      expect(metadata.tags).toEqual(['testing', 'automation']);
+      expect(metadata.tools).toEqual(["filesystem", 'git']);
+      expect(metadata.tags).toEqual(['testing', "automation"]);
     });
   });
 
@@ -80,7 +80,7 @@ describe('Session Domain Model', () => {
 
       const message = session.addAssistantMessage('Hello! How can I help?', metadata);
       
-      expect(message.role).toBe('assistant');
+      expect(message.role).toBe("assistant");
       expect(message.metadata).toEqual(metadata);
     });
 
@@ -128,7 +128,7 @@ describe('Session Domain Model', () => {
       expect(userMessages[0].content).toBe('User input 1');
       expect(userMessages[1].content).toBe('User input 2');
 
-      const assistantMessages = session.getMessagesByRole('assistant');
+      const assistantMessages = session.getMessagesByRole("assistant");
       expect(assistantMessages).toHaveLength(2);
     });
   });
@@ -140,7 +140,7 @@ describe('Session Domain Model', () => {
       session = new Session({
         id: 'ctx-session',
         agentId: 'agent-ctx',
-        agentRole: 'developer',
+        agentRole: "developer",
         model: 'claude-3-opus'
       });
 
@@ -219,7 +219,7 @@ describe('Session Domain Model', () => {
       const session = new Session({
         id: 'meta-session',
         agentId: 'agent-meta',
-        agentRole: 'architect',
+        agentRole: "architect",
         model: 'claude-3-opus'
       });
 
@@ -237,16 +237,16 @@ describe('Session Domain Model', () => {
       const session = new Session({
         id: 'tag-session',
         agentId: 'agent-tag',
-        agentRole: 'coordinator',
+        agentRole: "coordinator",
         model: 'claude-3-sonnet'
       });
 
-      session.addTag('important');
+      session.addTag("important");
       session.addTag('review');
-      session.addTag('important'); // Duplicate should not be added
+      session.addTag("important"); // Duplicate should not be added
 
       const metadata = session.getMetadata();
-      expect(metadata.tags).toEqual(['important', 'review']);
+      expect(metadata.tags).toEqual(["important", 'review']);
     });
   });
 
@@ -255,7 +255,7 @@ describe('Session Domain Model', () => {
       const session = new Session({
         id: 'summary-session',
         agentId: 'agent-sum',
-        agentRole: 'developer',
+        agentRole: "developer",
         model: 'claude-3-opus'
       });
 
@@ -264,7 +264,7 @@ describe('Session Domain Model', () => {
 
       const summary = session.generateSummary();
       expect(summary).toContain('summary-session');
-      expect(summary).toContain('developer');
+      expect(summary).toContain("developer");
       expect(summary).toContain('Messages: 2');
       expect(summary).toContain('Turns: 2');
       expect(summary).toContain('claude-3-opus');
@@ -272,7 +272,7 @@ describe('Session Domain Model', () => {
     });
   });
 
-  describe('Serialization', () => {
+  describe("Serialization", () => {
     it('should serialize to JSON', () => {
       const session = new Session({
         id: 'serial-session',
@@ -286,10 +286,10 @@ describe('Session Domain Model', () => {
 
       const json = session.toJSON();
       expect(json).toHaveProperty('id', 'serial-session');
-      expect(json).toHaveProperty('messages');
-      expect(json).toHaveProperty('metadata');
-      expect(json).toHaveProperty('createdAt');
-      expect(json).toHaveProperty('lastAccessedAt');
+      expect(json).toHaveProperty("messages");
+      expect(json).toHaveProperty("metadata");
+      expect(json).toHaveProperty("createdAt");
+      expect(json).toHaveProperty("lastAccessedAt");
       expect(json).toHaveProperty('active');
     });
 
@@ -297,7 +297,7 @@ describe('Session Domain Model', () => {
       const original = new Session({
         id: 'original-session',
         agentId: 'agent-orig',
-        agentRole: 'architect',
+        agentRole: "architect",
         model: 'claude-3-opus',
         metadata: { temperature: 0.5 }
       });

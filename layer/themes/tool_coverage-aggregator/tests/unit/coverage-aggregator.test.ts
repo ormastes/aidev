@@ -5,7 +5,7 @@ import { path } from '../../../infra_external-log-lib/src';
 // Mock fs module
 jest.mock('fs');
 
-describe('CoverageAggregator', () => {
+describe("CoverageAggregator", () => {
   let aggregator: CoverageAggregator;
   const mockLayerPath = '/test/layer';
 
@@ -14,7 +14,7 @@ describe('CoverageAggregator', () => {
     jest.clearAllMocks();
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should create aggregator with custom layer path', () => {
       expect(aggregator).toBeInstanceOf(CoverageAggregator);
     });
@@ -25,7 +25,7 @@ describe('CoverageAggregator', () => {
     });
   });
 
-  describe('aggregateAppCoverage', () => {
+  describe("aggregateAppCoverage", () => {
     it('should aggregate coverage from epics and themes', async () => {
       const mockEpics = [{
         name: 'epic1',
@@ -59,8 +59,8 @@ describe('CoverageAggregator', () => {
         timestamp: new Date()
       }];
 
-      jest.spyOn(aggregator, 'aggregateEpics').mockResolvedValue(mockEpics);
-      jest.spyOn(aggregator, 'aggregateThemes').mockResolvedValue(mockThemes);
+      jest.spyOn(aggregator, "aggregateEpics").mockResolvedValue(mockEpics);
+      jest.spyOn(aggregator, "aggregateThemes").mockResolvedValue(mockThemes);
 
       const result = await aggregator.aggregateAppCoverage();
 
@@ -74,7 +74,7 @@ describe('CoverageAggregator', () => {
     });
   });
 
-  describe('aggregateEpics', () => {
+  describe("aggregateEpics", () => {
     it('should return empty array when epic directory does not exist', async () => {
       (fs.existsSync as jest.Mock).mockReturnValue(false);
 
@@ -88,7 +88,7 @@ describe('CoverageAggregator', () => {
       (fs.readdirSync as jest.Mock).mockReturnValue(['epic1', 'epic2']);
       (fs.statSync as jest.Mock).mockReturnValue({ isDirectory: () => true });
 
-      jest.spyOn(aggregator as any, 'aggregateEpicThemes').mockResolvedValue([]);
+      jest.spyOn(aggregator as any, "aggregateEpicThemes").mockResolvedValue([]);
 
       const result = await aggregator.aggregateEpics();
 
@@ -96,7 +96,7 @@ describe('CoverageAggregator', () => {
     });
   });
 
-  describe('aggregateThemes', () => {
+  describe("aggregateThemes", () => {
     it('should return empty array when themes directory does not exist', async () => {
       (fs.existsSync as jest.Mock).mockReturnValue(false);
 
@@ -125,7 +125,7 @@ describe('CoverageAggregator', () => {
         timestamp: new Date()
       }];
 
-      jest.spyOn(aggregator as any, 'aggregateUserStories').mockResolvedValue(mockUserStories);
+      jest.spyOn(aggregator as any, "aggregateUserStories").mockResolvedValue(mockUserStories);
 
       const result = await aggregator.aggregateThemes();
 
@@ -136,7 +136,7 @@ describe('CoverageAggregator', () => {
   });
 
   describe('private methods', () => {
-    describe('loadStoryCoverage', () => {
+    describe("loadStoryCoverage", () => {
       it('should return null when coverage file does not exist', async () => {
         (fs.existsSync as jest.Mock).mockReturnValue(false);
 
@@ -171,7 +171,7 @@ describe('CoverageAggregator', () => {
       });
     });
 
-    describe('calculateSummary', () => {
+    describe("calculateSummary", () => {
       it('should calculate coverage summary from coverage data', () => {
         const mockCoverageData = {
           '/test/file1.ts': {
@@ -214,7 +214,7 @@ describe('CoverageAggregator', () => {
       });
     });
 
-    describe('getAllFiles', () => {
+    describe("getAllFiles", () => {
       it('should recursively get all files with extension', () => {
         const mockFiles = [
           { name: 'file1.ts', isDirectory: false },
@@ -251,7 +251,7 @@ describe('CoverageAggregator', () => {
       });
     });
 
-    describe('mergeCoverageData', () => {
+    describe("mergeCoverageData", () => {
       it('should merge multiple coverage data objects', () => {
         const coverages = [
           {

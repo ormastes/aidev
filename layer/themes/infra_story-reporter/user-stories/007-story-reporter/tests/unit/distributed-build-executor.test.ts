@@ -1,7 +1,7 @@
 import { DistributedBuildExecutor } from '../../src/services/distributed-build-executor';
 import { createHierarchicalBuildConfig, HierarchicalBuildConfig } from '../../src/domain/hierarchical-build-config';
 import { createDefaultTestConfiguration } from '../../src/domain/test-configuration';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { ChildProcess } from 'child_process';
 
 // Mock child_process
@@ -21,7 +21,7 @@ jest.mock('fs', () => ({
   }
 }));
 
-describe('DistributedBuildExecutor', () => {
+describe("DistributedBuildExecutor", () => {
   let executor: DistributedBuildExecutor;
   let mockSpawn: jest.Mock;
   
@@ -35,7 +35,7 @@ describe('DistributedBuildExecutor', () => {
     jest.clearAllMocks();
   });
 
-  describe('executeBuild', () => {
+  describe("executeBuild", () => {
     it('should execute a simple build without children', async () => {
       const config = createHierarchicalBuildConfig(
         createDefaultTestConfiguration('test-build', ['test.feature'], ['test.ts']),
@@ -48,8 +48,8 @@ describe('DistributedBuildExecutor', () => {
       
       const buildStartSpy = jest.fn();
       const buildCompleteSpy = jest.fn();
-      executor.on('buildStart', buildStartSpy);
-      executor.on('buildComplete', buildCompleteSpy);
+      executor.on("buildStart", buildStartSpy);
+      executor.on("buildComplete", buildCompleteSpy);
       
       const result = await executor.executeBuild(config);
       
@@ -84,8 +84,8 @@ describe('DistributedBuildExecutor', () => {
       
       const commandStartSpy = jest.fn();
       const commandCompleteSpy = jest.fn();
-      executor.on('commandStart', commandStartSpy);
-      executor.on('commandComplete', commandCompleteSpy);
+      executor.on("commandStart", commandStartSpy);
+      executor.on("commandComplete", commandCompleteSpy);
       
       await executor.executeBuild(config);
       
@@ -147,7 +147,7 @@ describe('DistributedBuildExecutor', () => {
       mockSpawn.mockReturnValue(mockProcess);
       
       const buildErrorSpy = jest.fn();
-      executor.on('buildError', buildErrorSpy);
+      executor.on("buildError", buildErrorSpy);
       
       const result = await executor.executeBuild(config);
       
@@ -182,10 +182,10 @@ describe('DistributedBuildExecutor', () => {
       mockSpawn.mockReturnValue(mockProcess);
       
       const buildEvents: string[] = [];
-      executor.on('buildStart', (event) => {
+      executor.on("buildStart", (event) => {
         buildEvents.push(`start-${event.buildId}`);
       });
-      executor.on('buildComplete', (event) => {
+      executor.on("buildComplete", (event) => {
         buildEvents.push(`complete-${event.buildId}`);
       });
       
@@ -225,14 +225,14 @@ describe('DistributedBuildExecutor', () => {
       const concurrentBuilds = new Set<string>();
       let maxConcurrent = 0;
       
-      executor.on('buildStart', (event) => {
+      executor.on("buildStart", (event) => {
         if (event.buildId !== 'parent') {
           concurrentBuilds.add(event.buildId);
           maxConcurrent = Math.max(maxConcurrent, concurrentBuilds.size);
         }
       });
       
-      executor.on('buildComplete', (event) => {
+      executor.on("buildComplete", (event) => {
         concurrentBuilds.delete(event.buildId);
       });
       
@@ -300,9 +300,9 @@ describe('DistributedBuildExecutor', () => {
       };
       
       // Mock file system for artifact collection
-      const fs = require('fs').promises;
+      const fs = require('node:fs').promises;
       fs.readdir.mockImplementation((dir: string) => {
-        if (dir.includes('coverage')) {
+        if (dir.includes("coverage")) {
           return Promise.resolve(['coverage.json']);
         }
         if (dir.includes('reports')) {
@@ -315,7 +315,7 @@ describe('DistributedBuildExecutor', () => {
       mockSpawn.mockReturnValue(mockProcess);
       
       const artifactsSpy = jest.fn();
-      executor.on('artifactsCollected', artifactsSpy);
+      executor.on("artifactsCollected", artifactsSpy);
       
       const result = await executor.executeBuild(config);
       
@@ -336,7 +336,7 @@ describe('DistributedBuildExecutor', () => {
       mockSpawn.mockReturnValue(mockProcess);
       
       const logs: any[] = [];
-      executor.on('buildLog', (log) => logs.push(log));
+      executor.on("buildLog", (log) => logs.push(log));
       
       await executor.executeBuild(config);
       
@@ -361,7 +361,7 @@ describe('DistributedBuildExecutor', () => {
       mockSpawn.mockReturnValue(mockProcess);
       
       const cancelledSpy = jest.fn();
-      executor.on('buildCancelled', cancelledSpy);
+      executor.on("buildCancelled", cancelledSpy);
       
       // Start build and cancel after short delay
       const buildPromise = executor.executeBuild(config);
@@ -388,8 +388,8 @@ describe('DistributedBuildExecutor', () => {
       
       parent.children = [failingChild];
       
-      // Test with 'continue' failure handling
-      parent.aggregation!.failureHandling = 'continue';
+      // Test with "continue" failure handling
+      parent.aggregation!.failureHandling = "continue";
       
       const mockProcess = createMockChildProcess(1, '', 'Build failed');
       mockSpawn.mockReturnValue(mockProcess);
@@ -404,7 +404,7 @@ describe('DistributedBuildExecutor', () => {
     });
   });
 
-  describe('getBuildResult', () => {
+  describe("getBuildResult", () => {
     it('should retrieve build result by ID', async () => {
       const config = createHierarchicalBuildConfig(
         createDefaultTestConfiguration('test-build', ['test.feature'], ['test.ts']),
@@ -427,7 +427,7 @@ describe('DistributedBuildExecutor', () => {
     });
   });
 
-  describe('clearResults', () => {
+  describe("clearResults", () => {
     it('should clear all build results', async () => {
       const config = createHierarchicalBuildConfig(
         createDefaultTestConfiguration('test-build', ['test.feature'], ['test.ts']),

@@ -1,10 +1,11 @@
+import { fileAPI } from '../utils/file-api';
 #!/usr/bin/env node
 
 /**
  * Circular Dependency Detection CLI
  */
 
-import { Command } from 'commander';
+import { Command } from "commander";
 import * as fs from 'fs-extra';
 import { path } from '../../../../../infra_external-log-lib/src';
 import * as yaml from 'yaml';
@@ -176,7 +177,7 @@ program
   });
 
 program
-  .command('visualize')
+  .command("visualize")
   .description('Generate dependency graph visualization')
   .argument('<path>', 'Path to analyze')
   .option('-l, --languages <languages>', 'Languages to include', 'typescript,cpp,python')
@@ -250,13 +251,13 @@ function printSummary(results: any[]): void {
 }
 
 // Handle unhandled promise rejections
-process.on('unhandledRejection', (reason, promise) => {
+process.on("unhandledRejection", (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
   process.exit(1);
 });
 
 // Handle uncaught exceptions
-process.on('uncaughtException', (error) => {
+process.on("uncaughtException", (error) => {
   console.error('Uncaught Exception:', error);
   process.exit(1);
 });

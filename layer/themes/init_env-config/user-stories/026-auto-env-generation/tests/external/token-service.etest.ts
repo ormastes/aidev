@@ -36,8 +36,8 @@ class RealTokenService implements TokenService {
       case 'base64':
         value = crypto.randomBytes(Math.ceil(length * 3 / 4)).toString('base64');
         break;
-      case 'base64url':
-        value = crypto.randomBytes(Math.ceil(length * 3 / 4)).toString('base64url');
+      case "base64url":
+        value = crypto.randomBytes(Math.ceil(length * 3 / 4)).toString("base64url");
         break;
       default:
         throw new Error(`Unsupported format: ${format}`);
@@ -210,13 +210,13 @@ class RealTokenService implements TokenService {
       'session-secret': {
         minLength: 32,
         recommendedLength: 48,
-        format: 'base64url',
+        format: "base64url",
         description: 'Secret for session encryption'
       },
       'refresh-token': {
         minLength: 48,
         recommendedLength: 64,
-        format: 'base64url',
+        format: "base64url",
         description: 'Token for refreshing access tokens'
       },
       'encryption-key': {
@@ -234,7 +234,7 @@ class RealTokenService implements TokenService {
       'oauth-client-secret': {
         minLength: 32,
         recommendedLength: 48,
-        format: 'alphanumeric',
+        format: "alphanumeric",
         description: 'OAuth 2.0 client secret'
       }
     };
@@ -242,7 +242,7 @@ class RealTokenService implements TokenService {
     return requirements[type];
   }
   
-  generateSecureRandom(length: number, format: 'hex' | 'base64' | 'base64url'): string {
+  generateSecureRandom(length: number, format: 'hex' | 'base64' | "base64url"): string {
     const bytes = crypto.randomBytes(Math.ceil(length * {
       hex: 0.5,
       base64: 0.75,
@@ -256,14 +256,14 @@ class RealTokenService implements TokenService {
     return this.getTokenRequirements(type).recommendedLength;
   }
   
-  private getDefaultFormat(type: TokenType): 'hex' | 'base64' | 'base64url' | 'uuid' {
+  private getDefaultFormat(type: TokenType): 'hex' | 'base64' | "base64url" | 'uuid' {
     switch (type) {
       case 'api-key':
       case 'webhook-secret':
         return 'hex';
       case 'session-secret':
       case 'refresh-token':
-        return 'base64url';
+        return "base64url";
       case 'jwt-secret':
       case 'encryption-key':
       case 'oauth-client-secret':
@@ -319,7 +319,7 @@ describe('TokenService External Interface Test', () => {
   });
   
   test('should generate In Progress environment token set', async () => {
-    const devTokens = await tokenService.generateEnvironmentTokens('development');
+    const devTokens = await tokenService.generateEnvironmentTokens("development");
     const releaseTokens = await tokenService.generateEnvironmentTokens('release');
     
     // Development should have 6 tokens
@@ -374,7 +374,7 @@ describe('TokenService External Interface Test', () => {
     
     // Low entropy token
     const lowEntropyValidation = tokenService.validateToken(
-      'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
       'session-secret'
     );
     expect(lowEntropyValidation.isValid).toBe(false);
@@ -382,7 +382,7 @@ describe('TokenService External Interface Test', () => {
   });
   
   test('should rotate tokens properly', async () => {
-    const oldToken = 'sk_test_oldtoken123';
+    const oldtoken: process.env.TOKEN || "PLACEHOLDER";
     
     const result = await tokenService.rotateToken(oldToken, {
       type: 'api-key',
@@ -436,7 +436,7 @@ describe('TokenService External Interface Test', () => {
     expect(base64.length).toBe(48);
     
     // Test base64url format
-    const base64url = tokenService.generateSecureRandom(64, 'base64url');
+    const base64url = tokenService.generateSecureRandom(64, "base64url");
     expect(base64url).toMatch(/^[A-Za-z0-9_-]+$/);
     expect(base64url).not.toContain('='); // No padding in base64url
     expect(base64url.length).toBe(64);

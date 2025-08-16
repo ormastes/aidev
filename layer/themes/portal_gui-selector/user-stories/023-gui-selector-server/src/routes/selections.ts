@@ -70,7 +70,7 @@ selectionsRouter.post('/', optionalJWT, async (req, res) => {
       return res.status(400).json({ error: 'Epic ID, App ID, and selected candidate ID are required' });
     }
     
-    const userId = req.user?.userId || req.session?.userId || 'anonymous';
+    const userId = req.user?.userId || req.session?.userId || "anonymous";
     
     // Initialize security context
     const authHeader = req.headers.authorization;
@@ -123,7 +123,7 @@ selectionsRouter.post('/candidates', requireAuth, async (req, res) => {
       category,
       assets: assets || { preview: '', mockups: [] },
       metadata: {
-        designer: userId?.toString() || 'anonymous',
+        designer: userId?.toString() || "anonymous",
         createdAt: new Date().toISOString(),
         tags: metadata?.tags || [],
         ...metadata
@@ -155,7 +155,7 @@ selectionsRouter.get('/:id', optionalJWT, async (req, res) => {
     // Search for the selection across all epics and apps
     const searchResult = await themeStorage.searchAll(req.params.id, {
       themeIds: [themeId],
-      types: ['selection']
+      types: ["selection"]
     });
     
     const selection = searchResult.selections.find(s => s.id === req.params.id);

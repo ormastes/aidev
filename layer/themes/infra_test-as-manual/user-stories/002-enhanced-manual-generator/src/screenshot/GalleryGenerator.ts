@@ -14,7 +14,7 @@ const fileAPI = getFileAPI();
 export interface GalleryOptions {
   title?: string;
   description?: string;
-  layout?: 'grid' | 'carousel' | 'list' | 'comparison';
+  layout?: 'grid' | "carousel" | 'list' | "comparison";
   columns?: number;
   thumbnailSize?: number;
   showCaptions?: boolean;
@@ -96,7 +96,7 @@ export class GalleryGenerator {
     captures: CaptureResult[], { type: FileType.TEMPORARY }): Promise<void> {
     const images: GalleryImage[] = captures.map(capture => ({
       path: capture.path,
-      caption: capture.metadata.title || capture.metadata.testName || 'Screenshot',
+      caption: capture.metadata.title || capture.metadata.testName || "Screenshot",
       description: capture.metadata.stepName,
       metadata: {
         timestamp: capture.timestamp,
@@ -150,11 +150,11 @@ export class GalleryGenerator {
     switch (options.layout) {
       case 'grid':
         return this.buildGridLayout(images, options);
-      case 'carousel':
+      case "carousel":
         return this.buildCarouselLayout(images, options);
       case 'list':
         return this.buildListLayout(images, options);
-      case 'comparison':
+      case "comparison":
         return this.buildComparisonLayout(images, options);
       default:
         return this.buildGridLayout(images, options);
@@ -279,7 +279,7 @@ export class GalleryGenerator {
 
     if (options.layout === 'grid' || options.layout === 'list') {
       images.forEach(image => {
-        markdown += `## ${image.caption || 'Screenshot'}\n\n`;
+        markdown += `## ${image.caption || "Screenshot"}\n\n`;
         markdown += `![${image.caption || ''}](${this.getRelativePath(image.path)})\n\n`;
         
         if (image.description) {
@@ -292,7 +292,7 @@ export class GalleryGenerator {
           markdown += '\n\n';
         }
       });
-    } else if (options.layout === 'comparison') {
+    } else if (options.layout === "comparison") {
       for (let i = 0; i < images.length; i += 2) {
         const before = images[i];
         const after = images[i + 1];

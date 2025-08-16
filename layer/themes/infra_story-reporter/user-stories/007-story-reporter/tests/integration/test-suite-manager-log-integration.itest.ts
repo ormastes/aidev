@@ -87,7 +87,7 @@ describe('TestSuiteManager External Log Library Integration Test', () => {
 
       // Verify log events were emitted
       expect(logEvents.length).toBeGreaterThan(0);
-      expect(logEvents.some(msg => msg.includes('configured'))).toBe(true);
+      expect(logEvents.some(msg => msg.includes("configured"))).toBe(true);
     });
 
     it('should log test execution lifecycle events', async () => {
@@ -259,7 +259,7 @@ describe('TestSuiteManager External Log Library Integration Test', () => {
       testSuiteManager.setExternalLogger(externalLogger);
 
       const progressEvents: any[] = [];
-      testSuiteManager.on('progress', (event) => {
+      testSuiteManager.on("progress", (event) => {
         progressEvents.push(event);
       });
 

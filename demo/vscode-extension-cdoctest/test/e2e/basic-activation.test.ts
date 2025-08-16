@@ -19,11 +19,11 @@ test.describe('Basic Extension Activation', () => {
     
     // Search for our extension
     const searchBox = await page.locator('.extensions-viewlet input[placeholder*="Search"]');
-    await searchBox.fill('cdoctest');
+    await searchBox.fill("cdoctest");
     await page.waitForTimeout(2000);
     
     // Check if extension is visible in the list
-    const extensionItem = await page.locator('.extension-list-item').filter({ hasText: 'cdoctest' });
+    const extensionItem = await page.locator('.extension-list-item').filter({ hasText: "cdoctest" });
     await expect(extensionItem.first()).toBeVisible({ timeout: 10000 });
   });
 

@@ -1,9 +1,9 @@
 import { FeatureStatusManager } from '../children/FeatureStatusManager';
 import { VFDistributedFeatureWrapper } from '../children/VFDistributedFeatureWrapper';
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 
-describe('FeatureStatusManager', () => {
+describe("FeatureStatusManager", () => {
   const testDir = path.join(process.cwd(), 'temp', 'feature-status-test');
   let manager: FeatureStatusManager;
 
@@ -38,7 +38,7 @@ describe('FeatureStatusManager', () => {
     await fs.rm(testDir, { recursive: true, force: true });
   });
 
-  describe('addFeature', () => {
+  describe("addFeature", () => {
     it('should add a new feature with validation', async () => {
       const feature = {
         name: 'Test Feature',
@@ -48,12 +48,12 @@ describe('FeatureStatusManager', () => {
           level: 'theme' as const,
           status: 'planned' as const,
           priority: 'high' as const,
-          tags: ['test', 'validation'],
+          tags: ['test', "validation"],
           virtual_path: '/layer/themes/test/FEATURE.vf.json'
         }
       };
 
-      const result = await manager.addFeature('infrastructure', feature);
+      const result = await manager.addFeature("infrastructure", feature);
       
       expect(result.id).toBeDefined();
       expect(result.validation.isValid).toBe(true);
@@ -70,7 +70,7 @@ describe('FeatureStatusManager', () => {
         } as any
       };
 
-      await expect(manager.addFeature('infrastructure', invalidFeature))
+      await expect(manager.addFeature("infrastructure", invalidFeature))
         .rejects.toThrow('Feature validation failed');
     });
 
@@ -88,12 +88,12 @@ describe('FeatureStatusManager', () => {
         }
       };
 
-      const result = await manager.addFeature('infrastructure', draftFeature);
+      const result = await manager.addFeature("infrastructure", draftFeature);
       expect(result.id).toBeDefined();
     });
   });
 
-  describe('updateFeature', () => {
+  describe("updateFeature", () => {
     let featureId: string;
 
     beforeEach(async () => {
@@ -109,14 +109,14 @@ describe('FeatureStatusManager', () => {
         }
       };
 
-      const result = await manager.addFeature('infrastructure', feature);
+      const result = await manager.addFeature("infrastructure", feature);
       featureId = result.id;
     });
 
     it('should allow valid status transition from planned to in-progress', async () => {
       const updateRequest = {
         featureId,
-        categoryName: 'infrastructure',
+        categoryName: "infrastructure",
         updates: {
           status: 'in-progress' as const
         }
@@ -131,9 +131,9 @@ describe('FeatureStatusManager', () => {
     it('should reject invalid status transition', async () => {
       const updateRequest = {
         featureId,
-        categoryName: 'infrastructure',
+        categoryName: "infrastructure",
         updates: {
-          status: 'completed' as const  // Can't go from planned to completed directly
+          status: "completed" as const  // Can't go from planned to completed directly
         }
       };
 
@@ -141,7 +141,7 @@ describe('FeatureStatusManager', () => {
       
       expect(validation.isValid).toBe(false);
       expect(validation.errors).toContain(
-        "Invalid status transition from 'planned' to 'completed'"
+        "Invalid status transition from 'planned' to "completed""
       );
     });
 
@@ -149,16 +149,16 @@ describe('FeatureStatusManager', () => {
       // First move to in-progress
       await manager.updateFeature({
         featureId,
-        categoryName: 'infrastructure',
+        categoryName: "infrastructure",
         updates: { status: 'in-progress' as const }
       });
 
       // Try to move to implemented without report
       const updateRequest = {
         featureId,
-        categoryName: 'infrastructure',
+        categoryName: "infrastructure",
         updates: {
-          status: 'implemented' as const
+          status: "implemented" as const
         }
       };
 
@@ -176,7 +176,7 @@ describe('FeatureStatusManager', () => {
       const report = {
         id: 'story-001',
         title: 'Test Story',
-        status: 'completed',
+        status: "completed",
         connectedFiles: [
           'src/feature.ts',
           'tests/feature.test.ts'
@@ -206,16 +206,16 @@ describe('FeatureStatusManager', () => {
       // First move to in-progress
       await manager.updateFeature({
         featureId,
-        categoryName: 'infrastructure',
+        categoryName: "infrastructure",
         updates: { status: 'in-progress' as const }
       });
 
       // Now try to move to implemented with report
       const updateRequest = {
         featureId,
-        categoryName: 'infrastructure',
+        categoryName: "infrastructure",
         updates: {
-          status: 'implemented' as const
+          status: "implemented" as const
         },
         userStoryReportPath: reportPath
       };
@@ -235,7 +235,7 @@ describe('FeatureStatusManager', () => {
       const report = {
         id: 'story-002',
         title: 'Low Coverage Story',
-        status: 'completed',
+        status: "completed",
         connectedFiles: ['src/feature.ts'],
         coverage: {
           systemClassCoverage: 80,  // Below 90% threshold
@@ -260,16 +260,16 @@ describe('FeatureStatusManager', () => {
       // Move to in-progress first
       await manager.updateFeature({
         featureId,
-        categoryName: 'infrastructure',
+        categoryName: "infrastructure",
         updates: { status: 'in-progress' as const }
       });
 
       // Try to move to implemented
       const updateRequest = {
         featureId,
-        categoryName: 'infrastructure',
+        categoryName: "infrastructure",
         updates: {
-          status: 'implemented' as const
+          status: "implemented" as const
         },
         userStoryReportPath: reportPath
       };
@@ -291,7 +291,7 @@ describe('FeatureStatusManager', () => {
       const report = {
         id: 'story-003',
         title: 'High Duplication Story',
-        status: 'completed',
+        status: "completed",
         connectedFiles: ['src/feature.ts'],
         coverage: {
           systemClassCoverage: 95,
@@ -316,16 +316,16 @@ describe('FeatureStatusManager', () => {
       // Move to in-progress first
       await manager.updateFeature({
         featureId,
-        categoryName: 'infrastructure',
+        categoryName: "infrastructure",
         updates: { status: 'in-progress' as const }
       });
 
       // Try to move to implemented
       const updateRequest = {
         featureId,
-        categoryName: 'infrastructure',
+        categoryName: "infrastructure",
         updates: {
-          status: 'implemented' as const
+          status: "implemented" as const
         },
         userStoryReportPath: reportPath
       };
@@ -342,16 +342,16 @@ describe('FeatureStatusManager', () => {
       // Move to in-progress first
       await manager.updateFeature({
         featureId,
-        categoryName: 'infrastructure',
+        categoryName: "infrastructure",
         updates: { status: 'in-progress' as const }
       });
 
       // Try to move to implemented without report but with skipValidation
       const updateRequest = {
         featureId,
-        categoryName: 'infrastructure',
+        categoryName: "infrastructure",
         updates: {
-          status: 'implemented' as const
+          status: "implemented" as const
         },
         skipValidation: true
       };
@@ -363,10 +363,10 @@ describe('FeatureStatusManager', () => {
     });
   });
 
-  describe('getStatusSummary', () => {
+  describe("getStatusSummary", () => {
     it('should return correct status summary', async () => {
       // Add features with different statuses
-      await manager.addFeature('infrastructure', {
+      await manager.addFeature("infrastructure", {
         name: 'Feature 1',
         data: {
           title: 'Feature 1',
@@ -378,7 +378,7 @@ describe('FeatureStatusManager', () => {
         }
       });
 
-      await manager.addFeature('infrastructure', {
+      await manager.addFeature("infrastructure", {
         name: 'Feature 2',
         data: {
           title: 'Feature 2',
@@ -390,7 +390,7 @@ describe('FeatureStatusManager', () => {
         }
       });
 
-      await manager.addFeature('infrastructure', {
+      await manager.addFeature("infrastructure", {
         name: 'Feature 3',
         data: {
           title: 'Feature 3',
@@ -412,10 +412,10 @@ describe('FeatureStatusManager', () => {
     });
   });
 
-  describe('generateStatusReport', () => {
+  describe("generateStatusReport", () => {
     it('should generate comprehensive status report', async () => {
       // Add features with various statuses
-      const blockedFeature = await manager.addFeature('infrastructure', {
+      const blockedFeature = await manager.addFeature("infrastructure", {
         name: 'Blocked Feature',
         data: {
           title: 'Blocked Feature',
@@ -427,20 +427,20 @@ describe('FeatureStatusManager', () => {
         }
       });
 
-      const implementedFeature = await manager.addFeature('infrastructure', {
+      const implementedFeature = await manager.addFeature("infrastructure", {
         name: 'Implemented Feature',
         data: {
           title: 'Implemented Feature',
           description: 'This feature is implemented',
           level: 'theme' as const,
-          status: 'implemented' as const,
+          status: "implemented" as const,
           priority: 'medium' as const,
           virtual_path: '/implemented.vf.json'
         }
       });
 
       // Add an old in-progress feature (simulate by updating the date)
-      const oldInProgressFeature = await manager.addFeature('infrastructure', {
+      const oldInProgressFeature = await manager.addFeature("infrastructure", {
         name: 'Old In-Progress Feature',
         data: {
           title: 'Old In-Progress Feature',
@@ -462,10 +462,10 @@ describe('FeatureStatusManager', () => {
     });
   });
 
-  describe('getFeaturesByStatus', () => {
+  describe("getFeaturesByStatus", () => {
     it('should return features filtered by status', async () => {
       // Add multiple features with same status
-      await manager.addFeature('infrastructure', {
+      await manager.addFeature("infrastructure", {
         name: 'InProgress 1',
         data: {
           title: 'InProgress Feature 1',
@@ -477,7 +477,7 @@ describe('FeatureStatusManager', () => {
         }
       });
 
-      await manager.addFeature('infrastructure', {
+      await manager.addFeature("infrastructure", {
         name: 'InProgress 2',
         data: {
           title: 'InProgress Feature 2',
@@ -489,7 +489,7 @@ describe('FeatureStatusManager', () => {
         }
       });
 
-      await manager.addFeature('infrastructure', {
+      await manager.addFeature("infrastructure", {
         name: 'Planned 1',
         data: {
           title: 'Planned Feature',

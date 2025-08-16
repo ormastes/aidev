@@ -28,7 +28,7 @@ async function demonstrateContainerManagement() {
       detach: true,
       ports: ['8080:80'],
       env: {
-        NGINX_HOST: 'localhost',
+        NGINX_HOST: "localhost",
         NGINX_PORT: '80'
       },
       restart: 'unless-stopped'

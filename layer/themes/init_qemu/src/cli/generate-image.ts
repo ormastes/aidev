@@ -5,7 +5,7 @@
  */
 
 import { MockImageBuilder } from '../services/MockImageBuilder';
-import { Command } from 'commander';
+import { Command } from "commander";
 import chalk from 'chalk';
 
 const builder = new MockImageBuilder();
@@ -83,7 +83,7 @@ program
   .description('Generate custom QEMU image')
   .option('-s, --size <size>', 'Disk size', '10G')
   .option('-f, --format <format>', 'Image format', 'qcow2')
-  .option('-d, --distro <distro>', 'Distribution', 'linux')
+  .option('-d, --distro <distro>', "Distribution", 'linux')
   .option('-v, --version <version>', 'Version', '1.0')
   .action(async (name, options) => {
     try {
@@ -161,7 +161,7 @@ program
 
 // Quick start command
 program
-  .command('quickstart')
+  .command("quickstart")
   .description('Generate a set of demo images')
   .action(async () => {
     try {

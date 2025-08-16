@@ -21,7 +21,7 @@ describe('Node Implementations', () => {
     };
   });
 
-  describe('InputNode', () => {
+  describe("InputNode", () => {
     it('should pass through input data', async () => {
       const node = new InputNode('input1');
       const result = await node.execute({ data: 'test', context });
@@ -40,9 +40,9 @@ describe('Node Implementations', () => {
     });
   });
 
-  describe('TransformNode', () => {
+  describe("TransformNode", () => {
     it('should transform data correctly', async () => {
-      const node = new TransformNode('transform1', (x: number) => x * 2);
+      const node = new TransformNode("transform1", (x: number) => x * 2);
       const result = await node.execute({ data: 5, context });
       
       expect(result.success).toBe(true);
@@ -50,7 +50,7 @@ describe('Node Implementations', () => {
     });
 
     it('should handle transform errors', async () => {
-      const node = new TransformNode('transform1', () => {
+      const node = new TransformNode("transform1", () => {
         throw new Error('Transform failed');
       });
       const result = await node.execute({ data: 5, context });
@@ -60,7 +60,7 @@ describe('Node Implementations', () => {
     });
 
     it('should work with object transformations', async () => {
-      const node = new TransformNode('transform1', (obj: any) => ({
+      const node = new TransformNode("transform1", (obj: any) => ({
         ...obj,
         transformed: true
       }));
@@ -71,7 +71,7 @@ describe('Node Implementations', () => {
     });
   });
 
-  describe('FilterNode', () => {
+  describe("FilterNode", () => {
     it('should pass data when predicate is true', async () => {
       const node = new FilterNode('filter1', (x: number) => x > 5);
       const result = await node.execute({ data: 10, context });
@@ -125,7 +125,7 @@ describe('Node Implementations', () => {
     });
   });
 
-  describe('ReduceNode', () => {
+  describe("ReduceNode", () => {
     it('should reduce array to single value', async () => {
       const node = new ReduceNode('reduce1', (acc: number, x: number) => acc + x, 0);
       const result = await node.execute({ data: [1, 2, 3, 4], context });
@@ -169,7 +169,7 @@ describe('Node Implementations', () => {
     });
   });
 
-  describe('OutputNode', () => {
+  describe("OutputNode", () => {
     it('should store data in context and pass through', async () => {
       const node = new OutputNode('output1');
       const result = await node.execute({ data: 'output data', context });
@@ -180,7 +180,7 @@ describe('Node Implementations', () => {
     });
   });
 
-  describe('DelayNode', () => {
+  describe("DelayNode", () => {
     it('should delay execution', async () => {
       const node = new DelayNode('delay1', 50);
       const start = Date.now();
@@ -204,7 +204,7 @@ describe('Node Implementations', () => {
     });
   });
 
-  describe('ConditionalNode', () => {
+  describe("ConditionalNode", () => {
     it('should return true value when condition is true', async () => {
       const node = new ConditionalNode(
         'cond1',

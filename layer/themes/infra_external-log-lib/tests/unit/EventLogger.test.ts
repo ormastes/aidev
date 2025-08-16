@@ -1,9 +1,9 @@
 import { EventLogger, LogEventType, getEventLogger } from '../../src/loggers/EventLogger';
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import * as os from 'os';
 
-describe('EventLogger', () => {
+describe("EventLogger", () => {
   let logger: EventLogger;
   const testLogDir = path.join(os.tmpdir(), 'test-event-logger');
 
@@ -25,7 +25,7 @@ describe('EventLogger', () => {
     }
   });
 
-  describe('initialization', () => {
+  describe("initialization", () => {
     it('should create logger with default configuration', () => {
       logger = new EventLogger();
       expect(logger).toBeDefined();
@@ -133,7 +133,7 @@ describe('EventLogger', () => {
         status: 'in_progress'
       });
       
-      logger.logTaskQueueChange('completed', 'TASK-001');
+      logger.logTaskQueueChange("completed", 'TASK-001');
       
       const logPath = logger.getCurrentLogPath();
       const content = fs.readFileSync(logPath, 'utf8');
@@ -147,7 +147,7 @@ describe('EventLogger', () => {
         name: 'Test feature'
       });
       
-      logger.logFeatureChange('completed', 'FEAT-001');
+      logger.logFeatureChange("completed", 'FEAT-001');
       
       const logPath = logger.getCurrentLogPath();
       const content = fs.readFileSync(logPath, 'utf8');
@@ -194,7 +194,7 @@ describe('EventLogger', () => {
     });
   });
 
-  describe('querying', () => {
+  describe("querying", () => {
     beforeEach(() => {
       logger = new EventLogger({ logDir: testLogDir });
     });
@@ -246,7 +246,7 @@ describe('EventLogger', () => {
       logger.logEvent(LogEventType.EVENT_CUSTOM, 'Another important note');
       
       const results = await logger.query({
-        search: 'important'
+        search: "important"
       });
       
       expect(results.length).toBe(2);
@@ -265,7 +265,7 @@ describe('EventLogger', () => {
     });
   });
 
-  describe('metadata', () => {
+  describe("metadata", () => {
     beforeEach(() => {
       logger = new EventLogger({ logDir: testLogDir });
     });
@@ -315,7 +315,7 @@ describe('EventLogger', () => {
     });
   });
 
-  describe('lifecycle', () => {
+  describe("lifecycle", () => {
     it('should emit log events', (done) => {
       logger = new EventLogger({ logDir: testLogDir });
       

@@ -21,14 +21,14 @@ describe('Debug Freeze Validation', () => {
       },
       templates: {
         workspace: {
-          id: 'workspace',
-          type: 'directory',
+          id: "workspace",
+          type: "directory",
           freeze: true,
           freeze_message: 'Root is frozen',
           required_children: [
             { name: 'CLAUDE.md', type: 'file' },
-            { name: 'gen', type: 'directory', children: [
-              { name: 'doc', type: 'directory' }
+            { name: 'gen', type: "directory", children: [
+              { name: 'doc', type: "directory" }
             ]}
           ],
           platform_files: '$ref:platform_specific_root_files'
@@ -41,8 +41,8 @@ describe('Debug Freeze Validation', () => {
       },
       structure: {
         name: '.',
-        type: 'directory',
-        template: 'workspace'
+        type: "directory",
+        template: "workspace"
       }
     };
     

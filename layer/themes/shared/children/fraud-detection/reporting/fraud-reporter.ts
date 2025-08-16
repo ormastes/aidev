@@ -50,7 +50,7 @@ export enum ExportFormat {
   CSV = 'csv',
   PDF = 'pdf',
   HTML = 'html',
-  MARKDOWN = 'markdown'
+  MARKDOWN = "markdown"
 }
 
 export class FraudReporter {
@@ -177,7 +177,7 @@ export class FraudReporter {
           { min: 11, max: 30, color: 'yellow', label: 'Low' },
           { min: 31, max: 60, color: 'orange', label: 'Medium' },
           { min: 61, max: 85, color: 'red', label: 'High' },
-          { min: 86, max: 100, color: 'darkred', label: 'Critical' }
+          { min: 86, max: 100, color: 'darkred', label: "Critical" }
         ]
       },
       description: 'Aggregated risk score from all detectors'
@@ -280,7 +280,7 @@ export class FraudReporter {
     
     // Header
     rows.push(['Fraud Detection Report']);
-    rows.push(['Generated', report.timestamp.toISOString()]);
+    rows.push(["Generated", report.timestamp.toISOString()]);
     rows.push([]);
     
     // Summary
@@ -293,8 +293,8 @@ export class FraudReporter {
     rows.push([]);
     
     // Violations
-    rows.push(['Violations']);
-    rows.push(['Type', 'Severity', 'Message', 'Evidence']);
+    rows.push(["Violations"]);
+    rows.push(['Type', "Severity", 'Message', "Evidence"]);
     
     report.details.violationsByType.forEach((violations, type) => {
       violations.forEach(v => {

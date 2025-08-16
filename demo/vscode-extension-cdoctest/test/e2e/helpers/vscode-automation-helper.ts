@@ -1,6 +1,6 @@
 import { Page, expect } from '@playwright/test';
-import { path } from '../../../../../layer/themes/infra_external-log-lib/dist';
-import { fs } from '../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 import { spawn, ChildProcess } from 'child_process';
 
 /**
@@ -40,7 +40,7 @@ export class VSCodeAutomationHelper {
     });
 
     // Wait for VSCode window to appear
-    await this.page.waitForLoadState('domcontentloaded');
+    await this.page.waitForLoadState("domcontentloaded");
     await this.page.waitForTimeout(3000); // Allow VSCode to fully load
 
     // Wait for the main VSCode interface

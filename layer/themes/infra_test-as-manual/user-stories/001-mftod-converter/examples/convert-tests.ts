@@ -3,7 +3,7 @@
  */
 
 import { MFTODConverter } from '../src';
-import { path } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 async function main() {
   const converter = new MFTODConverter();
@@ -14,8 +14,8 @@ async function main() {
   const markdownResult = await converter.convertFile(
     path.join(__dirname, 'sample-test.ts'),
     {
-      format: 'markdown',
-      template: 'detailed',
+      format: "markdown",
+      template: "detailed",
       includeCodeSnippets: false
     }
   );
@@ -29,7 +29,7 @@ async function main() {
     path.join(__dirname, 'sample-test.ts'),
     {
       format: 'html',
-      template: 'detailed',
+      template: "detailed",
       includeCodeSnippets: false,
       outputPath: path.join(__dirname, 'output', 'manual-tests.html')
     }
@@ -40,7 +40,7 @@ async function main() {
   // Convert entire directory
   console.log('\nConverting all test files in current directory...');
   const results = await converter.convertDirectory(__dirname, {
-    format: 'markdown',
+    format: "markdown",
     outputPath: path.join(__dirname, 'output'),
     recursive: false,
     pattern: /sample.*\.ts$/

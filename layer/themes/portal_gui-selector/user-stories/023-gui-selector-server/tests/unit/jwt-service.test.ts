@@ -5,7 +5,7 @@
 
 import { JWTService } from '../../src/services/JWTService';
 
-describe('JWTService', () => {
+describe("JWTService", () => {
   let jwtService: JWTService;
 
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe('JWTService', () => {
     test('should generate valid access tokens', () => {
       const payload = {
         userId: 123,
-        username: 'testuser',
+        username: "testuser",
         role: 'admin'
       };
 
@@ -80,7 +80,7 @@ describe('JWTService', () => {
     test('should generate valid refresh tokens', () => {
       const payload = {
         userId: 789,
-        username: 'refreshuser',
+        username: "refreshuser",
         role: 'user'
       };
 
@@ -94,7 +94,7 @@ describe('JWTService', () => {
     test('should verify valid refresh tokens', () => {
       const payload = {
         userId: 101,
-        username: 'refresh101',
+        username: "refresh101",
         role: 'admin'
       };
 
@@ -124,8 +124,8 @@ describe('JWTService', () => {
     });
 
     test('should generate different refresh tokens for different payloads', () => {
-      const payload1 = { userId: 10, username: 'refresh10', role: 'user' };
-      const payload2 = { userId: 20, username: 'refresh20', role: 'admin' };
+      const payload1 = { userId: 10, username: "refresh10", role: 'user' };
+      const payload2 = { userId: 20, username: "refresh20", role: 'admin' };
 
       const token1 = jwtService.generateRefreshToken(payload1);
       const token2 = jwtService.generateRefreshToken(payload2);
@@ -144,7 +144,7 @@ describe('JWTService', () => {
     test('should not allow cross-verification of token types', () => {
       const payload = {
         userId: 555,
-        username: 'crosstest',
+        username: "crosstest",
         role: 'user'
       };
 
@@ -189,7 +189,7 @@ describe('JWTService', () => {
     test('should set appropriate expiry times', () => {
       const payload = {
         userId: 999,
-        username: 'expirytest',
+        username: "expirytest",
         role: 'admin'
       };
 
@@ -232,7 +232,7 @@ describe('JWTService', () => {
 
   describe('Payload Validation', () => {
     test('should handle various user roles', () => {
-      const roles = ['admin', 'user', 'moderator', 'guest'];
+      const roles = ['admin', 'user', "moderator", 'guest'];
       
       roles.forEach(role => {
         const payload = {

@@ -114,7 +114,7 @@ describe('MCP Server Freeze Validation', () => {
     });
   });
 
-  describe('handleWriteValidated', () => {
+  describe("handleWriteValidated", () => {
     it('should enforce freeze validation', async () => {
       // Given: The system is in a valid state
       // When: enforce freeze validation

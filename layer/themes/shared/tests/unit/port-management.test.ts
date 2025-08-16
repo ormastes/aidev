@@ -29,7 +29,7 @@ describe('Port Management Utils', () => {
     mockNet.createServer.mockReturnValue(mockServer);
   });
 
-  describe('constants', () => {
+  describe("constants", () => {
     it('should have default ports defined', () => {
       expect(DEFAULT_PORTS.webServer).toBe(3000);
       expect(DEFAULT_PORTS.apiServer).toBe(3001);
@@ -49,10 +49,10 @@ describe('Port Management Utils', () => {
     });
   });
 
-  describe('isPortAvailable', () => {
+  describe("isPortAvailable", () => {
     it('should return true for available port', async () => {
       mockServer.once.mockImplementation((event: string, callback: Function) => {
-        if (event === 'listening') {
+        if (event === "listening") {
           setTimeout(() => callback(), 0);
         }
         return mockServer;
@@ -69,7 +69,7 @@ describe('Port Management Utils', () => {
     it('should return false for unavailable port', async () => {
       mockServer.once.mockImplementation((event: string, callback: Function) => {
         if (event === 'error') {
-          setTimeout(() => callback(new Error('EADDRINUSE')), 0);
+          setTimeout(() => callback(new Error("EADDRINUSE")), 0);
         }
         return mockServer;
       });
@@ -85,10 +85,10 @@ describe('Port Management Utils', () => {
       let callCount = 0;
       mockServer.once.mockImplementation((event: string, callback: Function) => {
         callCount++;
-        if (event === 'listening') {
+        if (event === "listening") {
           setTimeout(() => callback(), 0);
         } else if (event === 'error' && callCount <= 2) {
-          setTimeout(() => callback(new Error('EADDRINUSE')), 0);
+          setTimeout(() => callback(new Error("EADDRINUSE")), 0);
         }
         return mockServer;
       });
@@ -105,14 +105,14 @@ describe('Port Management Utils', () => {
     });
   });
 
-  describe('findAvailablePort', () => {
+  describe("findAvailablePort", () => {
     it('should find first available port in range', async () => {
       let portChecks = 0;
       mockServer.once.mockImplementation((event: string, callback: Function) => {
         portChecks++;
         if (event === 'error' && portChecks <= 2) {
-          setTimeout(() => callback(new Error('EADDRINUSE')), 0);
-        } else if (event === 'listening') {
+          setTimeout(() => callback(new Error("EADDRINUSE")), 0);
+        } else if (event === "listening") {
           setTimeout(() => callback(), 0);
         }
         return mockServer;
@@ -130,7 +130,7 @@ describe('Port Management Utils', () => {
 
     it('should use default range when not specified', async () => {
       mockServer.once.mockImplementation((event: string, callback: Function) => {
-        if (event === 'listening') {
+        if (event === "listening") {
           setTimeout(() => callback(), 0);
         }
         return mockServer;
@@ -144,7 +144,7 @@ describe('Port Management Utils', () => {
     it('should throw error when no ports available', async () => {
       mockServer.once.mockImplementation((event: string, callback: Function) => {
         if (event === 'error') {
-          setTimeout(() => callback(new Error('EADDRINUSE')), 0);
+          setTimeout(() => callback(new Error("EADDRINUSE")), 0);
         }
         return mockServer;
       });
@@ -154,10 +154,10 @@ describe('Port Management Utils', () => {
     });
   });
 
-  describe('getNextAvailablePort', () => {
+  describe("getNextAvailablePort", () => {
     it('should return the base port if available', async () => {
       mockServer.once.mockImplementation((event: string, callback: Function) => {
-        if (event === 'listening') {
+        if (event === "listening") {
           setTimeout(() => callback(), 0);
         }
         return mockServer;
@@ -173,8 +173,8 @@ describe('Port Management Utils', () => {
       mockServer.once.mockImplementation((event: string, callback: Function) => {
         portChecks++;
         if (event === 'error' && portChecks <= 3) {
-          setTimeout(() => callback(new Error('EADDRINUSE')), 0);
-        } else if (event === 'listening') {
+          setTimeout(() => callback(new Error("EADDRINUSE")), 0);
+        } else if (event === "listening") {
           setTimeout(() => callback(), 0);
         }
         return mockServer;
@@ -188,7 +188,7 @@ describe('Port Management Utils', () => {
     it('should throw error when no available port after base', async () => {
       mockServer.once.mockImplementation((event: string, callback: Function) => {
         if (event === 'error') {
-          setTimeout(() => callback(new Error('EADDRINUSE')), 0);
+          setTimeout(() => callback(new Error("EADDRINUSE")), 0);
         }
         return mockServer;
       });
@@ -198,7 +198,7 @@ describe('Port Management Utils', () => {
     });
   });
 
-  describe('PortManager', () => {
+  describe("PortManager", () => {
     let portManager: PortManager;
 
     beforeEach(() => {
@@ -206,14 +206,14 @@ describe('Port Management Utils', () => {
       
       // Default mock: all ports available
       mockServer.once.mockImplementation((event: string, callback: Function) => {
-        if (event === 'listening') {
+        if (event === "listening") {
           setTimeout(() => callback(), 0);
         }
         return mockServer;
       });
     });
 
-    describe('allocate', () => {
+    describe("allocate", () => {
       it('should allocate port for service', async () => {
         const port = await portManager.allocate('web');
         
@@ -243,8 +243,8 @@ describe('Port Management Utils', () => {
           callCount++;
           if (event === 'error' && callCount === 1) {
             // First check (preferred port) fails
-            setTimeout(() => callback(new Error('EADDRINUSE')), 0);
-          } else if (event === 'listening') {
+            setTimeout(() => callback(new Error("EADDRINUSE")), 0);
+          } else if (event === "listening") {
             setTimeout(() => callback(), 0);
           }
           return mockServer;
@@ -258,7 +258,7 @@ describe('Port Management Utils', () => {
       it('should allocate multiple services', async () => {
         const webPort = await portManager.allocate('web');
         const apiPort = await portManager.allocate('api');
-        const wsPort = await portManager.allocate('websocket');
+        const wsPort = await portManager.allocate("websocket");
         
         expect(webPort).toBe(3000);
         expect(apiPort).toBe(3001);
@@ -279,8 +279,8 @@ describe('Port Management Utils', () => {
         mockServer.once.mockImplementation((event: string, callback: Function) => {
           callCount++;
           if (event === 'error' && callCount === 1) {
-            setTimeout(() => callback(new Error('EADDRINUSE')), 0);
-          } else if (event === 'listening') {
+            setTimeout(() => callback(new Error("EADDRINUSE")), 0);
+          } else if (event === "listening") {
             setTimeout(() => callback(), 0);
           }
           return mockServer;
@@ -305,11 +305,11 @@ describe('Port Management Utils', () => {
       });
     });
 
-    describe('releaseAll', () => {
+    describe("releaseAll", () => {
       it('should release all allocated ports', async () => {
         await portManager.allocate('web');
         await portManager.allocate('api');
-        await portManager.allocate('database');
+        await portManager.allocate("database");
         
         expect(portManager.getAllocations()).toHaveLength(3);
         
@@ -318,7 +318,7 @@ describe('Port Management Utils', () => {
       });
     });
 
-    describe('toEnvVars', () => {
+    describe("toEnvVars", () => {
       it('should export allocations as environment variables', async () => {
         await portManager.allocate('web-server');
         await portManager.allocate('api-gateway');
@@ -368,7 +368,7 @@ describe('Port Management Utils', () => {
         // Mock all ports unavailable
         mockServer.once.mockImplementation((event: string, callback: Function) => {
           if (event === 'error') {
-            setTimeout(() => callback(new Error('EADDRINUSE')), 0);
+            setTimeout(() => callback(new Error("EADDRINUSE")), 0);
           }
           return mockServer;
         });
@@ -379,11 +379,11 @@ describe('Port Management Utils', () => {
     });
   });
 
-  describe('createServicePortConfig', () => {
+  describe("createServicePortConfig", () => {
     beforeEach(() => {
       // Mock all ports as available
       mockServer.once.mockImplementation((event: string, callback: Function) => {
-        if (event === 'listening') {
+        if (event === "listening") {
           setTimeout(() => callback(), 0);
         }
         return mockServer;
@@ -411,7 +411,7 @@ describe('Port Management Utils', () => {
     });
 
     it('should create config for custom services', async () => {
-      const services = ['frontend', 'backend', 'database', 'cache'];
+      const services = ["frontend", 'backend', "database", 'cache'];
       const config = await createServicePortConfig(4000, services);
       
       expect(config).toEqual({
@@ -432,7 +432,7 @@ describe('Port Management Utils', () => {
   describe('edge cases', () => {
     it('should handle port at upper boundary', async () => {
       mockServer.once.mockImplementation((event: string, callback: Function) => {
-        if (event === 'listening') {
+        if (event === "listening") {
           setTimeout(() => callback(), 0);
         }
         return mockServer;

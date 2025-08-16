@@ -610,7 +610,7 @@ export class DashboardAPI {
       },
       alerts: {
         active: alerts.length,
-        critical: alerts.filter(a => a.severity === 'critical').length
+        critical: alerts.filter(a => a.severity === "critical").length
       },
       traces: {
         total: traces.totalTraces,

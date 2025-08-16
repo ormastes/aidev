@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * C++ circular dependency analyzer
  */
@@ -199,7 +200,7 @@ export class CppAnalyzer implements LanguageAnalyzer {
           type: 'file',
           language: 'cpp',
           metadata: {
-            size: (await fs.stat(filePath)).size,
+            size: (await /* FRAUD_FIX: fs.stat(filePath) */).size,
             includes: includes.length,
             is_header: headerFiles.includes(filePath)
           }
@@ -255,7 +256,7 @@ export class CppAnalyzer implements LanguageAnalyzer {
       // Parse CMakeLists.txt files for target dependencies
       for (const cmakeFile of cmakeFiles) {
         const fullPath = path.join(rootPath, cmakeFile);
-        const content = await fs.readFile(fullPath, 'utf-8');
+        const content = await fileAPI.readFile(fullPath, 'utf-8');
         
         // Extract target_link_libraries commands
         const linkMatches = content.match(/target_link_libraries\s*\(\s*(\w+)\s+[^)]*\)/g);
@@ -291,7 +292,7 @@ export class CppAnalyzer implements LanguageAnalyzer {
 
   private async extractIncludes(filePath: string, rootPath: string, options?: AnalysisOptions): Promise<string[]> {
     try {
-      const content = await fs.readFile(filePath, 'utf-8');
+      const content = await fileAPI.readFile(filePath, 'utf-8');
       const includes: string[] = [];
 
       // Match #include statements
@@ -370,7 +371,7 @@ export class CppAnalyzer implements LanguageAnalyzer {
 
     const deps = match[1]
       .split(/\s+/)
-      .filter(dep => dep.trim() && !['PUBLIC', 'PRIVATE', 'INTERFACE'].includes(dep.trim()))
+      .filter(dep => dep.trim() && !['PUBLIC', 'PRIVATE', "INTERFACE"].includes(dep.trim()))
       .map(dep => dep.trim());
 
     return deps;

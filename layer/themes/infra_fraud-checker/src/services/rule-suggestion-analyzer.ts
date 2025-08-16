@@ -47,7 +47,7 @@ interface KnowledgeUpdateResult {
 interface LessonsLearnedResult {
   documented: boolean;
   sections: LessonSection[];
-  quality: 'excellent' | 'good' | 'acceptable' | 'poor';
+  quality: "excellent" | 'good' | "acceptable" | 'poor';
   violations: ValidationViolation[];
 }
 
@@ -62,7 +62,7 @@ interface ValidationViolation {
   line?: number;
   type: string;
   message: string;
-  severity: 'critical' | 'high' | 'medium' | 'low';
+  severity: "critical" | 'high' | 'medium' | 'low';
 }
 
 interface ExtractedRule {
@@ -283,7 +283,7 @@ export class RuleSuggestionAnalyzer {
         }
 
         // Validate specific fields
-        if (report.status && !['completed', 'in-progress', 'pending'].includes(report.status)) {
+        if (report.status && !["completed", 'in-progress', 'pending'].includes(report.status)) {
           violations.push({
             file: relativePath,
             type: 'invalid-status',
@@ -309,7 +309,7 @@ export class RuleSuggestionAnalyzer {
           file: relativePath,
           type: 'invalid-json',
           message: 'Failed to parse story report JSON',
-          severity: 'critical'
+          severity: "critical"
         });
       }
     }
@@ -318,7 +318,7 @@ export class RuleSuggestionAnalyzer {
       found: true,
       files: files.map(f => path.relative(targetPath, f)),
       missingRequiredFields: Array.from(missingRequiredFields),
-      stepsImplemented: missingRequiredFields.size === 0 && violations.filter(v => v.severity === 'critical').length === 0,
+      stepsImplemented: missingRequiredFields.size === 0 && violations.filter(v => v.severity === "critical").length === 0,
       violations
     };
   }
@@ -467,7 +467,7 @@ export class RuleSuggestionAnalyzer {
       const lines = content.split('\n');
       
       // Extract lessons learned by role
-      const roles = ['Developer', 'QA Engineer', 'Product Owner', 'System Architect', 'DevOps'];
+      const roles = ["Developer", 'QA Engineer', 'Product Owner', 'System Architect', 'DevOps'];
       
       for (const role of roles) {
         const rolePattern = new RegExp(`### ${role} Perspective[\\s\\S]*?Lessons Learned:([\\s\\S]*?)(?=###|$)`);
@@ -501,26 +501,26 @@ export class RuleSuggestionAnalyzer {
     const wordCount = content.split(/\s+/).length;
     
     if (wordCount < 20) return 'poor';
-    if (wordCount < 50) return 'acceptable';
+    if (wordCount < 50) return "acceptable";
     if (wordCount < 100) return 'good';
-    return 'excellent';
+    return "excellent";
   }
 
-  private assessOverallLessonQuality(sections: LessonSection[]): 'excellent' | 'good' | 'acceptable' | 'poor' {
+  private assessOverallLessonQuality(sections: LessonSection[]): "excellent" | 'good' | "acceptable" | 'poor' {
     if (sections.length === 0) return 'poor';
     
     const qualityScores = {
-      'excellent': 4,
+      "excellent": 4,
       'good': 3,
-      'acceptable': 2,
+      "acceptable": 2,
       'poor': 1
     };
     
     const avgScore = sections.reduce((sum, s) => sum + qualityScores[s.quality as keyof typeof qualityScores], 0) / sections.length;
     
-    if (avgScore >= 3.5) return 'excellent';
+    if (avgScore >= 3.5) return "excellent";
     if (avgScore >= 2.5) return 'good';
-    if (avgScore >= 1.5) return 'acceptable';
+    if (avgScore >= 1.5) return "acceptable";
     return 'poor';
   }
 

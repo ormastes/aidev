@@ -11,7 +11,7 @@ import {
 } from '../../src/utils/string.js';
 
 describe('String Utilities', () => {
-  describe('levenshteinDistance', () => {
+  describe("levenshteinDistance", () => {
     it('should calculate distance between strings', () => {
       expect(levenshteinDistance('', '')).toBe(0);
       expect(levenshteinDistance('hello', 'hello')).toBe(0);
@@ -26,7 +26,7 @@ describe('String Utilities', () => {
     });
   });
 
-  describe('findBestMatch', () => {
+  describe("findBestMatch", () => {
     const candidates = ['deploy', 'destroy', 'delete', 'develop', 'debug'];
 
     it('should find similar commands', () => {
@@ -53,29 +53,29 @@ describe('String Utilities', () => {
 
   describe('case conversions', () => {
     it('should convert to kebab-case', () => {
-      expect(toKebabCase('helloWorld')).toBe('hello-world');
-      expect(toKebabCase('HelloWorld')).toBe('hello-world');
+      expect(toKebabCase("helloWorld")).toBe('hello-world');
+      expect(toKebabCase("HelloWorld")).toBe('hello-world');
       expect(toKebabCase('hello_world')).toBe('hello-world');
       expect(toKebabCase('hello world')).toBe('hello-world');
       expect(toKebabCase('HELLO_WORLD')).toBe('hello-world');
     });
 
     it('should convert to camelCase', () => {
-      expect(toCamelCase('hello-world')).toBe('helloWorld');
-      expect(toCamelCase('hello_world')).toBe('helloWorld');
-      expect(toCamelCase('hello world')).toBe('helloWorld');
-      expect(toCamelCase('Hello-World')).toBe('helloWorld');
+      expect(toCamelCase('hello-world')).toBe("helloWorld");
+      expect(toCamelCase('hello_world')).toBe("helloWorld");
+      expect(toCamelCase('hello world')).toBe("helloWorld");
+      expect(toCamelCase('Hello-World')).toBe("helloWorld");
     });
 
     it('should convert to PascalCase', () => {
-      expect(toPascalCase('hello-world')).toBe('HelloWorld');
-      expect(toPascalCase('hello_world')).toBe('HelloWorld');
-      expect(toPascalCase('hello world')).toBe('HelloWorld');
-      expect(toPascalCase('helloWorld')).toBe('HelloWorld');
+      expect(toPascalCase('hello-world')).toBe("HelloWorld");
+      expect(toPascalCase('hello_world')).toBe("HelloWorld");
+      expect(toPascalCase('hello world')).toBe("HelloWorld");
+      expect(toPascalCase("helloWorld")).toBe("HelloWorld");
     });
   });
 
-  describe('wordWrap', () => {
+  describe("wordWrap", () => {
     it('should wrap text to specified width', () => {
       const text = 'This is a long sentence that needs to be wrapped';
       const wrapped = wordWrap(text, 20);
@@ -88,8 +88,8 @@ describe('String Utilities', () => {
     });
 
     it('should handle single words longer than width', () => {
-      const wrapped = wordWrap('supercalifragilisticexpialidocious', 10);
-      expect(wrapped).toEqual(['supercalifragilisticexpialidocious']);
+      const wrapped = wordWrap("supercalifragilisticexpialidocious", 10);
+      expect(wrapped).toEqual(["supercalifragilisticexpialidocious"]);
     });
 
     it('should handle empty text', () => {
@@ -109,7 +109,7 @@ describe('String Utilities', () => {
     });
   });
 
-  describe('truncate', () => {
+  describe("truncate", () => {
     it('should truncate long text', () => {
       expect(truncate('hello world', 8)).toBe('hello...');
       expect(truncate('hello world', 20)).toBe('hello world');

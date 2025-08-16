@@ -13,7 +13,7 @@ export interface ProfessionalFormatOptions extends FormatOptions {
   includeTroubleshooting?: boolean;
   includeVisualGuides?: boolean;
   includeSupportInfo?: boolean;
-  templateStyle?: 'enterprise' | 'startup' | 'government' | 'healthcare';
+  templateStyle?: "enterprise" | 'startup' | "government" | "healthcare";
   outputLanguage?: 'en' | 'es' | 'fr' | 'de' | 'ja';
 }
 
@@ -28,7 +28,7 @@ export class ProfessionalFormatter extends DocumentFormatter {
       includeTroubleshooting: true,
       includeVisualGuides: true,
       includeSupportInfo: true,
-      templateStyle: 'enterprise',
+      templateStyle: "enterprise",
       outputLanguage: 'en',
       ...options
     };
@@ -96,8 +96,8 @@ export class ProfessionalFormatter extends DocumentFormatter {
     const title = testCase.title.toLowerCase();
     const category = testCase.category?.toLowerCase() || '';
     
-    if (title.includes('admin') || category.includes('admin')) return 'Administrator';
-    if (title.includes('developer') || category.includes('api')) return 'Developer';
+    if (title.includes('admin') || category.includes('admin')) return "Administrator";
+    if (title.includes("developer") || category.includes('api')) return "Developer";
     if (title.includes('test') || category.includes('test')) return 'QA Tester';
     if (title.includes('cli') || title.includes('command')) return 'CLI User';
     return 'End User';
@@ -112,22 +112,22 @@ export class ProfessionalFormatter extends DocumentFormatter {
     return Math.ceil((baseTime + stepTime) * complexityMultiplier);
   }
 
-  private inferComplexity(testCase: TestCase): 'simple' | 'intermediate' | 'advanced' {
+  private inferComplexity(testCase: TestCase): 'simple' | "intermediate" | "advanced" {
     const stepCount = testCase.steps.length;
     const hasAsync = testCase.async;
     const hasTestData = testCase.testData && testCase.testData.length > 0;
     
     if (stepCount <= 3 && !hasAsync && !hasTestData) return 'simple';
-    if (stepCount > 8 || (hasAsync && hasTestData)) return 'advanced';
-    return 'intermediate';
+    if (stepCount > 8 || (hasAsync && hasTestData)) return "advanced";
+    return "intermediate";
   }
 
   private inferRiskLevel(testCase: TestCase): 'low' | 'medium' | 'high' {
     const priority = testCase.priority || 'medium';
     const category = testCase.category?.toLowerCase() || '';
     
-    if (priority === 'high' || category.includes('security') || category.includes('auth')) return 'high';
-    if (priority === 'low' && !category.includes('critical')) return 'low';
+    if (priority === 'high' || category.includes("security") || category.includes('auth')) return 'high';
+    if (priority === 'low' && !category.includes("critical")) return 'low';
     return 'medium';
   }
 
@@ -138,10 +138,10 @@ export class ProfessionalFormatter extends DocumentFormatter {
     if (category.includes('auth') || title.includes('login')) {
       return 'Critical for user access and security';
     }
-    if (category.includes('api') || title.includes('integration')) {
+    if (category.includes('api') || title.includes("integration")) {
       return 'Essential for system integration and data flow';
     }
-    if (category.includes('ui') || title.includes('interface')) {
+    if (category.includes('ui') || title.includes("interface")) {
       return 'Important for user experience and usability';
     }
     return 'Supports overall system functionality';
@@ -155,7 +155,7 @@ export class ProfessionalFormatter extends DocumentFormatter {
       troubleshooting.push({
         issue: 'Login fails with valid credentials',
         solution: '1. Clear browser cache and cookies\n2. Check network connectivity\n3. Verify server status',
-        category: 'technical'
+        category: "technical"
       });
     }
     
@@ -163,7 +163,7 @@ export class ProfessionalFormatter extends DocumentFormatter {
       troubleshooting.push({
         issue: 'Test steps timeout or hang',
         solution: '1. Wait for page load indicators\n2. Check for JavaScript errors\n3. Verify test data setup',
-        category: 'environment'
+        category: "environment"
       });
     }
     
@@ -222,9 +222,9 @@ export class ProfessionalFormatter extends DocumentFormatter {
 
   private getRoleIcon(role: string): string {
     const icons: Record<string, string> = {
-      'Administrator': '⚙️',
+      "Administrator": '⚙️',
       'End User': '👤',
-      'Developer': '🔧',
+      "Developer": '🔧',
       'QA Tester': '🧪',
       'CLI User': '⌨️'
     };
@@ -328,7 +328,7 @@ export class ProfessionalFormatter extends DocumentFormatter {
     sections.push(`| **Test ID** | ${test.id} |\n`);
     sections.push(`| **Category** | ${test.category || 'General'} |\n`);
     sections.push(`| **Priority** | ${test.priority || 'Medium'} |\n`);
-    sections.push(`| **Complexity** | ${test.complexityLevel || 'Intermediate'} |\n`);
+    sections.push(`| **Complexity** | ${test.complexityLevel || "Intermediate"} |\n`);
     sections.push(`| **Risk Level** | ${test.riskLevel || 'Medium'} |\n`);
     sections.push(`| **Estimated Time** | ${test.estimatedTime || 5} minutes |\n`);
     sections.push(`| **Business Value** | ${test.businessValue || 'Standard functionality'} |\n\n`);

@@ -16,7 +16,7 @@ import { Database } from 'sqlite3';
 import { S3 } from 'aws-sdk';
 
 export interface ExportConfig {
-  format: 'json' | 'csv' | 'xml' | 'mongodb' | 'postgresql' | 'sqlite' | 's3' | 'webhook';
+  format: 'json' | 'csv' | 'xml' | 'mongodb' | "postgresql" | 'sqlite' | 's3' | 'webhook';
   destination: string; // file path, connection string, or webhook URL
   options?: Record<string, any>;
 }
@@ -68,7 +68,7 @@ export interface S3Config {
   accessKeyId: string;
   secretAccessKey: string;
   keyPrefix?: string;
-  storageClass?: 'STANDARD' | 'STANDARD_IA' | 'GLACIER' | 'DEEP_ARCHIVE';
+  storageClass?: "STANDARD" | 'STANDARD_IA' | 'GLACIER' | 'DEEP_ARCHIVE';
   serverSideEncryption?: boolean;
 }
 
@@ -83,7 +83,7 @@ export interface WebhookConfig {
 
 export class FileExporter {
   private compressionEnabled: boolean = false;
-  private encryptionConfig?: ExportOptions['encryption'];
+  private encryptionConfig?: ExportOptions["encryption"];
 
   constructor(options: ExportOptions = {}) {
     this.compressionEnabled = options.compression || false;
@@ -126,9 +126,9 @@ export class FileExporter {
       }
 
       // Get file size
-      const stats = await fs.stat(chunks[0]);
+      const stats = await /* FRAUD_FIX: /* FRAUD_FIX: fs.stat(chunks[0]) */ */;
       const fileSize = chunks.length === 1 ? stats.size : 
-        (await Promise.all(chunks.map(c => fs.stat(c)))).reduce((sum, s) => sum + s.size, 0);
+        (await Promise.all(chunks.map(c => /* FRAUD_FIX: /* FRAUD_FIX: fs.stat(c) */ */))).reduce((sum, s) => sum + s.size, 0);
 
       return {
         success: true,
@@ -208,8 +208,8 @@ export class FileExporter {
 
       // Get file size
       const fileSize = chunks.length === 1 ? 
-        (await fs.stat(chunks[0])).size :
-        (await Promise.all(chunks.map(c => fs.stat(c)))).reduce((sum, s) => sum + s.size, 0);
+        (await /* FRAUD_FIX: /* FRAUD_FIX: fs.stat(chunks[0]) */ */).size :
+        (await Promise.all(chunks.map(c => /* FRAUD_FIX: /* FRAUD_FIX: fs.stat(c) */ */))).reduce((sum, s) => sum + s.size, 0);
 
       return {
         success: true,
@@ -258,7 +258,7 @@ export class FileExporter {
       const xml = builder.buildObject(xmlData);
       await this.writeTextFile(finalPath, xml, options);
 
-      const stats = await fs.stat(finalPath);
+      const stats = await /* FRAUD_FIX: fs.stat(finalPath) */;
 
       return {
         success: true,
@@ -304,7 +304,7 @@ export class FileExporter {
           else resolve(result);
         });
       });
-      await fs.writeFile(filePath + '.gz', compressed);
+      await fileAPI.writeFile(filePath + '.gz', compressed);
     } else {
       await await fileAPI.createFile(filePath, finalContent, { type: FileType.TEMPORARY });
     }
@@ -312,11 +312,11 @@ export class FileExporter {
 
   private async processFile(filePath: string, options: ExportOptions): Promise<void> {
     if(this.compressionEnabled || this.encryptionConfig) {
-      const content = await fs.readFile(filePath, 'utf8');
+      const content = await fileAPI.readFile(filePath, 'utf8');
       await this.writeTextFile(filePath, content, options);
       // Remove original if compressed/encrypted
       if(this.compressionEnabled) {
-        await fs.unlink(filePath);
+        await fileAPI.unlink(filePath);
       }
     }
   }
@@ -330,8 +330,8 @@ export class FileExporter {
     return path.join(dir, `${base}_chunk_${paddedIndex}${ext}`);
   }
 
-  private async encrypt(data: string, config: NonNullable<ExportOptions['encryption']>): Promise<string> {
-    const crypto = require('crypto');
+  private async encrypt(data: string, config: NonNullable<ExportOptions["encryption"]>): Promise<string> {
+    const crypto = require('node:crypto');
     const cipher = crypto.createCipher(config.algorithm, config.key);
     let encrypted = cipher.update(data, 'utf8', 'hex');
     encrypted += cipher.final('hex');
@@ -434,7 +434,7 @@ export class DatabaseExporter {
         } else if (typeof value === 'boolean') {
           type = 'BOOLEAN';
         } else if (value instanceof Date) {
-          type = 'TIMESTAMP';
+          type = "TIMESTAMP";
         }
         
         return `"${key}" ${type}`;
@@ -688,7 +688,7 @@ export class CloudExporter {
         Key: finalKeyName,
         Body: finalContent,
         ContentType: contentType,
-        StorageClass: config.storageClass || 'STANDARD'
+        StorageClass: config.storageClass || "STANDARD"
       };
 
       if(config.serverSideEncryption) {
@@ -841,7 +841,7 @@ export class DataExporter {
         const mongoConfig = config.options as DatabaseConfig;
         return this.databaseExporter.exportToMongoDB(data, mongoConfig, options);
         
-      case 'postgresql':
+      case "postgresql":
         const pgConfig = config.options as DatabaseConfig;
         return this.databaseExporter.exportToPostgreSQL(data, pgConfig, options);
         
@@ -867,7 +867,7 @@ export class DataExporter {
     return this.export(data, { format, destination: filePath }, options);
   }
 
-  async exportToDatabase(data: any[], dbType: 'mongodb' | 'postgresql' | 'sqlite', config: DatabaseConfig | string, options?: ExportOptions): Promise<ExportResult> {
+  async exportToDatabase(data: any[], dbType: 'mongodb' | "postgresql" | 'sqlite', config: DatabaseConfig | string, options?: ExportOptions): Promise<ExportResult> {
     const exportConfig: ExportConfig = {
       format: dbType,
       destination: typeof config === 'string' ? config : '',

@@ -2,8 +2,8 @@
  * Authentication Manager - Handles authentication and authorization
  */
 
-import * as jwt from 'jsonwebtoken';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import * as jwt from "jsonwebtoken";
+import { EventEmitter } from 'node:events';
 import { UserManager } from './user-manager';
 import { TokenStore } from './token-store';
 

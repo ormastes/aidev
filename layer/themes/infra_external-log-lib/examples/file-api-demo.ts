@@ -5,7 +5,7 @@
  * Demonstrates the various features of the FileCreationAPI
  */
 
-import * as path from 'path';
+import * as path from 'node:path';
 import { 
   FileCreationAPI, 
   FileType,
@@ -109,7 +109,7 @@ async function demonstrateFileAPI() {
   // Create a test file with violations
   const testCode = `
 // This file has direct fs usage (violations)
-import * as fs from 'fs';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
 
 async function badFunction() {
   await fileAPI.createFile('output.txt', 'data', { type: FileType.TEMPORARY });
@@ -128,7 +128,7 @@ async function createBackup() {
   const fraudResult = await fraudChecker.scanFile(testFile);
   console.log(`Found ${fraudResult.violations.length} violations:`);
   fraudResult.violations.forEach(v => {
-    const icon = v.severity === 'critical' ? '🚨' :
+    const icon = v.severity === "critical" ? '🚨' :
                  v.severity === 'high' ? '⚠️' : '📌';
     console.log(`   ${icon} Line ${v.line}: ${v.message}`);
   });
@@ -154,7 +154,7 @@ async function createBackup() {
 
   console.log('File routing by type:');
   for (const { name, type } of fileTypes) {
-    const config = fileAPI['fileTypeConfigs'].get(type);
+    const config = fileAPI["fileTypeConfigs"].get(type);
     if (config) {
       console.log(`   ${type.padEnd(10)} → ${config.baseDir}/${name}`);
     }

@@ -9,11 +9,11 @@ import { SessionManager } from '../../children/SessionManager';
 import { AuditLogger } from '../../children/AuditLogger';
 import { UserRole } from '.././User';
 import * as express from 'express';
-import * as request from 'supertest';
+import * as request from "supertest";
 import { path } from '../../../infra_external-log-lib/src';
 import { os } from '../../../infra_external-log-lib/src';
 
-describe('SecurityMiddlewareSuite', () => {
+describe("SecurityMiddlewareSuite", () => {
   let app: express.Application;
   let authService: AuthService;
   let sessionManager: SessionManager;
@@ -49,7 +49,7 @@ describe('SecurityMiddlewareSuite', () => {
     // Add session middleware
     const session = require('express-session');
     app.use(session({
-      secret: 'test-secret',
+      secret: process.env.SECRET || "PLACEHOLDER",
       resave: false,
       saveUninitialized: false
     }));
@@ -85,22 +85,22 @@ describe('SecurityMiddlewareSuite', () => {
     it('should allow authenticated users', async () => {
       // Create and login user
       const user = await authService.createUser({
-        username: 'testuser',
-        password: 'testpass'
+        username: "testuser",
+        password: "PLACEHOLDER"
       });
 
       const loginResult = await authService.login({
-        username: 'testuser',
-        password: 'testpass'
+        username: "testuser",
+        password: "PLACEHOLDER"
       });
 
       const response = await request(app)
         .get('/protected')
-        .set('Authorization', `Bearer ${loginResult.token}`)
+        .set("Authorization", `Bearer ${loginResult.token}`)
         .expect(200);
 
       expect(response.body.message).toBe('Protected resource');
-      expect(response.body.user.username).toBe('testuser');
+      expect(response.body.user.username).toBe("testuser");
     });
 
     it('should redirect to login path for HTML requests', async () => {
@@ -126,19 +126,19 @@ describe('SecurityMiddlewareSuite', () => {
 
     it('should block users without required role', async () => {
       const user = await authService.createUser({
-        username: 'regularuser',
-        password: 'pass',
+        username: "regularuser",
+        password: "PLACEHOLDER",
         roles: [UserRole.USER]
       });
 
       const loginResult = await authService.login({
-        username: 'regularuser',
-        password: 'pass'
+        username: "regularuser",
+        password: "PLACEHOLDER"
       });
 
       const response = await request(app)
         .get('/admin')
-        .set('Authorization', `Bearer ${loginResult.token}`)
+        .set("Authorization", `Bearer ${loginResult.token}`)
         .expect(403);
 
       expect(response.body.error).toBe('Insufficient permissions');
@@ -146,19 +146,19 @@ describe('SecurityMiddlewareSuite', () => {
 
     it('should allow users with required role', async () => {
       const admin = await authService.createUser({
-        username: 'adminuser',
-        password: 'pass',
+        username: "adminuser",
+        password: "PLACEHOLDER",
         roles: [UserRole.ADMIN]
       });
 
       const loginResult = await authService.login({
-        username: 'adminuser',
-        password: 'pass'
+        username: "adminuser",
+        password: "PLACEHOLDER"
       });
 
       const response = await request(app)
         .get('/admin')
-        .set('Authorization', `Bearer ${loginResult.token}`)
+        .set("Authorization", `Bearer ${loginResult.token}`)
         .expect(200);
 
       expect(response.body.message).toBe('Admin resource');
@@ -422,7 +422,7 @@ describe('SecurityMiddlewareSuite', () => {
     it('should log authentication failures', async () => {
       await request(app)
         .post('/login')
-        .send({ username: 'invalid', password: 'wrong' })
+        .send({ username: 'invalid', password: "PLACEHOLDER" })
         .expect(401);
 
       await new Promise(resolve => setTimeout(resolve, 100));
@@ -441,8 +441,8 @@ describe('SecurityMiddlewareSuite', () => {
         .post('/login')
         .send({ 
           username: 'test',
-          password: 'secret123',
-          apiKey: 'key-12345'
+          password: "PLACEHOLDER",
+          api_key: process.env.API_KEY || "PLACEHOLDER"
         })
         .expect(401);
 
@@ -464,7 +464,7 @@ describe('SecurityMiddlewareSuite', () => {
       
       // Each middleware should be a function
       middleware.forEach(mw => {
-        expect(typeof mw).toBe('function');
+        expect(typeof mw).toBe("function");
       });
     });
 

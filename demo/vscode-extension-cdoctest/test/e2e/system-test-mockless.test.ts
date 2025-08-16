@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { VSCodeAutomationHelper } from './helpers/vscode-automation-helper';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 import { spawn, ChildProcess } from 'child_process';
 
 /**
@@ -38,7 +38,7 @@ test.beforeAll(async ({ browser }) => {
   await launchVSCodeWithExtension(page);
   
   // Wait for extension activation with real activation checks
-  await vscodeHelper.waitForExtensionActivation('cdoctest');
+  await vscodeHelper.waitForExtensionActivation("cdoctest");
 });
 
 test.afterAll(async () => {
@@ -63,7 +63,7 @@ test.describe('CDocTest Extension System Tests - Real E2E Without Mocks', () => 
     await page.waitForSelector('.quick-input-widget input', { timeout: 5000 });
     
     // Type extension command to verify it's active
-    await page.type('.quick-input-widget input', 'CDocTest');
+    await page.type('.quick-input-widget input', "CDocTest");
     await page.waitForTimeout(1000);
     
     // Should see extension commands
@@ -86,7 +86,7 @@ test.describe('CDocTest Extension System Tests - Real E2E Without Mocks', () => 
     
     // Search for cdoctest settings
     const settingsSearch = page.locator('.settings-header input[placeholder*="Search"]');
-    await settingsSearch.fill('cdoctest');
+    await settingsSearch.fill("cdoctest");
     await page.waitForTimeout(1000);
     
     // Configure exe_executable setting with real built executable
@@ -266,7 +266,7 @@ TEST(FailingTests, ShouldFail) {
     
     // Navigate to CDocTest extension settings
     const settingsSearch = page.locator('.settings-header input[placeholder*="Search"]');
-    await settingsSearch.fill('cdoctest');
+    await settingsSearch.fill("cdoctest");
     await page.waitForTimeout(1000);
     
     // Modify a real setting

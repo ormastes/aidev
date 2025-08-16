@@ -7,7 +7,7 @@
 import { SessionManager, Session, SessionStorage } from './SessionManager';
 import { TokenService } from './TokenService';
 import { crypto } from '../../infra_external-log-lib/src';
-import { EventEmitter } from '../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 export interface CrossDomainConfig {
   domains: string[];
@@ -168,7 +168,7 @@ export class CrossDomainSessionManager extends EventEmitter {
   /**
    * Create a cross-domain session
    */
-  async createCrossDomainSession(sessionData: Omit<SharedSession, 'createdAt' | 'domains'>): Promise<SharedSession> {
+  async createCrossDomainSession(sessionData: Omit<SharedSession, "createdAt" | 'domains'>): Promise<SharedSession> {
     const session: SharedSession = {
       ...sessionData,
       domains: this.domains,
@@ -186,7 +186,7 @@ export class CrossDomainSessionManager extends EventEmitter {
     // Broadcast to other domains
     await this.broadcastSessionUpdate('create', session);
 
-    this.emit('sessionCreated', session);
+    this.emit("sessionCreated", session);
 
     return session;
   }
@@ -201,7 +201,7 @@ export class CrossDomainSessionManager extends EventEmitter {
 
     // Validate domain access
     if (domain && !this.isValidDomain(domain)) {
-      this.emit('invalidDomainAccess', { sessionId, domain });
+      this.emit("invalidDomainAccess", { sessionId, domain });
       return null;
     }
 
@@ -247,7 +247,7 @@ export class CrossDomainSessionManager extends EventEmitter {
     // Broadcast destruction
     await this.broadcastSessionUpdate('destroy', session);
 
-    this.emit('sessionDestroyed', sessionId);
+    this.emit("sessionDestroyed", sessionId);
   }
 
   /**
@@ -326,7 +326,7 @@ export class CrossDomainSessionManager extends EventEmitter {
   private async handleSessionSync(message: SessionSyncMessage): Promise<void> {
     // Verify message signature
     if (!this.verifyMessageSignature(message)) {
-      this.emit('invalidSyncMessage', message);
+      this.emit("invalidSyncMessage", message);
       return;
     }
 
@@ -358,7 +358,7 @@ export class CrossDomainSessionManager extends EventEmitter {
     await this.storage.set(session.id, session);
     this.trackUserSession(session.userId, session.id);
 
-    this.emit('remoteSessionCreated', session);
+    this.emit("remoteSessionCreated", session);
   }
 
   /**
@@ -374,7 +374,7 @@ export class CrossDomainSessionManager extends EventEmitter {
 
     // Update session
     await this.storage.set(session.id, session);
-    this.emit('remoteSessionUpdated', session);
+    this.emit("remoteSessionUpdated", session);
   }
 
   /**
@@ -387,7 +387,7 @@ export class CrossDomainSessionManager extends EventEmitter {
     this.untrackUserSession(session.userId, sessionId);
     await this.storage.delete(sessionId);
 
-    this.emit('remoteSessionDestroyed', sessionId);
+    this.emit("remoteSessionDestroyed", sessionId);
   }
 
   /**
@@ -422,7 +422,7 @@ export class CrossDomainSessionManager extends EventEmitter {
 
     // In production, this would send to Redis pub/sub or message queue
     // For now, emit event for local handling
-    this.emit('broadcast', message);
+    this.emit("broadcast", message);
   }
 
   /**
@@ -458,7 +458,7 @@ export class CrossDomainSessionManager extends EventEmitter {
   /**
    * Sign message for verification
    */
-  private signMessage(message: Omit<SessionSyncMessage, 'signature'>): string {
+  private signMessage(message: Omit<SessionSyncMessage, "signature">): string {
     const data = JSON.stringify({
       action: message.action,
       sessionId: message.session.id,
@@ -491,7 +491,7 @@ export class CrossDomainSessionManager extends EventEmitter {
    * Get current domain
    */
   private getCurrentDomain(): string {
-    return this.domains[0] || 'localhost';
+    return this.domains[0] || "localhost";
   }
 
   /**

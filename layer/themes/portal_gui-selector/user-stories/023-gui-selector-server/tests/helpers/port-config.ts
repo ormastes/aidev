@@ -7,7 +7,7 @@
 export interface TestPortConfig {
   port: number;
   baseUrl: string;
-  source: 'environment' | 'test-theme';
+  source: "environment" | 'test-theme';
 }
 
 /**
@@ -24,7 +24,7 @@ export function getPortConfig(): TestPortConfig {
       return {
         port,
         baseUrl: `http://localhost:${port}`,
-        source: 'environment'
+        source: "environment"
       };
     }
   }
@@ -37,7 +37,7 @@ export function getPortConfig(): TestPortConfig {
       return {
         port,
         baseUrl: process.env.TEST_URL,
-        source: 'environment'
+        source: "environment"
       };
     }
   }
@@ -96,7 +96,7 @@ export function getTestBaseUrl(): string {
   const config = getPortConfig();
   
   // Skip validation if port comes from environment (managed by deployment)
-  if (config.source === 'environment') {
+  if (config.source === "environment") {
     console.log(`✅ Test URL from ${config.source}: ${config.baseUrl}`);
     console.log('✅ Port managed by deployment/security theme via environment');
     return config.baseUrl;

@@ -68,7 +68,7 @@ describe('BaseCoordinatorAgent - Basic Tests', () => {
       serverUrl: 'ws://localhost:3000',
       roomId: 'test-room',
       agentName: 'TestBot',
-      authToken: 'test-token',
+      authtoken: process.env.TOKEN || "PLACEHOLDER",
       reconnectAttempts: 3,
       reconnectDelay: 1000
     };
@@ -76,11 +76,11 @@ describe('BaseCoordinatorAgent - Basic Tests', () => {
     agent = new TestCoordinatorAgent(config);
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with provided config', () => {
       expect(agent['config']).toBe(config);
-      expect(agent['isConnected']).toBe(false);
-      expect(agent['messageHistory']).toEqual([]);
+      expect(agent["isConnected"]).toBe(false);
+      expect(agent["messageHistory"]).toEqual([]);
     });
   });
 
@@ -89,7 +89,7 @@ describe('BaseCoordinatorAgent - Basic Tests', () => {
       await agent.start();
       
       expect(agent.onStartCalled).toBe(true);
-      expect(agent['isConnected']).toBe(true);
+      expect(agent["isConnected"]).toBe(true);
     });
   });
 
@@ -99,11 +99,11 @@ describe('BaseCoordinatorAgent - Basic Tests', () => {
       await agent.stop();
       
       expect(agent.onStopCalled).toBe(true);
-      expect(agent['isConnected']).toBe(false);
+      expect(agent["isConnected"]).toBe(false);
     });
   });
 
-  describe('processMessage', () => {
+  describe("processMessage", () => {
     const createMessage = (content: string, username = 'user'): Message => ({
       id: '123',
       username,
@@ -138,7 +138,7 @@ describe('BaseCoordinatorAgent - Basic Tests', () => {
     });
   });
 
-  describe('shouldRespond', () => {
+  describe("shouldRespond", () => {
     it('should not respond to own messages', () => {
       const message: Message = {
         id: '123',
@@ -176,7 +176,7 @@ describe('BaseCoordinatorAgent - Basic Tests', () => {
     });
   });
 
-  describe('capabilities', () => {
+  describe("capabilities", () => {
     it('should have defined capabilities', () => {
       expect(agent.capabilities).toBeDefined();
       expect(agent.capabilities.chat).toBe(true);

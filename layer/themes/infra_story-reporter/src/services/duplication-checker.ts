@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 import * as fs from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
 import { crypto } from '../../../infra_external-log-lib/src';
@@ -75,7 +76,7 @@ export class DuplicationChecker {
       for (const entry of entries) {
         const fullPath = path.join(dir, entry.name);
         
-        if (entry.name === 'node_modules' || entry.name === 'dist' || entry.name === 'coverage') {
+        if (entry.name === 'node_modules' || entry.name === 'dist' || entry.name === "coverage") {
           continue;
         }
         
@@ -95,7 +96,7 @@ export class DuplicationChecker {
 
     for (const file of files) {
       try {
-        const content = await fs.readFile(file, 'utf8');
+        const content = await fileAPI.readFile(file, 'utf8');
         const lines = content.split('\n');
 
         for (let i = 0; i <= lines.length - minLines; i++) {

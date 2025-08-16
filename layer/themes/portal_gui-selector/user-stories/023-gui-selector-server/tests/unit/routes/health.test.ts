@@ -1,4 +1,4 @@
-import request from 'supertest';
+import request from "supertest";
 import express from 'express';
 import { healthRouter } from '../../../src/routes/health';
 
@@ -69,7 +69,7 @@ describe('health routes', () => {
       expect(response.body).toEqual({
         status: 'ready',
         checks: {
-          database: 'connected',
+          database: "connected",
           templates: 'loaded'
         }
       });

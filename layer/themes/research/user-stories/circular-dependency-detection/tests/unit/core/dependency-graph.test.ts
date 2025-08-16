@@ -5,7 +5,7 @@
 import { DependencyGraph } from '../../../src/core/dependency-graph';
 import { DependencyNode, DependencyEdge } from '../../../src/core/types';
 
-describe('DependencyGraph', () => {
+describe("DependencyGraph", () => {
   let graph: DependencyGraph;
 
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe('DependencyGraph', () => {
         id: 'test-node',
         path: '/test/path',
         type: 'file',
-        language: 'typescript'
+        language: "typescript"
       };
 
       graph.addNode(node);
@@ -33,14 +33,14 @@ describe('DependencyGraph', () => {
         id: 'test-node',
         path: '/test/path',
         type: 'file',
-        language: 'typescript'
+        language: "typescript"
       };
 
       const node2: DependencyNode = {
         id: 'test-node',
         path: '/test/path2',
         type: 'file',
-        language: 'typescript'
+        language: "typescript"
       };
 
       graph.addNode(node1);
@@ -59,14 +59,14 @@ describe('DependencyGraph', () => {
         id: 'nodeA',
         path: '/test/a',
         type: 'file',
-        language: 'typescript'
+        language: "typescript"
       });
 
       graph.addNode({
         id: 'nodeB',
         path: '/test/b',
         type: 'file',
-        language: 'typescript'
+        language: "typescript"
       });
     });
 
@@ -86,7 +86,7 @@ describe('DependencyGraph', () => {
 
     it('should throw error when adding edge between non-existent nodes', () => {
       const edge: DependencyEdge = {
-        from: 'nonExistent',
+        from: "nonExistent",
         to: 'nodeB',
         type: 'import'
       };
@@ -98,8 +98,8 @@ describe('DependencyGraph', () => {
   describe('Circular Dependency Detection', () => {
     it('should detect simple circular dependency', () => {
       // Create A -> B -> A cycle
-      const nodeA: DependencyNode = { id: 'A', path: '/a', type: 'file', language: 'typescript' };
-      const nodeB: DependencyNode = { id: 'B', path: '/b', type: 'file', language: 'typescript' };
+      const nodeA: DependencyNode = { id: 'A', path: '/a', type: 'file', language: "typescript" };
+      const nodeB: DependencyNode = { id: 'B', path: '/b', type: 'file', language: "typescript" };
 
       graph.addNode(nodeA);
       graph.addNode(nodeB);
@@ -120,7 +120,7 @@ describe('DependencyGraph', () => {
         id,
         path: `/${id.toLowerCase()}`,
         type: 'file' as const,
-        language: 'typescript' as const
+        language: "typescript" as const
       }));
 
       nodes.forEach(node => graph.addNode(node));
@@ -141,7 +141,7 @@ describe('DependencyGraph', () => {
         id,
         path: `/${id.toLowerCase()}`,
         type: 'file' as const,
-        language: 'typescript' as const
+        language: "typescript" as const
       }));
 
       nodes.forEach(node => graph.addNode(node));
@@ -165,7 +165,7 @@ describe('DependencyGraph', () => {
         id,
         path: `/${id.toLowerCase()}`,
         type: 'file' as const,
-        language: 'typescript' as const
+        language: "typescript" as const
       }));
 
       nodes.forEach(node => graph.addNode(node));
@@ -186,7 +186,7 @@ describe('DependencyGraph', () => {
         id,
         path: `/${id.toLowerCase()}`,
         type: 'file' as const,
-        language: 'typescript' as const
+        language: "typescript" as const
       }));
 
       nodes.forEach(node => graph.addNode(node));
@@ -206,11 +206,11 @@ describe('DependencyGraph', () => {
     });
   });
 
-  describe('Statistics', () => {
+  describe("Statistics", () => {
     it('should provide accurate graph statistics', () => {
       // Add nodes of different languages and types
-      graph.addNode({ id: 'ts1', path: '/ts1', type: 'file', language: 'typescript' });
-      graph.addNode({ id: 'ts2', path: '/ts2', type: 'module', language: 'typescript' });
+      graph.addNode({ id: 'ts1', path: '/ts1', type: 'file', language: "typescript" });
+      graph.addNode({ id: 'ts2', path: '/ts2', type: 'module', language: "typescript" });
       graph.addNode({ id: 'py1', path: '/py1', type: 'file', language: 'python' });
 
       graph.addEdge({ from: 'ts1', to: 'ts2', type: 'import' });
@@ -229,7 +229,7 @@ describe('DependencyGraph', () => {
 
   describe('DOT Export', () => {
     it('should generate valid DOT format', () => {
-      graph.addNode({ id: 'A', path: '/a', type: 'file', language: 'typescript' });
+      graph.addNode({ id: 'A', path: '/a', type: 'file', language: "typescript" });
       graph.addNode({ id: 'B', path: '/b', type: 'file', language: 'python' });
       graph.addEdge({ from: 'A', to: 'B', type: 'import' });
 
@@ -243,8 +243,8 @@ describe('DependencyGraph', () => {
 
     it('should highlight cycles in DOT output', () => {
       // Create a cycle
-      graph.addNode({ id: 'A', path: '/a', type: 'file', language: 'typescript' });
-      graph.addNode({ id: 'B', path: '/b', type: 'file', language: 'typescript' });
+      graph.addNode({ id: 'A', path: '/a', type: 'file', language: "typescript" });
+      graph.addNode({ id: 'B', path: '/b', type: 'file', language: "typescript" });
       graph.addEdge({ from: 'A', to: 'B', type: 'import' });
       graph.addEdge({ from: 'B', to: 'A', type: 'import' });
 
@@ -257,8 +257,8 @@ describe('DependencyGraph', () => {
 
   describe('Graph Operations', () => {
     it('should clear the graph', () => {
-      graph.addNode({ id: 'A', path: '/a', type: 'file', language: 'typescript' });
-      graph.addNode({ id: 'B', path: '/b', type: 'file', language: 'typescript' });
+      graph.addNode({ id: 'A', path: '/a', type: 'file', language: "typescript" });
+      graph.addNode({ id: 'B', path: '/b', type: 'file', language: "typescript" });
       graph.addEdge({ from: 'A', to: 'B', type: 'import' });
 
       expect(graph.getNodes()).toHaveLength(2);

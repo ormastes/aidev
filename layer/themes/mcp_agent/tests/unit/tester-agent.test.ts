@@ -6,7 +6,7 @@ import { MCPMethod, ToolCall, ToolResult } from '../../children/src/domain/proto
 jest.mock('../../children/src/server/mcp-connection');
 const MockedMCPConnection = MCPConnection as jest.MockedClass<typeof MCPConnection>;
 
-describe('TesterAgent', () => {
+describe("TesterAgent", () => {
   let testerAgent: TesterAgent;
   let mockMcpConnection: jest.Mocked<MCPConnection>;
 
@@ -21,7 +21,7 @@ describe('TesterAgent', () => {
     jest.clearAllMocks();
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should create TesterAgent instance with correct capabilities', () => {
       expect(testerAgent).toBeDefined();
       
@@ -44,15 +44,15 @@ describe('TesterAgent', () => {
     });
   });
 
-  describe('setMCPConnection', () => {
+  describe("setMCPConnection", () => {
     it('should set MCP connection', () => {
       const newAgent = new TesterAgent();
       expect(() => newAgent.setMCPConnection(mockMcpConnection)).not.toThrow();
     });
   });
 
-  describe('createTestSuite', () => {
-    const featureName = 'TestFeature';
+  describe("createTestSuite", () => {
+    const featureName = "TestFeature";
     const requirements = ['should handle input validation', 'should process data correctly'];
 
     beforeEach(() => {
@@ -92,7 +92,7 @@ describe('TesterAgent', () => {
     });
   });
 
-  describe('runTestSuite', () => {
+  describe("runTestSuite", () => {
     it('should run tests and return results', async () => {
       const mockOutput = 'Test Suites: 1 passed, 1 total\nTests: 5 passing, 0 failing\ncoverage: 85.5%';
       mockMcpConnection.request.mockResolvedValue({
@@ -120,7 +120,7 @@ describe('TesterAgent', () => {
     });
   });
 
-  describe('checkCoverage', () => {
+  describe("checkCoverage", () => {
     it('should call runTestSuite to check coverage', async () => {
       const mockOutput = 'coverage: 100%';
       mockMcpConnection.request.mockResolvedValue({
@@ -132,7 +132,7 @@ describe('TesterAgent', () => {
     });
   });
 
-  describe('debugFailingTest', () => {
+  describe("debugFailingTest", () => {
     it('should handle debugging workflow', async () => {
       mockMcpConnection.request.mockResolvedValue({
         content: [{ text: 'debug output' }]
@@ -143,7 +143,7 @@ describe('TesterAgent', () => {
     });
   });
 
-  describe('troubleshootRegression', () => {
+  describe("troubleshootRegression", () => {
     it('should handle regression analysis', async () => {
       mockMcpConnection.request.mockResolvedValue({
         content: [{ text: 'abc123\ndef456\n' }]
@@ -168,7 +168,7 @@ describe('TesterAgent', () => {
         content: [{ text: '[]' }]
       } as ToolResult);
 
-      await testerAgent.createTestSuite('EmptyFeature', []);
+      await testerAgent.createTestSuite("EmptyFeature", []);
       expect(mockMcpConnection.request).toHaveBeenCalled();
     });
 

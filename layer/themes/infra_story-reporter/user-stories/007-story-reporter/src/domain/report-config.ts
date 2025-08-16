@@ -69,7 +69,7 @@ export interface ReportResult {
   content: string;
   
   /** Report format */
-  format: 'html' | 'json' | 'xml' | 'csv' | 'markdown' | 'md';
+  format: 'html' | 'json' | 'xml' | 'csv' | "markdown" | 'md';
   
   /** File path where report was saved (if applicable) */
   filePath?: string;
@@ -175,36 +175,36 @@ export function validateReportConfig(config: any): void {
   
   validateString(config.description, { 
     errorPrefix, 
-    fieldName: 'description' 
+    fieldName: "description" 
   });
   
   validateBoolean(config.includeScreenshots, { 
     errorPrefix, 
-    fieldName: 'includeScreenshots' 
+    fieldName: "includeScreenshots" 
   });
   
   validateBoolean(config.includeLogs, { 
     errorPrefix, 
-    fieldName: 'includeLogs' 
+    fieldName: "includeLogs" 
   });
   
   validateString(config.fileNamePattern, { 
     errorPrefix, 
-    fieldName: 'fileNamePattern' 
+    fieldName: "fileNamePattern" 
   });
   
   validateNestedObject(config.jsonFormatting, { 
     errorPrefix, 
-    fieldName: 'jsonFormatting' 
+    fieldName: "jsonFormatting" 
   });
   
   validateNestedObject(config.htmlStyling, { 
     errorPrefix, 
-    fieldName: 'htmlStyling' 
+    fieldName: "htmlStyling" 
   });
   
   validateNestedObject(config.xmlFormatting, { 
     errorPrefix, 
-    fieldName: 'xmlFormatting' 
+    fieldName: "xmlFormatting" 
   });
 }

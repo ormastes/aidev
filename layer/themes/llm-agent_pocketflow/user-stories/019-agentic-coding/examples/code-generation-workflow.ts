@@ -24,8 +24,8 @@ async function simpleCodeGeneration() {
   
   // Create agents
   const codeGen = new CodeGenAgent({
-    defaultLanguage: 'typescript',
-    defaultStyle: 'functional'
+    defaultLanguage: "typescript",
+    defaultStyle: "functional"
   });
   
   const testGen = new TestGenAgent({
@@ -36,9 +36,9 @@ async function simpleCodeGeneration() {
   // Build workflow
   const codeFlow = workflow()
     .addNode('input', nodes.input<CodeGenRequest>('input'))
-    .addNode('generate', createAgenticNode('generate', codeGen))
-    .addNode('createTests', createAgenticNode<GeneratedCode, GeneratedTest>(
-      'createTests',
+    .addNode("generate", createAgenticNode("generate", codeGen))
+    .addNode("createTests", createAgenticNode<GeneratedCode, GeneratedTest>(
+      "createTests",
       testGen,
       {
         // Transform generated code to test request
@@ -51,9 +51,9 @@ async function simpleCodeGeneration() {
       }
     ))
     .addNode('output', nodes.output<{ code: GeneratedCode; tests: GeneratedTest }>('output'))
-    .connect('input', 'generate')
-    .connect('generate', 'createTests')
-    .connect('createTests', 'output', (tests) => ({
+    .connect('input', "generate")
+    .connect("generate", "createTests")
+    .connect("createTests", 'output', (tests) => ({
       code: tests as any, // Would need proper type handling
       tests
     }))
@@ -62,8 +62,8 @@ async function simpleCodeGeneration() {
   // Execute workflow
   const result = await codeFlow.execute({
     description: 'Create a function that validates email addresses',
-    language: 'typescript',
-    style: 'functional'
+    language: "typescript",
+    style: "functional"
   });
   
   if (result.success) {
@@ -79,9 +79,9 @@ async function parallelCodeGeneration() {
   console.log('\n=== Parallel Code Generation ===\n');
   
   // Create agents with different styles
-  const functionalAgent = new CodeGenAgent({ defaultStyle: 'functional' });
+  const functionalAgent = new CodeGenAgent({ defaultStyle: "functional" });
   const ooAgent = new CodeGenAgent({ defaultStyle: 'object-oriented' });
-  const proceduralAgent = new CodeGenAgent({ defaultStyle: 'procedural' });
+  const proceduralAgent = new CodeGenAgent({ defaultStyle: "procedural" });
   
   // Create parallel execution node
   const parallelGen = new ParallelAgents<CodeGenRequest, GeneratedCode>(
@@ -92,16 +92,16 @@ async function parallelCodeGeneration() {
   // Build workflow
   const parallelFlow = workflow()
     .addNode('input', nodes.input<CodeGenRequest>('input'))
-    .addNode('parallel', parallelGen)
+    .addNode("parallel", parallelGen)
     .addNode('output', nodes.output<GeneratedCode[]>('output'))
-    .connect('input', 'parallel')
-    .connect('parallel', 'output')
+    .connect('input', "parallel")
+    .connect("parallel", 'output')
     .build();
   
   // Execute
   const result = await parallelFlow.execute({
     description: 'Create a function to sort an array of objects by a key',
-    language: 'typescript'
+    language: "typescript"
   });
   
   if (result.success) {
@@ -122,7 +122,7 @@ async function iterativeRefinement() {
   const documenter = new CodeGenAgent(); // Would be a documentation agent
   
   const refinementChain = new AgentChain<CodeGenRequest, GeneratedCode>(
-    'refinement',
+    "refinement",
     [initialGen, optimizer, documenter],
     [
       // Transform between agents
@@ -149,7 +149,7 @@ async function iterativeRefinement() {
   // Execute
   const result = await refinementFlow.execute({
     description: 'Create a function to fetch data from an API with retry logic',
-    language: 'typescript'
+    language: "typescript"
   });
   
   if (result.success) {
@@ -168,21 +168,21 @@ async function complexWorkflow() {
   
   // Build complex workflow
   const complexFlow = workflow()
-    .addNode('requirements', nodes.input<string>('requirements'))
-    .addNode('parseReq', nodes.transform<string, CodeGenRequest>(
-      'parseReq',
+    .addNode("requirements", nodes.input<string>("requirements"))
+    .addNode("parseReq", nodes.transform<string, CodeGenRequest>(
+      "parseReq",
       (req) => ({
         description: req,
-        language: 'typescript',
-        style: 'functional',
+        language: "typescript",
+        style: "functional",
         context: {
           constraints: ['Use proper error handling', 'Include type definitions']
         }
       })
     ))
-    .addNode('generate', createAgenticNode('generate', codeGen))
-    .addNode('validate', nodes.validation<GeneratedCode>(
-      'validate',
+    .addNode("generate", createAgenticNode("generate", codeGen))
+    .addNode("validate", nodes.validation<GeneratedCode>(
+      "validate",
       (code) => {
         if (!code.code || code.code.length < 10) {
           return { "success": false, errors: ['Generated code too short'] };
@@ -190,8 +190,8 @@ async function complexWorkflow() {
         return { "success": true };
       }
     ))
-    .addNode('generateTests', createAgenticNode<GeneratedCode, GeneratedTest>(
-      'generateTests',
+    .addNode("generateTests", createAgenticNode<GeneratedCode, GeneratedTest>(
+      "generateTests",
       testGen,
       {
         preProcess: async (code) => ({
@@ -214,11 +214,11 @@ async function complexWorkflow() {
       })
     ))
     .addNode('output', nodes.output('output'))
-    .connect('requirements', 'parseReq')
-    .connect('parseReq', 'generate')
-    .connect('generate', 'validate')
-    .connect('validate', 'generateTests')
-    .connect('generateTests', 'bundle', (tests) => ({
+    .connect("requirements", "parseReq")
+    .connect("parseReq", "generate")
+    .connect("generate", "validate")
+    .connect("validate", "generateTests")
+    .connect("generateTests", 'bundle', (tests) => ({
       code: tests as any, // Would need proper handling
       tests
     }))

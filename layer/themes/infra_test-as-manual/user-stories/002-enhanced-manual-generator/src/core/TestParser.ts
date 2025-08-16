@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Test Parser for various test formats
  * Supports Jest, Mocha, Jasmine, BDD/Gherkin, and more
@@ -19,7 +20,7 @@ export class TestParser {
    * Parse a test file
    */
   async parseFile(filePath: string): Promise<ParsedTest> {
-    const content = await fs.readFile(filePath, 'utf-8');
+    const content = await fileAPI.readFile(filePath, 'utf-8');
     const fileName = path.basename(filePath);
     
     // Determine test type based on file extension and content
@@ -45,7 +46,7 @@ export class TestParser {
    */
   async validate(filePath: string): Promise<{ valid: boolean; errors?: string[] }> {
     try {
-      const content = await fs.readFile(filePath, 'utf-8');
+      const content = await fileAPI.readFile(filePath, 'utf-8');
       const errors: string[] = [];
       
       // Check for basic test structure
@@ -187,7 +188,7 @@ export class TestParser {
           steps.push({
             id: `step-${suiteId}-${testId}-${stepOrder}`,
             order: stepOrder++,
-            type: 'assertion',
+            type: "assertion",
             action: `Verify ${expectMatch[1]}`,
             expected: `${expectMatch[2]} ${expectMatch[3]}`.trim()
           });
@@ -230,7 +231,7 @@ export class TestParser {
     let hookMatch;
     while ((hookMatch = beforeEachRegex.exec(content)) !== null) {
       hooks.push({
-        type: 'beforeEach',
+        type: "beforeEach",
         description: 'Setup before each test',
         code: hookMatch[1].trim()
       });
@@ -238,7 +239,7 @@ export class TestParser {
     
     while ((hookMatch = afterEachRegex.exec(content)) !== null) {
       hooks.push({
-        type: 'afterEach',
+        type: "afterEach",
         description: 'Cleanup after each test',
         code: hookMatch[1].trim()
       });
@@ -271,7 +272,7 @@ export class TestParser {
       const steps: TestStep[] = [];
       
       let stepOrder = 0;
-      let currentStepType: 'action' | 'assertion' = 'action';
+      let currentStepType: 'action' | "assertion" = 'action';
       
       lines.forEach(line => {
         const trimmedLine = line.trim();
@@ -295,11 +296,11 @@ export class TestParser {
             expected: 'Action performed successfully'
           });
         } else if (trimmedLine.startsWith('Then ')) {
-          currentStepType = 'assertion';
+          currentStepType = "assertion";
           steps.push({
             id: `step-${index}-${stepOrder}`,
             order: stepOrder++,
-            type: 'assertion',
+            type: "assertion",
             action: trimmedLine.replace('Then ', ''),
             expected: 'Assertion verified'
           });
@@ -309,7 +310,7 @@ export class TestParser {
             order: stepOrder++,
             type: currentStepType,
             action: trimmedLine.replace('And ', ''),
-            expected: currentStepType === 'assertion' ? 'Assertion verified' : 'Action performed'
+            expected: currentStepType === "assertion" ? 'Assertion verified' : 'Action performed'
           });
         }
       });

@@ -1,6 +1,6 @@
 import { describe, test, expect, beforeEach, afterEach } from '@jest/globals';
 import { FileStorage } from '../../src/external/file-storage';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../../../../infra_external-log-lib/src';
 import { os } from '../../../../../infra_external-log-lib/src';
 import type { User, Room, Message } from '../../src/external/file-storage';
@@ -24,11 +24,11 @@ describe('FileStorage Additional Coverage Tests', () => {
     }
   });
 
-  describe('deleteUser', () => {
+  describe("deleteUser", () => {
     test('should delete existing user', async () => {
       const user: User = {
         id: 'user-delete-1',
-        username: 'deleteuser',
+        username: "deleteuser",
         registeredAt: new Date('2024-01-01T12:00:00Z')
       };
       
@@ -57,7 +57,7 @@ describe('FileStorage Additional Coverage Tests', () => {
     });
   });
 
-  describe('deleteRoom', () => {
+  describe("deleteRoom", () => {
     test('should delete room and its messages', async () => {
       const room: Room = {
         id: 'room-delete-1',
@@ -73,7 +73,7 @@ describe('FileStorage Additional Coverage Tests', () => {
         id: 'msg-1',
         roomId: room.id,
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         content: 'Test message',
         timestamp: new Date(),
         type: 'text'
@@ -118,7 +118,7 @@ describe('FileStorage Additional Coverage Tests', () => {
     });
   });
 
-  describe('getMessageCount', () => {
+  describe("getMessageCount", () => {
     test('should count messages correctly', async () => {
       const roomId = 'room-count-1';
       
@@ -128,7 +128,7 @@ describe('FileStorage Additional Coverage Tests', () => {
           id: `msg-${i}`,
           roomId,
           userId: 'user-123',
-          username: 'testuser',
+          username: "testuser",
           content: `Message ${i}`,
           timestamp: new Date(),
           type: 'text'
@@ -147,15 +147,15 @@ describe('FileStorage Additional Coverage Tests', () => {
     test('should handle file system errors', async () => {
       // Create messages directory as a file instead of directory
       const roomId = 'error-room';
-      const roomPath = path.join(testDir, 'messages', roomId);
-      await fs.mkdir(path.join(testDir, 'messages'), { recursive: true });
+      const roomPath = path.join(testDir, "messages", roomId);
+      await fs.mkdir(path.join(testDir, "messages"), { recursive: true });
       await fs.writeFile(roomPath, 'not a directory');
       
       await expect(storage.getMessageCount(roomId)).rejects.toThrow();
     });
   });
 
-  describe('searchMessages', () => {
+  describe("searchMessages", () => {
     const roomId = 'search-room';
     
     beforeEach(async () => {
@@ -195,11 +195,11 @@ describe('FileStorage Additional Coverage Tests', () => {
     });
 
     test('should be case insensitive', async () => {
-      const results = await storage.searchMessages(roomId, 'TYPESCRIPT');
+      const results = await storage.searchMessages(roomId, "TYPESCRIPT");
       
       expect(results).toHaveLength(2);
-      expect(results[0].content).toContain('TypeScript');
-      expect(results[1].content).toContain('TypeScript');
+      expect(results[0].content).toContain("TypeScript");
+      expect(results[1].content).toContain("TypeScript");
     });
 
     test('should respect limit parameter', async () => {
@@ -209,7 +209,7 @@ describe('FileStorage Additional Coverage Tests', () => {
     });
 
     test('should return empty array for no matches', async () => {
-      const results = await storage.searchMessages(roomId, 'nonexistent');
+      const results = await storage.searchMessages(roomId, "nonexistent");
       
       expect(results).toEqual([]);
     });
@@ -221,7 +221,7 @@ describe('FileStorage Additional Coverage Tests', () => {
     });
   });
 
-  describe('getStorageStats', () => {
+  describe("getStorageStats", () => {
     test('should return correct statistics', async () => {
       // Create test data
       for (let i = 0; i < 3; i++) {
@@ -292,7 +292,7 @@ describe('FileStorage Additional Coverage Tests', () => {
       // Create non-JSON files that should be ignored
       await storage.saveUser({
         id: 'real-user',
-        username: 'realuser',
+        username: "realuser",
         registeredAt: new Date()
       });
       
@@ -307,7 +307,7 @@ describe('FileStorage Additional Coverage Tests', () => {
     });
   });
 
-  describe('getDataDirectory', () => {
+  describe("getDataDirectory", () => {
     test('should return the data directory path', () => {
       const dataDir = storage.getDataDirectory();
       expect(dataDir).toBe(testDir);
@@ -325,7 +325,7 @@ describe('FileStorage Additional Coverage Tests', () => {
           id: `concurrent-msg-${i}`,
           roomId,
           userId: 'user-123',
-          username: 'testuser',
+          username: "testuser",
           content: `Concurrent message ${i}`,
           timestamp: new Date(),
           type: 'text'
@@ -340,7 +340,7 @@ describe('FileStorage Additional Coverage Tests', () => {
 
     test('should handle corrupted message log gracefully', async () => {
       const roomId = 'corrupted-room';
-      const roomMessageDir = path.join(testDir, 'messages', roomId);
+      const roomMessageDir = path.join(testDir, "messages", roomId);
       const logPath = path.join(roomMessageDir, 'messages.log');
       
       // Create directory and corrupted log
@@ -357,7 +357,7 @@ describe('FileStorage Additional Coverage Tests', () => {
         id: 'long-msg',
         roomId: 'long-room',
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         content: longContent,
         timestamp: new Date(),
         type: 'text'

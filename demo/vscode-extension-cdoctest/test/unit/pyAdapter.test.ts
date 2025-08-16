@@ -10,8 +10,8 @@ import {
 } from '../../src/pyAdapter';
 import { Config } from '../../src/config';
 import { exec } from 'child_process';
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 // Mock dependencies
 jest.mock('child_process');
@@ -31,7 +31,7 @@ function setupExecMock(stdout: string, stderr: string = '', error: Error | null 
   });
 }
 
-describe('PyAdapter', () => {
+describe("PyAdapter", () => {
   let mockConfig: Config;
   let mockReadFile: jest.Mock;
   let mockWriteFile: jest.Mock;
@@ -67,7 +67,7 @@ describe('PyAdapter', () => {
     jest.restoreAllMocks();
   });
 
-  describe('checkCDocTestVersion', () => {
+  describe("checkCDocTestVersion", () => {
     test('should return true when version meets requirement', async () => {
       setupExecMock('Name: cdoctest\nVersion: 1.2.0\nSummary: C++ doc test');
 
@@ -115,7 +115,7 @@ describe('PyAdapter', () => {
     });
   });
 
-  describe('installCDocTest', () => {
+  describe("installCDocTest", () => {
     test('should install cdoctest successfully', async () => {
       setupExecMock('Successfully installed cdoctest-1.2.0');
 
@@ -145,7 +145,7 @@ describe('PyAdapter', () => {
     });
   });
 
-  describe('checkToolchainInstalled', () => {
+  describe("checkToolchainInstalled", () => {
     test('should return true when toolchain is installed', async () => {
       setupExecMock('True');
 
@@ -163,7 +163,7 @@ describe('PyAdapter', () => {
     });
 
     test('should handle execution errors', async () => {
-      setupExecMock('', 'ModuleNotFoundError', new Error('Module not found'));
+      setupExecMock('', "ModuleNotFoundError", new Error('Module not found'));
 
       await expect(checkToolchainInstalled(mockConfig)).rejects.toThrow('Module not found');
     });
@@ -175,7 +175,7 @@ describe('PyAdapter', () => {
     });
   });
 
-  describe('getToolchainDir', () => {
+  describe("getToolchainDir", () => {
     test('should return toolchain directory path', async () => {
       setupExecMock('/usr/local/clang/bin/clang');
 
@@ -207,7 +207,7 @@ describe('PyAdapter', () => {
     });
   });
 
-  describe('runInstallBundles', () => {
+  describe("runInstallBundles", () => {
     test('should run install bundles successfully', async () => {
       setupExecMock('Bundles installed successfully');
 
@@ -231,7 +231,7 @@ describe('PyAdapter', () => {
     });
   });
 
-  describe('addNewToolchain', () => {
+  describe("addNewToolchain", () => {
     test('should add new toolchain to workspace', async () => {
       mockReadFile.mockRejectedValue({ code: 'ENOENT' } as any); // File doesn't exist
       mockWriteFile.mockResolvedValue(undefined as any);
@@ -284,7 +284,7 @@ describe('PyAdapter', () => {
 
     test('should handle Windows executable names', async () => {
       const originalPlatform = process.platform;
-      Object.defineProperty(process, 'platform', { value: 'win32', configurable: true });
+      Object.defineProperty(process, "platform", { value: 'win32', configurable: true });
 
       mockReadFile.mockRejectedValue({ code: 'ENOENT' } as any);
       mockWriteFile.mockResolvedValue(undefined as any);
@@ -296,7 +296,7 @@ describe('PyAdapter', () => {
       expect(writtenContent).toContain('clang.exe');
       expect(writtenContent).toContain('clang++.exe');
 
-      Object.defineProperty(process, 'platform', { value: originalPlatform, configurable: true });
+      Object.defineProperty(process, "platform", { value: originalPlatform, configurable: true });
     });
   });
 });

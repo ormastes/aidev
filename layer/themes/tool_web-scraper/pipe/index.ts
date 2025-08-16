@@ -66,7 +66,7 @@ export interface WebScraperConfig {
   cacheEnabled?: boolean;
   defaultExportFormat?: 'json' | 'csv' | 'xml';
   outputDirectory?: string;
-  browserEngine?: 'puppeteer' | 'playwright';
+  browserEngine?: "puppeteer" | "playwright";
 }
 
 // Factory functions for easier usage
@@ -108,9 +108,9 @@ export const BuiltInSchemas = {
     rules: [
       { name: 'title', selector: 'h1, .product-title, [data-testid*="title"]', required: true },
       { name: 'price', selector: '.price, .product-price, [data-testid*="price"]' },
-      { name: 'description', selector: '.description, .product-description' },
+      { name: "description", selector: '.description, .product-description' },
       { name: 'images', selector: '.product-image img, .gallery img', attribute: 'src', multiple: true },
-      { name: 'availability', selector: '.availability, .stock-status' },
+      { name: "availability", selector: '.availability, .stock-status' },
       { name: 'rating', selector: '.rating, .stars, [data-testid*="rating"]' },
       { name: 'reviews', selector: '.review-count, .reviews-count' }
     ]
@@ -120,9 +120,9 @@ export const BuiltInSchemas = {
     name: 'news-article',
     description: 'Extract article content from news sites',
     rules: [
-      { name: 'headline', selector: 'h1, .headline, .article-title', required: true },
+      { name: "headline", selector: 'h1, .headline, .article-title', required: true },
       { name: 'author', selector: '.author, .byline, [rel="author"]' },
-      { name: 'publishDate', selector: '.publish-date, .date, time', attribute: 'datetime' },
+      { name: "publishDate", selector: '.publish-date, .date, time', attribute: "datetime" },
       { name: 'content', selector: '.article-content, .post-content, main p', multiple: true },
       { name: 'tags', selector: '.tags a, .categories a', multiple: true },
       { name: 'summary', selector: '.summary, .excerpt, .lead' }
@@ -138,7 +138,7 @@ export const BuiltInSchemas = {
       { name: 'phone', selector: 'a[href^="tel:"], .phone' },
       { name: 'address', selector: '.address, .location' },
       { name: 'website', selector: 'a[href^="http"]', attribute: 'href' },
-      { name: 'socialMedia', selector: '.social a, [class*="social"] a', attribute: 'href', multiple: true }
+      { name: "socialMedia", selector: '.social a, [class*="social"] a', attribute: 'href', multiple: true }
     ]
   },
   
@@ -148,12 +148,12 @@ export const BuiltInSchemas = {
     rules: [
       { name: 'title', selector: 'h1, .job-title, .position-title', required: true },
       { name: 'company', selector: '.company-name, .employer' },
-      { name: 'location', selector: '.location, .job-location' },
+      { name: "location", selector: '.location, .job-location' },
       { name: 'salary', selector: '.salary, .pay, .compensation' },
-      { name: 'description', selector: '.job-description, .description' },
-      { name: 'requirements', selector: '.requirements, .qualifications' },
-      { name: 'benefits', selector: '.benefits, .perks' },
-      { name: 'postDate', selector: '.post-date, .posted', attribute: 'datetime' }
+      { name: "description", selector: '.job-description, .description' },
+      { name: "requirements", selector: '.requirements, .qualifications' },
+      { name: "benefits", selector: '.benefits, .perks' },
+      { name: "postDate", selector: '.post-date, .posted', attribute: "datetime" }
     ]
   },
   
@@ -163,12 +163,12 @@ export const BuiltInSchemas = {
     rules: [
       { name: 'price', selector: '.price, .listing-price', required: true },
       { name: 'address', selector: '.address, .property-address' },
-      { name: 'bedrooms', selector: '.beds, .bedrooms' },
-      { name: 'bathrooms', selector: '.baths, .bathrooms' },
-      { name: 'squareFootage', selector: '.sqft, .square-feet' },
-      { name: 'description', selector: '.description, .property-description' },
+      { name: "bedrooms", selector: '.beds, .bedrooms' },
+      { name: "bathrooms", selector: '.baths, .bathrooms' },
+      { name: "squareFootage", selector: '.sqft, .square-feet' },
+      { name: "description", selector: '.description, .property-description' },
       { name: 'images', selector: '.property-photo img', attribute: 'src', multiple: true },
-      { name: 'features', selector: '.features li, .amenities li', multiple: true }
+      { name: "features", selector: '.features li, .amenities li', multiple: true }
     ]
   }
 };

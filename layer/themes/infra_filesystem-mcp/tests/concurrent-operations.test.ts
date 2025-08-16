@@ -1,4 +1,4 @@
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 import { VFDistributedFeatureWrapper, DistributedFeatureFile } from '../children/VFDistributedFeatureWrapper';
 
@@ -86,7 +86,7 @@ describe('Concurrent Operations and Race Conditions', () => {
     });
 
     test('should handle rapid sequential vs concurrent feature additions performance', async () => {
-      const perfDir = path.join(testBaseDir, 'performance');
+      const perfDir = path.join(testBaseDir, "performance");
       await fs.mkdir(perfDir, { recursive: true });
 
       // Test 1: Sequential additions
@@ -106,7 +106,7 @@ describe('Concurrent Operations and Race Conditions', () => {
 
       const sequentialStart = Date.now();
       for (let i = 0; i < 50; i++) {
-        await sequentialWrapper.addFeature('sequential', {
+        await sequentialWrapper.addFeature("sequential", {
           name: `Sequential Feature ${i}`,
           data: {
             title: `Sequential Feature ${i}`,
@@ -141,7 +141,7 @@ describe('Concurrent Operations and Race Conditions', () => {
       
       for (let batch = 0; batch < 5; batch++) {
         const batchPromises = Array.from({ length: batchSize }, (_, i) => 
-          concurrentWrapper.addFeature('concurrent', {
+          concurrentWrapper.addFeature("concurrent", {
             name: `Concurrent Feature ${batch * batchSize + i}`,
             data: {
               title: `Concurrent Feature ${batch * batchSize + i}`,
@@ -198,8 +198,8 @@ describe('Concurrent Operations and Race Conditions', () => {
               title: `Test Feature ${i}`,
               description: `Feature for concurrent read testing ${i}`,
               level: 'user_story',
-              status: i % 4 === 0 ? 'completed' : i % 4 === 1 ? 'in-progress' : i % 4 === 2 ? 'planned' : 'blocked',
-              priority: i % 4 === 0 ? 'critical' : i % 4 === 1 ? 'high' : i % 4 === 2 ? 'medium' : 'low',
+              status: i % 4 === 0 ? "completed" : i % 4 === 1 ? 'in-progress' : i % 4 === 2 ? 'planned' : 'blocked',
+              priority: i % 4 === 0 ? "critical" : i % 4 === 1 ? 'high' : i % 4 === 2 ? 'medium' : 'low',
               tags: [`tag-${i % 10}`, `category-${Math.floor(i / 10)}`],
               virtual_path: '/read-test.json'
             },
@@ -312,8 +312,8 @@ describe('Concurrent Operations and Race Conditions', () => {
       console.log(`Mixed read/write operations completed in ${mixedTime}ms`);
 
       // Most operations should succeed
-      const successful = results.filter(r => r.status === 'fulfilled');
-      const failed = results.filter(r => r.status === 'rejected');
+      const successful = results.filter(r => r.status === "fulfilled");
+      const failed = results.filter(r => r.status === "rejected");
 
       console.log(`Successful: ${successful.length}, Failed: ${failed.length}`);
       
@@ -402,14 +402,14 @@ describe('Concurrent Operations and Race Conditions', () => {
       // Root level operations
       for (let i = 0; i < 3; i++) {
         hierarchyOperations.push(
-          rootWrapper.addFeature('platform', {
+          rootWrapper.addFeature("platform", {
             name: `Platform Feature ${i}`,
             data: {
               title: `Platform Feature ${i}`,
               description: 'Root level feature',
               level: 'root',
               status: 'planned',
-              priority: 'critical',
+              priority: "critical",
               virtual_path: '/FEATURE.vf.json'
             }
           })
@@ -466,8 +466,8 @@ describe('Concurrent Operations and Race Conditions', () => {
 
       console.log(`Hierarchical concurrent operations completed in ${hierarchyTime}ms`);
 
-      const hierarchySuccessful = hierarchyResults.filter(r => r.status === 'fulfilled');
-      const hierarchyFailed = hierarchyResults.filter(r => r.status === 'rejected');
+      const hierarchySuccessful = hierarchyResults.filter(r => r.status === "fulfilled");
+      const hierarchyFailed = hierarchyResults.filter(r => r.status === "rejected");
 
       console.log(`Hierarchical - Successful: ${hierarchySuccessful.length}, Failed: ${hierarchyFailed.length}`);
 
@@ -481,7 +481,7 @@ describe('Concurrent Operations and Race Conditions', () => {
       const finalStory2Result = await story2Wrapper.read(story2Path);
 
       // Should have features at each level
-      expect(Object.keys(finalRootResult.features)).toContain('platform');
+      expect(Object.keys(finalRootResult.features)).toContain("platform");
       expect(Object.keys(finalEpicResult.features)).toContain('theme');
       expect(Object.keys(finalStory1Result.features)).toContain('story_1');
       expect(Object.keys(finalStory2Result.features)).toContain('story_2');
@@ -541,7 +541,7 @@ describe('Concurrent Operations and Race Conditions', () => {
 
       // Concurrently add child features that reference the parents
       const childOperations = Array.from({ length: 20 }, (_, i) => 
-        wrapper.addFeature('children', {
+        wrapper.addFeature("children", {
           name: `Child Feature ${i}`,
           data: {
             title: `Child Feature ${i}`,
@@ -563,7 +563,7 @@ describe('Concurrent Operations and Race Conditions', () => {
 
       console.log(`Concurrent child additions completed in ${childTime}ms`);
 
-      const childSuccessful = childResults.filter(r => r.status === 'fulfilled');
+      const childSuccessful = childResults.filter(r => r.status === "fulfilled");
       console.log(`Child operations - Successful: ${childSuccessful.length}, Failed: ${childResults.length - childSuccessful.length}`);
 
       // Verify parent-child relationships
@@ -623,7 +623,7 @@ describe('Concurrent Operations and Race Conditions', () => {
           features: {}
         }).then(() => 
           // Add orphaned feature (should create common epic)
-          orphanWrapper.addFeature('orphaned', {
+          orphanWrapper.addFeature("orphaned", {
             name: `Orphaned Feature ${i}`,
             data: {
               title: `Orphaned Feature ${i}`,
@@ -631,7 +631,7 @@ describe('Concurrent Operations and Race Conditions', () => {
               level: 'user_story',
               status: 'planned',
               priority: 'medium',
-              tags: ['orphaned', `batch-${Math.floor(i / 5)}`],
+              tags: ["orphaned", `batch-${Math.floor(i / 5)}`],
               virtual_path: `/orphan-${i}.json`
             }
           })
@@ -647,7 +647,7 @@ describe('Concurrent Operations and Race Conditions', () => {
 
       console.log(`Concurrent orphan feature creation completed in ${orphanTime}ms`);
 
-      const orphanSuccessful = orphanResults.filter(r => r.status === 'fulfilled');
+      const orphanSuccessful = orphanResults.filter(r => r.status === "fulfilled");
       console.log(`Orphan operations - Successful: ${orphanSuccessful.length}, Failed: ${orphanResults.length - orphanSuccessful.length}`);
 
       // Verify all orphaned features got common epics
@@ -742,8 +742,8 @@ describe('Concurrent Operations and Race Conditions', () => {
               title: `Stress Feature ${i}`,
               description: `High-volume stress test feature ${i}`,
               level: 'user_story',
-              status: ['planned', 'in-progress', 'completed', 'blocked'][i % 4] as any,
-              priority: ['critical', 'high', 'medium', 'low'][i % 4] as any,
+              status: ['planned', 'in-progress', "completed", 'blocked'][i % 4] as any,
+              priority: ["critical", 'high', 'medium', 'low'][i % 4] as any,
               tags: [`stress-${i}`, `batch-${Math.floor(i / 10)}`, `group-${i % 5}`],
               virtual_path: '/stress.json'
             }
@@ -765,8 +765,8 @@ describe('Concurrent Operations and Race Conditions', () => {
 
       console.log(`Stress test (100 operations) completed in ${stressTime}ms`);
 
-      const stressSuccessful = stressResults.filter(r => r.status === 'fulfilled');
-      const stressFailed = stressResults.filter(r => r.status === 'rejected');
+      const stressSuccessful = stressResults.filter(r => r.status === "fulfilled");
+      const stressFailed = stressResults.filter(r => r.status === "rejected");
 
       console.log(`Stress test - Successful: ${stressSuccessful.length}, Failed: ${stressFailed.length}`);
 

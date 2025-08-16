@@ -42,7 +42,7 @@ async function runDeploymentTests(options: TestRunOptions = {}) {
     
     // Get environments to test
     const environments = finalOptions.environments || 
-      ['local-dev', 'local-release', 'staging', 'production'];
+      ['local-dev', 'local-release', 'staging', "production"];
     
     console.log(`Testing apps: ${appsToTest.join(', ')}`);
     console.log(`Environments: ${environments.join(', ')}\n`);

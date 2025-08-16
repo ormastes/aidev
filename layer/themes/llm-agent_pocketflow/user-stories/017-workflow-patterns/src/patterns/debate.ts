@@ -19,7 +19,7 @@ export class DebatePattern extends BasePattern {
   build(agents: Agent[], config?: DebateConfig): PocketFlow {
     const flow = new PocketFlow();
     const rounds = config?.rounds ?? 3;
-    const votingStrategy = config?.votingStrategy ?? 'majority';
+    const votingStrategy = config?.votingStrategy ?? "majority";
     const moderator = config?.moderatorAgent;
     
     // Add input node
@@ -77,7 +77,7 @@ export class DebatePattern extends BasePattern {
                   previousPositions.length > 0 
                     ? `Your previous positions:\n${previousPositions.join('\n')}\n\n`
                     : ''
-                }Provide your ${round === 1 ? 'position' : 'response'}:`
+                }Provide your ${round === 1 ? "position" : "response"}:`
               }]
             };
           },
@@ -131,25 +131,25 @@ export class DebatePattern extends BasePattern {
     }
     
     // Final consensus building
-    const consensusNode = new TransformNode('consensus', (context: any) => {
+    const consensusNode = new TransformNode("consensus", (context: any) => {
       const finalPositions = Array.from(context.positions.entries()) as [string, string][];
       
       // Apply voting strategy
       let consensus: string;
       
       switch (votingStrategy) {
-        case 'majority':
+        case "majority":
           // Find common themes (simplified)
           const themes = this.extractCommonThemes(finalPositions);
           consensus = `Based on majority agreement: ${themes.join(', ')}`;
           break;
           
-        case 'weighted':
+        case "weighted":
           // Weight by consistency across rounds
           consensus = this.weightedConsensus(context.history);
           break;
           
-        case 'moderator':
+        case "moderator":
           // Moderator decides (if available)
           consensus = moderator 
             ? 'Moderator decision pending'
@@ -171,11 +171,11 @@ export class DebatePattern extends BasePattern {
     });
     
     flow.addNode(consensusNode);
-    flow.addEdge({ from: previousRoundId, to: 'consensus' });
+    flow.addEdge({ from: previousRoundId, to: "consensus" });
     
     // Optional moderator summary
     if (moderator) {
-      const moderatorNode = new AgentNode('moderator', moderator, {
+      const moderatorNode = new AgentNode("moderator", moderator, {
         extractInput: (data: any) => ({
           messages: [{
             role: 'system',
@@ -198,12 +198,12 @@ export class DebatePattern extends BasePattern {
       });
       
       flow.addNode(moderatorNode);
-      flow.addEdge({ from: 'consensus', to: 'moderator' });
+      flow.addEdge({ from: "consensus", to: "moderator" });
       flow.addNode(new OutputNode('output'));
-      flow.addEdge({ from: 'moderator', to: 'output' });
+      flow.addEdge({ from: "moderator", to: 'output' });
     } else {
       flow.addNode(new OutputNode('output'));
-      flow.addEdge({ from: 'consensus', to: 'output' });
+      flow.addEdge({ from: "consensus", to: 'output' });
     }
     
     return flow;

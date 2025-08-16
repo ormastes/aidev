@@ -15,7 +15,7 @@ const fileAPI = getFileAPI();
 
 export interface StructureNode {
   name: string;
-  type: 'directory' | 'file' | 'template_ref';
+  type: "directory" | 'file' | 'template_ref';
   template?: string;
   required?: boolean;
   pattern?: string;
@@ -25,7 +25,7 @@ export interface StructureNode {
 
 export interface Template {
   id: string;
-  type: 'directory' | 'file';
+  type: "directory" | 'file';
   inherits?: string;
   description?: string;
   required_children?: StructureNode[];
@@ -138,7 +138,7 @@ export class VFFileStructureWrapper extends VFFileWrapper {
             message: `"${part}" must be a file, not a directory`
           };
         }
-        if (!isDirectory && matchedNode.type === 'directory') {
+        if (!isDirectory && matchedNode.type === "directory") {
           return {
             valid: false,
             message: `"${part}" must be a directory, not a file`
@@ -280,7 +280,7 @@ export class VFFileStructureWrapper extends VFFileWrapper {
     }
 
     let result = `${prefix}${node.name}`;
-    if (node.type === 'directory' || node.template) {
+    if (node.type === "directory" || node.template) {
       result += '/';
     }
     if (node.description) {
@@ -541,7 +541,7 @@ export class VFFileStructureWrapper extends VFFileWrapper {
       currentPath = path.join(currentPath, part);
       
       // Create directory if it doesn't exist and is a directory type
-      if (matchedNode.type === 'directory' || matchedNode.template) {
+      if (matchedNode.type === "directory" || matchedNode.template) {
         try {
           await fs.access(currentPath);
         } catch {
@@ -555,7 +555,7 @@ export class VFFileStructureWrapper extends VFFileWrapper {
           for (const child of children.filter(c => c.required !== false)) {
             const childPath = path.join(currentPath, child.name);
             
-            if (child.type === 'directory') {
+            if (child.type === "directory") {
               try {
                 await fs.access(childPath);
               } catch {

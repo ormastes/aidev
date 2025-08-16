@@ -15,8 +15,8 @@ async function verifyMultiInstance() {
   try {
     // Create test projects
     const testDir = '/tmp/lsp-mcp-test';
-    const project1Dir = path.join(testDir, 'project1');
-    const project2Dir = path.join(testDir, 'project2');
+    const project1Dir = path.join(testDir, "project1");
+    const project2Dir = path.join(testDir, "project2");
     
     console.log('📁 Creating test projects...');
     await fileAPI.createDirectory(testDir);
@@ -88,7 +88,7 @@ const alsoValid = greet(); // This might not error in non-strict
       character: 16,
       instanceId: instance1
     });
-    console.log(`  Function parameter type: ${type1?.type || 'detected'}`);
+    console.log(`  Function parameter type: ${type1?.type || "detected"}`);
     
     // Get diagnostics for project 1
     try {

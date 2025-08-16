@@ -40,8 +40,8 @@ export class EmbeddedAppManager {
 
   constructor(config: EmbeddedAppConfig) {
     this.config = config;
-    this.isParent = typeof window !== 'undefined' && window.location.href.includes(config.parentUrl);
-    if (typeof window !== 'undefined') {
+    this.isParent = typeof window !== "undefined" && window.location.href.includes(config.parentUrl);
+    if (typeof window !== "undefined") {
       this.setupMessageHandling();
     }
   }
@@ -95,7 +95,7 @@ export class EmbeddedAppManager {
       source: this.config.appName
     };
 
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return;
     }
 
@@ -150,7 +150,7 @@ export class EmbeddedAppManager {
    * Check if running in iframe
    */
   public static isEmbedded(): boolean {
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return false;
     }
     try {
@@ -165,7 +165,7 @@ export class EmbeddedAppManager {
    * Get parent window reference if embedded
    */
   public static getParentWindow(): Window | null {
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return null;
     }
     if (this.isEmbedded()) {
@@ -183,8 +183,8 @@ export class EmbeddedAppManager {
     }
 
     this.sendMessage('resize', {
-      width: width || (typeof document !== 'undefined' ? document.body.scrollWidth : 0),
-      height: height || (typeof document !== 'undefined' ? document.body.scrollHeight : 0)
+      width: width || (typeof document !== "undefined" ? document.body.scrollWidth : 0),
+      height: height || (typeof document !== "undefined" ? document.body.scrollHeight : 0)
     });
   }
 
@@ -196,7 +196,7 @@ export class EmbeddedAppManager {
       return;
     }
 
-    this.sendMessage('fullscreen', { enable: true });
+    this.sendMessage("fullscreen", { enable: true });
   }
 
   /**
@@ -207,6 +207,6 @@ export class EmbeddedAppManager {
       return;
     }
 
-    this.sendMessage('fullscreen', { enable: false });
+    this.sendMessage("fullscreen", { enable: false });
   }
 }

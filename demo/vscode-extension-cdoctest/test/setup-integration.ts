@@ -9,7 +9,7 @@ import './setup';
 beforeAll(() => {
   // Set up integration test environment
   process.env.NODE_ENV = 'test';
-  process.env.TEST_TYPE = 'integration';
+  process.env.TEST_TYPE = "integration";
 });
 
 // Longer timeout for integration tests

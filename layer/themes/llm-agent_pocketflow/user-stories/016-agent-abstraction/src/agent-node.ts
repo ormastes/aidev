@@ -40,10 +40,10 @@ export class AgentNode implements Node {
         : this.defaultFormatOutput(agentOutput);
 
       // Store in context if needed
-      if (input.context.variables.has('conversation')) {
-        const conversation = input.context.variables.get('conversation') as Message[];
+      if (input.context.variables.has("conversation")) {
+        const conversation = input.context.variables.get("conversation") as Message[];
         conversation.push(...agentInput.messages, agentOutput.message);
-        input.context.variables.set('conversation', conversation);
+        input.context.variables.set("conversation", conversation);
       }
 
       return {
@@ -67,7 +67,7 @@ export class AgentNode implements Node {
     // Handle various input formats
     if (data && typeof data === 'object') {
       // Already in agent input format
-      if ('messages' in data && Array.isArray(data.messages)) {
+      if ("messages" in data && Array.isArray(data.messages)) {
         return data as AgentInput;
       }
       

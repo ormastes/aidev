@@ -36,7 +36,7 @@ export interface WebAppConfig {
 
 export interface DeploymentTestSuite {
   name: string;
-  environments: ('local-dev' | 'local-release' | 'staging' | 'production')[];
+  environments: ('local-dev' | 'local-release' | 'staging' | "production")[];
   tests: DeploymentTest[];
   options?: {
     parallel?: boolean;
@@ -48,7 +48,7 @@ export interface DeploymentTestSuite {
 
 export interface DeploymentTest {
   name: string;
-  type: 'health' | 'functional' | 'integration' | 'performance' | 'security';
+  type: 'health' | "functional" | "integration" | "performance" | "security";
   test: (context: TestContext) => Promise<TestResult>;
   critical?: boolean;
   environments?: string[];
@@ -156,7 +156,7 @@ export class WebAppDeploymentTester {
     
     return {
       name: `${app.name} Deployment Tests`,
-      environments: ['local-dev', 'local-release', 'staging', 'production'],
+      environments: ['local-dev', 'local-release', 'staging', "production"],
       tests: [
         // Health checks
         {
@@ -174,30 +174,30 @@ export class WebAppDeploymentTester {
         // Functional tests
         {
           name: 'Main Page Load',
-          type: 'functional',
+          type: "functional",
           critical: true,
           test: async (ctx) => this.testMainPageLoad(ctx)
         },
         {
           name: 'Navigation Test',
-          type: 'functional',
+          type: "functional",
           test: async (ctx) => this.testNavigation(ctx)
         },
         {
           name: 'Core Features Test',
-          type: 'functional',
+          type: "functional",
           test: async (ctx) => this.testCoreFeatures(ctx)
         },
         
         // Integration tests
         {
           name: 'API Integration',
-          type: 'integration',
+          type: "integration",
           test: async (ctx) => this.testAPIIntegration(ctx)
         },
         {
           name: 'Database Connectivity',
-          type: 'integration',
+          type: "integration",
           test: async (ctx) => this.testDatabaseConnectivity(ctx),
           environments: ['local-dev', 'local-release', 'staging']
         },
@@ -205,27 +205,27 @@ export class WebAppDeploymentTester {
         // Performance tests
         {
           name: 'Page Load Performance',
-          type: 'performance',
+          type: "performance",
           test: async (ctx) => this.testPageLoadPerformance(ctx)
         },
         {
           name: 'API Response Time',
-          type: 'performance',
+          type: "performance",
           test: async (ctx) => this.testAPIResponseTime(ctx)
         },
         
         // Security tests
         {
           name: 'Security Headers',
-          type: 'security',
+          type: "security",
           test: async (ctx) => this.testSecurityHeaders(ctx),
-          environments: ['staging', 'production']
+          environments: ['staging', "production"]
         },
         {
           name: 'SSL Certificate',
-          type: 'security',
+          type: "security",
           test: async (ctx) => this.testSSLCertificate(ctx),
-          environments: ['staging', 'production']
+          environments: ['staging', "production"]
         }
       ],
       options: {
@@ -436,7 +436,7 @@ export class WebAppDeploymentTester {
   
   private async testMainPageLoad(ctx: TestContext): Promise<TestResult> {
     try {
-      await ctx.page.goto(ctx.baseUrl, { waitUntil: 'networkidle' });
+      await ctx.page.goto(ctx.baseUrl, { waitUntil: "networkidle" });
       const title = await ctx.page.title();
       
       return {
@@ -464,7 +464,7 @@ export class WebAppDeploymentTester {
       const results: any[] = [];
       for (const link of links.slice(0, 5)) { // Test first 5 links
         try {
-          await ctx.page.goto(link.href, { waitUntil: 'domcontentloaded' });
+          await ctx.page.goto(link.href, { waitUntil: "domcontentloaded" });
           results.push({ link: link.text, status: 'success' });
         } catch (error) {
           results.push({ link: link.text, status: 'failed', error: error.message });
@@ -551,7 +551,7 @@ export class WebAppDeploymentTester {
   private async testPageLoadPerformance(ctx: TestContext): Promise<TestResult> {
     try {
       const startTime = Date.now();
-      await ctx.page.goto(ctx.baseUrl, { waitUntil: 'networkidle' });
+      await ctx.page.goto(ctx.baseUrl, { waitUntil: "networkidle" });
       const loadTime = Date.now() - startTime;
       
       const metrics = await ctx.page.evaluate(() => {
@@ -772,7 +772,7 @@ export class WebAppDeploymentTester {
       environment = {
         name: envName,
         type: 'local',
-        domain: 'localhost',
+        domain: "localhost",
         port,
         protocol: 'http',
         healthCheckEndpoint: app.healthEndpoints.dev
@@ -828,7 +828,7 @@ export class WebAppDeploymentTester {
     
     // Performance recommendations
     for (const env of report.environments) {
-      const perfTest = env.tests.find(t => t.type === 'performance');
+      const perfTest = env.tests.find(t => t.type === "performance");
       if (perfTest && !perfTest.result.passed) {
         recommendations.push('Performance issues detected - optimize before production');
         break;
@@ -837,7 +837,7 @@ export class WebAppDeploymentTester {
     
     // Security recommendations
     for (const env of report.environments) {
-      const secTest = env.tests.find(t => t.type === 'security');
+      const secTest = env.tests.find(t => t.type === "security");
       if (secTest && !secTest.result.passed) {
         recommendations.push('Security issues detected - address before production deployment');
         break;
@@ -868,7 +868,7 @@ export class WebAppDeploymentTester {
     const configFile = path.join(__dirname, '../config/web-apps.json');
     if (fs.existsSync(configFile)) {
       try {
-        const data = JSON.parse(fs.readFileSync(configFile, 'utf-8'));
+        const data = JSON.parse(fileAPI.readFileSync(configFile, 'utf-8'));
         for (const app of data.apps || []) {
           this.webApps.set(app.appId, app);
         }

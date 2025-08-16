@@ -57,7 +57,7 @@ const { TabPane } = Tabs;
 
 interface GitFile {
   path: string;
-  status: 'modified' | 'added' | 'deleted' | 'renamed' | 'untracked';
+  status: "modified" | 'added' | 'deleted' | 'renamed' | "untracked";
   staged: boolean;
   additions?: number;
   deletions?: number;
@@ -128,11 +128,11 @@ export const GitPanel: React.FC<GitPanelProps> = ({
 
   // Mock data for demonstration
   const mockFiles: GitFile[] = [
-    { path: 'src/App.tsx', status: 'modified', staged: false, additions: 10, deletions: 5 },
+    { path: 'src/App.tsx', status: "modified", staged: false, additions: 10, deletions: 5 },
     { path: 'src/components/Header.tsx', status: 'added', staged: true, additions: 50, deletions: 0 },
     { path: 'src/styles/old.css', status: 'deleted', staged: false, additions: 0, deletions: 100 },
-    { path: 'README.md', status: 'modified', staged: true, additions: 3, deletions: 1 },
-    { path: 'package.json', status: 'modified', staged: false, additions: 2, deletions: 0 }
+    { path: 'README.md', status: "modified", staged: true, additions: 3, deletions: 1 },
+    { path: 'package.json', status: "modified", staged: false, additions: 2, deletions: 0 }
   ];
 
   const mockCommits: GitCommit[] = [
@@ -300,13 +300,13 @@ export const GitPanel: React.FC<GitPanelProps> = ({
     switch (status) {
       case 'added':
         return '#52c41a';
-      case 'modified':
+      case "modified":
         return '#1890ff';
       case 'deleted':
         return '#ff4d4f';
       case 'renamed':
         return '#722ed1';
-      case 'untracked':
+      case "untracked":
         return '#8c8c8c';
       default:
         return '#8c8c8c';
@@ -318,13 +318,13 @@ export const GitPanel: React.FC<GitPanelProps> = ({
     switch (status) {
       case 'added':
         return <PlusOutlined />;
-      case 'modified':
+      case "modified":
         return <EditOutlined />;
       case 'deleted':
         return <MinusOutlined />;
       case 'renamed':
         return <DiffOutlined />;
-      case 'untracked':
+      case "untracked":
         return <FileAddOutlined />;
       default:
         return <FileAddOutlined />;

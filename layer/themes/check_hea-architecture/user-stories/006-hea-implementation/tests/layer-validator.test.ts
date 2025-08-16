@@ -1,14 +1,14 @@
 import { LayerValidator } from '../src/core/layer-validator';
 import { LayerType, LayerConfig } from '../src/interfaces/layer';
 
-describe('LayerValidator', () => {
+describe("LayerValidator", () => {
   let validator: LayerValidator;
 
   beforeEach(() => {
     validator = new LayerValidator();
   });
 
-  describe('validateDependencies', () => {
+  describe("validateDependencies", () => {
     it('should allow Core layer to depend on itself', () => {
       const coreLayer: LayerConfig = {
         name: 'core',
@@ -81,7 +81,7 @@ describe('LayerValidator', () => {
       };
 
       const infraLayer: LayerConfig = {
-        name: 'database',
+        name: "database",
         type: LayerType.Infrastructure,
         path: '/layer/infrastructure/database',
         dependencies: [],
@@ -99,7 +99,7 @@ describe('LayerValidator', () => {
     });
   });
 
-  describe('checkCircularDependencies', () => {
+  describe("checkCircularDependencies", () => {
     it('should detect circular dependencies', () => {
       const layers = new Map<string, LayerConfig>([
         ['layer-a', {
@@ -159,7 +159,7 @@ describe('LayerValidator', () => {
     });
   });
 
-  describe('validateImport', () => {
+  describe("validateImport", () => {
     it('should validate imports from allowed layers', () => {
       const layers = new Map<string, LayerConfig>([
         ['core', {

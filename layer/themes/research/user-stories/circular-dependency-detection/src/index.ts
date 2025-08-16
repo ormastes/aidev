@@ -20,7 +20,7 @@ export { VisualizationGenerator } from './cli/visualization-generator';
 // Convenience factory functions
 export function createAnalyzer(language: string) {
   switch (language.toLowerCase()) {
-    case 'typescript':
+    case "typescript":
     case 'ts':
       return new (require('./typescript/ts-analyzer').TypeScriptAnalyzer)();
     case 'cpp':

@@ -1,4 +1,4 @@
-const http = require('http');
+const http = require('node:http');
 
 http.get('http://localhost:3000', (res) => {
     let data = '';

@@ -1,10 +1,11 @@
+const { fileAPI } = require('../utils/file-api');
 /**
  * File API Enforcement Configuration
  * Defines rules and policies for enforcing FileCreationAPI usage
  */
 
 export interface EnforcementPolicy {
-  mode: 'strict' | 'moderate' | 'permissive';
+  mode: 'strict' | "moderate" | "permissive";
   rules: EnforcementRule[];
   exemptions: Exemption[];
   reporting: ReportingConfig;
@@ -130,7 +131,7 @@ export const ENFORCEMENT_POLICIES: Record<string, EnforcementPolicy> = {
   },
   
   development: {
-    mode: 'moderate',
+    mode: "moderate",
     rules: DEFAULT_RULES.map(r => ({ 
       ...r, 
       action: r.severity === 'error' ? 'warn' as const : 'log' as const 
@@ -144,7 +145,7 @@ export const ENFORCEMENT_POLICIES: Record<string, EnforcementPolicy> = {
   },
   
   test: {
-    mode: 'permissive',
+    mode: "permissive",
     rules: DEFAULT_RULES.map(r => ({ ...r, action: 'log' as const })),
     exemptions: [
       ...DEFAULT_EXEMPTIONS,
@@ -162,7 +163,7 @@ export const ENFORCEMENT_POLICIES: Record<string, EnforcementPolicy> = {
  * Get enforcement policy for current environment
  */
 export function getEnforcementPolicy(): EnforcementPolicy {
-  const env = process.env.NODE_ENV || 'development';
+  const env = process.env.NODE_ENV || "development";
   return ENFORCEMENT_POLICIES[env] || ENFORCEMENT_POLICIES.development;
 }
 

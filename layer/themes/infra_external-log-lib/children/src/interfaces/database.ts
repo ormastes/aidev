@@ -6,7 +6,7 @@
  */
 
 export interface DatabaseConnectionConfig {
-  type: 'sqlite' | 'postgres' | 'mysql';
+  type: 'sqlite' | "postgres" | 'mysql';
   host?: string;
   port?: number;
   user?: string;
@@ -142,7 +142,7 @@ export interface DatabaseIndex {
   table: string;
   columns: string[];
   unique: boolean;
-  type: 'btree' | 'hash' | 'gist' | 'gin' | 'fulltext';
+  type: 'btree' | 'hash' | 'gist' | 'gin' | "fulltext";
 }
 
 export interface DatabaseConstraint {
@@ -165,15 +165,15 @@ export interface DatabaseUpdateValidation {
 
 // Event interfaces for database monitoring
 export interface DatabaseEvent {
-  type: 'connection' | 'query' | 'error' | 'health' | 'migration';
+  type: "connection" | 'query' | 'error' | 'health' | "migration";
   timestamp: Date;
   data: any;
 }
 
 export interface ConnectionEvent extends DatabaseEvent {
-  type: 'connection';
+  type: "connection";
   data: {
-    action: 'connect' | 'disconnect' | 'reconnect';
+    action: 'connect' | "disconnect" | "reconnect";
     "success": boolean;
     error?: string;
     connectionId?: string;
@@ -243,13 +243,13 @@ export interface DatabaseWrapperFactory {
 export interface E2ETestScenario {
   name: string;
   description: string;
-  databaseTypes: Array<'sqlite' | 'postgres' | 'mysql'>;
+  databaseTypes: Array<'sqlite' | "postgres" | 'mysql'>;
   testSteps: E2ETestStep[];
   expectedResults: E2ETestExpectation[];
 }
 
 export interface E2ETestStep {
-  action: 'connect' | 'query' | 'insert' | 'update' | 'delete' | 'health_check' | 'disconnect';
+  action: 'connect' | 'query' | 'insert' | 'update' | 'delete' | 'health_check' | "disconnect";
   sql?: string;
   parameters?: any[];
   expectedRowCount?: number;
@@ -259,7 +259,7 @@ export interface E2ETestStep {
 
 export interface E2ETestExpectation {
   metric: string;
-  operator: '>' | '<' | '>=' | '<=' | '==' | '!=' | 'contains' | 'regex';
+  operator: '>' | '<' | '>=' | '<=' | '==' | '!=' | "contains" | 'regex';
   value: any;
   optional?: boolean;
 }

@@ -21,7 +21,7 @@ healthRouter.get('/ready', (req, res) => {
     res.json({
       status: 'ready',
       checks: {
-        database: 'connected',
+        database: "connected",
         templates: 'loaded'
       }
     });
@@ -29,7 +29,7 @@ healthRouter.get('/ready', (req, res) => {
     res.status(503).json({
       status: 'not ready',
       checks: {
-        database: 'disconnected',
+        database: "disconnected",
         templates: 'loading'
       }
     });

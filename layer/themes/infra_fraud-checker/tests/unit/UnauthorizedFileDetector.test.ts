@@ -7,7 +7,7 @@ import { fs } from '../../../infra_external-log-lib/src';
 import { path } from '../../../infra_external-log-lib/src';
 import { os } from '../../../infra_external-log-lib/src';
 
-describe('UnauthorizedFileDetector', () => {
+describe("UnauthorizedFileDetector", () => {
   let tempDir: string;
   let detector: UnauthorizedFileDetector;
   
@@ -27,7 +27,7 @@ describe('UnauthorizedFileDetector', () => {
   describe('detect', () => {
     it('should detect unauthorized root directories', async () => {
       // Create unauthorized directories
-      fs.mkdirSync(path.join(tempDir, 'coverage'));
+      fs.mkdirSync(path.join(tempDir, "coverage"));
       fs.mkdirSync(path.join(tempDir, 'deploy'));
       fs.mkdirSync(path.join(tempDir, 'src'));
       
@@ -39,7 +39,7 @@ describe('UnauthorizedFileDetector', () => {
       const violations = result.violations.filter(v => v.type === 'unauthorized_directory');
       expect(violations).toHaveLength(3);
       
-      const coverageViolation = violations.find(v => v.path === 'coverage');
+      const coverageViolation = violations.find(v => v.path === "coverage");
       expect(coverageViolation).toBeDefined();
       expect(coverageViolation?.suggestedLocation).toBe('gen/coverage/');
     });
@@ -55,7 +55,7 @@ describe('UnauthorizedFileDetector', () => {
       expect(result.valid).toBe(false);
       
       const backupViolations = result.violations.filter(
-        v => v.reason.includes('Backup') || v.reason.includes('Temporary')
+        v => v.reason.includes('Backup') || v.reason.includes("Temporary")
       );
       expect(backupViolations.length).toBeGreaterThanOrEqual(3);
     });
@@ -95,7 +95,7 @@ describe('UnauthorizedFileDetector', () => {
     
     it('should find creators of violations', async () => {
       // Create a test directory
-      fs.mkdirSync(path.join(tempDir, 'coverage'));
+      fs.mkdirSync(path.join(tempDir, "coverage"));
       
       // Create a mock test file that creates the directory
       const testDir = path.join(tempDir, 'tests');
@@ -107,7 +107,7 @@ describe('UnauthorizedFileDetector', () => {
       
       const result = await detector.detect();
       
-      const coverageViolation = result.violations.find(v => v.path === 'coverage');
+      const coverageViolation = result.violations.find(v => v.path === "coverage");
       expect(coverageViolation).toBeDefined();
       
       // Note: Creator detection might not work in test environment
@@ -115,10 +115,10 @@ describe('UnauthorizedFileDetector', () => {
     });
   });
   
-  describe('generateReport', () => {
+  describe("generateReport", () => {
     it('should generate markdown report', async () => {
       // Create some violations
-      fs.mkdirSync(path.join(tempDir, 'coverage'));
+      fs.mkdirSync(path.join(tempDir, "coverage"));
       fs.writeFileSync(path.join(tempDir, 'file.bak'), 'backup');
       
       const result = await detector.detect();
@@ -130,7 +130,7 @@ describe('UnauthorizedFileDetector', () => {
       expect(report).toContain('## Violations');
       
       if (result.violations.length > 0) {
-        expect(report).toContain('UNAUTHORIZED');
+        expect(report).toContain("UNAUTHORIZED");
         expect(report).toContain('## Recommended Actions');
       }
     });
@@ -166,14 +166,14 @@ describe('UnauthorizedFileDetector', () => {
         templates: {
           root: {
             id: 'root',
-            type: 'directory',
+            type: "directory",
             freeze: true,
             freeze_message: 'Root is frozen'
           }
         },
         structure: {
           name: '/',
-          type: 'directory',
+          type: "directory",
           template: 'root'
         }
       };
@@ -184,7 +184,7 @@ describe('UnauthorizedFileDetector', () => {
       );
       
       // Create an unauthorized directory
-      fs.mkdirSync(path.join(tempDir, 'unauthorized'));
+      fs.mkdirSync(path.join(tempDir, "unauthorized"));
       
       const result = await detector.detect();
       

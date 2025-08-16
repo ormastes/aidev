@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 import { LayerType, LayerConfig, DependencyInfo, DependencyType } from '../interfaces/layer';
 import { path } from '../../../../../infra_external-log-lib/src';
 import { fs } from '../../../../../infra_external-log-lib/src';

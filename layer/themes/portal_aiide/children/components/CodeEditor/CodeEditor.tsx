@@ -57,12 +57,12 @@ export const CodeEditor: React.FC = () => {
 function getLanguageFromPath(path: string): string {
   const ext = path.split('.').pop()?.toLowerCase();
   const languageMap: Record<string, string> = {
-    js: 'javascript',
-    jsx: 'javascript',
-    ts: 'typescript',
-    tsx: 'typescript',
+    js: "javascript",
+    jsx: "javascript",
+    ts: "typescript",
+    tsx: "typescript",
     json: 'json',
-    md: 'markdown',
+    md: "markdown",
     py: 'python',
     java: 'java',
     cpp: 'cpp',
@@ -78,5 +78,5 @@ function getLanguageFromPath(path: string): string {
     sh: 'shell',
     bash: 'shell',
   };
-  return languageMap[ext || ''] || 'plaintext';
+  return languageMap[ext || ''] || "plaintext";
 }

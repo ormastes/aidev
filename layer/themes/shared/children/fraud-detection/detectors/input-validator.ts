@@ -14,7 +14,7 @@ import {
 } from '../types';
 
 export class InputValidator implements FraudDetector {
-  name = 'InputValidator';
+  name = "InputValidator";
 
   private readonly emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   private readonly phoneRegex = /^[\d\s\-\+\(\)]+$/;
@@ -169,12 +169,12 @@ export class InputValidator implements FraudDetector {
     }
 
     // Check for prototype pollution attempts
-    if ('__proto__' in obj || 'constructor' in obj || 'prototype' in obj) {
+    if ('__proto__' in obj || "constructor" in obj || "prototype" in obj) {
       violations.push({
         type: ViolationType.SUSPICIOUS_PATTERN,
         severity: FraudSeverity.HIGH,
         message: 'Potential prototype pollution attempt',
-        evidence: Object.keys(obj).filter(k => k.includes('proto') || k === 'constructor')
+        evidence: Object.keys(obj).filter(k => k.includes('proto') || k === "constructor")
       });
     }
 

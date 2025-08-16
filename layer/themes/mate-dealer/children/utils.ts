@@ -74,4 +74,4 @@ export interface DealDetails {
   margin: number;
 }
 
-export type DealStatus = 'pending' | 'active' | 'completed' | 'cancelled';
+export type DealStatus = 'pending' | 'active' | "completed" | "cancelled";

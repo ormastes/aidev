@@ -153,7 +153,7 @@ describe('Statistics Analyzer External Interface Test (NO MOCKS)', () => {
       failurePatterns.forEach(pattern => {
         expect(pattern).toHaveProperty('pattern');
         expect(pattern).toHaveProperty('count');
-        expect(pattern).toHaveProperty('scenarios');
+        expect(pattern).toHaveProperty("scenarios");
         expect(typeof pattern.pattern).toBe('string');
         expect(typeof pattern.count).toBe('number');
         expect(Array.isArray(pattern.scenarios)).toBe(true);
@@ -263,7 +263,7 @@ describe('Statistics Analyzer External Interface Test (NO MOCKS)', () => {
 
       // Validate external interface provides trend insights
       expect(trendAnalysis.improvementPercentage).toBeGreaterThan(0);
-      expect(trendAnalysis.performanceTrend).toBe('improving');
+      expect(trendAnalysis.performanceTrend).toBe("improving");
       expect(trendAnalysis.regressions).toEqual([]);
       expect(Array.isArray(trendAnalysis.improvements)).toBe(true);
       expect(trendAnalysis.improvements.length).toBeGreaterThan(0);
@@ -329,7 +329,7 @@ describe('Statistics Analyzer External Interface Test (NO MOCKS)', () => {
       const regression = regressions[0];
       expect(regression.scenarioId).toBe('scenario-1');
       expect(regression.type).toBe('status_regression');
-      expect(regression.previousStatus).toBe('In Progress');
+      expect(regression.previousStatus).toBe("completed");
       expect(regression.currentStatus).toBe('failed');
       expect(regression.severity).toBe('high');
     });
@@ -362,10 +362,10 @@ describe('Statistics Analyzer External Interface Test (NO MOCKS)', () => {
       const exportedData = statisticsAnalyzer.exportStatistics(testResults);
 
       // Validate external interface exports structured data
-      expect(exportedData).toHaveProperty('basicStatistics');
-      expect(exportedData).toHaveProperty('advancedMetrics');
+      expect(exportedData).toHaveProperty("basicStatistics");
+      expect(exportedData).toHaveProperty("advancedMetrics");
       expect(exportedData).toHaveProperty('rawData');
-      expect(exportedData).toHaveProperty('metadata');
+      expect(exportedData).toHaveProperty("metadata");
 
       expect(exportedData.metadata.exportTimestamp).toBeInstanceOf(Date);
       expect(exportedData.metadata.testSuiteId).toBe('export-test-001');

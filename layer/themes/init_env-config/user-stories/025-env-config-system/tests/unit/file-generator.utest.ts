@@ -49,7 +49,7 @@ describe('FileGenerator Unit Test', () => {
     await fileGenerator.generateEnvironmentFiles(config, tempDir);
 
     // Then: All directories should exist
-    const expectedDirs = ['config', 'data', 'logs', 'temp', 'services'];
+    const expectedDirs = ['config', 'data', 'logs', 'temp', "services"];
     for (const dir of expectedDirs) {
       const dirPath = path.join(tempDir, dir);
       const exists = await fs.access(dirPath).then(() => true).catch(() => false);
@@ -131,7 +131,7 @@ describe('FileGenerator Unit Test', () => {
       type: 'release',
       port: { base: 3456, range: [3400, 3499] },
       database: { 
-        type: 'postgresql', 
+        type: "postgresql", 
         connection: 'postgresql://user:pass@localhost/db' 
       },
       paths: {
@@ -158,7 +158,7 @@ describe('FileGenerator Unit Test', () => {
     expect(content.type).toBe('release');
     expect(content.port).toEqual({ base: 3456, range: [3400, 3499] });
     expect(content.database).toEqual({
-      type: 'postgresql',
+      type: "postgresql",
       connection: 'postgresql://user:pass@localhost/db'
     });
     expect(content.services).toHaveLength(1);
@@ -174,7 +174,7 @@ describe('FileGenerator Unit Test', () => {
     await fileGenerator.generateServiceFile(tempDir, serviceName, servicePort);
 
     // Then: Service file should exist
-    const servicePath = path.join(tempDir, 'services', `${serviceName}.json`);
+    const servicePath = path.join(tempDir, "services", `${serviceName}.json`);
     const exists = await fs.access(servicePath).then(() => true).catch(() => false);
     expect(exists).toBe(true);
 
@@ -235,7 +235,7 @@ services:
   test('should validate correct file structure', async () => {
     // Given: In Progress environment setup
     await fs.mkdir(path.join(tempDir, 'config'), { recursive: true });
-    await fs.mkdir(path.join(tempDir, 'services'), { recursive: true });
+    await fs.mkdir(path.join(tempDir, "services"), { recursive: true });
     await fs.writeFile(path.join(tempDir, '.env'), 'NODE_ENV=theme\nPORT=3200');
     await fs.writeFile(path.join(tempDir, 'docker-compose.yml'), 'version: \'3.8\'\nservices:\n  portal:');
     await fs.writeFile(path.join(tempDir, 'config', 'config.json'), JSON.stringify({
@@ -271,7 +271,7 @@ services:
       type: 'release',
       port: { base: 3456, range: [3400, 3499] },
       database: {
-        type: 'postgresql',
+        type: "postgresql",
         connection: 'postgresql://user:pass@db.example.com:5432/proddb'
       },
       paths: {

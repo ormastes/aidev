@@ -110,7 +110,7 @@ export class PipeValidationError extends Error {
     public errors: ValidationError[]
   ) {
     super(message);
-    this.name = 'PipeValidationError';
+    this.name = "PipeValidationError";
   }
 }
 

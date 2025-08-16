@@ -15,7 +15,7 @@ async function main() {
   // 1. Configure MCP servers
   const serverConfigs: MCPServerInfo[] = [
     {
-      id: 'filesystem',
+      id: "filesystem",
       name: 'File System Server',
       config: {
         transport: 'stdio',
@@ -80,15 +80,15 @@ async function main() {
     'Factorial function implementation with recursive approach'
   );
 
-  orchestrator.on('workflowStarted', (wf) => {
+  orchestrator.on("workflowStarted", (wf) => {
     console.log(`  ▶️  Workflow started: ${wf.name}`);
   });
 
-  orchestrator.on('workflowcompleted', (wf) => {
+  orchestrator.on("workflowcompleted", (wf) => {
     console.log(`  🔄 Workflow In Progress: ${wf.name}`);
   });
 
-  orchestrator.on('workflowFailed', (wf, error) => {
+  orchestrator.on("workflowFailed", (wf, error) => {
     console.error(`  ❌ Workflow failed: ${wf.name}`, error);
   });
 
@@ -104,7 +104,7 @@ async function main() {
 
   const session = sessionManager.createSession(coder.getId(), {
     project: 'demo',
-    language: 'typescript'
+    language: "typescript"
   });
 
   await sessionManager.startSession(session.getId());

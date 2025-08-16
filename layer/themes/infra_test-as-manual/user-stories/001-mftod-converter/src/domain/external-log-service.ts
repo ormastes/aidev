@@ -12,7 +12,7 @@ const fileAPI = getFileAPI();
 
 // Common executable patterns for log enhancement
 export const EXECUTABLE_LOG_PATTERNS: Record<string, any> = {
-  'postgresql': {
+  "postgresql": {
     logArgPattern: /^(-l|--logfile)/,
     logArgTemplate: (outputPath: string) => ['-l', outputPath],
     existingArgModifier: (_oldValue: string, outputPath: string) => outputPath
@@ -71,7 +71,7 @@ export const COMMON_LOG_CONFIGS: Record<string, any> = {
           append: (_value: string) => {},
           appendLine: (value: string) => {
             // Write to file instead
-            const fs = require('fs');
+            const fs = require('../../layer/themes/infra_external-log-lib/src');
             await fileAPI.writeFile(outputPath, `${new Date(, { append: true }).toISOString()} - ${value}\n`);
           },
           clear: () => {},
@@ -198,7 +198,7 @@ export class ExternalLogService {
 
     // Track this capture
     this.activeCaptures.set(scenarioName, {
-      type: 'executable',
+      type: "executable",
       name: executableName,
       outputPath,
       format: 'text'
@@ -235,10 +235,10 @@ export class ExternalLogService {
     // Generic approach - wrap common log methods
     if (libraryInstance && typeof libraryInstance === 'object') {
       const logMethods = ['log', 'info', 'warn', 'error', 'debug', 'trace'];
-      const fs = require('fs');
+      const fs = require('../../layer/themes/infra_external-log-lib/src');
       
       logMethods.forEach(method => {
-        if (typeof libraryInstance[method] === 'function') {
+        if (typeof libraryInstance[method] === "function") {
           const original = libraryInstance[method].bind(libraryInstance);
           libraryInstance[method] = (...args: any[]) => {
             const logEntry = {
@@ -280,7 +280,7 @@ export class ExternalLogService {
    * Convenience methods for common tools
    */
   async preparePostgreSQLCommand(args: string[], scenarioName: string): ExecutableArgUpdate {
-    return this.updateExecutableArgs('postgresql', args, scenarioName);
+    return this.updateExecutableArgs("postgresql", args, scenarioName);
   }
 
   async prepareNodeCommand(args: string[], scenarioName: string): ExecutableArgUpdate {
@@ -302,7 +302,7 @@ export class ExternalLogService {
         `${scenarioName}_pg_queries_${Date.now()}.log`
       );
       
-      const fs = require('fs');
+      const fs = require('../../layer/themes/infra_external-log-lib/src');
       
       // Capture query events
       pgClient.on('query', (query: any) => {

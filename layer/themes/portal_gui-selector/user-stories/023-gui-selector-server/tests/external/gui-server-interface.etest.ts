@@ -12,7 +12,7 @@ interface TemplateInfo {
   id: string;
   name: string;
   description: string;
-  category: 'modern' | 'professional' | 'creative' | 'accessible';
+  category: 'modern' | "professional" | "creative" | "accessible";
   previewUrl: string;
   thumbnailUrl: string;
   features: string[];
@@ -50,49 +50,49 @@ class MockGUIServer implements GUIServerInterface {
       category: 'modern',
       previewUrl: '/templates/modern-01/preview',
       thumbnailUrl: '/templates/modern-01/thumbnail.jpg',
-      features: ['responsive', 'dark-mode', 'animations'],
+      features: ["responsive", 'dark-mode', "animations"],
       metadata: {
         author: 'Design Team',
         version: '1.2.0',
         lastUpdated: '2024-01-15',
-        tags: ['dashboard', 'clean', 'minimalist']
+        tags: ["dashboard", 'clean', "minimalist"]
       }
     },
     {
       id: 'professional-01',
       name: 'Corporate Portal',
       description: 'Professional business application interface',
-      category: 'professional',
+      category: "professional",
       previewUrl: '/templates/professional-01/preview',
       thumbnailUrl: '/templates/professional-01/thumbnail.jpg',
-      features: ['corporate', 'formal', 'structured'],
+      features: ["corporate", 'formal', "structured"],
       metadata: {
         author: 'Business Team',
         version: '2.1.0',
         lastUpdated: '2024-01-10',
-        tags: ['business', 'corporate', 'formal']
+        tags: ["business", "corporate", 'formal']
       }
     },
     {
       id: 'creative-01',
       name: 'Artistic Showcase',
       description: 'Bold and creative design for portfolios',
-      category: 'creative',
+      category: "creative",
       previewUrl: '/templates/creative-01/preview',
       thumbnailUrl: '/templates/creative-01/thumbnail.jpg',
-      features: ['artistic', 'bold-colors', 'animations'],
+      features: ["artistic", 'bold-colors', "animations"],
       metadata: {
         author: 'Creative Team',
         version: '1.0.0',
         lastUpdated: '2024-01-20',
-        tags: ['creative', 'portfolio', 'artistic']
+        tags: ["creative", "portfolio", "artistic"]
       }
     },
     {
       id: 'accessible-01',
       name: 'Universal Access',
       description: 'WCAG 2.1 AA compliant accessible design',
-      category: 'accessible',
+      category: "accessible",
       previewUrl: '/templates/accessible-01/preview',
       thumbnailUrl: '/templates/accessible-01/thumbnail.jpg',
       features: ['wcag-compliant', 'high-contrast', 'keyboard-navigation'],
@@ -100,7 +100,7 @@ class MockGUIServer implements GUIServerInterface {
         author: 'Accessibility Team',
         version: '1.1.0',
         lastUpdated: '2024-01-12',
-        tags: ['accessibility', 'wcag', 'inclusive']
+        tags: ["accessibility", 'wcag', "inclusive"]
       }
     }
   ];
@@ -181,15 +181,15 @@ describe('GUIServer External Interface Test', () => {
       id: 'modern-01',
       name: 'Modern Dashboard',
       category: 'modern',
-      features: expect.arrayContaining(['responsive', 'dark-mode', 'animations'])
+      features: expect.arrayContaining(["responsive", 'dark-mode', "animations"])
     });
     
     // Verify all categories are represented
     const categories = templates.map(t => t.category);
     expect(categories).toContain('modern');
-    expect(categories).toContain('professional');
-    expect(categories).toContain('creative');
-    expect(categories).toContain('accessible');
+    expect(categories).toContain("professional");
+    expect(categories).toContain("creative");
+    expect(categories).toContain("accessible");
   });
   
   test('should get specific template by ID', async () => {
@@ -234,31 +234,31 @@ describe('GUIServer External Interface Test', () => {
   });
   
   test('should search templates by name', async () => {
-    const results = await guiServer.searchTemplates('Dashboard');
+    const results = await guiServer.searchTemplates("Dashboard");
     
     expect(results).toHaveLength(1);
     expect(results[0].id).toBe('modern-01');
-    expect(results[0].name).toContain('Dashboard');
+    expect(results[0].name).toContain("Dashboard");
   });
   
   test('should search templates by description', async () => {
-    const results = await guiServer.searchTemplates('business');
+    const results = await guiServer.searchTemplates("business");
     
     expect(results).toHaveLength(1);
     expect(results[0].id).toBe('professional-01');
-    expect(results[0].description).toContain('business');
+    expect(results[0].description).toContain("business");
   });
   
   test('should search templates by tags', async () => {
-    const results = await guiServer.searchTemplates('accessibility');
+    const results = await guiServer.searchTemplates("accessibility");
     
     expect(results).toHaveLength(1);
     expect(results[0].id).toBe('accessible-01');
-    expect(results[0].metadata.tags).toContain('accessibility');
+    expect(results[0].metadata.tags).toContain("accessibility");
   });
   
   test('should return empty array for no search matches', async () => {
-    const results = await guiServer.searchTemplates('nonexistent');
+    const results = await guiServer.searchTemplates("nonexistent");
     expect(results).toHaveLength(0);
   });
   
@@ -267,21 +267,21 @@ describe('GUIServer External Interface Test', () => {
     expect(modernTemplates).toHaveLength(1);
     expect(modernTemplates[0].category).toBe('modern');
     
-    const professionalTemplates = await guiServer.getTemplatesByCategory('professional');
+    const professionalTemplates = await guiServer.getTemplatesByCategory("professional");
     expect(professionalTemplates).toHaveLength(1);
-    expect(professionalTemplates[0].category).toBe('professional');
+    expect(professionalTemplates[0].category).toBe("professional");
     
-    const creativeTemplates = await guiServer.getTemplatesByCategory('creative');
+    const creativeTemplates = await guiServer.getTemplatesByCategory("creative");
     expect(creativeTemplates).toHaveLength(1);
-    expect(creativeTemplates[0].category).toBe('creative');
+    expect(creativeTemplates[0].category).toBe("creative");
     
-    const accessibleTemplates = await guiServer.getTemplatesByCategory('accessible');
+    const accessibleTemplates = await guiServer.getTemplatesByCategory("accessible");
     expect(accessibleTemplates).toHaveLength(1);
-    expect(accessibleTemplates[0].category).toBe('accessible');
+    expect(accessibleTemplates[0].category).toBe("accessible");
   });
   
   test('should return empty array for non-existent category', async () => {
-    const results = await guiServer.getTemplatesByCategory('nonexistent');
+    const results = await guiServer.getTemplatesByCategory("nonexistent");
     expect(results).toHaveLength(0);
   });
   
@@ -293,8 +293,8 @@ describe('GUIServer External Interface Test', () => {
       guiServer.listTemplates(),
       guiServer.getTemplate('modern-01'),
       guiServer.getTemplatePreview('professional-01'),
-      guiServer.searchTemplates('creative'),
-      guiServer.getTemplatesByCategory('accessible')
+      guiServer.searchTemplates("creative"),
+      guiServer.getTemplatesByCategory("accessible")
     ];
     
     const [templates, template, preview, searchResults, categoryResults] = await Promise.all(promises);
@@ -306,10 +306,10 @@ describe('GUIServer External Interface Test', () => {
     expect(templates).toHaveLength(4);
     expect((template as TemplateInfo)?.id).toBe('modern-01');
     expect((preview as PreviewData)?.templateId).toBe('professional-01');
-    expect((searchResults as TemplateInfo[])[0]?.category).toBe('creative');
-    expect((categoryResults as TemplateInfo[])[0]?.category).toBe('accessible');
+    expect((searchResults as TemplateInfo[])[0]?.category).toBe("creative");
+    expect((categoryResults as TemplateInfo[])[0]?.category).toBe("accessible");
     
-    // Should In Progress concurrently, not sequentially
+    // Should complete concurrently, not sequentially
     expect(totalTime).toBeLessThan(100); // Much less than 5 * 10ms if sequential
   });
   
@@ -321,7 +321,7 @@ describe('GUIServer External Interface Test', () => {
       expect(template.id).toBeTruthy();
       expect(template.name).toBeTruthy();
       expect(template.description).toBeTruthy();
-      expect(['modern', 'professional', 'creative', 'accessible']).toContain(template.category);
+      expect(['modern', "professional", "creative", "accessible"]).toContain(template.category);
       expect(template.previewUrl).toBeTruthy();
       expect(template.thumbnailUrl).toBeTruthy();
       

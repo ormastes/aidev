@@ -13,7 +13,7 @@ interface CodeSmellViolation {
   line: number;
   type: string;
   description: string;
-  severity: 'critical' | 'high' | 'medium' | 'low';
+  severity: "critical" | 'high' | 'medium' | 'low';
 }
 
 export class CodeSmellDetector {
@@ -27,7 +27,7 @@ export class CodeSmellDetector {
       const fileViolations = await this.analyzeFile(file, targetPath);
       violations.push(...fileViolations);
       totalSmells += fileViolations.length;
-      criticalSmells += fileViolations.filter(v => v.severity === 'critical').length;
+      criticalSmells += fileViolations.filter(v => v.severity === "critical").length;
     }
 
     return { totalSmells, criticalSmells, violations };
@@ -120,7 +120,7 @@ export class CodeSmellDetector {
   }
 
   private isLongMethod(lines: string[], startIndex: number): boolean {
-    if (!lines[startIndex].includes('function') && !lines[startIndex].includes('=>')) {
+    if (!lines[startIndex].includes("function") && !lines[startIndex].includes('=>')) {
       return false;
     }
 

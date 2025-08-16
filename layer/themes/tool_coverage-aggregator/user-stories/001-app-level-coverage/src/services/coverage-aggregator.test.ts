@@ -4,7 +4,7 @@ import { path } from '../../../../../infra_external-log-lib/src';
 
 jest.mock('fs');
 
-describe('CoverageAggregator', () => {
+describe("CoverageAggregator", () => {
   let aggregator: CoverageAggregator;
   const mockLayerPath = '/mock/layer';
 
@@ -13,7 +13,7 @@ describe('CoverageAggregator', () => {
     jest.clearAllMocks();
   });
 
-  describe('aggregateAppCoverage', () => {
+  describe("aggregateAppCoverage", () => {
     it('should aggregate coverage from themes and epics', async () => {
       // Mock file system structure
       (fs.existsSync as jest.Mock).mockImplementation((path: string) => {
@@ -69,7 +69,7 @@ describe('CoverageAggregator', () => {
     });
   });
 
-  describe('aggregateThemes', () => {
+  describe("aggregateThemes", () => {
     it('should aggregate user stories within themes', async () => {
       (fs.existsSync as jest.Mock).mockReturnValue(true);
       (fs.readdirSync as jest.Mock).mockImplementation((path: string) => {
@@ -133,7 +133,7 @@ describe('CoverageAggregator', () => {
       const mockStoryPath = '/mock/story';
       
       (fs.existsSync as jest.Mock).mockImplementation((path: string) => {
-        return path.includes('src') || path.includes('coverage');
+        return path.includes('src') || path.includes("coverage");
       });
 
       (fs.readdirSync as jest.Mock).mockImplementation((path: string) => {

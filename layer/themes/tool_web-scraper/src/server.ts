@@ -10,7 +10,7 @@ import WebSocket from 'ws';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
-import compression from 'compression';
+import compression from "compression";
 import WebScraper, { ScrapingJob, ScrapingOptions, ScrapingResult, ScrapingProgress } from './web-scraper';
 import { ExportConfig } from '../children/exporter';
 import { ExtractionSchema } from '../children/extractor';
@@ -30,7 +30,7 @@ interface ApiResponse<T = any> {
 }
 
 interface WebSocketMessage {
-  type: 'job_status' | 'progress' | 'stats' | 'error' | 'result';
+  type: 'job_status' | "progress" | 'stats' | 'error' | 'result';
   data: any;
   timestamp: string;
 }
@@ -243,7 +243,7 @@ class WebScraperAPI {
 
         const jobId = this.scraper.addJob(url, options, priority);
         
-        if (!this.scraper['isRunning']) {
+        if (!this.scraper["isRunning"]) {
           this.scraper.startProcessing();
         }
 
@@ -295,7 +295,7 @@ class WebScraperAPI {
 
     // Schema management
     router.get('/schemas', (req: Request, res: Response) => {
-      const schemas = this.scraper['extractor'].listSchemas();
+      const schemas = this.scraper["extractor"].listSchemas();
       res.apiSuccess(schemas);
     });
 
@@ -317,7 +317,7 @@ class WebScraperAPI {
 
     router.get('/schemas/:name', (req: Request, res: Response) => {
       const { name } = req.params;
-      const schema = this.scraper['extractor'].getSchema(name);
+      const schema = this.scraper["extractor"].getSchema(name);
 
       if (!schema) {
         return res.apiError('SCHEMA_NOT_FOUND', 'Schema not found', null, 404);
@@ -339,7 +339,7 @@ class WebScraperAPI {
           return res.apiError('INVALID_CONFIG', 'Export config must specify format and destination');
         }
 
-        const result = await this.scraper['exporter'].export(data, config);
+        const result = await this.scraper["exporter"].export(data, config);
         res.apiSuccess(result);
 
       } catch (error) {
@@ -441,7 +441,7 @@ class WebScraperAPI {
     // Configuration
     router.get('/config', (req: Request, res: Response) => {
       const config = {
-        concurrency: this.scraper['concurrency'],
+        concurrency: this.scraper["concurrency"],
         rateLimitConfig: this.scraper['fetcher'].getRateLimitConfig()
       };
       res.apiSuccess(config);
@@ -497,7 +497,7 @@ class WebScraperAPI {
   }
 
   private setupWebSocket(): void {
-    this.wss.on('connection', (ws: WebSocket, req: http.IncomingMessage) => {
+    this.wss.on("connection", (ws: WebSocket, req: http.IncomingMessage) => {
       const clientId = `client_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       this.clients.set(clientId, ws);
 
@@ -536,7 +536,7 @@ class WebScraperAPI {
   }
 
   private setupScraperListeners(): void {
-    this.scraper.on('jobStart', (job: ScrapingJob) => {
+    this.scraper.on("jobStart", (job: ScrapingJob) => {
       this.broadcastMessage({
         type: 'job_status',
         data: { jobId: job.id, status: 'started', url: job.url },
@@ -544,15 +544,15 @@ class WebScraperAPI {
       });
     });
 
-    this.scraper.on('jobComplete', ({ job, result }: { job: ScrapingJob; result: ScrapingResult }) => {
+    this.scraper.on("jobComplete", ({ job, result }: { job: ScrapingJob; result: ScrapingResult }) => {
       this.broadcastMessage({
         type: 'job_status',
-        data: { jobId: job.id, status: 'completed', url: job.url, result },
+        data: { jobId: job.id, status: "completed", url: job.url, result },
         timestamp: new Date().toISOString()
       });
     });
 
-    this.scraper.on('jobError', ({ job, error }: { job: ScrapingJob; error: any }) => {
+    this.scraper.on("jobError", ({ job, error }: { job: ScrapingJob; error: any }) => {
       this.broadcastMessage({
         type: 'job_status',
         data: { jobId: job.id, status: 'failed', url: job.url, error: String(error) },
@@ -566,7 +566,7 @@ class WebScraperAPI {
       const stats = this.scraper.getStats();
 
       this.broadcastMessage({
-        type: 'progress',
+        type: "progress",
         data: { progress, stats },
         timestamp: new Date().toISOString()
       });
@@ -577,7 +577,7 @@ class WebScraperAPI {
     const { type, data } = message;
 
     switch (type) {
-      case 'subscribe':
+      case "subscribe":
         // Client wants to subscribe to specific events
         break;
 
@@ -591,7 +591,7 @@ class WebScraperAPI {
 
       case 'get_progress':
         this.sendToClient(ws, {
-          type: 'progress',
+          type: "progress",
           data: this.scraper.getProgress(),
           timestamp: new Date().toISOString()
         });
@@ -634,7 +634,7 @@ class WebScraperAPI {
   private async monitorBatchCompletion(jobIds: string[], webhookUrl: string): Promise<void> {
     const checkCompletion = () => {
       const jobs = jobIds.map(id => this.scraper.getJob(id)).filter(job => job !== undefined);
-      const completed = jobs.filter(job => job!.status === 'completed' || job!.status === 'failed');
+      const completed = jobs.filter(job => job!.status === "completed" || job!.status === 'failed');
       
       if (completed.length === jobs.length) {
         // All jobs completed

@@ -7,7 +7,7 @@ import { DockerSetupService } from '../services/docker-setup';
 import { QEMUSetupService } from '../services/qemu-setup';
 import { fs } from '../../../infra_external-log-lib/src';
 import { path } from '../../../infra_external-log-lib/src';
-import * as inquirer from 'inquirer';
+import * as inquirer from "inquirer";
 
 const orchestrator = new ContainerOrchestrator();
 const dockerService = new DockerSetupService();
@@ -30,9 +30,9 @@ yargs(hideBin(process.argv))
           type: 'string',
           demandOption: true
         })
-        .option('environment', {
+        .option("environment", {
           alias: 'e',
-          describe: 'Environment',
+          describe: "Environment",
           choices: ['local', 'dev', 'dev-demo', 'demo', 'release'],
           default: 'dev'
         })
@@ -98,7 +98,7 @@ yargs(hideBin(process.argv))
       return yargs
         .positional('action', {
           describe: 'Action to perform',
-          choices: ['create', 'start', 'stop', 'remove', 'exec', 'snapshot'],
+          choices: ['create', 'start', 'stop', 'remove', 'exec', "snapshot"],
           type: 'string'
         })
         .option('name', {
@@ -113,7 +113,7 @@ yargs(hideBin(process.argv))
           type: 'string',
           default: 'alpine:latest'
         })
-        .option('architecture', {
+        .option("architecture", {
           alias: 'a',
           describe: 'Target architecture',
           choices: ['x86_64', 'aarch64', 'armv7', 'riscv64', 'mips64'],
@@ -166,7 +166,7 @@ yargs(hideBin(process.argv))
         case 'exec':
           await execQEMU(argv);
           break;
-        case 'snapshot':
+        case "snapshot":
           await snapshotQEMU(argv);
           break;
       }
@@ -193,13 +193,13 @@ yargs(hideBin(process.argv))
           choices: ['docker', 'qemu'],
           default: 'docker'
         })
-        .option('environment', {
+        .option("environment", {
           alias: 'e',
           describe: 'Deployment environment',
           choices: ['local', 'dev', 'dev-demo', 'demo', 'release'],
           default: 'dev'
         })
-        .option('interactive', {
+        .option("interactive", {
           alias: 'i',
           describe: 'Interactive mode',
           type: 'boolean',
@@ -506,13 +506,13 @@ async function interactiveDeploy() {
     },
     {
       type: 'list',
-      name: 'environment',
+      name: "environment",
       message: 'Environment:',
       choices: ['local', 'dev', 'dev-demo', 'demo', 'release']
     },
     {
       type: 'input',
-      name: 'baseImage',
+      name: "baseImage",
       message: 'Base image:',
       default: 'node:18-alpine'
     },
@@ -525,19 +525,19 @@ async function interactiveDeploy() {
     },
     {
       type: 'confirm',
-      name: 'cppSupport',
+      name: "cppSupport",
       message: 'Enable C++ support?',
       default: false
     },
     {
       type: 'confirm',
-      name: 'enableDebug',
+      name: "enableDebug",
       message: 'Enable debugging?',
       default: false
     },
     {
       type: 'confirm',
-      name: 'enableHotReload',
+      name: "enableHotReload",
       message: 'Enable hot reload?',
       default: false,
       when: (answers) => answers.runtime === 'docker'
@@ -650,7 +650,7 @@ async function initNodeProject(projectPath: string, name: string) {
     devDependencies: {
       'nodemon': '^2.0.0',
       'jest': '^29.0.0',
-      'typescript': '^5.0.0'
+      "typescript": '^5.0.0'
     }
   };
   

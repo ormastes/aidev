@@ -4,7 +4,7 @@ import {
   DockerComposeService 
 } from '../../src/utils/docker-config';
 
-describe('DockerConfigGenerator', () => {
+describe("DockerConfigGenerator", () => {
   const originalEnv = process.env;
 
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe('DockerConfigGenerator', () => {
     process.env = originalEnv;
   });
 
-  describe('generateServiceConfig', () => {
+  describe("generateServiceConfig", () => {
     it('should generate basic service configuration', () => {
       const config: DockerServiceConfig = {
         serviceName: 'my-service',
@@ -53,13 +53,13 @@ describe('DockerConfigGenerator', () => {
     });
 
     it('should include custom environment variables', () => {
-      process.env.NODE_ENV = 'production';
+      process.env.NODE_ENV = "production";
       
       const config: DockerServiceConfig = {
         serviceName: 'my-service',
         port: 3000,
         environment: {
-          DB_HOST: 'localhost',
+          DB_HOST: "localhost",
           DB_PORT: 5432,
           DEBUG: 'true'
         }
@@ -96,13 +96,13 @@ describe('DockerConfigGenerator', () => {
       const config: DockerServiceConfig = {
         serviceName: 'my-service',
         port: 3000,
-        networks: ['frontend', 'backend'],
+        networks: ["frontend", 'backend'],
         depends_on: ['db', 'redis']
       };
 
       const result = DockerConfigGenerator.generateServiceConfig(config);
       
-      expect(result.networks).toEqual(['frontend', 'backend']);
+      expect(result.networks).toEqual(["frontend", 'backend']);
       expect(result.depends_on).toEqual(['db', 'redis']);
     });
 
@@ -140,7 +140,7 @@ describe('DockerConfigGenerator', () => {
     });
   });
 
-  describe('generateComposeConfig', () => {
+  describe("generateComposeConfig", () => {
     it('should generate complete docker-compose config', () => {
       const services: DockerServiceConfig[] = [
         {
@@ -177,7 +177,7 @@ describe('DockerConfigGenerator', () => {
     });
   });
 
-  describe('generateHttpHealthcheck', () => {
+  describe("generateHttpHealthcheck", () => {
     it('should generate default health check', () => {
       const result = DockerConfigGenerator.generateHttpHealthcheck(3000);
 
@@ -209,7 +209,7 @@ describe('DockerConfigGenerator', () => {
     });
   });
 
-  describe('generateServiceDiscoveryEnv', () => {
+  describe("generateServiceDiscoveryEnv", () => {
     it('should generate service discovery environment variables', () => {
       const services: DockerServiceConfig[] = [
         {
@@ -235,7 +235,7 @@ describe('DockerConfigGenerator', () => {
     });
   });
 
-  describe('mergeServiceConfigs', () => {
+  describe("mergeServiceConfigs", () => {
     it('should merge service configurations', () => {
       const base: DockerComposeService = {
         image: 'base:latest',
@@ -282,22 +282,22 @@ describe('DockerConfigGenerator', () => {
       const base: DockerComposeService = {
         image: 'base:latest',
         networks: ['net1'],
-        depends_on: ['service1']
+        depends_on: ["service1"]
       };
 
       const override: Partial<DockerComposeService> = {
         networks: ['net2'],
-        depends_on: ['service2']
+        depends_on: ["service2"]
       };
 
       const result = DockerConfigGenerator.mergeServiceConfigs(base, override);
 
       expect(result.networks).toEqual(['net1', 'net2']);
-      expect(result.depends_on).toEqual(['service1', 'service2']);
+      expect(result.depends_on).toEqual(["service1", "service2"]);
     });
   });
 
-  describe('validateServiceConfig', () => {
+  describe("validateServiceConfig", () => {
     it('should validate correct configuration', () => {
       const config: DockerServiceConfig = {
         serviceName: 'my-service',

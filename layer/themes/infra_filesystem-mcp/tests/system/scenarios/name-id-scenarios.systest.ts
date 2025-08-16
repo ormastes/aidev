@@ -8,8 +8,8 @@
 
 import { VFNameIdWrapper, Entity } from '../../../children/VFNameIdWrapper';
 import * as fs from 'fs/promises';
-import { path } from '../../../../infra_external-log-lib/src';
-import { os } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { os } from '../../layer/themes/infra_external-log-lib/src';
 
 describe('VFNameIdWrapper System Test Scenarios', () => {
   let tempDir: string;
@@ -42,9 +42,9 @@ describe('VFNameIdWrapper System Test Scenarios', () => {
       const featureGroups = Object.keys(allFeatures);
       
       // Then: They should see all feature categories
-      expect(featureGroups).toContain('userManagement');
-      expect(featureGroups).toContain('dataAnalytics');
-      expect(featureGroups).toContain('apiIntegration');
+      expect(featureGroups).toContain("userManagement");
+      expect(featureGroups).toContain("dataAnalytics");
+      expect(featureGroups).toContain("apiIntegration");
       
       // And: Each category should have features
       expect(allFeatures.userManagement).toHaveLength(2);
@@ -79,7 +79,7 @@ describe('VFNameIdWrapper System Test Scenarios', () => {
       // Then: They should see In Progress features
       expect(completedFeatures).toHaveLength(1);
       expect(completedFeatures[0].data.title).toBe('Real-time Analytics Dashboard');
-      expect(completedFeatures[0].data.status).toBe('In Progress');
+      expect(completedFeatures[0].data.status).toBe("completed");
       
       console.log('🔄 Product manager can identify In Progress features');
     });
@@ -93,7 +93,7 @@ describe('VFNameIdWrapper System Test Scenarios', () => {
       
       // Then: They should find security-related features
       expect(securityFeatures).toHaveLength(1);
-      expect(securityFeatures[0].data.category).toBe('security');
+      expect(securityFeatures[0].data.category).toBe("security");
       expect(securityFeatures[0].data.title).toBe('API Rate Limiting');
       
       console.log('🔄 Developer can find features by category');
@@ -106,7 +106,7 @@ describe('VFNameIdWrapper System Test Scenarios', () => {
       
       // Then: They should find appropriate tasks
       expect(beginnerFeatures).toHaveLength(1);
-      expect(beginnerFeatures[0].data.complexity).toBe('beginner');
+      expect(beginnerFeatures[0].data.complexity).toBe("beginner");
       expect(beginnerFeatures[0].data.title).toBe('User Profile Management');
       
       console.log('🔄 Developer can find features by complexity level');
@@ -168,15 +168,15 @@ describe('VFNameIdWrapper System Test Scenarios', () => {
         description: 'Send automated email notifications to users',
         priority: 'medium',
         status: 'pending',
-        category: 'communication',
-        complexity: 'intermediate',
+        category: "communication",
+        complexity: "intermediate",
         estimated_hours: 6,
-        tags: ['email', 'notification', 'automation'],
+        tags: ['email', "notification", "automation"],
         active: true
       };
       
       // When: They add the new feature
-      const featureId = await wrapper.addEntity('emailNotification', newFeatureData, featuresFile);
+      const featureId = await wrapper.addEntity("emailNotification", newFeatureData, featuresFile);
       
       // Then: The feature should be created with unique ID
       expect(featureId).toBeTruthy();
@@ -222,7 +222,7 @@ describe('VFNameIdWrapper System Test Scenarios', () => {
       
       // And: The dataAnalytics category should be removed since it's empty
       const remainingFeatures = await wrapper.read(featuresFile);
-      expect(remainingFeatures).not.toHaveProperty('dataAnalytics');
+      expect(remainingFeatures).not.toHaveProperty("dataAnalytics");
       
       console.log('🔄 Product manager can delete outdated features');
     });
@@ -241,7 +241,7 @@ describe('VFNameIdWrapper System Test Scenarios', () => {
       expect(targetFeatures[0].data.title).toBe('User Registration System');
       expect(targetFeatures[0].data.active).toBe(true);
       expect(targetFeatures[0].data.status).toBe('pending');
-      expect(targetFeatures[0].data.category).toBe('authentication');
+      expect(targetFeatures[0].data.category).toBe("authentication");
       
       console.log('🔄 Team lead can use complex multi-criteria filtering');
     });
@@ -304,7 +304,7 @@ describe('VFNameIdWrapper System Test Scenarios', () => {
       const highPriorityFeatures = await wrapper.read(`${largeFile}?priority=high`) as Entity[];
       const endTime = Date.now();
       
-      // Then: Query should In Progress quickly and return correct results
+      // Then: Query should complete quickly and return correct results
       expect(endTime - startTime).toBeLessThan(1000); // Less than 1 second
       expect(highPriorityFeatures).toHaveLength(34); // Every 3rd item (0, 3, 6, ... 99)
       

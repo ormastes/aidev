@@ -1,6 +1,6 @@
 import { describe, test, expect, beforeEach, afterEach, jest } from '@jest/globals';
 import * as vscode from 'vscode';
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 import glob from 'fast-glob';
 import { spawn } from 'child_process';
 import { EventEmitter } from 'events';
@@ -57,7 +57,7 @@ describe('Coverage Handler', () => {
         } as any;
     });
 
-    describe('checkCoverageFilesExist', () => {
+    describe("checkCoverageFilesExist", () => {
         test('should return true when coverage files exist', async () => {
             mockGlob.mockResolvedValue(['/test/build/file1.gcda', '/test/build/file2.gcda']);
             
@@ -97,7 +97,7 @@ describe('Coverage Handler', () => {
         });
     });
 
-    describe('executeCoverageGenerationTask', () => {
+    describe("executeCoverageGenerationTask", () => {
         test('should execute coverage task successfully', async () => {
             const mockProcess = new EventEmitter() as any;
             mockProcess.stdout = new EventEmitter();
@@ -146,7 +146,7 @@ describe('Coverage Handler', () => {
         });
     });
 
-    describe('detectCoverageFormat', () => {
+    describe("detectCoverageFormat", () => {
         test('should detect LCOV format by extension', () => {
             expect(detectCoverageFormat('SF:test.cpp', 'coverage.lcov')).toBe('lcov');
             expect(detectCoverageFormat('SF:test.cpp', 'coverage.info')).toBe('lcov');
@@ -159,7 +159,7 @@ describe('Coverage Handler', () => {
 
         test('should detect Cobertura XML format', () => {
             const xmlContent = '<?xml version="1.0"?><coverage version="1.0" cobertura="true">';
-            expect(detectCoverageFormat(xmlContent, 'coverage.xml')).toBe('cobertura');
+            expect(detectCoverageFormat(xmlContent, 'coverage.xml')).toBe("cobertura");
         });
 
         test('should detect JSON format', () => {
@@ -172,7 +172,7 @@ describe('Coverage Handler', () => {
         });
     });
 
-    describe('parseLcovData', () => {
+    describe("parseLcovData", () => {
         test('should parse valid LCOV data', () => {
             const lcovContent = `SF:/test/file1.cpp
 DA:10,1
@@ -194,7 +194,7 @@ end_of_record`;
             expect(result[0].lines).toHaveLength(3);
             expect(result[0].lines[0]).toEqual({ line: 10, hits: 1 });
             expect(result[0].functions).toHaveLength(1);
-            expect(result[0].functions![0]).toEqual({ name: 'testFunction', line: 10, hits: 1 });
+            expect(result[0].functions![0]).toEqual({ name: "testFunction", line: 10, hits: 1 });
             expect(result[0].branches).toHaveLength(2);
         });
 
@@ -204,7 +204,7 @@ end_of_record`;
         });
     });
 
-    describe('parseCoberturaData', () => {
+    describe("parseCoberturaData", () => {
         test('should parse valid Cobertura XML', async () => {
             const xmlContent = `<?xml version="1.0"?>
 <coverage>
@@ -245,7 +245,7 @@ end_of_record`;
         });
     });
 
-    describe('parseJsonCoverageData', () => {
+    describe("parseJsonCoverageData", () => {
         test('should parse llvm-cov export format', () => {
             const jsonContent = JSON.stringify({
                 data: [{
@@ -256,7 +256,7 @@ end_of_record`;
                             [2, 0, 0, true]
                         ],
                         functions: [{
-                            name: 'testFunc',
+                            name: "testFunc",
                             count: 5,
                             regions: [[1, 0]]
                         }]
@@ -303,7 +303,7 @@ end_of_record`;
         });
     });
 
-    describe('convertToVSCodeCoverage', () => {
+    describe("convertToVSCodeCoverage", () => {
         test('should convert coverage data to VS Code format', () => {
             const coverageData = [{
                 file: 'test.cpp',
@@ -343,7 +343,7 @@ end_of_record`;
         });
     });
 
-    describe('loadDetailedCoverage', () => {
+    describe("loadDetailedCoverage", () => {
         test('should load detailed coverage from file coverage', () => {
             const fileCoverage = {
                 uri: { fsPath: 'test.cpp' } as vscode.Uri,
@@ -376,7 +376,7 @@ end_of_record`;
         });
     });
 
-    describe('checkCoverageThresholds', () => {
+    describe("checkCoverageThresholds", () => {
         let mockShowWarningMessage: jest.MockedFunction<typeof vscode.window.showWarningMessage>;
 
         beforeEach(() => {
@@ -432,7 +432,7 @@ end_of_record`;
         });
     });
 
-    describe('CoverageWatcher', () => {
+    describe("CoverageWatcher", () => {
         let watcher: CoverageWatcher;
         let mockCallback: jest.Mock;
         let mockFileSystemWatcher: any;
@@ -500,7 +500,7 @@ end_of_record`;
         });
     });
 
-    describe('processCoverageAfterTestRun', () => {
+    describe("processCoverageAfterTestRun", () => {
         let mockRun: any;
 
         beforeEach(() => {

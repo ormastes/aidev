@@ -1,17 +1,9 @@
 {
   "results": {
-    "assertions": 1,
+    "assertions": 0,
     "documentation": 0,
     "placeholders": 0
   },
-  "fixes": [
-    {
-      "file": "/home/ormastes/dev/aidev/layer/themes/infra_fraud-checker/tests/unit/FraudPatternDetector-coverage.test.ts",
-      "line": 40,
-      "type": "meaningless_assertion",
-      "old": "//   expect(true).toBe(true);",
-      "new": "// Test completed - implementation pending"
-    }
-  ],
+  "fixes": [],
   "timestamp": "2025-07-20T08:56:00Z"
 }

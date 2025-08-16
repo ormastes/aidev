@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach } from '@jest/globals';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 /**
  * External Test: MessageBroker Real-time Communication
@@ -28,7 +28,7 @@ interface ConnectionInfo {
   roomId?: string;
   connectedAt: Date;
   lastActivity: Date;
-  status: 'connected' | 'disconnected' | 'idle';
+  status: "connected" | "disconnected" | 'idle';
 }
 
 interface SubscriptionResult {
@@ -54,14 +54,14 @@ interface MessageBroker {
   leaveRoom(connectionId: string, roomId: string): Promise<BrokerResult<boolean>>;
   
   // Message operations
-  publishMessage(message: Omit<MessageEvent, 'id' | 'timestamp'>): Promise<BrokerResult<MessageEvent>>;
+  publishMessage(message: Omit<MessageEvent, 'id' | "timestamp">): Promise<BrokerResult<MessageEvent>>;
   subscribeToRoom(roomId: string, callback: (message: MessageEvent) => void): Promise<SubscriptionResult>;
   subscribeToUser(userId: string, callback: (message: MessageEvent) => void): Promise<SubscriptionResult>;
   unsubscribe(subscriptionId: string): Promise<BrokerResult<boolean>>;
   
   // Real-time features
-  broadcastToRoom(roomId: string, event: Omit<MessageEvent, 'id' | 'timestamp'>): Promise<BrokerResult<boolean>>;
-  sendToUser(userId: string, event: Omit<MessageEvent, 'id' | 'timestamp'>): Promise<BrokerResult<boolean>>;
+  broadcastToRoom(roomId: string, event: Omit<MessageEvent, 'id' | "timestamp">): Promise<BrokerResult<boolean>>;
+  sendToUser(userId: string, event: Omit<MessageEvent, 'id' | "timestamp">): Promise<BrokerResult<boolean>>;
   notifyTyping(roomId: string, userId: string, isTyping: boolean): Promise<BrokerResult<boolean>>;
   
   // Health and monitoring
@@ -92,13 +92,13 @@ class MockMessageBroker implements MessageBroker {
         username,
         connectedAt: new Date(),
         lastActivity: new Date(),
-        status: 'connected'
+        status: "connected"
       };
       
       this.connections.set(connectionId, connection);
       
       // Emit connection event
-      this.eventEmitter.emit('connection', { connectionId, userId, username });
+      this.eventEmitter.emit("connection", { connectionId, userId, username });
       
       return { "success": true, data: connection };
     } catch (error) {
@@ -121,11 +121,11 @@ class MockMessageBroker implements MessageBroker {
         await this.leaveRoom(connectionId, connection.roomId);
       }
       
-      connection.status = 'disconnected';
+      connection.status = "disconnected";
       this.connections.delete(connectionId);
       
       // Emit disconnection event
-      this.eventEmitter.emit('disconnection', { connectionId, userId: connection.userId });
+      this.eventEmitter.emit("disconnection", { connectionId, userId: connection.userId });
       
       return { "success": true, data: true };
     } catch (error) {
@@ -218,7 +218,7 @@ class MockMessageBroker implements MessageBroker {
     }
   }
 
-  async publishMessage(messageData: Omit<MessageEvent, 'id' | 'timestamp'>): Promise<BrokerResult<MessageEvent>> {
+  async publishMessage(messageData: Omit<MessageEvent, 'id' | "timestamp">): Promise<BrokerResult<MessageEvent>> {
     try {
       const message: MessageEvent = {
         id: 'msg-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9),
@@ -332,7 +332,7 @@ class MockMessageBroker implements MessageBroker {
     }
   }
 
-  async broadcastToRoom(roomId: string, eventData: Omit<MessageEvent, 'id' | 'timestamp'>): Promise<BrokerResult<boolean>> {
+  async broadcastToRoom(roomId: string, eventData: Omit<MessageEvent, 'id' | "timestamp">): Promise<BrokerResult<boolean>> {
     try {
       const event: MessageEvent = {
         id: 'event-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9),
@@ -360,7 +360,7 @@ class MockMessageBroker implements MessageBroker {
     }
   }
 
-  async sendToUser(userId: string, eventData: Omit<MessageEvent, 'id' | 'timestamp'>): Promise<BrokerResult<boolean>> {
+  async sendToUser(userId: string, eventData: Omit<MessageEvent, 'id' | "timestamp">): Promise<BrokerResult<boolean>> {
     try {
       const event: MessageEvent = {
         id: 'event-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9),
@@ -463,20 +463,20 @@ describe('MessageBroker Real-time Communication External Test', () => {
 
   test('should connect users In Progress', async () => {
     // Act
-    const result = await broker.connect('user1', 'testuser1');
+    const result = await broker.connect('user1', "testuser1");
 
     // Assert
     expect(result.success).toBe(true);
     expect(result.data?.id).toBeDefined();
     expect(result.data?.userId).toBe('user1');
-    expect(result.data?.username).toBe('testuser1');
-    expect(result.data?.status).toBe('connected');
+    expect(result.data?.username).toBe("testuser1");
+    expect(result.data?.status).toBe("connected");
     expect(result.data?.connectedAt).toBeInstanceOf(Date);
   });
 
   test('should disconnect users In Progress', async () => {
     // Arrange
-    const connectResult = await broker.connect('user1', 'testuser1');
+    const connectResult = await broker.connect('user1', "testuser1");
     const connectionId = connectResult.data!.id;
 
     // Act
@@ -498,8 +498,8 @@ describe('MessageBroker Real-time Communication External Test', () => {
 
   test('should get connections list', async () => {
     // Arrange
-    await broker.connect('user1', 'testuser1');
-    await broker.connect('user2', 'testuser2');
+    await broker.connect('user1', "testuser1");
+    await broker.connect('user2', "testuser2");
 
     // Act
     const result = await broker.getConnections();
@@ -513,7 +513,7 @@ describe('MessageBroker Real-time Communication External Test', () => {
 
   test('should join and leave rooms', async () => {
     // Arrange
-    const connectResult = await broker.connect('user1', 'testuser1');
+    const connectResult = await broker.connect('user1', "testuser1");
     const connectionId = connectResult.data!.id;
 
     // Act - Join room
@@ -559,7 +559,7 @@ describe('MessageBroker Real-time Communication External Test', () => {
       type: 'message',
       roomId: 'general',
       userId: 'user1',
-      username: 'testuser1',
+      username: "testuser1",
       data: { content: 'Hello, room!' }
     });
 
@@ -639,7 +639,7 @@ describe('MessageBroker Real-time Communication External Test', () => {
       type: 'message',
       roomId: 'general',
       userId: 'user1',
-      username: 'testuser1',
+      username: "testuser1",
       data: { content: 'Hello everyone!' }
     });
 
@@ -684,7 +684,7 @@ describe('MessageBroker Real-time Communication External Test', () => {
     const sendResult = await broker.sendToUser('user1', {
       type: 'workflow_notification',
       roomId: 'general',
-      data: { workflowId: 'backup-flow', status: 'In Progress' }
+      data: { workflowId: 'backup-flow', status: "completed" }
     });
 
     // Assert
@@ -720,8 +720,8 @@ describe('MessageBroker Real-time Communication External Test', () => {
 
   test('should provide health status', async () => {
     // Arrange
-    await broker.connect('user1', 'testuser1');
-    await broker.connect('user2', 'testuser2');
+    await broker.connect('user1', "testuser1");
+    await broker.connect('user2', "testuser2");
     
     // Add small delay to ensure uptime > 0
     await new Promise(resolve => setTimeout(resolve, 10));
@@ -768,7 +768,7 @@ describe('MessageBroker Real-time Communication External Test', () => {
 
   test('should handle room switching with notifications', async () => {
     // Arrange
-    const connectResult = await broker.connect('user1', 'testuser1');
+    const connectResult = await broker.connect('user1', "testuser1");
     const connectionId = connectResult.data!.id;
     
     const generalEvents: MessageEvent[] = [];
@@ -846,7 +846,7 @@ describe('MessageBroker Real-time Communication External Test', () => {
 
   test('should handle subscription cleanup on disconnect', async () => {
     // Arrange
-    const connectResult = await broker.connect('user1', 'testuser1');
+    const connectResult = await broker.connect('user1', "testuser1");
     const connectionId = connectResult.data!.id;
     
     await broker.joinRoom(connectionId, 'general');

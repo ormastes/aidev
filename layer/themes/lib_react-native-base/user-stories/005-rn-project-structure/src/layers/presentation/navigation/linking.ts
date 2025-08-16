@@ -8,15 +8,15 @@ export const linking: LinkingOptions<RootStackParamList> = {
       Auth: {
         screens: {
           Login: 'login',
-          Register: 'register',
-          ForgotPassword: 'forgot-password',
+          Register: "register",
+          Forgotpassword: "PLACEHOLDER",
         },
       },
       Main: {
         screens: {
           Home: 'home',
           Profile: 'profile/:userId?',
-          Settings: 'settings',
+          Settings: "settings",
         },
       },
       Modal: 'modal/:id',

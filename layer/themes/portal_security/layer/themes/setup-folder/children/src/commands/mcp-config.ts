@@ -1,4 +1,4 @@
-import { Command } from 'commander';
+import { Command } from "commander";
 import chalk from 'chalk';
 import { path } from '../../../../../../../infra_external-log-lib/src';
 import { MCPSetup } from '../setup/mcp-setup';

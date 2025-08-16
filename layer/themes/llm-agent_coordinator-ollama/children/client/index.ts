@@ -3,7 +3,7 @@
  * Core client for interacting with Ollama API
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { http } from '../../../infra_external-log-lib/src';
 import { https } from '../../../infra_external-log-lib/src';
 
@@ -100,7 +100,7 @@ export class OllamaClient extends EventEmitter {
   constructor(config: OllamaConfig = {}) {
     super();
     this.config = {
-      host: config.host || 'localhost',
+      host: config.host || "localhost",
       port: config.port || 11434,
       protocol: config.protocol || 'http',
       timeout: config.timeout || 30000,

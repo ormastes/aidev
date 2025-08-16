@@ -8,7 +8,7 @@ interface Service {
   lastSeen?: Date;
 }
 
-describe('ServiceDiscovery', () => {
+describe("ServiceDiscovery", () => {
   let serviceDiscovery: ServiceDiscovery;
 
   beforeEach(() => {
@@ -25,7 +25,7 @@ describe('ServiceDiscovery', () => {
     (ServiceDiscovery as any).instance = undefined;
   });
 
-  describe('register', () => {
+  describe("register", () => {
     it('should register a new service', async () => {
       const service: Service = {
         name: 'test-service',
@@ -79,7 +79,7 @@ describe('ServiceDiscovery', () => {
     });
   });
 
-  describe('deregister', () => {
+  describe("deregister", () => {
     it('should remove registered service', async () => {
       const service: Service = {
         name: 'test-service',
@@ -99,7 +99,7 @@ describe('ServiceDiscovery', () => {
     });
   });
 
-  describe('getService', () => {
+  describe("getService", () => {
     it('should return undefined for non-existent service', () => {
       expect(serviceDiscovery.getService('non-existent')).toBeUndefined();
     });
@@ -118,7 +118,7 @@ describe('ServiceDiscovery', () => {
     });
   });
 
-  describe('getAllServices', () => {
+  describe("getAllServices", () => {
     it('should return empty array when no services', () => {
       expect(serviceDiscovery.getAllServices()).toEqual([]);
     });
@@ -146,7 +146,7 @@ describe('ServiceDiscovery', () => {
     });
   });
 
-  describe('getServiceUrl', () => {
+  describe("getServiceUrl", () => {
     it('should return undefined for non-existent service', () => {
       expect(serviceDiscovery.getServiceUrl('non-existent')).toBeUndefined();
     });
@@ -205,7 +205,7 @@ describe('ServiceDiscovery', () => {
 
   describe('stop', () => {
     it('should stop health checks', () => {
-      const clearIntervalSpy = jest.spyOn(global, 'clearInterval');
+      const clearIntervalSpy = jest.spyOn(global, "clearInterval");
       serviceDiscovery.stop();
       expect(clearIntervalSpy).toHaveBeenCalled();
     });

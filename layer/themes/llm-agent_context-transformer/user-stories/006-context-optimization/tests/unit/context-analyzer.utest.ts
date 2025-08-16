@@ -5,14 +5,14 @@
 import { ContextAnalyzer } from '../../src/analyzers/context-analyzer';
 import { ContextMetrics, ContextType, AnalysisResult } from '../../src/types';
 
-describe('ContextAnalyzer', () => {
+describe("ContextAnalyzer", () => {
   let analyzer: ContextAnalyzer;
 
   beforeEach(() => {
     analyzer = new ContextAnalyzer();
   });
 
-  describe('analyzeContext', () => {
+  describe("analyzeContext", () => {
     it('should analyze simple code context', () => {
       const context = `
         function calculate(a: number, b: number): number {
@@ -117,7 +117,7 @@ describe('ContextAnalyzer', () => {
     });
   });
 
-  describe('extractRelevantContext', () => {
+  describe("extractRelevantContext", () => {
     it('should extract relevant parts based on query', () => {
       const fullContext = `
         class UserService {
@@ -136,9 +136,9 @@ describe('ContextAnalyzer', () => {
       const query = 'update user functionality';
       const relevant = analyzer.extractRelevantContext(fullContext, query);
 
-      expect(relevant).toContain('updateUser');
-      expect(relevant).toContain('UserService');
-      expect(relevant).not.toContain('ProductService');
+      expect(relevant).toContain("updateUser");
+      expect(relevant).toContain("UserService");
+      expect(relevant).not.toContain("ProductService");
     });
 
     it('should handle empty query', () => {
@@ -149,7 +149,7 @@ describe('ContextAnalyzer', () => {
     });
   });
 
-  describe('calculateMetrics', () => {
+  describe("calculateMetrics", () => {
     it('should calculate token count', () => {
       const context = 'The quick brown fox jumps over the lazy dog';
       const metrics = analyzer.calculateMetrics(context);
@@ -187,7 +187,7 @@ describe('ContextAnalyzer', () => {
     });
   });
 
-  describe('optimizeContext', () => {
+  describe("optimizeContext", () => {
     it('should remove comments when specified', () => {
       const context = `
         // This is a comment
@@ -248,7 +248,7 @@ describe('ContextAnalyzer', () => {
     });
   });
 
-  describe('suggestOptimizations', () => {
+  describe("suggestOptimizations", () => {
     it('should suggest removing duplicates', () => {
       const analysis: AnalysisResult = {
         type: ContextType.CODE,

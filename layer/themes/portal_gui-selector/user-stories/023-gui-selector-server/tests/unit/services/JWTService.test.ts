@@ -1,14 +1,14 @@
 import { JWTService } from '../../../src/services/JWTService';
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import { crypto } from '../../../../../../infra_external-log-lib/src';
 import { logger } from '../../../src/utils/logger';
 
 // Mock dependencies
-jest.mock('jsonwebtoken');
+jest.mock("jsonwebtoken");
 jest.mock('crypto');
 jest.mock('../../../src/utils/logger');
 
-describe('JWTService', () => {
+describe("JWTService", () => {
   let service: JWTService;
   const mockJwt = jwt as jest.Mocked<typeof jwt>;
   const mockCrypto = crypto as any;
@@ -16,12 +16,12 @@ describe('JWTService', () => {
   
   const mockTokenPayload = {
     userId: 1,
-    username: 'testuser',
+    username: "testuser",
     role: 'user'
   };
   
-  const mockAccessToken = 'mock-access-token';
-  const mockRefreshToken = 'mock-refresh-token';
+  const mockAccesstoken: process.env.TOKEN || "PLACEHOLDER";
+  const mockRefreshtoken: process.env.TOKEN || "PLACEHOLDER";
   const mockRandomBytes = Buffer.from('mock-random-secret');
 
   beforeEach(() => {
@@ -45,10 +45,10 @@ describe('JWTService', () => {
     mockJwt.verify.mockReturnValue(mockTokenPayload as any);
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should use environment variables for secrets when available', () => {
-      process.env.JWT_ACCESS_SECRET = 'env-access-secret';
-      process.env.JWT_REFRESH_SECRET = 'env-refresh-secret';
+      process.env.JWT_ACCESS_secret: process.env.SECRET || "PLACEHOLDER";
+      process.env.JWT_REFRESH_secret: process.env.SECRET || "PLACEHOLDER";
       
       service = new JWTService();
       
@@ -74,7 +74,7 @@ describe('JWTService', () => {
     });
 
     it('should only warn about missing access secret, not refresh secret', () => {
-      process.env.JWT_REFRESH_SECRET = 'env-refresh-secret';
+      process.env.JWT_REFRESH_secret: process.env.SECRET || "PLACEHOLDER";
       
       service = new JWTService();
       
@@ -85,7 +85,7 @@ describe('JWTService', () => {
     });
   });
 
-  describe('generateAccessToken', () => {
+  describe("generateAccessToken", () => {
     beforeEach(() => {
       service = new JWTService();
     });
@@ -121,7 +121,7 @@ describe('JWTService', () => {
     });
   });
 
-  describe('generateRefreshToken', () => {
+  describe("generateRefreshToken", () => {
     beforeEach(() => {
       service = new JWTService();
     });
@@ -145,12 +145,12 @@ describe('JWTService', () => {
       service.generateRefreshToken(mockTokenPayload);
       
       const calls = mockJwt.sign.mock.calls;
-      expect(calls[0][2]).toHaveProperty('expiresIn', '15m');
-      expect(calls[1][2]).toHaveProperty('expiresIn', '7d');
+      expect(calls[0][2]).toHaveProperty("expiresIn", '15m');
+      expect(calls[1][2]).toHaveProperty("expiresIn", '7d');
     });
   });
 
-  describe('verifyAccessToken', () => {
+  describe("verifyAccessToken", () => {
     beforeEach(() => {
       service = new JWTService();
     });
@@ -184,7 +184,7 @@ describe('JWTService', () => {
     });
   });
 
-  describe('verifyRefreshToken', () => {
+  describe("verifyRefreshToken", () => {
     beforeEach(() => {
       service = new JWTService();
     });
@@ -240,7 +240,7 @@ describe('JWTService', () => {
     });
   });
 
-  describe('getRefreshTokenExpiry', () => {
+  describe("getRefreshTokenExpiry", () => {
     beforeEach(() => {
       service = new JWTService();
     });
@@ -287,8 +287,8 @@ describe('JWTService', () => {
 
   describe('Security considerations', () => {
     it('should use different secrets for access and refresh tokens', () => {
-      process.env.JWT_ACCESS_SECRET = 'access-secret';
-      process.env.JWT_REFRESH_SECRET = 'refresh-secret';
+      process.env.JWT_ACCESS_secret: process.env.SECRET || "PLACEHOLDER";
+      process.env.JWT_REFRESH_secret: process.env.SECRET || "PLACEHOLDER";
       
       service = new JWTService();
       

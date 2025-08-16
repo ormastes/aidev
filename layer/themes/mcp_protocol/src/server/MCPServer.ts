@@ -3,14 +3,14 @@
  * Model Context Protocol server for AI model communication
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { WebSocket, WebSocketServer } from 'ws';
-import { createServer, Server as HTTPServer } from 'http';
+import { createServer, Server as HTTPServer } from '../utils/http-wrapper';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface MCPMessage {
   id: string;
-  type: 'request' | 'response' | 'notification' | 'error';
+  type: 'request' | "response" | "notification" | 'error';
   method?: string;
   params?: any;
   result?: any;
@@ -84,7 +84,7 @@ export class MCPServer extends EventEmitter {
     super();
     this.config = {
       port: 8765,
-      host: 'localhost',
+      host: "localhost",
       maxConnections: 100,
       authRequired: true,
       heartbeatInterval: 30000,
@@ -104,7 +104,7 @@ export class MCPServer extends EventEmitter {
    */
   async start(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.wsServer.on('connection', this.handleConnection.bind(this));
+      this.wsServer.on("connection", this.handleConnection.bind(this));
       
       this.httpServer.listen(this.config.port, this.config.host, () => {
         this.log('info', `MCP Server listening on ${this.config.host}:${this.config.port}`);
@@ -176,7 +176,7 @@ export class MCPServer extends EventEmitter {
     // Send welcome message
     this.sendMessage(session, {
       id: uuidv4(),
-      type: 'notification',
+      type: "notification",
       method: 'welcome',
       params: {
         sessionId,
@@ -187,7 +187,7 @@ export class MCPServer extends EventEmitter {
       timestamp: new Date()
     });
 
-    this.emit('connection', session);
+    this.emit("connection", session);
   }
 
   /**
@@ -202,10 +202,10 @@ export class MCPServer extends EventEmitter {
 
       if (message.type === 'request') {
         await this.handleRequest(message, session);
-      } else if (message.type === 'notification') {
+      } else if (message.type === "notification") {
         await this.handleNotification(message, session);
-      } else if (message.type === 'response') {
-        this.emit('response', message, session);
+      } else if (message.type === "response") {
+        this.emit("response", message, session);
       }
     } catch (error) {
       this.sendError(session, null, -32700, 'Parse error', error);
@@ -216,7 +216,7 @@ export class MCPServer extends EventEmitter {
    * Handle request message
    */
   private async handleRequest(message: MCPMessage, session: MCPSession): Promise<void> {
-    if (this.config.authRequired && !session.authenticated && message.method !== 'authenticate') {
+    if (this.config.authRequired && !session.authenticated && message.method !== "authenticate") {
       this.sendError(session, message.id, -32001, 'Authentication required');
       return;
     }
@@ -247,10 +247,10 @@ export class MCPServer extends EventEmitter {
    * Handle notification message
    */
   private async handleNotification(message: MCPMessage, session: MCPSession): Promise<void> {
-    this.emit('notification', message, session);
+    this.emit("notification", message, session);
     
     // Handle built-in notifications
-    if (message.method === 'heartbeat') {
+    if (message.method === "heartbeat") {
       session.lastActivity = new Date();
     }
   }
@@ -261,7 +261,7 @@ export class MCPServer extends EventEmitter {
   private handleDisconnect(session: MCPSession): void {
     this.sessions.delete(session.id);
     this.log('info', `Client ${session.clientId} disconnected`);
-    this.emit('disconnect', session);
+    this.emit("disconnect", session);
   }
 
   /**
@@ -277,7 +277,7 @@ export class MCPServer extends EventEmitter {
    */
   private registerBuiltInHandlers(): void {
     // Authentication handler
-    this.registerHandler('authenticate', async (params: any, session: MCPSession) => {
+    this.registerHandler("authenticate", async (params: any, session: MCPSession) => {
       const { token, credentials } = params;
       
       // Implement your authentication logic here
@@ -293,7 +293,7 @@ export class MCPServer extends EventEmitter {
     });
 
     // List tools handler
-    this.registerHandler('listTools', async (params: any, session: MCPSession) => {
+    this.registerHandler("listTools", async (params: any, session: MCPSession) => {
       return Array.from(this.tools.values()).map(tool => ({
         name: tool.name,
         description: tool.description,
@@ -303,7 +303,7 @@ export class MCPServer extends EventEmitter {
     });
 
     // Execute tool handler
-    this.registerHandler('executeTool', async (params: any, session: MCPSession) => {
+    this.registerHandler("executeTool", async (params: any, session: MCPSession) => {
       const { name, input } = params;
       const tool = this.tools.get(name);
       
@@ -319,7 +319,7 @@ export class MCPServer extends EventEmitter {
     });
 
     // Get context handler
-    this.registerHandler('getContext', async (params: any, session: MCPSession) => {
+    this.registerHandler("getContext", async (params: any, session: MCPSession) => {
       return {
         id: session.context.id,
         name: session.context.name,
@@ -331,7 +331,7 @@ export class MCPServer extends EventEmitter {
     });
 
     // Update context handler
-    this.registerHandler('updateContext', async (params: any, session: MCPSession) => {
+    this.registerHandler("updateContext", async (params: any, session: MCPSession) => {
       const { metadata, resources } = params;
       
       if (metadata) {
@@ -348,7 +348,7 @@ export class MCPServer extends EventEmitter {
     });
 
     // List sessions handler
-    this.registerHandler('listSessions', async (params: any, session: MCPSession) => {
+    this.registerHandler("listSessions", async (params: any, session: MCPSession) => {
       if (!this.hasPermission(session, 'admin')) {
         throw new Error('Permission denied');
       }
@@ -376,7 +376,7 @@ export class MCPServer extends EventEmitter {
   registerTool(tool: MCPTool): void {
     this.tools.set(tool.name, tool);
     this.log('debug', `Registered tool: ${tool.name}`);
-    this.emit('toolRegistered', tool);
+    this.emit("toolRegistered", tool);
   }
 
   /**
@@ -414,7 +414,7 @@ export class MCPServer extends EventEmitter {
   private sendResponse(session: MCPSession, requestId: string, result: any): void {
     this.sendMessage(session, {
       id: requestId,
-      type: 'response',
+      type: "response",
       result,
       timestamp: new Date()
     });
@@ -442,7 +442,7 @@ export class MCPServer extends EventEmitter {
   broadcast(method: string, params: any): void {
     const message: MCPMessage = {
       id: uuidv4(),
-      type: 'notification',
+      type: "notification",
       method,
       params,
       timestamp: new Date()
@@ -459,7 +459,7 @@ export class MCPServer extends EventEmitter {
   private setupHandlers(): void {
     this.wsServer.on('error', (error) => {
       this.log('error', `WebSocket server error: ${error.message}`);
-      this.emit('serverError', error);
+      this.emit("serverError", error);
     });
   }
 
@@ -517,10 +517,10 @@ export class MCPServer extends EventEmitter {
   private getServerCapabilities(): string[] {
     return [
       'tools',
-      'resources',
-      'streaming',
-      'notifications',
-      'authentication',
+      "resources",
+      "streaming",
+      "notifications",
+      "authentication",
       'context-management',
       'multi-session'
     ];

@@ -104,7 +104,7 @@ describe('TestSuiteManager File Operations Unit Tests', () => {
     });
 
     it('should create nested output directories', async () => {
-      const nestedPath = path.join(tempDir, 'deeply', 'nested', 'output', 'directory');
+      const nestedPath = path.join(tempDir, 'deeply', 'nested', 'output', "directory");
       
       const nestedConfig: TestConfiguration = {
         ...testConfig,
@@ -205,7 +205,7 @@ describe('TestSuiteManager File Operations Unit Tests', () => {
       const envConfig: TestConfiguration = {
         ...testConfig,
         environment: {
-          TEST_ENV: 'production',
+          TEST_ENV: "production",
           API_URL: 'https://api.example.com',
           DEBUG: 'true'
         }
@@ -261,7 +261,7 @@ describe('TestSuiteManager File Operations Unit Tests', () => {
       
       await testSuiteManager.initialize(problematicConfig);
       
-      // Should In Progress even with potential file issues
+      // Should complete even with potential file issues
       const result = await testSuiteManager.runTests();
       expect(result).toBeDefined();
     });

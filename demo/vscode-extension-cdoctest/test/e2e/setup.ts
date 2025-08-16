@@ -1,8 +1,8 @@
 import { test as base, expect } from '@playwright/test';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import { VSCodeTestHelper } from './helpers/vscode-test-helper';
-import { _electron as electron } from 'playwright';
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { _electron as electron } from "playwright";
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 export interface ExtensionFixtures {
   extensionPath: string;

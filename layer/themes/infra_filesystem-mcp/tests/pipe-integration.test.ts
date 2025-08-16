@@ -105,7 +105,7 @@ describe('Filesystem MCP Pipe Integration', () => {
 
     it('should handle special characters in parameters', () => {
       const comment = pipe.RunnableComments.queueItemValidation(
-        'scenario',
+        "scenario",
         'Scenario: Login with "email" & password'
       );
 
@@ -217,7 +217,7 @@ ${pipe.RunnableComments.queueItemValidation('system-test', 'Full system test')}
             setupConfig: { testFramework: 'jest', environment: 'test', testTimeout: 5000 }
           });
         }
-        if (path.includes('retrospect')) {
+        if (path.includes("retrospect")) {
           return '# Retrospect\n## Lessons Learned\n## Rule Suggestions\n## Know-How Updates\nUpdated KNOW_HOW.md';
         }
         throw new Error('File not found');

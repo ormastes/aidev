@@ -8,7 +8,7 @@ import { InMemoryStorage } from '../../../016-agent-abstraction/src/memory';
 jest.mock('../../src/agents/code-gen-agent');
 jest.mock('../../src/agents/test-gen-agent');
 
-describe('AgenticNode', () => {
+describe("AgenticNode", () => {
   let mockCodeGenAgent: jest.Mocked<CodeGenAgent>;
   let mockTestGenAgent: jest.Mocked<TestGenAgent>;
   let context: AgentContext;
@@ -26,7 +26,7 @@ describe('AgenticNode', () => {
       success: true,
       data: {
         code: 'function test() { return true; }',
-        language: 'typescript'
+        language: "typescript"
       }
     });
     
@@ -46,7 +46,7 @@ describe('AgenticNode', () => {
     };
   });
 
-  describe('createAgenticNode', () => {
+  describe("createAgenticNode", () => {
     it('should create node with agent', async () => {
       const node = createAgenticNode('code-gen', mockCodeGenAgent);
       
@@ -59,7 +59,7 @@ describe('AgenticNode', () => {
       const node = createAgenticNode('code-gen', mockCodeGenAgent);
       const input: CodeGenRequest = {
         description: 'Create a function',
-        language: 'typescript'
+        language: "typescript"
       };
       
       const result = await node.execute(input);
@@ -67,14 +67,14 @@ describe('AgenticNode', () => {
       expect(mockCodeGenAgent.execute).toHaveBeenCalledWith(input, expect.any(Object));
       expect(result.data).toEqual({
         code: 'function test() { return true; }',
-        language: 'typescript'
+        language: "typescript"
       });
     });
 
     it('should apply preProcess function', async () => {
       const preProcess = jest.fn().mockResolvedValue({
         description: 'Modified description',
-        language: 'javascript'
+        language: "javascript"
       });
       
       const node = createAgenticNode('code-gen', mockCodeGenAgent, {
@@ -83,7 +83,7 @@ describe('AgenticNode', () => {
       
       const input: CodeGenRequest = {
         description: 'Original description',
-        language: 'typescript'
+        language: "typescript"
       };
       
       await node.execute(input);
@@ -91,7 +91,7 @@ describe('AgenticNode', () => {
       expect(preProcess).toHaveBeenCalledWith(input);
       expect(mockCodeGenAgent.execute).toHaveBeenCalledWith({
         description: 'Modified description',
-        language: 'javascript'
+        language: "javascript"
       }, expect.any(Object));
     });
 
@@ -107,14 +107,14 @@ describe('AgenticNode', () => {
       
       const input: CodeGenRequest = {
         description: 'Create a function',
-        language: 'typescript'
+        language: "typescript"
       };
       
       const result = await node.execute(input);
       
       expect(postProcess).toHaveBeenCalledWith({
         code: 'function test() { return true; }',
-        language: 'typescript'
+        language: "typescript"
       });
       expect(result.data).toEqual({
         modified: true,
@@ -131,14 +131,14 @@ describe('AgenticNode', () => {
       const node = createAgenticNode('code-gen', mockCodeGenAgent);
       const input: CodeGenRequest = {
         description: 'Create a function',
-        language: 'typescript'
+        language: "typescript"
       };
       
       await expect(node.execute(input)).rejects.toThrow('Agent execution failed');
     });
   });
 
-  describe('createAgentChain', () => {
+  describe("createAgentChain", () => {
     it('should create chain of agents', () => {
       const chain = createAgentChain('code-test-chain', [
         mockCodeGenAgent,
@@ -157,7 +157,7 @@ describe('AgenticNode', () => {
       
       const input: CodeGenRequest = {
         description: 'Create a calculator',
-        language: 'typescript'
+        language: "typescript"
       };
       
       const result = await chain.execute(input);
@@ -166,7 +166,7 @@ describe('AgenticNode', () => {
       expect(mockTestGenAgent.execute).toHaveBeenCalledWith(
         expect.objectContaining({
           code: 'function test() { return true; }',
-          language: 'typescript'
+          language: "typescript"
         }),
         expect.any(Object)
       );
@@ -212,7 +212,7 @@ describe('AgenticNode', () => {
     });
   });
 
-  describe('createAgentParallel', () => {
+  describe("createAgentParallel", () => {
     it('should create parallel agent executor', () => {
       const parallel = createAgentParallel('parallel-gen', [
         mockCodeGenAgent,
@@ -229,12 +229,12 @@ describe('AgenticNode', () => {
       
       mockAgent1.execute.mockResolvedValue({
         success: true,
-        data: { code: 'code1', language: 'typescript' }
+        data: { code: 'code1', language: "typescript" }
       });
       
       mockAgent2.execute.mockResolvedValue({
         success: true,
-        data: { code: 'code2', language: 'javascript' }
+        data: { code: 'code2', language: "javascript" }
       });
       
       const parallel = createAgentParallel('parallel-gen', [mockAgent1, mockAgent2]);
@@ -273,7 +273,7 @@ describe('AgenticNode', () => {
       
       mockAgent1.execute.mockResolvedValue({
         success: true,
-        data: { code: 'code1', language: 'typescript' }
+        data: { code: 'code1', language: "typescript" }
       });
       
       mockAgent2.execute.mockResolvedValue({
@@ -291,7 +291,7 @@ describe('AgenticNode', () => {
     });
   });
 
-  describe('createAgentDebate', () => {
+  describe("createAgentDebate", () => {
     it('should create debate node', () => {
       const debate = createAgentDebate('debate-node', [
         mockCodeGenAgent,
@@ -310,21 +310,21 @@ describe('AgenticNode', () => {
       mockAgent1.execute
         .mockResolvedValueOnce({
           success: true,
-          data: { code: 'version1', language: 'typescript' }
+          data: { code: "version1", language: "typescript" }
         })
         .mockResolvedValueOnce({
           success: true,
-          data: { code: 'version1-improved', language: 'typescript' }
+          data: { code: 'version1-improved', language: "typescript" }
         });
       
       mockAgent2.execute
         .mockResolvedValueOnce({
           success: true,
-          data: { code: 'version2', language: 'typescript' }
+          data: { code: "version2", language: "typescript" }
         })
         .mockResolvedValueOnce({
           success: true,
-          data: { code: 'version2-improved', language: 'typescript' }
+          data: { code: 'version2-improved', language: "typescript" }
         });
       
       const debate = createAgentDebate('debate-node', [mockAgent1, mockAgent2], {
@@ -346,12 +346,12 @@ describe('AgenticNode', () => {
       
       mockAgent1.execute.mockResolvedValue({
         success: true,
-        data: { code: 'code1', language: 'typescript' }
+        data: { code: 'code1', language: "typescript" }
       });
       
       mockAgent2.execute.mockResolvedValue({
         success: true,
-        data: { code: 'code2', language: 'typescript' }
+        data: { code: 'code2', language: "typescript" }
       });
       
       const debate = createAgentDebate('debate-node', [mockAgent1, mockAgent2], {
@@ -362,8 +362,8 @@ describe('AgenticNode', () => {
       const result = await debate.execute({} as any);
       
       expect(judge).toHaveBeenCalledWith([
-        { code: 'code1', language: 'typescript' },
-        { code: 'code2', language: 'typescript' }
+        { code: 'code1', language: "typescript" },
+        { code: 'code2', language: "typescript" }
       ]);
       expect(result.data.code).toBe('code2');
     });

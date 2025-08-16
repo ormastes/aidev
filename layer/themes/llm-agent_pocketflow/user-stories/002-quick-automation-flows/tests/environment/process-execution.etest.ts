@@ -1,6 +1,6 @@
 import { spawn, exec, execSync } from 'child_process';
 import { describe, test, expect, beforeEach } from '@jest/globals';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 
 const execAsync = promisify(exec);
 
@@ -38,7 +38,7 @@ describe('Process Execution Environment Test', () => {
 
     // Assert
     const output = JSON.parse(stdout.trim());
-    expect(output.status).toBe('In Progress');
+    expect(output.status).toBe("completed");
     expect(output.value).toBe(42);
   });
 

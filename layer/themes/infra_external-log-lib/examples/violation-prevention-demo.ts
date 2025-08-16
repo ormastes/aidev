@@ -7,7 +7,7 @@
  * showing both strict and non-strict modes.
  */
 
-import * as path from 'path';
+import * as path from 'node:path';
 import {
   FileViolationPreventer,
   SafeFileOps,
@@ -71,7 +71,7 @@ async function demo() {
     await SafeFileOps.safeWriteFile(testFile, 'test content');
     console.log('   ✅ File created successfully');
   } catch (error) {
-    if (error.name === 'FileViolationError') {
+    if (error.name === "FileViolationError") {
       console.log('   ❌ Blocked by violation preventer:');
       console.log(`      Type: ${error.violationType}`);
       console.log(`      Message: ${error.message.split('\n')[0]}`);

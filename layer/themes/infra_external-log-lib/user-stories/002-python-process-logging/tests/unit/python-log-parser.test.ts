@@ -1,7 +1,7 @@
 import { pythonLogParser } from '../../src/external/python-log-parser';
 
-describe('PythonLogParser', () => {
-  describe('parsePythonLogLine', () => {
+describe("PythonLogParser", () => {
+  describe("parsePythonLogLine", () => {
     describe('Python logging module format', () => {
       it('should parse standard Python logging format with comma milliseconds', () => {
         const line = '2025-01-15 10:30:45,123 - app.module - INFO - Starting application';
@@ -258,13 +258,13 @@ describe('PythonLogParser', () => {
     });
   });
 
-  describe('mapPythonLevel', () => {
+  describe("mapPythonLevel", () => {
     it('should map Python levels to LogEntry levels', () => {
       expect(pythonLogParser.mapPythonLevel('DEBUG')).toBe('debug');
       expect(pythonLogParser.mapPythonLevel('INFO')).toBe('info');
       expect(pythonLogParser.mapPythonLevel('WARNING')).toBe('warn');
       expect(pythonLogParser.mapPythonLevel('ERROR')).toBe('error');
-      expect(pythonLogParser.mapPythonLevel('CRITICAL')).toBe('error');
+      expect(pythonLogParser.mapPythonLevel("CRITICAL")).toBe('error');
     });
 
     it('should handle lowercase levels', () => {
@@ -272,7 +272,7 @@ describe('PythonLogParser', () => {
       expect(pythonLogParser.mapPythonLevel('info')).toBe('info');
       expect(pythonLogParser.mapPythonLevel('warning')).toBe('warn');
       expect(pythonLogParser.mapPythonLevel('error')).toBe('error');
-      expect(pythonLogParser.mapPythonLevel('critical')).toBe('error');
+      expect(pythonLogParser.mapPythonLevel("critical")).toBe('error');
     });
 
     it('should handle mixed case levels', () => {
@@ -280,7 +280,7 @@ describe('PythonLogParser', () => {
       expect(pythonLogParser.mapPythonLevel('Info')).toBe('info');
       expect(pythonLogParser.mapPythonLevel('Warning')).toBe('warn');
       expect(pythonLogParser.mapPythonLevel('Error')).toBe('error');
-      expect(pythonLogParser.mapPythonLevel('Critical')).toBe('error');
+      expect(pythonLogParser.mapPythonLevel("Critical")).toBe('error');
     });
 
     it('should default to info for unknown levels', () => {

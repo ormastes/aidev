@@ -18,7 +18,7 @@ export interface PackageJsonConfig {
   devDependencies?: Record<string, string>;
   author?: string;
   license?: string;
-  type?: 'module' | 'commonjs';
+  type?: 'module' | "commonjs";
   engines?: Record<string, string>;
   keywords?: string[];
   repository?: {
@@ -164,7 +164,7 @@ export interface TsConfigOptions {
   const defaultConfig = {
     compilerOptions: {
       target: 'ES2020',
-      module: 'commonjs',
+      module: "commonjs",
       lib: ['ES2020'],
       outDir: './dist',
       rootDir: './src',

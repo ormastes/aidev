@@ -28,7 +28,7 @@ describe('Math Utils', () => {
     });
   });
 
-  describe('subtract', () => {
+  describe("subtract", () => {
     test('subtracts two numbers', () => {
       expect(subtract(5, 3)).toBe(2);
     });
@@ -38,7 +38,7 @@ describe('Math Utils', () => {
     });
   });
 
-  describe('multiply', () => {
+  describe("multiply", () => {
     test('multiplies two numbers', () => {
       expect(multiply(3, 4)).toBe(12);
     });
@@ -80,7 +80,7 @@ describe('Math Utils', () => {
     });
   });
 
-  describe('factorial', () => {
+  describe("factorial", () => {
     test('calculates factorial of positive number', () => {
       expect(factorial(5)).toBe(120);
     });

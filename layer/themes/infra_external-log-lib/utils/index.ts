@@ -49,7 +49,7 @@ export function createLogPipeline(config: PipelineConfig) {
     }
 
     // Report if configured
-    if (reporter && reporter['currentStory']) {
+    if (reporter && reporter["currentStory"]) {
       reporter.addEvent({
         timestamp: parsed.timestamp || new Date(),
         type: parsed.level === 'error' ? 'error' : 'action',
@@ -71,7 +71,7 @@ export function createLogPipeline(config: PipelineConfig) {
     async start() {
       await capture.start();
       if (streamer) streamer.start();
-      if (reporter) reporter.startStory('pipeline', 'Log Pipeline Session');
+      if (reporter) reporter.startStory("pipeline", 'Log Pipeline Session');
     },
     
     async stop() {
@@ -110,7 +110,7 @@ export function parseLogLevel(level: string): LogLevel {
  */
 export function formatTimestamp(
   date: Date,
-  format: 'iso' | 'unix' | 'human' | 'relative' = 'iso'
+  format: 'iso' | 'unix' | 'human' | "relative" = 'iso'
 ): string {
   switch (format) {
     case 'unix':
@@ -119,7 +119,7 @@ export function formatTimestamp(
     case 'human':
       return date.toLocaleString();
     
-    case 'relative':
+    case "relative":
       return formatRelativeTime(date);
     
     case 'iso':

@@ -1,7 +1,8 @@
+import { fileAPI } from '../utils/file-api';
 import { Given, When, Then, Before, After } from '@cucumber/cucumber';
 import { strict as assert } from 'assert';
-import { fs } from '../../layer/themes/infra_external-log-lib/dist';
-import { path } from '../../layer/themes/infra_external-log-lib/dist';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 export interface ValidationWorld {
   registryPath: string;
@@ -33,7 +34,7 @@ When('I validate the task {string} is registered', function(this: ValidationWorl
       return;
     }
     
-    const registry = JSON.parse(fs.readFileSync(this.registryPath, 'utf-8'));
+    const registry = JSON.parse(fileAPI.readFileSync(this.registryPath, 'utf-8'));
     if (!registry[taskId]) {
       this.validationErrors.push(`Task ID "${taskId}" is not registered in NAME_ID.vf.json`);
     }
@@ -44,7 +45,7 @@ When('I validate the task {string} is registered', function(this: ValidationWorl
 
 When('I validate all queues are empty before adhoc insertion', function(this: ValidationWorld) {
   try {
-    const taskQueueContent = fs.readFileSync(this.taskQueuePath, 'utf-8');
+    const taskQueueContent = fileAPI.readFileSync(this.taskQueuePath, 'utf-8');
     const lines = taskQueueContent.split('\n');
     
     const queueSections = [
@@ -86,7 +87,7 @@ When('I validate the scenario {string} exists in FEATURE.md', function(this: Val
       return;
     }
     
-    const featureContent = fs.readFileSync(this.featurePath, 'utf-8');
+    const featureContent = fileAPI.readFileSync(this.featurePath, 'utf-8');
     if (!featureContent.includes(scenarioName)) {
       this.validationErrors.push(`Scenario "${scenarioName}" not found in FEATURE.md`);
     }

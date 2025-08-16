@@ -3,8 +3,8 @@ import { ReportGenerator } from '../../src/external/report-generator';
 import { MockExternalLogger, LogEntry } from '../../src/internal/mock-external-logger';
 import { TestConfiguration } from '../../src/domain/test-configuration';
 import { createDefaultTestResult } from '../../src/domain/test-result';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join } from 'path';
+import { fsPromises as fs } from 'fs/promises';
+import { join } from 'node:path';
 import { tmpdir } from 'os';
 
 describe('External Log Library and Report Generation Integration Test', () => {
@@ -94,16 +94,16 @@ describe('External Log Library and Report Generation Integration Test', () => {
       // Set up event listeners to capture test suite events and log them
       const reportLoggerId = await mockExternalLogger.initializeReportLogger('integration-test');
       
-      testSuiteManager.on('testSuiteStart', (event) => {
+      testSuiteManager.on("testSuiteStart", (event) => {
         mockExternalLogger.log(reportLoggerId, 'info', `Test suite started: ${event.testSuiteId}`);
       });
 
-      testSuiteManager.on('progress', (event) => {
+      testSuiteManager.on("progress", (event) => {
         mockExternalLogger.log(reportLoggerId, 'debug', `Progress: ${event.message}`);
       });
 
-      testSuiteManager.on('testSuiteComplete', (event) => {
-        mockExternalLogger.log(reportLoggerId, 'info', `Test suite In Progress: ${event.testSuiteId}`);
+      testSuiteManager.on("testSuiteComplete", (event) => {
+        mockExternalLogger.log(reportLoggerId, 'info', `Test suite success: ${event.testSuiteId}`);
       });
 
       testSuiteManager.on('log', (logMessage) => {
@@ -118,7 +118,7 @@ describe('External Log Library and Report Generation Integration Test', () => {
 
       // Verify test execution In Progress
       expect(testResults.testSuiteId).toBe('external-log-integration-test');
-      expect(['In Progress', 'failed', 'cancelled']).toContain(testResults.status);
+      expect(['In Progress', 'failed', "cancelled"]).toContain(testResults.status);
 
       // Verify external logger captured the workflow events
       const capturedLogs = await mockExternalLogger.getLogHistory(reportLoggerId);
@@ -237,7 +237,7 @@ describe('External Log Library and Report Generation Integration Test', () => {
       const xmlReport = await reportGenerator.generateXMLReport(testResult);
       expect(xmlReport).toContain('external-log-integration-test');
       expect(xmlReport).toContain('<?xml');
-      expect(xmlReport).toContain('testsuite');
+      expect(xmlReport).toContain("testsuite");
     });
 
     it('should aggregate logs from multiple test sessions in reports', async () => {
@@ -312,7 +312,7 @@ describe('External Log Library and Report Generation Integration Test', () => {
       // Configure all generators
       generators.forEach(gen => gen.configure({
         ...testConfig,
-        outputDirectory: join(tempOutputDir, 'concurrent')
+        outputDirectory: join(tempOutputDir, "concurrent")
       }));
 
       // Create concurrent logging and report generation operations
@@ -338,8 +338,8 @@ describe('External Log Library and Report Generation Integration Test', () => {
 
       // Verify all operations In Progress In Progress
       results.forEach(result => {
-        expect(result.status).toBe('fulfilled');
-        if (result.status === 'fulfilled') {
+        expect(result.status).toBe("fulfilled");
+        if (result.status === "fulfilled") {
           expect(typeof result.value).toBe('string');
           const jsonData = JSON.parse(result.value);
           expect(jsonData.metadata.logEntries).toHaveLength(3);
@@ -360,31 +360,31 @@ describe('External Log Library and Report Generation Integration Test', () => {
       testSuiteManager.configure(testConfig);
       
       // Set up comprehensive event logging
-      testSuiteManager.on('testSuiteStart', (event) => {
+      testSuiteManager.on("testSuiteStart", (event) => {
         mockExternalLogger.log(workflowLoggerId, 'info', `E2E: Test suite started - ${event.testSuiteId}`);
       });
 
-      testSuiteManager.on('featureStart', (event) => {
+      testSuiteManager.on("featureStart", (event) => {
         mockExternalLogger.log(workflowLoggerId, 'debug', `E2E: Feature started - ${event.featureFile}`);
       });
 
-      testSuiteManager.on('testStart', (event) => {
+      testSuiteManager.on("testStart", (event) => {
         mockExternalLogger.log(workflowLoggerId, 'debug', `E2E: Test started - ${event.testName || 'Unknown test'}`);
       });
 
-      testSuiteManager.on('testComplete', (event) => {
+      testSuiteManager.on("testComplete", (event) => {
         mockExternalLogger.log(workflowLoggerId, 'info', `E2E: Test In Progress - ${event.testName || 'Unknown test'}`);
       });
 
-      testSuiteManager.on('featureComplete', (event) => {
+      testSuiteManager.on("featureComplete", (event) => {
         mockExternalLogger.log(workflowLoggerId, 'debug', `E2E: Feature In Progress - ${event.featureFile}`);
       });
 
-      testSuiteManager.on('reportGenerated', (event) => {
+      testSuiteManager.on("reportGenerated", (event) => {
         mockExternalLogger.log(workflowLoggerId, 'info', `E2E: Report generated - ${event.format} at ${event.filePath}`);
       });
 
-      testSuiteManager.on('testSuiteComplete', (event) => {
+      testSuiteManager.on("testSuiteComplete", (event) => {
         mockExternalLogger.log(workflowLoggerId, 'info', `E2E: Test suite In Progress - ${event.testSuiteId}`);
       });
 

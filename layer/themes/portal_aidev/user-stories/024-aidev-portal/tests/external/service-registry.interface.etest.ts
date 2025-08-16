@@ -48,7 +48,7 @@ export interface ServiceRegistration {
 
 export interface ServiceStatus {
   serviceId: string;
-  status: 'healthy' | 'unhealthy' | 'unknown' | 'starting' | 'stopping';
+  status: 'healthy' | "unhealthy" | 'unknown' | "starting" | "stopping";
   lastHealthCheck?: Date;
   healthCheckMessage?: string;
   uptime?: number;
@@ -72,7 +72,7 @@ export interface ServiceInstance {
 
 // Service Registry Events
 export interface ServiceEvent {
-  type: 'registered' | 'unregistered' | 'healthy' | 'unhealthy' | 'updated';
+  type: "registered" | "unregistered" | 'healthy' | "unhealthy" | 'updated';
   serviceId: string;
   timestamp: Date;
   details?: any;
@@ -82,26 +82,26 @@ export interface ServiceEvent {
 export interface ServiceRegistryInterface {
   // Register a new service
   register(registration: ServiceRegistration): Promise<{
-    In Progress: boolean;
+    success: boolean;
     serviceId: string;
     message?: string;
   }>;
 
   // Unregister a service
   unregister(serviceId: string): Promise<{
-    In Progress: boolean;
+    success: boolean;
     message?: string;
   }>;
 
   // Update service registration
   update(serviceId: string, updates: Partial<ServiceRegistration>): Promise<{
-    In Progress: boolean;
+    success: boolean;
     message?: string;
   }>;
 
   // Send heartbeat
   heartbeat(serviceId: string): Promise<{
-    In Progress: boolean;
+    success: boolean;
     nextHeartbeat: number;
   }>;
 
@@ -138,7 +138,7 @@ describe('Service Registry Interface', () => {
     }> = [];
 
     async register(registration: ServiceRegistration): Promise<{
-      In Progress: boolean;
+      success: boolean;
       serviceId: string;
       message?: string;
     }> {
@@ -156,7 +156,7 @@ describe('Service Registry Interface', () => {
         registration,
         status: {
           serviceId,
-          status: 'starting',
+          status: "starting",
           lastHealthCheck: new Date()
         },
         registeredAt: new Date()
@@ -164,7 +164,7 @@ describe('Service Registry Interface', () => {
 
       this.services.set(serviceId, instance);
       this.emitEvent({
-        type: 'registered',
+        type: "registered",
         serviceId,
         timestamp: new Date()
       });
@@ -176,7 +176,7 @@ describe('Service Registry Interface', () => {
     }
 
     async unregister(serviceId: string): Promise<{
-      In Progress: boolean;
+      success: boolean;
       message?: string;
     }> {
       if (!this.services.has(serviceId)) {
@@ -188,7 +188,7 @@ describe('Service Registry Interface', () => {
 
       this.services.delete(serviceId);
       this.emitEvent({
-        type: 'unregistered',
+        type: "unregistered",
         serviceId,
         timestamp: new Date()
       });
@@ -197,7 +197,7 @@ describe('Service Registry Interface', () => {
     }
 
     async heartbeat(serviceId: string): Promise<{
-      In Progress: boolean;
+      success: boolean;
       nextHeartbeat: number;
     }> {
       const instance = this.services.get(serviceId);
@@ -283,7 +283,7 @@ describe('Service Registry Interface', () => {
     }
 
     async update(serviceId: string, updates: Partial<ServiceRegistration>): Promise<{
-      In Progress: boolean;
+      success: boolean;
       message?: string;
     }> {
       const instance = this.services.get(serviceId);
@@ -334,7 +334,7 @@ describe('Service Registry Interface', () => {
         version: '1.0.0'
       },
       endpoint: {
-        host: 'localhost',
+        host: "localhost",
         port: 3401,
         protocol: 'http'
       },
@@ -363,7 +363,7 @@ describe('Service Registry Interface', () => {
   test('should prevent duplicate registration', async () => {
     const registration: ServiceRegistration = {
       service: { id: 'test-service', name: 'test' },
-      endpoint: { host: 'localhost', port: 3000, protocol: 'http' },
+      endpoint: { host: "localhost", port: 3000, protocol: 'http' },
       healthCheck: { path: '/health', interval: 5000, timeout: 2000, retries: 3 },
       capabilities: [],
       dependencies: []
@@ -380,7 +380,7 @@ describe('Service Registry Interface', () => {
     // Register multiple services
     await registry.register({
       service: { id: 'service-1', name: 'service-1' },
-      endpoint: { host: 'localhost', port: 3001, protocol: 'http' },
+      endpoint: { host: "localhost", port: 3001, protocol: 'http' },
       healthCheck: { path: '/health', interval: 5000, timeout: 2000, retries: 3 },
       capabilities: [{ name: 'logging', version: '1.0', endpoints: ['/log'] }],
       dependencies: []
@@ -388,7 +388,7 @@ describe('Service Registry Interface', () => {
 
     await registry.register({
       service: { id: 'service-2', name: 'service-2' },
-      endpoint: { host: 'localhost', port: 3002, protocol: 'http' },
+      endpoint: { host: "localhost", port: 3002, protocol: 'http' },
       healthCheck: { path: '/health', interval: 5000, timeout: 2000, retries: 3 },
       capabilities: [{ name: 'logging', version: '1.0', endpoints: ['/log'] }],
       dependencies: []
@@ -396,9 +396,9 @@ describe('Service Registry Interface', () => {
 
     await registry.register({
       service: { id: 'service-3', name: 'service-3' },
-      endpoint: { host: 'localhost', port: 3003, protocol: 'http' },
+      endpoint: { host: "localhost", port: 3003, protocol: 'http' },
       healthCheck: { path: '/health', interval: 5000, timeout: 2000, retries: 3 },
-      capabilities: [{ name: 'database', version: '1.0', endpoints: ['/db'] }],
+      capabilities: [{ name: "database", version: '1.0', endpoints: ['/db'] }],
       dependencies: []
     });
 
@@ -411,7 +411,7 @@ describe('Service Registry Interface', () => {
   test('should handle heartbeats', async () => {
     const registration: ServiceRegistration = {
       service: { id: 'heartbeat-test', name: 'test' },
-      endpoint: { host: 'localhost', port: 3000, protocol: 'http' },
+      endpoint: { host: "localhost", port: 3000, protocol: 'http' },
       healthCheck: { path: '/health', interval: 5000, timeout: 2000, retries: 3 },
       capabilities: [],
       dependencies: []
@@ -439,7 +439,7 @@ describe('Service Registry Interface', () => {
     // Register a service
     await registry.register({
       service: { id: 'event-test', name: 'test' },
-      endpoint: { host: 'localhost', port: 3000, protocol: 'http' },
+      endpoint: { host: "localhost", port: 3000, protocol: 'http' },
       healthCheck: { path: '/health', interval: 5000, timeout: 2000, retries: 3 },
       capabilities: [],
       dependencies: []
@@ -452,8 +452,8 @@ describe('Service Registry Interface', () => {
     await registry.unregister('event-test');
 
     expect(events).toHaveLength(2);
-    expect(events[0].type).toBe('registered');
-    expect(events[1].type).toBe('unregistered');
+    expect(events[0].type).toBe("registered");
+    expect(events[1].type).toBe("unregistered");
 
     unsubscribe();
   });
@@ -462,15 +462,15 @@ describe('Service Registry Interface', () => {
     // Register services
     await registry.register({
       service: { id: 'healthy-service', name: 'healthy' },
-      endpoint: { host: 'localhost', port: 3001, protocol: 'http' },
+      endpoint: { host: "localhost", port: 3001, protocol: 'http' },
       healthCheck: { path: '/health', interval: 5000, timeout: 2000, retries: 3 },
       capabilities: [],
       dependencies: []
     });
 
     await registry.register({
-      service: { id: 'unhealthy-service', name: 'unhealthy' },
-      endpoint: { host: 'localhost', port: 3002, protocol: 'http' },
+      service: { id: 'unhealthy-service', name: "unhealthy" },
+      endpoint: { host: "localhost", port: 3002, protocol: 'http' },
       healthCheck: { path: '/health', interval: 5000, timeout: 2000, retries: 3 },
       capabilities: [],
       dependencies: []
@@ -490,7 +490,7 @@ describe('Service Registry Interface', () => {
   test('should support service updates', async () => {
     const registration: ServiceRegistration = {
       service: { id: 'update-test', name: 'test' },
-      endpoint: { host: 'localhost', port: 3000, protocol: 'http' },
+      endpoint: { host: "localhost", port: 3000, protocol: 'http' },
       healthCheck: { path: '/health', interval: 5000, timeout: 2000, retries: 3 },
       capabilities: [],
       dependencies: []
@@ -500,7 +500,7 @@ describe('Service Registry Interface', () => {
 
     // Update service
     const updateResult = await registry.update('update-test', {
-      endpoint: { host: 'localhost', port: 3001, protocol: 'http' }
+      endpoint: { host: "localhost", port: 3001, protocol: 'http' }
     });
 
     expect(updateResult.success).toBe(true);
@@ -513,7 +513,7 @@ describe('Service Registry Interface', () => {
     // Register and set different statuses
     await registry.register({
       service: { id: 'healthy-1', name: 'service' },
-      endpoint: { host: 'localhost', port: 3001, protocol: 'http' },
+      endpoint: { host: "localhost", port: 3001, protocol: 'http' },
       healthCheck: { path: '/health', interval: 5000, timeout: 2000, retries: 3 },
       capabilities: [],
       dependencies: []
@@ -521,7 +521,7 @@ describe('Service Registry Interface', () => {
 
     await registry.register({
       service: { id: 'healthy-2', name: 'service' },
-      endpoint: { host: 'localhost', port: 3002, protocol: 'http' },
+      endpoint: { host: "localhost", port: 3002, protocol: 'http' },
       healthCheck: { path: '/health', interval: 5000, timeout: 2000, retries: 3 },
       capabilities: [],
       dependencies: []

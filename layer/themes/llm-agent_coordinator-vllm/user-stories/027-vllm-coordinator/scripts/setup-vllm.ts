@@ -1,13 +1,14 @@
+import { fileAPI } from '../utils/file-api';
 #!/usr/bin/env ts-node
 /**
  * Setup script for vLLM Coordinator
  * Installs dependencies and prepares the environment
  */
 
-import { path } from '../../../../infra_external-log-lib/src';
-import { fs } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 import { exec } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import chalk from 'chalk';
 
 const execAsync = promisify(exec);

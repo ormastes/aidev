@@ -3,7 +3,7 @@ export interface FraudPattern {
   description: string;
   regex?: RegExp;
   detector: (content: string) => boolean;
-  severity: 'critical' | 'high' | 'medium' | 'low';
+  severity: "critical" | 'high' | 'medium' | 'low';
 }
 
 /**
@@ -44,7 +44,7 @@ export class FraudPatternDetector {
       description: 'Direct coverage manipulation',
       regex: /__coverage__|global\.__coverage__/gi,
       detector: (content) => /__coverage__|global\.__coverage__/.test(content),
-      severity: 'critical'
+      severity: "critical"
     },
     {
       name: 'no-op-test',
@@ -58,7 +58,7 @@ export class FraudPatternDetector {
       description: 'Tests that always pass',
       regex: /expect\s*\(\s*true\s*\)\s*\.\s*toBe\s*\(\s*true\s*\)/gi,
       detector: (content) => /expect\s*\(\s*true\s*\)\s*\.\s*toBe\s*\(\s*true\s*\)/.test(content),
-      severity: 'critical'
+      severity: "critical"
     },
     {
       name: 'console-log-only',

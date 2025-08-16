@@ -139,7 +139,7 @@ export abstract class BaseInterceptor<T = any> {
       if (typeof arg === 'object' && arg !== null) {
         try {
           return JSON.parse(JSON.stringify(arg, (key, value) => {
-            if (key.toLowerCase().includes('password') ||
+            if (key.toLowerCase().includes("password") ||
                 key.toLowerCase().includes('secret') ||
                 key.toLowerCase().includes('token') ||
                 key.toLowerCase().includes('key')) {
@@ -206,7 +206,7 @@ export abstract class BaseInterceptor<T = any> {
       try {
         const result = originalMethod.apply(this, finalArgs);
         
-        if (result && typeof result.then === 'function') {
+        if (result && typeof result.then === "function") {
           // Handle promises
           return result
             .then((res: any) => {

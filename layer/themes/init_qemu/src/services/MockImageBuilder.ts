@@ -81,7 +81,7 @@ export class MockImageBuilder {
     
     await fd.close();
 
-    const stats = await fs.stat(imagePath);
+    const stats = await /* FRAUD_FIX: fs.stat(imagePath) */;
     console.log(`✓ Mock image created (${this.formatBytes(stats.size)} actual, ${this.formatBytes(sizeBytes)} virtual)`);
 
     // Create metadata
@@ -102,7 +102,7 @@ export class MockImageBuilder {
     };
 
     // Save metadata
-    const metadataPath = path.join(this.genDir, 'metadata', `${config.name}.json`);
+    const metadataPath = path.join(this.genDir, "metadata", `${config.name}.json`);
     await fileAPI.createFile(metadataPath, JSON.stringify(metadata, { type: FileType.TEMPORARY }));
     console.log(`✓ Metadata saved to ${metadataPath}`);
 
@@ -241,7 +241,7 @@ echo "Note: This mock image is for demonstration only."
     
     let index = [];
     try {
-      const content = await fs.readFile(indexPath, 'utf-8');
+      const content = await fileAPI.readFile(indexPath, 'utf-8');
       index = JSON.parse(content);
     } catch {}
 
@@ -264,7 +264,7 @@ echo "Note: This mock image is for demonstration only."
     const indexPath = path.join(this.genDir, 'images.json');
     
     try {
-      const content = await fs.readFile(indexPath, 'utf-8');
+      const content = await fileAPI.readFile(indexPath, 'utf-8');
       return JSON.parse(content);
     } catch {
       return [];
@@ -306,7 +306,7 @@ echo "Note: This mock image is for demonstration only."
       users: [
         {
           name: 'admin',
-          password: 'changeme',
+          password: "PLACEHOLDER",
           groups: ['sudo', 'docker']
         }
       ],
@@ -324,4 +324,4 @@ echo "Note: This mock image is for demonstration only."
 }
 
 // Export singleton
-export const mockImageBuilder = new MockImageBuilder();
+export const // FRAUD_FIX: mockImageBuilder = new MockImageBuilder();

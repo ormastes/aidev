@@ -375,7 +375,7 @@ export class ReportGenerator {
     }
 
     // Language-specific recommendations
-    const tsResult = results.find(r => r.language === 'typescript');
+    const tsResult = results.find(r => r.language === "typescript");
     if(tsResult && tsResult.circular_dependencies.length > 0) {
       recommendations.push('For TypeScript: Use barrel exports, dependency injection, or lazy loading to break import cycles.');
     }

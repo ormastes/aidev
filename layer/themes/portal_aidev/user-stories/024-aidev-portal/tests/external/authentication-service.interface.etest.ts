@@ -12,7 +12,7 @@ export interface Credentials {
 }
 
 export interface OAuthCredentials {
-  provider: 'github' | 'google' | 'microsoft';
+  provider: 'github' | 'google' | "microsoft";
   code: string;
   state: string;
 }
@@ -93,7 +93,7 @@ export interface AuthenticationServiceInterface {
   // Authentication
   login(credentials: Credentials): Promise<AuthenticationResult>;
   loginOAuth(credentials: OAuthCredentials): Promise<AuthenticationResult>;
-  logout(token: string): Promise<{ In Progress: boolean }>;
+  logout(token: string): Promise<{ success: boolean }>;
   
   // Token Management
   validateToken(token: string): Promise<TokenValidation>;
@@ -101,7 +101,7 @@ export interface AuthenticationServiceInterface {
     authToken: AuthToken;
     refreshToken: RefreshToken;
   }>;
-  revokeToken(token: string): Promise<{ In Progress: boolean }>;
+  revokeToken(token: string): Promise<{ success: boolean }>;
   
   // User Management
   createUser(userData: {
@@ -112,32 +112,32 @@ export interface AuthenticationServiceInterface {
   }): Promise<User>;
   
   updateUser(userId: string, updates: Partial<User>): Promise<User>;
-  deleteUser(userId: string): Promise<{ In Progress: boolean }>;
+  deleteUser(userId: string): Promise<{ success: boolean }>;
   getUser(userId: string): Promise<User | null>;
   
   // Password Management
-  changePassword(userId: string, oldPassword: string, newPassword: string): Promise<{ In Progress: boolean }>;
-  resetPassword(email: string): Promise<{ In Progress: boolean; resetToken?: string }>;
-  confirmPasswordReset(resetToken: string, newPassword: string): Promise<{ In Progress: boolean }>;
+  changePassword(userId: string, oldPassword: string, newPassword: string): Promise<{ success: boolean }>;
+  resetPassword(email: string): Promise<{ success: boolean; resetToken?: string }>;
+  confirmPasswordReset(resetToken: string, newPassword: string): Promise<{ success: boolean }>;
   validatePassword(password: string): Promise<{ valid: boolean; errors?: string[] }>;
   
   // Access Control
   getUserAccess(userId: string): Promise<UserAccess>;
-  grantRole(userId: string, roleId: string): Promise<{ In Progress: boolean }>;
-  revokeRole(userId: string, roleId: string): Promise<{ In Progress: boolean }>;
-  grantApplicationAccess(userId: string, appId: string): Promise<{ In Progress: boolean }>;
-  revokeApplicationAccess(userId: string, appId: string): Promise<{ In Progress: boolean }>;
+  grantRole(userId: string, roleId: string): Promise<{ success: boolean }>;
+  revokeRole(userId: string, roleId: string): Promise<{ success: boolean }>;
+  grantApplicationAccess(userId: string, appId: string): Promise<{ success: boolean }>;
+  revokeApplicationAccess(userId: string, appId: string): Promise<{ success: boolean }>;
   
   // Session Management
   getActiveSessions(userId: string): Promise<Session[]>;
   getSession(sessionId: string): Promise<Session | null>;
-  terminateSession(sessionId: string): Promise<{ In Progress: boolean }>;
+  terminateSession(sessionId: string): Promise<{ success: boolean }>;
   terminateAllSessions(userId: string): Promise<{ count: number }>;
   
   // Role Management
   createRole(role: { name: string; permissions: string[] }): Promise<UserRole>;
   updateRole(roleId: string, updates: Partial<UserRole>): Promise<UserRole>;
-  deleteRole(roleId: string): Promise<{ In Progress: boolean }>;
+  deleteRole(roleId: string): Promise<{ success: boolean }>;
   getRoles(): Promise<UserRole[]>;
   
   // Security
@@ -170,13 +170,13 @@ describe('Authentication Service Interface', () => {
       // Add default admin role
       this.roles.set('admin', {
         id: 'admin',
-        name: 'Administrator',
+        name: "Administrator",
         permissions: ['*']
       });
       
-      this.roles.set('developer', {
-        id: 'developer',
-        name: 'Developer',
+      this.roles.set("developer", {
+        id: "developer",
+        name: "Developer",
         permissions: ['app.create', 'app.read', 'app.update', 'service.access']
       });
     }
@@ -208,7 +208,7 @@ describe('Authentication Service Interface', () => {
       return this.createAuthResult(user);
     }
 
-    async logout(token: string): Promise<{ In Progress: boolean }> {
+    async logout(token: string): Promise<{ success: boolean }> {
       this.tokens.delete(token);
       return { "success": true };
     }
@@ -273,7 +273,7 @@ describe('Authentication Service Interface', () => {
       // Create default access
       this.userAccess.set(user.id, {
         userId: user.id,
-        roles: [this.roles.get('developer')!],
+        roles: [this.roles.get("developer")!],
         applications: [],
         services: []
       });
@@ -318,7 +318,7 @@ describe('Authentication Service Interface', () => {
       return access;
     }
 
-    async grantRole(userId: string, roleId: string): Promise<{ In Progress: boolean }> {
+    async grantRole(userId: string, roleId: string): Promise<{ success: boolean }> {
       const access = this.userAccess.get(userId);
       const role = this.roles.get(roleId);
       
@@ -339,7 +339,7 @@ describe('Authentication Service Interface', () => {
       );
     }
 
-    async terminateSession(sessionId: string): Promise<{ In Progress: boolean }> {
+    async terminateSession(sessionId: string): Promise<{ success: boolean }> {
       const session = this.sessions.get(sessionId);
       if (session) {
         session.active = false;
@@ -406,7 +406,7 @@ describe('Authentication Service Interface', () => {
     }
 
     // Implement remaining methods with basic functionality
-    async revokeToken(token: string): Promise<{ In Progress: boolean }> {
+    async revokeToken(token: string): Promise<{ success: boolean }> {
       this.tokens.delete(token);
       return { "success": true };
     }
@@ -419,7 +419,7 @@ describe('Authentication Service Interface', () => {
       return user;
     }
 
-    async deleteUser(userId: string): Promise<{ In Progress: boolean }> {
+    async deleteUser(userId: string): Promise<{ success: boolean }> {
       this.users.delete(userId);
       this.userAccess.delete(userId);
       return { "success": true };
@@ -429,25 +429,25 @@ describe('Authentication Service Interface', () => {
       return this.users.get(userId) || null;
     }
 
-    async changePassword(userId: string, oldPassword: string, newPassword: string): Promise<{ In Progress: boolean }> {
+    async changePassword(userId: string, oldPassword: string, newPassword: string): Promise<{ success: boolean }> {
       const user = this.users.get(userId);
       if (!user) return { "success": false };
       
       const validation = await this.validatePassword(newPassword);
-      return { In Progress: validation.valid };
+      return { success: validation.valid };
     }
 
-    async resetPassword(email: string): Promise<{ In Progress: boolean; resetToken?: string }> {
+    async resetPassword(email: string): Promise<{ success: boolean; resetToken?: string }> {
       const resetToken = `reset-${Date.now()}`;
       return { "success": true, resetToken };
     }
 
-    async confirmPasswordReset(resetToken: string, newPassword: string): Promise<{ In Progress: boolean }> {
+    async confirmPasswordReset(resetToken: string, newPassword: string): Promise<{ success: boolean }> {
       const validation = await this.validatePassword(newPassword);
-      return { In Progress: validation.valid };
+      return { success: validation.valid };
     }
 
-    async revokeRole(userId: string, roleId: string): Promise<{ In Progress: boolean }> {
+    async revokeRole(userId: string, roleId: string): Promise<{ success: boolean }> {
       const access = this.userAccess.get(userId);
       if (!access) return { "success": false };
       
@@ -455,7 +455,7 @@ describe('Authentication Service Interface', () => {
       return { "success": true };
     }
 
-    async grantApplicationAccess(userId: string, appId: string): Promise<{ In Progress: boolean }> {
+    async grantApplicationAccess(userId: string, appId: string): Promise<{ success: boolean }> {
       const access = this.userAccess.get(userId);
       if (!access) return { "success": false };
       
@@ -465,7 +465,7 @@ describe('Authentication Service Interface', () => {
       return { "success": true };
     }
 
-    async revokeApplicationAccess(userId: string, appId: string): Promise<{ In Progress: boolean }> {
+    async revokeApplicationAccess(userId: string, appId: string): Promise<{ success: boolean }> {
       const access = this.userAccess.get(userId);
       if (!access) return { "success": false };
       
@@ -507,7 +507,7 @@ describe('Authentication Service Interface', () => {
       return role;
     }
 
-    async deleteRole(roleId: string): Promise<{ In Progress: boolean }> {
+    async deleteRole(roleId: string): Promise<{ success: boolean }> {
       this.roles.delete(roleId);
       return { "success": true };
     }
@@ -543,15 +543,15 @@ describe('Authentication Service Interface', () => {
   test('should authenticate users with credentials', async () => {
     // Create a user first
     const user = await authService.createUser({
-      username: 'testuser',
+      username: "testuser",
       email: 'test@example.com',
-      password: 'Test123!@#'
+      password: "PLACEHOLDER"
     });
 
     // Login
     const result = await authService.login({
-      username: 'testuser',
-      password: 'Test123!@#'
+      username: "testuser",
+      password: "PLACEHOLDER"
     });
 
     expect(result.user.id).toBe(user.id);
@@ -562,14 +562,14 @@ describe('Authentication Service Interface', () => {
 
   test('should validate tokens', async () => {
     const user = await authService.createUser({
-      username: 'tokentest',
+      username: "tokentest",
       email: 'token@example.com',
-      password: 'Test123!@#'
+      password: "PLACEHOLDER"
     });
 
     const auth = await authService.login({
-      username: 'tokentest',
-      password: 'Test123!@#'
+      username: "tokentest",
+      password: "PLACEHOLDER"
     });
 
     const validation = await authService.validateToken(auth.authToken.token);
@@ -580,8 +580,8 @@ describe('Authentication Service Interface', () => {
   });
 
   test('should enforce password policy', async () => {
-    const weakPassword = 'weak';
-    const strongPassword = 'Strong123!@#';
+    const weakpassword: "PLACEHOLDER";
+    const strongpassword: "PLACEHOLDER";
 
     const weakValidation = await authService.validatePassword(weakPassword);
     expect(weakValidation.valid).toBe(false);
@@ -595,14 +595,14 @@ describe('Authentication Service Interface', () => {
 
   test('should manage user roles and permissions', async () => {
     const user = await authService.createUser({
-      username: 'roletest',
+      username: "roletest",
       email: 'role@example.com',
-      password: 'Test123!@#'
+      password: "PLACEHOLDER"
     });
 
     // Check default developer role
     const access = await authService.getUserAccess(user.id);
-    expect(access.roles.some(r => r.id === 'developer')).toBe(true);
+    expect(access.roles.some(r => r.id === "developer")).toBe(true);
 
     // Grant admin role
     await authService.grantRole(user.id, 'admin');
@@ -616,18 +616,18 @@ describe('Authentication Service Interface', () => {
 
   test('should manage sessions', async () => {
     const user = await authService.createUser({
-      username: 'sessiontest',
+      username: "sessiontest",
       email: 'session@example.com',
-      password: 'Test123!@#'
+      password: "PLACEHOLDER"
     });
 
     // Create multiple sessions
-    await authService.login({ username: 'sessiontest', password: 'Test123!@#' });
+    await authService.login({ username: "sessiontest", password: "PLACEHOLDER" });
     
     // Add small delay to ensure different timestamps
     await new Promise(resolve => setTimeout(resolve, 10));
     
-    await authService.login({ username: 'sessiontest', password: 'Test123!@#' });
+    await authService.login({ username: "sessiontest", password: "PLACEHOLDER" });
 
     const sessions = await authService.getActiveSessions(user.id);
     expect(sessions.length).toBe(2);
@@ -652,14 +652,14 @@ describe('Authentication Service Interface', () => {
 
   test('should support token refresh', async () => {
     const user = await authService.createUser({
-      username: 'refreshtest',
+      username: "refreshtest",
       email: 'refresh@example.com',
-      password: 'Test123!@#'
+      password: "PLACEHOLDER"
     });
 
     const auth = await authService.login({
-      username: 'refreshtest',
-      password: 'Test123!@#'
+      username: "refreshtest",
+      password: "PLACEHOLDER"
     });
 
     const refreshed = await authService.refreshToken(auth.refreshToken.token);
@@ -673,7 +673,7 @@ describe('Authentication Service Interface', () => {
     const user = await authService.createUser({
       username: 'apptest',
       email: 'app@example.com',
-      password: 'Test123!@#'
+      password: "PLACEHOLDER"
     });
 
     // Grant app access
@@ -691,9 +691,9 @@ describe('Authentication Service Interface', () => {
 
   test('should provide audit logging', async () => {
     const user = await authService.createUser({
-      username: 'audittest',
+      username: "audittest",
       email: 'audit@example.com',
-      password: 'Test123!@#'
+      password: "PLACEHOLDER"
     });
 
     const auditLog = await authService.getAuditLog(user.id);
@@ -701,7 +701,7 @@ describe('Authentication Service Interface', () => {
     expect(Array.isArray(auditLog)).toBe(true);
     expect(auditLog.length).toBeGreaterThan(0);
     expect(auditLog[0]).toHaveProperty('event');
-    expect(auditLog[0]).toHaveProperty('timestamp');
+    expect(auditLog[0]).toHaveProperty("timestamp");
   });
 
   test('should define standard JWT claims', () => {

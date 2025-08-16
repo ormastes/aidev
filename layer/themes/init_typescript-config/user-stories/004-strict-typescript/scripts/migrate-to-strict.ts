@@ -1,8 +1,9 @@
+import { fileAPI } from '../utils/file-api';
 #!/usr/bin/env ts-node
 
-import { fs } from '../../../../infra_external-log-lib/src';
-import { path } from '../../../../infra_external-log-lib/src';
-import { promisify } from 'util';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { promisify } from 'node:util';
 import { exec } from 'child_process';
 
 const execAsync = promisify(exec);
@@ -169,7 +170,7 @@ class StrictTypescriptMigrator {
     const errors = output.split('\n').filter(line => line.trim());
     const errorPatterns = {
       implicitAny: /has an implicit 'any' type/,
-      nullCheck: /possibly 'null' or 'undefined'/,
+      nullCheck: /possibly 'null' or "undefined"/,
       unusedVar: /is declared but .* never used/,
       propertyAccess: /Property .* does not exist on type/,
       returnType: /Function lacks ending return statement/

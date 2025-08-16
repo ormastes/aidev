@@ -71,9 +71,9 @@ class GuiSelectorApp {
         document.getElementById(`${viewName}-view`).classList.add('active');
         document.querySelector(`.app-nav a[href="#${viewName}"]`).classList.add('active');
         
-        if (viewName === 'selections' && this.currentUser) {
+        if (viewName === "selections" && this.currentUser) {
             this.loadSelections();
-        } else if (viewName === 'requirements' && this.currentUser) {
+        } else if (viewName === "requirements" && this.currentUser) {
             this.loadRequirements();
         }
     }
@@ -94,7 +94,7 @@ class GuiSelectorApp {
 
     updateAuthUI() {
         const authBtn = document.getElementById('auth-btn');
-        const username = document.getElementById('username');
+        const username = document.getElementById("username");
         
         if (this.currentUser) {
             authBtn.textContent = 'Logout';
@@ -258,7 +258,7 @@ class GuiSelectorApp {
             if (response.ok) {
                 alert('Template selected successfully!');
                 document.getElementById('preview-modal').classList.remove('active');
-                this.switchView('selections');
+                this.switchView("selections");
             } else {
                 alert('Failed to save selection');
             }
@@ -352,7 +352,7 @@ class GuiSelectorApp {
 
     async exportRequirements() {
         try {
-            const format = confirm('Export as Markdown? (Cancel for JSON)') ? 'markdown' : 'json';
+            const format = confirm('Export as Markdown? (Cancel for JSON)') ? "markdown" : 'json';
             window.location.href = `/api/requirements/export?format=${format}`;
         } catch (error) {
             console.error('Export failed:', error);

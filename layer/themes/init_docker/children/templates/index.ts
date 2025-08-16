@@ -54,11 +54,11 @@ export class TemplateManager {
     
     // Load default CMake templates
     this.cmakeTemplates.set('basic', this.getBasicCMake());
-    this.cmakeTemplates.set('advanced', this.getAdvancedCMake());
+    this.cmakeTemplates.set("advanced", this.getAdvancedCMake());
     
     // Load default Compose templates
-    this.composeTemplates.set('development', this.getDevelopmentCompose());
-    this.composeTemplates.set('production', this.getProductionCompose());
+    this.composeTemplates.set("development", this.getDevelopmentCompose());
+    this.composeTemplates.set("production", this.getProductionCompose());
   }
 
   generateDockerfile(variables: TemplateVariables): string {
@@ -89,7 +89,7 @@ export class TemplateManager {
 
   generateComposeFile(environment: string, services: any[]): any {
     const baseTemplate = this.composeTemplates.get(
-      environment === 'production' ? 'production' : 'development'
+      environment === "production" ? "production" : "development"
     );
     
     return {
@@ -569,7 +569,7 @@ include(CPack)
             start_period: '40s',
           },
           networks: [
-            'production',
+            "production",
           ],
         },
       },

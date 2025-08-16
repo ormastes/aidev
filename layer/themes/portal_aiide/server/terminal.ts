@@ -5,7 +5,7 @@
 
 import { WebSocketServer, WebSocket } from 'ws';
 import * as pty from 'node-pty';
-import { Server } from 'http';
+import { Server } from '../utils/http-wrapper';
 import { os } from '../../infra_external-log-lib/src';
 import { path } from '../../infra_external-log-lib/src';
 
@@ -35,7 +35,7 @@ export class TerminalManager {
   }
 
   private setupWebSocketHandlers() {
-    this.wss.on('connection', (ws: WebSocket) => {
+    this.wss.on("connection", (ws: WebSocket) => {
       console.log('New terminal connection established');
       
       let session: TerminalSession | null = null;
@@ -104,7 +104,7 @@ export class TerminalManager {
       cwd: cwd,
       env: {
         ...process.env,
-        COLORTERM: 'truecolor',
+        COLORTERM: "truecolor",
         TERM: 'xterm-256color'
       }
     });
@@ -147,7 +147,7 @@ export class TerminalManager {
     
     // Send initialization success
     ws.send(JSON.stringify({
-      type: 'initialized',
+      type: "initialized",
       sessionId,
       shell: this.shell
     }));

@@ -43,7 +43,7 @@ describe('DefaultTaskExecutor - Real Tests', () => {
       let called = false;
       let receivedArgs: any[] = [];
       
-      executor.registerFunction('testFunc', (...args: any[]) => {
+      executor.registerFunction("testFunc", (...args: any[]) => {
         called = true;
         receivedArgs = args;
         return 'test result';
@@ -51,7 +51,7 @@ describe('DefaultTaskExecutor - Real Tests', () => {
 
       const task: Task = {
         id: 'test-1',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test function execution',
@@ -60,8 +60,8 @@ describe('DefaultTaskExecutor - Real Tests', () => {
         status: 'pending',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
-          function: 'testFunc',
+          type: "function",
+          function: "testFunc",
           args: ['arg1', 'arg2']
         }
       };
@@ -76,14 +76,14 @@ describe('DefaultTaskExecutor - Real Tests', () => {
     });
 
     it('should handle async function execution', async () => {
-      executor.registerFunction('asyncFunc', async () => {
+      executor.registerFunction("asyncFunc", async () => {
         await new Promise(resolve => setTimeout(resolve, 10));
         return 'async result';
       });
 
       const task: Task = {
         id: 'test-2',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test async function',
@@ -92,8 +92,8 @@ describe('DefaultTaskExecutor - Real Tests', () => {
         status: 'pending',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
-          function: 'asyncFunc',
+          type: "function",
+          function: "asyncFunc",
           args: []
         }
       };
@@ -106,13 +106,13 @@ describe('DefaultTaskExecutor - Real Tests', () => {
     });
 
     it('should handle function execution errors', async () => {
-      executor.registerFunction('errorFunc', () => {
+      executor.registerFunction("errorFunc", () => {
         throw new Error('Function error');
       });
 
       const task: Task = {
         id: 'test-3',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test error function',
@@ -121,8 +121,8 @@ describe('DefaultTaskExecutor - Real Tests', () => {
         status: 'pending',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
-          function: 'errorFunc',
+          type: "function",
+          function: "errorFunc",
           args: []
         }
       };
@@ -137,7 +137,7 @@ describe('DefaultTaskExecutor - Real Tests', () => {
     it('should throw error for unregistered function', async () => {
       const task: Task = {
         id: 'test-4',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test unregistered function',
@@ -146,8 +146,8 @@ describe('DefaultTaskExecutor - Real Tests', () => {
         status: 'pending',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
-          function: 'unknownFunc',
+          type: "function",
+          function: "unknownFunc",
           args: []
         }
       };
@@ -161,7 +161,7 @@ describe('DefaultTaskExecutor - Real Tests', () => {
     it('should execute simple command successfully', async () => {
       const task: Task = {
         id: 'test-5',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test command execution',
@@ -186,7 +186,7 @@ describe('DefaultTaskExecutor - Real Tests', () => {
     it('should execute command with environment variables', async () => {
       const task: Task = {
         id: 'test-6',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test command with env',
@@ -212,7 +212,7 @@ describe('DefaultTaskExecutor - Real Tests', () => {
     it('should handle command execution errors', async () => {
       const task: Task = {
         id: 'test-7',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test command error',
@@ -222,7 +222,7 @@ describe('DefaultTaskExecutor - Real Tests', () => {
         createdAt: new Date().toISOString(),
         runnable: {
           type: 'command',
-          command: 'nonexistentcommand123',
+          command: "nonexistentcommand123",
           args: []
         }
       };
@@ -241,7 +241,7 @@ describe('DefaultTaskExecutor - Real Tests', () => {
 
       const task: Task = {
         id: 'test-8',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test command in working dir',
@@ -266,7 +266,7 @@ describe('DefaultTaskExecutor - Real Tests', () => {
     it('should handle command with no arguments', async () => {
       const task: Task = {
         id: 'test-command-no-args',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test command without args',
@@ -304,7 +304,7 @@ exit 0`;
 
       const task: Task = {
         id: 'test-9',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test script execution',
@@ -340,7 +340,7 @@ echo "Relative script"`;
 
       const task: Task = {
         id: 'test-10',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test relative script',
@@ -375,7 +375,7 @@ echo "Made executable"`;
 
       const task: Task = {
         id: 'test-11',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test non-executable script',
@@ -415,7 +415,7 @@ exit 1`;
 
       const task: Task = {
         id: 'test-12',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test script error',
@@ -440,7 +440,7 @@ exit 1`;
     it('should throw error for non-existent script', async () => {
       const task: Task = {
         id: 'test-13',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test non-existent script',
@@ -472,7 +472,7 @@ echo "Env var: $TEST_ENV_VAR"`;
 
       const task: Task = {
         id: 'test-14',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test script with env',
@@ -508,7 +508,7 @@ echo "Simple script"`;
 
       const task: Task = {
         id: 'test-simple-script',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test simple script',
@@ -551,7 +551,7 @@ echo "Simple script"`;
     it('should throw error for unknown runnable type', async () => {
       const task: Task = {
         id: 'test-16',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Unknown runnable type',
@@ -572,7 +572,7 @@ echo "Simple script"`;
     it('should handle missing runnable configuration', async () => {
       const task: Task = {
         id: 'test-missing-runnable',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Missing runnable',
@@ -600,7 +600,7 @@ echo "Simple script"`;
       
       const echoTask: Task = {
         id: 'test-17',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test echo function',
@@ -609,7 +609,7 @@ echo "Simple script"`;
         status: 'pending',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
+          type: "function",
           function: 'echo',
           args: ['Hello from echo']
         }
@@ -627,7 +627,7 @@ echo "Simple script"`;
     it('should execute sleep function', async () => {
       const sleepTask: Task = {
         id: 'test-18',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test sleep function',
@@ -636,7 +636,7 @@ echo "Simple script"`;
         status: 'pending',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
+          type: "function",
           function: 'sleep',
           args: ['100']
         }
@@ -654,7 +654,7 @@ echo "Simple script"`;
     it('should execute writeFile function', async () => {
       const writeTask: Task = {
         id: 'test-19',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test writeFile function',
@@ -663,8 +663,8 @@ echo "Simple script"`;
         status: 'pending',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
-          function: 'writeFile',
+          type: "function",
+          function: "writeFile",
           args: ['test-write.txt', 'Test content']
         }
       };
@@ -688,7 +688,7 @@ echo "Simple script"`;
 
       const readTask: Task = {
         id: 'test-20',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test readFile function',
@@ -697,8 +697,8 @@ echo "Simple script"`;
         status: 'pending',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
-          function: 'readFile',
+          type: "function",
+          function: "readFile",
           args: ['test-read.txt']
         }
       };
@@ -713,7 +713,7 @@ echo "Simple script"`;
       const absolutePath = path.join(testDir, 'absolute-write.txt');
       const writeTask: Task = {
         id: 'test-21',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test writeFile with absolute path',
@@ -722,8 +722,8 @@ echo "Simple script"`;
         status: 'pending',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
-          function: 'writeFile',
+          type: "function",
+          function: "writeFile",
           args: [absolutePath, 'Absolute path content']
         }
       };
@@ -741,7 +741,7 @@ echo "Simple script"`;
 
       const readTask: Task = {
         id: 'test-22',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test readFile with absolute path',
@@ -750,8 +750,8 @@ echo "Simple script"`;
         status: 'pending',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
-          function: 'readFile',
+          type: "function",
+          function: "readFile",
           args: [absolutePath]
         }
       };
@@ -765,7 +765,7 @@ echo "Simple script"`;
     it('should handle readFile error for non-existent file', async () => {
       const readTask: Task = {
         id: 'test-read-error',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test readFile error',
@@ -774,8 +774,8 @@ echo "Simple script"`;
         status: 'pending',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
-          function: 'readFile',
+          type: "function",
+          function: "readFile",
           args: ['non-existent.txt']
         }
       };
@@ -790,7 +790,7 @@ echo "Simple script"`;
     it('should handle writeFile error for invalid path', async () => {
       const writeTask: Task = {
         id: 'test-write-error',
-        type: 'runnable',
+        type: "runnable",
         priority: 'medium',
         content: {
           title: 'Test writeFile error',
@@ -799,8 +799,8 @@ echo "Simple script"`;
         status: 'pending',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
-          function: 'writeFile',
+          type: "function",
+          function: "writeFile",
           args: ['/invalid/path/test.txt', 'content']
         }
       };

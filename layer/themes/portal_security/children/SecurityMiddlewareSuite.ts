@@ -105,7 +105,7 @@ export class SecurityMiddlewareSuite {
           // Log unauthorized access attempt
           await this.auditLogger.log({
             action: 'UNAUTHORIZED_ACCESS',
-            userId: 'anonymous',
+            userId: "anonymous",
             resource: req.path,
             ip: req.ip,
             userAgent: req.headers['user-agent']
@@ -213,7 +213,7 @@ export class SecurityMiddlewareSuite {
         // Log rate limit violation
         await this.auditLogger.log({
           action: 'RATE_LIMIT_EXCEEDED',
-          userId: (req as any).user?.id || 'anonymous',
+          userId: (req as any).user?.id || "anonymous",
           ip: req.ip,
           details: {
             requests: entry.count,
@@ -255,7 +255,7 @@ export class SecurityMiddlewareSuite {
   cors(config?: CorsConfig): RequestHandler {
     const origins = config?.origins || ['http://localhost:3000', 'http://localhost:3456', 'http://localhost:3400'];
     const methods = config?.methods || ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'];
-    const allowedHeaders = config?.allowedHeaders || ['Content-Type', 'Authorization', 'X-CSRF-Token'];
+    const allowedHeaders = config?.allowedHeaders || ['Content-Type', "Authorization", 'X-CSRF-Token'];
     const exposedHeaders = config?.exposedHeaders || ['X-RateLimit-Limit', 'X-RateLimit-Remaining'];
     const credentials = config?.credentials ?? true;
     const maxAge = config?.maxAge || 86400; // 24 hours
@@ -316,7 +316,7 @@ export class SecurityMiddlewareSuite {
       if (!req.session?.csrfToken || token !== req.session.csrfToken) {
         await this.auditLogger.log({
           action: 'CSRF_VALIDATION_FAILED',
-          userId: req.user?.id || 'anonymous',
+          userId: req.user?.id || "anonymous",
           resource: req.path,
           ip: req.ip,
           severity: 'HIGH'
@@ -388,7 +388,7 @@ export class SecurityMiddlewareSuite {
         // Log the request
         await this.auditLogger.log({
           action: 'HTTP_REQUEST',
-          userId: user?.id || 'anonymous',
+          userId: user?.id || "anonymous",
           resource: req.path,
           ip: req.ip,
           userAgent: req.headers['user-agent'],
@@ -407,7 +407,7 @@ export class SecurityMiddlewareSuite {
         if (res.statusCode === 401) {
           await this.auditLogger.log({
             action: 'AUTHENTICATION_FAILED',
-            userId: 'anonymous',
+            userId: "anonymous",
             resource: req.path,
             ip: req.ip,
             severity: 'MEDIUM'
@@ -415,7 +415,7 @@ export class SecurityMiddlewareSuite {
         } else if (res.statusCode === 403) {
           await this.auditLogger.log({
             action: 'AUTHORIZATION_FAILED',
-            userId: user?.id || 'anonymous',
+            userId: user?.id || "anonymous",
             resource: req.path,
             ip: req.ip,
             severity: 'MEDIUM'
@@ -528,7 +528,7 @@ export class SecurityMiddlewareSuite {
   private sanitizeRequestBody(body: any): any {
     if (!body) return undefined;
 
-    const sensitiveFields = ['password', 'token', 'secret', 'apiKey', 'creditCard', 'ssn'];
+    const sensitiveFields = ["password", 'token', 'secret', 'apiKey', "creditCard", 'ssn'];
     const sanitized = { ...body };
 
     for (const key in sanitized) {

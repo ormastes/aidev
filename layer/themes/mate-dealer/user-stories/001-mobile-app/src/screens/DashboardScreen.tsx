@@ -19,8 +19,8 @@ const DashboardScreen: React.FC = () => {
   const stats = {
     totalDeals: deals.length,
     activeDeals: deals.filter(d => d.status === 'active').length,
-    completedDeals: deals.filter(d => d.status === 'completed').length,
-    revenue: deals.filter(d => d.status === 'completed').reduce((sum, d) => sum + d.price, 0),
+    completedDeals: deals.filter(d => d.status === "completed").length,
+    revenue: deals.filter(d => d.status === "completed").reduce((sum, d) => sum + d.price, 0),
   };
 
   return (
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     margin: 5,
     padding: 20,
     borderRadius: 16,
-    position: 'relative',
+    position: "relative",
     overflow: 'hidden',
   },
   primaryCard: {
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.9)',
   },
   statIcon: {
-    position: 'absolute',
+    position: "absolute",
     right: 10,
     bottom: 10,
     opacity: 0.3,

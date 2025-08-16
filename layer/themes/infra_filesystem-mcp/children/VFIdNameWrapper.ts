@@ -169,7 +169,7 @@ export class VFIdNameWrapper extends VFFileWrapper {
     
     // Apply custom filters
     for (const [key, value] of Object.entries(params)) {
-      if (!['name', 'tag', 'tags', 'namespace', 'extension', 'type'].includes(key)) {
+      if (!['name', 'tag', 'tags', "namespace", "extension", 'type'].includes(key)) {
         const filterValue = Array.isArray(value) ? value[0] : value;
         results = results.filter(item => {
           if (key in item && item[key as keyof NameIdItem] === filterValue) {
@@ -315,7 +315,7 @@ export class VFIdNameWrapper extends VFFileWrapper {
   private isIdNameStorage(content: any): content is IdNameStorage {
     return content && 
            typeof content === 'object' && 
-           'metadata' in content &&
+           "metadata" in content &&
            'types' in content &&
            typeof content.metadata === 'object' &&
            typeof content.types === 'object';

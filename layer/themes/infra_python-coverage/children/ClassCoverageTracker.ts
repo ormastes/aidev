@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Track coverage at the class and method level for Python code
  */
@@ -131,7 +132,7 @@ export class ClassCoverageTracker {
    * Extract class definitions from a Python file
    */
   private async extractClassesFromFile(filePath: string): Promise<any[]> {
-    const content = await fs.readFile(filePath, 'utf-8');
+    const content = await fileAPI.readFile(filePath, 'utf-8');
     const classes: any[] = [];
     
     // Use Python AST to extract class information
@@ -240,7 +241,7 @@ for node in ast.walk(tree):
         print(json.dumps({
             'lines': lines,
             'methods': methods,
-            'complexity': complexity + 1
+            "complexity": complexity + 1
         }))
         break
 `;
@@ -285,9 +286,9 @@ for node in ast.walk(tree):
                 import json
                 print(json.dumps({
                     'lines': lines,
-                    'branches': branches,
-                    'branchLines': branch_lines,
-                    'complexity': complexity
+                    "branches": branches,
+                    "branchLines": branch_lines,
+                    "complexity": complexity
                 }))
                 break
 `;

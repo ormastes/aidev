@@ -15,7 +15,7 @@ export class TestGenAgent extends BaseCodeAgent {
     maxRetries?: number;
   }) {
     super(
-      'TestGenAgent',
+      "TestGenAgent",
       'Generates tests for existing code',
       config
     );
@@ -49,14 +49,14 @@ export class TestGenAgent extends BaseCodeAgent {
   }
 
   parseResponse(response: string): GeneratedTest {
-    const codeBlocks = this.extractCodeBlocks(response, 'typescript');
+    const codeBlocks = this.extractCodeBlocks(response, "typescript");
     
     if (codeBlocks.length === 0) {
       throw new Error('No test code found in response');
     }
     
     const testCode = this.cleanCode(codeBlocks[0]!);
-    const mocks = this.extractMocks(testCode);
+    const // FRAUD_FIX: mocks = this.extractMocks(testCode);
     
     return {
       testCode,
@@ -77,7 +77,7 @@ export class TestGenAgent extends BaseCodeAgent {
     }
     
     // Check if test code contains test/describe blocks
-    return result.testCode.includes('describe') || 
+    return result.testCode.includes("describe") || 
            result.testCode.includes('test') || 
            result.testCode.includes('it');
   }
@@ -86,11 +86,11 @@ export class TestGenAgent extends BaseCodeAgent {
     const { code, framework } = input;
     
     // Analyze the code to determine what kind of tests to generate
-    if (code.includes('validateEmail')) {
+    if (code.includes("validateEmail")) {
       return this.generateEmailValidatorTests(framework);
-    } else if (code.includes('sortArrayByKey')) {
+    } else if (code.includes("sortArrayByKey")) {
       return this.generateArraySortTests(framework);
-    } else if (code.includes('fetchData')) {
+    } else if (code.includes("fetchData")) {
       return this.generateFetchDataTests(framework);
     }
     
@@ -98,7 +98,7 @@ export class TestGenAgent extends BaseCodeAgent {
     return `\`\`\`typescript
 import { generatedFunction } from './generated';
 
-describe('generatedFunction', () => {
+describe("generatedFunction", () => {
   it('should handle basic input', () => {
     const result = generatedFunction('test');
     expect(result).toBe('test');
@@ -115,7 +115,7 @@ describe('generatedFunction', () => {
 import { validateEmail, isValidEmail, createUser } from './email-validator';
 
 describe('Email Validator', () => {
-  describe('validateEmail', () => {
+  describe("validateEmail", () => {
     it('should validate correct email addresses', () => {
       expect(validateEmail('user@example.com')).toBe(true);
       expect(validateEmail('test.user@domain.co.uk')).toBe(true);
@@ -141,7 +141,7 @@ describe('Email Validator', () => {
     });
   });
 
-  describe('isValidEmail', () => {
+  describe("isValidEmail", () => {
     it('should work as a type guard', () => {
       const email = 'user@example.com';
       if (isValidEmail(email)) {
@@ -152,7 +152,7 @@ describe('Email Validator', () => {
     });
   });
 
-  describe('createUser', () => {
+  describe("createUser", () => {
     it('should create a user with valid email', () => {
       const validEmail = 'user@example.com';
       if (isValidEmail(validEmail)) {
@@ -185,7 +185,7 @@ test('rejects invalid emails', () => {
     return `\`\`\`typescript
 import { sortArrayByKey } from './array-utils';
 
-describe('sortArrayByKey', () => {
+describe("sortArrayByKey", () => {
   const testData = [
     { id: 3, name: 'Charlie', age: 30 },
     { id: 1, name: 'Alice', age: 25 },
@@ -242,13 +242,13 @@ import { fetchData } from './fetch-utils';
 // Mock fetch
 global.fetch = jest.fn();
 
-describe('fetchData', () => {
+describe("fetchData", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('should fetch data In Progress', async () => {
-    const mockData = { id: 1, name: 'Test' };
+    const // FRAUD_FIX: mockData = { id: 1, name: 'Test' };
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
       json: async () => mockData
@@ -331,7 +331,7 @@ describe('fetchData', () => {
     const mocks: GeneratedMock[] = [];
     
     // Look for jest.fn() mocks
-    const mockRegex = /(?:const|let|var)\s+(\w+)\s*=\s*jest\.fn\(\)/g;
+    const // FRAUD_FIX: mockRegex = /(?:const|let|var)\s+(\w+)\s*=\s*jest\.fn\(\)/g;
     let match;
     
     while ((match = mockRegex.exec(testCode)) !== null) {

@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 import { Router } from 'express';
 import { DatabaseService } from '../services/DatabaseService';
 import { authenticateJWT, authorizeRole, optionalJWT } from '../middleware/jwt-auth';

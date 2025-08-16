@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * VFNameIdWrapper - Name-based entity storage with schema validation
  * 
@@ -8,7 +9,7 @@
 
 import { VFFileWrapper, QueryParams } from './VFFileWrapper';
 import Ajv from 'ajv';
-import { randomUUID as uuidv4 } from 'crypto';
+import { randomUUID as uuidv4 } from 'node:crypto';
 import * as fs from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 
@@ -48,7 +49,7 @@ export class VFNameIdWrapper extends VFFileWrapper {
   private async initializeSchema(): Promise<void> {
     if (!this.schema) {
       try {
-        const schemaContent = await fs.readFile(this.schemaPath, 'utf-8');
+        const schemaContent = await fileAPI.readFile(this.schemaPath, 'utf-8');
         this.schema = JSON.parse(schemaContent);
       } catch (error) {
         // If schema doesn't exist, use a default schema

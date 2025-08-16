@@ -1,5 +1,5 @@
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join } from 'path';
+import { fsPromises as fs } from 'fs/promises';
+import { join } from 'node:path';
 import { os } from '../../../../../infra_external-log-lib/src';
 
 /**
@@ -106,9 +106,9 @@ export class TestFileSystem {
   /**
    * Simulate file system errors
    */
-  async simulateError(type: 'permission' | 'not-found' | 'disk-full'): Promise<Error> {
+  async simulateError(type: "permission" | 'not-found' | 'disk-full'): Promise<Error> {
     switch (type) {
-      case 'permission':
+      case "permission":
         // Create a file and make it read-only
         const tempDir = await this.createTempDir('permission-test-');
         const filepath = join(tempDir, 'readonly.txt');
@@ -168,8 +168,8 @@ export class TestDataFactory {
       id: 'test-scenario',
       name,
       description: '',
-      keyword: 'Scenario',
-      type: 'scenario',
+      keyword: "Scenario",
+      type: "scenario",
       steps: [
         {
           keyword: 'Given ',
@@ -188,8 +188,8 @@ export class TestDataFactory {
       id: 'failing-scenario',
       name,
       description: '',
-      keyword: 'Scenario',
-      type: 'scenario',
+      keyword: "Scenario",
+      type: "scenario",
       steps: [
         {
           keyword: 'When ',

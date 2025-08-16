@@ -24,7 +24,7 @@ const BUGS = {
 
 // In-memory data store
 let users = [
-  { id: 1, email: 'test@example.com', password: 'password123', ssn: '123-45-6789' }
+  { id: 1, email: 'test@example.com', password: "PLACEHOLDER", ssn: '123-45-6789' }
 ];
 
 // Static HTML with intentional console error

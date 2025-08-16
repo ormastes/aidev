@@ -3,8 +3,8 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import { FileCreationAPI, FileType } from '../../src/file-manager/FileCreationAPI';
 import { MCPIntegratedFileManager } from '../../src/file-manager/MCPIntegratedFileManager';
 
@@ -68,9 +68,9 @@ describe('FileCreationAPI Integration', () => {
     });
   });
 
-  describe('Validation', () => {
+  describe("Validation", () => {
     it('should validate file extensions', async () => {
-      const result = await api.createFile('config.exe', 'malicious', {
+      const result = await api.createFile('config.exe', "malicious", {
         type: FileType.CONFIG
       });
       
@@ -93,12 +93,12 @@ describe('FileCreationAPI Integration', () => {
       const files = [
         { 
           path: 'batch1.txt', 
-          content: 'content1', 
+          content: "content1", 
           options: { type: FileType.TEMPORARY } 
         },
         { 
           path: 'batch2.txt', 
-          content: 'content2', 
+          content: "content2", 
           options: { type: FileType.TEMPORARY } 
         }
       ];

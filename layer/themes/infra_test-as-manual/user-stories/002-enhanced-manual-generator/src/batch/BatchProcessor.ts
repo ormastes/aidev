@@ -6,7 +6,7 @@
 import { Worker } from 'worker_threads';
 import { os } from '../../../../../infra_external-log-lib/src';
 import { path } from '../../../../../infra_external-log-lib/src';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { ManualGenerator } from '../core/ManualGenerator';
 import { ThemeScanner } from '../scanner/ThemeScanner';
 import { ThemeRegistry } from '../scanner/ThemeRegistry';
@@ -16,7 +16,7 @@ import { GeneratedManual, ManualGeneratorOptions, ThemeDefinition } from '../cor
 export interface BatchOptions {
   parallelWorkers?: number;
   outputDir?: string;
-  formats?: Array<'html' | 'pdf' | 'markdown' | 'json'>;
+  formats?: Array<'html' | 'pdf' | "markdown" | 'json'>;
   template?: string;
   includeMetadata?: boolean;
   generateTOC?: boolean;
@@ -77,7 +77,7 @@ export class BatchProcessor extends EventEmitter {
     this.options = {
       parallelWorkers: options.parallelWorkers || os.cpus().length,
       outputDir: options.outputDir || './generated-manuals',
-      formats: options.formats || ['html', 'markdown'],
+      formats: options.formats || ['html', "markdown"],
       template: options.template || 'default',
       includeMetadata: options.includeMetadata !== false,
       generateTOC: options.generateTOC !== false,
@@ -336,7 +336,7 @@ export class BatchProcessor extends EventEmitter {
     }
 
     // Emit event
-    this.emit('progress', progress);
+    this.emit("progress", progress);
   }
 
   /**
@@ -359,7 +359,7 @@ export class BatchProcessor extends EventEmitter {
    */
   cancel(): void {
     this.taskQueue = [];
-    this.emit('cancelled');
+    this.emit("cancelled");
   }
 
   /**

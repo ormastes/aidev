@@ -155,7 +155,7 @@ ${this.themes.length > 0
         stories: [],
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-        status: 'planning'
+        status: "planning"
       }
     };
 
@@ -188,7 +188,7 @@ ${this.themes.length > 0
       },
       devDependencies: {
         '@types/node': '^20.0.0',
-        'typescript': '^5.0.0'
+        "typescript": '^5.0.0'
       }
     };
 

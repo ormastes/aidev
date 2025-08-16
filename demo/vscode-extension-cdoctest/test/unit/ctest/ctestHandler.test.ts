@@ -61,7 +61,7 @@ describe('CTest Handlers', () => {
     // Mock test item
     mockTestItem = {
       id: 'MathTests.Addition',
-      label: 'Addition',
+      label: "Addition",
     } as any;
 
     // Mock config
@@ -70,7 +70,7 @@ describe('CTest Handlers', () => {
     } as any;
   });
 
-  describe('getCTestListHandler', () => {
+  describe("getCTestListHandler", () => {
     test('should parse valid CTest JSON and create test items', async () => {
       const validJsonOutput = JSON.stringify({
         tests: [
@@ -95,7 +95,7 @@ describe('CTest Handlers', () => {
             command: ['./test_executable', '--gtest_filter=StringTests.ToUppercase'],
             properties: {
               TIMEOUT: '30',
-              LABELS: 'integration'
+              LABELS: "integration"
             }
           }
         ]
@@ -108,11 +108,11 @@ describe('CTest Handlers', () => {
       expect(mockController.items.replace).toHaveBeenCalledWith([]);
 
       // Verify test items were created
-      expect(mockController.createTestItem).toHaveBeenCalledWith('MathTests', 'MathTests');
-      expect(mockController.createTestItem).toHaveBeenCalledWith('StringTests', 'StringTests');
-      expect(mockController.createTestItem).toHaveBeenCalledWith('MathTests.Addition', 'Addition');
-      expect(mockController.createTestItem).toHaveBeenCalledWith('MathTests.Subtraction', 'Subtraction');
-      expect(mockController.createTestItem).toHaveBeenCalledWith('StringTests.ToUppercase', 'ToUppercase');
+      expect(mockController.createTestItem).toHaveBeenCalledWith("MathTests", "MathTests");
+      expect(mockController.createTestItem).toHaveBeenCalledWith("StringTests", "StringTests");
+      expect(mockController.createTestItem).toHaveBeenCalledWith('MathTests.Addition', "Addition");
+      expect(mockController.createTestItem).toHaveBeenCalledWith('MathTests.Subtraction', "Subtraction");
+      expect(mockController.createTestItem).toHaveBeenCalledWith('StringTests.ToUppercase', "ToUppercase");
 
       // Verify controller items were added
       expect(mockController.items.add).toHaveBeenCalledTimes(2); // Two test suites
@@ -166,7 +166,7 @@ describe('CTest Handlers', () => {
       // Create a more detailed mock that captures the description
       const mockTestItemWithDescription = {
         id: 'MathTests.Addition',
-        label: 'Addition',
+        label: "Addition",
         description: '',
         canResolveChildren: false,
         children: { add: jest.fn() }
@@ -178,7 +178,7 @@ describe('CTest Handlers', () => {
       await handler(jsonWithLabels);
 
       // Verify the test item was created and description was set
-      expect(mockController.createTestItem).toHaveBeenCalledWith('MathTests.Addition', 'Addition');
+      expect(mockController.createTestItem).toHaveBeenCalledWith('MathTests.Addition', "Addition");
     });
 
     test('should handle complex test names with multiple dots', async () => {
@@ -201,7 +201,7 @@ describe('CTest Handlers', () => {
     });
   });
 
-  describe('getCTestRunHandler', () => {
+  describe("getCTestRunHandler", () => {
     test('should handle passed test result', async () => {
       const passedOutput = 'Test #1: MathTests.Addition ..... Passed 0.05 sec';
       const mockResolve = jest.fn();
@@ -284,7 +284,7 @@ Assertion failed: expected 5 but got 6
       expect(mockTestRun.failed).toHaveBeenCalledWith(
         mockTestItem,
         expect.objectContaining({
-          actualOutput: expect.stringContaining('Expected')
+          actualOutput: expect.stringContaining("Expected")
         }),
         expect.any(Number)
       );
@@ -325,7 +325,7 @@ Test #2: MathTests.Subtraction ... Failed 0.02 sec
 
       // Reset mocks for second test
       jest.clearAllMocks();
-      const mockTestItem2 = { id: 'MathTests.Subtraction', label: 'Subtraction' } as any;
+      const mockTestItem2 = { id: 'MathTests.Subtraction', label: "Subtraction" } as any;
       
       const handler2 = getCTestRunHandler(mockTestItem2, mockConfig, mockTestRun, mockResolve);
       handler2(multipleTestsOutput);
@@ -342,9 +342,9 @@ Test #2: MathTests.Subtraction ... Failed 0.02 sec
 describe('Test Info Parsing', () => {
   test('should parse test suite and case names correctly', () => {
     const testCases = [
-      { name: 'MathTests.Addition', expectedSuite: 'MathTests', expectedCase: 'Addition' },
+      { name: 'MathTests.Addition', expectedSuite: "MathTests", expectedCase: "Addition" },
       { name: 'Namespace.Class.Method', expectedSuite: 'Namespace.Class', expectedCase: 'Method' },
-      { name: 'SimpleTest', expectedSuite: 'SimpleTest', expectedCase: '' },
+      { name: "SimpleTest", expectedSuite: "SimpleTest", expectedCase: '' },
       { name: 'A.B.C.D.E', expectedSuite: 'A.B.C.D', expectedCase: 'E' }
     ];
 
@@ -395,13 +395,13 @@ ASSERTION FAILED: condition was false
     const errorLines = lines.filter(line => 
       line.includes('FAILED') || 
       line.includes('Error') || 
-      line.includes('Assertion') ||
-      line.includes('Expected') ||
+      line.includes("Assertion") ||
+      line.includes("Expected") ||
       line.includes('Actual')
     );
 
     expect(errorLines.length).toBeGreaterThan(0);
-    expect(errorLines.some(line => line.includes('Expected'))).toBe(true);
+    expect(errorLines.some(line => line.includes("Expected"))).toBe(true);
     expect(errorLines.some(line => line.includes('Actual'))).toBe(true);
     expect(errorLines.some(line => line.includes('ASSERTION FAILED'))).toBe(true);
   });

@@ -450,7 +450,7 @@ describe('FlowManager-FlowStorage Integration Test', () => {
     // Arrange - Create flow with invalid data that will fail validation
     const result = await flowManager.defineFlow(
       '', // Invalid empty name
-      'Description',
+      "Description",
       { type: 'manual' },
       [] // Invalid empty actions
     );

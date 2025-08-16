@@ -218,9 +218,9 @@ class MockConcurrentSessionManager implements ConcurrentSessionManager {
 // Theme data for testing
 const mockThemes = [
   { id: 'modern-theme', name: 'Modern Theme', category: 'modern' },
-  { id: 'classic-theme', name: 'Classic Theme', category: 'professional' },
+  { id: 'classic-theme', name: 'Classic Theme', category: "professional" },
   { id: 'minimal-theme', name: 'Minimal Theme', category: 'minimal' },
-  { id: 'colorful-theme', name: 'Colorful Theme', category: 'creative' }
+  { id: 'colorful-theme', name: 'Colorful Theme', category: "creative" }
 ];
 
 describe('Multi-User Concurrent Selection Integration Test (FAKE)', () => {

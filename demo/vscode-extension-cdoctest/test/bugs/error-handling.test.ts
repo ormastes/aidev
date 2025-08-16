@@ -86,8 +86,8 @@ describe('Error Handling Detection Tests', () => {
         return {} as any;
       });
 
-      await expect(ctestConfig.runTest('NonExistentTest')).resolves.toEqual({
-        name: 'NonExistentTest',
+      await expect(ctestConfig.runTest("NonExistentTest")).resolves.toEqual({
+        name: "NonExistentTest",
         status: 'failed',
         duration: 0,
         message: expect.stringContaining('No such file or directory'),
@@ -111,7 +111,7 @@ Test project /build/dir
         return {} as any;
       });
 
-      const result = await ctestConfig.runTest('MissingExecutableTest');
+      const result = await ctestConfig.runTest("MissingExecutableTest");
       
       expect(result.status).toBe('failed');
       expect(result.message).toContain('Test execution failed with code 1');
@@ -161,7 +161,7 @@ Test project /build/dir
         failed: jest.fn(),
         skipped: jest.fn(),
       } as any;
-      const mockTestItem = { id: 'TestItem', label: 'Test' } as any;
+      const mockTestItem = { id: "TestItem", label: 'Test' } as any;
       const mockResolve = jest.fn();
 
       const handler = getCTestRunHandler(mockTestItem, ctestConfig, mockTestRun, mockResolve);
@@ -178,7 +178,7 @@ Test project /build/dir
         failed: jest.fn(),
         skipped: jest.fn(),
       } as any;
-      const mockTestItem = { id: 'TestItem', label: 'Test' } as any;
+      const mockTestItem = { id: "TestItem", label: 'Test' } as any;
       const mockResolve = jest.fn();
 
       const handler = getCTestRunHandler(mockTestItem, ctestConfig, mockTestRun, mockResolve);
@@ -269,8 +269,8 @@ Error: Unexpected character: ñáéíóú中文🌍
         return {} as any;
       });
 
-      await expect(ctestConfig.runTest('DiskSpaceTest')).resolves.toEqual({
-        name: 'DiskSpaceTest',
+      await expect(ctestConfig.runTest("DiskSpaceTest")).resolves.toEqual({
+        name: "DiskSpaceTest",
         status: 'failed',
         duration: 0,
         message: expect.stringContaining('No space left on device'),
@@ -283,7 +283,7 @@ Error: Unexpected character: ñáéíóú中文🌍
     test('should handle invalid build directory configuration', () => {
       (vscode.workspace.getConfiguration as jest.Mock).mockReturnValue({
         get: jest.fn((key: string) => {
-          if (key === 'buildDirectory') return '/path/that/does/not/exist';
+          if (key === "buildDirectory") return '/path/that/does/not/exist';
           return 'default';
         })
       });
@@ -300,7 +300,7 @@ Error: Unexpected character: ñáéíóú中文🌍
     test('should handle invalid parallel jobs configuration', () => {
       (vscode.workspace.getConfiguration as jest.Mock).mockReturnValue({
         get: jest.fn((key: string) => {
-          if (key === 'parallelJobs') return -1; // Invalid value
+          if (key === "parallelJobs") return -1; // Invalid value
           return 'default';
         })
       });
@@ -342,7 +342,7 @@ Error: Unexpected character: ñáéíóú中文🌍
         if (command.includes('cmake')) {
           if (callback) {
             const error = new Error('Network unreachable') as any;
-            error.code = 'ENETUNREACH';
+            error.code = "ENETUNREACH";
             callback(error, '', 'Failed to fetch dependencies');
           }
         }
@@ -358,7 +358,7 @@ Error: Unexpected character: ñáéíóú中文🌍
       mockExec.mockImplementation((command, options, callback) => {
         if (callback) {
           const error = new Error('Name or service not known') as any;
-          error.code = 'ENOTFOUND';
+          error.code = "ENOTFOUND";
           callback(error, '', 'DNS resolution failed');
         }
         return {} as any;
@@ -397,7 +397,7 @@ Error: Unexpected character: ñáéíóú中文🌍
     test('should handle tests with no properties', async () => {
       const testWithoutProperties = JSON.stringify({
         tests: [{
-          name: 'TestWithoutProperties',
+          name: "TestWithoutProperties",
           command: ['./test']
           // No properties field
         }]

@@ -3,7 +3,7 @@
  * Manages streaming responses from Ollama
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { OllamaClient } from '../client';
 
 export interface StreamOptions {
@@ -51,7 +51,7 @@ export interface StreamSession {
   endTime?: Date;
   chunks: StreamChunk[];
   totalTokens: number;
-  status: 'active' | 'completed' | 'error' | 'cancelled';
+  status: 'active' | "completed" | 'error' | "cancelled";
   error?: StreamError;
 }
 
@@ -109,7 +109,7 @@ export class StreamHandler extends EventEmitter {
       }
 
       session.endTime = new Date();
-      session.status = 'completed';
+      session.status = "completed";
       
       this.emit('stream:complete', { 
         sessionId, 
@@ -305,7 +305,7 @@ export class StreamHandler extends EventEmitter {
       
       const session = this.sessions.get(sessionId);
       if (session) {
-        session.status = 'cancelled';
+        session.status = "cancelled";
         session.endTime = new Date();
       }
 

@@ -58,7 +58,7 @@ export interface FlowPattern {
 }
 
 export interface OptimizationSuggestion {
-  type: 'parallelization' | 'caching' | 'batching' | 'simplification' | 'removal';
+  type: "parallelization" | 'caching' | "batching" | "simplification" | 'removal';
   target: string | string[];
   description: string;
   estimatedImprovement: number;
@@ -100,7 +100,7 @@ export class FlowAnalyzer {
       maxNesting = Math.max(maxNesting, depth);
 
       switch (step.type) {
-        case 'decision':
+        case "decision":
           cyclomaticComplexity += 1;
           cognitiveComplexity += depth + 1;
           if (step.next && Array.isArray(step.next)) {
@@ -119,7 +119,7 @@ export class FlowAnalyzer {
           }
           break;
 
-        case 'parallel':
+        case "parallel":
           parallelSteps++;
           if (step.next && Array.isArray(step.next)) {
             totalBranches += step.next.length;
@@ -313,7 +313,7 @@ export class FlowAnalyzer {
       }
 
       // Large fan-out in parallel steps
-      if (step.type === 'parallel' && step.next && Array.isArray(step.next) && step.next.length > 10) {
+      if (step.type === "parallel" && step.next && Array.isArray(step.next) && step.next.length > 10) {
         bottlenecks.push({
           stepId: step.id,
           reason: `High parallelism degree (${step.next.length} branches)`,
@@ -414,7 +414,7 @@ export class FlowAnalyzer {
       }
 
       // Parallel steps with many branches
-      if (step.type === 'parallel' && step.next && Array.isArray(step.next) && step.next.length > 5) {
+      if (step.type === "parallel" && step.next && Array.isArray(step.next) && step.next.length > 5) {
         intensive.push(step.id);
       }
 
@@ -716,7 +716,7 @@ export class FlowAnalyzer {
    * Detect fork-join pattern
    */
   private detectForkJoinPattern(flow: FlowDefinition): FlowPattern | null {
-    const parallelSteps = flow.steps.filter(step => step.type === 'parallel');
+    const parallelSteps = flow.steps.filter(step => step.type === "parallel");
     
     for (const parallel of parallelSteps) {
       if (parallel.next && Array.isArray(parallel.next) && parallel.next.length > 1) {
@@ -815,7 +815,7 @@ export class FlowAnalyzer {
     parallelizable.forEach(group => {
       if (group.length > 1) {
         suggestions.push({
-          type: 'parallelization',
+          type: "parallelization",
           target: group,
           description: `Steps ${group.join(', ')} can be executed in parallel`,
           estimatedImprovement: 30,
@@ -841,7 +841,7 @@ export class FlowAnalyzer {
     flow.steps.forEach(step => {
       if (step.type === 'loop') {
         suggestions.push({
-          type: 'batching',
+          type: "batching",
           target: step.id,
           description: `Process loop '${step.id}' in batches for better performance`,
           estimatedImprovement: 25,
@@ -854,7 +854,7 @@ export class FlowAnalyzer {
     const complexity = this.analyzeComplexity(flow);
     if (complexity.cyclomaticComplexity > 10) {
       suggestions.push({
-        type: 'simplification',
+        type: "simplification",
         target: flow.id,
         description: 'Consider breaking this flow into smaller sub-flows',
         estimatedImprovement: 15,

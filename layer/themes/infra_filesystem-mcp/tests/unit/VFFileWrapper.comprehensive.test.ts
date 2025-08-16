@@ -93,7 +93,7 @@ describe('VFFileWrapper Comprehensive Tests', () => {
       const items = [
         { id: '1', name: 'Item One', type: 'typeA', status: 'active' },
         { id: '2', name: 'Item Two', type: 'typeB', status: 'active' },
-        { id: '3', name: 'Item Three', type: 'typeA', status: 'inactive' }
+        { id: '3', name: 'Item Three', type: 'typeA', status: "inactive" }
       ];
       await wrapper.write('items.json', items);
     });

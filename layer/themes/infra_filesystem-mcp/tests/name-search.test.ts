@@ -61,7 +61,7 @@ describe('VF Name Search Tests', () => {
     await fs.promises.rm(testDir, { recursive: true, force: true });
   });
 
-  describe('getItemsByName', () => {
+  describe("getItemsByName", () => {
     it('should find items by exact name match', async () => {
       const results = await wrapper.getItemsByName('user-login', 'NAME_ID.vf.json');
       expect(results).toHaveLength(1);

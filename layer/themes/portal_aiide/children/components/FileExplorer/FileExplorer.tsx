@@ -67,7 +67,7 @@ export const FileExplorer: React.FC<FileExplorerProps> = ({
 
   // Get file icon based on extension
   const getFileIcon = (node: FileNode) => {
-    if (node.type === 'directory') {
+    if (node.type === "directory") {
       return expandedKeys.includes(node.id) ? <FolderOpenOutlined /> : <FolderOutlined />;
     }
 
@@ -154,7 +154,7 @@ export const FileExplorer: React.FC<FileExplorerProps> = ({
   const handleCreate = async (type: 'file' | 'folder') => {
     if (!contextMenuNode) return;
 
-    const parentId = contextMenuNode.type === 'directory' ? contextMenuNode.id : contextMenuNode.id;
+    const parentId = contextMenuNode.type === "directory" ? contextMenuNode.id : contextMenuNode.id;
     setIsCreating({ type, parentId });
 
     Modal.confirm({
@@ -238,7 +238,7 @@ export const FileExplorer: React.FC<FileExplorerProps> = ({
   const getContextMenuItems = (node: FileNode) => {
     const items = [];
 
-    if (node.type === 'directory') {
+    if (node.type === "directory") {
       items.push(
         {
           key: 'new-file',
@@ -328,7 +328,7 @@ export const FileExplorer: React.FC<FileExplorerProps> = ({
             icon={<PlusOutlined />}
             size="small"
             onClick={() => {
-              setContextMenuNode({ id: 'root', type: 'directory' } as FileNode);
+              setContextMenuNode({ id: 'root', type: "directory" } as FileNode);
               handleCreate('file');
             }}
           />
@@ -336,7 +336,7 @@ export const FileExplorer: React.FC<FileExplorerProps> = ({
             icon={<FolderOutlined />}
             size="small"
             onClick={() => {
-              setContextMenuNode({ id: 'root', type: 'directory' } as FileNode);
+              setContextMenuNode({ id: 'root', type: "directory" } as FileNode);
               handleCreate('folder');
             }}
           />
@@ -351,7 +351,7 @@ export const FileExplorer: React.FC<FileExplorerProps> = ({
       <div className="file-explorer-tree">
         <Dropdown
           menu={{ items: contextMenuNode ? getContextMenuItems(contextMenuNode) : [] }}
-          trigger={['contextMenu']}
+          trigger={["contextMenu"]}
           open={!!contextMenuNode}
           onOpenChange={(open) => !open && setContextMenuNode(null)}
         >

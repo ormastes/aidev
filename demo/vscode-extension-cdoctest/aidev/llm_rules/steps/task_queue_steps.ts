@@ -1,8 +1,8 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import { VFTaskQueueWrapper } from '../../layer/themes/filesystem_mcp/pipe';
 import { strict as assert } from 'assert';
-import { fs } from '../../../../../layer/themes/infra_external-log-lib/dist';
-import { path } from '../../../../../layer/themes/infra_external-log-lib/dist';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 export interface TaskQueueWorld {
   taskQueue: VFTaskQueueWrapper;

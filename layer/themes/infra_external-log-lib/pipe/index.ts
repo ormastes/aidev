@@ -69,7 +69,7 @@ export const LOG_LEVELS = {
 export const FORMATS = {
   JSON: 'json',
   PLAIN: 'plain',
-  STRUCTURED: 'structured',
+  STRUCTURED: "structured",
   SYSLOG: 'syslog',
   APACHE: 'apache',
   NGINX: 'nginx',

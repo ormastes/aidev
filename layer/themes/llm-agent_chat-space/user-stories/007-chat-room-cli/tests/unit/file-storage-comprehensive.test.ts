@@ -19,9 +19,9 @@ describe('FileStorage Comprehensive Tests', () => {
     await testFs.cleanup();
   });
 
-  describe('Initialization', () => {
+  describe("Initialization", () => {
     test('should create all required directories', async () => {
-      const dirs = ['users', 'rooms', 'messages'];
+      const dirs = ['users', 'rooms', "messages"];
       for (const dir of dirs) {
         const dirPath = path.join(testDir, dir);
         const stats = await fs.stat(dirPath);
@@ -47,7 +47,7 @@ describe('FileStorage Comprehensive Tests', () => {
   describe('User Operations', () => {
     const testUser: User = {
       id: 'user-123',
-      username: 'testuser',
+      username: "testuser",
       connectionId: 'conn-456',
       registeredAt: new Date('2024-01-01T10:00:00Z')
     };
@@ -77,7 +77,7 @@ describe('FileStorage Comprehensive Tests', () => {
     test('should handle user without connectionId', async () => {
       const userWithoutConn: User = {
         id: 'user-789',
-        username: 'noconnuser',
+        username: "noconnuser",
         registeredAt: new Date()
       };
       
@@ -184,7 +184,7 @@ describe('FileStorage Comprehensive Tests', () => {
       id: 'msg-123',
       roomId: 'room-123',
       userId: 'user-123',
-      username: 'testuser',
+      username: "testuser",
       content: 'Hello, world!',
       timestamp: new Date('2024-01-01T10:00:00Z'),
       type: 'text'
@@ -194,7 +194,7 @@ describe('FileStorage Comprehensive Tests', () => {
       await storage.saveMessage(testMessage);
       
       // Verify file exists
-      const msgDir = path.join(testDir, 'messages', testMessage.roomId);
+      const msgDir = path.join(testDir, "messages", testMessage.roomId);
       const files = await fs.readdir(msgDir);
       expect(files).toContain(`${testMessage.id}.json`);
     });
@@ -216,7 +216,7 @@ describe('FileStorage Comprehensive Tests', () => {
     });
 
     test('should handle different message types', async () => {
-      const types: Array<Message['type']> = ['text', 'command', 'system', 'workflow'];
+      const types: Array<Message['type']> = ['text', 'command', 'system', "workflow"];
       
       for (const type of types) {
         const msg: Message = {
@@ -306,13 +306,13 @@ describe('FileStorage Comprehensive Tests', () => {
     });
   });
 
-  describe('Performance', () => {
+  describe("Performance", () => {
     test('should handle large number of messages efficiently', async () => {
       const testMessage: Message = {
         id: 'msg-perf',
         roomId: 'room-perf',
         userId: 'user-perf',
-        username: 'perfuser',
+        username: "perfuser",
         content: 'Performance test message',
         timestamp: new Date('2024-01-01T10:00:00Z'),
         type: 'text'

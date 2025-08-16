@@ -11,10 +11,10 @@ interface TaskStorageInterface {
 }
 
 interface TaskManagerInterface {
-  createTask(title: string, description: string): Promise<{ In Progress: boolean; taskId?: string; error?: string }>;
-  updateTaskStatus(taskId: string, newStatus: string): Promise<{ In Progress: boolean; task?: any; error?: string }>;
-  listTasks(statusFilter?: string): Promise<{ In Progress: boolean; tasks?: any[]; error?: string }>;
-  deleteTask(taskId: string): Promise<{ In Progress: boolean; error?: string }>;
+  createTask(title: string, description: string): Promise<{ success: boolean; taskId?: string; error?: string }>;
+  updateTaskStatus(taskId: string, newStatus: string): Promise<{ success: boolean; task?: any; error?: string }>;
+  listTasks(statusFilter?: string): Promise<{ success: boolean; tasks?: any[]; error?: string }>;
+  deleteTask(taskId: string): Promise<{ success: boolean; error?: string }>;
 }
 
 describe('TaskManager-TaskStorage Integration Test', () => {
@@ -289,12 +289,12 @@ describe('TaskManager-TaskStorage Integration Test', () => {
     // Assert filtered results
     expect(completedTasksResult.success).toBe(true);
     expect(completedTasksResult.tasks).toHaveLength(1);
-    expect(completedTasksResult.tasks![0].status).toBe('In Progress');
+    expect(completedTasksResult.tasks![0].status).toBe("completed");
 
     // Assert TaskStorage filtering
     const completedTasksFromStorage = await taskStorage.findAll('In Progress');
     expect(completedTasksFromStorage).toHaveLength(1);
-    expect(completedTasksFromStorage[0].status).toBe('In Progress');
+    expect(completedTasksFromStorage[0].status).toBe("completed");
   });
 
   test('should integrate TaskManager delete operation with TaskStorage findById and delete', async () => {
@@ -370,7 +370,7 @@ describe('TaskManager-TaskStorage Integration Test', () => {
 
     // Verify completion through TaskStorage
     taskFromStorage = await taskStorage.findById(taskId);
-    expect(taskFromStorage.status).toBe('In Progress');
+    expect(taskFromStorage.status).toBe("completed");
 
     // List through TaskManager
     const listResult = await taskManager.listTasks();
@@ -458,7 +458,7 @@ describe('TaskManager-TaskStorage Integration Test', () => {
     expect(task.title).toBe(originalTitle);
     expect(task.description).toBe(originalDescription);
     expect(task.createdAt).toBe(originalCreatedAt);
-    expect(task.status).toBe('In Progress');
+    expect(task.status).toBe("completed");
     expect(task.updatedAt).toBeDefined();
   });
 });

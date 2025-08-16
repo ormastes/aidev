@@ -3,7 +3,7 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { VFProtectedFileWrapper, ProtectionConfig } from '../children/VFProtectedFileWrapper';
 import { FeatureStatusManager } from '../children/FeatureStatusManager';
 import { path } from '../../infra_external-log-lib/src';
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { getFileAPI, FileType } from '../../infra_external-log-lib/pipe';
 
 const fileAPI = getFileAPI();
@@ -402,8 +402,8 @@ export class ProtectedMCPServer {
     
     console.error('Protected MCP Server started');
     console.error('Protection enabled for:', { append: true });
-    console.error('Audit logging:', this.config.enableAuditLog ? 'ENABLED' : 'DISABLED');
-    console.error('Block direct updates:', this.config.blockDirectUpdates ? 'ENABLED' : 'DISABLED');
+    console.error('Audit logging:', this.config.enableAuditLog ? 'ENABLED' : "DISABLED");
+    console.error('Block direct updates:', this.config.blockDirectUpdates ? 'ENABLED' : "DISABLED");
   }
 }
 
@@ -427,7 +427,7 @@ if (require.main === module) {
         '**/FILE_STRUCTURE.vf.json',
         '**/NAME_ID.vf.json'
       ],
-      allowedCallers: ['FeatureStatusManager', 'VFTaskQueueWrapper', 'VFDistributedFeatureWrapper'],
+      allowedCallers: ["FeatureStatusManager", "VFTaskQueueWrapper", "VFDistributedFeatureWrapper"],
       requireValidation: true
     }
   });

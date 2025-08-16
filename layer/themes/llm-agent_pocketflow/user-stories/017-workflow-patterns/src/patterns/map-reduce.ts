@@ -22,7 +22,7 @@ export class MapReducePattern extends BasePattern {
     flow.addNode(new InputNode('input'));
     
     // Add splitter node to distribute items
-    const splitterNode = new TransformNode('splitter', (data: any) => {
+    const splitterNode = new TransformNode("splitter", (data: any) => {
       if (!Array.isArray(data)) {
         throw new Error('Map-Reduce pattern requires array input');
       }
@@ -36,10 +36,10 @@ export class MapReducePattern extends BasePattern {
     });
     
     flow.addNode(splitterNode);
-    flow.addEdge({ from: 'input', to: 'splitter' });
+    flow.addEdge({ from: 'input', to: "splitter" });
     
     // Create distributor that assigns items to agents
-    const distributorNode = new TransformNode('distributor', (items: any[]) => {
+    const distributorNode = new TransformNode("distributor", (items: any[]) => {
       const assignments: any[] = [];
       
       // Distribute items across agents
@@ -56,7 +56,7 @@ export class MapReducePattern extends BasePattern {
     });
     
     flow.addNode(distributorNode);
-    flow.addEdge({ from: 'splitter', to: 'distributor' });
+    flow.addEdge({ from: "splitter", to: "distributor" });
     
     // Create agent processing nodes
     const processorNodes: string[] = [];
@@ -71,7 +71,7 @@ export class MapReducePattern extends BasePattern {
       });
       
       flow.addNode(filterNode);
-      flow.addEdge({ from: 'distributor', to: `filter-${agentIndex}` });
+      flow.addEdge({ from: "distributor", to: `filter-${agentIndex}` });
       
       // Process items with agent
       const agentNode = new AgentNode(processorId, agent, {
@@ -103,14 +103,14 @@ export class MapReducePattern extends BasePattern {
     });
     
     // Collect results
-    const collectorNode = new TransformNode('collector', (results: any[]) => {
+    const collectorNode = new TransformNode("collector", (results: any[]) => {
       // Flatten results from all agents
       return results.flat();
     });
     
     flow.addNode(collectorNode);
     processorNodes.forEach(nodeId => {
-      flow.addEdge({ from: nodeId, to: 'collector' });
+      flow.addEdge({ from: nodeId, to: "collector" });
     });
     
     // Add reducer
@@ -126,7 +126,7 @@ export class MapReducePattern extends BasePattern {
     );
     
     flow.addNode(reducerNode);
-    flow.addEdge({ from: 'collector', to: 'reducer' });
+    flow.addEdge({ from: "collector", to: 'reducer' });
     
     // Output
     flow.addNode(new OutputNode('output'));

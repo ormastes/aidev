@@ -8,8 +8,8 @@ interface TaskItem {
   id: string;
   type: string;
   name: string;
-  status: 'pending' | 'in_progress' | 'completed' | 'failed';
-  priority?: 'low' | 'medium' | 'high' | 'critical';
+  status: 'pending' | 'in_progress' | "completed" | 'failed';
+  priority?: 'low' | 'medium' | 'high' | "critical";
   assignee?: string;
   progress?: number;
   dependencies?: string[];
@@ -50,7 +50,7 @@ export const TaskQueueViewer: React.FC<TaskQueueViewerProps> = ({
     
     if (input === 'f') {
       // Toggle filter
-      const statuses: Array<TaskItem['status'] | 'all'> = ['all', 'pending', 'in_progress', 'completed', 'failed'];
+      const statuses: Array<TaskItem['status'] | 'all'> = ['all', 'pending', 'in_progress', "completed", 'failed'];
       const currentIndex = statuses.indexOf(filterStatus);
       setFilterStatus(statuses[(currentIndex + 1) % statuses.length]);
     }
@@ -58,7 +58,7 @@ export const TaskQueueViewer: React.FC<TaskQueueViewerProps> = ({
 
   const getStatusIcon = (status: TaskItem['status']) => {
     switch (status) {
-      case 'completed': return '✅';
+      case "completed": return '✅';
       case 'in_progress': return '🔄';
       case 'failed': return '❌';
       case 'pending': return '⏳';
@@ -66,9 +66,9 @@ export const TaskQueueViewer: React.FC<TaskQueueViewerProps> = ({
     }
   };
 
-  const getPriorityColor = (priority?: TaskItem['priority']) => {
+  const getPriorityColor = (priority?: TaskItem["priority"]) => {
     switch (priority) {
-      case 'critical': return 'red';
+      case "critical": return 'red';
       case 'high': return 'yellow';
       case 'medium': return 'cyan';
       case 'low': return 'gray';

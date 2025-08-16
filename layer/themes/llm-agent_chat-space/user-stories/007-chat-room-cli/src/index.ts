@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { CLIInterface } from './external/cli-interface';
 import { MessageBroker } from './external/message-broker';
 import { FileStorage } from './external/file-storage';

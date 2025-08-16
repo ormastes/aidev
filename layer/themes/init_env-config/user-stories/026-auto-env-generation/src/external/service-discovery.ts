@@ -11,7 +11,7 @@ export interface ServiceInfo {
   host: string;
   protocol: 'http' | 'https';
   environment: string;
-  status: 'healthy' | 'unhealthy' | 'unknown';
+  status: 'healthy' | "unhealthy" | 'unknown';
   lastChecked?: string;
   metadata?: Record<string, any>;
 }
@@ -29,7 +29,7 @@ export interface ServiceRegistration {
 export interface ServiceQuery {
   name?: string;
   environment?: string;
-  status?: 'healthy' | 'unhealthy' | 'unknown';
+  status?: 'healthy' | "unhealthy" | 'unknown';
   tags?: string[];
 }
 
@@ -98,10 +98,10 @@ export interface ServiceDiscovery {
   /**
    * Update service status
    */
-  updateServiceStatus(name: string, environment: string, status: 'healthy' | 'unhealthy' | 'unknown'): Promise<void>;
+  updateServiceStatus(name: string, environment: string, status: 'healthy' | "unhealthy" | 'unknown'): Promise<void>;
   
   /**
    * Watch for service changes
    */
-  watchServices(callback: (event: 'registered' | 'unregistered' | 'updated', service: ServiceInfo) => void): () => void;
+  watchServices(callback: (event: "registered" | "unregistered" | 'updated', service: ServiceInfo) => void): () => void;
 }

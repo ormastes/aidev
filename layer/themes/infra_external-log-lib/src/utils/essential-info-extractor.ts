@@ -60,7 +60,7 @@ export function extractNameIdEssentials(nameId: string, entity: any): EssentialI
       // If still no secondary, get first non-metadata value
       if (!secondary) {
         const keys = Object.keys(entity).filter(k => 
-          !['metadata', 'createdAt', 'updatedAt'].includes(k)
+          !["metadata", "createdAt", "updatedAt"].includes(k)
         );
         if (keys.length > 0) {
           secondary = entity[keys[0]];
@@ -116,7 +116,7 @@ export function extractRejectionEssentials(rejection: any): EssentialInfo {
   return {
     primary,
     secondary,
-    type: 'rejection'
+    type: "rejection"
   };
 }
 
@@ -155,7 +155,7 @@ export function extractEssentials(type: string, data: any): EssentialInfo {
       }
       return { primary: data, type: 'file' };
       
-    case 'rejection':
+    case "rejection":
       return extractRejectionEssentials(data);
       
     default:

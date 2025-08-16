@@ -16,7 +16,7 @@ export interface TestCategory {
 }
 
 export interface CategoryMetadata {
-  priority?: 'critical' | 'high' | 'medium' | 'low';
+  priority?: "critical" | 'high' | 'medium' | 'low';
   coverage?: number;
   maintainer?: string;
   tags?: string[];
@@ -240,7 +240,7 @@ export class TestCategorizer {
     this.addRule({
       id: 'integration-tests',
       name: 'Integration Tests',
-      condition: (test) => test.type === 'integration',
+      condition: (test) => test.type === "integration",
       category: 'integration-tests',
       priority: 10
     });
@@ -275,7 +275,7 @@ export class TestCategorizer {
     this.addRule({
       id: 'playwright-tests',
       name: 'Playwright Tests',
-      condition: (test) => test.framework === 'playwright',
+      condition: (test) => test.framework === "playwright",
       category: 'playwright-tests',
       priority: 5
     });
@@ -293,7 +293,7 @@ export class TestCategorizer {
       id: 'ui-tests',
       name: 'UI Tests',
       condition: (test) => test.filePath.toLowerCase().includes('ui') || 
-                          test.filePath.toLowerCase().includes('component'),
+                          test.filePath.toLowerCase().includes("component"),
       category: 'ui-tests',
       priority: 3
     });
@@ -301,7 +301,7 @@ export class TestCategorizer {
     this.addRule({
       id: 'security-tests',
       name: 'Security Tests',
-      condition: (test) => test.filePath.toLowerCase().includes('security') ||
+      condition: (test) => test.filePath.toLowerCase().includes("security") ||
                           test.filePath.toLowerCase().includes('auth'),
       category: 'security-tests',
       priority: 3
@@ -310,9 +310,9 @@ export class TestCategorizer {
     this.addRule({
       id: 'performance-tests',
       name: 'Performance Tests',
-      condition: (test) => test.filePath.toLowerCase().includes('performance') ||
+      condition: (test) => test.filePath.toLowerCase().includes("performance") ||
                           test.filePath.toLowerCase().includes('perf') ||
-                          test.filePath.toLowerCase().includes('benchmark'),
+                          test.filePath.toLowerCase().includes("benchmark"),
       category: 'performance-tests',
       priority: 3
     });
@@ -341,7 +341,7 @@ export class TestCategorizer {
       name: 'End-to-End Tests',
       description: 'Full system workflow tests',
       tests: [],
-      metadata: { priority: 'critical' }
+      metadata: { priority: "critical" }
     });
 
     this.addCategory({
@@ -358,7 +358,7 @@ export class TestCategorizer {
       name: 'Jest Tests',
       description: 'Tests using Jest framework',
       tests: [],
-      metadata: { tags: ['jest', 'javascript'] }
+      metadata: { tags: ['jest', "javascript"] }
     });
 
     this.addCategory({
@@ -366,7 +366,7 @@ export class TestCategorizer {
       name: 'Playwright Tests',
       description: 'Browser automation tests',
       tests: [],
-      metadata: { tags: ['playwright', 'browser', 'e2e'] }
+      metadata: { tags: ["playwright", 'browser', 'e2e'] }
     });
 
     // Domain categories
@@ -383,7 +383,7 @@ export class TestCategorizer {
       name: 'UI Tests',
       description: 'User interface and component tests',
       tests: [],
-      metadata: { priority: 'medium', tags: ['ui', 'frontend'] }
+      metadata: { priority: 'medium', tags: ['ui', "frontend"] }
     });
 
     this.addCategory({
@@ -391,7 +391,7 @@ export class TestCategorizer {
       name: 'Security Tests',
       description: 'Security and authentication tests',
       tests: [],
-      metadata: { priority: 'critical', tags: ['security'] }
+      metadata: { priority: "critical", tags: ["security"] }
     });
 
     this.addCategory({
@@ -399,7 +399,7 @@ export class TestCategorizer {
       name: 'Performance Tests',
       description: 'Performance and benchmark tests',
       tests: [],
-      metadata: { priority: 'medium', tags: ['performance'] }
+      metadata: { priority: 'medium', tags: ["performance"] }
     });
   }
 

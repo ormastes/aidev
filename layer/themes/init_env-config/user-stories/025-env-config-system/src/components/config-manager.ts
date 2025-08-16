@@ -79,7 +79,7 @@ export class ConfigManager implements IConfigManager {
     // Try to load from disk
     const configPath = path.join(this.configBasePath, name, 'config', 'config.json');
     try {
-      const content = await fs.readFile(configPath, 'utf-8');
+      const content = await fileAPI.readFile(configPath, 'utf-8');
       const config = JSON.parse(content);
       // Convert date strings back to Date objects
       config.created = new Date(config.created);
@@ -351,7 +351,7 @@ export class ConfigManager implements IConfigManager {
     }
     
     const dockerPath = path.join(config.paths.root, 'docker-compose.yml');
-    return await fs.readFile(dockerPath, 'utf-8');
+    return await fileAPI.readFile(dockerPath, 'utf-8');
   }
 
   async suggestEnvironmentName(baseType: EnvironmentConfig['type']): Promise<string> {
@@ -370,7 +370,7 @@ export class ConfigManager implements IConfigManager {
   private getDatabaseConfig(type: EnvironmentConfig['type'], name: string) {
     if(type === 'release') {
       return {
-        type: 'postgresql' as const,
+        type: "postgresql" as const,
         connection: `postgresql://localhost:5432/${name}`
       };
     }

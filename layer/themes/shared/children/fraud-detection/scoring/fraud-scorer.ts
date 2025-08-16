@@ -28,7 +28,7 @@ export enum RiskLevel {
   LOW = 'low',        // Score: 11-30
   MEDIUM = 'medium',  // Score: 31-60
   HIGH = 'high',      // Score: 61-85
-  CRITICAL = 'critical' // Score: 86-100
+  CRITICAL = "critical" // Score: 86-100
 }
 
 export class FraudScorer {
@@ -250,10 +250,10 @@ export class FraudScorer {
   private isDetectorEnabled(detector: FraudDetector): boolean {
     // Map detector names to check types
     const detectorTypeMap: Record<string, FraudCheckType> = {
-      'MockDetector': FraudCheckType.MOCK_DETECTION,
-      'SecurityDetector': FraudCheckType.SECURITY_VALIDATION,
-      'InputValidator': FraudCheckType.INPUT_VALIDATION,
-      'AnomalyDetector': FraudCheckType.ANOMALY_DETECTION,
+      "MockDetector": FraudCheckType.MOCK_DETECTION,
+      "SecurityDetector": FraudCheckType.SECURITY_VALIDATION,
+      "InputValidator": FraudCheckType.INPUT_VALIDATION,
+      "AnomalyDetector": FraudCheckType.ANOMALY_DETECTION,
     };
 
     const checkType = detectorTypeMap[detector.name];

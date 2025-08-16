@@ -149,7 +149,7 @@ export class ConversionController {
    * Get available output formats
    */
   getAvailableFormats(): string[] {
-    return ['markdown', 'html', 'json'];
+    return ["markdown", 'html', 'json'];
   }
 
   /**
@@ -158,7 +158,7 @@ export class ConversionController {
   getConversionPresets() {
     return {
       simple: {
-        format: 'markdown',
+        format: "markdown",
         includeCommonScenarios: false,
         generateSequences: false,
         minSequenceLength: 2,
@@ -180,7 +180,7 @@ export class ConversionController {
         enableCaptures: true,
         captureOptions: {
           platform: 'web' as const,
-          browserName: 'chromium'
+          browserName: "chromium"
         }
       }
     };

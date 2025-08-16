@@ -13,17 +13,17 @@ import {
 
 describe('Domain Types', () => {
   describe('Error Classes', () => {
-    describe('CLIError', () => {
+    describe("CLIError", () => {
       it('should create error with message', () => {
         const error = new CLIError('Test error');
         expect(error).toBeInstanceOf(Error);
         expect(error).toBeInstanceOf(CLIError);
         expect(error.message).toBe('Test error');
-        expect(error.name).toBe('CLIError');
+        expect(error.name).toBe("CLIError");
       });
     });
 
-    describe('CommandNotFoundError', () => {
+    describe("CommandNotFoundError", () => {
       it('should create error with command name', () => {
         const error = new CommandNotFoundError('unknown-command');
         expect(error).toBeInstanceOf(CLIError);
@@ -38,7 +38,7 @@ describe('Domain Types', () => {
       });
     });
 
-    describe('ValidationError', () => {
+    describe("ValidationError", () => {
       it('should create validation error', () => {
         const error = new ValidationError('Invalid option value');
         expect(error).toBeInstanceOf(CLIError);
@@ -46,7 +46,7 @@ describe('Domain Types', () => {
       });
     });
 
-    describe('PluginError', () => {
+    describe("PluginError", () => {
       it('should create plugin error', () => {
         const error = new PluginError('Plugin failed to load');
         expect(error).toBeInstanceOf(CLIError);
@@ -56,7 +56,7 @@ describe('Domain Types', () => {
   });
 
   describe('Type Interfaces', () => {
-    describe('ParsedArguments', () => {
+    describe("ParsedArguments", () => {
       it('should allow valid parsed arguments structure', () => {
         const args: ParsedArguments = {
           _: ['arg1', 'arg2'],
@@ -73,7 +73,7 @@ describe('Domain Types', () => {
       });
     });
 
-    describe('CommandArgument', () => {
+    describe("CommandArgument", () => {
       it('should define required argument', () => {
         const arg: CommandArgument = {
           name: 'file',
@@ -97,12 +97,12 @@ describe('Domain Types', () => {
       });
     });
 
-    describe('CommandOption', () => {
+    describe("CommandOption", () => {
       it('should define string option with all properties', () => {
         const option: CommandOption = {
           name: 'env',
           type: 'string',
-          description: 'Environment',
+          description: "Environment",
           alias: 'e',
           required: true,
           choices: ['dev', 'prod'],
@@ -141,7 +141,7 @@ describe('Domain Types', () => {
 
       it('should define count option', () => {
         const option: CommandOption = {
-          name: 'verbosity',
+          name: "verbosity",
           type: 'count',
           description: 'Increase verbosity'
         };
@@ -150,7 +150,7 @@ describe('Domain Types', () => {
       });
     });
 
-    describe('CLIOptions', () => {
+    describe("CLIOptions", () => {
       it('should define minimal CLI options', () => {
         const options: CLIOptions = {
           name: 'my-cli',
@@ -178,7 +178,7 @@ describe('Domain Types', () => {
 
     describe('Hook', () => {
       it('should define hook with all hook types', () => {
-        const hookTypes: HookType[] = ['preparse', 'postparse', 'precommand', 'postcommand', 'error'];
+        const hookTypes: HookType[] = ["preparse", "postparse", "precommand", "postcommand", 'error'];
 
         hookTypes.forEach(type => {
           const hook: Hook = {
@@ -195,14 +195,14 @@ describe('Domain Types', () => {
 
       it('should allow async and sync handlers', () => {
         const asyncHook: Hook = {
-          type: 'precommand',
+          type: "precommand",
           handler: async (context) => {
             await new Promise(resolve => setTimeout(resolve, 10));
           }
         };
 
         const syncHook: Hook = {
-          type: 'postcommand',
+          type: "postcommand",
           handler: (context) => {
             // Synchronous handler
           }

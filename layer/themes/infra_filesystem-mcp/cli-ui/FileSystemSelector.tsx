@@ -8,7 +8,7 @@ import Table from 'ink-table';
 interface FileSystemItem {
   id: string;
   name: string;
-  type: 'file' | 'directory' | 'task' | 'feature';
+  type: 'file' | "directory" | 'task' | 'feature';
   path?: string;
   status?: string;
   metadata?: Record<string, any>;
@@ -44,7 +44,7 @@ export const FileSystemSelector: React.FC<FileSystemSelectorProps> = ({
 
   // Transform items for SelectInput
   const selectItems = filteredItems.map(item => ({
-    label: `${item.type === 'directory' ? '📁' : '📄'} ${item.name}`,
+    label: `${item.type === "directory" ? '📁' : '📄'} ${item.name}`,
     value: item.id,
     item
   }));

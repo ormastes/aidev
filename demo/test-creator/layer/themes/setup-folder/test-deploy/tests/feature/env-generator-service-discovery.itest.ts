@@ -1,6 +1,6 @@
 import { EnvGenerator, ServiceDiscovery } from '../../src/external_interface/pipe';
 import * as fs from 'fs-extra';
-import { path } from '../../../../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 describe('EnvGenerator integrates with ServiceDiscovery', () => {
   const testDir = path.join(process.cwd(), 'temp/test-env-service-discovery');
@@ -42,12 +42,12 @@ describe('EnvGenerator integrates with ServiceDiscovery', () => {
         name: 'Database Service',
         url: 'postgres://localhost:5432',
         port: 5432,
-        protocol: 'postgres'
+        protocol: "postgres"
       });
 
       // And: EnvGenerator with basic configuration
       envGenerator.addConfig('APP_NAME', 'test-app');
-      envGenerator.addConfig('NODE_ENV', 'development');
+      envGenerator.addConfig('NODE_ENV', "development");
       
       // And: ServiceDiscovery is integrated with EnvGenerator
       envGenerator.setServiceDiscovery(serviceDiscovery);
@@ -56,7 +56,7 @@ describe('EnvGenerator integrates with ServiceDiscovery', () => {
       const outputPath = path.join(testDir, '.env');
       const content = await envGenerator.generate({
         outputPath,
-        environment: 'development',
+        environment: "development",
         includeServiceUrls: true
       });
 
@@ -97,7 +97,7 @@ describe('EnvGenerator integrates with ServiceDiscovery', () => {
       const devPath = path.join(testDir, '.env.development');
       const devContent = await envGenerator.generate({
         outputPath: devPath,
-        environment: 'development',
+        environment: "development",
         includeServiceUrls: true
       });
 
@@ -145,7 +145,7 @@ describe('EnvGenerator integrates with ServiceDiscovery', () => {
       const outputPath = path.join(testDir, '.env.deps');
       const content = await envGenerator.generate({
         outputPath,
-        environment: 'development',
+        environment: "development",
         includeServiceUrls: true,
         includeDependencies: true
       });
@@ -176,7 +176,7 @@ describe('EnvGenerator integrates with ServiceDiscovery', () => {
       const outputPath = path.join(testDir, '.env.no-services');
       const content = await envGenerator.generate({
         outputPath,
-        environment: 'development',
+        environment: "development",
         includeServiceUrls: false
       });
 
@@ -195,7 +195,7 @@ describe('EnvGenerator integrates with ServiceDiscovery', () => {
       const outputPath = path.join(testDir, '.env.empty');
       const content = await envGenerator.generate({
         outputPath,
-        environment: 'development',
+        environment: "development",
         includeServiceUrls: true
       });
 
@@ -225,15 +225,14 @@ describe('EnvGenerator integrates with ServiceDiscovery', () => {
       const outputPath = path.join(testDir, '.env.secure');
       const content = await envGenerator.generate({
         outputPath,
-        environment: 'production',
+        environment: "production",
         includeTokens: true,
         includeServiceUrls: true
       });
 
       // Then: Should include both sections
       expect(content).toContain('# Security Tokens');
-      expect(content).toContain('SEC_API_KEY=');
-      expect(content).toContain('# Service URLs');
+      expect(content).toContain('SEC_apiKey = process.env.API_KEY || 'PLACEHOLDER_API_KEY'# Service URLs');
       expect(content).toContain('SECURE_API_URL=https://secure-api.example.com');
       expect(content).toContain('SECURE_API_REQUIRES_AUTH=true');
     });
@@ -264,7 +263,7 @@ describe('EnvGenerator integrates with ServiceDiscovery', () => {
       const outputPath = path.join(testDir, '.env.naming');
       const content = await envGenerator.generate({
         outputPath,
-        environment: 'development',
+        environment: "development",
         includeServiceUrls: true
       });
 

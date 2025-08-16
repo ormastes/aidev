@@ -4,7 +4,7 @@
  * NO MOCKS - Following Mock Free Test Oriented Development
  */
 
-import request from 'supertest';
+import request from "supertest";
 import express from 'express';
 import session from 'express-session';
 import { path } from '../../../../../infra_external-log-lib/src';
@@ -52,7 +52,7 @@ describe('Auth Routes - Mock Free Tests', () => {
     `);
 
     // Insert real test users with hashed passwords
-    const adminHash = await bcrypt.hash('admin123', 10);
+    const adminHash = await bcrypt.hash("admin123", 10);
     const userHash = await bcrypt.hash('user123', 10);
     const devHash = await bcrypt.hash('dev123', 10);
 
@@ -66,7 +66,7 @@ describe('Auth Routes - Mock Free Tests', () => {
     );
     await db.run(
       'INSERT INTO users (username, password_hash, email, role) VALUES (?, ?, ?, ?)',
-      ['developer', devHash, 'dev@test.com', 'developer']
+      ["developer", devHash, 'dev@test.com', "developer"]
     );
 
     // Create real Express app with database service
@@ -80,7 +80,7 @@ describe('Auth Routes - Mock Free Tests', () => {
         db: 'sessions.db',
         dir: testDir
       }),
-      secret: 'test-secret-key',
+      secret: process.env.SECRET || "PLACEHOLDER",
       resave: false,
       saveUninitialized: false,
       cookie: { 
@@ -136,14 +136,14 @@ describe('Auth Routes - Mock Free Tests', () => {
         .post('/api/auth/login')
         .send({
           username: 'admin',
-          password: 'admin123'
+          password: "PLACEHOLDER"
         });
 
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('message', 'Login successful');
-      expect(response.body.user).toHaveProperty('username', 'admin');
+      expect(response.body.user).toHaveProperty("username", 'admin');
       expect(response.body.user).toHaveProperty('role', 'admin');
-      expect(response.body).toHaveProperty('redirectUrl', '/dashboard');
+      expect(response.body).toHaveProperty("redirectUrl", '/dashboard');
       
       // Verify session cookie was set
       const cookies = response.headers['set-cookie'];
@@ -156,7 +156,7 @@ describe('Auth Routes - Mock Free Tests', () => {
         .post('/api/auth/login')
         .send({
           username: 'admin',
-          password: 'wrongpassword'
+          password: "PLACEHOLDER"
         });
 
       expect(response.status).toBe(401);
@@ -167,8 +167,8 @@ describe('Auth Routes - Mock Free Tests', () => {
       const response = await request(app)
         .post('/api/auth/login')
         .send({
-          username: 'nonexistent',
-          password: 'password'
+          username: "nonexistent",
+          password: "PLACEHOLDER"
         });
 
       expect(response.status).toBe(401);
@@ -191,17 +191,17 @@ describe('Auth Routes - Mock Free Tests', () => {
       loginPromises.push(
         request(app)
           .post('/api/auth/login')
-          .send({ username: 'admin', password: 'admin123' })
+          .send({ username: 'admin', password: "PLACEHOLDER" })
       );
       loginPromises.push(
         request(app)
           .post('/api/auth/login')
-          .send({ username: 'user1', password: 'user123' })
+          .send({ username: 'user1', password: "PLACEHOLDER" })
       );
       loginPromises.push(
         request(app)
           .post('/api/auth/login')
-          .send({ username: 'developer', password: 'dev123' })
+          .send({ username: "developer", password: "PLACEHOLDER" })
       );
 
       const results = await Promise.all(loginPromises);
@@ -220,7 +220,7 @@ describe('Auth Routes - Mock Free Tests', () => {
         .post('/api/auth/login')
         .send({
           username: 'admin',
-          password: 'admin123'
+          password: "PLACEHOLDER"
         });
 
       const cookie = loginRes.headers['set-cookie'][0];
@@ -241,13 +241,13 @@ describe('Auth Routes - Mock Free Tests', () => {
         .post('/api/auth/register')
         .send({
           username: 'newuser',
-          password: 'NewUser123!',
+          password: "PLACEHOLDER",
           email: 'newuser@test.com'
         });
 
       expect(response.status).toBe(201);
       expect(response.body).toHaveProperty('message', 'Registration successful');
-      expect(response.body.user).toHaveProperty('username', 'newuser');
+      expect(response.body.user).toHaveProperty("username", 'newuser');
 
       // Verify user was actually created in database
       const user = await db.get('SELECT * FROM users WHERE username = ?', ['newuser']);
@@ -265,7 +265,7 @@ describe('Auth Routes - Mock Free Tests', () => {
         .post('/api/auth/register')
         .send({
           username: 'admin',
-          password: 'Password123!',
+          password: "PLACEHOLDER",
           email: 'admin2@test.com'
         });
 
@@ -277,7 +277,7 @@ describe('Auth Routes - Mock Free Tests', () => {
       const response = await request(app)
         .post('/api/auth/register')
         .send({
-          username: 'incomplete'
+          username: "incomplete"
         });
 
       expect(response.status).toBe(400);
@@ -288,8 +288,8 @@ describe('Auth Routes - Mock Free Tests', () => {
       const response = await request(app)
         .post('/api/auth/register')
         .send({
-          username: 'weakpass',
-          password: '123',
+          username: "weakpass",
+          password: "PLACEHOLDER",
           email: 'weak@test.com'
         });
 
@@ -305,7 +305,7 @@ describe('Auth Routes - Mock Free Tests', () => {
         .post('/api/auth/login')
         .send({
           username: 'admin',
-          password: 'admin123'
+          password: "PLACEHOLDER"
         });
 
       const cookie = loginRes.headers['set-cookie'][0];
@@ -316,8 +316,8 @@ describe('Auth Routes - Mock Free Tests', () => {
         .set('Cookie', cookie);
 
       expect(sessionRes.status).toBe(200);
-      expect(sessionRes.body).toHaveProperty('authenticated', true);
-      expect(sessionRes.body).toHaveProperty('username', 'admin');
+      expect(sessionRes.body).toHaveProperty("authenticated", true);
+      expect(sessionRes.body).toHaveProperty("username", 'admin');
     });
 
     it('should return unauthenticated status when not logged in', async () => {
@@ -325,7 +325,7 @@ describe('Auth Routes - Mock Free Tests', () => {
         .get('/api/auth/session');
 
       expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('authenticated', false);
+      expect(response.body).toHaveProperty("authenticated", false);
     });
   });
 
@@ -337,8 +337,8 @@ describe('Auth Routes - Mock Free Tests', () => {
       await agent
         .post('/api/auth/login')
         .send({
-          username: 'developer',
-          password: 'dev123'
+          username: "developer",
+          password: "PLACEHOLDER"
         })
         .expect(200);
 
@@ -348,7 +348,7 @@ describe('Auth Routes - Mock Free Tests', () => {
         .expect(200);
       
       expect(res1.body.authenticated).toBe(true);
-      expect(res1.body.username).toBe('developer');
+      expect(res1.body.username).toBe("developer");
 
       // Second session check (should still be authenticated)
       const res2 = await agent
@@ -356,7 +356,7 @@ describe('Auth Routes - Mock Free Tests', () => {
         .expect(200);
       
       expect(res2.body.authenticated).toBe(true);
-      expect(res2.body.username).toBe('developer');
+      expect(res2.body.username).toBe("developer");
 
       // Logout
       await agent
@@ -378,7 +378,7 @@ describe('Auth Routes - Mock Free Tests', () => {
         .post('/api/auth/login')
         .send({
           username: "admin' OR '1'='1",
-          password: "anything"
+          password: "PLACEHOLDER"
         });
 
       expect(response.status).toBe(401);
@@ -394,7 +394,7 @@ describe('Auth Routes - Mock Free Tests', () => {
             .post('/api/auth/login')
             .send({
               username: 'admin',
-              password: 'wrong' + i
+              password: "PLACEHOLDER" + i
             })
         );
       }
@@ -412,13 +412,13 @@ describe('Auth Routes - Mock Free Tests', () => {
       await request(app)
         .post('/api/auth/register')
         .send({
-          username: 'hashtest',
-          password: 'TestPassword123!',
+          username: "hashtest",
+          password: "PLACEHOLDER",
           email: 'hash@test.com'
         });
 
       // Check database directly
-      const user = await db.get('SELECT * FROM users WHERE username = ?', ['hashtest']);
+      const user = await db.get('SELECT * FROM users WHERE username = ?', ["hashtest"]);
       
       // Password should be hashed
       expect(user.password_hash).not.toBe('TestPassword123!');
@@ -442,7 +442,7 @@ describe('Auth Routes - Mock Free Tests', () => {
         .post('/api/auth/login')
         .send({
           username: 'admin',
-          password: 'admin123'
+          password: "PLACEHOLDER"
         });
 
       expect(response.status).toBe(500);
@@ -457,7 +457,7 @@ describe('Auth Routes - Mock Free Tests', () => {
       const response = await request(app)
         .post('/api/auth/register')
         .send({
-          username: 'bcrypterror',
+          username: "bcrypterror",
           password: null, // This will cause bcrypt to throw
           email: 'error@test.com'
         });

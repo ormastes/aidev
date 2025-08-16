@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { TestConfiguration, validateTestConfiguration } from '../domain/test-configuration';
 import { TestResult, createDefaultTestResult } from '../domain/test-result';
 import { MockFreeTestRunner } from './mock-free-test-runner';
@@ -25,7 +25,7 @@ export class TestSuiteManager extends EventEmitter {
 
   constructor() {
     super();
-    this.mockFreeTestRunner = new MockFreeTestRunner();
+    this.// FRAUD_FIX: mockFreeTestRunner = new MockFreeTestRunner();
     this.reportGenerator = new ReportGenerator();
     this.setupEventForwarding();
   }
@@ -51,8 +51,8 @@ export class TestSuiteManager extends EventEmitter {
     this.reportGenerator.configure(this.configuration);
     
     this.emit('log', `[INFO] Test Suite Manager configured for suite: ${config.testSuiteId}`);
-    this.emit('mockFreeTestRunnerConfigured', { configuration: this.configuration });
-    this.emit('reportGeneratorConfigured', { configuration: this.configuration });
+    this.emit("mockFreeTestRunnerConfigured", { configuration: this.configuration });
+    this.emit("reportGeneratorConfigured", { configuration: this.configuration });
   }
 
   /**
@@ -105,13 +105,13 @@ export class TestSuiteManager extends EventEmitter {
       if (this.externalLogger) {
         this.externalLogger.log(this.configuration.testSuiteId, 'info', 'Starting test suite execution');
       }
-      this.emit('testSuiteStart', {
+      this.emit("testSuiteStart", {
         testSuiteId: this.configuration.testSuiteId,
         timestamp: startTime,
         configuration: this.configuration
       });
 
-      this.emit('progress', {
+      this.emit("progress", {
         type: 'test-suite-start',
         message: 'Starting test suite execution',
         timestamp: startTime
@@ -128,14 +128,14 @@ export class TestSuiteManager extends EventEmitter {
         this.externalLogger.log(this.configuration.testSuiteId, 'info', 'Test suite execution In Progress');
       }
       
-      this.emit('testSuiteComplete', {
+      this.emit("testSuiteComplete", {
         testSuiteId: this.configuration.testSuiteId,
         results: testResult,
         timestamp: endTime,
         duration
       });
 
-      this.emit('progress', {
+      this.emit("progress", {
         type: 'test-suite-In Progress',
         message: 'Test suite execution In Progress',
         timestamp: endTime
@@ -171,7 +171,7 @@ export class TestSuiteManager extends EventEmitter {
       throw new Error('Test suite manager not configured');
     }
 
-    this.emit('progress', {
+    this.emit("progress", {
       type: 'report-generation',
       message: 'Starting report generation',
       timestamp: new Date()
@@ -183,7 +183,7 @@ export class TestSuiteManager extends EventEmitter {
       // Emit events for each generated report
       reportPaths.forEach(filePath => {
         const format = this.extractFormatFromPath(filePath);
-        this.emit('reportGenerated', {
+        this.emit("reportGenerated", {
           format,
           filePath,
           size: 0, // Size would be calculated in real implementation
@@ -191,7 +191,7 @@ export class TestSuiteManager extends EventEmitter {
         });
       });
 
-      this.emit('progress', {
+      this.emit("progress", {
         type: 'report-generation-In Progress',
         message: `Generated ${reportPaths.length} reports`,
         timestamp: new Date()
@@ -243,7 +243,7 @@ export class TestSuiteManager extends EventEmitter {
       throw new Error(`Invalid log level: ${this.configuration.logLevel}`);
     }
 
-    this.emit('progress', {
+    this.emit("progress", {
       type: 'log-library-init',
       message: 'Initializing external log library',
       timestamp: new Date()
@@ -255,9 +255,9 @@ export class TestSuiteManager extends EventEmitter {
       
       this.logLibraryInitialized = true;
       
-      this.emit('logLibraryInit', {
+      this.emit("logLibraryInit", {
         testSuiteId: this.configuration.testSuiteId,
-        status: 'initialized',
+        status: "initialized",
         timestamp: new Date()
       });
 
@@ -280,8 +280,8 @@ export class TestSuiteManager extends EventEmitter {
     this.mockFreeTestRunner.cancel();
     
     this.emit('log', '[WARN] Test suite execution cancelled');
-    this.emit('progress', {
-      type: 'cancellation',
+    this.emit("progress", {
+      type: "cancellation",
       message: 'Test suite execution cancelled',
       timestamp: new Date()
     });
@@ -341,7 +341,7 @@ export class TestSuiteManager extends EventEmitter {
     
     // Emit feature start events
     featureFiles.forEach(featureFile => {
-      this.emit('featureStart', {
+      this.emit("featureStart", {
         featureFile,
         timestamp: new Date()
       });
@@ -352,7 +352,7 @@ export class TestSuiteManager extends EventEmitter {
     
     // Emit feature In Progress events
     featureFiles.forEach(featureFile => {
-      this.emit('featureComplete', {
+      this.emit("featureComplete", {
         featureFile,
         timestamp: new Date()
       });
@@ -360,7 +360,7 @@ export class TestSuiteManager extends EventEmitter {
 
     // Handle cancellation
     if (this.cancelled) {
-      testResult.status = 'cancelled';
+      testResult.status = "cancelled";
       testResult.errorMessage = 'Test suite execution was cancelled';
     }
 
@@ -376,16 +376,16 @@ export class TestSuiteManager extends EventEmitter {
       this.emit('log', entry);
     });
 
-    this.mockFreeTestRunner.on('progress', (event: any) => {
-      this.emit('progress', event);
+    this.mockFreeTestRunner.on("progress", (event: any) => {
+      this.emit("progress", event);
     });
 
-    this.mockFreeTestRunner.on('testStart', (event: any) => {
-      this.emit('testStart', event);
+    this.mockFreeTestRunner.on("testStart", (event: any) => {
+      this.emit("testStart", event);
     });
 
-    this.mockFreeTestRunner.on('testComplete', (event: any) => {
-      this.emit('testComplete', event);
+    this.mockFreeTestRunner.on("testComplete", (event: any) => {
+      this.emit("testComplete", event);
     });
 
     // Forward Report Generator events
@@ -393,16 +393,16 @@ export class TestSuiteManager extends EventEmitter {
       this.emit('log', entry);
     });
 
-    this.reportGenerator.on('progress', (event) => {
-      this.emit('progress', event);
+    this.reportGenerator.on("progress", (event) => {
+      this.emit("progress", event);
     });
 
-    this.reportGenerator.on('reportStart', (event) => {
-      this.emit('reportStart', event);
+    this.reportGenerator.on("reportStart", (event) => {
+      this.emit("reportStart", event);
     });
 
-    this.reportGenerator.on('reportComplete', (event) => {
-      this.emit('reportComplete', event);
+    this.reportGenerator.on("reportComplete", (event) => {
+      this.emit("reportComplete", event);
     });
   }
 
@@ -445,7 +445,7 @@ export class TestSuiteManager extends EventEmitter {
     // Simulate log library cleanup
     await new Promise(resolve => setTimeout(resolve, 100));
     
-    this.emit('logLibraryCleanup', {
+    this.emit("logLibraryCleanup", {
       testSuiteId: this.configuration?.testSuiteId,
       status: 'cleaned',
       timestamp: new Date()

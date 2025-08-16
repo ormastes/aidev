@@ -2,7 +2,7 @@
  * Base Agent implementation
  */
 
-import { EventEmitter } from 'eventemitter3';
+import { EventEmitter } from "eventemitter3";
 import { v4 as uuidv4 } from 'uuid';
 import {
   IAgent,
@@ -34,14 +34,14 @@ export abstract class BaseAgent extends EventEmitter implements IAgent {
     this.config = config;
     await this.onInitialize(config);
     this.initialized = true;
-    this.emit('initialized');
+    this.emit("initialized");
   }
 
   async shutdown(): Promise<void> {
     await this.onShutdown();
     this.initialized = false;
     this.removeAllListeners();
-    this.emit('shutdown');
+    this.emit("shutdown");
   }
 
   async process(request: AgentRequest): Promise<AgentResponse> {
@@ -53,7 +53,7 @@ export abstract class BaseAgent extends EventEmitter implements IAgent {
     const responseId = uuidv4();
 
     try {
-      this.emit('processing', { requestId: request.id, responseId });
+      this.emit("processing", { requestId: request.id, responseId });
 
       // Add session handling if session manager is available
       let session: Session | null = null;
@@ -69,13 +69,13 @@ export abstract class BaseAgent extends EventEmitter implements IAgent {
 
       // Ensure response has required fields
       if (!response.id) response.id = responseId;
-      if (!response.role) response.role = 'assistant';
+      if (!response.role) response.role = "assistant";
 
       // Update session if needed
       if (session && this.sessionManager) {
         const assistantMessage: Message = {
           id: response.id,
-          role: 'assistant',
+          role: "assistant",
           content: response.content,
           timestamp: new Date(),
           metadata: response.metadata
@@ -85,7 +85,7 @@ export abstract class BaseAgent extends EventEmitter implements IAgent {
         await this.sessionManager.saveSession(session);
       }
 
-      this.emit('processed', { requestId: request.id, responseId: response.id });
+      this.emit("processed", { requestId: request.id, responseId: response.id });
       return response;
 
     } catch (error) {

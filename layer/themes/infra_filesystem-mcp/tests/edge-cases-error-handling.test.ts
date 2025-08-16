@@ -1,4 +1,4 @@
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 import { VFDistributedFeatureWrapper, DistributedFeatureFile } from '../children/VFDistributedFeatureWrapper';
 
@@ -54,7 +54,7 @@ describe('Edge Cases and Error Handling', () => {
     });
 
     test('should handle permission denied scenarios', async () => {
-      const restrictedDir = path.join(testBaseDir, 'restricted');
+      const restrictedDir = path.join(testBaseDir, "restricted");
       await fs.mkdir(restrictedDir, { recursive: true });
       
       const restrictedFile = path.join(restrictedDir, 'restricted.json');
@@ -179,7 +179,7 @@ describe('Edge Cases and Error Handling', () => {
     });
 
     test('should handle circular dependencies', async () => {
-      const circularDir = path.join(testBaseDir, 'circular');
+      const circularDir = path.join(testBaseDir, "circular");
       await fs.mkdir(circularDir, { recursive: true });
       
       const file1Path = path.join(circularDir, 'file1.json');
@@ -645,8 +645,8 @@ describe('Edge Cases and Error Handling', () => {
             title: `Large Test Feature ${i}`,
             description: `This is feature number ${i} for performance testing`,
             level: 'user_story',
-            status: i % 4 === 0 ? 'completed' : i % 4 === 1 ? 'in-progress' : i % 4 === 2 ? 'planned' : 'blocked',
-            priority: i % 4 === 0 ? 'critical' : i % 4 === 1 ? 'high' : i % 4 === 2 ? 'medium' : 'low',
+            status: i % 4 === 0 ? "completed" : i % 4 === 1 ? 'in-progress' : i % 4 === 2 ? 'planned' : 'blocked',
+            priority: i % 4 === 0 ? "critical" : i % 4 === 1 ? 'high' : i % 4 === 2 ? 'medium' : 'low',
             tags: [`tag-${i % 10}`, `category-${Math.floor(i / 100)}`],
             virtual_path: '/large-features.json'
           }

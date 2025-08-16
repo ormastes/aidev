@@ -75,7 +75,7 @@ test.describe('Security and Edge Case Tests', () => {
     // Login on both pages simultaneously
     await Promise.all([
       page.fill('#username', 'admin'),
-      page2.fill('#username', 'developer')
+      page2.fill('#username', "developer")
     ]);
     
     await Promise.all([
@@ -131,7 +131,7 @@ test.describe('Security and Edge Case Tests', () => {
   test('should maintain session across page refresh', async ({ page }) => {
     // Login
     await page.goto('/');
-    await page.fill('#username', 'developer');
+    await page.fill('#username', "developer");
     await page.fill('#password', 'demo123');
     await page.click('button[type="submit"]');
     await page.waitForSelector('nav');
@@ -142,7 +142,7 @@ test.describe('Security and Edge Case Tests', () => {
     // Should still be logged in
     await expect(page.locator('nav')).toBeVisible();
     await page.click('#profile-link');
-    await expect(page.locator('#profile-info')).toContainText('developer');
+    await expect(page.locator('#profile-info')).toContainText("developer");
   });
 
   test('should handle network errors gracefully', async ({ page, context }) => {

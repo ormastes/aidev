@@ -33,7 +33,7 @@ describe('Integration: ConfigManager with EnvGenerator', () => {
         name: 'test-api',
         type: 'theme',
         description: 'Test API Service',
-        services: ['api', 'database', 'cache']
+        services: ['api', "database", 'cache']
       };
       
       await configManager.createEnvironment(envOptions);
@@ -230,7 +230,7 @@ describe('Integration: ConfigManager with EnvGenerator', () => {
         name: 'complete-app',
         type: 'epic',
         description: 'Complete application with all features',
-        services: ['web', 'api', 'worker', 'scheduler'],
+        services: ['web', 'api', 'worker', "scheduler"],
         dependencies: [
           {
             theme: 'auth-service',

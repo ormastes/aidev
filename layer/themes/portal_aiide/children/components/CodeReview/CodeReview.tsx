@@ -22,8 +22,8 @@ import './CodeReview.css';
 
 interface CodeIssue {
   id: string;
-  type: 'bug' | 'security' | 'performance' | 'style' | 'improvement';
-  severity: 'critical' | 'high' | 'medium' | 'low';
+  type: 'bug' | "security" | "performance" | 'style' | "improvement";
+  severity: "critical" | 'high' | 'medium' | 'low';
   file: string;
   line: number;
   column?: number;
@@ -73,15 +73,15 @@ export const CodeReview: React.FC<CodeReviewProps> = ({
   // Issue type configurations
   const issueTypes = {
     bug: { icon: <BugOutlined />, color: '#ff4d4f', label: 'Bug' },
-    security: { icon: <SafetyOutlined />, color: '#ff7a45', label: 'Security' },
-    performance: { icon: <ThunderboltOutlined />, color: '#ffa940', label: 'Performance' },
+    security: { icon: <SafetyOutlined />, color: '#ff7a45', label: "Security" },
+    performance: { icon: <ThunderboltOutlined />, color: '#ffa940', label: "Performance" },
     style: { icon: <FileTextOutlined />, color: '#36cfc9', label: 'Style' },
-    improvement: { icon: <CheckCircleOutlined />, color: '#52c41a', label: 'Improvement' }
+    improvement: { icon: <CheckCircleOutlined />, color: '#52c41a', label: "Improvement" }
   };
 
   // Severity configurations
   const severityConfig = {
-    critical: { color: '#ff4d4f', label: 'Critical' },
+    critical: { color: '#ff4d4f', label: "Critical" },
     high: { color: '#ff7a45', label: 'High' },
     medium: { color: '#ffa940', label: 'Medium' },
     low: { color: '#52c41a', label: 'Low' }
@@ -112,7 +112,7 @@ export const CodeReview: React.FC<CodeReviewProps> = ({
       const mockIssues: CodeIssue[] = [
         {
           id: '1',
-          type: 'security',
+          type: "security",
           severity: 'high',
           file: filesToReview[0] || 'app.tsx',
           line: 42,
@@ -125,7 +125,7 @@ export const CodeReview: React.FC<CodeReviewProps> = ({
         },
         {
           id: '2',
-          type: 'performance',
+          type: "performance",
           severity: 'medium',
           file: filesToReview[0] || 'app.tsx',
           line: 78,
@@ -161,7 +161,7 @@ export const CodeReview: React.FC<CodeReviewProps> = ({
         },
         {
           id: '5',
-          type: 'improvement',
+          type: "improvement",
           severity: 'low',
           file: filesToReview[0] || 'app.tsx',
           line: 156,
@@ -178,10 +178,10 @@ export const CodeReview: React.FC<CodeReviewProps> = ({
         issues: mockIssues,
         summary: {
           bugs: mockIssues.filter(i => i.type === 'bug').length,
-          security: mockIssues.filter(i => i.type === 'security').length,
-          performance: mockIssues.filter(i => i.type === 'performance').length,
+          security: mockIssues.filter(i => i.type === "security").length,
+          performance: mockIssues.filter(i => i.type === "performance").length,
           style: mockIssues.filter(i => i.type === 'style').length,
-          improvements: mockIssues.filter(i => i.type === 'improvement').length
+          improvements: mockIssues.filter(i => i.type === "improvement").length
         },
         score: calculateCodeScore(mockIssues),
         recommendations: [
@@ -208,7 +208,7 @@ export const CodeReview: React.FC<CodeReviewProps> = ({
     
     issues.forEach(issue => {
       switch (issue.severity) {
-        case 'critical':
+        case "critical":
           score -= 15;
           break;
         case 'high':

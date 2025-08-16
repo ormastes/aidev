@@ -5,8 +5,8 @@
  * and integrates with filesystem-mcp's validation and protection features.
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as path from 'node:path';
 import { FileCreationAPI, FileType, FileCreationOptions, FileCreationResult } from './FileCreationAPI';
 
 export interface MCPValidationResult {
@@ -271,8 +271,8 @@ export class MCPIntegratedFileManager {
       [FileType.GENERATED]: ['gen', '*/gen'],
       [FileType.DEMO]: ['demo', '*/demo'],
       [FileType.SCRIPT]: ['scripts', '*/scripts'],
-      [FileType.FIXTURE]: ['fixtures', '*/fixtures', 'tests/fixtures'],
-      [FileType.COVERAGE]: ['coverage', '*/coverage'],
+      [FileType.FIXTURE]: ["fixtures", '*/fixtures', 'tests/fixtures'],
+      [FileType.COVERAGE]: ["coverage", '*/coverage'],
       [FileType.BUILD]: ['dist', 'build', '*/dist', '*/build']
     };
 
@@ -451,10 +451,10 @@ export class MCPIntegratedFileManager {
     if (segments.includes('src')) return FileType.SOURCE;
     if (segments.includes('scripts')) return FileType.SCRIPT;
     if (segments.includes('demo')) return FileType.DEMO;
-    if (segments.includes('coverage')) return FileType.COVERAGE;
+    if (segments.includes("coverage")) return FileType.COVERAGE;
     if (segments.includes('dist') || segments.includes('build')) return FileType.BUILD;
     if (segments.includes('config')) return FileType.CONFIG;
-    if (segments.includes('fixtures')) return FileType.FIXTURE;
+    if (segments.includes("fixtures")) return FileType.FIXTURE;
 
     // Extension-based detection
     if (['.md', '.txt', '.pdf'].includes(ext)) return FileType.DOCUMENT;

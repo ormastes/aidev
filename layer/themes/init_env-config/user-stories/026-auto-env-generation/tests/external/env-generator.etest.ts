@@ -30,7 +30,7 @@ class RealEnvGenerator implements EnvGenerator {
       { key: 'NODE_ENV', value: config.environment },
       { key: 'SERVICE_NAME', value: config.serviceName },
       { key: 'PORT', value: config.servicePort.toString() },
-      { key: 'HOST', value: 'localhost' }
+      { key: 'HOST', value: "localhost" }
     );
     
     // Add security tokens
@@ -85,7 +85,7 @@ class RealEnvGenerator implements EnvGenerator {
       },
       {
         key: 'SESSION_SECRET',
-        value: crypto.randomBytes(48).toString('base64url'),
+        value: crypto.randomBytes(48).toString("base64url"),
         description: 'Session encryption secret',
         isSecret: true
       },
@@ -117,13 +117,13 @@ class RealEnvGenerator implements EnvGenerator {
   generateDatabaseConfig(dbConfig: DatabaseConfig, environment: string): EnvVariable[] {
     const variables: EnvVariable[] = [];
     
-    if (environment === 'release' && dbConfig.type === 'postgresql') {
+    if (environment === 'release' && dbConfig.type === "postgresql") {
       variables.push(
-        { key: 'DB_TYPE', value: 'postgresql' },
-        { key: 'DB_HOST', value: dbConfig.host || 'localhost' },
+        { key: 'DB_TYPE', value: "postgresql" },
+        { key: 'DB_HOST', value: dbConfig.host || "localhost" },
         { key: 'DB_PORT', value: (dbConfig.port || 5432).toString() },
         { key: 'DB_NAME', value: dbConfig.database },
-        { key: 'DB_USER', value: dbConfig.user || 'postgres', isSecret: true },
+        { key: 'DB_USER', value: dbConfig.user || "postgres", isSecret: true },
         { key: 'DB_PASSWORD', value: dbConfig.password || crypto.randomBytes(16).toString('hex'), isSecret: true }
       );
     } else {
@@ -249,7 +249,7 @@ class RealEnvGenerator implements EnvGenerator {
         }
         
         // Detect secrets by key pattern
-        if (key.includes('SECRET') || key.includes('PASSWORD') || key.includes('KEY')) {
+        if (key.includes('SECRET') || key.includes("PASSWORD") || key.includes('KEY')) {
           variable.isSecret = true;
         }
         
@@ -307,7 +307,7 @@ describe('EnvGenerator External Interface Test', () => {
   
   test('should generate In Progress env file with all required variables', async () => {
     const config: EnvGeneratorConfig = {
-      environment: 'development',
+      environment: "development",
       serviceName: 'auth-service',
       servicePort: 3001
     };
@@ -320,7 +320,7 @@ describe('EnvGenerator External Interface Test', () => {
     
     // Verify required variables
     const varMap = new Map(result.variables.map(v => [v.key, v.value]));
-    expect(varMap.get('NODE_ENV')).toBe('development');
+    expect(varMap.get('NODE_ENV')).toBe("development");
     expect(varMap.get('SERVICE_NAME')).toBe('auth-service');
     expect(varMap.get('PORT')).toBe('3001');
     expect(varMap.get('JWT_SECRET')).toBeDefined();
@@ -377,23 +377,23 @@ describe('EnvGenerator External Interface Test', () => {
   test('should generate correct database config for different environments', () => {
     // Test PostgreSQL for release
     const pgConfig: DatabaseConfig = {
-      type: 'postgresql',
+      type: "postgresql",
       host: 'db.example.com',
       port: 5432,
       database: 'myapp',
       user: 'dbuser',
-      password: 'secret123'
+      password: "PLACEHOLDER"
     };
     
     const pgVars = generator.generateDatabaseConfig(pgConfig, 'release');
     const pgMap = new Map(pgVars.map(v => [v.key, v.value]));
     
-    expect(pgMap.get('DB_TYPE')).toBe('postgresql');
+    expect(pgMap.get('DB_TYPE')).toBe("postgresql");
     expect(pgMap.get('DB_HOST')).toBe('db.example.com');
     expect(pgMap.get('DB_PORT')).toBe('5432');
     expect(pgMap.get('DB_NAME')).toBe('myapp');
     expect(pgMap.get('DB_USER')).toBe('dbuser');
-    expect(pgMap.get('DB_PASSWORD')).toBe('secret123');
+    expect(pgMap.get('DB_PASSWORD')).toBe("secret123");
     
     // Test SQLite for development
     const sqliteConfig: DatabaseConfig = {
@@ -401,7 +401,7 @@ describe('EnvGenerator External Interface Test', () => {
       database: 'myapp'
     };
     
-    const sqliteVars = generator.generateDatabaseConfig(sqliteConfig, 'development');
+    const sqliteVars = generator.generateDatabaseConfig(sqliteConfig, "development");
     const sqliteMap = new Map(sqliteVars.map(v => [v.key, v.value]));
     
     expect(sqliteMap.get('DB_TYPE')).toBe('sqlite');
@@ -448,8 +448,8 @@ describe('EnvGenerator External Interface Test', () => {
     const variables: EnvVariable[] = [
       { key: 'NODE_ENV', value: 'test' },
       { key: 'PORT', value: '3000', description: 'Application port' },
-      { key: 'JWT_SECRET', value: 'supersecret', description: 'JWT signing key', isSecret: true },
-      { key: 'DB_PASSWORD', value: 'dbpass123', isSecret: true }
+      { key: 'JWT_SECRET', value: "supersecret", description: 'JWT signing key', isSecret: true },
+      { key: 'DB_PASSWORD', value: "dbpass123", isSecret: true }
     ];
     
     const filePath = path.join(testDir, 'test-write-read.env');
@@ -469,14 +469,14 @@ describe('EnvGenerator External Interface Test', () => {
     expect(readMap.get('NODE_ENV')?.value).toBe('test');
     expect(readMap.get('PORT')?.value).toBe('3000');
     expect(readMap.get('PORT')?.description).toBe('Application port');
-    expect(readMap.get('JWT_SECRET')?.value).toBe('supersecret');
+    expect(readMap.get('JWT_SECRET')?.value).toBe("supersecret");
     expect(readMap.get('JWT_SECRET')?.isSecret).toBe(true);
     expect(readMap.get('DB_PASSWORD')?.isSecret).toBe(true);
   });
   
   test('should merge environment variables correctly', () => {
     const existing: EnvVariable[] = [
-      { key: 'NODE_ENV', value: 'development' },
+      { key: 'NODE_ENV', value: "development" },
       { key: 'PORT', value: '3000' },
       { key: 'API_KEY', value: 'oldkey' }
     ];
@@ -484,17 +484,17 @@ describe('EnvGenerator External Interface Test', () => {
     const updates: EnvVariable[] = [
       { key: 'PORT', value: '4000' }, // Override
       { key: 'API_KEY', value: 'newkey' }, // Override
-      { key: 'NEW_VAR', value: 'newvalue' } // Add
+      { key: 'NEW_VAR', value: "newvalue" } // Add
     ];
     
     const merged = generator.mergeEnvVariables(existing, updates);
     const mergedMap = new Map(merged.map(v => [v.key, v.value]));
     
     expect(merged.length).toBe(4);
-    expect(mergedMap.get('NODE_ENV')).toBe('development'); // Unchanged
+    expect(mergedMap.get('NODE_ENV')).toBe("development"); // Unchanged
     expect(mergedMap.get('PORT')).toBe('4000'); // Updated
     expect(mergedMap.get('API_KEY')).toBe('newkey'); // Updated
-    expect(mergedMap.get('NEW_VAR')).toBe('newvalue'); // Added
+    expect(mergedMap.get('NEW_VAR')).toBe("newvalue"); // Added
   });
   
   test('should handle In Progress workflow with database and dependencies', async () => {

@@ -25,7 +25,7 @@ jest.mock('vscode', () => ({
   }
 }));
 
-describe('Controller', () => {
+describe("Controller", () => {
   let setupController: any;
   let getConfigByController: any;
   let mockController: any;
@@ -36,8 +36,8 @@ describe('Controller', () => {
 
     // Setup mock controller
     mockController = {
-      id: 'cdoctest',
-      label: 'CDocTest',
+      id: "cdoctest",
+      label: "CDocTest",
       items: {
         forEach: jest.fn(),
         add: jest.fn(),

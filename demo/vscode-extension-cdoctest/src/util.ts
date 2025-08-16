@@ -7,7 +7,7 @@ export async function fileExists(uri: vscode.Uri): Promise<boolean> {
         return true;
     } catch (err: any) {
         // File doesn't exist if the error indicates a missing file.
-        if (err.code === 'FileNotFound' || err.code === 'ENOENT') {
+        if (err.code === "FileNotFound" || err.code === 'ENOENT') {
             return false;
         }
         throw err;

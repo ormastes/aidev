@@ -24,7 +24,7 @@ jest.mock('vscode', () => ({
 import { MarkdownFileCoverage } from '../../src/coverage';
 import * as vscode from 'vscode';
 
-describe('MarkdownFileCoverage', () => {
+describe("MarkdownFileCoverage", () => {
   test('should create coverage with no lines', () => {
     const coverage = new MarkdownFileCoverage('file:///test.md', []);
     

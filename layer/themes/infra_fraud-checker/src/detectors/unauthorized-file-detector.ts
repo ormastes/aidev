@@ -136,10 +136,10 @@ export class UnauthorizedFileDetector extends BaseDetector {
     const violations: UnauthorizedFileViolation[] = [];
     
     const forbiddenRootDirs = [
-      { name: 'coverage', suggestedLocation: 'gen/coverage/' },
+      { name: "coverage", suggestedLocation: 'gen/coverage/' },
       { name: 'deploy', suggestedLocation: 'layer/themes/infra_deployment/' },
       { name: 'docs', suggestedLocation: 'gen/doc/' },
-      { name: 'features', suggestedLocation: 'layer/themes/[theme-name]/features/' },
+      { name: "features", suggestedLocation: 'layer/themes/[theme-name]/features/' },
       { name: 'setup', suggestedLocation: 'scripts/setup/' },
       { name: 'src', suggestedLocation: 'layer/themes/[theme-name]/children/' },
       { name: 'test-output', suggestedLocation: 'gen/test-output/' },

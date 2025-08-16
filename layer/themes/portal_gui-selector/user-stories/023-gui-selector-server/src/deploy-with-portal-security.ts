@@ -6,8 +6,8 @@
  */
 
 import { spawn, ChildProcess } from 'child_process';
-import { path } from '../../../../infra_external-log-lib/src';
-import { fs } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 // Import portal_security's port management
 async function deployWithPortalSecurity(deployType: string, appId: string) {

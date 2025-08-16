@@ -17,7 +17,7 @@ import {
 import { ExternalLogService, LogLevel } from '../src/services/ExternalLogService';
 import { Request, Response, NextFunction } from 'express';
 import * as fs from 'fs/promises';
-import { path } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 // Test directories
 const TEST_LOG_DIR = path.join(__dirname, 'test-logs');
@@ -43,7 +43,7 @@ describe('Health Monitoring and Logging System', () => {
     }
   });
 
-  describe('HealthCheckService', () => {
+  describe("HealthCheckService", () => {
     let healthService: HealthCheckService;
 
     beforeEach(() => {
@@ -101,7 +101,7 @@ describe('Health Monitoring and Logging System', () => {
         // Register a critical unhealthy check
         healthService.registerDependency({
           name: 'test_database',
-          type: 'database',
+          type: "database",
           critical: true,
           check: async () => ({
             name: 'test_database',
@@ -156,7 +156,7 @@ describe('Health Monitoring and Logging System', () => {
 
         const status = await healthService.getSimpleHealth();
         
-        expect(status.status).toBe('UNHEALTHY');
+        expect(status.status).toBe("UNHEALTHY");
         expect(status.code).toBe(503);
       });
     });
@@ -180,7 +180,7 @@ describe('Health Monitoring and Logging System', () => {
         // Register critical unhealthy check
         healthService.registerDependency({
           name: 'critical_db',
-          type: 'database',
+          type: "database",
           critical: true,
           check: async () => ({
             name: 'critical_db',
@@ -277,7 +277,7 @@ describe('Health Monitoring and Logging System', () => {
     });
   });
 
-  describe('RequestLoggingMiddleware', () => {
+  describe("RequestLoggingMiddleware", () => {
     let requestLogger: RequestLoggingMiddleware;
     let mockReq: Partial<Request>;
     let mockRes: Partial<Response>;
@@ -337,14 +337,14 @@ describe('Health Monitoring and Logging System', () => {
 
       it('should sanitize sensitive fields', () => {
         const logger = new RequestLoggingMiddleware({
-          sensitiveFields: ['password'],
+          sensitiveFields: ["password"],
           persistToDatabase: false
         });
 
-        mockReq.body = { username: 'test', password: 'secret123' };
+        mockReq.body = { username: 'test', password: "PLACEHOLDER" };
         
         // Spy on internal method
-        const sanitizeSpy = jest.spyOn(logger as any, 'sanitizeData');
+        const sanitizeSpy = jest.spyOn(logger as any, "sanitizeData");
         
         const middleware = logger.middleware();
         middleware(mockReq as Request, mockRes as Response, mockNext);
@@ -404,7 +404,7 @@ describe('Health Monitoring and Logging System', () => {
     });
   });
 
-  describe('ErrorHandlingMiddleware', () => {
+  describe("ErrorHandlingMiddleware", () => {
     let errorHandler: ErrorHandlingMiddleware;
     let mockReq: Partial<Request>;
     let mockRes: Partial<Response>;
@@ -484,11 +484,11 @@ describe('Health Monitoring and Logging System', () => {
         
         errorHandler.registerRecoveryStrategy({
           name: 'test_recovery',
-          condition: (error) => error.message === 'Recoverable',
+          condition: (error) => error.message === "Recoverable",
           recover: recoverySpy
         });
 
-        const error = new Error('Recoverable');
+        const error = new Error("Recoverable");
         
         const middleware = errorHandler.middleware();
         await middleware(error, mockReq as Request, mockRes as Response, mockNext);
@@ -505,7 +505,7 @@ describe('Health Monitoring and Logging System', () => {
           recover: recoverySpy
         });
 
-        const error = new ApplicationError('Critical', 500, {
+        const error = new ApplicationError("Critical", 500, {
           severity: ErrorSeverity.CRITICAL
         });
         
@@ -528,7 +528,7 @@ describe('Health Monitoring and Logging System', () => {
       });
 
       it('should track critical errors separately', async () => {
-        const error = new ApplicationError('Critical', 500, {
+        const error = new ApplicationError("Critical", 500, {
           severity: ErrorSeverity.CRITICAL
         });
 
@@ -567,7 +567,7 @@ describe('Health Monitoring and Logging System', () => {
     });
   });
 
-  describe('ExternalLogService', () => {
+  describe("ExternalLogService", () => {
     let logService: ExternalLogService;
 
     beforeEach(() => {

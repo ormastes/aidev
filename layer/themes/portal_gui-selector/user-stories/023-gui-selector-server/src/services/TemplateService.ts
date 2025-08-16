@@ -9,49 +9,49 @@ export class TemplateService {
       category: 'modern',
       previewUrl: '/templates/modern-01/preview',
       thumbnailUrl: '/templates/modern-01/thumbnail.jpg',
-      features: ['responsive', 'dark-mode', 'animations', 'mobile-first'],
+      features: ["responsive", 'dark-mode', "animations", 'mobile-first'],
       metadata: {
         author: 'Design Team',
         version: '1.2.0',
         lastUpdated: '2024-01-15',
-        tags: ['dashboard', 'clean', 'minimalist', 'modern']
+        tags: ["dashboard", 'clean', "minimalist", 'modern']
       }
     },
     {
       id: 'professional-01',
       name: 'Corporate Portal',
       description: 'Professional business application interface with formal design',
-      category: 'professional',
+      category: "professional",
       previewUrl: '/templates/professional-01/preview',
       thumbnailUrl: '/templates/professional-01/thumbnail.jpg',
-      features: ['corporate', 'formal', 'structured', 'data-tables'],
+      features: ["corporate", 'formal', "structured", 'data-tables'],
       metadata: {
         author: 'Business Team',
         version: '2.1.0',
         lastUpdated: '2024-01-10',
-        tags: ['business', 'corporate', 'formal', 'enterprise']
+        tags: ["business", "corporate", 'formal', "enterprise"]
       }
     },
     {
       id: 'creative-01',
       name: 'Artistic Showcase',
       description: 'Bold and creative design for portfolios and artistic projects',
-      category: 'creative',
+      category: "creative",
       previewUrl: '/templates/creative-01/preview',
       thumbnailUrl: '/templates/creative-01/thumbnail.jpg',
-      features: ['artistic', 'bold-colors', 'animations', 'parallax'],
+      features: ["artistic", 'bold-colors', "animations", "parallax"],
       metadata: {
         author: 'Creative Team',
         version: '1.0.0',
         lastUpdated: '2024-01-20',
-        tags: ['creative', 'portfolio', 'artistic', 'bold']
+        tags: ["creative", "portfolio", "artistic", 'bold']
       }
     },
     {
       id: 'accessible-01',
       name: 'Universal Access',
       description: 'WCAG 2.1 AA compliant accessible design with high contrast',
-      category: 'accessible',
+      category: "accessible",
       previewUrl: '/templates/accessible-01/preview',
       thumbnailUrl: '/templates/accessible-01/thumbnail.jpg',
       features: ['wcag-compliant', 'high-contrast', 'keyboard-navigation', 'screen-reader'],
@@ -59,7 +59,7 @@ export class TemplateService {
         author: 'Accessibility Team',
         version: '1.1.0',
         lastUpdated: '2024-01-12',
-        tags: ['accessibility', 'wcag', 'inclusive', 'a11y']
+        tags: ["accessibility", 'wcag', "inclusive", 'a11y']
       }
     }
   ];

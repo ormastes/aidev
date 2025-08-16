@@ -5,7 +5,7 @@
 import { AnomalyDetector } from '../detectors/anomaly-detector';
 import { ViolationType, FraudContext } from '../types';
 
-describe('AnomalyDetector', () => {
+describe("AnomalyDetector", () => {
   let detector: AnomalyDetector;
 
   beforeEach(() => {
@@ -93,7 +93,7 @@ describe('AnomalyDetector', () => {
   describe('Pattern Anomalies', () => {
     it('should detect repeated characters', async () => {
       const input = {
-        data: 'normaltext' + 'a'.repeat(15) + 'moretext'
+        data: "normaltext" + 'a'.repeat(15) + "moretext"
       };
 
       const result = await detector.detect(input);
@@ -107,7 +107,7 @@ describe('AnomalyDetector', () => {
 
     it('should detect long hex strings', async () => {
       const input = {
-        hash: '0123456789abcdef0123456789abcdef0123456789abcdef'
+        hash: "0123456789abcdef0123456789abcdef0123456789abcdef"
       };
 
       const result = await detector.detect(input);

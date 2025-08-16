@@ -10,7 +10,7 @@ import {
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
 import * as fs from 'fs/promises';
-import * as path from 'path';
+import * as path from 'node:path';
 
 // Configuration
 const VF_BASE_PATH = process.env.VF_BASE_PATH || process.cwd();
@@ -101,7 +101,7 @@ export class FilesystemMCPServer {
                 default: false,
               },
             },
-            required: ['directory'],
+            required: ["directory"],
           },
         },
         {
@@ -171,7 +171,7 @@ export class FilesystemMCPServer {
         throw new Error(`File must have ${VF_EXTENSION} extension`);
       }
 
-      const content = await fs.readFile(fullPath, 'utf-8');
+      const content = await fileAPI.readFile(fullPath, 'utf-8');
       const parsed = JSON.parse(content);
 
       return {
@@ -235,7 +235,7 @@ export class FilesystemMCPServer {
       await await fileAPI.createDirectory(dir);
 
       // Write file
-      await fs.writeFile(fullPath, JSON.stringify(content, null, 2));
+      await fileAPI.writeFile(fullPath, JSON.stringify(content, null, 2));
 
       return {
         content: [
@@ -337,7 +337,7 @@ export class FilesystemMCPServer {
         throw new Error(`File must have ${VF_EXTENSION} extension`);
       }
 
-      await fs.unlink(fullPath);
+      await fileAPI.unlink(fullPath);
 
       return {
         content: [
@@ -380,7 +380,7 @@ export class FilesystemMCPServer {
         throw new Error(`File must have ${VF_EXTENSION} extension`);
       }
 
-      const content = await fs.readFile(fullPath, 'utf-8');
+      const content = await fileAPI.readFile(fullPath, 'utf-8');
       const parsed = JSON.parse(content) as VFFile;
 
       const errors: string[] = [];

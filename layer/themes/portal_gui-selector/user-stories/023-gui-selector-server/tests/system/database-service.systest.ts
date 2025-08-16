@@ -43,9 +43,9 @@ describe('Database Service System Tests', () => {
       // Then: The expected behavior occurs
       // Create a user
       const userResult = await databaseService.createUser(
-        'testuser',
+        "testuser",
         'test@example.com',
-        'hashedpassword123',
+        "hashedpassword123",
         'admin'
       );
 
@@ -53,9 +53,9 @@ describe('Database Service System Tests', () => {
       const userId = userResult.lastID!;
 
       // Retrieve user by username
-      const user = await databaseService.getUserByUsername('testuser');
+      const user = await databaseService.getUserByUsername("testuser");
       expect(user).toBeDefined();
-      expect(user.username).toBe('testuser');
+      expect(user.username).toBe("testuser");
       expect(user.email).toBe('test@example.com');
       expect(user.role).toBe('admin');
       expect(user.id).toBe(userId);
@@ -63,7 +63,7 @@ describe('Database Service System Tests', () => {
       // Retrieve user by ID
       const userById = await databaseService.getUserById(userId);
       expect(userById).toBeDefined();
-      expect(userById.username).toBe('testuser');
+      expect(userById.username).toBe("testuser");
       expect(userById.email).toBe('test@example.com');
     });
 
@@ -73,7 +73,7 @@ describe('Database Service System Tests', () => {
       // Then: The expected behavior occurs
       // Try to create user with duplicate username
       await expect(
-        databaseService.createUser('testuser', 'another@example.com', 'password')
+        databaseService.createUser("testuser", 'another@example.com', "password")
       ).rejects.toThrow();
     });
   });
@@ -85,9 +85,9 @@ describe('Database Service System Tests', () => {
       // Then: The expected behavior occurs
       // First create a user to own the app
       const userResult = await databaseService.createUser(
-        'appowner',
+        "appowner",
         'owner@example.com',
-        'password123'
+        "password123"
       );
       const ownerId = userResult.lastID!;
 
@@ -122,7 +122,7 @@ describe('Database Service System Tests', () => {
       expect(allApps.length).toBeGreaterThanOrEqual(1);
       const testApp = allApps.find(a => a.name === 'Test App');
       expect(testApp).toBeDefined();
-      expect(testApp!.owner_name).toBe('appowner');
+      expect(testApp!.owner_name).toBe("appowner");
     });
   });
 
@@ -133,9 +133,9 @@ describe('Database Service System Tests', () => {
       // Then: The expected behavior occurs
       // Create user and app first
       const userResult = await databaseService.createUser(
-        'selector',
+        "selector",
         'selector@example.com',
-        'password123'
+        "password123"
       );
       const userId = userResult.lastID!;
 
@@ -187,9 +187,9 @@ describe('Database Service System Tests', () => {
       // Then: The expected behavior occurs
       // Create user, app, and selection first
       const userResult = await databaseService.createUser(
-        'requirementuser',
+        "requirementuser",
         'req@example.com',
-        'password123'
+        "password123"
       );
       const userId = userResult.lastID!;
 
@@ -212,7 +212,7 @@ describe('Database Service System Tests', () => {
       const req1 = await databaseService.createRequirement(
         userId,
         selectionId,
-        'functional',
+        "functional",
         'User authentication system',
         'high'
       );
@@ -228,7 +228,7 @@ describe('Database Service System Tests', () => {
       const req3 = await databaseService.createRequirement(
         userId,
         selectionId,
-        'performance',
+        "performance",
         'Page load optimization',
         'low'
       );
@@ -262,14 +262,14 @@ describe('Database Service System Tests', () => {
       // Then: The expected behavior occurs
       // Create a user
       const userResult = await databaseService.createUser(
-        'sessionuser',
+        "sessionuser",
         'session@example.com',
-        'password123'
+        "password123"
       );
       const userId = userResult.lastID!;
 
       // Create a session
-      const refreshToken = 'refresh_token_12345';
+      const refreshtoken: process.env.TOKEN || "PLACEHOLDER";
       const expiresAt = new Date();
       expiresAt.setDate(expiresAt.getDate() + 7); // 7 days from now
 
@@ -300,21 +300,21 @@ describe('Database Service System Tests', () => {
       // Then: The expected behavior occurs
       // Create user for testing
       const userResult = await databaseService.createUser(
-        'expireduser',
+        "expireduser",
         'expired@example.com',
-        'password123'
+        "password123"
       );
       const userId = userResult.lastID!;
 
       // Create expired session
-      const expiredToken = 'expired_token_123';
+      const expiredtoken: process.env.TOKEN || "PLACEHOLDER";
       const expiredDate = new Date();
       expiredDate.setDate(expiredDate.getDate() - 1); // Yesterday
 
       await databaseService.createSession(userId, expiredToken, expiredDate);
 
       // Create valid session
-      const validToken = 'valid_token_123';
+      const validtoken: process.env.TOKEN || "PLACEHOLDER";
       const validDate = new Date();
       validDate.setDate(validDate.getDate() + 7); // Next week
 
@@ -355,7 +355,7 @@ describe('Database Service System Tests', () => {
 
       // Try to create requirement with non-existent selection  
       await expect(
-        databaseService.createRequirement(1, 99999, 'type', 'Description')
+        databaseService.createRequirement(1, 99999, 'type', "Description")
       ).rejects.toThrow();
     });
 
@@ -365,19 +365,19 @@ describe('Database Service System Tests', () => {
       // Then: The expected behavior occurs
       // Create user first
       await databaseService.createUser(
-        'uniquetest',
+        "uniquetest",
         'unique@example.com',
-        'password123'
+        "password123"
       );
 
       // Try duplicate username
       await expect(
-        databaseService.createUser('uniquetest', 'other@example.com', 'password')
+        databaseService.createUser("uniquetest", 'other@example.com', "password")
       ).rejects.toThrow();
 
       // Try duplicate email
       await expect(
-        databaseService.createUser('othername', 'unique@example.com', 'password')
+        databaseService.createUser("othername", 'unique@example.com', "password")
       ).rejects.toThrow();
     });
   });
@@ -401,7 +401,7 @@ describe('Database Service System Tests', () => {
         owner2.lastID!, app2.lastID!, 'professional-01', 'Pro Project'
       );
 
-      await databaseService.createRequirement(owner1.lastID!, sel1.lastID!, 'functional', 'Auth');
+      await databaseService.createRequirement(owner1.lastID!, sel1.lastID!, "functional", 'Auth');
       await databaseService.createRequirement(owner2.lastID!, sel2.lastID!, 'ui', 'Layout');
 
       // Verify relationships through joins

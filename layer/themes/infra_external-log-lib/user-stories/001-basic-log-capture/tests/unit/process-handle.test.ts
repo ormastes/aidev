@@ -194,7 +194,7 @@ describe('ProcessHandle Unit Test', () => {
     });
   });
 
-  describe('terminate', () => {
+  describe("terminate", () => {
     it('should send SIGTERM signal first', async () => {
       mockChildProcess.on.mockImplementation((event: string, callback: any) => {
         if (event === 'exit') {
@@ -341,7 +341,7 @@ describe('ProcessHandle Unit Test', () => {
     });
   });
 
-  describe('getResourceUsage', () => {
+  describe("getResourceUsage", () => {
     it('should track start time', () => {
       const beforeCreate = new Date();
       const handle = new ProcessHandle(mockChildProcess);

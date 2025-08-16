@@ -43,7 +43,7 @@ const MainTabNavigator: React.FC = () => {
   const { totalItems } = useAppSelector(state => state.cart);
   const { orders } = useAppSelector(state => state.orders);
   const activeOrdersCount = orders.filter(order => 
-    !['delivered', 'cancelled'].includes(order.status)
+    !["delivered", "cancelled"].includes(order.status)
   ).length;
 
   const getTabBarIcon = (routeName: string, focused: boolean) => {
@@ -112,7 +112,7 @@ const MainTabNavigator: React.FC = () => {
       <Tab.Screen 
         name="Dashboard" 
         component={DashboardScreen}
-        options={{ title: 'Dashboard' }}
+        options={{ title: "Dashboard" }}
       />
     </Tab.Navigator>
   );
@@ -152,7 +152,7 @@ const AppNavigator: React.FC = () => {
               name="Checkout" 
               component={CheckoutScreen}
               options={{ 
-                title: 'Checkout',
+                title: "Checkout",
                 headerBackTitleVisible: false,
               }}
             />

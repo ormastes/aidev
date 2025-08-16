@@ -55,12 +55,12 @@ describe('Index Exports', () => {
     const expectedExports = [
       'CLI',
       'Command',
-      'ArgumentParser',
-      'HelpFormatter',
-      'CLIError',
-      'CommandNotFoundError',
-      'ValidationError',
-      'PluginError'
+      "ArgumentParser",
+      "HelpFormatter",
+      "CLIError",
+      "CommandNotFoundError",
+      "ValidationError",
+      "PluginError"
     ];
 
     expectedExports.forEach(name => {
@@ -70,8 +70,8 @@ describe('Index Exports', () => {
 
   it('should not export internal utilities', () => {
     // Ensure internal utilities are not exposed
-    expect(exports).not.toHaveProperty('parseValue');
-    expect(exports).not.toHaveProperty('formatTable');
+    expect(exports).not.toHaveProperty("parseValue");
+    expect(exports).not.toHaveProperty("formatTable");
   });
 
   it('should allow creating a functional CLI', () => {

@@ -1,4 +1,4 @@
-import request from 'supertest';
+import request from "supertest";
 import express from 'express';
 import session from 'express-session';
 import { requirementsRouter } from '../../../src/routes/requirements';
@@ -20,7 +20,7 @@ describe('Requirements Routes', () => {
     app = express();
     app.use(express.json());
     app.use(session({
-      secret: 'test-secret',
+      secret: process.env.SECRET || "PLACEHOLDER",
       resave: false,
       saveUninitialized: false,
       cookie: { secure: false }
@@ -42,7 +42,7 @@ describe('Requirements Routes', () => {
       const authApp = express();
       authApp.use(express.json());
       authApp.use((req: any, res, next) => {
-        req.user = { userId: 1, username: 'testuser', role: 'user' };
+        req.user = { userId: 1, username: "testuser", role: 'user' };
         next();
       });
       authApp.use('/api/requirements', requirementsRouter);
@@ -52,7 +52,7 @@ describe('Requirements Routes', () => {
         .post('/api/requirements')
         .send({
           selectionId: 'sel-123',
-          type: 'functional',
+          type: "functional",
           description: 'User requirement'
         });
 
@@ -60,7 +60,7 @@ describe('Requirements Routes', () => {
       const otherApp = express();
       otherApp.use(express.json());
       otherApp.use((req: any, res, next) => {
-        req.user = { userId: 2, username: 'otheruser', role: 'user' };
+        req.user = { userId: 2, username: "otheruser", role: 'user' };
         next();
       });
       otherApp.use('/api/requirements', requirementsRouter);
@@ -91,7 +91,7 @@ describe('Requirements Routes', () => {
         .post('/api/requirements')
         .send({
           selectionId: 'sel-789',
-          type: 'technical',
+          type: "technical",
           description: 'Session requirement'
         });
 
@@ -109,20 +109,20 @@ describe('Requirements Routes', () => {
         .post('/api/requirements')
         .send({
           selectionId: 'sel-123',
-          type: 'functional',
+          type: "functional",
           description: 'Test requirement',
           priority: 'high'
         });
 
       expect(response.status).toBe(201);
       expect(response.body).toHaveProperty('id');
-      expect(response.body).toHaveProperty('selectionId', 'sel-123');
-      expect(response.body).toHaveProperty('type', 'functional');
-      expect(response.body).toHaveProperty('description', 'Test requirement');
-      expect(response.body).toHaveProperty('priority', 'high');
+      expect(response.body).toHaveProperty("selectionId", 'sel-123');
+      expect(response.body).toHaveProperty('type', "functional");
+      expect(response.body).toHaveProperty("description", 'Test requirement');
+      expect(response.body).toHaveProperty("priority", 'high');
       expect(response.body).toHaveProperty('status', 'pending');
-      expect(response.body).toHaveProperty('createdAt');
-      expect(response.body).toHaveProperty('updatedAt');
+      expect(response.body).toHaveProperty("createdAt");
+      expect(response.body).toHaveProperty("updatedAt");
     });
 
     it('should set default priority to medium', async () => {
@@ -135,14 +135,14 @@ describe('Requirements Routes', () => {
         });
 
       expect(response.status).toBe(201);
-      expect(response.body).toHaveProperty('priority', 'medium');
+      expect(response.body).toHaveProperty("priority", 'medium');
     });
 
     it('should require selectionId, type, and description', async () => {
       const response = await request(app)
         .post('/api/requirements')
         .send({
-          type: 'functional'
+          type: "functional"
         });
 
       expect(response.status).toBe(400);
@@ -153,7 +153,7 @@ describe('Requirements Routes', () => {
       const authApp = express();
       authApp.use(express.json());
       authApp.use((req: any, res, next) => {
-        req.user = { userId: 123, username: 'testuser', role: 'user' };
+        req.user = { userId: 123, username: "testuser", role: 'user' };
         next();
       });
       authApp.use('/api/requirements', requirementsRouter);
@@ -162,7 +162,7 @@ describe('Requirements Routes', () => {
         .post('/api/requirements')
         .send({
           selectionId: 'sel-123',
-          type: 'technical',
+          type: "technical",
           description: 'Authenticated requirement'
         });
 
@@ -180,11 +180,11 @@ describe('Requirements Routes', () => {
         });
 
       expect(response.status).toBe(201);
-      expect(response.body).toHaveProperty('userId', 'anonymous');
+      expect(response.body).toHaveProperty('userId', "anonymous");
     });
 
     it('should validate requirement type', async () => {
-      const validTypes = ['functional', 'design', 'technical', 'other'];
+      const validTypes = ["functional", 'design', "technical", 'other'];
       
       for (const type of validTypes) {
         const response = await request(app)
@@ -208,7 +208,7 @@ describe('Requirements Routes', () => {
         .post('/api/requirements')
         .send({
           selectionId: 'sel-001',
-          type: 'functional',
+          type: "functional",
           description: 'Functional requirement 1',
           priority: 'high'
         });
@@ -226,7 +226,7 @@ describe('Requirements Routes', () => {
         .post('/api/requirements')
         .send({
           selectionId: 'sel-003',
-          type: 'technical',
+          type: "technical",
           description: 'Technical requirement 1',
           priority: 'low'
         });
@@ -237,8 +237,8 @@ describe('Requirements Routes', () => {
         .get('/api/requirements/export');
 
       expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('exportDate');
-      expect(response.body).toHaveProperty('requirements');
+      expect(response.body).toHaveProperty("exportDate");
+      expect(response.body).toHaveProperty("requirements");
       expect(response.body.requirements).toBeInstanceOf(Array);
       expect(response.body.requirements.length).toBeGreaterThanOrEqual(3);
     });
@@ -260,7 +260,7 @@ describe('Requirements Routes', () => {
       const authApp = express();
       authApp.use(express.json());
       authApp.use((req: any, res, next) => {
-        req.user = { userId: 999, username: 'exportuser', role: 'user' };
+        req.user = { userId: 999, username: "exportuser", role: 'user' };
         next();
       });
       authApp.use('/api/requirements', requirementsRouter);
@@ -270,7 +270,7 @@ describe('Requirements Routes', () => {
         .post('/api/requirements')
         .send({
           selectionId: 'sel-export',
-          type: 'functional',
+          type: "functional",
           description: 'Export test requirement'
         });
 
@@ -310,21 +310,21 @@ describe('Requirements Routes', () => {
           .post('/api/requirements')
           .send({
             selectionId: 'sel-123',
-            type: 'functional',
+            type: "functional",
             description: 'Priority test',
             priority
           });
 
         expect(response.status).toBe(201);
-        expect(response.body).toHaveProperty('priority', priority);
+        expect(response.body).toHaveProperty("priority", priority);
       }
     });
 
     it('should handle missing required fields', async () => {
       const invalidPayloads = [
-        { type: 'functional', description: 'Missing selectionId' },
+        { type: "functional", description: 'Missing selectionId' },
         { selectionId: 'sel-123', description: 'Missing type' },
-        { selectionId: 'sel-123', type: 'functional' } // Missing description
+        { selectionId: 'sel-123', type: "functional" } // Missing description
       ];
 
       for (const payload of invalidPayloads) {

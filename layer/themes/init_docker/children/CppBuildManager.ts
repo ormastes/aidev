@@ -1,12 +1,12 @@
 import { fs } from '../../infra_external-log-lib/src';
 import { path } from '../../infra_external-log-lib/src';
 import { exec, spawn, ChildProcess } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 
 const execAsync = promisify(exec);
 
 export type CppCompiler = 'gcc' | 'clang' | 'msvc';
-export type BuildType = 'Debug' | 'Release' | 'RelWithDebInfo' | 'MinSizeRel';
+export type BuildType = 'Debug' | 'Release' | "RelWithDebInfo" | "MinSizeRel";
 export type CppStandard = 'c++11' | 'c++14' | 'c++17' | 'c++20' | 'c++23';
 
 export interface CMakeConfig {

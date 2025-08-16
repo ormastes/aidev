@@ -3,7 +3,7 @@
  * Core manager for MCP protocol operations
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { MessageHandler, MCPMessage, MCPRequest, MCPResponse } from '../messages';
 import { Transport, TransportConfig, Connection } from '../transport';
 import { SchemaValidator } from '../schema';
@@ -92,7 +92,7 @@ export class MCPManager extends EventEmitter {
 
   private setupEventHandlers(): void {
     // Transport events
-    this.transport.on('connection', (connection: Connection) => {
+    this.transport.on("connection", (connection: Connection) => {
       this.handleNewConnection(connection);
     });
 
@@ -100,7 +100,7 @@ export class MCPManager extends EventEmitter {
       this.handleIncomingMessage(connection, data);
     });
 
-    this.transport.on('disconnect', (connection: Connection) => {
+    this.transport.on("disconnect", (connection: Connection) => {
       this.handleDisconnection(connection);
     });
 
@@ -109,12 +109,12 @@ export class MCPManager extends EventEmitter {
       this.handleRequest(request);
     });
 
-    this.messageHandler.on('response', (response: MCPResponse) => {
+    this.messageHandler.on("response", (response: MCPResponse) => {
       this.handleResponse(response);
     });
 
-    this.messageHandler.on('notification', (notification: any) => {
-      this.emit('notification', notification);
+    this.messageHandler.on("notification", (notification: any) => {
+      this.emit("notification", notification);
     });
 
     // Router events
@@ -131,7 +131,7 @@ export class MCPManager extends EventEmitter {
     // Register default capabilities
     const defaultCapabilities: MCPCapability[] = [
       {
-        name: 'protocol',
+        name: "protocol",
         version: this.config.version!,
         required: true
       },
@@ -141,12 +141,12 @@ export class MCPManager extends EventEmitter {
         required: true
       },
       {
-        name: 'notification',
+        name: "notification",
         version: '1.0.0',
         required: false
       },
       {
-        name: 'streaming',
+        name: "streaming",
         version: '1.0.0',
         required: false
       },
@@ -166,7 +166,7 @@ export class MCPManager extends EventEmitter {
   }
 
   async start(): Promise<void> {
-    this.emit('starting');
+    this.emit("starting");
     
     try {
       await this.transport.start();
@@ -185,7 +185,7 @@ export class MCPManager extends EventEmitter {
   }
 
   async stop(): Promise<void> {
-    this.emit('stopping');
+    this.emit("stopping");
     
     try {
       // Close all sessions
@@ -236,7 +236,7 @@ export class MCPManager extends EventEmitter {
       const handshakeRequest: MCPMessage = {
         id: this.generateMessageId(),
         type: 'request',
-        method: 'handshake',
+        method: "handshake",
         params: {
           version: this.config.version,
           capabilities: Array.from(this.capabilities.values()),
@@ -258,7 +258,7 @@ export class MCPManager extends EventEmitter {
           try {
             const message = JSON.parse(data);
             
-            if (message.type === 'response' && message.id === handshakeRequest.id) {
+            if (message.type === "response" && message.id === handshakeRequest.id) {
               const handshake: HandshakeData = {
                 version: message.result.version,
                 capabilities: message.result.capabilities,
@@ -383,7 +383,7 @@ export class MCPManager extends EventEmitter {
           await this.sendResponse(session.connection, message.id!, { pong: true });
           break;
           
-        case 'capabilities':
+        case "capabilities":
           await this.sendResponse(session.connection, message.id!, {
             capabilities: Array.from(this.capabilities.values())
           });
@@ -410,7 +410,7 @@ export class MCPManager extends EventEmitter {
   }
 
   private async handleResponse(response: MCPResponse): Promise<void> {
-    this.emit('response', response);
+    this.emit("response", response);
   }
 
   private async handleDisconnection(connection: Connection): Promise<void> {
@@ -456,7 +456,7 @@ export class MCPManager extends EventEmitter {
     }
     
     const notification: MCPMessage = {
-      type: 'notification',
+      type: "notification",
       method,
       params
     };
@@ -468,7 +468,7 @@ export class MCPManager extends EventEmitter {
   private async sendResponse(connection: Connection, id: string, result: any): Promise<void> {
     const response: MCPResponse = {
       id,
-      type: 'response',
+      type: "response",
       result
     };
     
@@ -479,7 +479,7 @@ export class MCPManager extends EventEmitter {
   private async sendError(connection: Connection, id: string, message: string, data?: any): Promise<void> {
     const error: MCPResponse = {
       id,
-      type: 'response',
+      type: "response",
       error: {
         code: -32603,
         message,
@@ -500,7 +500,7 @@ export class MCPManager extends EventEmitter {
       const handler = (response: MCPResponse) => {
         if (response.id === requestId) {
           clearTimeout(timeout);
-          this.removeListener('response', handler);
+          this.removeListener("response", handler);
           
           if (response.error) {
             reject(new Error(response.error.message));
@@ -510,13 +510,13 @@ export class MCPManager extends EventEmitter {
         }
       };
       
-      this.on('response', handler);
+      this.on("response", handler);
     });
   }
 
   async broadcast(method: string, params?: any): Promise<void> {
     const notification: MCPMessage = {
-      type: 'notification',
+      type: "notification",
       method,
       params
     };

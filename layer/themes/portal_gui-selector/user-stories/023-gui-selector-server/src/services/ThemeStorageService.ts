@@ -21,7 +21,7 @@ export interface GUIReport {
   themeId: string;
   epicId?: string;
   appId?: string;
-  type: 'selection' | 'performance' | 'usability' | 'accessibility';
+  type: "selection" | "performance" | "usability" | "accessibility";
   title: string;
   content: string;
   generatedAt: string;
@@ -68,7 +68,7 @@ export class ThemeStorageService {
         // Handle session-based authentication
         const userId = tokenOrSessionId.substring(8);
         securityContext = {
-          userId: userId || 'anonymous',
+          userId: userId || "anonymous",
           roles: ['user'], // Default role for session users
           permissions: this.mapRolesToPermissions(['user'])
         };
@@ -77,7 +77,7 @@ export class ThemeStorageService {
         const decoded = this.jwtService.verifyAccessToken(tokenOrSessionId);
         const userRoles = decoded.role ? [decoded.role] : ['user'];
         securityContext = {
-          userId: String(decoded.userId || decoded.username || 'anonymous'),
+          userId: String(decoded.userId || decoded.username || "anonymous"),
           roles: userRoles,
           permissions: this.mapRolesToPermissions(userRoles)
         };
@@ -88,7 +88,7 @@ export class ThemeStorageService {
       this.logger.error('Failed to initialize security context', error);
       // Set a default context instead of throwing
       this.storage.setSecurityContext({
-        userId: 'anonymous',
+        userId: "anonymous",
         roles: ['user'],
         permissions: this.mapRolesToPermissions(['user'])
       });
@@ -151,7 +151,7 @@ export class ThemeStorageService {
     themeId: string,
     epicId: string,
     appId: string,
-    candidate: Omit<GUIDesignCandidate, 'candidateId'>
+    candidate: Omit<GUIDesignCandidate, "candidateId">
   ): Promise<GUIDesignCandidate> {
     const fullCandidate: GUIDesignCandidate = {
       candidateId: this.generateId(),
@@ -167,13 +167,13 @@ export class ThemeStorageService {
     themeId: string,
     epicId?: string,
     appId?: string,
-    category?: GUIDesignCandidate['category']
+    category?: GUIDesignCandidate["category"]
   ): Promise<GUIDesignCandidate[]> {
     return await this.storage.getGUIDesignCandidates(themeId, epicId, appId, category);
   }
 
   // GUI Selection Management
-  async saveGUISelection(selection: Omit<GUISelection, 'id' | 'selectedAt'>): Promise<GUISelection> {
+  async saveGUISelection(selection: Omit<GUISelection, 'id' | "selectedAt">): Promise<GUISelection> {
     const fullSelection: GUISelection = {
       id: this.generateId(),
       selectedAt: new Date().toISOString(),
@@ -187,7 +187,7 @@ export class ThemeStorageService {
       epicId: selection.epicId,
       appId: selection.appId,
       data: {
-        type: 'selection',
+        type: "selection",
         selection: fullSelection
       },
       metadata: {
@@ -205,13 +205,13 @@ export class ThemeStorageService {
     const storageData = await this.storage.getStorageLayerData('gui_selector', themeId, epicId, appId);
     
     return storageData
-      .filter(layer => layer.data?.type === 'selection')
+      .filter(layer => layer.data?.type === "selection")
       .map(layer => layer.data.selection as GUISelection)
       .sort((a, b) => new Date(b.selectedAt).getTime() - new Date(a.selectedAt).getTime());
   }
 
   // Report Management
-  async saveReport(report: Omit<GUIReport, 'id' | 'generatedAt'>): Promise<GUIReport> {
+  async saveReport(report: Omit<GUIReport, 'id' | "generatedAt">): Promise<GUIReport> {
     const fullReport: GUIReport = {
       id: this.generateId(),
       generatedAt: new Date().toISOString(),
@@ -254,7 +254,7 @@ export class ThemeStorageService {
   }
 
   // Template Management
-  async saveTemplate(template: Omit<ThemeTemplate, 'id' | 'createdAt' | 'updatedAt'>): Promise<ThemeTemplate> {
+  async saveTemplate(template: Omit<ThemeTemplate, 'id' | "createdAt" | "updatedAt">): Promise<ThemeTemplate> {
     const fullTemplate: ThemeTemplate = {
       id: this.generateId(),
       createdAt: new Date().toISOString(),
@@ -267,13 +267,13 @@ export class ThemeStorageService {
       type: 'gui_selector',
       themeId: template.themeId,
       data: {
-        type: 'template',
+        type: "template",
         template: fullTemplate
       },
       metadata: {
         createdAt: fullTemplate.createdAt,
         updatedAt: fullTemplate.updatedAt,
-        createdBy: this.storage['securityContext']?.userId || 'system'
+        createdBy: this.storage["securityContext"]?.userId || 'system'
       }
     });
 
@@ -285,7 +285,7 @@ export class ThemeStorageService {
     const storageData = await this.storage.getStorageLayerData('gui_selector', themeId);
     
     let templates = storageData
-      .filter(layer => layer.data?.type === 'template')
+      .filter(layer => layer.data?.type === "template")
       .map(layer => layer.data.template as ThemeTemplate);
     
     if (category) {
@@ -296,7 +296,7 @@ export class ThemeStorageService {
   }
 
   // Theme Management (delegated to storage)
-  async createTheme(theme: Parameters<VFThemeStorageExtended['createTheme']>[0]) {
+  async createTheme(theme: Parameters<VFThemeStorageExtended["createTheme"]>[0]) {
     return await this.storage.createTheme(theme);
   }
 
@@ -305,12 +305,12 @@ export class ThemeStorageService {
   }
 
   // Epic Management (delegated to storage)
-  async createEpic(epic: Parameters<VFThemeStorageExtended['createEpic']>[0]) {
+  async createEpic(epic: Parameters<VFThemeStorageExtended["createEpic"]>[0]) {
     return await this.storage.createEpic(epic);
   }
 
   // App Management (delegated to storage)
-  async createApp(app: Parameters<VFThemeStorageExtended['createApp']>[0]) {
+  async createApp(app: Parameters<VFThemeStorageExtended["createApp"]>[0]) {
     return await this.storage.createApp(app);
   }
 
@@ -330,10 +330,10 @@ export class ThemeStorageService {
         totalReports: reports.length,
         totalTemplates: templates.length,
         reportsByType: {
-          selection: reports.filter(r => r.type === 'selection').length,
-          performance: reports.filter(r => r.type === 'performance').length,
-          usability: reports.filter(r => r.type === 'usability').length,
-          accessibility: reports.filter(r => r.type === 'accessibility').length
+          selection: reports.filter(r => r.type === "selection").length,
+          performance: reports.filter(r => r.type === "performance").length,
+          usability: reports.filter(r => r.type === "usability").length,
+          accessibility: reports.filter(r => r.type === "accessibility").length
         }
       }
     };
@@ -342,7 +342,7 @@ export class ThemeStorageService {
   // Search functionality
   async searchAll(query: string, filters?: {
     themeIds?: string[];
-    types?: ('candidate' | 'selection' | 'report' | 'template')[];
+    types?: ("candidate" | "selection" | 'report' | "template")[];
     dateRange?: { start: string; end: string };
   }) {
     const results = {
@@ -363,17 +363,17 @@ export class ThemeStorageService {
     // Filter and categorize results
     for (const item of searchResult.storageData) {
       if (item.type === 'gui_selector') {
-        if (item.data?.type === 'selection' && (!filters?.types || filters.types.includes('selection'))) {
+        if (item.data?.type === "selection" && (!filters?.types || filters.types.includes("selection"))) {
           const selection = item.data.selection as GUISelection;
           if (this.matchesQuery(selection, query)) {
             results.selections.push(selection);
           }
-        } else if (item.data?.type === 'template' && (!filters?.types || filters.types.includes('template'))) {
+        } else if (item.data?.type === "template" && (!filters?.types || filters.types.includes("template"))) {
           const template = item.data.template as ThemeTemplate;
           if (this.matchesQuery(template, query)) {
             results.templates.push(template);
           }
-        } else if (item.data?.candidateId && (!filters?.types || filters.types.includes('candidate'))) {
+        } else if (item.data?.candidateId && (!filters?.types || filters.types.includes("candidate"))) {
           const candidate = item.data as GUIDesignCandidate;
           if (this.matchesQuery(candidate, query)) {
             results.candidates.push(candidate);

@@ -3,12 +3,12 @@
  * Handles communication channels for MCP LSP
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { net } from '../../../infra_external-log-lib/src';
 import * as WebSocket from 'ws';
-import { Readable, Writable } from 'stream';
+import { Readable, Writable } from 'node:stream';
 
-export type TransportType = 'stdio' | 'websocket' | 'tcp' | 'ipc';
+export type TransportType = 'stdio' | "websocket" | 'tcp' | 'ipc';
 
 export interface TransportConfig {
   type: TransportType;
@@ -207,12 +207,12 @@ export class WebSocketTransport extends Transport {
     return new Promise((resolve) => {
       this.server = new WebSocket.Server({ port: this.port });
 
-      this.server.on('connection', (ws: WebSocket) => {
+      this.server.on("connection", (ws: WebSocket) => {
         this.handleConnection(ws);
       });
 
-      this.server.on('listening', () => {
-        this.emit('listening', { port: this.port });
+      this.server.on("listening", () => {
+        this.emit("listening", { port: this.port });
         resolve();
       });
 
@@ -224,7 +224,7 @@ export class WebSocketTransport extends Transport {
 
   private handleConnection(ws: WebSocket): void {
     const transport = new WebSocketTransport({
-      type: 'websocket',
+      type: "websocket",
       options: { ws },
     });
 
@@ -249,7 +249,7 @@ export class WebSocketTransport extends Transport {
       transport.emit('error', error);
     });
 
-    this.emit('connection', transport);
+    this.emit("connection", transport);
   }
 
   async close(): Promise<void> {
@@ -303,7 +303,7 @@ export class TCPTransport extends Transport {
     super(config);
     this.socket = null;
     this.server = null;
-    this.host = config.options?.host || 'localhost';
+    this.host = config.options?.host || "localhost";
     this.port = config.options?.port || 7000;
     this.buffer = '';
     this.contentLength = null;
@@ -346,7 +346,7 @@ export class TCPTransport extends Transport {
       });
 
       this.server.listen(this.port, this.host, () => {
-        this.emit('listening', { host: this.host, port: this.port });
+        this.emit("listening", { host: this.host, port: this.port });
         resolve();
       });
 
@@ -378,7 +378,7 @@ export class TCPTransport extends Transport {
       transport.emit('error', error);
     });
 
-    this.emit('connection', transport);
+    this.emit("connection", transport);
   }
 
   async close(): Promise<void> {
@@ -467,7 +467,7 @@ export function createTransport(config: TransportConfig): Transport {
   switch (config.type) {
     case 'stdio':
       return new StdioTransport(config);
-    case 'websocket':
+    case "websocket":
       return new WebSocketTransport(config);
     case 'tcp':
       return new TCPTransport(config);

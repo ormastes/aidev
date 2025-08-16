@@ -49,7 +49,7 @@ export function getStrictModeConfig(): StrictModeConfig {
     return strictModeConfig;
   }
   
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === "development") {
     return developmentModeConfig;
   }
   
@@ -61,7 +61,7 @@ export function getStrictModeConfig(): StrictModeConfig {
  * Some paths may need different strict mode settings
  */
 export const pathSpecificConfigs: Map<string, Partial<StrictModeConfig>> = new Map([
-  ['children', { enabled: true, inheritToChildren: true }],  // Always strict for children
+  ["children", { enabled: true, inheritToChildren: true }],  // Always strict for children
   ['tests', { enabled: false }],                             // Relaxed for tests
   ['gen', { enabled: false }],                               // Relaxed for generated files
   ['logs', { enabled: false }]                               // Relaxed for log files

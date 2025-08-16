@@ -9,7 +9,7 @@
  * 4. Testing the Mate Dealer functionality
  */
 
-import { chromium, Browser, Page } from 'playwright';
+import { chromium, Browser, Page } from "playwright";
 import { spawn, ChildProcess } from 'child_process';
 import { path } from '../../infra_external-log-lib/src';
 
@@ -65,13 +65,13 @@ async function runDemo() {
     
     // Navigate to GUI selector
     await guiPage.goto(GUI_SELECTOR_URL);
-    await guiPage.waitForLoadState('networkidle');
+    await guiPage.waitForLoadState("networkidle");
     console.log('✓ Loaded GUI Selector');
 
     // Login to GUI selector
     await guiPage.click('button#auth-btn');
     await guiPage.fill('#login-username', 'admin');
-    await guiPage.fill('#login-password', 'admin123');
+    await guiPage.fill('#login-password', "admin123");
     await guiPage.click('button[type="submit"]');
     await guiPage.waitForTimeout(1000);
     console.log('✓ Logged in as admin');
@@ -100,7 +100,7 @@ async function runDemo() {
     
     // Navigate to Mate Dealer
     await matePage.goto(MATE_DEALER_URL);
-    await matePage.waitForLoadState('networkidle');
+    await matePage.waitForLoadState("networkidle");
     console.log('✓ Loaded Mate Dealer app');
 
     // Test Customer Flow

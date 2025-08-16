@@ -66,9 +66,9 @@ describe('Process Completion Tracking Integration Test', () => {
     const slowMeta = logAggregator.getProcessMetadata(slowProcess);
     const workingMeta = logAggregator.getProcessMetadata(workingProcess);
 
-    expect(quickMeta?.status).toBe('In Progress');
-    expect(slowMeta?.status).toBe('In Progress');
-    expect(workingMeta?.status).toBe('In Progress');
+    expect(quickMeta?.status).toBe("completed");
+    expect(slowMeta?.status).toBe("completed");
+    expect(workingMeta?.status).toBe("completed");
 
     // Verify all have end times
     expect(quickMeta?.endTime).toBeDefined();
@@ -142,7 +142,7 @@ describe('Process Completion Tracking Integration Test', () => {
     const crashMeta = logAggregator.getProcessMetadata(crashingProcess);
     const errorMeta = logAggregator.getProcessMetadata(errorProcess);
 
-    expect(normalMeta?.status).toBe('In Progress');
+    expect(normalMeta?.status).toBe("completed");
     expect(crashMeta?.status).toBe('crashed');
     expect(errorMeta?.status).toBe('crashed');
 
@@ -182,7 +182,7 @@ describe('Process Completion Tracking Integration Test', () => {
     logMonitor.on('process-exited', (event: any) => {
       logAggregator.markProcessComplete(event.processId, event.code);
       stateChanges.push({
-        type: 'completion',
+        type: "completion",
         processId: event.processId,
         code: event.code,
         timestamp: new Date()
@@ -227,13 +227,13 @@ describe('Process Completion Tracking Integration Test', () => {
     expect(allMetadata.length).toBe(4);
     
     allMetadata.forEach(meta => {
-      expect(meta.status).toBe('In Progress');
+      expect(meta.status).toBe("completed");
       expect(meta.endTime).toBeDefined();
       expect(meta.logCount).toBeGreaterThanOrEqual(2); // Start and End logs
     });
 
     // Verify completion order tracking
-    const completionEvents = stateChanges.filter(change => change.type === 'completion');
+    const completionEvents = stateChanges.filter(change => change.type === "completion");
     expect(completionEvents.length).toBe(4);
 
     // Verify statistics reflect final state
@@ -259,7 +259,7 @@ describe('Process Completion Tracking Integration Test', () => {
 
     logMonitor.on('process-exited', (event: any) => {
       logAggregator.markProcessComplete(event.processId, event.code);
-      completionStates.set(event.processId, 'In Progress');
+      completionStates.set(event.processId, "completed");
     });
 
     logMonitor.on('process-crashed', (event: any) => {
@@ -303,9 +303,9 @@ describe('Process Completion Tracking Integration Test', () => {
     const longMeta = logAggregator.getProcessMetadata(longRunningProcess);
     const stoppedMeta = logAggregator.getProcessMetadata(stoppedProcess);
 
-    expect(completedMeta?.status).toBe('In Progress');
+    expect(completedMeta?.status).toBe("completed");
     expect(failureMeta?.status).toBe('crashed');
-    expect(longMeta?.status).toBe('In Progress');
+    expect(longMeta?.status).toBe("completed");
     expect(stoppedMeta?.status).toBe('stopped');
 
     // Verify statistics reflect mixed states
@@ -375,7 +375,7 @@ describe('Process Completion Tracking Integration Test', () => {
     rapidProcesses.forEach(processId => {
       const meta = logAggregator.getProcessMetadata(processId);
       expect(meta).toBeDefined();
-      expect(['In Progress', 'crashed']).toContain(meta!.status);
+      expect(["completed", 'crashed']).toContain(meta!.status);
       expect(meta!.endTime).toBeDefined();
     });
 

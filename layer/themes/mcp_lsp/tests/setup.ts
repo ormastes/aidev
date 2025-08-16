@@ -1,5 +1,5 @@
 // Test setup for LSP-MCP theme
-import { TextEncoder, TextDecoder } from 'util';
+import { TextEncoder, TextDecoder } from 'node:util';
 
 // Polyfill for Node.js < 20
 global.TextEncoder = TextEncoder;

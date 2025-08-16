@@ -58,10 +58,10 @@ router.get('/stats', optionalJWT, async (req, res) => {
     const stats = {
       totalReports: reports.length,
       byType: {
-        'selection': reports.filter(r => r.type === 'selection').length,
-        'performance': reports.filter(r => r.type === 'performance').length,
-        'usability': reports.filter(r => r.type === 'usability').length,
-        'accessibility': reports.filter(r => r.type === 'accessibility').length
+        "selection": reports.filter(r => r.type === "selection").length,
+        "performance": reports.filter(r => r.type === "performance").length,
+        "usability": reports.filter(r => r.type === "usability").length,
+        "accessibility": reports.filter(r => r.type === "accessibility").length
       },
       recentActivity: reports
         .filter(r => new Date(r.generatedAt) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000))
@@ -126,14 +126,14 @@ router.post('/generate', optionalJWT, async (req, res) => {
       themeId = 'default', 
       epicId, 
       appId, 
-      type = 'selection', 
+      type = "selection", 
       title, 
       content,
       data 
     } = req.body;
     
     const user = req.user;
-    const userId = user?.userId || (req as any).session?.userId || 'anonymous';
+    const userId = user?.userId || (req as any).session?.userId || "anonymous";
 
     if (!title || !content) {
       return res.status(400).json({ error: 'Title and content are required' });
@@ -241,13 +241,13 @@ router.post('/migrate', optionalJWT, async (req, res) => {
 // Helper functions
 function generateReportDetails(report: GUIReport) {
   switch (report.type) {
-    case 'selection':
+    case "selection":
       return generateSelectionDetails();
-    case 'performance':
+    case "performance":
       return generatePerformanceDetails();
-    case 'usability':
+    case "usability":
       return generateUsabilityDetails();
-    case 'accessibility':
+    case "accessibility":
       return generateAccessibilityDetails();
     default:
       return { message: 'Report details not available' };
@@ -259,7 +259,7 @@ function generateSelectionDetails() {
     summary: {
       totalCandidates: 4,
       selectedCandidate: 'modern-dashboard',
-      selectionCriteria: ['User experience', 'Performance', 'Accessibility'],
+      selectionCriteria: ['User experience', "Performance", "Accessibility"],
       consensusScore: 8.5
     },
     candidates: [

@@ -2,7 +2,7 @@ import { DockerBuilder, DockerfileConfig, BuildOptions } from '../children/Docke
 import { fs } from '../../infra_external-log-lib/src';
 import { path } from '../../infra_external-log-lib/src';
 import { exec } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 
 jest.mock('child_process');
 jest.mock('fs', () => ({
@@ -12,7 +12,7 @@ jest.mock('fs', () => ({
   }
 }));
 
-describe('DockerBuilder', () => {
+describe("DockerBuilder", () => {
   let dockerBuilder: DockerBuilder;
   const mockExecAsync = exec as unknown as jest.MockedFunction<typeof exec>;
 
@@ -21,14 +21,14 @@ describe('DockerBuilder', () => {
     jest.clearAllMocks();
   });
 
-  describe('generateDockerfile', () => {
+  describe("generateDockerfile", () => {
     it('should generate basic Dockerfile from config', () => {
       const config: DockerfileConfig = {
         baseImage: 'node:18-alpine',
         workDir: '/app',
         ports: [3000],
         env: {
-          NODE_ENV: 'production'
+          NODE_ENV: "production"
         },
         copyFiles: [
           { from: 'package*.json', to: './' }
@@ -61,7 +61,7 @@ describe('DockerBuilder', () => {
 
       const dockerfile = dockerBuilder.generateDockerfile(config);
 
-      expect(dockerfile).toContain('HEALTHCHECK');
+      expect(dockerfile).toContain("HEALTHCHECK");
       expect(dockerfile).toContain('--interval=30s');
       expect(dockerfile).toContain('--timeout=10s');
       expect(dockerfile).toContain('--retries=3');
@@ -106,7 +106,7 @@ describe('DockerBuilder', () => {
     });
   });
 
-  describe('generateNodeDockerfile', () => {
+  describe("generateNodeDockerfile", () => {
     it('should generate multi-stage Dockerfile for production', () => {
       const dockerfile = dockerBuilder.generateNodeDockerfile('test-theme', true);
 
@@ -128,7 +128,7 @@ describe('DockerBuilder', () => {
     });
   });
 
-  describe('buildImage', () => {
+  describe("buildImage", () => {
     it('should build Docker image with correct arguments', async () => {
       const mockStdout = 'Successfully built image';
       (mockExecAsync as any).mockImplementation((cmd: string, callback: any) => {
@@ -187,7 +187,7 @@ describe('DockerBuilder', () => {
     });
   });
 
-  describe('isDockerAvailable', () => {
+  describe("isDockerAvailable", () => {
     it('should return true when Docker is available', async () => {
       (mockExecAsync as any).mockImplementation((cmd: string, callback: any) => {
         callback(null, { stdout: 'Docker version 20.10.0', stderr: '' });
@@ -210,7 +210,7 @@ describe('DockerBuilder', () => {
     });
   });
 
-  describe('getDockerVersion', () => {
+  describe("getDockerVersion", () => {
     it('should return Docker version', async () => {
       const version = 'Docker version 20.10.0, build b485636';
       (mockExecAsync as any).mockImplementation((cmd: string, callback: any) => {
@@ -231,7 +231,7 @@ describe('DockerBuilder', () => {
     });
   });
 
-  describe('saveDockerfile', () => {
+  describe("saveDockerfile", () => {
     it('should save Dockerfile content to file', async () => {
       const content = 'FROM node:18\nCMD ["npm", "start"]';
       const filepath = '/test/Dockerfile';
@@ -244,7 +244,7 @@ describe('DockerBuilder', () => {
     });
   });
 
-  describe('loadTemplate', () => {
+  describe("loadTemplate", () => {
     it('should load Dockerfile template from file', async () => {
       const templateContent = 'FROM node:18\nCMD ["npm", "start"]';
       (fs.promises.readFile as jest.MockedFunction<typeof fs.promises.readFile>).mockResolvedValue(templateContent);

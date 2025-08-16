@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface ChatMessage {

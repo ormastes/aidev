@@ -95,7 +95,7 @@ describe('Runnable Comment Validation', () => {
     vi.clearAllMocks();
   });
 
-  describe('StoryReportValidator', () => {
+  describe("StoryReportValidator", () => {
     it('should validate a passing story report', async () => {
       const result = await validator.validate('/tmp/story-report.json', {
         systemTestClassCoverage: 95,
@@ -265,7 +265,7 @@ describe('Runnable Comment Validation', () => {
     });
   });
 
-  describe('RunnableCommentProcessor', () => {
+  describe("RunnableCommentProcessor", () => {
     it('should process story report validation comment', async () => {
       const comment = '<!-- runnable:validate-story-report:/tmp/story-report.json,95,95,10,90 -->';
       const result = await processor.processComment(comment);
@@ -292,7 +292,7 @@ Updated KNOW_HOW.md with testing best practices.
 `;
 
       vi.mocked(fs.readFile).mockImplementation(async (filePath: string) => {
-        if (filePath.includes('retrospect')) {
+        if (filePath.includes("retrospect")) {
           return retrospectContent;
         }
         throw new Error('File not found');
@@ -348,7 +348,7 @@ Some content here
     });
   });
 
-  describe('TaskQueueRunnableExtension', () => {
+  describe("TaskQueueRunnableExtension", () => {
     it('should validate system test queue items', async () => {
       const result = await taskQueueExt.validateQueueItem(
         'system-test',
@@ -384,7 +384,7 @@ Some content here
 
     it('should generate queue item with runnable comment', () => {
       const item = taskQueueExt.generateQueueItem(
-        'retrospective',
+        "retrospective",
         'Retrospect for story-001',
         {
           reportPath: '/tmp/story-report.json',

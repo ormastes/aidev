@@ -43,7 +43,7 @@ describe('PocketFlow Factory Methods Unit Tests', () => {
 
       // Assert
       expect(node).toBeInstanceOf(DelayNode);
-      expect(node['duration']).toBe(1000);
+      expect(node["duration"]).toBe(1000);
     });
 
     test('should create HttpNode with createNode', () => {
@@ -104,7 +104,7 @@ describe('PocketFlow Factory Methods Unit Tests', () => {
 
       // Assert
       expect(node).toBeInstanceOf(AsyncDelayNode);
-      expect(node['duration']).toBe(2000);
+      expect(node["duration"]).toBe(2000);
     });
 
     test('should create AsyncHttpNode with createAsyncNode', () => {
@@ -157,7 +157,7 @@ describe('PocketFlow Factory Methods Unit Tests', () => {
       const nodes = [node1, node2];
 
       // Act
-      const flow = PocketFlow.createFlow('sequential', nodes);
+      const flow = PocketFlow.createFlow("sequential", nodes);
 
       // Assert
       expect(flow).toBeInstanceOf(SequentialFlow);
@@ -174,14 +174,14 @@ describe('PocketFlow Factory Methods Unit Tests', () => {
       const nodes = [node1, node2, node3];
 
       // Act
-      const flow = PocketFlow.createFlow('parallel', nodes);
+      const flow = PocketFlow.createFlow("parallel", nodes);
 
       // Assert
       expect(flow).toBeInstanceOf(ParallelFlow);
       expect(flow.getFlowNodes()).toHaveLength(3);
-      expect(flow['parallelNodes']).toContain(node1);
-      expect(flow['parallelNodes']).toContain(node2);
-      expect(flow['parallelNodes']).toContain(node3);
+      expect(flow["parallelNodes"]).toContain(node1);
+      expect(flow["parallelNodes"]).toContain(node2);
+      expect(flow["parallelNodes"]).toContain(node3);
     });
 
     test('should create ConditionalFlow with createFlow', () => {
@@ -191,13 +191,13 @@ describe('PocketFlow Factory Methods Unit Tests', () => {
       const falseNode = PocketFlow.createNode('command', 'echo "failure path"');
 
       // Act
-      const flow = PocketFlow.createFlow('conditional', condition, trueNode, falseNode);
+      const flow = PocketFlow.createFlow("conditional", condition, trueNode, falseNode);
 
       // Assert
       expect(flow).toBeInstanceOf(ConditionalFlow);
-      expect(flow['condition']).toBe(condition);
-      expect(flow['trueNode']).toBe(trueNode);
-      expect(flow['falseNode']).toBe(falseNode);
+      expect(flow["condition"]).toBe(condition);
+      expect(flow["trueNode"]).toBe(trueNode);
+      expect(flow["falseNode"]).toBe(falseNode);
     });
 
     test('should throw error for unknown flow type', () => {
@@ -221,9 +221,9 @@ describe('PocketFlow Factory Methods Unit Tests', () => {
       const falseNode = PocketFlow.createNode('command', 'false');
 
       // Act
-      const sequentialFlow = PocketFlow.createFlow('sequential', nodes);
-      const parallelFlow = PocketFlow.createFlow('parallel', nodes);
-      const conditionalFlow = PocketFlow.createFlow('conditional', condition, trueNode, falseNode);
+      const sequentialFlow = PocketFlow.createFlow("sequential", nodes);
+      const parallelFlow = PocketFlow.createFlow("parallel", nodes);
+      const conditionalFlow = PocketFlow.createFlow("conditional", condition, trueNode, falseNode);
 
       // Assert
       expect(sequentialFlow).toBeInstanceOf(SequentialFlow);
@@ -252,7 +252,7 @@ describe('PocketFlow Factory Methods Unit Tests', () => {
         PocketFlow.createNode('delay', 25),
         PocketFlow.createNode('delay', 25)
       ];
-      const flow = PocketFlow.createFlow('sequential', nodes);
+      const flow = PocketFlow.createFlow("sequential", nodes);
 
       // Act
       const startTime = Date.now();
@@ -306,7 +306,7 @@ describe('PocketFlow Factory Methods Unit Tests', () => {
 
       // Assert
       expect(result).toBe(node1);
-      expect(node1['nextNodes']).toContain(node2);
+      expect(node1["nextNodes"]).toContain(node2);
     });
 
     test('should export when utility as static method', () => {
@@ -320,9 +320,9 @@ describe('PocketFlow Factory Methods Unit Tests', () => {
 
       // Assert
       expect(result).toBe(node1);
-      expect(node1['conditions']).toHaveLength(1);
-      expect(node1['conditions'][0].condition).toBe(condition);
-      expect(node1['conditions'][0].node).toBe(node2);
+      expect(node1["conditions"]).toHaveLength(1);
+      expect(node1["conditions"][0].condition).toBe(condition);
+      expect(node1["conditions"][0].node).toBe(node2);
     });
 
     test('should export flow utility as static method', () => {
@@ -333,8 +333,8 @@ describe('PocketFlow Factory Methods Unit Tests', () => {
       const builder = PocketFlow.flow(startNode);
 
       // Assert
-      expect(builder.constructor.name).toBe('ChainBuilder');
-      expect(builder['rootNode']).toBe(startNode);
+      expect(builder.constructor.name).toBe("ChainBuilder");
+      expect(builder["rootNode"]).toBe(startNode);
     });
   });
 
@@ -353,7 +353,7 @@ describe('PocketFlow Factory Methods Unit Tests', () => {
       } as any);
 
       // Act
-      const workflow = PocketFlow.createFlow('sequential', [setupNode, httpNode, cleanupNode]);
+      const workflow = PocketFlow.createFlow("sequential", [setupNode, httpNode, cleanupNode]);
       const result = await PocketFlow.run(workflow);
 
       // Assert
@@ -367,7 +367,7 @@ describe('PocketFlow Factory Methods Unit Tests', () => {
       const failureNode = PocketFlow.createNode('delay', 20);
 
       const setupNode = PocketFlow.createNode('delay', 15);
-      const conditionalFlow = PocketFlow.createFlow('conditional', condition, completedNode, failureNode);
+      const conditionalFlow = PocketFlow.createFlow("conditional", condition, completedNode, failureNode);
 
       // Act
       const workflow = PocketFlow.flow(setupNode)
@@ -390,7 +390,7 @@ describe('PocketFlow Factory Methods Unit Tests', () => {
         PocketFlow.createNode('delay', 25)
       ];
 
-      const parallelFlow = PocketFlow.createFlow('parallel', parallelNodes);
+      const parallelFlow = PocketFlow.createFlow("parallel", parallelNodes);
 
       // Act
       const startTime = Date.now();
@@ -447,13 +447,13 @@ describe('PocketFlow Factory Methods Unit Tests', () => {
       // Act & Assert
       expect(() => PocketFlow.createNode('command')).toThrow(); // Missing required parameter
       expect(() => PocketFlow.createNode('delay', 'invalid')).not.toThrow(); // Will be handled by DelayNode
-      expect(() => PocketFlow.createFlow('sequential', null as any)).toThrow(); // SequentialFlow will validate
+      expect(() => PocketFlow.createFlow("sequential", null as any)).toThrow(); // SequentialFlow will validate
     });
 
     test('should provide meaningful error messages', () => {
       // Act & Assert
       expect(() => {
-        PocketFlow.createNode('nonexistent' as any, 'param');
+        PocketFlow.createNode("nonexistent" as any, 'param');
       }).toThrow('Unknown node type: nonexistent');
 
       expect(() => {
@@ -539,7 +539,7 @@ describe('PocketFlow Factory Methods Unit Tests', () => {
         PocketFlow.createNode('delay', 1)
       );
 
-      const parallelFlow = PocketFlow.createFlow('parallel', nodes);
+      const parallelFlow = PocketFlow.createFlow("parallel", nodes);
 
       // Act
       const startTime = Date.now();
@@ -565,7 +565,7 @@ describe('PocketFlow Factory Methods Unit Tests', () => {
       const workflow1 = PocketFlow.flow(node1).then(node2).then(node3).build();
 
       // Method 2: Using sequential flow
-      const workflow2 = PocketFlow.createFlow('sequential', [node1, node2, node3]);
+      const workflow2 = PocketFlow.createFlow("sequential", [node1, node2, node3]);
 
       // Method 3: Using chain utility
       PocketFlow.chain(PocketFlow.chain(node1, node2), node3);
@@ -588,14 +588,14 @@ describe('PocketFlow Factory Methods Unit Tests', () => {
       const cleanupNode = PocketFlow.createNode('delay', 5);
 
       // Python: setup_node >> process_node >> cleanup_node
-      const linearWorkflow = PocketFlow.createFlow('sequential', [setupNode, processNode, cleanupNode]);
+      const linearWorkflow = PocketFlow.createFlow("sequential", [setupNode, processNode, cleanupNode]);
 
       // Python: parallel processing
-      const parallelWorkflow = PocketFlow.createFlow('parallel', [setupNode, processNode, cleanupNode]);
+      const parallelWorkflow = PocketFlow.createFlow("parallel", [setupNode, processNode, cleanupNode]);
 
       // Python: conditional processing
       const condition = () => true;
-      const conditionalWorkflow = PocketFlow.createFlow('conditional', condition, processNode, cleanupNode);
+      const conditionalWorkflow = PocketFlow.createFlow("conditional", condition, processNode, cleanupNode);
 
       // Act
       const results = await Promise.all([

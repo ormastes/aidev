@@ -242,7 +242,7 @@ class FlowValidator {
     }
 
     // Validate action type
-    const validTypes = ['command', 'script', 'http', 'delay', 'condition', 'parallel', 'loop'];
+    const validTypes = ['command', 'script', 'http', 'delay', "condition", "parallel", 'loop'];
     if (!validTypes.includes(action.type)) {
       errors.push(`Action ${actionNum} type must be one of: ${validTypes.join(', ')}`);
     }
@@ -261,10 +261,10 @@ class FlowValidator {
       case 'delay':
         this.validateDelayAction(action, actionNum, errors);
         break;
-      case 'condition':
+      case "condition":
         this.validateConditionAction(action, actionNum, errors);
         break;
-      case 'parallel':
+      case "parallel":
         this.validateParallelAction(action, actionNum, errors);
         break;
       case 'loop':
@@ -559,7 +559,7 @@ describe('FlowValidator Methods Unit Tests', () => {
         'Production-Deployment',
         'backup_script_v2',
         'API.Monitor.Service',
-        'Simple123',
+        "Simple123",
         'Test-Flow_1.0'
       ];
 
@@ -1085,7 +1085,7 @@ describe('FlowValidator Methods Unit Tests', () => {
           { type: 'command', command: 'npm run build', timeout: 300000 },
           { type: 'http', url: 'https://api.example.com/deploy', method: 'POST' },
           { type: 'delay', duration: 5000 },
-          { type: 'script', script: '/scripts/verify-deployment.sh', args: ['production'] }
+          { type: 'script', script: '/scripts/verify-deployment.sh', args: ["production"] }
         ]
       };
 

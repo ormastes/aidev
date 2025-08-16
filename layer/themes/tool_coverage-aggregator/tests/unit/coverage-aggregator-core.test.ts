@@ -160,7 +160,7 @@ describe('Coverage Aggregator Theme - Core Functionality', () => {
 
           if (coverage.statements.percentage < threshold) {
             issues.push({
-              type: 'statements',
+              type: "statements",
               current: coverage.statements.percentage,
               target: threshold,
               gap: threshold - coverage.statements.percentage
@@ -169,7 +169,7 @@ describe('Coverage Aggregator Theme - Core Functionality', () => {
 
           if (coverage.branches.percentage < threshold) {
             issues.push({
-              type: 'branches',
+              type: "branches",
               current: coverage.branches.percentage,
               target: threshold,
               gap: threshold - coverage.branches.percentage
@@ -178,7 +178,7 @@ describe('Coverage Aggregator Theme - Core Functionality', () => {
 
           if (coverage.functions.percentage < threshold) {
             issues.push({
-              type: 'functions',
+              type: "functions",
               current: coverage.functions.percentage,
               target: threshold,
               gap: threshold - coverage.functions.percentage
@@ -215,7 +215,7 @@ describe('Coverage Aggregator Theme - Core Functionality', () => {
       expect(gaps).toHaveLength(1);
       expect(gaps[0].filename).toBe('src/utils.ts');
       expect(gaps[0].issues).toHaveLength(3);
-      expect(gaps[0].issues[0].type).toBe('statements');
+      expect(gaps[0].issues[0].type).toBe("statements");
       expect(gaps[0].issues[0].gap).toBe(20);
     });
 
@@ -228,13 +228,13 @@ describe('Coverage Aggregator Theme - Core Functionality', () => {
         const recent = historicalData.slice(-2);
         const change = recent[1].coverage - recent[0].coverage;
         
-        let trend: 'improving' | 'declining' | 'stable';
+        let trend: "improving" | "declining" | 'stable';
         if (Math.abs(change) < 1) {
           trend = 'stable';
         } else if (change > 0) {
-          trend = 'improving';
+          trend = "improving";
         } else {
-          trend = 'declining';
+          trend = "declining";
         }
 
         return {
@@ -253,7 +253,7 @@ describe('Coverage Aggregator Theme - Core Functionality', () => {
 
       const trend = calculateTrend(historicalData);
       
-      expect(trend.trend).toBe('improving');
+      expect(trend.trend).toBe("improving");
       expect(trend.change).toBe(3.9);
       expect(trend.current).toBe(82.1);
     });

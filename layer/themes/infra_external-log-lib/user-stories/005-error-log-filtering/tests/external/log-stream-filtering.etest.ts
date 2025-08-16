@@ -1,5 +1,5 @@
 import { LogStream } from '../../../004-real-time-streaming/src/external/log-stream';
-import { Readable } from 'stream';
+import { Readable } from 'node:stream';
 
 describe('LogStream Filtering External Test', () => {
   let logStream: LogStream;

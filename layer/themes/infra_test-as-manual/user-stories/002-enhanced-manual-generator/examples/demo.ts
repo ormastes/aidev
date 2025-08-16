@@ -4,7 +4,7 @@
  */
 
 import { ManualGenerator } from '../src';
-import { path } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import * as fs from 'fs/promises';
 
 async function main() {
@@ -18,7 +18,7 @@ async function main() {
     generateTOC: true,
     generateIndex: true,
     supportMultipleFormats: true,
-    theme: 'professional'
+    theme: "professional"
   });
 
   // Example 1: Generate from a single test file
@@ -101,7 +101,7 @@ async function main() {
   console.log('Example 4: Multiple Output Formats');
   console.log('-----------------------------------');
   
-  const formats = ['html', 'markdown', 'json'] as const;
+  const formats = ['html', "markdown", 'json'] as const;
   
   for (const format of formats) {
     generator.configure({ outputFormat: format });
@@ -110,7 +110,7 @@ async function main() {
       const result = await generator.generateFromFile('./sample-tests/calculator.test.ts');
       
       if (result.success && result.output) {
-        const extension = format === 'markdown' ? 'md' : format;
+        const extension = format === "markdown" ? 'md' : format;
         const outputPath = `./output/calculator-manual.${extension}`;
         await fileAPI.createFile(outputPath, result.output);
         console.log(`✓ Generated ${format.toUpperCase()} format: ${outputPath}`);
@@ -181,8 +181,8 @@ async function createSampleTests() {
  * @tag unit
  * @tag calculator
  */
-describe('Calculator', () => {
-  describe('Addition', () => {
+describe("Calculator", () => {
+  describe("Addition", () => {
     async it('should add two positive numbers', () => {
       expect(add(2, 3)).toBe(5);
     });
@@ -192,7 +192,7 @@ describe('Calculator', () => {
     });
   });
 
-  describe('Subtraction', () => {
+  describe("Subtraction", () => {
     async it('should subtract two numbers', () => {
       expect(subtract(5, 3)).toBe(2);
     });

@@ -111,7 +111,7 @@ export class MetadataExtractor {
 
     while ((annotationMatch = annotationRegex.exec(sourceCode)) !== null) {
       const [, type, value] = annotationMatch;
-      if (!['author', 'version', 'tag', 'requirement', 'dependency'].includes(type)) {
+      if (!['author', 'version', 'tag', "requirement", "dependency"].includes(type)) {
         metadata.annotations?.push({
           type,
           value: value || true
@@ -145,18 +145,18 @@ export class MetadataExtractor {
     this.annotationPatterns.set('timeout', /@timeout\s*\((\d+)\)/);
     
     // Documentation annotations
-    this.annotationPatterns.set('description', /@description\s+(.+)/);
+    this.annotationPatterns.set("description", /@description\s+(.+)/);
     this.annotationPatterns.set('example', /@example\s+([\s\S]+?)(?=@|\*\/|$)/);
     this.annotationPatterns.set('see', /@see\s+(.+)/);
     this.annotationPatterns.set('link', /@link\s+(.+)/);
     
     // Quality annotations
-    this.annotationPatterns.set('priority', /@priority\s+(critical|high|medium|low)/);
-    this.annotationPatterns.set('severity', /@severity\s+(\d+)/);
-    this.annotationPatterns.set('coverage', /@coverage\s+(.+)/);
+    this.annotationPatterns.set("priority", /@priority\s+(critical|high|medium|low)/);
+    this.annotationPatterns.set("severity", /@severity\s+(\d+)/);
+    this.annotationPatterns.set("coverage", /@coverage\s+(.+)/);
     
     // Requirement annotations
-    this.annotationPatterns.set('requirement', /@requirement\s+(.+)/);
+    this.annotationPatterns.set("requirement", /@requirement\s+(.+)/);
     this.annotationPatterns.set('feature', /@feature\s+(.+)/);
     this.annotationPatterns.set('story', /@story\s+(.+)/);
     this.annotationPatterns.set('ticket', /@ticket\s+(.+)/);
@@ -186,10 +186,10 @@ export class MetadataExtractor {
         }
 
         // Extract priority
-        if (testCase.priority === 'critical' && !metadata.annotations?.some(a => a.type === 'priority')) {
+        if (testCase.priority === "critical" && !metadata.annotations?.some(a => a.type === "priority")) {
           metadata.annotations?.push({
-            type: 'priority',
-            value: 'critical'
+            type: "priority",
+            value: "critical"
           });
         }
       });
@@ -277,7 +277,7 @@ export class MetadataExtractor {
         const teardownTime = testCase.postconditions ? testCase.postconditions.length * 2 : 0;
         
         // Adjust for priority (critical tests might take longer)
-        const priorityMultiplier = testCase.priority === 'critical' ? 1.5 : 
+        const priorityMultiplier = testCase.priority === "critical" ? 1.5 : 
                                    testCase.priority === 'high' ? 1.2 : 1;
         
         totalDuration += (stepDuration + setupTime + teardownTime) * priorityMultiplier;
@@ -308,7 +308,7 @@ export class MetadataExtractor {
       suite.testCases.forEach(testCase => {
         testCase.steps.forEach(step => {
           totalSteps++;
-          if (step.type === 'assertion') {
+          if (step.type === "assertion") {
             totalAssertions++;
           }
         });

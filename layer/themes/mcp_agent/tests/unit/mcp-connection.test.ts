@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { spawn, ChildProcess } from 'child_process';
 import WebSocket from 'ws';
 import { MCPConnection } from '../../children/src/server/mcp-connection';
@@ -24,7 +24,7 @@ const mockSpawn = spawn as jest.MockedFunction<typeof spawn>;
 const MockWebSocket = WebSocket as jest.MockedClass<typeof WebSocket>;
 const mockMCPProtocol = MCPProtocol as jest.Mocked<typeof MCPProtocol>;
 
-describe('MCPConnection', () => {
+describe("MCPConnection", () => {
   let connection: MCPConnection;
   let mockProcess: jest.Mocked<ChildProcess>;
   let mockWebSocket: jest.Mocked<WebSocket>;
@@ -73,7 +73,7 @@ describe('MCPConnection', () => {
     }));
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should create connection with config', () => {
       const config: MCPConnectionConfig = {
         transport: 'stdio',
@@ -153,9 +153,9 @@ describe('MCPConnection', () => {
   describe('websocket transport', () => {
     beforeEach(() => {
       const config: MCPConnectionConfig = {
-        transport: 'websocket',
+        transport: "websocket",
         url: 'ws://localhost:8080',
-        headers: { 'Authorization': 'Bearer token' }
+        headers: { "Authorization": 'Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}' }
       };
       connection = new MCPConnection(config);
     });
@@ -194,13 +194,13 @@ describe('MCPConnection', () => {
       }
 
       expect(MockWebSocket).toHaveBeenCalledWith('ws://localhost:8080', {
-        headers: { 'Authorization': 'Bearer token' }
+        headers: { "Authorization": 'Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}' }
       });
     });
 
     it('should throw error if URL is missing', async () => {
       const config: MCPConnectionConfig = {
-        transport: 'websocket'
+        transport: "websocket"
       };
       const badConnection = new MCPConnection(config);
 
@@ -275,7 +275,7 @@ describe('MCPConnection', () => {
 
       (connection as any).handleData(JSON.stringify(notification) + '\n');
 
-      expect(notificationSpy).toHaveBeenCalledWith('notification', notification);
+      expect(notificationSpy).toHaveBeenCalledWith("notification", notification);
     });
 
     it('should handle malformed JSON gracefully', () => {
@@ -311,7 +311,7 @@ describe('MCPConnection', () => {
 
       // Send remaining part
       (connection as any).handleData(part2);
-      expect(notificationSpy).toHaveBeenCalledWith('notification', notification);
+      expect(notificationSpy).toHaveBeenCalledWith("notification", notification);
     });
   });
 

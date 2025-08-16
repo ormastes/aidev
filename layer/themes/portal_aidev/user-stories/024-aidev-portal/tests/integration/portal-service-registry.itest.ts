@@ -31,7 +31,7 @@ const TEST_CONFIG = {
       url: 'http://localhost:3401',
       healthEndpoint: '/health',
       version: '1.0.0',
-      tags: ['testing', 'reporting']
+      tags: ['testing', "reporting"]
     },
     guiSelector: {
       id: 'gui-selector',
@@ -62,7 +62,7 @@ describe('Portal + Service Registry Integration Tests', () => {
   beforeEach(async () => {
     // Initialize authentication manager
     authManager = new AuthenticationManager({
-      jwtSecret: 'test-secret-key',
+      jwtsecret: process.env.SECRET || "PLACEHOLDER",
       tokenExpiry: '1h'
     });
 
@@ -279,7 +279,7 @@ describe('Portal + Service Registry Integration Tests', () => {
     const updatedConfig = {
       ...originalConfig,
       version: '1.1.0',
-      tags: ['testing', 'reporting', 'updated'],
+      tags: ['testing', "reporting", 'updated'],
       metadata: {
         description: 'Updated Story Reporter service',
         maintainer: 'dev-team@aidev.com'
@@ -294,7 +294,7 @@ describe('Portal + Service Registry Integration Tests', () => {
     const updatedService = services.find(s => s.id === 'story-reporter');
 
     expect(updatedService?.version).toBe('1.1.0');
-    expect(updatedService?.tags).toEqual(['testing', 'reporting', 'updated']);
+    expect(updatedService?.tags).toEqual(['testing', "reporting", 'updated']);
     expect(updatedService?.metadata?.description).toBe('Updated Story Reporter service');
     expect(updatedService?.metadata?.maintainer).toBe('dev-team@aidev.com');
 
@@ -303,7 +303,7 @@ describe('Portal + Service Registry Integration Tests', () => {
     const discoveredService = discoveredServices.find(s => s.id === 'story-reporter');
 
     expect(discoveredService?.version).toBe('1.1.0');
-    expect(discoveredService?.tags).toEqual(['testing', 'reporting', 'updated']);
+    expect(discoveredService?.tags).toEqual(['testing', "reporting", 'updated']);
   });
 
   test('Concurrent Operations: Multiple portal instances register services', async () => {
@@ -363,8 +363,8 @@ describe('Portal + Service Registry Integration Tests', () => {
     // Just verify we can get health status (will be 'healthy' from our manual update)
     expect(health1.status).toBeDefined();
     expect(health2.status).toBeDefined();
-    expect(['healthy', 'unhealthy', 'unknown']).toContain(health1.status);
-    expect(['healthy', 'unhealthy', 'unknown']).toContain(health2.status);
+    expect(['healthy', "unhealthy", 'unknown']).toContain(health1.status);
+    expect(['healthy', "unhealthy", 'unknown']).toContain(health2.status);
   });
 
   test('Authentication Integration: Registry validates portal credentials', async () => {

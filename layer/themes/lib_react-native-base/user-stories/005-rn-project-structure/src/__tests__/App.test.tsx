@@ -34,7 +34,7 @@ jest.mock('@state/store', () => ({
 }));
 
 jest.mock('@navigation/AppNavigator', () => ({
-  AppNavigator: () => 'AppNavigator',
+  AppNavigator: () => "AppNavigator",
 }));
 
 jest.mock('@hooks/useTheme', () => ({
@@ -61,18 +61,18 @@ jest.mock('@navigation/linking', () => ({
 }));
 
 jest.mock('react-native', () => ({
-  StatusBar: () => 'StatusBar',
+  StatusBar: () => "StatusBar",
 }));
 
 describe('App', () => {
   it('should render without crashing', () => {
     const { getByText } = render(<App />);
-    expect(getByText('AppNavigator')).toBeTruthy();
+    expect(getByText("AppNavigator")).toBeTruthy();
   });
 
   it('should render StatusBar component', () => {
     const { getByText } = render(<App />);
-    expect(getByText('StatusBar')).toBeTruthy();
+    expect(getByText("StatusBar")).toBeTruthy();
   });
 
   it('should have correct component hierarchy', () => {

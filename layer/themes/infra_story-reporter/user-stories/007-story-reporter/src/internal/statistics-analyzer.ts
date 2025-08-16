@@ -194,15 +194,15 @@ export class StatisticsAnalyzer {
     
     if (errorMessage.includes('timeout')) {
       return 'timeout_failure';
-    } else if (errorMessage.includes('authentication') || errorMessage.includes('credentials')) {
+    } else if (errorMessage.includes("authentication") || errorMessage.includes("credentials")) {
       return 'authentication_failure';
-    } else if (errorMessage.includes('network') || errorMessage.includes('connection')) {
+    } else if (errorMessage.includes('network') || errorMessage.includes("connection")) {
       return 'network_failure';
-    } else if (errorMessage.includes('permission') || errorMessage.includes('access')) {
+    } else if (errorMessage.includes("permission") || errorMessage.includes('access')) {
       return 'permission_failure';
     } else if (errorMessage.includes('not found') || errorMessage.includes('404')) {
       return 'not_found_failure';
-    } else if (errorMessage.includes('validation') || errorMessage.includes('invalid')) {
+    } else if (errorMessage.includes("validation") || errorMessage.includes('invalid')) {
       return 'validation_failure';
     } else {
       return 'generic_failure';
@@ -216,7 +216,7 @@ export class StatisticsAnalyzer {
     if (historicalResults.length === 0) {
       return {
         improvementPercentage: 0,
-        performanceTrend: 'UPDATING',
+        performanceTrend: "UPDATING",
         regressions: [],
         improvements: [],
         historicalComparison: {
@@ -238,7 +238,7 @@ export class StatisticsAnalyzer {
       ? ((avgHistoricalDuration - currentStats.averageScenarioDuration) / avgHistoricalDuration) * 100
       : 0;
 
-    const performanceTrend = durationChange < -10 ? 'improving' : durationChange > 10 ? 'degrading' : 'UPDATING';
+    const performanceTrend = durationChange < -10 ? "improving" : durationChange > 10 ? "degrading" : "UPDATING";
 
     const regressions = this.identifyRegressions(currentResults, historicalResults);
     const improvements = this.identifyImprovements(currentResults, historicalResults);

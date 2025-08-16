@@ -73,11 +73,11 @@ describe('ConfigManager integrates with EnvGenerator', () => {
   describe('Port Allocation Integration', () => {
     it('should include port allocations from ConfigManager in .env file', async () => {
       // Get port allocations from ConfigManager
-      const ports = await configManager.getPortAllocations('development');
+      const ports = await configManager.getPortAllocations("development");
 
       // Generate env file
       const result = await envGenerator.generateEnvFile({
-        environment: 'development',
+        environment: "development",
         outputPath: path.join(testOutputDir, '.env.dev'),
         includePorts: true,
         includeSecrets: false,
@@ -124,7 +124,7 @@ describe('ConfigManager integrates with EnvGenerator', () => {
     it('should handle port allocations for different environments', async () => {
       // Generate env files for different environments
       const devResult = await envGenerator.generateEnvFile({
-        environment: 'development',
+        environment: "development",
         outputPath: path.join(testOutputDir, '.env.dev.ports'),
         includePorts: true,
         includeSecrets: false
@@ -159,7 +159,7 @@ describe('ConfigManager integrates with EnvGenerator', () => {
     it('should use SQLite for development and test environments', async () => {
       // Generate dev env
       const devResult = await envGenerator.generateEnvFile({
-        environment: 'development',
+        environment: "development",
         outputPath: path.join(testOutputDir, '.env.dev.db'),
         includeSecrets: false
       });
@@ -189,7 +189,7 @@ describe('ConfigManager integrates with EnvGenerator', () => {
       });
 
       // Assert PostgreSQL configuration
-      expect(result.variables.DB_TYPE).toBe('postgresql');
+      expect(result.variables.DB_TYPE).toBe("postgresql");
       expect(result.variables.DB_HOST).toBeDefined();
       expect(result.variables.DB_PORT).toBe('5432');
       expect(result.variables.DB_NAME).toBe('portal_security_prod');
@@ -218,11 +218,11 @@ describe('ConfigManager integrates with EnvGenerator', () => {
   describe('Security Configuration Integration', () => {
     it('should apply security settings from ConfigManager', async () => {
       // Get security config from ConfigManager
-      const securityConfig = await configManager.getSecurityConfig('development');
+      const securityConfig = await configManager.getSecurityConfig("development");
 
       // Generate env file
       const result = await envGenerator.generateEnvFile({
-        environment: 'development',
+        environment: "development",
         outputPath: path.join(testOutputDir, '.env.dev.security')
       });
 
@@ -235,12 +235,12 @@ describe('ConfigManager integrates with EnvGenerator', () => {
 
     it('should have different security settings per environment', async () => {
       // Get configs from ConfigManager
-      const devSecurity = await configManager.getSecurityConfig('development');
+      const devSecurity = await configManager.getSecurityConfig("development");
       const releaseSecurity = await configManager.getSecurityConfig('release');
 
       // Generate env files
       const devResult = await envGenerator.generateEnvFile({
-        environment: 'development',
+        environment: "development",
         outputPath: path.join(testOutputDir, '.env.dev.sec')
       });
 
@@ -269,7 +269,7 @@ describe('ConfigManager integrates with EnvGenerator', () => {
     it('should include all enabled services from ConfigManager', async () => {
       // Add custom services
       await configManager.addService('test', {
-        name: 'monitoring',
+        name: "monitoring",
         port: 3500,
         enabled: true
       });
@@ -308,7 +308,7 @@ describe('ConfigManager integrates with EnvGenerator', () => {
     it('should handle service dependencies from ConfigManager', async () => {
       // Add services with dependencies
       await configManager.addService('test', {
-        name: 'frontend',
+        name: "frontend",
         port: 3000,
         enabled: true,
         dependencies: ['backend', 'auth']
@@ -318,11 +318,11 @@ describe('ConfigManager integrates with EnvGenerator', () => {
         name: 'backend',
         port: 3001,
         enabled: true,
-        dependencies: ['database']
+        dependencies: ["database"]
       });
 
       await configManager.addService('test', {
-        name: 'database',
+        name: "database",
         port: 5432,
         enabled: true
       });
@@ -371,8 +371,8 @@ describe('ConfigManager integrates with EnvGenerator', () => {
 
     it('should handle feature flag updates', async () => {
       // Update feature flags
-      await configManager.updateFeatureFlag('test', 'newFeature', true);
-      await configManager.updateFeatureFlag('test', 'betaFeature', false);
+      await configManager.updateFeatureFlag('test', "newFeature", true);
+      await configManager.updateFeatureFlag('test', "betaFeature", false);
 
       // Get feature flags
       const features = await configManager.getFeatureFlags('test');
@@ -398,7 +398,7 @@ describe('ConfigManager integrates with EnvGenerator', () => {
   describe('Configuration Propagation', () => {
     it('should propagate configuration changes across environments', async () => {
       // Add a service to development
-      await configManager.addService('development', {
+      await configManager.addService("development", {
         name: 'new-service',
         port: 7000,
         enabled: true,
@@ -407,9 +407,9 @@ describe('ConfigManager integrates with EnvGenerator', () => {
 
       // Propagate to other environments
       await configManager.propagateConfigChange(
-        'development',
+        "development",
         ['test', 'demo'],
-        'services'
+        "services"
       );
 
       // Generate env files for each environment
@@ -439,7 +439,7 @@ describe('ConfigManager integrates with EnvGenerator', () => {
   describe('Configuration Validation', () => {
     it('should validate configuration before generating env file', async () => {
       // Validate configuration
-      const validation = await configManager.validateConfig('development');
+      const validation = await configManager.validateConfig("development");
 
       expect(validation.valid).toBe(true);
       expect(validation.errors).toHaveLength(0);
@@ -447,7 +447,7 @@ describe('ConfigManager integrates with EnvGenerator', () => {
       // Generate env file only if valid
       if (validation.valid) {
         const result = await envGenerator.generateEnvFile({
-          environment: 'development',
+          environment: "development",
           outputPath: path.join(testOutputDir, '.env.dev.validated')
         });
 
@@ -464,10 +464,10 @@ describe('ConfigManager integrates with EnvGenerator', () => {
         name: 'graphql',
         port: 4000,
         enabled: true,
-        dependencies: ['auth', 'database']
+        dependencies: ['auth', "database"]
       });
 
-      await configManager.updateFeatureFlag('test', 'graphqlPlayground', true);
+      await configManager.updateFeatureFlag('test', "graphqlPlayground", true);
 
       // Generate complete env file
       const result = await envGenerator.generateEnvFile({

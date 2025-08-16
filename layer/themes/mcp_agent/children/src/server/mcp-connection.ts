@@ -3,7 +3,7 @@
  * Handles communication with MCP servers using stdio or websocket transport
  */
 
-import { EventEmitter } from '../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { spawn, ChildProcess } from 'child_process';
 import WebSocket from 'ws';
 import {
@@ -50,7 +50,7 @@ export class MCPConnection extends EventEmitter {
     try {
       if (this.config.transport === 'stdio') {
         await this.connectStdio();
-      } else if (this.config.transport === 'websocket') {
+      } else if (this.config.transport === "websocket") {
         await this.connectWebSocket();
       } else {
         throw new Error(`Unsupported transport: ${this.config.transport}`);
@@ -169,7 +169,7 @@ export class MCPConnection extends EventEmitter {
       }
     } else if ('method' in message) {
       // Notification
-      this.emit('notification', message as MCPNotification);
+      this.emit("notification", message as MCPNotification);
     }
   }
 
@@ -214,7 +214,7 @@ export class MCPConnection extends EventEmitter {
       
       if (this.config.transport === 'stdio' && this.process?.stdin) {
         this.process.stdin.write(message);
-      } else if (this.config.transport === 'websocket' && this.websocket) {
+      } else if (this.config.transport === "websocket" && this.websocket) {
         this.websocket.send(message);
       } else {
         reject(new Error('No connection available'));
@@ -240,7 +240,7 @@ export class MCPConnection extends EventEmitter {
 
     if (this.config.transport === 'stdio' && this.process?.stdin) {
       this.process.stdin.write(message);
-    } else if (this.config.transport === 'websocket' && this.websocket) {
+    } else if (this.config.transport === "websocket" && this.websocket) {
       this.websocket.send(message);
     }
   }

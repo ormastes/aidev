@@ -11,7 +11,7 @@ import { BasePattern } from '../base-pattern';
 import { SupervisorConfig } from '../types';
 
 export class SupervisorPattern extends BasePattern {
-  name = 'supervisor';
+  name = "supervisor";
   description = 'One agent coordinates others, delegating tasks and aggregating results';
   minAgents = 2; // At least supervisor + 1 worker
 
@@ -137,18 +137,18 @@ export class SupervisorPattern extends BasePattern {
     });
     
     // Collect worker results
-    const collectorNode = new TransformNode('collector', (results: any[]) => {
+    const collectorNode = new TransformNode("collector", (results: any[]) => {
       // Filter out empty results
       return results.filter(r => r && r.result);
     });
     
     flow.addNode(collectorNode);
     workerNodes.forEach(nodeId => {
-      flow.addEdge({ from: nodeId, to: 'collector' });
+      flow.addEdge({ from: nodeId, to: "collector" });
     });
     
     // Supervisor reviews and synthesizes results
-    const reviewerNode = new AgentNode('reviewer', supervisor, {
+    const reviewerNode = new AgentNode("reviewer", supervisor, {
       extractInput: (workerResults: any[]) => {
         const resultsText = workerResults.map(r => 
           `${r.workerName}: ${r.result}`
@@ -167,16 +167,16 @@ export class SupervisorPattern extends BasePattern {
       formatOutput: (output) => ({
         finalResult: output.message.content,
         workerCount: workers.length,
-        pattern: 'supervisor'
+        pattern: "supervisor"
       })
     });
     
     flow.addNode(reviewerNode);
-    flow.addEdge({ from: 'collector', to: 'reviewer' });
+    flow.addEdge({ from: "collector", to: "reviewer" });
     
     // Output
     flow.addNode(new OutputNode('output'));
-    flow.addEdge({ from: 'reviewer', to: 'output' });
+    flow.addEdge({ from: "reviewer", to: 'output' });
     
     return flow;
   }

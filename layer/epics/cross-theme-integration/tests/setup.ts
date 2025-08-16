@@ -25,7 +25,7 @@ global.waitForCondition = async (
 };
 
 // Global error handler for unhandled rejections
-process.on('unhandledRejection', (reason, promise) => {
+process.on("unhandledRejection", (reason, promise) => {
   console.error('Unhandled Rejection in test:', reason);
   console.error('Promise:', promise);
 });

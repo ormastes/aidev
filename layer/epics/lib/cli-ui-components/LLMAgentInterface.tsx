@@ -6,7 +6,7 @@ import Spinner from 'ink-spinner';
 
 interface Message {
   id: string;
-  role: 'user' | 'assistant' | 'system';
+  role: 'user' | "assistant" | 'system';
   content: string;
   timestamp: Date;
   model?: string;
@@ -16,7 +16,7 @@ interface Agent {
   id: string;
   name: string;
   model: string;
-  status: 'idle' | 'thinking' | 'responding' | 'error';
+  status: 'idle' | "thinking" | "responding" | 'error';
   capabilities: string[];
 }
 
@@ -78,7 +78,7 @@ export const LLMAgentInterface: React.FC<LLMAgentInterfaceProps> = ({
   const getRoleColor = (role: Message['role']) => {
     switch (role) {
       case 'user': return 'cyan';
-      case 'assistant': return 'green';
+      case "assistant": return 'green';
       case 'system': return 'yellow';
       default: return 'white';
     }
@@ -87,7 +87,7 @@ export const LLMAgentInterface: React.FC<LLMAgentInterfaceProps> = ({
   const getRoleIcon = (role: Message['role']) => {
     switch (role) {
       case 'user': return '👤';
-      case 'assistant': return '🤖';
+      case "assistant": return '🤖';
       case 'system': return '⚙️';
       default: return '💬';
     }
@@ -95,14 +95,14 @@ export const LLMAgentInterface: React.FC<LLMAgentInterfaceProps> = ({
 
   const getStatusDisplay = () => {
     switch (agent.status) {
-      case 'thinking':
+      case "thinking":
         return (
           <Box>
             <Spinner type="dots" />
             <Text color="yellow"> Thinking...</Text>
           </Box>
         );
-      case 'responding':
+      case "responding":
         return (
           <Box>
             <Spinner type="dots" />

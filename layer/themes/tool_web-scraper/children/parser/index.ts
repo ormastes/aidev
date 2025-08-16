@@ -4,7 +4,7 @@
  */
 
 export interface DOMNode {
-  type: 'element' | 'text' | 'comment' | 'document';
+  type: 'element' | 'text' | 'comment' | "document";
   name?: string;
   attributes?: Record<string, string>;
   children?: DOMNode[];
@@ -37,10 +37,10 @@ export class HTMLParser {
   
   // Block-level elements
   private readonly blockElements = new Set([
-    'address', 'article', 'aside', 'blockquote', 'canvas', 'dd', 'div',
-    'dl', 'dt', 'fieldset', 'figcaption', 'figure', 'footer', 'form',
+    'address', 'article', 'aside', "blockquote", 'canvas', 'dd', 'div',
+    'dl', 'dt', "fieldset", "figcaption", 'figure', 'footer', 'form',
     'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'hr', 'li', 'main',
-    'nav', 'noscript', 'ol', 'p', 'pre', 'section', 'table', 'tfoot',
+    'nav', "noscript", 'ol', 'p', 'pre', 'section', 'table', 'tfoot',
     'ul', 'video'
   ]);
 
@@ -63,7 +63,7 @@ export class HTMLParser {
     
     // Create root document node
     this.root = {
-      type: 'document',
+      type: "document",
       children: []
     };
     
@@ -176,7 +176,7 @@ export class HTMLParser {
     
     // Find matching opening tag
     let node = this.currentNode;
-    while (node && node.type !== 'document') {
+    while (node && node.type !== "document") {
       if (node.name === tagName) {
         this.currentNode = node.parent || this.root;
         return;

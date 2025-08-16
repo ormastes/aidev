@@ -2,10 +2,10 @@
  * MFA Manager - Handles Multi-Factor Authentication
  */
 
-import * as speakeasy from 'speakeasy';
+import * as speakeasy from "speakeasy";
 import * as QRCode from 'qrcode';
 import { crypto } from '../../../../../infra_external-log-lib/src';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 export interface MFAConfig {
   appName: string;
@@ -113,7 +113,7 @@ export class MFAManager extends EventEmitter {
     settings.lastUsed = new Date();
 
     this.userMFASettings.set(userId, settings);
-    this.emit('totpEnabled', { userId });
+    this.emit("totpEnabled", { userId });
 
     return true;
   }
@@ -131,7 +131,7 @@ export class MFAManager extends EventEmitter {
     settings.totpSecret = undefined;
     this.userMFASettings.set(userId, settings);
     
-    this.emit('totpDisabled', { userId });
+    this.emit("totpDisabled", { userId });
     return true;
   }
 
@@ -158,7 +158,7 @@ export class MFAManager extends EventEmitter {
     if (isValid) {
       settings.lastUsed = new Date();
       this.userMFASettings.set(userId, settings);
-      this.emit('totpVerified', { userId });
+      this.emit("totpVerified", { userId });
     }
 
     return {
@@ -189,11 +189,11 @@ export class MFAManager extends EventEmitter {
 
     try {
       await this.config.emailService.sendEmail(email, subject, body);
-      this.emit('emailCodeSent', { userId, email });
+      this.emit("emailCodeSent", { userId, email });
       return true;
     } catch (error) {
       this.pendingVerifications.delete(`${userId}-email`);
-      this.emit('emailCodeError', { userId, email, error });
+      this.emit("emailCodeError", { userId, email, error });
       return false;
     }
   }
@@ -219,11 +219,11 @@ export class MFAManager extends EventEmitter {
 
     try {
       await this.config.smsService.sendSMS(phoneNumber, message);
-      this.emit('smsCodeSent', { userId, phoneNumber });
+      this.emit("smsCodeSent", { userId, phoneNumber });
       return true;
     } catch (error) {
       this.pendingVerifications.delete(`${userId}-sms`);
-      this.emit('smsCodeError', { userId, phoneNumber, error });
+      this.emit("smsCodeError", { userId, phoneNumber, error });
       return false;
     }
   }
@@ -302,7 +302,7 @@ export class MFAManager extends EventEmitter {
     settings.usedBackupCodes.clear();
     
     this.userMFASettings.set(userId, settings);
-    this.emit('backupCodesGenerated', { userId });
+    this.emit("backupCodesGenerated", { userId });
 
     return backupCodes;
   }
@@ -338,7 +338,7 @@ export class MFAManager extends EventEmitter {
     settings.lastUsed = new Date();
     
     this.userMFASettings.set(userId, settings);
-    this.emit('backupCodeUsed', { userId, code });
+    this.emit("backupCodeUsed", { userId, code });
 
     return {
       success: true,
@@ -400,7 +400,7 @@ export class MFAManager extends EventEmitter {
     settings.usedBackupCodes.clear();
 
     this.userMFASettings.set(userId, settings);
-    this.emit('mfaDisabled', { userId });
+    this.emit("mfaDisabled", { userId });
 
     return true;
   }

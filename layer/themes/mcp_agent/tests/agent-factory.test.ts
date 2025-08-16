@@ -23,12 +23,12 @@ describe('Agent Factory', () => {
 
     it('should create Task Manager with correct role', () => {
       const agent = createAgent('task-manager');
-      expect(agent.getRoleName()).toBe('coordinator');
+      expect(agent.getRoleName()).toBe("coordinator");
     });
 
     it('should create Coder with developer role', () => {
       const agent = createAgent('coder');
-      expect(agent.getRoleName()).toBe('developer');
+      expect(agent.getRoleName()).toBe("developer");
     });
 
     it('should create Tester with tester role', () => {
@@ -37,8 +37,8 @@ describe('Agent Factory', () => {
     });
 
     it('should create Refactor agent with developer role', () => {
-      const agent = createAgent('refactor');
-      expect(agent.getRoleName()).toBe('developer');
+      const agent = createAgent("refactor");
+      expect(agent.getRoleName()).toBe("developer");
     });
   });
 
@@ -54,7 +54,7 @@ describe('Agent Factory', () => {
 
     it('should create GUI Coordinator with architect role', () => {
       const agent = createAgent('gui-coordinator');
-      expect(agent.getRoleName()).toBe('architect');
+      expect(agent.getRoleName()).toBe("architect");
     });
 
     it('should create Mobile Automation agent', () => {
@@ -105,7 +105,7 @@ describe('Agent Factory', () => {
 
     it('should create Feature Manager with coordinator role', () => {
       const agent = createAgent('feature-manager');
-      expect(agent.getRoleName()).toBe('coordinator');
+      expect(agent.getRoleName()).toBe("coordinator");
     });
   });
 
@@ -144,7 +144,7 @@ describe('Agent Factory', () => {
       
       expect(capabilities).toContain('code_generation');
       expect(capabilities).toContain('code_review');
-      expect(capabilities).toContain('debugging');
+      expect(capabilities).toContain("debugging");
       expect(capabilities).toContain('testing');
     });
 

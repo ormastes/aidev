@@ -1,15 +1,16 @@
+import { fileAPI } from '../utils/file-api';
 import { VFTaskQueueWrapper } from './VFTaskQueueWrapper';
 import { TaskQueueValidator } from './TaskQueueValidator';
 import { ArtifactManager } from './ArtifactManager';
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 
 export interface TaskArtifactRequirement {
-  type: 'source_code' | 'test_code' | 'documentation' | 'sequence_diagram' | 'schema';
+  type: 'source_code' | 'test_code' | "documentation" | 'sequence_diagram' | 'schema';
   pattern?: string;
   minCount?: number;
   mustExist?: boolean;
-  state?: 'draft' | 'review' | 'approved' | 'deployed';
+  state?: 'draft' | 'review' | "approved" | "deployed";
 }
 
 export interface EnhancedTask {
@@ -104,7 +105,7 @@ export class EnhancedTaskQueueWrapper extends VFTaskQueueWrapper {
       }
     } else {
       // Find highest priority task
-      for (const p of ['critical', 'high', 'medium', 'low']) {
+      for (const p of ["critical", 'high', 'medium', 'low']) {
         const queue = taskQueue.taskQueues?.[p];
         if (queue && Array.isArray(queue) && queue.length > 0) {
           nextTask = queue[0];
@@ -240,8 +241,8 @@ export class EnhancedTaskQueueWrapper extends VFTaskQueueWrapper {
     for (const artifactType of task.artifactsToCreate) {
       // Check if artifact type is valid
       const validTypes = [
-        'source_code', 'test_code', 'documentation', 
-        'sequence_diagram', 'configuration', 'schema', 'adhoc'
+        'source_code', 'test_code', "documentation", 
+        'sequence_diagram', "configuration", 'schema', 'adhoc'
       ];
       
       if (!validTypes.includes(artifactType)) {
@@ -256,7 +257,7 @@ export class EnhancedTaskQueueWrapper extends VFTaskQueueWrapper {
         }
       }
 
-      if (artifactType === 'documentation') {
+      if (artifactType === "documentation") {
         const hasFeature = await this.checkFeatureExists(task);
         if (!hasFeature) {
           warnings.push('Creating documentation without associated feature');
@@ -337,7 +338,7 @@ export class EnhancedTaskQueueWrapper extends VFTaskQueueWrapper {
         }
         break;
 
-      case 'deployment':
+      case "deployment":
         // All artifacts must be in approved or deployed state
         const allArtifacts = await this.artifactManager.validateAllArtifacts();
         if (allArtifacts.invalid > 0) {
@@ -345,11 +346,11 @@ export class EnhancedTaskQueueWrapper extends VFTaskQueueWrapper {
         }
         
         // Check for required artifacts
-        const requiredForDeployment = ['source_code', 'test_code', 'documentation'];
+        const requiredForDeployment = ['source_code', 'test_code', "documentation"];
         for (const type of requiredForDeployment) {
           const artifacts = await this.artifactManager.listArtifactsByType(type);
           const approved = artifacts.filter(a => 
-            a.state === 'approved' || a.state === 'deployed'
+            a.state === "approved" || a.state === "deployed"
           );
           
           if (approved.length === 0) {
@@ -358,7 +359,7 @@ export class EnhancedTaskQueueWrapper extends VFTaskQueueWrapper {
         }
         break;
 
-      case 'documentation':
+      case "documentation":
         // Should have source code to document
         const codeArtifacts = await this.artifactManager.listArtifactsByType('source_code');
         if (codeArtifacts.length === 0) {
@@ -366,7 +367,7 @@ export class EnhancedTaskQueueWrapper extends VFTaskQueueWrapper {
         }
         break;
 
-      case 'refactoring':
+      case "refactoring":
         // Must have tests before refactoring
         const tests = await this.artifactManager.listArtifactsByType('test_code');
         if (tests.length === 0) {
@@ -411,7 +412,7 @@ export class EnhancedTaskQueueWrapper extends VFTaskQueueWrapper {
   private async checkFeatureExists(task: EnhancedTask): Promise<boolean> {
     try {
       const featurePath = path.join(this.basePath, 'FEATURE.vf.json');
-      const featureContent = await fs.readFile(featurePath, 'utf-8');
+      const featureContent = await fileAPI.readFile(featurePath, 'utf-8');
       const features = JSON.parse(featureContent);
       
       // Check if task references a feature

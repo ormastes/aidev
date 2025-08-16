@@ -25,19 +25,19 @@ async function runHierarchicalBuildExample() {
   });
   
   // Set up event listeners
-  reporter.on('executionStart', (event) => {
+  reporter.on("executionStart", (event) => {
     console.log(`Starting execution for ${event.buildId} (${event.buildType})`);
   });
   
-  reporter.on('buildStart', (event) => {
+  reporter.on("buildStart", (event) => {
     console.log(`  Building ${event.buildId}...`);
   });
   
-  reporter.on('buildComplete', (event) => {
+  reporter.on("buildComplete", (event) => {
     console.log(`  ✓ Build ${event.buildId} completed with status: ${event.status}`);
   });
   
-  reporter.on('buildLog', (event) => {
+  reporter.on("buildLog", (event) => {
     console.log(`    [${event.level}] ${event.message}`);
   });
   
@@ -45,11 +45,11 @@ async function runHierarchicalBuildExample() {
     console.log(`\nPhase: ${event.phase}`);
   });
   
-  reporter.on('executionComplete', (event) => {
+  reporter.on("executionComplete", (event) => {
     console.log(`\nExecution completed in ${event.duration}ms with status: ${event.status}`);
   });
   
-  reporter.on('executionError', (event) => {
+  reporter.on("executionError", (event) => {
     console.error(`\nExecution failed: ${event.error}`);
   });
   
@@ -67,7 +67,7 @@ async function runHierarchicalBuildExample() {
       }
     },
     themes: [{
-      id: 'authentication',
+      id: "authentication",
       featureFiles: ['features/login.feature', 'features/logout.feature'],
       stepDefinitions: ['steps/auth.steps.ts'],
       buildSettings: {
@@ -92,7 +92,7 @@ async function runHierarchicalBuildExample() {
   try {
     const result1 = await reporter.executeHierarchicalBuild(themeConfig, {
       reportTitle: 'Authentication Theme Test Report',
-      reportFormats: ['html', 'json', 'markdown'],
+      reportFormats: ['html', 'json', "markdown"],
       aggregateCoverage: true
     });
     
@@ -120,7 +120,7 @@ async function runHierarchicalBuildExample() {
         API_URL: 'http://localhost:3000'
       }
     },
-    failureHandling: 'continue',
+    failureHandling: "continue",
     parallel: true,
     maxParallel: 3,
     themes: [
@@ -196,7 +196,7 @@ async function runHierarchicalBuildExample() {
   try {
     const result2 = await reporter.executeHierarchicalBuild(epicBuildConfig, {
       reportTitle: 'E-Commerce Platform - Full Test Suite',
-      reportFormats: ['html', 'json', 'markdown', 'csv'],
+      reportFormats: ['html', 'json', "markdown", 'csv'],
       reportOutputPath: './reports/e-commerce',
       aggregateCoverage: true,
       includeChildArtifacts: true

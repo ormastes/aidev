@@ -11,10 +11,10 @@ jest.mock('../../children/parser');
 jest.mock('../../children/selector');
 jest.mock('../../children/extractor');
 jest.mock('../../children/exporter');
-jest.mock('puppeteer');
-jest.mock('playwright');
+jest.mock("puppeteer");
+jest.mock("playwright");
 
-describe('WebScrapingQueue', () => {
+describe("WebScrapingQueue", () => {
   let queue: WebScrapingQueue;
 
   beforeEach(() => {
@@ -53,7 +53,7 @@ describe('WebScrapingQueue', () => {
     });
   });
 
-  describe('addBatchJobs', () => {
+  describe("addBatchJobs", () => {
     it('should add multiple jobs at once', () => {
       const urls = ['https://example1.com', 'https://example2.com', 'https://example3.com'];
       const jobIds = queue.addBatchJobs(urls);
@@ -65,7 +65,7 @@ describe('WebScrapingQueue', () => {
     });
   });
 
-  describe('getNextJob', () => {
+  describe("getNextJob", () => {
     it('should return highest priority job', () => {
       queue.addJob('https://low.com', undefined, 1);
       queue.addJob('https://high.com', undefined, 10);
@@ -127,7 +127,7 @@ describe('WebScrapingQueue', () => {
       queue.markJobCompleted(jobId, result);
       
       const job = queue.getJob(jobId);
-      expect(job?.status).toBe('completed');
+      expect(job?.status).toBe("completed");
       expect(job?.result).toEqual(result);
       expect(job?.progress).toBe(100);
       expect(job?.completedAt).toBeInstanceOf(Date);
@@ -139,14 +139,14 @@ describe('WebScrapingQueue', () => {
       // First failure - should retry
       queue.markJobFailed(jobId, 'Network error');
       let job = queue.getJob(jobId);
-      expect(job?.status).toBe('retrying');
+      expect(job?.status).toBe("retrying");
       expect(job?.retryCount).toBe(1);
       expect(job?.error).toBe('Network error');
       
       // Second failure
       queue.markJobFailed(jobId, 'Network error');
       job = queue.getJob(jobId);
-      expect(job?.status).toBe('retrying');
+      expect(job?.status).toBe("retrying");
       expect(job?.retryCount).toBe(2);
       
       // Third failure - max retries reached
@@ -167,7 +167,7 @@ describe('WebScrapingQueue', () => {
     });
   });
 
-  describe('getProgress', () => {
+  describe("getProgress", () => {
     it('should return correct progress statistics', () => {
       // Add some jobs
       const job1 = queue.addJob('https://example1.com');
@@ -241,7 +241,7 @@ describe('WebScrapingQueue', () => {
       
       const completedJobs = queue.getCompletedJobs();
       expect(completedJobs).toHaveLength(2);
-      expect(completedJobs.every(j => j.status === 'completed')).toBe(true);
+      expect(completedJobs.every(j => j.status === "completed")).toBe(true);
     });
 
     it('should get failed jobs', () => {
@@ -261,7 +261,7 @@ describe('WebScrapingQueue', () => {
   });
 });
 
-describe('WebScrapingCache', () => {
+describe("WebScrapingCache", () => {
   let cache: WebScrapingCache;
 
   beforeEach(() => {
@@ -389,7 +389,7 @@ describe('WebScrapingCache', () => {
     });
   });
 
-  describe('generateKey', () => {
+  describe("generateKey", () => {
     it('should use custom key if provided', () => {
       const options: ScrapingOptions = {
         cacheOptions: {
@@ -434,7 +434,7 @@ describe('WebScrapingCache', () => {
   });
 });
 
-describe('WebScraper', () => {
+describe("WebScraper", () => {
   let scraper: WebScraper;
   let mockFetcher: jest.Mocked<Fetcher>;
   let mockParser: jest.Mocked<HTMLParser>;
@@ -467,7 +467,7 @@ describe('WebScraper', () => {
     jest.useRealTimers();
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with default values', () => {
       const newScraper = new WebScraper();
       
@@ -568,8 +568,8 @@ describe('WebScraper', () => {
       const startSpy = jest.fn();
       const completeSpy = jest.fn();
       
-      scraper.on('scrapeStart', startSpy);
-      scraper.on('scrapeComplete', completeSpy);
+      scraper.on("scrapeStart", startSpy);
+      scraper.on("scrapeComplete", completeSpy);
       
       await scraper.scrape('https://example.com');
       
@@ -586,7 +586,7 @@ describe('WebScraper', () => {
       mockFetcher.fetch.mockRejectedValue(error);
       
       const errorSpy = jest.fn();
-      scraper.on('scrapeError', errorSpy);
+      scraper.on("scrapeError", errorSpy);
       
       await expect(scraper.scrape('https://example.com')).rejects.toThrow('Network error');
       
@@ -645,7 +645,7 @@ describe('WebScraper', () => {
     });
   });
 
-  describe('scrapeBatch', () => {
+  describe("scrapeBatch", () => {
     beforeEach(() => {
       const mockFetchResult: FetchResult = {
         data: '<html></html>',
@@ -667,7 +667,7 @@ describe('WebScraper', () => {
       const urls = ['https://example1.com', 'https://example2.com', 'https://example3.com'];
       
       // Mock immediate processing
-      jest.spyOn(scraper as any, 'processNextJob').mockImplementation(async function(this: any) {
+      jest.spyOn(scraper as any, "processNextJob").mockImplementation(async function(this: any) {
         const job = this.queue.getNextJob();
         if (job) {
           this.queue.markJobRunning(job.id);
@@ -694,11 +694,11 @@ describe('WebScraper', () => {
       const batchStartSpy = jest.fn();
       const batchCompleteSpy = jest.fn();
       
-      scraper.on('batchStart', batchStartSpy);
-      scraper.on('batchComplete', batchCompleteSpy);
+      scraper.on("batchStart", batchStartSpy);
+      scraper.on("batchComplete", batchCompleteSpy);
       
       // Mock immediate processing
-      jest.spyOn(scraper as any, 'processNextJob').mockImplementation(async function(this: any) {
+      jest.spyOn(scraper as any, "processNextJob").mockImplementation(async function(this: any) {
         const job = this.queue.getNextJob();
         if (job) {
           this.queue.markJobRunning(job.id);
@@ -741,7 +741,7 @@ describe('WebScraper', () => {
     });
   });
 
-  describe('configuration', () => {
+  describe("configuration", () => {
     it('should set concurrency', () => {
       scraper.setConcurrency(10);
       expect((scraper as any).concurrency).toBe(10);
@@ -763,15 +763,15 @@ describe('WebScraper', () => {
     });
   });
 
-  describe('statistics', () => {
+  describe("statistics", () => {
     it('should track statistics', () => {
       const stats = scraper.getStats();
       
-      expect(stats).toHaveProperty('totalRequests');
-      expect(stats).toHaveProperty('successfulRequests');
-      expect(stats).toHaveProperty('failedRequests');
-      expect(stats).toHaveProperty('cacheHits');
-      expect(stats).toHaveProperty('cacheMisses');
+      expect(stats).toHaveProperty("totalRequests");
+      expect(stats).toHaveProperty("successfulRequests");
+      expect(stats).toHaveProperty("failedRequests");
+      expect(stats).toHaveProperty("cacheHits");
+      expect(stats).toHaveProperty("cacheMisses");
     });
 
     it('should return a copy of statistics', () => {
@@ -791,8 +791,8 @@ describe('WebScraper', () => {
     });
 
     it('should cleanup resources', async () => {
-      const stopProcessingSpy = jest.spyOn(scraper, 'stopProcessing');
-      const clearCacheSpy = jest.spyOn(scraper, 'clearCache');
+      const stopProcessingSpy = jest.spyOn(scraper, "stopProcessing");
+      const clearCacheSpy = jest.spyOn(scraper, "clearCache");
       
       await scraper.cleanup();
       
@@ -808,7 +808,7 @@ describe('WebScraper', () => {
       scraper.startProcessing();
       
       expect((scraper as any).isRunning).toBe(true);
-      expect(emitSpy).toHaveBeenCalledWith('processingStart');
+      expect(emitSpy).toHaveBeenCalledWith("processingStart");
     });
 
     it('should not start processing if already running', () => {
@@ -817,7 +817,7 @@ describe('WebScraper', () => {
       
       scraper.startProcessing(); // Second call
       
-      expect(emitSpy).not.toHaveBeenCalledWith('processingStart');
+      expect(emitSpy).not.toHaveBeenCalledWith("processingStart");
     });
 
     it('should stop processing', () => {
@@ -827,7 +827,7 @@ describe('WebScraper', () => {
       scraper.stopProcessing();
       
       expect((scraper as any).isRunning).toBe(false);
-      expect(emitSpy).toHaveBeenCalledWith('processingStop');
+      expect(emitSpy).toHaveBeenCalledWith("processingStop");
     });
   });
 });

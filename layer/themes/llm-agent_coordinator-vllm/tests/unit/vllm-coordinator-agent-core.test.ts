@@ -67,12 +67,12 @@ describe('VLLM Coordinator Agent Theme - Core Functionality', () => {
         }
       };
 
-      mockAxios.get = jest.fn().mockRejectedValue(new Error('ECONNREFUSED'));
+      mockAxios.get = jest.fn().mockRejectedValue(new Error("ECONNREFUSED"));
 
       const result = await connectToVLLM();
       
       expect(result.connected).toBe(false);
-      expect(result.error).toBe('ECONNREFUSED');
+      expect(result.error).toBe("ECONNREFUSED");
       expect(result.retryIn).toBe(5000);
     });
   });
@@ -157,10 +157,10 @@ describe('VLLM Coordinator Agent Theme - Core Functionality', () => {
       // Register agents
       const agent1: Agent = {
         id: 'agent-1',
-        type: 'completion',
+        type: "completion",
         status: 'idle',
         model: 'llama-2-7b',
-        capabilities: ['text-generation', 'summarization']
+        capabilities: ['text-generation', "summarization"]
       };
 
       const agent2: Agent = {
@@ -219,7 +219,7 @@ describe('VLLM Coordinator Agent Theme - Core Functionality', () => {
 
         broadcast(message: any) {
           this.connections.forEach(socket => {
-            socket.emit('broadcast', message);
+            socket.emit("broadcast", message);
           });
         }
 
@@ -252,7 +252,7 @@ describe('VLLM Coordinator Agent Theme - Core Functionality', () => {
       expect(mockSocket.emit).toHaveBeenCalledWith('message', { type: 'task', data: 'test' });
 
       manager.broadcast({ type: 'status', data: 'update' });
-      expect(mockSocket.emit).toHaveBeenCalledWith('broadcast', { type: 'status', data: 'update' });
+      expect(mockSocket.emit).toHaveBeenCalledWith("broadcast", { type: 'status', data: 'update' });
 
       manager.removeConnection('agent-1');
       expect(manager.getConnectionCount()).toBe(0);
@@ -425,7 +425,7 @@ describe('VLLM Coordinator Agent Theme - Core Functionality', () => {
 
     it('should handle chat completion requests', async () => {
       interface ChatMessage {
-        role: 'system' | 'user' | 'assistant';
+        role: 'system' | 'user' | "assistant";
         content: string;
       }
 
@@ -461,7 +461,7 @@ describe('VLLM Coordinator Agent Theme - Core Functionality', () => {
           choices: [{
             index: 0,
             message: {
-              role: 'assistant',
+              role: "assistant",
               content: 'This is a chat response'
             },
             finish_reason: 'stop'
@@ -481,7 +481,7 @@ describe('VLLM Coordinator Agent Theme - Core Functionality', () => {
 
       const result = await handleChatCompletion(messages);
       
-      expect(result.message.role).toBe('assistant');
+      expect(result.message.role).toBe("assistant");
       expect(result.message.content).toBe('This is a chat response');
       expect(result.usage.total_tokens).toBe(40);
     });
@@ -553,7 +553,7 @@ describe('VLLM Coordinator Agent Theme - Core Functionality', () => {
       // Add instances
       balancer.addInstance({
         id: 'vllm-1',
-        host: 'localhost',
+        host: "localhost",
         port: 8000,
         healthy: true,
         currentLoad: 2,
@@ -562,7 +562,7 @@ describe('VLLM Coordinator Agent Theme - Core Functionality', () => {
 
       balancer.addInstance({
         id: 'vllm-2',
-        host: 'localhost',
+        host: "localhost",
         port: 8001,
         healthy: true,
         currentLoad: 5,
@@ -571,7 +571,7 @@ describe('VLLM Coordinator Agent Theme - Core Functionality', () => {
 
       balancer.addInstance({
         id: 'vllm-3',
-        host: 'localhost',
+        host: "localhost",
         port: 8002,
         healthy: false,
         currentLoad: 0,

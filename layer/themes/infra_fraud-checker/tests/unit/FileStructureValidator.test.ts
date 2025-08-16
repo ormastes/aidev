@@ -10,7 +10,7 @@ import { os } from '../../../infra_external-log-lib/src';
 // Mock fs module
 jest.mock('fs');
 
-describe('FileStructureValidator', () => {
+describe("FileStructureValidator", () => {
   let validator: FileStructureValidator;
   let tempDir: string;
   const mockFs = fs as jest.Mocked<typeof fs>;
@@ -21,7 +21,7 @@ describe('FileStructureValidator', () => {
     jest.clearAllMocks();
   });
 
-  describe('loadFileStructure', () => {
+  describe("loadFileStructure", () => {
     it('should load FILE_STRUCTURE.vf.json successfully', async () => {
       const mockStructure = {
         metadata: {
@@ -31,8 +31,8 @@ describe('FileStructureValidator', () => {
         },
         templates: {
           workspace: {
-            id: 'workspace',
-            type: 'directory',
+            id: "workspace",
+            type: "directory",
             freeze: true,
             required_children: [
               { name: 'README.md', type: 'file' }
@@ -61,7 +61,7 @@ describe('FileStructureValidator', () => {
     });
   });
 
-  describe('validate', () => {
+  describe("validate", () => {
     const mockStructure = {
       metadata: {
         level: 'root',
@@ -70,14 +70,14 @@ describe('FileStructureValidator', () => {
       },
       templates: {
         workspace: {
-          id: 'workspace',
-          type: 'directory' as const,
+          id: "workspace",
+          type: "directory" as const,
           freeze: true,
           freeze_message: 'Root is frozen',
           required_children: [
             { name: 'README.md', type: 'file' as const },
             { name: 'package.json', type: 'file' as const },
-            { name: 'layer', type: 'directory' as const }
+            { name: 'layer', type: "directory" as const }
           ],
           optional_children: [
             { name: 'tsconfig.json', type: 'file' as const }
@@ -142,7 +142,7 @@ describe('FileStructureValidator', () => {
     it('should categorize violations by severity', async () => {
       const report = await validator.validate();
 
-      expect(report.summary).toHaveProperty('critical');
+      expect(report.summary).toHaveProperty("critical");
       expect(report.summary).toHaveProperty('high');
       expect(report.summary).toHaveProperty('medium');
       expect(report.summary).toHaveProperty('low');
@@ -157,7 +157,7 @@ describe('FileStructureValidator', () => {
     });
   });
 
-  describe('validateThemes', () => {
+  describe("validateThemes", () => {
     it('should validate theme naming patterns', async () => {
       const mockStructure = {
         metadata: { version: '1.0.0' },
@@ -227,7 +227,7 @@ describe('FileStructureValidator', () => {
       const report = await validator.validate();
 
       const criticalViolations = report.violations.filter(
-        v => v.severity === 'critical'
+        v => v.severity === "critical"
       );
 
       expect(criticalViolations.length).toBeGreaterThan(0);
@@ -235,7 +235,7 @@ describe('FileStructureValidator', () => {
     });
   });
 
-  describe('generateMarkdownReport', () => {
+  describe("generateMarkdownReport", () => {
     it('should generate formatted markdown report', () => {
       const report: ValidationReport = {
         timestamp: new Date().toISOString(),

@@ -82,8 +82,8 @@ const entityName = process.argv[2];
 
 // Mock dependency check
 const dependencies = {
-  'user-service': ['database', 'cache'],
-  'auth-service': ['database', 'token-service'],
+  'user-service': ["database", 'cache'],
+  'auth-service': ["database", 'token-service'],
   'api-gateway': ['auth-service', 'user-service']
 };
 
@@ -196,7 +196,7 @@ if (deps) {
   describe('Comment Task Executor Integration', () => {
     it('should integrate with CommentTaskExecutor', async () => {
       // Register a custom function
-      commentExecutor.registerFunction('customCheck', async (param: string) => {
+      commentExecutor.registerFunction("customCheck", async (param: string) => {
         return { 
           success: true, 
           message: `Custom check passed for: ${param}` 
@@ -207,11 +207,11 @@ if (deps) {
       const executor = commentExecutor.getExecutor();
       const task = {
         id: 'test-001',
-        type: 'runnable',
+        type: "runnable",
         content: 'Execute custom check',
         runnable: {
-          type: 'function',
-          function: 'customCheck',
+          type: "function",
+          function: "customCheck",
           args: ['test-parameter']
         }
       };
@@ -252,7 +252,7 @@ console.log(\`Entity created: \${entityName}\`);
       const workflow = [
         {
           text: 'create <entity> as <type>',
-          parameters: ['payment-service', 'microservice']
+          parameters: ['payment-service', "microservice"]
         },
         {
           text: 'validate <entity> dependencies',

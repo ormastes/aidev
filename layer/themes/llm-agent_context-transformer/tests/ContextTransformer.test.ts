@@ -18,7 +18,7 @@ describe('ContextTransformer Tests', () => {
     });
   });
 
-  describe('ContextAnalyzer', () => {
+  describe("ContextAnalyzer", () => {
     test('should analyze simple context', async () => {
       const analyzer = new ContextAnalyzer();
       const context = 'This is a simple test context for analysis.';
@@ -47,7 +47,7 @@ describe('ContextTransformer Tests', () => {
       expect(result.segments.length).toBeGreaterThan(1);
       expect(result.segments.some(s => s.type === 'system')).toBe(true);
       expect(result.segments.some(s => s.type === 'user')).toBe(true);
-      expect(result.segments.some(s => s.type === 'assistant')).toBe(true);
+      expect(result.segments.some(s => s.type === "assistant")).toBe(true);
     });
 
     test('should calculate importance scores', async () => {
@@ -91,7 +91,7 @@ describe('ContextTransformer Tests', () => {
     });
   });
 
-  describe('ContextOptimizer', () => {
+  describe("ContextOptimizer", () => {
     test('should optimize context by removing redundancy', async () => {
       const optimizer = new ContextOptimizer({
         enableDeduplication: true
@@ -108,7 +108,7 @@ describe('ContextTransformer Tests', () => {
       
       expect(result.optimizedSize).toBeLessThan(result.originalSize);
       expect(result.reductionPercentage).toBeGreaterThan(0);
-      expect(result.appliedStrategies).toContain('deduplication');
+      expect(result.appliedStrategies).toContain("deduplication");
     });
 
     test('should filter low importance segments', async () => {
@@ -144,7 +144,7 @@ describe('ContextTransformer Tests', () => {
       const result = await optimizer.optimize(context);
       
       expect(result.optimizedSize).toBeLessThan(result.originalSize);
-      expect(result.appliedStrategies).toContain('summarization');
+      expect(result.appliedStrategies).toContain("summarization");
     });
 
     test('should enforce token limits', async () => {
@@ -191,7 +191,7 @@ describe('ContextTransformer Tests', () => {
     });
   });
 
-  describe('ContextCache', () => {
+  describe("ContextCache", () => {
     test('should cache and retrieve contexts', async () => {
       const cache = new ContextCache({
         maxEntries: 10,
@@ -337,7 +337,7 @@ describe('ContextTransformer Tests', () => {
       const context = 'Export test context';
       
       const json = await transformer.exportContext(context, 'json');
-      const markdown = await transformer.exportContext(context, 'markdown');
+      const markdown = await transformer.exportContext(context, "markdown");
       const text = await transformer.exportContext(context, 'text');
       
       expect(JSON.parse(json)).toBeDefined();
@@ -374,14 +374,14 @@ describe('ContextTransformer Tests', () => {
       const events: string[] = [];
       
       transformer.on('transformation:start', () => events.push('start'));
-      transformer.on('transformation:complete', () => events.push('complete'));
-      transformer.on('analysis:complete', () => events.push('analysis'));
+      transformer.on('transformation:complete', () => events.push("complete"));
+      transformer.on('analysis:complete', () => events.push("analysis"));
       
       await transformer.transform('Event test context');
       
       expect(events).toContain('start');
-      expect(events).toContain('complete');
-      expect(events).toContain('analysis');
+      expect(events).toContain("complete");
+      expect(events).toContain("analysis");
     });
   });
 });

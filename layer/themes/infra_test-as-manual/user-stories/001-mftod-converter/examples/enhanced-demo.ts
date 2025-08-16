@@ -6,7 +6,7 @@
 
 import { MFTODConverter } from '../src/application/converter';
 import { CaptureConfiguration, AppCaptureOptions } from '../src/domain/capture-types';
-import { path } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 async function runEnhancedDemo() {
   console.log('🚀 Enhanced Test-as-Manual Conversion Demo');
@@ -14,7 +14,7 @@ async function runEnhancedDemo() {
 
   // Configure enhanced capture system
   const captureConfig: CaptureConfiguration = {
-    tempDirectory: path.join(__dirname, 'temp', 'captures'),
+    tempDirectory: path.join(__dirname, 'temp', "captures"),
     screenshotFormat: 'png',
     enableExternalLogs: true,
     externalLogDirectory: path.join(__dirname, 'temp', 'logs')
@@ -24,7 +24,7 @@ async function runEnhancedDemo() {
   const appCaptureOptions: AppCaptureOptions = {
     ...captureConfig,
     appPlatform: 'web',
-    browserName: 'chromium',
+    browserName: "chromium",
     captureMode: 'auto',
     syncWithLogs: true,
     captureBeforeAfter: false
@@ -40,7 +40,7 @@ async function runEnhancedDemo() {
     const professionalOutput = await converter.convertFileWithCaptures(
       path.join(__dirname, 'sample-test.ts'),
       {
-        format: 'professional',
+        format: "professional",
         includeCodeSnippets: false,
         includeScreenshots: true,
         outputPath: path.join(__dirname, 'output', 'professional-manual.md')
@@ -86,7 +86,7 @@ async function runEnhancedDemo() {
     console.log('🗄️ Demonstrating PostgreSQL Enhancement...');
     
     const pgCommand = ['psql', '-d', 'testdb', '-c', 'SELECT * FROM users'];
-    const enhancedPgCommand = converter.generateEnhancedCommand('postgresql', pgCommand);
+    const enhancedPgCommand = converter.generateEnhancedCommand("postgresql", pgCommand);
     
     console.log(`Original: ${pgCommand.join(' ')}`);
     console.log(`Enhanced: ${enhancedPgCommand.command}`);
@@ -136,7 +136,7 @@ async function runAdvancedScenarios() {
   console.log('==========================\n');
 
   const converter = new MFTODConverter({
-    tempDirectory: path.join(__dirname, 'temp', 'advanced'),
+    tempDirectory: path.join(__dirname, 'temp', "advanced"),
     screenshotFormat: 'png',
     enableExternalLogs: true
   });
@@ -158,7 +158,7 @@ async function runAdvancedScenarios() {
     await converter.convertFileWithCaptures(
       path.join(__dirname, 'sample-test.ts'),
       { 
-        format: 'professional',
+        format: "professional",
         outputPath: path.join(__dirname, 'output', 'mobile-test-manual.md')
       },
       mobileOptions
@@ -175,8 +175,8 @@ async function runAdvancedScenarios() {
     await converter.convertFile(
       path.join(__dirname, 'sample-test.ts'),
       {
-        format: 'professional',
-        template: 'detailed',
+        format: "professional",
+        template: "detailed",
         includeScreenshots: false, // No screenshots for API tests
         groupByFeature: true,
         outputPath: path.join(__dirname, 'output', 'api-test-manual.md')
@@ -195,7 +195,7 @@ async function runAdvancedScenarios() {
       path.join(__dirname, 'sample-test.ts'),
       {
         format: 'enhanced-html',
-        template: 'compliance',
+        template: "compliance",
         includeCodeSnippets: false,
         includeScreenshots: true,
         outputPath: path.join(__dirname, 'output', 'compliance-manual.html')

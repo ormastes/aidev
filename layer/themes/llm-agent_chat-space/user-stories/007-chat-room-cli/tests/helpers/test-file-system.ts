@@ -1,5 +1,5 @@
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join } from 'path';
+import { fsPromises as fs } from 'fs/promises';
+import { join } from 'node:path';
 import { os } from '../../../../../infra_external-log-lib/src';
 import { path } from '../../../../../infra_external-log-lib/src';
 
@@ -195,7 +195,7 @@ export class TestDataFactory {
     for (let i = 0; i < messages; i++) {
       contextMessages.push({
         id: `msg-${i}`,
-        user: i % 2 === 0 ? 'user' : 'assistant',
+        user: i % 2 === 0 ? 'user' : "assistant",
         content: `Message ${i} in room ${roomId}`,
         timestamp: new Date(Date.now() - (messages - i) * 60000).toISOString()
       });

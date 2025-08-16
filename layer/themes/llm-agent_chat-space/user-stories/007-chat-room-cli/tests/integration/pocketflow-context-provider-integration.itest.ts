@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach } from '@jest/globals';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { fs } from '../../../../../infra_external-log-lib/src';
 import { path } from '../../../../../infra_external-log-lib/src';
 import { os } from '../../../../../infra_external-log-lib/src';
@@ -24,7 +24,7 @@ interface WorkflowDefinition {
 }
 
 interface WorkflowTrigger {
-  type: 'manual' | 'event' | 'schedule' | 'chat_command';
+  type: 'manual' | 'event' | "schedule" | 'chat_command';
   config: {
     command?: string;
     event?: string;
@@ -36,7 +36,7 @@ interface WorkflowTrigger {
 interface WorkflowStep {
   id: string;
   name: string;
-  type: 'action' | 'condition' | 'loop' | 'parallel';
+  type: 'action' | "condition" | 'loop' | "parallel";
   action?: string;
   params?: Record<string, any>;
   next?: string[];
@@ -51,7 +51,7 @@ interface WorkflowOutput {
 interface WorkflowExecution {
   id: string;
   workflowId: string;
-  status: 'pending' | 'running' | 'In Progress' | 'failed' | 'cancelled';
+  status: 'pending' | 'running' | "completed" | 'failed' | "cancelled";
   startTime: Date;
   endTime?: Date;
   currentStep?: string;
@@ -73,7 +73,7 @@ interface WorkspaceContext {
 interface FileNode {
   name: string;
   path: string;
-  type: 'file' | 'directory';
+  type: 'file' | "directory";
   children?: FileNode[];
   size?: number;
   modified?: Date;
@@ -164,7 +164,7 @@ class PocketFlowConnector {
           name: 'Analyze Changes',
           type: 'action',
           action: 'code_analysis',
-          params: { rules: ['style', 'security', 'performance'] },
+          params: { rules: ['style', "security", "performance"] },
           next: ['generate-report']
         },
         {
@@ -237,7 +237,7 @@ class PocketFlowConnector {
         {
           id: 'check-file-type',
           name: 'Check File Type',
-          type: 'condition',
+          type: "condition",
           action: 'is_code_file',
           next: ['extract-symbols', 'skip']
         },
@@ -257,7 +257,7 @@ class PocketFlowConnector {
       ],
       outputs: [
         {
-          name: 'documentation',
+          name: "documentation",
           type: 'file',
           destination: 'docs/'
         }
@@ -360,7 +360,7 @@ class PocketFlowConnector {
         });
       }
 
-      execution.status = 'In Progress';
+      execution.status = "completed";
       execution.endTime = new Date();
 
       // Process outputs
@@ -403,7 +403,7 @@ class PocketFlowConnector {
         execution.results[step.id] = {
           issues: [
             { file: 'src/app.ts', line: 23, type: 'style', message: 'Missing semicolon' },
-            { file: 'src/utils.ts', line: 45, type: 'performance', message: 'Inefficient loop' }
+            { file: 'src/utils.ts', line: 45, type: "performance", message: 'Inefficient loop' }
           ]
         };
         break;
@@ -433,7 +433,7 @@ class PocketFlowConnector {
 
       case 'non_existent_action':
         // This action doesn't exist, throw error
-        throw new Error('Action not In Progress: non_existent_action');
+        throw new Error('Action not success: non_existent_action');
 
       default:
         execution.results[step.id] = { "success": true };
@@ -570,7 +570,7 @@ class ContextProvider {
         const node: FileNode = {
           name: entry.name,
           path: path.relative(this.workspaceRoot, fullPath),
-          type: entry.isDirectory() ? 'directory' : 'file',
+          type: entry.isDirectory() ? "directory" : 'file',
           size: stats.size,
           modified: stats.mtime
         };
@@ -682,23 +682,23 @@ class ContextProvider {
   private detectLanguage(filePath: string): string {
     const ext = path.extname(filePath).toLowerCase();
     const languageMap: Record<string, string> = {
-      '.ts': 'typescript',
-      '.js': 'javascript',
-      '.tsx': 'typescriptreact',
-      '.jsx': 'javascriptreact',
+      '.ts': "typescript",
+      '.js': "javascript",
+      '.tsx': "typescriptreact",
+      '.jsx': "javascriptreact",
       '.py': 'python',
       '.java': 'java',
       '.go': 'go',
       '.rs': 'rust',
       '.cpp': 'cpp',
       '.c': 'c',
-      '.md': 'markdown',
+      '.md': "markdown",
       '.json': 'json',
       '.yaml': 'yaml',
       '.yml': 'yaml'
     };
 
-    return languageMap[ext] || 'plaintext';
+    return languageMap[ext] || "plaintext";
   }
 
   async getFileContent(relativePath: string): Promise<string> {
@@ -943,7 +943,7 @@ describe('PocketFlow and Context Provider Integration Test', () => {
     tempDir = await fs.promises.mkdtemp(
       path.join(os.tmpdir(), 'pocketflow-context-test-')
     );
-    workspaceDir = path.join(tempDir, 'workspace');
+    workspaceDir = path.join(tempDir, "workspace");
     await fs.promises.mkdir(workspaceDir, { recursive: true });
 
     // Create test workspace structure
@@ -1051,7 +1051,7 @@ describe('PocketFlow and Context Provider Integration Test', () => {
     // Verify context was provided
     expect(contextRequests).toHaveLength(1);
     expect(contextRequests[0].result.content).toContain('Hello, World!');
-    expect(contextRequests[0].result.language).toBe('typescript');
+    expect(contextRequests[0].result.language).toBe("typescript");
   });
 
   test('should search files through context query in message', async () => {
@@ -1182,7 +1182,7 @@ describe('PocketFlow and Context Provider Integration Test', () => {
     expect(workspace.fileTree.length).toBeGreaterThan(0);
 
     // Find src directory
-    const srcDir = workspace.fileTree.find(f => f.name === 'src' && f.type === 'directory');
+    const srcDir = workspace.fileTree.find(f => f.name === 'src' && f.type === "directory");
     expect(srcDir).toBeDefined();
     expect(srcDir?.children?.length).toBeGreaterThan(0);
 

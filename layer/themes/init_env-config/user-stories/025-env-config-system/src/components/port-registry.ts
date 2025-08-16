@@ -137,7 +137,7 @@ export class PortRegistry {
 
   private async readRegistry(): Promise<RegistryData> {
     try {
-      const content = await fs.readFile(this.registryPath, 'utf-8');
+      const content = await fileAPI.readFile(this.registryPath, 'utf-8');
       return JSON.parse(content);
     } catch (error) {
       // Handle corrupted file
@@ -163,7 +163,7 @@ export class PortRegistry {
         // Return release function
         return async () => {
           try {
-            await fs.unlink(this.lockFile);
+            await fileAPI.unlink(this.lockFile);
           } catch {
             // Lock file might already be removed
           }

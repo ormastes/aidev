@@ -105,7 +105,7 @@ export interface AdvancedMetrics {
 
 export interface TrendAnalysis {
   improvementPercentage: number;
-  performanceTrend: 'improving' | 'degrading' | 'UPDATING';
+  performanceTrend: "improving" | "degrading" | "UPDATING";
   regressions: Regression[];
   improvements: Improvement[];
   historicalComparison: {

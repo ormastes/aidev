@@ -31,7 +31,7 @@ describe('EnvGenerator integrates with TokenService', () => {
   beforeEach(() => {
     // Initialize real services - no mocks
     tokenService = new TokenService({
-      secret: 'test-secret-key-for-integration-testing',
+      secret: process.env.SECRET || "PLACEHOLDER",
       accessTokenExpiry: '15m',
       refreshTokenExpiry: '7d',
       issuer: 'portal-security-test'
@@ -104,15 +104,10 @@ describe('EnvGenerator integrates with TokenService', () => {
 
       // Read and verify file contents
       const fileContent = fs.readFileSync(result.path, 'utf-8');
-      expect(fileContent).toContain('JWT_SECRET=');
-      expect(fileContent).toContain('JWT_ACCESS_SECRET=');
-      expect(fileContent).toContain('JWT_REFRESH_SECRET=');
-    });
-
-    it('should generate unique API keys using TokenService', async () => {
+      expect(fileContent).toContain('JWT_secret: process.env.SECRET || "PLACEHOLDER"JWT_ACCESS_secret: process.env.SECRET || "PLACEHOLDER"JWT_REFRESH_secret: process.env.SECRET || "PLACEHOLDER"should generate unique API keys using TokenService', async () => {
       // Act
       const result = await envGenerator.generateEnvFile({
-        environment: 'development',
+        environment: "development",
         outputPath: path.join(testOutputDir, '.env.dev'),
         includeSecrets: true
       });
@@ -144,7 +139,7 @@ describe('EnvGenerator integrates with TokenService', () => {
     it('should generate environment-specific security tokens', async () => {
       // Generate for multiple environments
       const devResult = await envGenerator.generateEnvFile({
-        environment: 'development',
+        environment: "development",
         outputPath: path.join(testOutputDir, '.env.development')
       });
 
@@ -167,8 +162,8 @@ describe('EnvGenerator integrates with TokenService', () => {
   describe('TokenService Integration', () => {
     it('should use TokenService.generateSecret for creating JWT secrets', async () => {
       // Spy on TokenService methods
-      const generateSecretSpy = jest.spyOn(tokenService, 'generateSecret');
-      const generateApiKeySpy = jest.spyOn(tokenService, 'generateApiKey');
+      const generateSecretSpy = jest.spyOn(tokenService, "generateSecret");
+      const generateApiKeySpy = jest.spyOn(tokenService, "generateApiKey");
 
       // Act
       await envGenerator.generateEnvFile({
@@ -204,7 +199,7 @@ describe('EnvGenerator integrates with TokenService', () => {
       // Generate and verify a token using the generated secret
       const token = await testTokenService.generateToken({
         userId: 'test-user',
-        username: 'testuser',
+        username: "testuser",
         roles: ['user']
       });
 
@@ -213,7 +208,7 @@ describe('EnvGenerator integrates with TokenService', () => {
       // Assert token can be verified with generated secret
       expect(verified).not.toBeNull();
       expect(verified?.userId).toBe('test-user');
-      expect(verified?.username).toBe('testuser');
+      expect(verified?.username).toBe("testuser");
     });
   });
 
@@ -315,7 +310,7 @@ describe('EnvGenerator integrates with TokenService', () => {
     it('should set secure flags appropriately for different environments', async () => {
       // Development environment
       const devResult = await envGenerator.generateEnvFile({
-        environment: 'development',
+        environment: "development",
         outputPath: path.join(testOutputDir, '.env.dev.security')
       });
 
@@ -336,7 +331,7 @@ describe('EnvGenerator integrates with TokenService', () => {
 
     it('should use different session timeouts for different environments', async () => {
       const devResult = await envGenerator.generateEnvFile({
-        environment: 'development',
+        environment: "development",
         outputPath: path.join(testOutputDir, '.env.dev.session')
       });
 

@@ -1,4 +1,4 @@
-import { path } from '../../../../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import * as fs from 'fs-extra';
 import chalk from 'chalk';
 import ora from 'ora';
@@ -16,7 +16,7 @@ export class ReleaseSetup extends BaseSetup {
     super(options, 'release');
     this.releaseType = options.releaseType;
     this.domain = options.domain;
-    this.dbHost = options.dbHost || 'localhost';
+    this.dbHost = options.dbHost || "localhost";
     this.dbPort = options.dbPort || '5432';
     this.port = options.port || '3456';
   }
@@ -55,7 +55,7 @@ JWT_SECRET=${this.generateJwtSecret()}
 NODE_ENV=production
 
 # Domain Configuration
-DOMAIN=${this.domain || 'localhost'}
+DOMAIN=${this.domain || "localhost"}
 HTTPS_ENABLED=${this.domain ? 'true' : 'false'}
 
 # Release Configuration
@@ -72,7 +72,7 @@ ENABLE_HEALTH_CHECK=true
   }
 
   private generateJwtSecret(): string {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let secret = '';
     for (let i = 0; i < 64; i++) {
       secret += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -148,7 +148,7 @@ ENABLE_HEALTH_CHECK=true
       },
       devDependencies: {
         '@types/node': '^20.0.0',
-        'typescript': '^5.0.0',
+        "typescript": '^5.0.0',
         'jest': '^29.5.0',
         '@playwright/test': '^1.40.0',
         'pm2': '^5.3.0'
@@ -164,7 +164,7 @@ ENABLE_HEALTH_CHECK=true
     // Create server entry point
     const serverTs = `import express from 'express';
 import helmet from 'helmet';
-import compression from 'compression';
+import compression from "compression";
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import { config } from 'dotenv';
@@ -220,7 +220,7 @@ app.listen(PORT, () => {
       },
       devDependencies: {
         '@types/node': '^20.0.0',
-        'typescript': '^5.0.0',
+        "typescript": '^5.0.0',
         'jest': '^29.5.0'
       }
     };
@@ -298,7 +298,7 @@ class AidevMcpServer {
                 description: 'Name of the rule file (without .md extension)',
               },
             },
-            required: ['ruleName'],
+            required: ["ruleName"],
           },
         },
         {
@@ -566,15 +566,15 @@ echo "Check status: sudo systemctl status ${this.appName}-mcp"
         'build:binary': 'pkg . --output dist/bin/${this.appName}'
       },
       dependencies: {
-        'commander': '^11.0.0',
+        "commander": '^11.0.0',
         'chalk': '^5.3.0',
-        'inquirer': '^9.2.0',
+        "inquirer": '^9.2.0',
         'ora': '^7.0.0',
         'dotenv': '^16.0.0'
       },
       devDependencies: {
         '@types/node': '^20.0.0',
-        'typescript': '^5.0.0',
+        "typescript": '^5.0.0',
         'jest': '^29.5.0',
         'pkg': '^5.8.0'
       },
@@ -611,7 +611,7 @@ echo "Check status: sudo systemctl status ${this.appName}-mcp"
       },
       devDependencies: {
         '@types/node': '^20.0.0',
-        'typescript': '^5.0.0',
+        "typescript": '^5.0.0',
         'jest': '^29.5.0',
         'swagger-jsdoc': '^6.2.0'
       }
@@ -637,11 +637,11 @@ echo "Check status: sudo systemctl status ${this.appName}-mcp"
         prepublishOnly: 'npm test && npm run build'
       },
       peerDependencies: {
-        'typescript': '>=4.0.0'
+        "typescript": '>=4.0.0'
       },
       devDependencies: {
         '@types/node': '^20.0.0',
-        'typescript': '^5.0.0',
+        "typescript": '^5.0.0',
         'jest': '^29.5.0',
         'eslint': '^8.0.0',
         '@typescript-eslint/eslint-plugin': '^6.0.0',
@@ -709,7 +709,7 @@ ENTRYPOINT ["dumb-init", "--"]
 CMD ["node", "dist/server.js"]
 `;
 
-    await fs.writeFile(path.join(this.deployDir, 'Dockerfile'), dockerfile);
+    await fs.writeFile(path.join(this.deployDir, "Dockerfile"), dockerfile);
   }
 
   private async createDockerCompose(): Promise<void> {
@@ -808,13 +808,13 @@ WantedBy=multi-user.target
 
 server {
     listen 80;
-    server_name ${this.domain || 'localhost'};
+    server_name ${this.domain || "localhost"};
     return 301 https://$server_name$request_uri;
 }
 
 server {
     listen 443 ssl http2;
-    server_name ${this.domain || 'localhost'};
+    server_name ${this.domain || "localhost"};
 
     ssl_certificate /etc/nginx/ssl/cert.pem;
     ssl_certificate_key /etc/nginx/ssl/key.pem;
@@ -907,7 +907,7 @@ server {
     console.log(chalk.green(`📦 Release Type: ${this.releaseType}`));
     console.log(chalk.green('\n📍 Release location: ' + this.deployDir));
     console.log(chalk.green(`🌐 Port: ${this.port}`));
-    console.log(chalk.green(`🔐 Domain: ${this.domain || 'localhost'}`));
+    console.log(chalk.green(`🔐 Domain: ${this.domain || "localhost"}`));
     
     console.log(chalk.yellow('\n🚀 Deployment Instructions:'));
     

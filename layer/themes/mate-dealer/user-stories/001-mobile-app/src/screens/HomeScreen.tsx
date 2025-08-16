@@ -27,7 +27,7 @@ const HomeScreen: React.FC = () => {
   const { orders } = useAppSelector((state) => state.orders);
   const [refreshing, setRefreshing] = useState(false);
 
-  const activeOrders = orders.filter(order => !['delivered', 'cancelled'].includes(order.status));
+  const activeOrders = orders.filter(order => !["delivered", "cancelled"].includes(order.status));
 
   useEffect(() => {
     fetchFeaturedProducts();
@@ -114,7 +114,7 @@ const HomeScreen: React.FC = () => {
           <Text style={styles.statLabel}>Active Orders</Text>
         </View>
         <View style={styles.statCard}>
-          <Text style={styles.statNumber}>{orders.filter(o => o.status === 'delivered').length}</Text>
+          <Text style={styles.statNumber}>{orders.filter(o => o.status === "delivered").length}</Text>
           <Text style={styles.statLabel}>Completed</Text>
         </View>
       </View>
@@ -165,9 +165,9 @@ const HomeScreen: React.FC = () => {
         <View style={styles.categoriesGrid}>
           {[
             { name: 'Yerba Mate', icon: '🌿', category: 'yerba_mate' },
-            { name: 'Bombillas', icon: '🥄', category: 'bombillas' },
+            { name: "Bombillas", icon: '🥄', category: "bombillas" },
             { name: 'Gourds', icon: '🥥', category: 'gourds' },
-            { name: 'Accessories', icon: '🔧', category: 'accessories' },
+            { name: "Accessories", icon: '🔧', category: "accessories" },
           ].map((cat) => (
             <TouchableOpacity 
               key={cat.category}
@@ -360,7 +360,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f3f4f6',
   },
   saleTag: {
-    position: 'absolute',
+    position: "absolute",
     top: 8,
     left: 8,
     backgroundColor: '#ef4444',

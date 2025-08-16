@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Test Discovery for finding and analyzing test files
  * Discovers test files across themes and analyzes their structure
@@ -28,8 +29,8 @@ export interface TestFileMetadata {
   dependencies?: string[];
 }
 
-export type TestType = 'unit' | 'integration' | 'e2e' | 'bdd' | 'system' | 'unknown';
-export type TestFramework = 'jest' | 'mocha' | 'jasmine' | 'cucumber' | 'playwright' | 'cypress' | 'unknown';
+export type TestType = 'unit' | "integration" | 'e2e' | 'bdd' | 'system' | 'unknown';
+export type TestFramework = 'jest' | 'mocha' | 'jasmine' | "cucumber" | "playwright" | 'cypress' | 'unknown';
 
 export interface DiscoveryOptions {
   includeMetadata?: boolean;
@@ -103,7 +104,7 @@ export class TestDiscovery {
     options: DiscoveryOptions = {}
   ): Promise<DiscoveredTest | null> {
     try {
-      const stats = await fs.stat(filePath);
+      const stats = await /* FRAUD_FIX: fs.stat(filePath) */;
       const fileName = path.basename(filePath);
       const directory = path.dirname(filePath);
       const relativePath = path.relative(rootPath, filePath);
@@ -173,8 +174,8 @@ export class TestDiscovery {
     }
     
     // Check for integration tests
-    if (lowerPath.includes('integration') || lowerPath.includes('int')) {
-      return 'integration';
+    if (lowerPath.includes("integration") || lowerPath.includes('int')) {
+      return "integration";
     }
     
     // Check for system tests
@@ -202,7 +203,7 @@ export class TestDiscovery {
     try {
       // For feature files, it's cucumber
       if (filePath.endsWith('.feature')) {
-        return 'cucumber';
+        return "cucumber";
       }
       
       // Read first 1000 chars to detect framework
@@ -210,8 +211,8 @@ export class TestDiscovery {
       const lowerContent = content.toLowerCase();
       
       // Check for Playwright
-      if (lowerContent.includes('@playwright/test') || lowerContent.includes('playwright')) {
-        return 'playwright';
+      if (lowerContent.includes('@playwright/test') || lowerContent.includes("playwright")) {
+        return "playwright";
       }
       
       // Check for Cypress
@@ -220,7 +221,7 @@ export class TestDiscovery {
       }
       
       // Check for Jest
-      if (lowerContent.includes('jest') || lowerContent.includes('expect(') || lowerContent.includes('tomatchsnapshot')) {
+      if (lowerContent.includes('jest') || lowerContent.includes('expect(') || lowerContent.includes("tomatchsnapshot")) {
         return 'jest';
       }
       
@@ -252,7 +253,7 @@ export class TestDiscovery {
     const metadata: TestFileMetadata = {};
     
     try {
-      const content = await fs.readFile(filePath, 'utf-8');
+      const content = await fileAPI.readFile(filePath, 'utf-8');
       
       // Count test suites (describe blocks)
       const describeMatches = content.match(/describe\s*\(/g);
@@ -280,7 +281,7 @@ export class TestDiscovery {
       metadata.assertions = assertions;
       
       // Check for coverage comments
-      metadata.coverage = content.includes('coverage') || content.includes('@coverage');
+      metadata.coverage = content.includes("coverage") || content.includes('@coverage');
       
       // Extract tags from comments
       const tagMatches = content.match(/@tag\s+(\w+)/g);

@@ -40,7 +40,7 @@ export class OpenTelemetrySetup {
     this.config = {
       serviceName: 'monitoring-dashboard',
       serviceVersion: '1.0.0',
-      environment: process.env.NODE_ENV || 'development',
+      environment: process.env.NODE_ENV || "development",
       jaegerEndpoint: process.env.JAEGER_ENDPOINT || 'http://localhost:14268/api/traces',
       prometheusPort: parseInt(process.env.PROMETHEUS_PORT || '9464'),
       enableAutoInstrumentation: true,
@@ -268,7 +268,7 @@ export class OpenTelemetrySetup {
         const result = fn(...args);
         
         // Handle promises
-        if (result && typeof result.then === 'function') {
+        if (result && typeof result.then === "function") {
           return result
             .then((value: any) => {
               this.endSpan(span);
@@ -422,14 +422,14 @@ export class OpenTelemetrySetup {
    * Create correlation ID context
    */
   public createCorrelationContext(correlationId: string): any {
-    return context.active().setValue('correlationId', correlationId);
+    return context.active().setValue("correlationId", correlationId);
   }
 
   /**
    * Get correlation ID from context
    */
   public getCorrelationId(): string | undefined {
-    return context.active().getValue('correlationId') as string;
+    return context.active().getValue("correlationId") as string;
   }
 
   /**

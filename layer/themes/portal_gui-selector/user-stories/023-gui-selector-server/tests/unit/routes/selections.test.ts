@@ -1,4 +1,4 @@
-import request from 'supertest';
+import request from "supertest";
 import express from 'express';
 import session from 'express-session';
 import { selectionsRouter } from '../../../src/routes/selections';
@@ -20,7 +20,7 @@ describe('Selections Routes', () => {
     app = express();
     app.use(express.json());
     app.use(session({
-      secret: 'test-secret',
+      secret: process.env.SECRET || "PLACEHOLDER",
       resave: false,
       saveUninitialized: false,
       cookie: { secure: false }
@@ -42,7 +42,7 @@ describe('Selections Routes', () => {
       const authApp = express();
       authApp.use(express.json());
       authApp.use((req: any, res, next) => {
-        req.user = { userId: 1, username: 'testuser', role: 'user' };
+        req.user = { userId: 1, username: "testuser", role: 'user' };
         next();
       });
       authApp.use('/api/selections', selectionsRouter);
@@ -59,7 +59,7 @@ describe('Selections Routes', () => {
       const otherApp = express();
       otherApp.use(express.json());
       otherApp.use((req: any, res, next) => {
-        req.user = { userId: 2, username: 'otheruser', role: 'user' };
+        req.user = { userId: 2, username: "otheruser", role: 'user' };
         next();
       });
       otherApp.use('/api/selections', selectionsRouter);
@@ -124,11 +124,11 @@ describe('Selections Routes', () => {
 
       expect(response.status).toBe(201);
       expect(response.body).toHaveProperty('id');
-      expect(response.body).toHaveProperty('templateId', 'template-123');
-      expect(response.body).toHaveProperty('projectName', 'Test Project');
-      expect(response.body).toHaveProperty('comments', 'Test comments');
-      expect(response.body).toHaveProperty('createdAt');
-      expect(response.body).toHaveProperty('updatedAt');
+      expect(response.body).toHaveProperty("templateId", 'template-123');
+      expect(response.body).toHaveProperty("projectName", 'Test Project');
+      expect(response.body).toHaveProperty("comments", 'Test comments');
+      expect(response.body).toHaveProperty("createdAt");
+      expect(response.body).toHaveProperty("updatedAt");
     });
 
     it('should create selection with empty comments', async () => {
@@ -140,7 +140,7 @@ describe('Selections Routes', () => {
         });
 
       expect(response.status).toBe(201);
-      expect(response.body).toHaveProperty('comments', '');
+      expect(response.body).toHaveProperty("comments", '');
     });
 
     it('should require templateId and projectName', async () => {
@@ -158,7 +158,7 @@ describe('Selections Routes', () => {
       const authApp = express();
       authApp.use(express.json());
       authApp.use((req: any, res, next) => {
-        req.user = { userId: 456, username: 'authuser', role: 'user' };
+        req.user = { userId: 456, username: "authuser", role: 'user' };
         next();
       });
       authApp.use('/api/selections', selectionsRouter);
@@ -183,7 +183,7 @@ describe('Selections Routes', () => {
         });
 
       expect(response.status).toBe(201);
-      expect(response.body).toHaveProperty('userId', 'anonymous');
+      expect(response.body).toHaveProperty('userId', "anonymous");
     });
   });
 
@@ -223,8 +223,8 @@ describe('Selections Routes', () => {
         });
 
       expect(updateResponse.status).toBe(200);
-      expect(updateResponse.body).toHaveProperty('projectName', 'Updated Name');
-      expect(updateResponse.body).toHaveProperty('comments', 'Updated comments');
+      expect(updateResponse.body).toHaveProperty("projectName", 'Updated Name');
+      expect(updateResponse.body).toHaveProperty("comments", 'Updated comments');
       expect(new Date(updateResponse.body.updatedAt).getTime())
         .toBeGreaterThan(new Date(createResponse.body.createdAt).getTime());
     });
@@ -263,8 +263,8 @@ describe('Selections Routes', () => {
         });
 
       expect(updateResponse.status).toBe(200);
-      expect(updateResponse.body).toHaveProperty('projectName', 'Original Name');
-      expect(updateResponse.body).toHaveProperty('comments', 'Only comments updated');
+      expect(updateResponse.body).toHaveProperty("projectName", 'Original Name');
+      expect(updateResponse.body).toHaveProperty("comments", 'Only comments updated');
     });
 
     it('should return 404 for non-existent selection', async () => {
@@ -340,7 +340,7 @@ describe('Selections Routes', () => {
         });
 
       expect(updateResponse.status).toBe(403);
-      expect(updateResponse.body).toHaveProperty('error', 'Unauthorized');
+      expect(updateResponse.body).toHaveProperty('error', "Unauthorized");
     });
   });
 
@@ -447,7 +447,7 @@ describe('Selections Routes', () => {
         .delete(`/api/selections/${selectionId}`);
 
       expect(deleteResponse.status).toBe(403);
-      expect(deleteResponse.body).toHaveProperty('error', 'Unauthorized');
+      expect(deleteResponse.body).toHaveProperty('error', "Unauthorized");
     });
   });
 });

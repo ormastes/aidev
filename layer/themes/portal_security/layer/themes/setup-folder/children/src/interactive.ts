@@ -1,4 +1,4 @@
-import inquirer from 'inquirer';
+import inquirer from "inquirer";
 import chalk from 'chalk';
 import ora from 'ora';
 import { DemoSetup } from './setup/demo-setup';
@@ -29,7 +29,7 @@ export async function runInteractive(): Promise<void> {
     const { deploymentType } = await inquirer.prompt<{ deploymentType: DeploymentType }>([
       {
         type: 'list',
-        name: 'deploymentType',
+        name: "deploymentType",
         message: 'What type of environment do you want to set up?',
         choices: [
           { name: '🧪 Demo - General demo environment (ports 3300-3399)', value: 'demo' },
@@ -107,14 +107,14 @@ async function setupDemo(appName: string, mode: Mode): Promise<void> {
   const answers = await inquirer.prompt([
     {
       type: 'list',
-      name: 'language',
+      name: "language",
       message: 'Which programming language do you want to use?',
       choices: [
-        { name: 'TypeScript (recommended)', value: 'typescript' },
-        { name: 'JavaScript', value: 'javascript' },
+        { name: 'TypeScript (recommended)', value: "typescript" },
+        { name: "JavaScript", value: "javascript" },
         { name: 'Python', value: 'python' }
       ],
-      default: 'typescript'
+      default: "typescript"
     },
     {
       type: 'confirm',
@@ -124,7 +124,7 @@ async function setupDemo(appName: string, mode: Mode): Promise<void> {
     },
     {
       type: 'input',
-      name: 'configFile',
+      name: "configFile",
       message: 'Path to setup.json configuration file (optional):',
       when: () => {
         console.log(chalk.gray('Press Enter to skip'));
@@ -169,7 +169,7 @@ async function setupEpic(appName: string, mode: Mode): Promise<void> {
     },
     {
       type: 'input',
-      name: 'description',
+      name: "description",
       message: 'Describe the epic:',
       default: 'Epic description'
     },
@@ -180,19 +180,19 @@ async function setupEpic(appName: string, mode: Mode): Promise<void> {
     },
     {
       type: 'input',
-      name: 'targetRelease',
+      name: "targetRelease",
       message: 'Target release version (optional):'
     },
     {
       type: 'list',
-      name: 'priority',
+      name: "priority",
       message: 'Priority level:',
       choices: ['high', 'medium', 'low'],
       default: 'medium'
     },
     {
       type: 'number',
-      name: 'storyPoints',
+      name: "storyPoints",
       message: 'Estimated story points:',
       default: 0
     }
@@ -231,7 +231,7 @@ async function setupTheme(appName: string, mode: Mode): Promise<void> {
   const answers = await inquirer.prompt([
     {
       type: 'input',
-      name: 'themeName',
+      name: "themeName",
       message: 'What is the theme name?',
       default: 'New Theme',
       validate: (input: string) => {
@@ -243,7 +243,7 @@ async function setupTheme(appName: string, mode: Mode): Promise<void> {
     },
     {
       type: 'input',
-      name: 'description',
+      name: "description",
       message: 'Describe the theme:',
       default: 'Theme description'
     },
@@ -297,7 +297,7 @@ async function setupStory(appName: string, mode: Mode): Promise<void> {
     },
     {
       type: 'editor',
-      name: 'description',
+      name: "description",
       message: 'Enter the user story (As a... I want... So that...):'
     },
     {
@@ -312,7 +312,7 @@ async function setupStory(appName: string, mode: Mode): Promise<void> {
     },
     {
       type: 'input',
-      name: 'acceptanceCriteria',
+      name: "acceptanceCriteria",
       message: 'Enter acceptance criteria (comma-separated):'
     },
     {
@@ -322,14 +322,14 @@ async function setupStory(appName: string, mode: Mode): Promise<void> {
     },
     {
       type: 'list',
-      name: 'priority',
+      name: "priority",
       message: 'Priority level:',
       choices: ['high', 'medium', 'low'],
       default: 'medium'
     },
     {
       type: 'list',
-      name: 'storyPoints',
+      name: "storyPoints",
       message: 'Story points:',
       choices: ['1', '2', '3', '5', '8', '13'],
       default: '3'
@@ -371,7 +371,7 @@ async function setupRelease(appName: string, mode: Mode): Promise<void> {
   const answers = await inquirer.prompt([
     {
       type: 'list',
-      name: 'releaseType',
+      name: "releaseType",
       message: 'What type of release do you want to create?',
       choices: [
         { name: '🌐 Web Server - Full-stack web application', value: 'web-server' },
@@ -391,7 +391,7 @@ async function setupRelease(appName: string, mode: Mode): Promise<void> {
       type: 'input',
       name: 'dbHost',
       message: 'PostgreSQL host:',
-      default: 'localhost',
+      default: "localhost",
       when: (currentAnswers) => ['web-server', 'api'].includes(currentAnswers.releaseType)
     },
     {
@@ -442,7 +442,7 @@ async function setupTest(appName: string, mode: Mode): Promise<void> {
   const answers = await inquirer.prompt([
     {
       type: 'list',
-      name: 'testFramework',
+      name: "testFramework",
       message: 'Which test framework do you want to use?',
       choices: [
         { name: 'Jest - Popular and feature-rich (recommended)', value: 'jest' },

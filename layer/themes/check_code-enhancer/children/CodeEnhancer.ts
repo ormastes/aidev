@@ -49,7 +49,7 @@ export interface EnhancementResult {
 }
 
 export interface Change {
-  type: 'format' | 'optimize' | 'refactor' | 'document' | 'fix';
+  type: 'format' | "optimize" | "refactor" | "document" | 'fix';
   description: string;
   before: string;
   after: string;
@@ -103,7 +103,7 @@ export class CodeEnhancer {
       document: true,
       analyze: true,
       fixIssues: true,
-      language: 'typescript',
+      language: "typescript",
       style: {
         indentSize: 2,
         useSpaces: true,
@@ -361,10 +361,10 @@ export class CodeEnhancer {
     switch (ext) {
       case 'ts':
       case 'tsx':
-        return 'typescript';
+        return "typescript";
       case 'js':
       case 'jsx':
-        return 'javascript';
+        return "javascript";
       case 'cpp':
       case 'cc':
       case 'cxx':

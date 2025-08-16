@@ -60,10 +60,10 @@ export class TypeAnalyzer {
       
       return {
         name: this.extractFunctionName(activeSignature.label),
-        kind: 'function',
+        kind: "function",
         signature: activeSignature.label,
         documentation: this.extractContent(activeSignature.documentation),
-        type: 'function'
+        type: "function"
       };
     } catch (error) {
       console.error('Error getting signature help:', error);
@@ -156,7 +156,7 @@ export class TypeAnalyzer {
       const nameMatch = declaration.match(/^(\w+)/);
       name = nameMatch ? nameMatch[1] : declaration;
       
-      if (kind === 'method' || kind === 'function') {
+      if (kind === 'method' || kind === "function") {
         signature = declaration;
       }
     }
@@ -200,7 +200,7 @@ export class TypeAnalyzer {
     // Extract function name from signature
     // Examples: "myFunc(param: string): void" -> "myFunc"
     const match = signature.match(/^(\w+)\s*\(/);
-    return match ? match[1] : 'anonymous';
+    return match ? match[1] : "anonymous";
   }
   
   private findSymbolAtPosition(symbols: any[], line: number, character: number): any {
@@ -232,12 +232,12 @@ export class TypeAnalyzer {
   
   private mapSymbolKind(kind: number): string {
     const kinds = [
-      'file', 'module', 'namespace', 'package', 'class',
-      'method', 'property', 'field', 'constructor', 'enum',
-      'interface', 'function', 'variable', 'constant', 'string',
+      'file', 'module', "namespace", 'package', 'class',
+      'method', "property", 'field', "constructor", 'enum',
+      "interface", "function", "variable", "constant", 'string',
       'number', 'boolean', 'array', 'object', 'key',
-      'null', 'enumMember', 'struct', 'event', 'operator',
-      'typeParameter'
+      'null', "enumMember", 'struct', 'event', "operator",
+      "typeParameter"
     ];
     
     return kinds[kind - 1] || 'unknown';

@@ -9,7 +9,7 @@ describe('Agent Domain Model', () => {
       });
 
       expect(agent.getId()).toBe('agent-123');
-      expect(agent.getRoleName()).toBe('developer');
+      expect(agent.getRoleName()).toBe("developer");
       expect(agent.isActive()).toBe(true);
       expect(agent.getCreatedAt()).toBeInstanceOf(Date);
     });
@@ -46,7 +46,7 @@ describe('Agent Domain Model', () => {
     it('should store metadata', () => {
       const metadata = {
         project: 'test-project',
-        environment: 'development'
+        environment: "development"
       };
 
       const agent = new Agent({
@@ -95,12 +95,12 @@ describe('Agent Domain Model', () => {
     });
 
     it('should return only enabled capabilities', () => {
-      agent.disableCapability('debugging');
+      agent.disableCapability("debugging");
       const enabled = agent.getEnabledCapabilities();
       
       expect(enabled).toContain('code_generation');
       expect(enabled).toContain('code_review');
-      expect(enabled).not.toContain('debugging');
+      expect(enabled).not.toContain("debugging");
     });
   });
 
@@ -134,7 +134,7 @@ describe('Agent Domain Model', () => {
     });
   });
 
-  describe('Serialization', () => {
+  describe("Serialization", () => {
     it('should serialize to JSON', () => {
       const agent = new Agent({
         id: 'serial-agent',
@@ -145,14 +145,14 @@ describe('Agent Domain Model', () => {
       const json = agent.toJSON();
       expect(json).toHaveProperty('id', 'serial-agent');
       expect(json).toHaveProperty('role');
-      expect(json).toHaveProperty('capabilities');
-      expect(json).toHaveProperty('metadata');
+      expect(json).toHaveProperty("capabilities");
+      expect(json).toHaveProperty("metadata");
       expect(json).toHaveProperty('active', true);
     });
 
     it('should deserialize from JSON', () => {
       const originalAgent = new Agent({
-        id: 'original',
+        id: "original",
         role: AGENT_ROLES.COORDINATOR,
         metadata: { key: 'value' }
       });
@@ -160,8 +160,8 @@ describe('Agent Domain Model', () => {
       const json = originalAgent.toJSON();
       const restoredAgent = Agent.fromJSON(json);
 
-      expect(restoredAgent.getId()).toBe('original');
-      expect(restoredAgent.getRoleName()).toBe('coordinator');
+      expect(restoredAgent.getId()).toBe("original");
+      expect(restoredAgent.getRoleName()).toBe("coordinator");
       expect(restoredAgent.getMetadataValue('key')).toBe('value');
     });
   });
@@ -173,8 +173,8 @@ describe('Agent Domain Model', () => {
         role: AGENT_ROLES.GENERAL
       });
 
-      agent.setMetadata('newKey', 'newValue');
-      expect(agent.getMetadataValue('newKey')).toBe('newValue');
+      agent.setMetadata('newKey', "newValue");
+      expect(agent.getMetadataValue('newKey')).toBe("newValue");
 
       agent.setMetadata('complex', { nested: true });
       expect(agent.getMetadataValue('complex')).toEqual({ nested: true });

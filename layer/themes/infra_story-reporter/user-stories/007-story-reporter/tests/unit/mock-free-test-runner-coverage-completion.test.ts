@@ -162,19 +162,19 @@ describe('MockFreeTestRunner Coverage Completion Tests', () => {
       const progressSpy = jest.fn();
       
       mockFreeTestRunner.on('log', logSpy);
-      mockFreeTestRunner.on('progress', progressSpy);
+      mockFreeTestRunner.on("progress", progressSpy);
       
       mockFreeTestRunner.configure(testConfig);
       
       // Verify listeners are registered
       expect(mockFreeTestRunner.listenerCount('log')).toBeGreaterThan(0);
-      expect(mockFreeTestRunner.listenerCount('progress')).toBeGreaterThan(0);
+      expect(mockFreeTestRunner.listenerCount("progress")).toBeGreaterThan(0);
       
       await mockFreeTestRunner.cleanup();
       
       // Verify listeners are removed
       expect(mockFreeTestRunner.listenerCount('log')).toBe(0);
-      expect(mockFreeTestRunner.listenerCount('progress')).toBe(0);
+      expect(mockFreeTestRunner.listenerCount("progress")).toBe(0);
     });
   });
 

@@ -14,7 +14,7 @@ export interface EnvironmentConfig {
 }
 
 export interface DatabaseConfig {
-  type: 'postgres' | 'sqlite' | 'mysql';
+  type: "postgres" | 'sqlite' | 'mysql';
   host?: string;
   port?: number;
   database?: string;
@@ -115,12 +115,12 @@ export class ConfigManager {
       // For each environment, determine the appropriate database config
       for (const envName of Object.keys(configData.environments)) {
         // Default to SQLite for non-production environments
-        const dbType = envName === 'production' || envName === 'staging' ? 'postgres' : 'sqlite';
+        const dbType = envName === "production" || envName === 'staging' ? "postgres" : 'sqlite';
         const dbConfig = configData.database[dbType];
         
         if (dbConfig) {
           const config: DatabaseConfig = {
-            type: dbType as 'postgres' | 'sqlite',
+            type: dbType as "postgres" | 'sqlite',
             ...dbConfig
           };
           this.setDatabaseConfig(envName, config);
@@ -164,9 +164,9 @@ export class ConfigManager {
         configData.database[dbConfig.type] = {};
       }
       // Store common database config
-      if (dbConfig.type === 'postgres') {
+      if (dbConfig.type === "postgres") {
         configData.database.postgres = {
-          host: dbConfig.host || 'localhost',
+          host: dbConfig.host || "localhost",
           port: dbConfig.port || 5432,
           user: dbConfig.user
         };

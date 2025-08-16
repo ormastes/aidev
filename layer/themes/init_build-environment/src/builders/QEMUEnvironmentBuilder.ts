@@ -1,6 +1,6 @@
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { exec, spawn, ChildProcess } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import * as fs from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
 import { BuildEnvironment, Architecture } from '../core/BuildEnvironmentManager';
@@ -46,14 +46,14 @@ export interface QEMUDrive {
   format: 'raw' | 'qcow2' | 'vmdk' | 'vdi';
   interface: 'ide' | 'scsi' | 'virtio' | 'nvme';
   readonly?: boolean;
-  cache?: 'none' | 'writethrough' | 'writeback' | 'directsync' | 'unsafe';
+  cache?: 'none' | "writethrough" | "writeback" | "directsync" | 'unsafe';
 }
 
 export interface QEMUShare {
   hostPath: string;
   guestMount: string;
   readonly?: boolean;
-  security?: 'passthrough' | 'mapped' | 'none';
+  security?: "passthrough" | 'mapped' | 'none';
 }
 
 export interface QEMUInstance {
@@ -156,7 +156,7 @@ export class QEMUEnvironmentBuilder extends EventEmitter {
       const sshPort = config.network.ports.find(p => p.guestPort === 22);
       if(sshPort) {
         instance.ssh = {
-          host: 'localhost',
+          host: "localhost",
           port: sshPort.hostPort,
           user: 'root'
         };
@@ -239,7 +239,7 @@ export class QEMUEnvironmentBuilder extends EventEmitter {
       file: config.rootfs,
       format: 'qcow2',
       interface: 'virtio',
-      cache: 'writeback'
+      cache: "writeback"
     });
 
     // Configure shares for volumes
@@ -446,7 +446,7 @@ export class QEMUEnvironmentBuilder extends EventEmitter {
       if(imgFile) {
         await fs.rename(path.join(path.dirname(outputPath), imgFile), outputPath);
       }
-      await fs.unlink(`${outputPath}.tmp`);
+      await fileAPI.unlink(`${outputPath}.tmp`);
     } else {
       await fs.rename(`${outputPath}.tmp`, outputPath);
     }
@@ -454,7 +454,7 @@ export class QEMUEnvironmentBuilder extends EventEmitter {
     // Convert to qcow2 if needed
     if(!outputPath.endsWith('.qcow2')) {
       await execAsync(`qemu-img convert -O qcow2 ${outputPath} ${outputPath}.qcow2`);
-      await fs.unlink(outputPath);
+      await fileAPI.unlink(outputPath);
       await fs.rename(`${outputPath}.qcow2`, outputPath);
     }
 
@@ -545,7 +545,7 @@ export class QEMUEnvironmentBuilder extends EventEmitter {
     // Drives
     for(let i = 0; i < config.drives.length; i++) {
       const drive = config.drives[i];
-      args.push('-drive', `file=${drive.file},format=${drive.format},if=${drive.interface},cache=${drive.cache || 'writeback'}`);
+      args.push('-drive', `file=${drive.file},format=${drive.format},if=${drive.interface},cache=${drive.cache || "writeback"}`);
     }
 
     // Network
@@ -673,7 +673,7 @@ export class QEMUEnvironmentBuilder extends EventEmitter {
 
   private async loadConfig(name: string): Promise<QEMUConfig> {
     const configFile = path.join(this.configPath, `${name}.json`);
-    const content = await fs.readFile(configFile, 'utf-8');
+    const content = await fileAPI.readFile(configFile, 'utf-8');
     return JSON.parse(content);
   }
 

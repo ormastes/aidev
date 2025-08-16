@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * FileStructureValidator
  * 
@@ -23,7 +24,7 @@ interface FileStructureDefinition {
 
 interface TemplateDefinition {
   id: string;
-  type: 'directory' | 'file';
+  type: "directory" | 'file';
   freeze?: boolean;
   freeze_message?: string;
   description?: string;
@@ -37,7 +38,7 @@ interface TemplateDefinition {
 
 interface ChildDefinition {
   name: string;
-  type: 'directory' | 'file' | 'feature_file';
+  type: "directory" | 'file' | 'feature_file';
   required?: boolean;
   comment?: string;
   children?: ChildDefinition[];
@@ -47,7 +48,7 @@ interface ChildDefinition {
 
 export interface Violation {
   type: 'missing_required' | 'unexpected_file' | 'freeze_violation' | 'pattern_mismatch' | 'structure_mismatch';
-  severity: 'critical' | 'high' | 'medium' | 'low';
+  severity: "critical" | 'high' | 'medium' | 'low';
   path: string;
   message: string;
   suggestion?: string;
@@ -91,7 +92,7 @@ export class FileStructureValidator {
       throw new Error(`FILE_STRUCTURE.vf.json not found at ${filePath}`);
     }
 
-    const content = fs.readFileSync(filePath, 'utf8');
+    const content = fileAPI.readFileSync(filePath, 'utf8');
     this.fileStructure = JSON.parse(content);
   }
 
@@ -195,17 +196,17 @@ export class FileStructureValidator {
 
     const stat = fs.statSync(childPath);
     const isDirectory = stat.isDirectory();
-    const expectedDirectory = child.type === 'directory';
+    const expectedDirectory = child.type === "directory";
 
     if (isDirectory !== expectedDirectory) {
       this.addViolation({
         type: 'structure_mismatch',
         severity: 'medium',
         path: childPath,
-        message: `Expected ${child.type} but found ${isDirectory ? 'directory' : 'file'}`,
+        message: `Expected ${child.type} but found ${isDirectory ? "directory" : 'file'}`,
         suggestion: `Convert to ${child.type}`,
         expected: child.type,
-        actual: isDirectory ? 'directory' : 'file'
+        actual: isDirectory ? "directory" : 'file'
       });
     }
 
@@ -346,13 +347,13 @@ export class FileStructureValidator {
   private async validateThemeStructure(themePath: string, themeName: string): Promise<void> {
     const requiredFiles = ['README.md', 'FEATURE.vf.json', 'TASK_QUEUE.vf.json', 'NAME_ID.vf.json'];
     const allowedDirs = [
-      'user-stories', 'children', 'common', 'research', 'resources',
-      'pipe', 'tests', 'docs', 'src', 'gen', 'external', 'dist',
-      'coverage', 'examples', 'scripts', 'node_modules',
+      'user-stories', "children", 'common', "research", "resources",
+      'pipe', 'tests', 'docs', 'src', 'gen', "external", 'dist',
+      "coverage", "examples", 'scripts', 'node_modules',
       // Additional common directories
-      'config', 'utils', 'templates', 'public', 'demo', 'features',
-      'components', 'hooks', 'styles', 'layer', 'schemas', 'temp',
-      'dockerfiles', 'helm', 'k8s', 'logs', 'vf_definitions',
+      'config', 'utils', "templates", 'public', 'demo', "features",
+      "components", 'hooks', 'styles', 'layer', 'schemas', 'temp',
+      "dockerfiles", 'helm', 'k8s', 'logs', 'vf_definitions',
       'fraud-reports', 'root-src-backup', 'release', 'llm_rules',
       'cli-ui', 'coverage_temp', 'TASK_QUEUE.md' // Some themes have .md as dirs
     ];
@@ -377,7 +378,7 @@ export class FileStructureValidator {
     if (!fs.existsSync(pipePath)) {
       this.addViolation({
         type: 'missing_required',
-        severity: 'critical',
+        severity: "critical",
         path: pipePath,
         message: `Critical: pipe/index.ts missing in theme ${themeName}`,
         suggestion: 'Create pipe/index.ts for cross-layer communication',
@@ -475,7 +476,7 @@ export class FileStructureValidator {
 
     // Group violations by severity
     const grouped = {
-      critical: report.violations.filter(v => v.severity === 'critical'),
+      critical: report.violations.filter(v => v.severity === "critical"),
       high: report.violations.filter(v => v.severity === 'high'),
       medium: report.violations.filter(v => v.severity === 'medium'),
       low: report.violations.filter(v => v.severity === 'low')

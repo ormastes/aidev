@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 import * as fs from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
 
@@ -25,7 +26,7 @@ export class BranchCoverageAnalyzer {
 
     for (const coverageFile of coverageFiles) {
       try {
-        const coverageData = JSON.parse(await fs.readFile(coverageFile, 'utf8'));
+        const coverageData = JSON.parse(await fileAPI.readFile(coverageFile, 'utf8'));
         const detail = this.extractBranchInfo(coverageFile, coverageData);
         branchDetails.push(detail);
         totalBranches += detail.branches;

@@ -40,9 +40,9 @@ describe('Switch/Case Coverage - WebScraperAPI', () => {
   describe('handleWebSocketMessage switch cases', () => {
     it('should handle subscribe case', () => {
       const message = {
-        type: 'subscribe',
+        type: "subscribe",
         data: {
-          events: ['scrapeStart', 'scrapeComplete']
+          events: ["scrapeStart", "scrapeComplete"]
         }
       };
 
@@ -165,7 +165,7 @@ describe('Switch/Case Coverage - WebScraperAPI', () => {
       const mockJob = {
         id: 'job123',
         url: 'https://example.com',
-        status: 'completed'
+        status: "completed"
       };
       
       (server as any).scraper.getJob = jest.fn().mockReturnValue(mockJob);
@@ -469,7 +469,7 @@ describe('Switch Statement Fall-through Cases', () => {
     };
 
     const messageTypes = [
-      'subscribe',
+      "subscribe",
       'get_status', 
       'get_progress',
       'stop_processing',
@@ -496,7 +496,7 @@ describe('Switch Statement Fall-through Cases', () => {
       }
 
       // Verify each case was entered (different responses)
-      if (type === 'subscribe') {
+      if (type === "subscribe") {
         expect(mockWs.send).not.toHaveBeenCalled();
       } else if (type === 'unknown') {
         expect(mockWs.send).toHaveBeenCalledWith(
@@ -529,13 +529,13 @@ describe('Switch Statement Fall-through Cases', () => {
       await fs.writeFile(filePath, content, 'utf-8');
     }
 
-    const formats = ['json', 'csv', 'xml', 'unsupported'];
+    const formats = ['json', 'csv', 'xml', "unsupported"];
     const mockResult = TestDataFactory.createMockScrapingResult();
 
     for (const format of formats) {
       (fs.writeFile as jest.Mock).mockClear();
       
-      if (format === 'unsupported') {
+      if (format === "unsupported") {
         await expect(
           saveResult(mockResult, `output.${format}`, format)
         ).rejects.toThrow();

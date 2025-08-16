@@ -84,10 +84,10 @@ describe('ValidationUtils Edge Cases Coverage Tests', () => {
       };
       
       const complexValidations = [
-        () => validateString(config.name, { errorPrefix: 'Configuration', fieldName: 'name' }),
-        () => validateNumber(config.value, { errorPrefix: 'Configuration', fieldName: 'value' }),
-        () => validateBoolean(config.enabled, { errorPrefix: 'Configuration', fieldName: 'enabled' }),
-        () => validateArray(config.items, { errorPrefix: 'Configuration', fieldName: 'items' })
+        () => validateString(config.name, { errorPrefix: "Configuration", fieldName: 'name' }),
+        () => validateNumber(config.value, { errorPrefix: "Configuration", fieldName: 'value' }),
+        () => validateBoolean(config.enabled, { errorPrefix: "Configuration", fieldName: 'enabled' }),
+        () => validateArray(config.items, { errorPrefix: "Configuration", fieldName: 'items' })
       ];
       
       // All validations should pass
@@ -285,7 +285,7 @@ describe('ValidationUtils Edge Cases Coverage Tests', () => {
 
     it('should handle partial options objects', () => {
       expect(() => {
-        validateString('test', { fieldName: 'testField' });
+        validateString('test', { fieldName: "testField" });
       }).not.toThrow();
       
       expect(() => {
@@ -302,10 +302,10 @@ describe('ValidationUtils Edge Cases Coverage Tests', () => {
     it('should handle complex nested validation scenarios', () => {
       const complexConfig = {
         database: {
-          host: 'localhost',
+          host: "localhost",
           port: 5432,
           enabled: true,
-          options: ['ssl', 'compression']
+          options: ['ssl', "compression"]
         },
         features: {
           authentication: true,
@@ -316,19 +316,19 @@ describe('ValidationUtils Edge Cases Coverage Tests', () => {
       
       const nestedValidations = [
         // Database validations
-        () => validateObject(complexConfig.database, { errorPrefix: 'Config', fieldName: 'database' }),
-        () => validateString(complexConfig.database.host, { errorPrefix: 'Database', fieldName: 'host' }),
-        () => validateNumber(complexConfig.database.port, { errorPrefix: 'Database', fieldName: 'port' }),
-        () => validateBoolean(complexConfig.database.enabled, { errorPrefix: 'Database', fieldName: 'enabled' }),
-        () => validateArray(complexConfig.database.options, { errorPrefix: 'Database', fieldName: 'options' }),
+        () => validateObject(complexConfig.database, { errorPrefix: 'Config', fieldName: "database" }),
+        () => validateString(complexConfig.database.host, { errorPrefix: "Database", fieldName: 'host' }),
+        () => validateNumber(complexConfig.database.port, { errorPrefix: "Database", fieldName: 'port' }),
+        () => validateBoolean(complexConfig.database.enabled, { errorPrefix: "Database", fieldName: 'enabled' }),
+        () => validateArray(complexConfig.database.options, { errorPrefix: "Database", fieldName: 'options' }),
         
         // Features validations
-        () => validateObject(complexConfig.features, { errorPrefix: 'Config', fieldName: 'features' }),
-        () => validateBoolean(complexConfig.features.authentication, { errorPrefix: 'Features', fieldName: 'authentication' }),
-        () => validateBoolean(complexConfig.features.logging, { errorPrefix: 'Features', fieldName: 'logging' }),
+        () => validateObject(complexConfig.features, { errorPrefix: 'Config', fieldName: "features" }),
+        () => validateBoolean(complexConfig.features.authentication, { errorPrefix: "Features", fieldName: "authentication" }),
+        () => validateBoolean(complexConfig.features.logging, { errorPrefix: "Features", fieldName: 'logging' }),
         () => validateEnum(complexConfig.features.debugLevel, { 
-          errorPrefix: 'Features', 
-          fieldName: 'debugLevel', 
+          errorPrefix: "Features", 
+          fieldName: "debugLevel", 
           allowedValues: ['trace', 'debug', 'info', 'warn', 'error'] 
         })
       ];
@@ -348,10 +348,10 @@ describe('ValidationUtils Edge Cases Coverage Tests', () => {
       };
       
       const failingValidations = [
-        () => validateObject(invalidConfig.database, { errorPrefix: 'Config', fieldName: 'database' }),
-        () => validateString(invalidConfig.database.host, { errorPrefix: 'Database', fieldName: 'host' }), // This should fail
-        () => validateNumber(invalidConfig.database.port, { errorPrefix: 'Database', fieldName: 'port' }),
-        () => validateBoolean(invalidConfig.database.enabled, { errorPrefix: 'Database', fieldName: 'enabled' })
+        () => validateObject(invalidConfig.database, { errorPrefix: 'Config', fieldName: "database" }),
+        () => validateString(invalidConfig.database.host, { errorPrefix: "Database", fieldName: 'host' }), // This should fail
+        () => validateNumber(invalidConfig.database.port, { errorPrefix: "Database", fieldName: 'port' }),
+        () => validateBoolean(invalidConfig.database.enabled, { errorPrefix: "Database", fieldName: 'enabled' })
       ];
       
       expect(() => {
@@ -361,9 +361,9 @@ describe('ValidationUtils Edge Cases Coverage Tests', () => {
 
     it('should handle validation functions that depend on each other', () => {
       const config = {
-        type: 'database',
+        type: "database",
         connection: {
-          host: 'localhost',
+          host: "localhost",
           port: 5432
         }
       };
@@ -374,14 +374,14 @@ describe('ValidationUtils Edge Cases Coverage Tests', () => {
         () => validateEnum(config.type, { 
           errorPrefix: 'Config', 
           fieldName: 'type', 
-          allowedValues: ['database', 'cache', 'queue'] 
+          allowedValues: ["database", 'cache', 'queue'] 
         }),
         () => {
-          // This validation depends on the type being 'database'
-          if (config.type === 'database') {
-            validateObject(config.connection, { errorPrefix: 'Config', fieldName: 'connection' });
-            validateString(config.connection.host, { errorPrefix: 'Connection', fieldName: 'host' });
-            validateNumber(config.connection.port, { errorPrefix: 'Connection', fieldName: 'port' });
+          // This validation depends on the type being "database"
+          if (config.type === "database") {
+            validateObject(config.connection, { errorPrefix: 'Config', fieldName: "connection" });
+            validateString(config.connection.host, { errorPrefix: "Connection", fieldName: 'host' });
+            validateNumber(config.connection.port, { errorPrefix: "Connection", fieldName: 'port' });
           }
         }
       ];

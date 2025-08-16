@@ -2,14 +2,14 @@ import { CodeGenAgent } from '../../src/agents/code-gen-agent';
 import { CodeGenRequest, AgentContext } from '../../src/types';
 import { InMemoryStorage } from '../../../016-agent-abstraction/src/memory';
 
-describe('CodeGenAgent', () => {
+describe("CodeGenAgent", () => {
   let agent: CodeGenAgent;
   let context: AgentContext;
 
   beforeEach(() => {
     agent = new CodeGenAgent({
-      defaultLanguage: 'typescript',
-      defaultStyle: 'functional'
+      defaultLanguage: "typescript",
+      defaultStyle: "functional"
     });
     
     context = {
@@ -19,11 +19,11 @@ describe('CodeGenAgent', () => {
     };
   });
 
-  describe('generatePrompt', () => {
+  describe("generatePrompt", () => {
     it('should generate basic prompt', () => {
       const request: CodeGenRequest = {
         description: 'Create a function to add two numbers',
-        language: 'typescript'
+        language: "typescript"
       };
       
       const prompt = agent.generatePrompt(request);
@@ -35,7 +35,7 @@ describe('CodeGenAgent', () => {
     it('should include style in prompt', () => {
       const request: CodeGenRequest = {
         description: 'Create a calculator',
-        language: 'typescript',
+        language: "typescript",
         style: 'object-oriented'
       };
       
@@ -47,7 +47,7 @@ describe('CodeGenAgent', () => {
     it('should include context constraints', () => {
       const request: CodeGenRequest = {
         description: 'Create a validator',
-        language: 'typescript',
+        language: "typescript",
         context: {
           imports: ['zod'],
           constraints: ['Must be type-safe', 'Should handle errors']
@@ -62,7 +62,7 @@ describe('CodeGenAgent', () => {
     });
   });
 
-  describe('parseResponse', () => {
+  describe("parseResponse", () => {
     it('should extract code from markdown blocks', () => {
       const response = `Here's the code:
 \`\`\`typescript
@@ -74,7 +74,7 @@ function add(a: number, b: number): number {
       const result = agent.parseResponse(response);
       
       expect(result.code).toContain('function add');
-      expect(result.language).toBe('typescript');
+      expect(result.language).toBe("typescript");
       expect(result.metadata?.lineCount).toBe(3);
     });
 
@@ -114,8 +114,8 @@ export interface Config {
       
       const result = agent.parseResponse(response);
       
-      expect(result.exports).toContain('processData');
-      expect(result.exports).toContain('DataProcessor');
+      expect(result.exports).toContain("processData");
+      expect(result.exports).toContain("DataProcessor");
       expect(result.exports).toContain('Config');
     });
 
@@ -145,11 +145,11 @@ const divide = async (a: number, b: number): Promise<number> => {
     });
   });
 
-  describe('validate', () => {
+  describe("validate", () => {
     it('should validate non-empty code', () => {
       const result = {
         code: 'function test() { return true; }',
-        language: 'typescript'
+        language: "typescript"
       };
       
       expect(agent.validate(result)).toBe(true);
@@ -158,7 +158,7 @@ const divide = async (a: number, b: number): Promise<number> => {
     it('should reject empty code', () => {
       const result = {
         code: '',
-        language: 'typescript'
+        language: "typescript"
       };
       
       expect(agent.validate(result)).toBe(false);
@@ -167,7 +167,7 @@ const divide = async (a: number, b: number): Promise<number> => {
     it('should validate TypeScript syntax', () => {
       const result = {
         code: 'const x: number = 5;',
-        language: 'typescript'
+        language: "typescript"
       };
       
       expect(agent.validate(result)).toBe(true);
@@ -176,7 +176,7 @@ const divide = async (a: number, b: number): Promise<number> => {
     it('should validate JavaScript syntax', () => {
       const result = {
         code: 'function hello() { console.log("Hello"); }',
-        language: 'javascript'
+        language: "javascript"
       };
       
       expect(agent.validate(result)).toBe(true);
@@ -187,45 +187,45 @@ const divide = async (a: number, b: number): Promise<number> => {
     it('should generate email validator code', async () => {
       const request: CodeGenRequest = {
         description: 'Create a function that validates email addresses',
-        language: 'typescript'
+        language: "typescript"
       };
       
       const result = await agent.execute(request, context);
       
       expect(result.success).toBe(true);
-      expect(result.data.code).toContain('validateEmail');
-      expect(result.data.code).toContain('emailRegex');
+      expect(result.data.code).toContain("validateEmail");
+      expect(result.data.code).toContain("emailRegex");
     });
 
     it('should generate array sorting code', async () => {
       const request: CodeGenRequest = {
         description: 'Create a function to sort array of objects',
-        language: 'typescript'
+        language: "typescript"
       };
       
       const result = await agent.execute(request, context);
       
       expect(result.success).toBe(true);
-      expect(result.data.code).toContain('sortArrayByKey');
+      expect(result.data.code).toContain("sortArrayByKey");
     });
 
     it('should generate fetch data code', async () => {
       const request: CodeGenRequest = {
         description: 'Create a function to fetch data from API',
-        language: 'typescript'
+        language: "typescript"
       };
       
       const result = await agent.execute(request, context);
       
       expect(result.success).toBe(true);
-      expect(result.data.code).toContain('fetchData');
+      expect(result.data.code).toContain("fetchData");
       expect(result.data.code).toContain('fetch');
     });
 
     it('should store result in memory', async () => {
       const request: CodeGenRequest = {
         description: 'Create a simple function',
-        language: 'typescript'
+        language: "typescript"
       };
       
       await agent.execute(request, context);
@@ -243,7 +243,7 @@ const divide = async (a: number, b: number): Promise<number> => {
       
       const request: CodeGenRequest = {
         description: 'Test',
-        language: 'typescript'
+        language: "typescript"
       };
       
       const result = await brokenAgent.execute(request, context);

@@ -11,7 +11,7 @@ export interface IBaseComponent {
 }
 
 export interface HealthStatus {
-  status: 'healthy' | 'degraded' | 'unhealthy';
+  status: 'healthy' | "degraded" | "unhealthy";
   timestamp: Date;
   message?: string;
   details?: Record<string, any>;
@@ -48,14 +48,14 @@ export interface AgentRequest {
 export interface AgentResponse {
   id: string;
   content: string;
-  role: 'assistant';
+  role: "assistant";
   toolCalls?: ToolCall[];
   metadata?: ResponseMetadata;
 }
 
 export interface Message {
   id?: string;
-  role: 'user' | 'assistant' | 'system';
+  role: 'user' | "assistant" | 'system';
   content: string;
   timestamp?: Date;
   metadata?: Record<string, any>;

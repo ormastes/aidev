@@ -32,7 +32,7 @@ describe('Workflow Patterns', () => {
     }
   });
 
-  describe('SequentialPattern', () => {
+  describe("SequentialPattern", () => {
     it('should process agents in sequence', async () => {
       const pattern = new SequentialPattern();
       
@@ -44,7 +44,7 @@ describe('Workflow Patterns', () => {
       const result = await pattern.execute('Hello', agents);
       
       expect(result.success).toBe(true);
-      expect(result.pattern).toBe('sequential');
+      expect(result.pattern).toBe("sequential");
       expect(result.outputs.has('output')).toBe(true);
     });
 
@@ -67,7 +67,7 @@ describe('Workflow Patterns', () => {
     });
   });
 
-  describe('ParallelPattern', () => {
+  describe("ParallelPattern", () => {
     it('should process all agents in parallel', async () => {
       const pattern = new ParallelPattern();
       
@@ -78,7 +78,7 @@ describe('Workflow Patterns', () => {
       const result = await pattern.execute('Parallel test', agents);
       
       expect(result.success).toBe(true);
-      expect(result.pattern).toBe('parallel');
+      expect(result.pattern).toBe("parallel");
       
       const output = result.outputs.get('output');
       expect(Array.isArray(output)).toBe(true);
@@ -118,7 +118,7 @@ describe('Workflow Patterns', () => {
     });
   });
 
-  describe('MapReducePattern', () => {
+  describe("MapReducePattern", () => {
     it('should distribute array items to agents', async () => {
       const pattern = new MapReducePattern();
       
@@ -152,7 +152,7 @@ describe('Workflow Patterns', () => {
     });
   });
 
-  describe('SupervisorPattern', () => {
+  describe("SupervisorPattern", () => {
     it('should have supervisor delegate to workers', async () => {
       const pattern = new SupervisorPattern();
       
@@ -164,7 +164,7 @@ describe('Workflow Patterns', () => {
       const result = await pattern.execute('Coordinate tasks', agents);
       
       expect(result.success).toBe(true);
-      expect(result.pattern).toBe('supervisor');
+      expect(result.pattern).toBe("supervisor");
       
       const output = result.outputs.get('output');
       expect(output.finalResult).toBeDefined();
@@ -182,11 +182,11 @@ describe('Workflow Patterns', () => {
     });
   });
 
-  describe('RAGPattern', () => {
+  describe("RAGPattern", () => {
     it('should retrieve then generate', async () => {
       const pattern = new RAGPattern();
       
-      agents[0].addResponse('retrieve', 'Context: Paris is the capital of France.');
+      agents[0].addResponse("retrieve", 'Context: Paris is the capital of France.');
       agents[0].setDefaultResponse('Based on the context, the answer is Paris.');
       
       const result = await pattern.execute('What is the capital of France?', [agents[0]]);
@@ -205,7 +205,7 @@ describe('Workflow Patterns', () => {
       agents[0].setDefaultResponse('Retrieved: France info');
       agents[1].setDefaultResponse('Generated: Answer about France');
       
-      const result = await pattern.execute('Question', agents.slice(0, 2));
+      const result = await pattern.execute("Question", agents.slice(0, 2));
       
       expect(result.success).toBe(true);
     });
@@ -222,7 +222,7 @@ describe('Workflow Patterns', () => {
     });
   });
 
-  describe('DebatePattern', () => {
+  describe("DebatePattern", () => {
     it('should run debate rounds', async () => {
       const pattern = new DebatePattern();
       
@@ -270,7 +270,7 @@ describe('Workflow Patterns', () => {
     });
   });
 
-  describe('ReflectionPattern', () => {
+  describe("ReflectionPattern", () => {
     it('should iterate and improve', async () => {
       const pattern = new ReflectionPattern();
       
@@ -283,7 +283,7 @@ describe('Workflow Patterns', () => {
       });
       
       expect(result.success).toBe(true);
-      expect(result.pattern).toBe('reflection');
+      expect(result.pattern).toBe("reflection");
       
       const output = result.outputs.get('output');
       expect(output.iterations).toBeGreaterThanOrEqual(1);

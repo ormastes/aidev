@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import sqlite3 from 'sqlite3';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import cors from 'cors';
 import session from 'express-session';
 import { path } from '../../../infra_external-log-lib/src';
@@ -81,7 +81,7 @@ const db = new sqlite.Database(path.join(__dirname, 'data', 'ai_dev_portal.db'))
 
 // Authentication middleware
 const authenticateToken = (req: AuthRequest, res: Response, next: NextFunction): void => {
-  const authHeader = req.headers['authorization'];
+  const authHeader = req.headers["authorization"];
   const token = authHeader?.split(' ')[1] || req.session.token;
   
   if (!token) {

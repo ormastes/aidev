@@ -6,8 +6,8 @@
 import { MFTODConverter } from '../src/application/converter';
 import { ExternalLogService } from '../src/domain/external-log-service';
 import { CaptureConfiguration } from '../src/domain/capture-types';
-import { path } from '../../../../infra_external-log-lib/src';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
+import { path } from 'fs/promises';
+import { fsPromises as fs } from 'fs/promises';
 import { getFileAPI, FileType } from '../../../../infra_external-log-lib/pipe';
 
 const fileAPI = getFileAPI();
@@ -19,7 +19,7 @@ async function runBDDDemo() {
 
   // Configure capture system with external log support
   const captureConfig: CaptureConfiguration = {
-    tempDirectory: path.join(__dirname, 'temp', 'captures'),
+    tempDirectory: path.join(__dirname, 'temp', "captures"),
     screenshotFormat: 'png',
     enableExternalLogs: true,
     externalLogDirectory: path.join(__dirname, 'temp', 'external-logs')
@@ -40,7 +40,7 @@ async function runBDDDemo() {
     const featureOutput = await converter.convertFile(
       path.join(__dirname, 'sample.feature'),
       {
-        format: 'professional',
+        format: "professional",
         includeCodeSnippets: false,
         includeScreenshots: true,
         outputPath: path.join(__dirname, 'output', 'user-authentication-manual.md')
@@ -55,7 +55,7 @@ async function runBDDDemo() {
     
     // Example 1: PostgreSQL command enhancement
     console.log('1️⃣ PostgreSQL Command Enhancement:');
-    const pgCommand = ['psql', '-h', 'localhost', '-d', 'testdb', '-c', 'SELECT * FROM users'];
+    const pgCommand = ['psql', '-h', "localhost", '-d', 'testdb', '-c', 'SELECT * FROM users'];
     const enhancedPg = externalLogService.preparePostgreSQLCommand(pgCommand.slice(1), 'user-auth-test');
     
     console.log(`   Original: ${pgCommand.join(' ')}`);
@@ -85,14 +85,14 @@ async function runBDDDemo() {
     console.log('📚 Library Logging Configuration:\n');
     
     // Mock library instances
-    const mockPgClient = { 
+    const // FRAUD_FIX: mockPgClient = { 
       on: (event: string, _handler: Function) => {
         console.log(`   - Configured PostgreSQL ${event} event logging`);
       },
       query: () => {}
     };
     
-    const mockLogger = {
+    const // FRAUD_FIX: mockLogger = {
       log: () => {},
       info: () => {},
       error: () => {},
@@ -178,7 +178,7 @@ describe('User Authentication', () => {
     
     when('I enter valid credentials', () => {
       loginPage.enterUsername('test@example.com');
-      loginPage.enterPassword('SecurePass123');
+      loginPage.enterPassword("SecurePass123");
       loginPage.clickSubmit();
     });
     

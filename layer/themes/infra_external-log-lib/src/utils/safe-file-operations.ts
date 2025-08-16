@@ -5,8 +5,8 @@
  * before performing file system operations.
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as path from 'node:path';
 import { FileViolationPreventer } from '../validators/FileViolationPreventer';
 import { getStrictModeConfig } from '../config/strict-mode.config';
 import { getFileAPI, FileType } from '../../pipe';
@@ -47,7 +47,7 @@ export async function safeWriteFile(
     await preventer.validateFileOperation('write', filePath);
     await fileAPI.createFile(filePath, data, { type: FileType.TEMPORARY });
   } catch (error) {
-    if (error.name === 'FileViolationError') {
+    if (error.name === "FileViolationError") {
       console.error(`❌ File write blocked: ${error.message}`);
       throw error;
     }
@@ -71,7 +71,7 @@ export function safeWriteFileSync(
       await fileAPI.createFile(filePath, data, { type: FileType.TEMPORARY });
     })
     .catch(error => {
-      if (error.name === 'FileViolationError') {
+      if (error.name === "FileViolationError") {
         console.error(`❌ File write blocked: ${error.message}`);
         throw error;
       }
@@ -92,7 +92,7 @@ export async function safeMkdir(
     await preventer.validateFileOperation('mkdir', dirPath);
     await fileAPI.createDirectory(dirPath);
   } catch (error) {
-    if (error.name === 'FileViolationError') {
+    if (error.name === "FileViolationError") {
       console.error(`❌ Directory creation blocked: ${error.message}`);
       throw error;
     }
@@ -114,7 +114,7 @@ export function safeMkdirSync(
       await fileAPI.createDirectory(dirPath);
     })
     .catch(error => {
-      if (error.name === 'FileViolationError') {
+      if (error.name === "FileViolationError") {
         console.error(`❌ Directory creation blocked: ${error.message}`);
         throw error;
       }
@@ -136,7 +136,7 @@ export async function safeAppendFile(
     await preventer.validateFileOperation('write', filePath);
     await fileAPI.writeFile(filePath, data, { append: true });
   } catch (error) {
-    if (error.name === 'FileViolationError') {
+    if (error.name === "FileViolationError") {
       console.error(`❌ File append blocked: ${error.message}`);
       throw error;
     }
@@ -158,7 +158,7 @@ export async function safeCopyFile(
     await preventer.validateFileOperation('create', dest);
     fs.copyFileSync(src, dest, flags);
   } catch (error) {
-    if (error.name === 'FileViolationError') {
+    if (error.name === "FileViolationError") {
       console.error(`❌ File copy blocked: ${error.message}`);
       throw error;
     }
@@ -179,7 +179,7 @@ export async function safeRename(
     await preventer.validateFileOperation('create', newPath);
     fs.renameSync(oldPath, newPath);
   } catch (error) {
-    if (error.name === 'FileViolationError') {
+    if (error.name === "FileViolationError") {
       console.error(`❌ File rename blocked: ${error.message}`);
       throw error;
     }
@@ -200,7 +200,7 @@ export async function wouldViolate(
     await preventer.validateFileOperation(operation, targetPath);
     return false; // No violation
   } catch (error) {
-    if (error.name === 'FileViolationError') {
+    if (error.name === "FileViolationError") {
       return true; // Would violate
     }
     throw error;

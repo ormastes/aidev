@@ -5,8 +5,8 @@
  * go through the FileCreationAPI. It can operate in enforcement or warning mode.
  */
 
-import * as originalFs from 'fs';
-import * as path from 'path';
+const originalFs = require('../../layer/themes/infra_external-log-lib/src');
+import * as path from 'node:path';
 import { FileCreationAPI, FileType } from '../file-manager/FileCreationAPI';
 
 export enum InterceptMode {
@@ -35,9 +35,9 @@ class FSInterceptor {
     this.config = {
       mode: InterceptMode.WARN,
       allowedCallers: [
-        'FileCreationAPI',
-        'MCPIntegratedFileManager',
-        'FileViolationPreventer',
+        "FileCreationAPI",
+        "MCPIntegratedFileManager",
+        "FileViolationPreventer",
         'node_modules',
         'test-setup'
       ],
@@ -75,16 +75,16 @@ class FSInterceptor {
    */
   private patchFSMethods(): void {
     // Store original methods
-    this.originalMethods.set('writeFile', originalFs.writeFile);
-    this.originalMethods.set('writeFileSync', originalFs.writeFileSync);
-    this.originalMethods.set('appendFile', originalFs.appendFile);
-    this.originalMethods.set('appendFileSync', originalFs.appendFileSync);
+    this.originalMethods.set("writeFile", originalFs.writeFile);
+    this.originalMethods.set("writeFileSync", originalFs.writeFileSync);
+    this.originalMethods.set("appendFile", originalFs.appendFile);
+    this.originalMethods.set("appendFileSync", originalFs.appendFileSync);
     this.originalMethods.set('mkdir', originalFs.mkdir);
-    this.originalMethods.set('mkdirSync', originalFs.mkdirSync);
+    this.originalMethods.set("mkdirSync", originalFs.mkdirSync);
 
     // Patch async writeFile
     (originalFs as any).writeFile = this.createInterceptor(
-      'writeFile',
+      "writeFile",
       async (filePath: string, data: any, options: any) => {
         return await this.fileAPI.createFile(filePath, data, {
           type: this.detectFileType(filePath),
@@ -95,12 +95,12 @@ class FSInterceptor {
 
     // Patch sync writeFile
     (originalFs as any).writeFileSync = this.createSyncInterceptor(
-      'writeFileSync',
+      "writeFileSync",
       (filePath: string, data: any, options: any) => {
         // For sync operations, we need to use the original for now
         // but log the violation
-        this.logViolation('writeFileSync', filePath);
-        return this.originalMethods.get('writeFileSync')!(filePath, data, options);
+        this.logViolation("writeFileSync", filePath);
+        return this.originalMethods.get("writeFileSync")!(filePath, data, options);
       }
     );
 
@@ -127,10 +127,10 @@ class FSInterceptor {
     );
 
     (originalFs as any).mkdirSync = this.createSyncInterceptor(
-      'mkdirSync',
+      "mkdirSync",
       (dirPath: string, options: any) => {
-        this.logViolation('mkdirSync', dirPath);
-        return this.originalMethods.get('mkdirSync')!(dirPath, options);
+        this.logViolation("mkdirSync", dirPath);
+        return this.originalMethods.get("mkdirSync")!(dirPath, options);
       }
     );
   }
@@ -152,12 +152,12 @@ class FSInterceptor {
         // Use FileCreationAPI
         replacement(filePath, args[1], args[2])
           .then((result: any) => {
-            if (typeof callback === 'function') {
+            if (typeof callback === "function") {
               callback(null, result);
             }
           })
           .catch((error: any) => {
-            if (typeof callback === 'function') {
+            if (typeof callback === "function") {
               callback(error);
             }
           });
@@ -262,7 +262,7 @@ class FSInterceptor {
     const lines = stack.split('\n');
     // Find the first line that's not this interceptor
     for (const line of lines.slice(3)) {
-      if (!line.includes('fs-interceptor') && !line.includes('FSInterceptor')) {
+      if (!line.includes('fs-interceptor') && !line.includes("FSInterceptor")) {
         const match = line.match(/at\s+(.+?)\s+\((.+?)\)/);
         if (match) {
           return `${match[1]} (${match[2]})`;
@@ -352,7 +352,7 @@ class FSInterceptor {
 }
 
 // Auto-initialize in development
-if (process.env.NODE_ENV !== 'production' && process.env.ENFORCE_FILE_API === 'true') {
+if (process.env.NODE_ENV !== "production" && process.env.ENFORCE_FILE_API === 'true') {
   const interceptor = FSInterceptor.getInstance({
     mode: InterceptMode.WARN
   });

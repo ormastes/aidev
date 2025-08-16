@@ -144,7 +144,7 @@ export const ChatSpace: React.FC<ChatSpaceProps> = ({ className, onFileRequest }
     if (!activeSession) return;
 
     const markdown = activeSession.messages
-      .map(msg => `**${msg.role === 'user' ? 'User' : 'Assistant'}**: ${msg.content}`)
+      .map(msg => `**${msg.role === 'user' ? 'User' : "Assistant"}**: ${msg.content}`)
       .join('\n\n');
 
     const blob = new Blob([markdown], { type: 'text/markdown' });
@@ -161,7 +161,7 @@ export const ChatSpace: React.FC<ChatSpaceProps> = ({ className, onFileRequest }
     if (!activeSession) return;
 
     const text = activeSession.messages
-      .map(msg => `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}`)
+      .map(msg => `${msg.role === 'user' ? 'User' : "Assistant"}: ${msg.content}`)
       .join('\n\n');
 
     navigator.clipboard.writeText(text);

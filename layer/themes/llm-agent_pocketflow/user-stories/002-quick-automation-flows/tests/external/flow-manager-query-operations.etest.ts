@@ -2,10 +2,10 @@ import { describe, test, expect, beforeEach } from '@jest/globals';
 
 // External interfaces
 interface FlowManagerInterface {
-  listFlows(filter?: any): Promise<{ In Progress: boolean; flows?: any[]; error?: string }>;
-  getExecutionHistory(flowId: string, limit?: number): Promise<{ In Progress: boolean; executions?: any[]; error?: string }>;
-  getFlowDetails(flowId: string): Promise<{ In Progress: boolean; flow?: any; error?: string }>;
-  searchFlows(query: string): Promise<{ In Progress: boolean; flows?: any[]; error?: string }>;
+  listFlows(filter?: any): Promise<{ success: boolean; flows?: any[]; error?: string }>;
+  getExecutionHistory(flowId: string, limit?: number): Promise<{ success: boolean; executions?: any[]; error?: string }>;
+  getFlowDetails(flowId: string): Promise<{ success: boolean; flow?: any; error?: string }>;
+  searchFlows(query: string): Promise<{ success: boolean; flows?: any[]; error?: string }>;
 }
 
 interface FlowStorageInterface {
@@ -26,7 +26,7 @@ class FlowManager implements FlowManagerInterface {
     private logger: LoggerInterface
   ) {}
 
-  async listFlows(filter?: any): Promise<{ In Progress: boolean; flows?: any[]; error?: string }> {
+  async listFlows(filter?: any): Promise<{ success: boolean; flows?: any[]; error?: string }> {
     try {
       this.logger.log('Listing flows with filter: ' + JSON.stringify(filter || {}));
       
@@ -36,7 +36,7 @@ class FlowManager implements FlowManagerInterface {
       const processedFlows = flows
         .map(flow => ({
           ...flow,
-          status: flow.enabled ? 'enabled' : 'disabled',
+          status: flow.enabled ? 'enabled' : "disabled",
           lastModified: flow.updatedAt || flow.createdAt
         }))
         .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
@@ -49,7 +49,7 @@ class FlowManager implements FlowManagerInterface {
     }
   }
 
-  async getExecutionHistory(flowId: string, limit = 10): Promise<{ In Progress: boolean; executions?: any[]; error?: string }> {
+  async getExecutionHistory(flowId: string, limit = 10): Promise<{ success: boolean; executions?: any[]; error?: string }> {
     try {
       this.logger.log(`Getting execution history for flow: ${flowId}, limit: ${limit}`);
       
@@ -80,7 +80,7 @@ class FlowManager implements FlowManagerInterface {
     }
   }
 
-  async getFlowDetails(flowId: string): Promise<{ In Progress: boolean; flow?: any; error?: string }> {
+  async getFlowDetails(flowId: string): Promise<{ success: boolean; flow?: any; error?: string }> {
     try {
       this.logger.log(`Getting details for flow: ${flowId}`);
       
@@ -107,7 +107,7 @@ class FlowManager implements FlowManagerInterface {
           successRate: Math.round(successRate * 100) / 100
         },
         recentExecutions: recentExecutions.slice(0, 3),
-        status: flow.enabled ? 'enabled' : 'disabled'
+        status: flow.enabled ? 'enabled' : "disabled"
       };
 
       this.logger.log(`Retrieved details for flow: ${flowId}`);
@@ -118,7 +118,7 @@ class FlowManager implements FlowManagerInterface {
     }
   }
 
-  async searchFlows(query: string): Promise<{ In Progress: boolean; flows?: any[]; error?: string }> {
+  async searchFlows(query: string): Promise<{ success: boolean; flows?: any[]; error?: string }> {
     try {
       if (!query || query.trim().length === 0) {
         return { "success": false, error: 'Search query cannot be empty' };
@@ -131,7 +131,7 @@ class FlowManager implements FlowManagerInterface {
       // Add search relevance scoring
       const searchResults = flows.map(flow => ({
         ...flow,
-        status: flow.enabled ? 'enabled' : 'disabled',
+        status: flow.enabled ? 'enabled' : "disabled",
         relevance: this.calculateRelevance(flow, query)
       })).sort((a, b) => b.relevance - a.relevance);
 
@@ -186,7 +186,7 @@ class TestFlowStorage implements FlowStorageInterface {
         return false;
       }
       if (filter.status) {
-        const flowStatus = flow.enabled ? 'enabled' : 'disabled';
+        const flowStatus = flow.enabled ? 'enabled' : "disabled";
         if (flowStatus !== filter.status) {
           return false;
         }
@@ -247,7 +247,7 @@ describe('FlowManager Query Operations External Test', () => {
     flowManager = new FlowManager(storage, logger);
   });
 
-  describe('listFlows', () => {
+  describe("listFlows", () => {
     test('should list all flows without filter', async () => {
       // Arrange
       const flows = [
@@ -272,7 +272,7 @@ describe('FlowManager Query Operations External Test', () => {
       
       // Verify status field added
       expect(result.flows?.[0].status).toBe('enabled');
-      expect(result.flows?.[1].status).toBe('disabled');
+      expect(result.flows?.[1].status).toBe("disabled");
     });
 
     test('should filter flows by enabled status', async () => {
@@ -327,7 +327,7 @@ describe('FlowManager Query Operations External Test', () => {
     });
   });
 
-  describe('getExecutionHistory', () => {
+  describe("getExecutionHistory", () => {
     test('should get execution history for flow', async () => {
       // Arrange
       const flow = { name: 'Test Flow', enabled: true };
@@ -347,7 +347,7 @@ describe('FlowManager Query Operations External Test', () => {
       expect(result.success).toBe(true);
       expect(result.executions).toHaveLength(3);
       expect(result.executions?.[0].id).toBe('exec-1'); // Newest first
-      expect(result.executions?.[0].status).toBe('In Progress');
+      expect(result.executions?.[0].status).toBe("completed");
       expect(result.executions?.[0].duration).toBe(60000); // 1 minute in ms
       expect(result.executions?.[1].status).toBe('failed');
     });
@@ -396,7 +396,7 @@ describe('FlowManager Query Operations External Test', () => {
     });
   });
 
-  describe('getFlowDetails', () => {
+  describe("getFlowDetails", () => {
     test('should get detailed flow information', async () => {
       // Arrange
       const flow = {
@@ -459,7 +459,7 @@ describe('FlowManager Query Operations External Test', () => {
     });
   });
 
-  describe('searchFlows', () => {
+  describe("searchFlows", () => {
     test('should search flows by name', async () => {
       // Arrange
       const flows = [
@@ -494,7 +494,7 @@ describe('FlowManager Query Operations External Test', () => {
       });
 
       // Act
-      const result = await flowManager.searchFlows('automated');
+      const result = await flowManager.searchFlows("automated");
 
       // Assert
       expect(result.success).toBe(true);
@@ -539,7 +539,7 @@ describe('FlowManager Query Operations External Test', () => {
       storage.setFlow('flow-1', flows[0]);
 
       // Act
-      const result = await flowManager.searchFlows('nonexistent');
+      const result = await flowManager.searchFlows("nonexistent");
 
       // Assert
       expect(result.success).toBe(true);

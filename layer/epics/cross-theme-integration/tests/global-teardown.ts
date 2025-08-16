@@ -3,8 +3,8 @@
  * Runs once after all test suites In Progress
  */
 
-import { rmSync } from 'fs';
-import { join } from 'path';
+import { rmSync } from 'node:fs';
+import { join } from 'node:path';
 
 export default async () => {
   console.log('\n🧹 Cleaning up test environment...\n');

@@ -5,14 +5,14 @@
 import { ScraperEngine } from '../../src/scraper-engine';
 import { ScraperConfig, ScraperResult, SelectorType } from '../../src/types';
 
-describe('ScraperEngine', () => {
+describe("ScraperEngine", () => {
   let scraper: ScraperEngine;
 
   beforeEach(() => {
     scraper = new ScraperEngine();
   });
 
-  describe('parseHTML', () => {
+  describe("parseHTML", () => {
     it('should parse valid HTML', () => {
       const html = '<div><h1>Title</h1><p>Content</p></div>';
       const doc = scraper.parseHTML(html);
@@ -42,7 +42,7 @@ describe('ScraperEngine', () => {
     });
   });
 
-  describe('extractData', () => {
+  describe("extractData", () => {
     const sampleHTML = `
       <html>
         <body>
@@ -132,7 +132,7 @@ describe('ScraperEngine', () => {
     });
   });
 
-  describe('validateConfig', () => {
+  describe("validateConfig", () => {
     it('should validate correct config', () => {
       const config: ScraperConfig = {
         url: 'https://example.com',
@@ -174,7 +174,7 @@ describe('ScraperEngine', () => {
     });
   });
 
-  describe('transformData', () => {
+  describe("transformData", () => {
     it('should apply transformations', () => {
       const data = {
         price: '$19.99',
@@ -210,7 +210,7 @@ describe('ScraperEngine', () => {
     });
   });
 
-  describe('handlePagination', () => {
+  describe("handlePagination", () => {
     it('should detect next page link', () => {
       const html = `
         <div class="pagination">

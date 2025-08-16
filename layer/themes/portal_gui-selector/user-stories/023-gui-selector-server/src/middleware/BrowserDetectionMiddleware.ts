@@ -12,7 +12,7 @@ declare global {
     interface Request {
       browser?: BrowserInfo;
       compatibility?: CompatibilityReport;
-      supportLevel?: 'full' | 'partial' | 'limited' | 'unsupported';
+      supportLevel?: 'full' | 'partial' | 'limited' | "unsupported";
     }
   }
 }
@@ -100,7 +100,7 @@ export class BrowserDetectionMiddleware {
       }
 
       // Block unsupported browsers if configured
-      if (this.options.blockUnsupported && report.supportLevel === 'unsupported') {
+      if (this.options.blockUnsupported && report.supportLevel === "unsupported") {
         return this.blockUnsupportedBrowser(req, res);
       }
 
@@ -220,7 +220,7 @@ export class BrowserDetectionMiddleware {
         res.locals.compatibilityMessage = recommendation;
         res.locals.compatibilityScore = score;
         res.locals.compatibilitySeverity = 
-          supportLevel === 'unsupported' ? 'error' :
+          supportLevel === "unsupported" ? 'error' :
           supportLevel === 'limited' ? 'warning' : 'info';
       }
 

@@ -11,7 +11,7 @@ import { BasePattern } from '../base-pattern';
 import { SequentialConfig } from '../types';
 
 export class SequentialPattern extends BasePattern {
-  name = 'sequential';
+  name = "sequential";
   description = 'Agents process in sequence, each receiving the previous output';
   minAgents = 2;
 

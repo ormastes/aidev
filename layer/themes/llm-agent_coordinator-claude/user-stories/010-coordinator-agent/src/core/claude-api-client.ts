@@ -1,11 +1,11 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { https } from '../../../../../infra_external-log-lib/src';
-import { IncomingMessage } from 'http';
+import { IncomingMessage } from '../utils/http-wrapper';
 import { ClaudeAuthManager, AuthOptions } from './claude-auth';
 
 // Claude API types based on documentation
 export interface ClaudeMessage {
-  role: 'user' | 'assistant';
+  role: 'user' | "assistant";
   content: string | ContentBlock[];
 }
 
@@ -121,7 +121,7 @@ export class ClaudeAPIClient extends EventEmitter {
       if (authHeader.startsWith('x-api-key')) {
         headers['x-api-key'] = authHeader.replace('x-api-key ', '');
       } else if (authHeader.startsWith('Bearer')) {
-        headers['Authorization'] = authHeader;
+        headers["Authorization"] = authHeader;
       }
       
       const options = {
@@ -216,7 +216,7 @@ export class ClaudeAPIClient extends EventEmitter {
       if (authHeader.startsWith('x-api-key')) {
         headers['x-api-key'] = authHeader.replace('x-api-key ', '');
       } else if (authHeader.startsWith('Bearer')) {
-        headers['Authorization'] = authHeader;
+        headers["Authorization"] = authHeader;
       }
       
       const options = {

@@ -56,7 +56,7 @@ describe('PocketFlow Fraud Detection', () => {
         nodes: [
           {
             id: 'read_db',
-            type: 'database',
+            type: "database",
             config: {
               query: "SELECT * FROM users; DROP TABLE audit_logs; --",
               connection: 'main_db'
@@ -82,7 +82,7 @@ describe('PocketFlow Fraud Detection', () => {
       const fraudResult = await fraudScorer.score(maliciousFlow);
 
       expect(fraudResult.passed).toBe(false);
-      expect(fraudResult.riskLevel).toBe('critical');
+      expect(fraudResult.riskLevel).toBe("critical");
       expect(fraudResult.aggregatedViolations).toContainEqual(
         expect.objectContaining({
           type: expect.stringContaining('sql_injection'),
@@ -229,7 +229,7 @@ describe('PocketFlow Fraud Detection', () => {
             lastHour: true
           },
           {
-            type: 'schedule',
+            type: "schedule",
             expression: '* * * * * *', // Every second
             enabled: true
           }
@@ -253,8 +253,8 @@ describe('PocketFlow Fraud Detection', () => {
         flowId: '../../../etc/passwd', // Path traversal attempt
         parameters: {
           email: 'not-an-email',
-          creditCard: '4111111111111111', // Test credit card
-          apiKey: 'sk_live_abcdef123456', // Looks like a real API key
+          creditCard: "4111111111111111", // Test credit card
+          api_key: process.env.API_KEY || "PLACEHOLDER", // Looks like a real API key
         }
       };
 
@@ -360,7 +360,7 @@ describe('PocketFlow Fraud Detection', () => {
       // Generate alert
       const htmlReport = fraudReporter.exportReport(report, ExportFormat.HTML);
       expect(htmlReport).toContain('class="risk-critical"');
-      expect(htmlReport).toContain('CRITICAL');
+      expect(htmlReport).toContain("CRITICAL");
     });
   });
 
@@ -372,7 +372,7 @@ describe('PocketFlow Fraud Detection', () => {
           nodes: [
             {
               id: 'validate_payment',
-              type: 'validator',
+              type: "validator",
               config: {
                 validateCard: true,
                 validateCVV: true
@@ -384,7 +384,7 @@ describe('PocketFlow Fraud Detection', () => {
           nodes: [
             {
               id: 'validate_payment',
-              type: 'validator',
+              type: "validator",
               config: {
                 validateCard: false, // Security validation disabled
                 validateCVV: false,
@@ -416,7 +416,7 @@ describe('PocketFlow Fraud Detection', () => {
         nodes: [
           {
             id: 'fetch_users',
-            type: 'database',
+            type: "database",
             config: {
               query: 'SELECT * FROM users',
               mock: true // Using mock in production flow

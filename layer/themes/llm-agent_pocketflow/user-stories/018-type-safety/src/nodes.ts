@@ -106,7 +106,7 @@ export class TypedOutputNode<T> extends ValidatedNode<T, T> {
  */
 export class TypedTransformNode<TInput, TOutput> extends ValidatedNode<TInput, TOutput> {
   id: string;
-  type = 'transform';
+  type = "transform";
   
   constructor(
     id: string,
@@ -235,7 +235,7 @@ export class TypedReduceNode<TInput, TAccumulator> extends ValidatedNode<TInput[
  */
 export class TypedConditionalNode<T> extends ValidatedNode<T, T> {
   id: string;
-  type = 'conditional';
+  type = "conditional";
   
   constructor(
     id: string,
@@ -263,7 +263,7 @@ export class TypedConditionalNode<T> extends ValidatedNode<T, T> {
  */
 export class ValidationNode<T> extends ValidatedNode<T, T> {
   id: string;
-  type = 'validation';
+  type = "validation";
   
   constructor(
     id: string,

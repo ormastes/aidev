@@ -93,9 +93,9 @@ class MockFileGenerator {
     if (this.shouldFail) {
       throw new Error('Service file generation failed');
     }
-    await fs.mkdir(path.join(environmentPath, 'services'), { recursive: true });
+    await fs.mkdir(path.join(environmentPath, "services"), { recursive: true });
     await fs.writeFile(
-      path.join(environmentPath, 'services', `${serviceName}.json`),
+      path.join(environmentPath, "services", `${serviceName}.json`),
       JSON.stringify({ name: serviceName, port, enabled: true })
     );
   }
@@ -140,7 +140,7 @@ describe('ConfigManager Additional Unit Tests', () => {
   describe('Error handling', () => {
     test('should throw error when updating non-existent environment', async () => {
       await expect(configManager.updateEnvironment('non-existent', {
-        database: { type: 'postgresql', connection: 'postgresql://localhost/test' }
+        database: { type: "postgresql", connection: 'postgresql://localhost/test' }
       })).rejects.toThrow('Environment non-existent not found');
     });
 
@@ -182,7 +182,7 @@ describe('ConfigManager Additional Unit Tests', () => {
     beforeEach(async () => {
       await configManager.createEnvironment({ name: 'export-test', type: 'demo' });
       await configManager.addService('export-test', 'api');
-      await configManager.addService('export-test', 'database');
+      await configManager.addService('export-test', "database");
     });
 
     test('should export environment as env format', async () => {
@@ -330,7 +330,7 @@ describe('ConfigManager Additional Unit Tests', () => {
   describe('Clone functionality edge cases', () => {
     test('should clone environment with different type', async () => {
       await configManager.createEnvironment({ name: 'source', type: 'theme' });
-      await configManager.addService('source', 'service1');
+      await configManager.addService('source', "service1");
       
       const cloned = await configManager.cloneEnvironment('source', 'target', 'demo');
       
@@ -359,7 +359,7 @@ describe('ConfigManager Additional Unit Tests', () => {
         type: 'release'
       });
       
-      expect(config.database.type).toBe('postgresql');
+      expect(config.database.type).toBe("postgresql");
       expect(config.database.connection).toContain('postgresql://');
     });
 

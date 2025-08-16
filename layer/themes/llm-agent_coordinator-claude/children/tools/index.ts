@@ -1,9 +1,10 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Tool Manager
  * Manages tools and function calling for Claude
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 export interface ToolDefinition {
   name: string;
@@ -93,7 +94,7 @@ export class ToolManager extends EventEmitter {
       );
     }
 
-    this.emit('toolRegistered', tool);
+    this.emit("toolRegistered", tool);
     return tool;
   }
 
@@ -117,7 +118,7 @@ export class ToolManager extends EventEmitter {
     // Clean up rate limiter
     this.rateLimiters.delete(name);
 
-    this.emit('toolUnregistered', tool);
+    this.emit("toolUnregistered", tool);
     return true;
   }
 
@@ -160,7 +161,7 @@ export class ToolManager extends EventEmitter {
     }
     this.executions.get(name)!.push(execution);
 
-    this.emit('toolExecutionStarted', { tool, input });
+    this.emit("toolExecutionStarted", { tool, input });
 
     try {
       // Apply timeout if configured
@@ -174,7 +175,7 @@ export class ToolManager extends EventEmitter {
       execution.result = result;
       execution.duration = execution.endTime.getTime() - execution.startTime.getTime();
 
-      this.emit('toolExecutionCompleted', { tool, input, result });
+      this.emit("toolExecutionCompleted", { tool, input, result });
       return result;
     } catch (error: any) {
       execution.endTime = new Date();
@@ -186,7 +187,7 @@ export class ToolManager extends EventEmitter {
         error: error.message,
       };
 
-      this.emit('toolExecutionFailed', { tool, input, error });
+      this.emit("toolExecutionFailed", { tool, input, error });
       return result;
     }
   }
@@ -255,7 +256,7 @@ export class ToolManager extends EventEmitter {
   private registerBuiltinTools(): void {
     // Calculator tool
     this.registerTool({
-      name: 'calculator',
+      name: "calculator",
       description: 'Perform mathematical calculations',
       input_schema: {
         type: 'object',
@@ -265,7 +266,7 @@ export class ToolManager extends EventEmitter {
             description: 'Mathematical expression to evaluate',
           },
         },
-        required: ['expression'],
+        required: ["expression"],
       },
       executor: async (input) => {
         try {
@@ -336,8 +337,8 @@ export class ToolManager extends EventEmitter {
       },
       executor: async (input) => {
         try {
-          const fs = require('fs').promises;
-          const content = await fs.readFile(input.path, 'utf8');
+          const fs = require('../../layer/themes/infra_external-log-lib/src').promises;
+          const content = await fileAPI.readFile(input.path, 'utf8');
           return { success: true, output: content };
         } catch (error: any) {
           return { success: false, error: error.message };
@@ -427,7 +428,7 @@ export class ToolManager extends EventEmitter {
 
   clearHistory(): void {
     this.executions.clear();
-    this.emit('historyCleared');
+    this.emit("historyCleared");
   }
 
   private generateToolId(name: string): string {

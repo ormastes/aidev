@@ -157,7 +157,7 @@ function makeRequest(method: HttpMethod, path: ApiPath): Promise<unknown> {
 class CustomError extends Error {
   constructor(message: string, public code: string) {
     super(message);
-    this.name = 'CustomError';
+    this.name = "CustomError";
   }
 }
 
@@ -285,7 +285,7 @@ function sendEmail(to: Email, subject: string): void {
 type Shape = 
   | { kind: 'circle'; radius: number }
   | { kind: 'square'; size: number }
-  | { kind: 'rectangle'; width: number; height: number };
+  | { kind: "rectangle"; width: number; height: number };
 
 function getArea(shape: Shape): number {
   switch (shape.kind) {
@@ -293,7 +293,7 @@ function getArea(shape: Shape): number {
       return Math.PI * shape.radius ** 2;
     case 'square':
       return shape.size ** 2;
-    case 'rectangle':
+    case "rectangle":
       return shape.width * shape.height;
     default:
       // This ensures we handle all cases

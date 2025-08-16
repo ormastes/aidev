@@ -195,7 +195,7 @@ describe('LSP-MCP Integration Tests', () => {
                         documentation: 'The console object'
                       },
                       {
-                        label: 'parseInt',
+                        label: "parseInt",
                         kind: 3,
                         detail: 'function parseInt(string: string, radix?: number): number',
                         insertText: 'parseInt($1)'
@@ -218,9 +218,9 @@ describe('LSP-MCP Integration Tests', () => {
       
       expect(completions).toHaveLength(2);
       expect(completions[0].label).toBe('console');
-      expect(completions[0].kind).toBe('variable');
-      expect(completions[1].label).toBe('parseInt');
-      expect(completions[1].kind).toBe('function');
+      expect(completions[0].kind).toBe("variable");
+      expect(completions[1].label).toBe("parseInt");
+      expect(completions[1].kind).toBe("function");
     });
   });
   

@@ -17,13 +17,13 @@ describe('Async Error Handling Coverage', () => {
 
     describe('scrape method error paths', () => {
       it('should catch and handle fetch timeout', async () => {
-        const timeoutError = new Error('ETIMEDOUT');
+        const timeoutError = new Error("ETIMEDOUT");
         (scraper as any).fetcher.fetch = jest.fn().mockRejectedValue(timeoutError);
 
         const errorSpy = jest.fn();
-        scraper.on('scrapeError', errorSpy);
+        scraper.on("scrapeError", errorSpy);
 
-        await expect(scraper.scrape('https://example.com')).rejects.toThrow('ETIMEDOUT');
+        await expect(scraper.scrape('https://example.com')).rejects.toThrow("ETIMEDOUT");
 
         expect(errorSpy).toHaveBeenCalledWith(
           expect.objectContaining({
@@ -105,7 +105,7 @@ describe('Async Error Handling Coverage', () => {
           addBatchJobs: jest.fn().mockReturnValue(['job1', 'job2', 'job3']),
           getJob: jest.fn().mockImplementation((id) => ({
             id,
-            status: id === 'job2' ? 'failed' : 'completed',
+            status: id === 'job2' ? 'failed' : "completed",
             result: id === 'job2' ? undefined : TestDataFactory.createMockScrapingResult()
           })),
           getProgress: jest.fn().mockReturnValue({
@@ -149,14 +149,14 @@ describe('Async Error Handling Coverage', () => {
 
     describe('browser automation error paths', () => {
       it('should catch playwright launch errors', async () => {
-        const playwright = require('playwright');
+        const playwright = require("playwright");
         playwright.chromium = {
           launch: jest.fn().mockRejectedValue(new Error('Browser launch failed'))
         };
 
         const options = {
           browserOptions: {
-            engine: 'playwright' as const,
+            engine: "playwright" as const,
             headless: true
           }
         };
@@ -165,14 +165,14 @@ describe('Async Error Handling Coverage', () => {
       });
 
       it('should catch puppeteer page errors', async () => {
-        const puppeteer = require('puppeteer');
+        const puppeteer = require("puppeteer");
         puppeteer.launch = jest.fn().mockResolvedValue({
           newPage: jest.fn().mockRejectedValue(new Error('Page creation failed'))
         });
 
         const options = {
           browserOptions: {
-            engine: 'puppeteer' as const
+            engine: "puppeteer" as const
           }
         };
 
@@ -185,7 +185,7 @@ describe('Async Error Handling Coverage', () => {
           close: jest.fn()
         };
 
-        const playwright = require('playwright');
+        const playwright = require("playwright");
         playwright.chromium = {
           launch: jest.fn().mockResolvedValue({
             newPage: jest.fn().mockResolvedValue(mockPage)
@@ -194,7 +194,7 @@ describe('Async Error Handling Coverage', () => {
 
         const options = {
           browserOptions: {
-            engine: 'playwright' as const
+            engine: "playwright" as const
           }
         };
 
@@ -210,7 +210,7 @@ describe('Async Error Handling Coverage', () => {
           close: jest.fn()
         };
 
-        const playwright = require('playwright');
+        const playwright = require("playwright");
         playwright.chromium = {
           launch: jest.fn().mockResolvedValue({
             newPage: jest.fn().mockResolvedValue(mockPage)
@@ -219,7 +219,7 @@ describe('Async Error Handling Coverage', () => {
 
         const options = {
           browserOptions: {
-            engine: 'playwright' as const
+            engine: "playwright" as const
           },
           parseOptions: {
             executeJS: 'invalid.javascript.code()'
@@ -270,7 +270,7 @@ describe('Async Error Handling Coverage', () => {
           .mockRejectedValueOnce(new Error('First job fails'))
           .mockResolvedValueOnce(TestDataFactory.createMockScrapingResult());
 
-        const setImmediateSpy = jest.spyOn(global, 'setImmediate');
+        const setImmediateSpy = jest.spyOn(global, "setImmediate");
 
         await (scraper as any).processNextJob();
 
@@ -491,7 +491,7 @@ describe('Async Error Handling Coverage', () => {
       });
 
       const options = {
-        browserOptions: { engine: 'playwright' as const }
+        browserOptions: { engine: "playwright" as const }
       };
 
       await expect(scraper.scrape('https://example.com', options)).rejects.toThrow('Browser error');
@@ -522,7 +522,7 @@ describe('Async Error Handling Coverage', () => {
       await Promise.all(updates.map(fn => Promise.resolve(fn())));
 
       const job = queue.getJob(jobId);
-      expect(job?.status).toBe('completed');
+      expect(job?.status).toBe("completed");
       expect(job?.progress).toBe(100);
     });
 

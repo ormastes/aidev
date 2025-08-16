@@ -79,7 +79,7 @@ export class VFFileWrapper {
     const fullPath = this.resolvePath(cleanPath);
     
     try {
-      const content = await fs.readFile(fullPath, 'utf-8');
+      const content = await fileAPI.readFile(fullPath, 'utf-8');
       const data = JSON.parse(content);
       
       // Apply query parameter filtering
@@ -136,7 +136,7 @@ export class VFFileWrapper {
     const { path: cleanPath } = this.parseQueryParams(filePath);
     const fullPath = this.resolvePath(cleanPath);
     
-    await fs.unlink(fullPath);
+    await fileAPI.unlink(fullPath);
   }
 
   /**

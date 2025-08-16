@@ -32,9 +32,9 @@ async function runHelloAddDemo() {
   
   // Check for DeepSeek R1 or fallback model
   const models = availability.models || [];
-  const hasDeepSeek = models.some(m => m.toLowerCase().includes('deepseek'));
+  const hasDeepSeek = models.some(m => m.toLowerCase().includes("deepseek"));
   const modelToUse = hasDeepSeek 
-    ? models.find(m => m.toLowerCase().includes('deepseek'))!
+    ? models.find(m => m.toLowerCase().includes("deepseek"))!
     : (models[0] || 'llama2');
 
   console.log(`   Using model: ${modelToUse}`);

@@ -1,4 +1,4 @@
-import { Command } from 'commander';
+import { Command } from "commander";
 import chalk from 'chalk';
 import { EpicSetupOptions } from '../types';
 import { EpicSetup } from '../setup/epic-setup';

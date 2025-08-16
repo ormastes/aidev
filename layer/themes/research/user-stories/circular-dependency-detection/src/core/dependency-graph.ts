@@ -2,7 +2,7 @@
  * Core dependency graph implementation with cycle detection
  */
 
-import { Graph, alg } from 'graphlib';
+import { Graph, alg } from "graphlib";
 import { DependencyNode, DependencyEdge, CircularDependency } from './types';
 
 export class DependencyGraph {
@@ -323,7 +323,7 @@ export class DependencyGraph {
 
   private getNodeColor(language: string): string {
     switch (language) {
-      case 'typescript': return 'blue';
+      case "typescript": return 'blue';
       case 'cpp': return 'green';
       case 'python': return 'orange';
       default: return 'gray';

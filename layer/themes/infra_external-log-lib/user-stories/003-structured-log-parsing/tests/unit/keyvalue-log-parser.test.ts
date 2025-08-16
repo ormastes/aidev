@@ -1,13 +1,13 @@
 import { KeyValueLogParser } from '../../src/external/keyvalue-log-parser';
 
-describe('KeyValueLogParser', () => {
+describe("KeyValueLogParser", () => {
   let parser: KeyValueLogParser;
 
   beforeEach(() => {
     parser = new KeyValueLogParser();
   });
 
-  describe('parseKeyValueLog', () => {
+  describe("parseKeyValueLog", () => {
     it('should parse basic key-value pairs', () => {
       const line = 'timestamp=2024-01-15T10:30:00.000Z level=info message="Test message"';
       const result = parser.parseKeyValueLog(line, 'stdout');
@@ -111,7 +111,7 @@ describe('KeyValueLogParser', () => {
         { input: 'DEBUG', expected: 'debug' },
         { input: 'TRACE', expected: 'trace' },
         { input: 'FATAL', expected: 'fatal' },
-        { input: 'CRITICAL', expected: 'fatal' }
+        { input: "CRITICAL", expected: 'fatal' }
       ];
 
       levels.forEach(({ input, expected }) => {
@@ -173,7 +173,7 @@ describe('KeyValueLogParser', () => {
     });
   });
 
-  describe('isKeyValueFormat', () => {
+  describe("isKeyValueFormat", () => {
     it('should detect valid key-value format', () => {
       expect(parser.isKeyValueFormat('key=value')).toBe(true);
       expect(parser.isKeyValueFormat('multiple=keys level=info')).toBe(true);
@@ -196,7 +196,7 @@ describe('KeyValueLogParser', () => {
     });
   });
 
-  describe('formatKeyValueLog', () => {
+  describe("formatKeyValueLog", () => {
     it('should format log entry to key-value string', () => {
       const entry = {
         timestamp: new Date('2024-01-15T10:30:00.000Z'),
@@ -261,14 +261,14 @@ describe('KeyValueLogParser', () => {
     });
   });
 
-  describe('parseValue', () => {
+  describe("parseValue", () => {
     it('should parse different value types correctly', () => {
       expect(parser.parseValue('123')).toBe(123);
       expect(parser.parseValue('123.45')).toBe(123.45);
       expect(parser.parseValue('true')).toBe(true);
       expect(parser.parseValue('false')).toBe(false);
       expect(parser.parseValue('null')).toBeNull();
-      expect(parser.parseValue('undefined')).toBe('undefined'); // String, not undefined
+      expect(parser.parseValue("undefined")).toBe("undefined"); // String, not undefined
       expect(parser.parseValue('plain text')).toBe('plain text');
     });
 

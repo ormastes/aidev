@@ -1,6 +1,6 @@
-import { fs } from '../../../../infra_external-log-lib/src';
-import { path } from '../../../../infra_external-log-lib/src';
-import * as ts from 'typescript';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import * as ts from "typescript";
 import { execSync } from 'child_process';
 import { LayerValidator } from '../src/core/layer-validator';
 import { ModuleAnalyzer } from '../src/utils/module-analyzer';
@@ -24,7 +24,7 @@ describe('HEA Real-World Scenario Tests', () => {
         .withDescription('Formats numbers as currency')
         .withExecutor(async (amount) => {
           return new Intl.NumberFormat('en-US', {
-            style: 'currency',
+            style: "currency",
             currency: 'USD',
           }).format(amount);
         })
@@ -56,7 +56,7 @@ describe('HEA Real-World Scenario Tests', () => {
           // Simulate token validation
           return {
             userId: 'user-123',
-            roles: ['customer'],
+            roles: ["customer"],
           };
         })
         .build();
@@ -67,7 +67,7 @@ describe('HEA Real-World Scenario Tests', () => {
       const infraDatabasePipe = createPipeBuilder<{query: string; params?: any[]}, any[]>()
         .withName('database-query')
         .withVersion('1.0.0')
-        .withLayer('infrastructure')
+        .withLayer("infrastructure")
         .withDescription('Executes database queries')
         .withDependency('currency-formatter') // Can depend on core
         .withExecutor(async (input) => {
@@ -181,7 +181,7 @@ describe('HEA Real-World Scenario Tests', () => {
         return;
       }
 
-      const layerTypes = ['themes', 'infrastructure', 'shared', 'core'];
+      const layerTypes = ['themes', "infrastructure", 'shared', 'core'];
       const discoveredLayers: Map<string, LayerConfig> = new Map();
       
       layerTypes.forEach(layerType => {
@@ -218,7 +218,7 @@ describe('HEA Real-World Scenario Tests', () => {
                   case 'themes':
                     type = LayerType.Themes;
                     break;
-                  case 'infrastructure':
+                  case "infrastructure":
                     type = LayerType.Infrastructure;
                     break;
                   default:
@@ -344,7 +344,7 @@ describe('HEA Real-World Scenario Tests', () => {
       const executionContexts = {
         core: { allowedDependencies: [] },
         shared: { allowedDependencies: ['core'] },
-        themes: { allowedDependencies: ['core', 'shared', 'infrastructure'] },
+        themes: { allowedDependencies: ['core', 'shared', "infrastructure"] },
         infrastructure: { allowedDependencies: ['core', 'shared'] },
       };
       
@@ -369,7 +369,7 @@ describe('HEA Real-World Scenario Tests', () => {
       };
       
       // Register context-aware pipes
-      ['core', 'shared', 'themes', 'infrastructure'].forEach(layer => {
+      ['core', 'shared', 'themes', "infrastructure"].forEach(layer => {
         registry.register(`${layer}-context-pipe`, createContextAwarePipe(layer));
       });
       
@@ -468,16 +468,16 @@ describe('HEA Real-World Scenario Tests', () => {
       // Migrated to HEA structure
       const migratedStructure = {
         core: {
-          utils: ['formatCurrency'],
+          utils: ["formatCurrency"],
         },
         shared: {
-          auth: ['getCurrentUser'],
+          auth: ["getCurrentUser"],
         },
         infrastructure: {
           database: ['query'],
         },
         themes: {
-          'product-service': ['ProductService'],
+          'product-service': ["ProductService"],
         },
       };
       

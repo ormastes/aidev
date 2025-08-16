@@ -174,11 +174,11 @@ class ActionExecutor {
           result = await this.executeDelay(action.duration, context);
           break;
           
-        case 'conditional':
+        case "conditional":
           result = await this.executeConditional(action.condition, action.trueAction, action.falseAction, context);
           break;
           
-        case 'parallel':
+        case "parallel":
           result = await this.executeParallel(action.actions, context);
           break;
           
@@ -189,7 +189,7 @@ class ActionExecutor {
       // Update execution status
       const execution = this.currentExecutions.get(actionId);
       if (execution) {
-        execution.status = 'completed';
+        execution.status = "completed";
         execution.endTime = Date.now();
         execution.result = result;
       }
@@ -247,7 +247,7 @@ class ActionExecutor {
         }
         break;
         
-      case 'conditional':
+      case "conditional":
         if (!action.condition) {
           errors.push('Conditional action requires a condition');
         }
@@ -256,7 +256,7 @@ class ActionExecutor {
         }
         break;
         
-      case 'parallel':
+      case "parallel":
         if (!Array.isArray(action.actions) || action.actions.length === 0) {
           errors.push('Parallel action requires an array of actions');
         }
@@ -395,11 +395,11 @@ describe('FlowManager-ActionExecutor Integration Test', () => {
             id: 'flow-complex',
             name: 'Complex Test Flow',
             actions: [
-              { type: 'parallel', actions: [
+              { type: "parallel", actions: [
                 { type: 'command', command: 'echo "Parallel 1"' },
                 { type: 'command', command: 'echo "Parallel 2"' }
               ]},
-              { type: 'conditional', condition: { value: true }, 
+              { type: "conditional", condition: { value: true }, 
                 trueAction: { type: 'http', url: 'https://api.example.com/success' },
                 falseAction: { type: 'http', url: 'https://api.example.com/failure' }
               },

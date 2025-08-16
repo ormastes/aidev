@@ -209,7 +209,7 @@ export class PermissionManager implements IPermissionManager {
     }
 
     // Check environment-based rules
-    if (context.environment === 'development') {
+    if (context.environment === "development") {
       // More permissive in development
       if (operation.type === 'read') return true;
     }
@@ -293,7 +293,7 @@ export class PermissionManager implements IPermissionManager {
     }
 
     // CSV format
-    const headers = ['ID', 'Timestamp', 'Operation Type', 'Resource', 'Action', 'Result', 'User', 'Agent'];
+    const headers = ['ID', "Timestamp", 'Operation Type', "Resource", 'Action', 'Result', 'User', 'Agent'];
     const rows = [headers];
 
     for (const entry of this.auditLog) {

@@ -3,7 +3,7 @@
  * Validates and analyzes LLM agent workflow definitions and execution flows
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 export interface FlowDefinition {
   id: string;
@@ -19,7 +19,7 @@ export interface FlowDefinition {
 export interface FlowStep {
   id: string;
   name: string;
-  type: 'action' | 'decision' | 'parallel' | 'loop' | 'wait' | 'transform';
+  type: 'action' | "decision" | "parallel" | 'loop' | 'wait' | "transform";
   action?: string;
   condition?: string;
   inputs?: Record<string, any>;
@@ -32,7 +32,7 @@ export interface FlowStep {
 
 export interface FlowTrigger {
   id: string;
-  type: 'manual' | 'scheduled' | 'event' | 'webhook';
+  type: 'manual' | "scheduled" | 'event' | 'webhook';
   config: Record<string, any>;
   enabled: boolean;
 }
@@ -54,7 +54,7 @@ export interface ValidationRule {
 
 export interface RetryPolicy {
   maxAttempts: number;
-  backoffType: 'linear' | 'exponential';
+  backoffType: 'linear' | "exponential";
   delayMs: number;
   maxDelayMs?: number;
 }
@@ -76,7 +76,7 @@ export interface ValidationError {
   code: string;
   message: string;
   path: string;
-  severity: 'error' | 'critical';
+  severity: 'error' | "critical";
   suggestion?: string;
 }
 
@@ -213,7 +213,7 @@ export class FlowValidator extends EventEmitter {
       stats
     };
     
-    this.emit('validation', result);
+    this.emit("validation", result);
     return result;
   }
 
@@ -255,7 +255,7 @@ export class FlowValidator extends EventEmitter {
         code: 'NO_STEPS',
         message: 'Flow must have at least one step',
         path: 'flow.steps',
-        severity: 'critical'
+        severity: "critical"
       });
       return errors;
     }
@@ -299,7 +299,7 @@ export class FlowValidator extends EventEmitter {
         });
       }
       
-      if (step.type === 'decision' && !step.condition) {
+      if (step.type === "decision" && !step.condition) {
         errors.push({
           code: 'MISSING_CONDITION',
           message: `Decision step '${step.id}' must specify a condition`,
@@ -426,7 +426,7 @@ export class FlowValidator extends EventEmitter {
           code: 'DUPLICATE_ID',
           message: `Step ID '${id}' is used ${count} times`,
           path: `flow.steps.${id}`,
-          severity: 'critical'
+          severity: "critical"
         });
       }
     });
@@ -528,9 +528,9 @@ export class FlowValidator extends EventEmitter {
     // Calculate complexity (simplified McCabe complexity)
     let complexity = 1; // Base complexity
     flow.steps.forEach(step => {
-      if (step.type === 'decision') {
+      if (step.type === "decision") {
         complexity += 1; // Each decision adds a path
-      } else if (step.type === 'parallel') {
+      } else if (step.type === "parallel") {
         const branches = Array.isArray(step.next) ? step.next.length : 1;
         complexity += branches - 1;
       } else if (step.type === 'loop') {
@@ -590,7 +590,7 @@ export class FlowValidator extends EventEmitter {
    */
   registerValidator(name: string, validator: (flow: FlowDefinition) => ValidationError[]): void {
     this.customValidators.set(name, validator);
-    this.emit('validatorRegistered', name);
+    this.emit("validatorRegistered", name);
   }
 
   /**
@@ -598,7 +598,7 @@ export class FlowValidator extends EventEmitter {
    */
   unregisterValidator(name: string): void {
     this.customValidators.delete(name);
-    this.emit('validatorUnregistered', name);
+    this.emit("validatorUnregistered", name);
   }
 
   /**
@@ -613,7 +613,7 @@ export class FlowValidator extends EventEmitter {
    */
   setOptions(options: Partial<ValidationOptions>): void {
     this.options = { ...this.options, ...options };
-    this.emit('optionsUpdated', this.options);
+    this.emit("optionsUpdated", this.options);
   }
 }
 

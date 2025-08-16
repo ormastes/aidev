@@ -10,7 +10,7 @@ export class ChildProcessInterceptor extends BaseInterceptor<typeof childProcess
   private readonly dangerousCommands = [
     'rm', 'del', 'format', 'dd', 'mkfs',
     'curl', 'wget', 'nc', 'netcat',
-    'eval', 'exec', 'sh', 'bash', 'cmd', 'powershell'
+    'eval', 'exec', 'sh', 'bash', 'cmd', "powershell"
   ];
   
   constructor(config = {}) {
@@ -24,11 +24,11 @@ export class ChildProcessInterceptor extends BaseInterceptor<typeof childProcess
       ...this.originalModule,
       
       exec: this.wrapMethod('child_process', 'exec', this.originalModule.exec),
-      execSync: this.wrapMethod('child_process', 'execSync', this.originalModule.execSync),
-      execFile: this.wrapMethod('child_process', 'execFile', this.originalModule.execFile),
-      execFileSync: this.wrapMethod('child_process', 'execFileSync', this.originalModule.execFileSync),
+      execSync: this.wrapMethod('child_process', "execSync", this.originalModule.execSync),
+      execFile: this.wrapMethod('child_process', "execFile", this.originalModule.execFile),
+      execFileSync: this.wrapMethod('child_process', "execFileSync", this.originalModule.execFileSync),
       spawn: this.wrapMethod('child_process', 'spawn', this.originalModule.spawn),
-      spawnSync: this.wrapMethod('child_process', 'spawnSync', this.originalModule.spawnSync),
+      spawnSync: this.wrapMethod('child_process', "spawnSync", this.originalModule.spawnSync),
       fork: this.wrapMethod('child_process', 'fork', this.originalModule.fork),
       
       // Keep other properties
@@ -59,11 +59,11 @@ export class ChildProcessInterceptor extends BaseInterceptor<typeof childProcess
   }
   
   private extractCommand(info: CallInfo): string {
-    if (info.method === 'exec' || info.method === 'execSync') {
+    if (info.method === 'exec' || info.method === "execSync") {
       return info.args[0] || '';
     }
-    if (info.method === 'spawn' || info.method === 'spawnSync' || 
-        info.method === 'execFile' || info.method === 'execFileSync') {
+    if (info.method === 'spawn' || info.method === "spawnSync" || 
+        info.method === "execFile" || info.method === "execFileSync") {
       return info.args[0] || '';
     }
     if (info.method === 'fork') {

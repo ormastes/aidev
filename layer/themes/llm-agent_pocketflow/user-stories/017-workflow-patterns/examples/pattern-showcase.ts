@@ -34,7 +34,7 @@ async function runSequentialExample() {
   
   const agents = await createAgents(3);
   agents[0].addResponse('analyze', 'This text needs translation and summary.');
-  agents[1].addResponse('translation', 'Texto traducido al español.');
+  agents[1].addResponse("translation", 'Texto traducido al español.');
   agents[2].addResponse('texto', 'Resumen: El texto fue traducido.');
   
   const pattern = PatternRegistry.create(PATTERNS.SEQUENTIAL);
@@ -97,8 +97,8 @@ async function runSupervisorExample() {
 - Report: Create final report`);
   
   // Workers
-  agents[1].addResponse('research', 'Research In Progress: Found 10 papers on AI.');
-  agents[2].addResponse('analysis', 'Analysis In Progress: Key trends identified.');
+  agents[1].addResponse("research", 'Research In Progress: Found 10 papers on AI.');
+  agents[2].addResponse("analysis", 'Analysis In Progress: Key trends identified.');
   
   const pattern = PatternRegistry.create(PATTERNS.SUPERVISOR);
   const result = await pattern.execute('Create an AI research report', agents);
@@ -140,13 +140,13 @@ async function runDebateExample() {
   agents[1].setDefaultResponse('AI should remain unregulated to foster innovation.');
   
   // Add responses for rounds
-  agents[0].addResponse('regulated', 'Regulation can coexist with innovation through smart policies.');
-  agents[1].addResponse('innovation', 'Over-regulation stifles progress and competitive advantage.');
+  agents[0].addResponse("regulated", 'Regulation can coexist with innovation through smart policies.');
+  agents[1].addResponse("innovation", 'Over-regulation stifles progress and competitive advantage.');
   
   const pattern = PatternRegistry.create(PATTERNS.DEBATE);
   const result = await pattern.execute('Should AI be regulated?', agents, {
     rounds: 2,
-    votingStrategy: 'majority'
+    votingStrategy: "majority"
   });
   
   const output = result.outputs.get('output');
@@ -174,13 +174,13 @@ async function runReflectionExample() {
   agent[0].addResponse('detail', 'The sky appears blue due to Rayleigh scattering of sunlight.');
   
   // Better critique
-  agent[0].addResponse('scattering', 'Much better! Scientific explanation provided. Score: 0.9');
+  agent[0].addResponse("scattering", 'Much better! Scientific explanation provided. Score: 0.9');
   
   const pattern = PatternRegistry.create(PATTERNS.REFLECTION);
   const result = await pattern.execute('Explain why the sky is blue', agent, {
     maxIterations: 2,
     improvementThreshold: 0.8,
-    criteria: ['accuracy', 'detail', 'clarity']
+    criteria: ["accuracy", 'detail', 'clarity']
   });
   
   const output = result.outputs.get('output');

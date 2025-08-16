@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosError } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosError } from '../utils/http-wrapper';
 import { MMKV } from 'react-native-mmkv';
 import Config from 'react-native-config';
 import NetInfo from '@react-native-community/netinfo';

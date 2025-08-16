@@ -1,14 +1,15 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Docker CMake Builder
  * Builds CMake projects inside Docker containers
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { spawn, ChildProcess } from 'child_process';
 import { path } from '../../../infra_external-log-lib/src';
 import { fs } from '../../../infra_external-log-lib/src';
 
-export type BuildStage = 'dependencies' | 'configure' | 'build' | 'test' | 'package';
+export type BuildStage = "dependencies" | "configure" | 'build' | 'test' | 'package';
 
 export interface CompilerConfig {
   type: 'gcc' | 'clang' | 'msvc';
@@ -23,7 +24,7 @@ export interface CompilerConfig {
 
 export interface CMakeOptions {
   generator?: string;
-  buildType?: 'Debug' | 'Release' | 'RelWithDebInfo' | 'MinSizeRel';
+  buildType?: 'Debug' | 'Release' | "RelWithDebInfo" | "MinSizeRel";
   installPrefix?: string;
   cacheVariables?: Record<string, string>;
   toolchainFile?: string;
@@ -119,7 +120,7 @@ export class DockerCMakeBuilder extends EventEmitter {
       // Execute build stages
       const stages: BuildStage[] = options.stage 
         ? [options.stage]
-        : ['dependencies', 'configure', 'build', 'test', 'package'];
+        : ["dependencies", "configure", 'build', 'test', 'package'];
 
       for (const stage of stages) {
         const stageResult = await this.executeStage(stage, options);
@@ -258,7 +259,7 @@ export class DockerCMakeBuilder extends EventEmitter {
     const buildPath = path.posix.join(this.config.mountPath!, this.config.buildDir!);
 
     switch (stage) {
-      case 'dependencies':
+      case "dependencies":
         // Install build dependencies
         commands.push('apt-get update || yum update -y || true');
         commands.push('apt-get install -y cmake ninja-build || yum install -y cmake ninja-build || true');
@@ -269,7 +270,7 @@ export class DockerCMakeBuilder extends EventEmitter {
         }
         break;
 
-      case 'configure':
+      case "configure":
         // Create build directory
         commands.push(`mkdir -p ${buildPath}`);
         

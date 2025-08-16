@@ -4,7 +4,7 @@
 
 import { TestParser } from '../../src/domain/test-parser';
 
-describe('TestParser', () => {
+describe("TestParser", () => {
   let parser: TestParser;
 
   beforeEach(() => {
@@ -14,7 +14,7 @@ describe('TestParser', () => {
   describe('parse', () => {
     it('should parse simple test suite', () => {
       const code = `
-        describe('Calculator', () => {
+        describe("Calculator", () => {
           it('should add two numbers', () => {
             expect(add(2, 3)).toBe(5);
           });
@@ -29,9 +29,9 @@ describe('TestParser', () => {
       
       expect(result.success).toBe(true);
       expect(result.document).toBeDefined();
-      expect(result.document?.title).toContain('calculator');
+      expect(result.document?.title).toContain("calculator");
       expect(result.document?.suites).toHaveLength(1);
-      expect(result.document?.suites[0].title).toBe('Calculator');
+      expect(result.document?.suites[0].title).toBe("Calculator");
       expect(result.document?.suites[0].testCases).toHaveLength(2);
     });
 

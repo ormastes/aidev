@@ -33,7 +33,7 @@ async function demonstrateScreenshotCapture() {
     
     // 2. Screenshot with highlights
     console.log('2. Capturing with highlights...');
-    const highlighted = await capture.capture(page, 'highlighted', {
+    const highlighted = await capture.capture(page, "highlighted", {
       highlight: ['h1', 'p'],
       fullPage: true
     });
@@ -68,7 +68,7 @@ async function demonstrateScreenshotCapture() {
     console.log('5. Capturing responsive views...');
     const responsive = await capture.captureResponsive(
       'https://example.com',
-      'responsive',
+      "responsive",
       [
         { width: 375, height: 812, label: 'iphone-x' },
         { width: 768, height: 1024, label: 'ipad' },
@@ -291,7 +291,7 @@ async function demonstrateGalleryGeneration(captures: any[]) {
     console.log('2. Generating HTML carousel gallery...');
     await generator.generateHTML(images, './screenshots/gallery-carousel.html', {
       title: 'Carousel Gallery',
-      layout: 'carousel',
+      layout: "carousel",
       enableZoom: true
     });
     console.log('   ✓ Generated gallery-carousel.html');
@@ -300,7 +300,7 @@ async function demonstrateGalleryGeneration(captures: any[]) {
     console.log('3. Generating HTML comparison gallery...');
     await generator.generateHTML(images, './screenshots/gallery-comparison.html', {
       title: 'Before/After Comparison',
-      layout: 'comparison'
+      layout: "comparison"
     });
     console.log('   ✓ Generated gallery-comparison.html');
     

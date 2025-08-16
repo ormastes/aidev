@@ -81,18 +81,18 @@ describe('PortAllocator External Interface Test', () => {
     };
     
     // Verify all methods exist
-    expect(typeof mockPortAllocator.allocatePortsForEnvironment).toBe('function');
-    expect(typeof mockPortAllocator.allocateServicePort).toBe('function');
-    expect(typeof mockPortAllocator.releaseEnvironmentPorts).toBe('function');
-    expect(typeof mockPortAllocator.releasePort).toBe('function');
-    expect(typeof mockPortAllocator.isPortAvailable).toBe('function');
-    expect(typeof mockPortAllocator.getEnvironmentPorts).toBe('function');
-    expect(typeof mockPortAllocator.getNextAvailablePort).toBe('function');
-    expect(typeof mockPortAllocator.getAllUsedPorts).toBe('function');
-    expect(typeof mockPortAllocator.getPortConfigForType).toBe('function');
-    expect(typeof mockPortAllocator.reservePort).toBe('function');
-    expect(typeof mockPortAllocator.validatePortForEnvironment).toBe('function');
-    expect(typeof mockPortAllocator.getPortUsageSummary).toBe('function');
+    expect(typeof mockPortAllocator.allocatePortsForEnvironment).toBe("function");
+    expect(typeof mockPortAllocator.allocateServicePort).toBe("function");
+    expect(typeof mockPortAllocator.releaseEnvironmentPorts).toBe("function");
+    expect(typeof mockPortAllocator.releasePort).toBe("function");
+    expect(typeof mockPortAllocator.isPortAvailable).toBe("function");
+    expect(typeof mockPortAllocator.getEnvironmentPorts).toBe("function");
+    expect(typeof mockPortAllocator.getNextAvailablePort).toBe("function");
+    expect(typeof mockPortAllocator.getAllUsedPorts).toBe("function");
+    expect(typeof mockPortAllocator.getPortConfigForType).toBe("function");
+    expect(typeof mockPortAllocator.reservePort).toBe("function");
+    expect(typeof mockPortAllocator.validatePortForEnvironment).toBe("function");
+    expect(typeof mockPortAllocator.getPortUsageSummary).toBe("function");
   });
   
   test('should verify PortRange structure', () => {
@@ -165,7 +165,7 @@ describe('PortAllocator External Interface Test', () => {
   });
   
   test('should verify allocatePortsForEnvironment return structure', async () => {
-    const mockAllocator: Pick<PortAllocator, 'allocatePortsForEnvironment'> = {
+    const mockAllocator: Pick<PortAllocator, "allocatePortsForEnvironment"> = {
       allocatePortsForEnvironment: async (environmentName, environmentType) => {
         return {
           portal: 3200,
@@ -185,7 +185,7 @@ describe('PortAllocator External Interface Test', () => {
   });
   
   test('should verify getPortUsageSummary return structure', async () => {
-    const mockAllocator: Pick<PortAllocator, 'getPortUsageSummary'> = {
+    const mockAllocator: Pick<PortAllocator, "getPortUsageSummary"> = {
       getPortUsageSummary: async () => {
         return {
           theme: { total: 100, used: 10, available: 90 },

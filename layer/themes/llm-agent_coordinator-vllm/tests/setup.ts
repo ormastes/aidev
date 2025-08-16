@@ -45,7 +45,7 @@ const mockVLLMResponses = {
     choices: [{
       index: 0,
       message: {
-        role: 'assistant',
+        role: "assistant",
         content: 'This is a chat response'
       },
       finish_reason: 'stop'

@@ -35,7 +35,7 @@ class SimpleAgent extends BaseAgent {
     const lastMessage = request.messages[request.messages.length - 1];
     return {
       id: 'response-' + Date.now(),
-      role: 'assistant',
+      role: "assistant",
       content: `Echo: ${lastMessage.content}`,
       metadata: {
         processedBy: this.name,
@@ -99,9 +99,9 @@ async function main() {
   // 2. Set up authentication
   console.log('1. Authenticating...');
   const authResult = await authService.authenticate({
-    username: 'developer',
-    password: 'dev123',
-    type: 'password'
+    username: "developer",
+    password: "PLACEHOLDER",
+    type: "password"
   });
   console.log(`   Authenticated as: ${authResult.user.username}`);
   console.log(`   Token: ${authResult.token.substring(0, 10)}...`);

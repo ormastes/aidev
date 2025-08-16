@@ -53,7 +53,7 @@ export interface SupervisorConfig extends PatternConfig {
 }
 
 export interface RAGConfig extends PatternConfig {
-  retrievalStrategy?: 'similarity' | 'keyword' | 'hybrid';
+  retrievalStrategy?: "similarity" | 'keyword' | 'hybrid';
   contextLimit?: number;
   includeMetadata?: boolean;
   reranking?: boolean;
@@ -62,7 +62,7 @@ export interface RAGConfig extends PatternConfig {
 export interface DebateConfig extends PatternConfig {
   rounds?: number;
   moderatorAgent?: Agent;
-  votingStrategy?: 'majority' | 'weighted' | 'moderator';
+  votingStrategy?: "majority" | "weighted" | "moderator";
   requireConsensus?: boolean;
 }
 

@@ -22,7 +22,7 @@ export class MarkdownProcessor {
       return {
         success: true,
         output: markdown,
-        format: 'markdown'
+        format: "markdown"
       };
     } catch (error) {
       return {
@@ -259,7 +259,7 @@ export class MarkdownProcessor {
       }
       
       if (step.screenshot) {
-        const caption = step.screenshot.caption || 'Screenshot';
+        const caption = step.screenshot.caption || "Screenshot";
         lines.push(`   - ![${caption}](${step.screenshot.filePath})`);
         
         if (step.screenshot.annotations && step.screenshot.annotations.length > 0) {
@@ -340,9 +340,9 @@ ${content}
   /**
    * Generate mermaid diagram
    */
-  generateMermaidDiagram(type: 'flowchart' | 'sequence' | 'gantt', content: string): string {
+  generateMermaidDiagram(type: "flowchart" | "sequence" | 'gantt', content: string): string {
     return `\`\`\`mermaid
-${type} ${type === 'flowchart' ? 'LR' : ''}
+${type} ${type === "flowchart" ? 'LR' : ''}
 ${content}
 \`\`\``;
   }

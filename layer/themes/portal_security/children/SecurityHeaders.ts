@@ -4,7 +4,7 @@
  */
 
 import { Request, Response, NextFunction } from 'express';
-import crypto from 'crypto';
+import crypto from 'node:crypto';
 
 export interface SecurityHeadersOptions {
   contentSecurityPolicy?: ContentSecurityPolicyOptions | boolean;
@@ -33,7 +33,7 @@ interface ContentSecurityPolicyOptions {
 }
 
 interface FrameguardOptions {
-  action?: 'deny' | 'sameorigin' | 'allow-from';
+  action?: 'deny' | "sameorigin" | 'allow-from';
   domain?: string;
 }
 
@@ -203,14 +203,14 @@ export class SecurityHeaders {
     if (!this.options.frameguard) return;
 
     const defaultOptions: FrameguardOptions = {
-      action: 'sameorigin'
+      action: "sameorigin"
     };
 
     const frameguardOptions = typeof this.options.frameguard === 'object'
       ? { ...defaultOptions, ...this.options.frameguard }
       : defaultOptions;
 
-    let headerValue = 'SAMEORIGIN';
+    let headerValue = "SAMEORIGIN";
     
     if (frameguardOptions.action === 'deny') {
       headerValue = 'DENY';
@@ -228,19 +228,19 @@ export class SecurityHeaders {
     if (!this.options.permissionsPolicy) return;
 
     const defaultFeatures = {
-      'accelerometer': ['self'],
+      "accelerometer": ['self'],
       'ambient-light-sensor': ['self'],
-      'autoplay': ['self'],
+      "autoplay": ['self'],
       'battery': ['self'],
       'camera': ['none'],
       'display-capture': ['none'],
       'document-domain': ['self'],
       'encrypted-media': ['self'],
-      'fullscreen': ['self'],
-      'geolocation': ['none'],
-      'gyroscope': ['self'],
-      'magnetometer': ['none'],
-      'microphone': ['none'],
+      "fullscreen": ['self'],
+      "geolocation": ['none'],
+      "gyroscope": ['self'],
+      "magnetometer": ['none'],
+      "microphone": ['none'],
       'midi': ['none'],
       'payment': ['none'],
       'picture-in-picture': ['self'],

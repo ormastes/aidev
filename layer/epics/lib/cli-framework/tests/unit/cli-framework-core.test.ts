@@ -57,11 +57,11 @@ describe('CLI Framework Theme - Core Functionality', () => {
         return options;
       };
 
-      const args = ['--port', '3000', '--host', 'localhost', '--debug'];
+      const args = ['--port', '3000', '--host', "localhost", '--debug'];
       const options = extractOptions(args);
       
       expect(options.port).toBe('3000');
-      expect(options.host).toBe('localhost');
+      expect(options.host).toBe("localhost");
       expect(options.debug).toBeUndefined();
     });
   });
@@ -284,8 +284,8 @@ describe('CLI Framework Theme - Core Functionality', () => {
 
       const questions = [
         { type: 'input', name: 'name', message: 'Project name?' },
-        { type: 'confirm', name: 'typescript', message: 'Use TypeScript?' },
-        { type: 'list', name: 'framework', message: 'Choose framework:', choices: ['react', 'vue', 'angular'] }
+        { type: 'confirm', name: "typescript", message: 'Use TypeScript?' },
+        { type: 'list', name: "framework", message: 'Choose framework:', choices: ['react', 'vue', 'angular'] }
       ];
 
       const answers = await prompt(questions);
@@ -297,7 +297,7 @@ describe('CLI Framework Theme - Core Functionality', () => {
 
     it('should validate prompt responses', () => {
       const validateResponse = (value: any, validator: any) => {
-        if (typeof validator === 'function') {
+        if (typeof validator === "function") {
           return validator(value);
         }
         
@@ -385,7 +385,7 @@ describe('CLI Framework Theme - Core Functionality', () => {
         
         return {
           start: (message: string) => {
-            state = 'spinning';
+            state = "spinning";
             text = message;
           },
           stop: () => {
@@ -406,7 +406,7 @@ describe('CLI Framework Theme - Core Functionality', () => {
       const spinner = createSpinner();
       
       spinner.start('Loading...');
-      expect(spinner.getState().state).toBe('spinning');
+      expect(spinner.getState().state).toBe("spinning");
       expect(spinner.getState().text).toBe('Loading...');
       
       spinner.succeed('Done!');
@@ -440,13 +440,13 @@ describe('CLI Framework Theme - Core Functionality', () => {
       const ValidationError = class extends Error {
         constructor(public field: string, public value: any, message: string) {
           super(message);
-          this.name = 'ValidationError';
+          this.name = "ValidationError";
         }
       };
 
       const handleValidationError = (error: ValidationError) => {
         return {
-          type: 'validation',
+          type: "validation",
           field: error.field,
           value: error.value,
           message: error.message,
@@ -457,7 +457,7 @@ describe('CLI Framework Theme - Core Functionality', () => {
       const error = new ValidationError('port', 'abc', 'Port must be a number');
       const handled = handleValidationError(error);
       
-      expect(handled.type).toBe('validation');
+      expect(handled.type).toBe("validation");
       expect(handled.field).toBe('port');
       expect(handled.fixSuggestion).toContain('Please provide a valid value for port');
     });
@@ -466,7 +466,7 @@ describe('CLI Framework Theme - Core Functionality', () => {
       const formatError = (error: any) => {
         const lines = ['Error occurred:', ''];
         
-        if (error.type === 'validation') {
+        if (error.type === "validation") {
           lines.push(`❌ Invalid ${error.field}: ${error.value}`);
           lines.push(`💡 ${error.fixSuggestion}`);
         } else if (error.type === 'command_not_found') {
@@ -482,7 +482,7 @@ describe('CLI Framework Theme - Core Functionality', () => {
       };
 
       const validationError = {
-        type: 'validation',
+        type: "validation",
         field: 'port',
         value: 'abc',
         fixSuggestion: 'Please provide a number between 1 and 65535'
@@ -500,7 +500,7 @@ describe('CLI Framework Theme - Core Functionality', () => {
         private plugins = new Map<string, any>();
 
         register(name: string, plugin: any) {
-          if (typeof plugin.init === 'function') {
+          if (typeof plugin.init === "function") {
             plugin.init();
           }
           this.plugins.set(name, plugin);
@@ -514,7 +514,7 @@ describe('CLI Framework Theme - Core Functionality', () => {
           const results: any[] = [];
           
           this.plugins.forEach(plugin => {
-            if (plugin.hooks && typeof plugin.hooks[hookName] === 'function') {
+            if (plugin.hooks && typeof plugin.hooks[hookName] === "function") {
               results.push(plugin.hooks[hookName](...args));
             }
           });
@@ -538,7 +538,7 @@ describe('CLI Framework Theme - Core Functionality', () => {
       expect(testPlugin.init).toHaveBeenCalled();
       expect(pluginManager.get('test-plugin')).toBe(testPlugin);
       
-      pluginManager.executeHook('beforeCommand', 'test-arg');
+      pluginManager.executeHook("beforeCommand", 'test-arg');
       expect(testPlugin.hooks.beforeCommand).toHaveBeenCalledWith('test-arg');
     });
   });

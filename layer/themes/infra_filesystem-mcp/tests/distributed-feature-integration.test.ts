@@ -1,4 +1,4 @@
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 import { VFDistributedFeatureWrapper, DistributedFeatureFile } from '../children/VFDistributedFeatureWrapper';
 
@@ -47,8 +47,8 @@ describe('Distributed Feature System Integration', () => {
             description: 'Complete platform for AI-assisted development',
             level: 'root',
             status: 'in-progress',
-            priority: 'critical',
-            tags: ['platform', 'ai', 'development'],
+            priority: "critical",
+            tags: ["platform", 'ai', "development"],
             virtual_path: '/FEATURE.vf.json',
             child_features: []
           },
@@ -82,7 +82,7 @@ describe('Distributed Feature System Integration', () => {
             parent_feature_id: 'root-platform-001',
             status: 'in-progress',
             priority: 'high',
-            tags: ['filesystem', 'mcp', 'integration'],
+            tags: ["filesystem", 'mcp', "integration"],
             virtual_path: '/layer/themes/filesystem_mcp/FEATURE.vf.json',
             child_features: []
           },
@@ -115,7 +115,7 @@ describe('Distributed Feature System Integration', () => {
             level: 'user_story',
             parent_feature_id: 'epic-filesystem-001',
             epic_id: 'epic-filesystem-001',
-            status: 'completed',
+            status: "completed",
             priority: 'high',
             tags: ['wrapper', 'file-operations'],
             components: ['VFFileWrapper.ts'],
@@ -339,7 +339,7 @@ describe('Distributed Feature System Integration', () => {
             description: 'Root of deep hierarchy',
             level: 'root',
             status: 'in-progress',
-            priority: 'critical',
+            priority: "critical",
             virtual_path: '/deep/FEATURE.vf.json',
             child_features: ['deep-epic-001']
           },
@@ -402,7 +402,7 @@ describe('Distributed Feature System Integration', () => {
             level: 'user_story',
             parent_feature_id: 'deep-epic-001',
             epic_id: 'deep-epic-001',
-            status: 'completed',
+            status: "completed",
             priority: 'medium',
             virtual_path: '/deep/layer/themes/deep-theme/user-stories/001-story/FEATURE.vf.json'
           },

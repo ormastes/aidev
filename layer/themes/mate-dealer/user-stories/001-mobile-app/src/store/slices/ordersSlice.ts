@@ -26,8 +26,8 @@ export interface Order {
   deliveryFee: number;
   discount: number;
   totalAmount: number;
-  status: 'pending' | 'confirmed' | 'preparing' | 'out_for_delivery' | 'delivered' | 'cancelled';
-  paymentStatus: 'pending' | 'paid' | 'failed' | 'refunded';
+  status: 'pending' | "confirmed" | "preparing" | 'out_for_delivery' | "delivered" | "cancelled";
+  paymentStatus: 'pending' | 'paid' | 'failed' | "refunded";
   paymentMethod: string;
   deliveryAddress: DeliveryAddress;
   estimatedDelivery: string;
@@ -95,7 +95,7 @@ const ordersSlice = createSlice({
     fetchOrdersSuccess: (state, action: PayloadAction<Order[]>) => {
       state.orders = action.payload;
       state.orderHistory = action.payload.filter(order => 
-        ['delivered', 'cancelled'].includes(order.status)
+        ["delivered", "cancelled"].includes(order.status)
       );
       state.loading = false;
       state.error = null;
@@ -110,7 +110,7 @@ const ordersSlice = createSlice({
         order.status = action.payload.status;
         order.updatedAt = new Date().toISOString();
         
-        if (action.payload.status === 'delivered') {
+        if (action.payload.status === "delivered") {
           order.actualDelivery = new Date().toISOString();
           // Move to history if not already there
           if (!state.orderHistory.find(o => o.id === order.id)) {
@@ -131,8 +131,8 @@ const ordersSlice = createSlice({
     },
     cancelOrder: (state, action: PayloadAction<string>) => {
       const order = state.orders.find(o => o.id === action.payload);
-      if (order && ['pending', 'confirmed'].includes(order.status)) {
-        order.status = 'cancelled';
+      if (order && ['pending', "confirmed"].includes(order.status)) {
+        order.status = "cancelled";
         order.updatedAt = new Date().toISOString();
       }
     },

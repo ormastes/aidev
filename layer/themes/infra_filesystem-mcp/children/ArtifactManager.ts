@@ -1,7 +1,7 @@
 import { VFFileWrapper } from './VFFileWrapper';
 import { VFFileStructureWrapper } from './VFFileStructureWrapper';
 import { VFValidatedFileWrapper } from './VFValidatedFileWrapper';
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 import { getFileAPI, FileType } from '../../infra_external-log-lib/pipe';
 
@@ -37,7 +37,7 @@ export interface ArtifactMetadata {
   test_coverage?: number;
   documentation_link?: string;
   justification?: string;
-  state?: 'draft' | 'review' | 'approved' | 'deployed' | 'deprecated' | 'archived';
+  state?: 'draft' | 'review' | "approved" | "deployed" | "deprecated" | "archived";
 }
 
 export interface ArtifactSaveRequest {
@@ -83,7 +83,7 @@ export class ArtifactManager {
   private async loadArtifactPatterns(): Promise<void> {
     try {
       const patternsPath = path.join(this.basePath, 'layer/themes/infra_filesystem-mcp/schemas/artifact_patterns.json');
-      const patternsContent = await fs.readFile(patternsPath, 'utf-8');
+      const patternsContent = await fileAPI.readFile(patternsPath, 'utf-8');
       this.patterns = JSON.parse(patternsContent);
       
       // Load artifact types
@@ -123,8 +123,8 @@ export class ArtifactManager {
         }
       },
       documentation: {
-        id: 'documentation',
-        name: 'Documentation',
+        id: "documentation",
+        name: "Documentation",
         description: 'Documentation files',
         extensions: ['md', 'mdx', 'rst'],
         patterns: {
@@ -169,7 +169,7 @@ export class ArtifactManager {
   private async loadArtifactManifest(): Promise<void> {
     try {
       const manifestPath = path.join(this.basePath, 'ARTIFACTS.vf.json');
-      const manifestContent = await fs.readFile(manifestPath, 'utf-8');
+      const manifestContent = await fileAPI.readFile(manifestPath, 'utf-8');
       const manifest = JSON.parse(manifestContent);
       
       for (const artifact of manifest.artifacts || []) {
@@ -292,7 +292,7 @@ export class ArtifactManager {
     
     // Check required tests
     if (artifactType?.validation?.must_have_tests) {
-      requiredTests.push('unit', 'integration');
+      requiredTests.push('unit', "integration");
     }
     
     // Check required documentation
@@ -343,7 +343,7 @@ export class ArtifactManager {
     variables.epic = variables.epic || 'infra';
     variables.theme = variables.theme || 'filesystem-mcp';
     variables.story = variables.story || '001-artifact';
-    variables.user_story = variables.user_story || 'artifact';
+    variables.user_story = variables.user_story || "artifact";
     variables.ext = variables.ext || this.getExtensionForType(request.type);
     
     // Replace all variables
@@ -352,7 +352,7 @@ export class ArtifactManager {
     }
     
     // Handle wildcards
-    pattern = pattern.replace(/\*\*/g, 'generated');
+    pattern = pattern.replace(/\*\*/g, "generated");
     pattern = pattern.replace(/\*/g, `artifact_${Date.now()}`);
     
     return pattern;
@@ -391,7 +391,7 @@ export class ArtifactManager {
     
     for (const testType of testTypes) {
       const testPath = artifactDir.replace('/src/', '/tests/').replace('/children/', '/tests/');
-      const testFile = path.join(testPath, testType, `${baseName}.${testType === 'integration' ? 'itest' : 'test'}.ts`);
+      const testFile = path.join(testPath, testType, `${baseName}.${testType === "integration" ? 'itest' : 'test'}.ts`);
       
       const testContent = `// Auto-generated test stub for ${artifactPath}
 import { describe, it, expect } from '@jest/globals';
@@ -501,7 +501,7 @@ TODO: Add API documentation
         const expiryDate = new Date(artifact.expires_at);
         if (expiryDate < now) {
           // Archive the artifact
-          artifact.state = 'archived';
+          artifact.state = "archived";
           
           // Move file to archive
           const archivePath = path.join('gen/artifacts/archive', artifact.path);

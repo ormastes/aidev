@@ -4,12 +4,12 @@ import sqlite3 from 'sqlite3';
 
 // Load environment-specific .env file
 config();
-const envFile = process.env.NODE_ENV === 'development' ? '.env.development' : '.env';
+const envFile = process.env.NODE_ENV === "development" ? '.env.development' : '.env';
 config({ path: envFile });
 
 // Type definitions
 interface PostgresConfig {
-  type: 'postgres';
+  type: "postgres";
   connectionString?: string;
   host?: string;
   port?: number;
@@ -34,32 +34,32 @@ export function getDbConfig(): DatabaseConfig {
   
   if (!dbType) {
     // Default based on NODE_ENV
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       dbType = 'sqlite';
     } else {
-      dbType = 'postgres';
+      dbType = "postgres";
     }
   }
   
-  if (dbType === 'postgres') {
+  if (dbType === "postgres") {
     // PostgreSQL configuration
     if (process.env.DATABASE_URL) {
       // Use connection string if provided
       return {
-        type: 'postgres',
+        type: "postgres",
         connectionString: process.env.DATABASE_URL,
-        ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+        ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false
       };
     } else {
       // Use individual parameters
       return {
-        type: 'postgres',
-        host: process.env.DB_HOST || 'localhost',
+        type: "postgres",
+        host: process.env.DB_HOST || "localhost",
         port: parseInt(process.env.DB_PORT || '5432'),
-        user: process.env.DB_USER || 'postgres',
+        user: process.env.DB_USER || "postgres",
         password: process.env.DB_PASSWORD || '',
         database: process.env.DB_NAME || 'ai_dev_portal',
-        ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+        ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false
       };
     }
   } else {
@@ -75,7 +75,7 @@ export function getDbConfig(): DatabaseConfig {
 export async function createConnection(): Promise<Database> {
   const config = getDbConfig();
   
-  if (config.type === 'postgres') {
+  if (config.type === "postgres") {
     const clientConfig: ClientConfig = config.connectionString ? {
       connectionString: config.connectionString,
       ssl: config.ssl
@@ -106,7 +106,7 @@ export function query<T = any>(db: Database, sql: string, params: any[] = []): P
   const config = getDbConfig();
   
   return new Promise((resolve, reject) => {
-    if (config.type === 'postgres') {
+    if (config.type === "postgres") {
       (db as Client).query(sql, params)
         .then(result => resolve(result.rows as T[]))
         .catch(reject);
@@ -132,7 +132,7 @@ export const queryOne = <T = any>(db: Database, sql: string, params: any[] = [])
   const config = getDbConfig();
   
   return new Promise((resolve, reject) => {
-    if (config.type === 'postgres') {
+    if (config.type === "postgres") {
       (db as Client).query(sql, params)
         .then(result => resolve(result.rows[0] as T))
         .catch(reject);

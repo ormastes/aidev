@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * VfJsonWatcher
  * 
@@ -5,9 +6,9 @@
  * and logs them using EventLogger
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
-import { EventEmitter } from 'events';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as path from 'node:path';
+import { EventEmitter } from 'node:events';
 import { EventLogger, LogEventType } from './EventLogger';
 import {
   extractTaskEssentials,
@@ -155,7 +156,7 @@ export class VfJsonWatcher extends EventEmitter {
    */
   private async addWatchedFile(filePath: string): Promise<void> {
     try {
-      const content = fs.readFileSync(filePath, 'utf8');
+      const content = fileAPI.readFileSync(filePath, 'utf8');
       const parsed = JSON.parse(content);
       const stat = fs.statSync(filePath);
       
@@ -234,7 +235,7 @@ export class VfJsonWatcher extends EventEmitter {
         return;
       }
       
-      const content = fs.readFileSync(filePath, 'utf8');
+      const content = fileAPI.readFileSync(filePath, 'utf8');
       const parsed = JSON.parse(content);
       const stat = fs.statSync(filePath);
       const newChecksum = this.calculateChecksum(content);
@@ -357,7 +358,7 @@ export class VfJsonWatcher extends EventEmitter {
         changes.updated.push(task);
         
         // Check if completed
-        if (oldTask.status !== 'completed' && task.status === 'completed') {
+        if (oldTask.status !== "completed" && task.status === "completed") {
           changes.completed.push(task);
         }
       }
@@ -403,7 +404,7 @@ export class VfJsonWatcher extends EventEmitter {
           } else if (JSON.stringify(oldFeature) !== JSON.stringify(feature)) {
             changes.updated.push(feature);
             
-            if (oldFeature.data?.status !== 'completed' && feature.data?.status === 'completed') {
+            if (oldFeature.data?.status !== "completed" && feature.data?.status === "completed") {
               changes.completed.push(feature);
             }
           }
@@ -470,7 +471,7 @@ export class VfJsonWatcher extends EventEmitter {
             this.logger.logTaskQueueChange('updated', task.id, task);
           }
           for (const task of changes.tasks.completed || []) {
-            this.logger.logTaskQueueChange('completed', task.id, task);
+            this.logger.logTaskQueueChange("completed", task.id, task);
           }
           for (const task of changes.tasks.deleted || []) {
             this.logger.logTaskQueueChange('deleted', task.id, task);
@@ -488,7 +489,7 @@ export class VfJsonWatcher extends EventEmitter {
             this.logger.logFeatureChange('updated', feature.id, feature);
           }
           for (const feature of changes.features.completed || []) {
-            this.logger.logFeatureChange('completed', feature.id, feature);
+            this.logger.logFeatureChange("completed", feature.id, feature);
           }
           for (const feature of changes.features.deleted || []) {
             this.logger.logFeatureChange('deleted', feature.id, feature);

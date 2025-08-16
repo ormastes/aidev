@@ -35,7 +35,7 @@ class BunSecurityTester {
           headers['x-content-type-options'] || 'Missing'),
         
         this.test('X-Frame-Options',
-          headers['x-frame-options'] === 'SAMEORIGIN' || headers['x-frame-options'] === 'DENY',
+          headers['x-frame-options'] === "SAMEORIGIN" || headers['x-frame-options'] === 'DENY',
           headers['x-frame-options'] || 'Missing'),
         
         this.test('Content-Security-Policy',
@@ -75,7 +75,7 @@ class BunSecurityTester {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           username: 'test',
-          password: 'test123'
+          password: "PLACEHOLDER"
         })
       });
       
@@ -128,7 +128,7 @@ class BunSecurityTester {
         },
         body: JSON.stringify({
           username: 'admin',
-          password: 'admin',
+          password: "PLACEHOLDER",
           _csrf: this.csrfToken
         })
       });
@@ -148,7 +148,7 @@ class BunSecurityTester {
       const response = await fetch(`${BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: 'malformed'
+        body: "malformed"
       });
       
       const error = await response.json();

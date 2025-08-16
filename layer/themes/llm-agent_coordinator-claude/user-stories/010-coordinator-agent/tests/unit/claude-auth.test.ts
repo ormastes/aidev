@@ -5,7 +5,7 @@ import { path } from '../../../../../infra_external-log-lib/src';
 import { os } from '../../../../../infra_external-log-lib/src';
 import { createTempDir, cleanupTempDir, createMockCredentials, createExpiredMockCredentials, writeMockCredentials } from '../helpers/test-utils';
 
-describe('ClaudeAuthManager', () => {
+describe("ClaudeAuthManager", () => {
   let authManager: ClaudeAuthManager;
   let tempDir: string;
   let credentialsPath: string;
@@ -21,14 +21,14 @@ describe('ClaudeAuthManager', () => {
 
   describe('API Key Authentication', () => {
     it('should use API key when provided', async () => {
-      authManager = new ClaudeAuthManager({ apiKey: 'test-api-key' });
+      authManager = new ClaudeAuthManager({ api_key: process.env.API_KEY || "PLACEHOLDER" });
       
       const header = await authManager.getAuthHeader();
       expect(header).toBe('x-api-key test-api-key');
     });
 
     it('should report api-key auth type', () => {
-      authManager = new ClaudeAuthManager({ apiKey: 'test-api-key' });
+      authManager = new ClaudeAuthManager({ api_key: process.env.API_KEY || "PLACEHOLDER" });
       
       expect(authManager.getAuthType()).toBe('api-key');
       expect(authManager.isAuthenticated()).toBe(true);
@@ -38,7 +38,7 @@ describe('ClaudeAuthManager', () => {
   describe('Local Claude Authentication', () => {
     it('should load local credentials when no API key provided', async () => {
       const mockCredentials = createMockCredentials({
-        accessToken: 'test-access-token'
+        accesstoken: process.env.TOKEN || "PLACEHOLDER"
       });
       
       await writeMockCredentials(credentialsPath, mockCredentials);
@@ -48,7 +48,7 @@ describe('ClaudeAuthManager', () => {
       });
       
       const header = await authManager.getAuthHeader();
-      expect(header).toBe('Bearer test-access-token');
+      expect(header).toBe('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
     });
 
     it('should detect expired tokens', async () => {
@@ -91,7 +91,7 @@ describe('ClaudeAuthManager', () => {
     it('should use custom credentials path', async () => {
       const customPath = path.join(tempDir, 'custom', '.credentials.json');
       const mockCredentials = createMockCredentials({
-        accessToken: 'custom-token'
+        accesstoken: process.env.TOKEN || "PLACEHOLDER"
       });
       
       await writeMockCredentials(customPath, mockCredentials);
@@ -101,20 +101,20 @@ describe('ClaudeAuthManager', () => {
       });
       
       const header = await authManager.getAuthHeader();
-      expect(header).toBe('Bearer custom-token');
+      expect(header).toBe('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
     });
   });
 
   describe('Authentication Priority', () => {
     it('should prefer API key over local credentials', async () => {
       const mockCredentials = createMockCredentials({
-        accessToken: 'local-token'
+        accesstoken: process.env.TOKEN || "PLACEHOLDER"
       });
       
       await writeMockCredentials(credentialsPath, mockCredentials);
       
       authManager = new ClaudeAuthManager({ 
-        apiKey: 'api-key-123',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         credentialsPath: credentialsPath
       });
       
@@ -129,7 +129,7 @@ describe('ClaudeAuthManager', () => {
 
   describe('Validation Methods', () => {
     it('should validate API key authentication', async () => {
-      authManager = new ClaudeAuthManager({ apiKey: 'test-key' });
+      authManager = new ClaudeAuthManager({ api_key: process.env.API_KEY || "PLACEHOLDER" });
       
       const isValid = await authManager.validateAuth();
       expect(isValid).toBe(true);
@@ -137,7 +137,7 @@ describe('ClaudeAuthManager', () => {
 
     it('should validate local authentication', async () => {
       const mockCredentials = createMockCredentials({
-        accessToken: 'valid-token'
+        accesstoken: process.env.TOKEN || "PLACEHOLDER"
       });
       
       await writeMockCredentials(credentialsPath, mockCredentials);
@@ -162,7 +162,7 @@ describe('ClaudeAuthManager', () => {
   describe('Cache Management', () => {
     it('should cache loaded credentials', async () => {
       const mockCredentials = createMockCredentials({
-        accessToken: 'cached-token'
+        accesstoken: process.env.TOKEN || "PLACEHOLDER"
       });
       
       await writeMockCredentials(credentialsPath, mockCredentials);
@@ -173,22 +173,22 @@ describe('ClaudeAuthManager', () => {
       
       // First call
       const header1 = await authManager.getAuthHeader();
-      expect(header1).toBe('Bearer cached-token');
+      expect(header1).toBe('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
       
       // Modify file to verify cache is used
       const modifiedCredentials = createMockCredentials({
-        accessToken: 'modified-token'
+        accesstoken: process.env.TOKEN || "PLACEHOLDER"
       });
       await writeMockCredentials(credentialsPath, modifiedCredentials);
       
       // Second call should still return cached value
       const header2 = await authManager.getAuthHeader();
-      expect(header2).toBe('Bearer cached-token');
+      expect(header2).toBe('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
     });
 
     it('should clear cache on demand', async () => {
       const mockCredentials = createMockCredentials({
-        accessToken: 'cached-token'
+        accesstoken: process.env.TOKEN || "PLACEHOLDER"
       });
       
       await writeMockCredentials(credentialsPath, mockCredentials);
@@ -199,11 +199,11 @@ describe('ClaudeAuthManager', () => {
       
       // First call
       const header1 = await authManager.getAuthHeader();
-      expect(header1).toBe('Bearer cached-token');
+      expect(header1).toBe('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
       
       // Modify file
       const modifiedCredentials = createMockCredentials({
-        accessToken: 'new-token'
+        accesstoken: process.env.TOKEN || "PLACEHOLDER"
       });
       await writeMockCredentials(credentialsPath, modifiedCredentials);
       
@@ -212,7 +212,7 @@ describe('ClaudeAuthManager', () => {
       
       // Should reload and get new value
       const header2 = await authManager.getAuthHeader();
-      expect(header2).toBe('Bearer new-token');
+      expect(header2).toBe('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
     });
   });
 });

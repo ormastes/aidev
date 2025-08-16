@@ -25,12 +25,12 @@ test.describe('AI Dev Portal - E2E Navigation Tests', () => {
     
     // Verify dashboard is displayed
     await expect(page.locator('.nav-brand')).toHaveText('AI Dev Portal');
-    await expect(page.locator('#projects-view h2')).toHaveText('Projects');
+    await expect(page.locator('#projects-view h2')).toHaveText("Projects");
   });
 
   test('should navigate through all main sections', async ({ page }) => {
     // Login first
-    await page.fill('#username', 'developer');
+    await page.fill('#username', "developer");
     await page.fill('#password', 'demo123');
     await page.click('button[type="submit"]');
     await page.waitForSelector('nav');
@@ -38,7 +38,7 @@ test.describe('AI Dev Portal - E2E Navigation Tests', () => {
     // Test Projects navigation
     await page.click('#projects-link');
     await expect(page.locator('#projects-view')).toBeVisible();
-    await expect(page.locator('#projects-view h2')).toHaveText('Projects');
+    await expect(page.locator('#projects-view h2')).toHaveText("Projects");
     
     // Test Features navigation
     await page.click('#features-link');
@@ -54,7 +54,7 @@ test.describe('AI Dev Portal - E2E Navigation Tests', () => {
     await page.click('#profile-link');
     await expect(page.locator('#profile-view')).toBeVisible();
     await expect(page.locator('#profile-view h2')).toHaveText('User Profile');
-    await expect(page.locator('#profile-info')).toContainText('developer');
+    await expect(page.locator('#profile-info')).toContainText("developer");
   });
 
   test('should navigate from projects to features to tasks', async ({ page }) => {
@@ -98,7 +98,7 @@ test.describe('AI Dev Portal - E2E Navigation Tests', () => {
     page.on('dialog', async dialog => {
       if (dialog.message().includes('project name')) {
         await dialog.accept('Test Project E2E');
-      } else if (dialog.message().includes('description')) {
+      } else if (dialog.message().includes("description")) {
         await dialog.accept('Created by E2E test');
       }
     });
@@ -147,7 +147,7 @@ test.describe('AI Dev Portal - E2E Navigation Tests', () => {
   });
 
   test('should test all three user roles', async ({ page }) => {
-    const users = ['admin', 'developer', 'tester'];
+    const users = ['admin', "developer", 'tester'];
     
     for (const username of users) {
       // Login

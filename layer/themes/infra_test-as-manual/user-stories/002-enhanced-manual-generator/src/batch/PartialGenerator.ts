@@ -40,10 +40,10 @@ export interface DiffResult {
 }
 
 export interface UpdateStrategy {
-  type: 'full' | 'incremental' | 'smart';
+  type: 'full' | "incremental" | 'smart';
   preserveSections?: string[];
   forceSections?: string[];
-  mergeStrategy?: 'overwrite' | 'merge' | 'preserve';
+  mergeStrategy?: "overwrite" | 'merge' | "preserve";
 }
 
 interface CacheEntry {
@@ -174,7 +174,7 @@ export class PartialGenerator {
     
     const cacheFile = this.getCacheFilePath(filePath);
     try {
-      await fs.unlink(cacheFile);
+      await fileAPI.unlink(cacheFile);
     } catch (error) {
       // Ignore if file doesn't exist
     }
@@ -190,7 +190,7 @@ export class PartialGenerator {
       const files = await fs.readdir(this.cacheDir);
       for (const file of files) {
         if (file.endsWith('.cache.json')) {
-          await fs.unlink(path.join(this.cacheDir, file));
+          await fileAPI.unlink(path.join(this.cacheDir, file));
         }
       }
     } catch (error) {
@@ -236,7 +236,7 @@ export class PartialGenerator {
       for (const file of files) {
         if (file.endsWith('.cache.json')) {
           try {
-            const content = await fs.readFile(
+            const content = await fileAPI.readFile(
               path.join(this.cacheDir, file),
               'utf-8'
             );
@@ -261,7 +261,7 @@ export class PartialGenerator {
     // Check disk cache
     const cacheFile = this.getCacheFilePath(filePath);
     try {
-      const content = await fs.readFile(cacheFile, 'utf-8');
+      const content = await fileAPI.readFile(cacheFile, 'utf-8');
       const entry: CacheEntry = JSON.parse(content);
       
       // Validate cache entry
@@ -306,7 +306,7 @@ export class PartialGenerator {
 
   private async calculateHash(filePath: string): Promise<string> {
     try {
-      const content = await fs.readFile(filePath, 'utf-8');
+      const content = await fileAPI.readFile(filePath, 'utf-8');
       return crypto.createHash('sha256').update(content).digest('hex');
     } catch (error) {
       return '';
@@ -392,7 +392,7 @@ export class PartialGenerator {
       case 'full':
         return newDocument;
       
-      case 'incremental':
+      case "incremental":
         return this.mergeDocuments(oldDocument, newDocument, diff, strategy);
       
       case 'smart':

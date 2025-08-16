@@ -13,13 +13,13 @@ export { PatternRegistry } from './registry';
 
 // Pattern list
 export const PATTERNS = {
-  SEQUENTIAL: 'sequential',
-  PARALLEL: 'parallel',
+  SEQUENTIAL: "sequential",
+  PARALLEL: "parallel",
   MAP_REDUCE: 'map-reduce',
-  SUPERVISOR: 'supervisor',
+  SUPERVISOR: "supervisor",
   RAG: 'rag',
   DEBATE: 'debate',
-  REFLECTION: 'reflection'
+  REFLECTION: "reflection"
 } as const;
 
 export type PatternName = typeof PATTERNS[keyof typeof PATTERNS];

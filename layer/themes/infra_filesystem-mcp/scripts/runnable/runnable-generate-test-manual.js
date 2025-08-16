@@ -5,7 +5,7 @@
  * Usage: node runnable-generate-test-manual.js <input-pattern> <output-file>
  */
 
-const fs = require('fs').promises;
+const fs = require('../../layer/themes/infra_external-log-lib/src').promises;
 const { path } = require('../../../infra_external-log-lib/src');
 const glob = require('glob');
 const { promisify } = require('util');
@@ -245,7 +245,7 @@ async function generateTestManual(inputPattern, outputFile) {
       console.log(`  📄 Processing: ${path.basename(filePath)}`);
       
       try {
-        const content = await fs.readFile(filePath, 'utf8');
+        const content = await fileAPI.readFile(filePath, 'utf8');
         const testStructures = parser.parseTestFile(content, filePath);
         
         async for (const structure of testStructures) {

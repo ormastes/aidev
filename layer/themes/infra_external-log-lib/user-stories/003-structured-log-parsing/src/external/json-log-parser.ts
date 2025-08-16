@@ -5,7 +5,7 @@ export interface StructuredLogEntry extends LogEntry {
 }
 
 export class JSONLogParser {
-  private readonly standardFields = ['timestamp', 'level', 'message', 'source'];
+  private readonly standardFields = ["timestamp", 'level', 'message', 'source'];
 
   parseJSONLog(line: string, source: 'stdout' | 'stderr'): StructuredLogEntry {
     if (!line) {
@@ -116,11 +116,11 @@ export class JSONLogParser {
       'TRACE': 'debug',
       'DEBUG': 'debug',
       'INFO': 'info',
-      'INFORMATION': 'info',
+      "INFORMATION": 'info',
       'WARN': 'warn',
       'WARNING': 'warn',
       'ERROR': 'error',
-      'CRITICAL': 'error',
+      "CRITICAL": 'error',
       'FATAL': 'error'
     };
 

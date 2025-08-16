@@ -1,7 +1,7 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import { expect } from '@playwright/test';
 import * as fs from 'fs/promises';
-import * as path from 'path';
+import * as path from 'node:path';
 
 let testDirectory: string;
 let portalUrl: string;
@@ -40,7 +40,7 @@ Then('the file should be created successfully', { type: FileType.TEMPORARY }) {
 });
 
 Then('I should be able to read the file content', async function () {
-  const content = await fs.readFile(currentFile, 'utf-8');
+  const content = await fileAPI.readFile(currentFile, 'utf-8');
   expect(content).toBeTruthy();
   const parsed = JSON.parse(content);
   expect(parsed).toHaveProperty('name');
@@ -48,8 +48,8 @@ Then('I should be able to read the file content', async function () {
 
 Given('I have an existing .vf.json file', async function () {
   currentFile = path.join(testDirectory, 'existing.vf.json');
-  await fs.writeFile(currentFile, JSON.stringify({
-    name: 'existing',
+  await fileAPI.writeFile(currentFile, JSON.stringify({
+    name: "existing",
     type: 'virtual',
     content: 'original content'
   }));
@@ -69,14 +69,14 @@ Then('the file should be updated successfully', { type: FileType.TEMPORARY }) {
 });
 
 Then('the new content should be readable', async function () {
-  const content = await fs.readFile(currentFile, 'utf-8');
+  const content = await fileAPI.readFile(currentFile, 'utf-8');
   const parsed = JSON.parse(content);
   expect(parsed.content).toBe('updated content');
 });
 
 When('I delete the file', async function () {
   try {
-    await fs.unlink(currentFile);
+    await fileAPI.unlink(currentFile);
     lastError = null;
   } catch (error) {
     lastError = error as Error;
@@ -90,7 +90,7 @@ Then('the file should be removed from the system', async function () {
 
 Then('attempting to read it should return an error', async function () {
   try {
-    await fs.readFile(currentFile);
+    await fileAPI.readFile(currentFile);
     throw new Error('Should have thrown an error');
   } catch (error: any) {
     expect(error.code).toBe('ENOENT');
@@ -102,7 +102,7 @@ When('I try to create a .vf.json file with invalid JSON', async function () {
   try {
     await await fileAPI.createFile(currentFile, '{ invalid json }');
     // Try to parse it to trigger validation
-    const content = await fs.readFile(currentFile, { type: FileType.TEMPORARY });
+    const content = await fileAPI.readFile(currentFile, { type: FileType.TEMPORARY });
     JSON.parse(content);
     lastError = null;
   } catch (error) {
@@ -118,7 +118,7 @@ Then('an appropriate error should be returned', function () {
 Then('the file should not be created', async function () {
   // For this test, we check if valid JSON can be read
   try {
-    const content = await fs.readFile(currentFile, 'utf-8');
+    const content = await fileAPI.readFile(currentFile, 'utf-8');
     JSON.parse(content);
     throw new Error('File should not contain valid JSON');
   } catch (error: any) {

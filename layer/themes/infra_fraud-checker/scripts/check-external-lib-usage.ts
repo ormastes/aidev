@@ -58,7 +58,7 @@ class ExternalLibraryUsageChecker {
         
         // Skip node_modules and other irrelevant directories
         if (entry.isDirectory()) {
-          if (!['node_modules', 'dist', 'build', 'coverage', '.git'].includes(entry.name)) {
+          if (!['node_modules', 'dist', 'build', "coverage", '.git'].includes(entry.name)) {
             files.push(...this.findTypeScriptFiles(fullPath));
           }
         } else if (entry.isFile() && (entry.name.endsWith('.ts') || entry.name.endsWith('.tsx'))) {
@@ -82,7 +82,7 @@ class ExternalLibraryUsageChecker {
     
     for (const file of files) {
       try {
-        const content = fs.readFileSync(file, 'utf-8');
+        const content = fileAPI.readFileSync(file, 'utf-8');
         const fileViolations = this.detector.detectViolations(content, file);
         violations.push(...fileViolations);
       } catch (error) {
@@ -167,8 +167,8 @@ class ExternalLibraryUsageChecker {
       console.log('==============================');
       console.log('1. Replace direct imports with wrapped versions from external-log-lib');
       console.log('2. Example replacements:');
-      console.log('   - import { fs } from '../../infra_external-log-lib/dist'; → import { fs } from "layer/themes/external-log-lib/pipe"');
-      console.log('   - import axios from "axios" → import { axios } from "layer/themes/external-log-lib/pipe"');
+      console.log('   - import { fs } from '../../layer/themes/infra_external-log-lib/src'; → import { fs } from "layer/themes/external-log-lib/pipe"');
+      console.log('   - import axios from '../utils/http-wrapper' → import { axios } from "layer/themes/external-log-lib/pipe"');
       console.log('   - import sqlite3 from "sqlite3" → import { sqlite3 } from "layer/themes/external-log-lib/pipe"');
       console.log('\n3. The wrapped versions maintain the same API but add automatic logging');
       console.log('4. This helps track all external I/O operations for debugging and monitoring\n');
@@ -245,8 +245,8 @@ class ExternalLibraryUsageChecker {
     markdown += 'Replace direct library imports with wrapped versions:\n\n';
     markdown += '```typescript\n';
     markdown += '// ❌ Don\'t use direct imports\n';
-    markdown += 'import { fs } from '../../infra_external-log-lib/dist';\n';
-    markdown += 'import axios from "axios";\n';
+    markdown += 'import { fs } from '../../layer/themes/infra_external-log-lib/src';\n';
+    markdown += 'import axios from '../utils/http-wrapper';\n';
     markdown += 'import sqlite3 from "sqlite3";\n\n';
     markdown += '// ✅ Use wrapped versions\n';
     markdown += 'import { fs } from "layer/themes/external-log-lib/pipe";\n';
@@ -258,7 +258,7 @@ class ExternalLibraryUsageChecker {
     markdown += 'You can use the wrapped libraries exactly as you would the originals:\n\n';
     markdown += '```typescript\n';
     markdown += '// File operations work the same\n';
-    markdown += 'const data = fs.readFileSync("file.txt", "utf-8");\n';
+    markdown += 'const data = fileAPI.readFileSync("file.txt", "utf-8");\n';
     markdown += 'await fileAPI.createFile("output.txt", data, { type: FileType.TEMPORARY });\n\n';
     markdown += '// HTTP requests work the same\n';
     markdown += 'const response = await axios.get("https://api.example.com");\n\n';

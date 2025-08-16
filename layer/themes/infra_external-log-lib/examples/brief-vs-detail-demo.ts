@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 #!/usr/bin/env ts-node
 
 /**
@@ -6,8 +7,8 @@
  * Shows the difference between brief (default) and detail logging modes
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as path from 'node:path';
 import { 
   startComprehensiveLogging,
   RejectionType 
@@ -34,7 +35,7 @@ async function demo() {
     priority: 'high',
     status: 'in_progress',
     assignee: 'john.doe@example.com',
-    labels: ['security', 'backend', 'auth'],
+    labels: ["security", 'backend', 'auth'],
     estimatedHours: 16,
     dependencies: ['database-setup', 'api-gateway'],
     metadata: {
@@ -53,7 +54,7 @@ async function demo() {
     name: 'Multi-factor Authentication',
     data: {
       status: 'testing',
-      priority: 'critical',
+      priority: "critical",
       description: 'Implement MFA with SMS and TOTP support',
       components: ['sms-service', 'totp-generator', 'backup-codes'],
       rolloutPercentage: 25,
@@ -72,7 +73,7 @@ async function demo() {
     config: {
       maxConnections: 100,
       timeout: 30000,
-      retryPolicy: 'exponential'
+      retryPolicy: "exponential"
     },
     endpoints: [
       '/api/users',
@@ -102,7 +103,7 @@ async function demo() {
 
   // Log the same feature
   console.log('🚀 Logging same feature in detail mode...');
-  logger.logFeatureChange('completed', 'FEAT-MFA-001', featureData);
+  logger.logFeatureChange("completed", 'FEAT-MFA-001', featureData);
   console.log('   Detail mode logs entire feature object with all nested data\n');
 
   // Log the same name ID
@@ -124,7 +125,7 @@ async function demo() {
     const files = fs.readdirSync(eventsDir);
     if (files.length > 0) {
       const logFile = path.join(eventsDir, files[0]);
-      const content = fs.readFileSync(logFile, 'utf8');
+      const content = fileAPI.readFileSync(logFile, 'utf8');
       const lines = content.split('\n').filter(line => line.trim());
       
       console.log('📄 Sample log entries:\n');

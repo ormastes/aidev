@@ -63,7 +63,7 @@ export class MockAgent extends BaseAgent {
     const toolCalls = this.checkForToolCalls(userContent);
 
     const message: Message = {
-      role: 'assistant',
+      role: "assistant",
       content: toolCalls.length > 0 
         ? `I'll help you with that using the ${toolCalls[0].name} tool.`
         : responseContent
@@ -117,12 +117,12 @@ export class MockAgent extends BaseAgent {
     const toolCalls = [];
     
     // Simulate tool detection
-    if (content.toLowerCase().includes('calculate') || content.toLowerCase().includes('math')) {
+    if (content.toLowerCase().includes("calculate") || content.toLowerCase().includes('math')) {
       const numbers = content.match(/\d+/g);
       if (numbers && numbers.length >= 2) {
         toolCalls.push({
           id: `call_${Date.now()}`,
-          name: 'calculator',
+          name: "calculator",
           arguments: {
             expression: `${numbers[0]} + ${numbers[1]}`
           }

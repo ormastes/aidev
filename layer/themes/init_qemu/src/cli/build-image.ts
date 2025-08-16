@@ -4,7 +4,7 @@
  * Command-line interface for building QEMU images
  */
 
-import { Command } from 'commander';
+import { Command } from "commander";
 import { QEMUImageBuilder, ImageBuildConfig } from '../services/QEMUImageBuilder';
 import { path } from '../../../infra_external-log-lib/src';
 import * as fs from 'fs/promises';
@@ -70,7 +70,7 @@ program
       // Read SSH key if provided
       let sshKey;
       if (options.sshKey) {
-        sshKey = await fs.readFile(options.sshKey, 'utf-8');
+        sshKey = await fileAPI.readFile(options.sshKey, 'utf-8');
       }
 
       const image = await builder.buildUbuntuCloudImage({
@@ -127,7 +127,7 @@ program
     spinner = ora('Building custom image...').start();
     
     try {
-      const configContent = await fs.readFile(configPath, 'utf-8');
+      const configContent = await fileAPI.readFile(configPath, 'utf-8');
       const config: ImageBuildConfig = JSON.parse(configContent);
       
       const image = await builder.buildImage(config);
@@ -246,7 +246,7 @@ program
       users: [
         {
           username: 'admin',
-          password: 'changeme',
+          password: "PLACEHOLDER",
           groups: ['sudo', 'docker'],
           sudo: true
         }

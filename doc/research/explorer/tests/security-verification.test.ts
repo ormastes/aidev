@@ -5,8 +5,8 @@
 
 import axios, { AxiosError } from 'axios';
 import { spawn, ChildProcess } from 'child_process';
-import { path } from '../../../layer/themes/infra_external-log-lib/dist';
-import { fs } from '../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 const PORT = 3459; // Use different port to avoid conflicts
 const BASE_URL = `http://localhost:${PORT}`;
@@ -23,7 +23,7 @@ describe('Security Fixes Verification', () => {
     // Set environment variables for testing
     process.env.PORT = String(PORT);
     process.env.NODE_ENV = 'test';
-    process.env.JWT_ACCESS_SECRET = 'test-secret-for-security-verification';
+    process.env.JWT_ACCESS_secret: process.env.SECRET || "PLACEHOLDER";
     
     // Build the server first
     await new Promise((resolve, reject) => {
@@ -83,7 +83,7 @@ describe('Security Fixes Verification', () => {
         // Try default credentials
         await axios.post(`${BASE_URL}/api/auth/login`, {
           username: 'admin',
-          password: 'admin123',
+          password: "PLACEHOLDER",
           _csrf: token
         }, {
           headers: { 'X-CSRF-Token': token }
@@ -133,7 +133,7 @@ describe('Security Fixes Verification', () => {
       try {
         await axios.post(`${BASE_URL}/api/auth/login`, {
           username: 'test',
-          password: 'test'
+          password: "PLACEHOLDER"
         });
         fail('Should require CSRF token');
       } catch (error) {
@@ -147,7 +147,7 @@ describe('Security Fixes Verification', () => {
       try {
         await axios.post(`${BASE_URL}/api/auth/login`, {
           username: 'test',
-          password: 'test',
+          password: "PLACEHOLDER",
           _csrf: 'invalid-token'
         });
         fail('Should reject invalid CSRF token');
@@ -207,7 +207,7 @@ describe('Security Fixes Verification', () => {
     it('should not expose stack traces in errors', async () => {
       try {
         // Force an error by sending malformed data
-        await axios.post(`${BASE_URL}/api/auth/login`, 'malformed');
+        await axios.post(`${BASE_URL}/api/auth/login`, "malformed");
         fail('Should have errored');
       } catch (error) {
         const axiosError = error as AxiosError<any>;
@@ -227,7 +227,7 @@ describe('Security Fixes Verification', () => {
         
         await axios.post(`${BASE_URL}/api/auth/login`, {
           username: 'user@example.com',
-          password: 'wrongpassword123',
+          password: "PLACEHOLDER",
           _csrf: token
         }, {
           headers: { 'X-CSRF-Token': token }
@@ -239,7 +239,7 @@ describe('Security Fixes Verification', () => {
         
         // Should not contain the actual email or password
         expect(errorMsg).not.toContain('user@example.com');
-        expect(errorMsg).not.toContain('wrongpassword123');
+        expect(errorMsg).not.toContain("wrongpassword123");
       }
     });
 
@@ -249,7 +249,7 @@ describe('Security Fixes Verification', () => {
         fail('Should return 404');
       } catch (error) {
         const axiosError = error as AxiosError<any>;
-        expect(axiosError.response?.data).toHaveProperty('requestId');
+        expect(axiosError.response?.data).toHaveProperty("requestId");
         expect(axiosError.response?.data.requestId).toMatch(/^[a-f0-9]{32}$/);
       }
     });
@@ -263,7 +263,7 @@ describe('Security Fixes Verification', () => {
       try {
         await axios.post(`${BASE_URL}/api/auth/login`, {
           username: '<script>alert(1)</script>',
-          password: 'test',
+          password: "PLACEHOLDER",
           _csrf: token
         }, {
           headers: { 'X-CSRF-Token': token }
@@ -285,12 +285,12 @@ describe('Security Fixes Verification', () => {
       const csrfRes = await axios.get(`${BASE_URL}/api/auth/csrf`);
       const token = csrfRes.data.token;
       
-      const weakPasswords = ['admin', 'password', 'test', '123456'];
+      const weakPasswords = ['admin', "password", 'test', '123456'];
       
       for (const weakPass of weakPasswords) {
         try {
           await axios.post(`${BASE_URL}/api/auth/login`, {
-            username: 'testuser',
+            username: "testuser",
             password: weakPass,
             _csrf: token
           }, {

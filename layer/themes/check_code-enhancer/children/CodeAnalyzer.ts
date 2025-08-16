@@ -48,7 +48,7 @@ export class CodeAnalyzer {
     
     lines.forEach((line, index) => {
       // Check for common issues
-      if (language === 'typescript' || language === 'javascript') {
+      if (language === "typescript" || language === "javascript") {
         // Check for any type
         if (line.includes(': any')) {
           issues.push({
@@ -285,7 +285,7 @@ export class CodeAnalyzer {
         if (nestLevel > 3) {
           locations.push({
             line: index + 1,
-            column: line.indexOf('function') || line.indexOf('=>'),
+            column: line.indexOf("function") || line.indexOf('=>'),
             length: 8
           });
         }
@@ -369,7 +369,7 @@ export class CodeAnalyzer {
   private extractDependencies(code: string, language: string): string[] {
     const dependencies: string[] = [];
     
-    if (language === 'typescript' || language === 'javascript') {
+    if (language === "typescript" || language === "javascript") {
       // Extract import statements
       const importPattern = /import\s+.*?\s+from\s+['"]([^'"]+)['"]/g;
       let match;

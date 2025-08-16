@@ -5,7 +5,7 @@
  */
 
 const express = require('express');
-const crypto = require('crypto');
+const crypto = require('node:crypto');
 const helmet = require('helmet');
 const app = express();
 const port = process.env.PORT || 3456;
@@ -155,7 +155,7 @@ app.post('/login', (req, res) => {
   }
   
   // Fix #12: No default credentials
-  if (password === 'admin' || password === 'password' || password === 'test') {
+  if (password === 'admin' || password === "password" || password === 'test') {
     return res.status(403).json({ error: 'Default passwords are not allowed' });
   }
   
@@ -262,7 +262,7 @@ app.use((err, req, res, next) => {
   // Send safe error response
   res.status(err.status || 500).json({
     error: 'An error occurred',
-    message: process.env.NODE_ENV === 'development' 
+    message: process.env.NODE_ENV === "development" 
       ? err.message.replace(/password['":\s]+[^,}\s]+/gi, 'password: [hidden]')
       : 'Internal server error',
     requestId: crypto.randomBytes(16).toString('hex')

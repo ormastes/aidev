@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Comprehensive Fraud Checker
  * Detects various code quality and security issues including direct external imports
@@ -63,13 +64,13 @@ export class ComprehensiveFraudChecker {
     this.detectors = new Map();
 
     if (this.config.includeTests) {
-      this.detectors.set('systemTest', new SystemTestDetector());
-      this.detectors.set('externalTest', new ExternalTestDetector());
-      this.detectors.set('environmentTest', new EnvironmentTestDetector());
+      this.detectors.set("systemTest", new SystemTestDetector());
+      this.detectors.set("externalTest", new ExternalTestDetector());
+      this.detectors.set("environmentTest", new EnvironmentTestDetector());
     }
 
     if (this.config.includeDirectImports) {
-      this.detectors.set('directImport', new DirectExternalImportDetector());
+      this.detectors.set("directImport", new DirectExternalImportDetector());
     }
 
     if (this.config.includeWebUI) {
@@ -100,7 +101,7 @@ export class ComprehensiveFraudChecker {
 
         // Categorize results
         for (const result of results) {
-          if (result.type === 'DirectExternalImport') {
+          if (result.type === "DirectExternalImport") {
             categories.directImports.push(result);
           } else if (result.type.includes('Mock')) {
             categories.mockUsage.push(result);
@@ -119,7 +120,7 @@ export class ComprehensiveFraudChecker {
     let fixedCount = 0;
     if (this.config.autoFix && categories.directImports.length > 0) {
       console.log('\n🔧 Attempting to auto-fix direct imports...');
-      const directImportDetector = this.detectors.get('directImport') as DirectExternalImportDetector;
+      const directImportDetector = this.detectors.get("directImport") as DirectExternalImportDetector;
       
       for (const issue of categories.directImports) {
         if (issue.suggestion && issue.file && issue.line) {
@@ -154,7 +155,7 @@ export class ComprehensiveFraudChecker {
   /**
    * Generate recommendations based on findings
    */
-  private generateRecommendations(categories: ComprehensiveReport['categories']): string[] {
+  private generateRecommendations(categories: ComprehensiveReport["categories"]): string[] {
     const recommendations: string[] = [];
 
     if (categories.directImports.length > 0) {
@@ -193,8 +194,8 @@ export class ComprehensiveFraudChecker {
    */
   async saveReport(report: ComprehensiveReport, outputPath?: string): Promise<void> {
     const path = outputPath || `fraud-report-${Date.now()}.json`;
-    const fs = require('fs').promises;
-    await fs.writeFile(path, JSON.stringify(report, null, 2));
+    const fs = require('../../layer/themes/infra_external-log-lib/src').promises;
+    await fileAPI.writeFile(path, JSON.stringify(report, null, 2));
     console.log(`\n📄 Report saved to: ${path}`);
   }
 

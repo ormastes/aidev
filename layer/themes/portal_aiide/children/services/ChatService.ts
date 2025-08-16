@@ -51,7 +51,7 @@ export class ChatService {
       case 'ollama':
         return this.ollamaService.sendMessage(provider, messages, settings);
       
-      case 'deepseek':
+      case "deepseek":
         return this.deepSeekService.sendMessage(provider, messages, settings);
       
       case 'openai':
@@ -82,7 +82,7 @@ export class ChatService {
       case 'ollama':
         return this.ollamaService.streamMessage(provider, messages, settings, onChunk);
       
-      case 'deepseek':
+      case "deepseek":
         return this.deepSeekService.streamMessage(provider, messages, settings, onChunk);
       
       case 'openai':
@@ -163,7 +163,7 @@ export class ChatService {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        ...(provider.apiKey && { 'Authorization': `Bearer ${provider.apiKey}` })
+        ...(provider.apiKey && { "Authorization": `Bearer ${provider.apiKey}` })
       },
       body: JSON.stringify({
         messages: messages.map(m => ({

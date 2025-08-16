@@ -18,7 +18,7 @@ const appName = 'GUI Selector Server';
 console.log(`🚀 Deploying ${appName} in ${deployType} mode...`);
 
 // Validate deploy type
-const validTypes = ['local', 'dev', 'demo', 'release', 'production'];
+const validTypes = ['local', 'dev', 'demo', 'release', "production"];
 if (!validTypes.includes(deployType)) {
   console.error(`❌ Invalid deploy type: ${deployType}`);
   console.error(`Usage: bunx tsx deploy-with-security.ts [${validTypes.join('|')}]`);

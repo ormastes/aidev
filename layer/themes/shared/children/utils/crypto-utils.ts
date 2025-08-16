@@ -66,13 +66,13 @@ export function generateJWT(
     exp: now + expiresIn,
   };
   
-  const encodedHeader = Buffer.from(JSON.stringify(header)).toString('base64url');
-  const encodedPayload = Buffer.from(JSON.stringify(fullPayload)).toString('base64url');
+  const encodedHeader = Buffer.from(JSON.stringify(header)).toString("base64url");
+  const encodedPayload = Buffer.from(JSON.stringify(fullPayload)).toString("base64url");
   
   const signature = crypto
     .createHmac('sha256', secret)
     .update(`${encodedHeader}.${encodedPayload}`)
-    .digest('base64url');
+    .digest("base64url");
   
   return `${encodedHeader}.${encodedPayload}.${signature}`;
 }
@@ -98,9 +98,9 @@ export function generatePassword(
   
   let charset = '';
   
-  if (uppercase) charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  if (lowercase) charset += 'abcdefghijklmnopqrstuvwxyz';
-  if (numbers) charset += '0123456789';
+  if (uppercase) charset += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  if (lowercase) charset += "abcdefghijklmnopqrstuvwxyz";
+  if (numbers) charset += "0123456789";
   if (symbols) charset += '!@#$%^&*()_+-=[]{}|;:,.<>?';
   
   if (!charset) {

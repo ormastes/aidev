@@ -67,7 +67,7 @@ describe('Runner Bypass Build Logic - Simplified Tests', () => {
       mockConfig.buildBeforeTest = true;
 
       // Mock runner to only test build logic by making it return early after build
-      const runnerSpy = jest.spyOn(require('../../src/runner'), 'runProgramWithLibPaths')
+      const runnerSpy = jest.spyOn(require('../../src/runner'), "runProgramWithLibPaths")
         .mockImplementation(() => Promise.resolve());
 
       await runner(
@@ -89,7 +89,7 @@ describe('Runner Bypass Build Logic - Simplified Tests', () => {
       mockConfig.type = ConfigType.Config;
       mockConfig.buildBeforeTest = false;
 
-      const runnerSpy = jest.spyOn(require('../../src/runner'), 'runProgramWithLibPaths')
+      const runnerSpy = jest.spyOn(require('../../src/runner'), "runProgramWithLibPaths")
         .mockImplementation(() => Promise.resolve());
 
       await runner(
@@ -111,7 +111,7 @@ describe('Runner Bypass Build Logic - Simplified Tests', () => {
       mockConfig.type = ConfigType.ExeConfig;
       mockConfig.exe_buildBeforeTest = true;
 
-      const runnerSpy = jest.spyOn(require('../../src/runner'), 'runProgramWithLibPaths')
+      const runnerSpy = jest.spyOn(require('../../src/runner'), "runProgramWithLibPaths")
         .mockImplementation(() => Promise.resolve());
 
       await runner(
@@ -133,7 +133,7 @@ describe('Runner Bypass Build Logic - Simplified Tests', () => {
       mockConfig.type = ConfigType.ExeConfig;
       mockConfig.exe_buildBeforeTest = false;
 
-      const runnerSpy = jest.spyOn(require('../../src/runner'), 'runProgramWithLibPaths')
+      const runnerSpy = jest.spyOn(require('../../src/runner'), "runProgramWithLibPaths")
         .mockImplementation(() => Promise.resolve());
 
       await runner(
@@ -155,7 +155,7 @@ describe('Runner Bypass Build Logic - Simplified Tests', () => {
       mockConfig.type = ConfigType.BinConfig;
       mockConfig.bin_buildBeforeTest = true;
 
-      const runnerSpy = jest.spyOn(require('../../src/runner'), 'runProgramWithLibPaths')
+      const runnerSpy = jest.spyOn(require('../../src/runner'), "runProgramWithLibPaths")
         .mockImplementation(() => Promise.resolve());
 
       await runner(
@@ -177,7 +177,7 @@ describe('Runner Bypass Build Logic - Simplified Tests', () => {
       mockConfig.type = ConfigType.BinConfig;
       mockConfig.bin_buildBeforeTest = false;
 
-      const runnerSpy = jest.spyOn(require('../../src/runner'), 'runProgramWithLibPaths')
+      const runnerSpy = jest.spyOn(require('../../src/runner'), "runProgramWithLibPaths")
         .mockImplementation(() => Promise.resolve());
 
       await runner(
@@ -199,7 +199,7 @@ describe('Runner Bypass Build Logic - Simplified Tests', () => {
       mockConfig.useCmakeTarget = false;
       mockConfig.buildBeforeTest = true;
 
-      const runnerSpy = jest.spyOn(require('../../src/runner'), 'runProgramWithLibPaths')
+      const runnerSpy = jest.spyOn(require('../../src/runner'), "runProgramWithLibPaths")
         .mockImplementation(() => Promise.resolve());
 
       await runner(
@@ -254,7 +254,7 @@ describe('Runner Bypass Build Logic - Simplified Tests', () => {
       mockConfig.type = ConfigType.Config;
       mockConfig.buildBeforeTest = true;
 
-      const runnerSpy = jest.spyOn(require('../../src/runner'), 'runProgramWithLibPaths')
+      const runnerSpy = jest.spyOn(require('../../src/runner'), "runProgramWithLibPaths")
         .mockImplementation(() => Promise.resolve());
 
       await runner(
@@ -277,7 +277,7 @@ describe('Runner Bypass Build Logic - Simplified Tests', () => {
       mockConfig.type = ConfigType.Config;
       mockConfig.buildBeforeTest = false;
 
-      const runnerSpy = jest.spyOn(require('../../src/runner'), 'runProgramWithLibPaths')
+      const runnerSpy = jest.spyOn(require('../../src/runner'), "runProgramWithLibPaths")
         .mockImplementation(() => Promise.resolve());
 
       await runner(

@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 import { path } from '../../infra_external-log-lib/src';
 import { fs } from '../../infra_external-log-lib/src';
 import { spawn, ChildProcess } from 'child_process';
@@ -29,7 +30,7 @@ export interface DevSession {
   themeName: string;
   containerId?: string;
   process?: ChildProcess;
-  status: 'starting' | 'running' | 'stopping' | 'stopped' | 'error';
+  status: "starting" | 'running' | "stopping" | 'stopped' | 'error';
   startTime: Date;
   port: number;
   debugPort?: number;
@@ -61,7 +62,7 @@ export class DevEnvironmentRunner {
     const session: DevSession = {
       id: sessionId,
       themeName: config.themeName,
-      status: 'starting',
+      status: "starting",
       startTime: new Date(),
       port: config.port || 3000,
       debugPort: config.debugPort || 9229,
@@ -104,7 +105,7 @@ export class DevEnvironmentRunner {
         context: path.join(this.baseDir, 'layer', 'themes', config.themeName),
         dockerfile: dockerfilePath,
         buildArgs: {
-          NODE_ENV: 'development'
+          NODE_ENV: "development"
         }
       });
 
@@ -123,7 +124,7 @@ export class DevEnvironmentRunner {
         ],
         volumes: [...mountStrings, ...(config.volumes || [])],
         env: {
-          NODE_ENV: 'development',
+          NODE_ENV: "development",
           PORT: '3000',
           DEBUG: '*',
           WATCH_MODE: config.watchMode ? 'true' : 'false',
@@ -175,7 +176,7 @@ export class DevEnvironmentRunner {
    */
   private detectProjectType(themePath: string): 'nodejs' | 'cpp' | 'python' | 'java' {
     if (fs.existsSync(path.join(themePath, 'CMakeLists.txt')) ||
-        fs.existsSync(path.join(themePath, 'Makefile')) ||
+        fs.existsSync(path.join(themePath, "Makefile")) ||
         fs.existsSync(path.join(themePath, 'src', 'main.cpp'))) {
       return 'cpp';
     }
@@ -461,7 +462,7 @@ ${config.command || 'CMD ["nodemon", "--inspect=0.0.0.0:9229", "--watch", "src",
       throw new Error(`Session ${sessionId} not found`);
     }
 
-    session.status = 'stopping';
+    session.status = "stopping";
     console.log(`🛑 Stopping development environment for ${session.themeName}...`);
 
     // Stop file watcher
@@ -640,7 +641,7 @@ ${config.command || 'CMD ["nodemon", "--inspect=0.0.0.0:9229", "--watch", "src",
   async runValgrind(sessionId: string, executable?: string): Promise<string> {
     const exec = executable || '/app/build/bin/app';
     const command = [
-      'valgrind',
+      "valgrind",
       '--leak-check=full',
       '--show-leak-kinds=all',
       '--track-origins=yes',

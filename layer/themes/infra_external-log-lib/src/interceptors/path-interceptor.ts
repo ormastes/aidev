@@ -3,7 +3,7 @@
  * Monitors path operations and can modify behavior
  */
 
-import * as originalPath from 'path';
+import * as originalPath from 'node:path';
 import { BaseInterceptor, CallInfo, ValidationResult } from './base-interceptor';
 
 export class PathInterceptor extends BaseInterceptor<typeof originalPath> {
@@ -19,7 +19,7 @@ export class PathInterceptor extends BaseInterceptor<typeof originalPath> {
       // Wrap methods that might be sensitive
       join: this.wrapMethod('path', 'join', this.originalModule.join),
       resolve: this.wrapMethod('path', 'resolve', this.originalModule.resolve),
-      normalize: this.wrapMethod('path', 'normalize', this.originalModule.normalize),
+      normalize: this.wrapMethod('path', "normalize", this.originalModule.normalize),
       
       // Keep other properties as-is
       basename: this.originalModule.basename,

@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
 import { EnhancedTaskQueueWrapper } from '../../children/EnhancedTaskQueueWrapper';
 import { ArtifactManager } from '../../children/ArtifactManager';
-import { fsPromises as fs } from '../../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
 import { tmpdir } from 'os';
 import { spawn } from 'child_process';
@@ -33,7 +33,7 @@ describe('Task Queue Artifact Validation - Demo Environment', () => {
     it('should REFUSE push when task requires non-existent artifacts', async () => {
       const task = {
         id: 'deploy-feature',
-        type: 'deployment',
+        type: "deployment",
         content: {
           title: 'Deploy authentication feature',
           description: 'Deploy auth system to production'
@@ -41,7 +41,7 @@ describe('Task Queue Artifact Validation - Demo Environment', () => {
         artifactRequirements: [
           { type: 'source_code', minCount: 1, mustExist: true },
           { type: 'test_code', minCount: 1, mustExist: true },
-          { type: 'documentation', pattern: '.*auth.*\\.md', mustExist: true }
+          { type: "documentation", pattern: '.*auth.*\\.md', mustExist: true }
         ],
         status: 'pending'
       };
@@ -98,12 +98,12 @@ describe('Task Queue Artifact Validation - Demo Environment', () => {
       // Try to push deployment task
       const task = {
         id: 'deploy-prod',
-        type: 'deployment',
+        type: "deployment",
         content: { title: 'Deploy to production' },
         status: 'pending'
       };
 
-      const result = await enhancedQueue.pushWithValidation(task, 'critical');
+      const result = await enhancedQueue.pushWithValidation(task, "critical");
       
       expect(result.allowed).toBe(false);
       expect(result.errors.some(e => e.includes('Deployment requires approved'))).toBe(true);
@@ -118,7 +118,7 @@ describe('Task Queue Artifact Validation - Demo Environment', () => {
 
       const task = {
         id: 'refactor-legacy',
-        type: 'refactoring',
+        type: "refactoring",
         content: { title: 'Refactor legacy code' },
         status: 'pending'
       };
@@ -164,29 +164,29 @@ describe('Task Queue Artifact Validation - Demo Environment', () => {
       await artifactManager.saveArtifact({
         content: 'class Feature {}',
         type: 'source_code',
-        metadata: { state: 'approved' }
+        metadata: { state: "approved" }
       });
 
       await artifactManager.saveArtifact({
         content: 'test("feature", () => {})',
         type: 'test_code',
-        metadata: { state: 'approved' }
+        metadata: { state: "approved" }
       });
 
       await artifactManager.saveArtifact({
         content: '# Feature Documentation',
-        type: 'documentation',
-        metadata: { path: 'auth.md', state: 'approved' }
+        type: "documentation",
+        metadata: { path: 'auth.md', state: "approved" }
       });
 
       const task = {
         id: 'deploy-feature',
-        type: 'deployment',
+        type: "deployment",
         content: { title: 'Deploy feature' },
         artifactRequirements: [
-          { type: 'source_code', minCount: 1, state: 'approved' },
+          { type: 'source_code', minCount: 1, state: "approved" },
           { type: 'test_code', minCount: 1 },
-          { type: 'documentation', pattern: '.*auth.*' }
+          { type: "documentation", pattern: '.*auth.*' }
         ],
         status: 'pending'
       };
@@ -203,7 +203,7 @@ describe('Task Queue Artifact Validation - Demo Environment', () => {
         id: 'task-1',
         type: 'data',
         content: { title: 'Setup' },
-        status: 'completed',
+        status: "completed",
         completedAt: new Date().toISOString()
       }, 'high', '/TASK_QUEUE.vf.json');
 
@@ -219,7 +219,7 @@ describe('Task Queue Artifact Validation - Demo Environment', () => {
       const queue = await enhancedQueue.read('/TASK_QUEUE.vf.json');
       const task1Index = queue.taskQueues.high.findIndex((t: any) => t.id === 'task-1');
       if (task1Index >= 0) {
-        queue.taskQueues.high[task1Index].status = 'completed';
+        queue.taskQueues.high[task1Index].status = "completed";
       }
       await enhancedQueue.write('/TASK_QUEUE.vf.json', queue);
 
@@ -245,7 +245,7 @@ describe('Task Queue Artifact Validation - Demo Environment', () => {
 
       const task = {
         id: 'refactor-code',
-        type: 'refactoring',
+        type: "refactoring",
         content: { title: 'Refactor code' },
         status: 'pending'
       };
@@ -281,7 +281,7 @@ describe('Task Queue Artifact Validation - Demo Environment', () => {
       // Invalid task - requires artifacts that don't exist
       await enhancedQueue.push({
         id: 'invalid-task',
-        type: 'deployment',
+        type: "deployment",
         content: { title: 'Invalid deployment' },
         status: 'pending'
       }, 'low', '/TASK_QUEUE.vf.json');
@@ -341,7 +341,7 @@ describe('Task Queue Artifact Validation - Demo Environment', () => {
       // Create artifact in draft state
       const artifact = await artifactManager.saveArtifact({
         content: '# Design Document',
-        type: 'documentation',
+        type: "documentation",
         metadata: { 
           state: 'draft',
           path: 'design.md'
@@ -354,7 +354,7 @@ describe('Task Queue Artifact Validation - Demo Environment', () => {
         type: 'review',
         content: { title: 'Review design' },
         artifactRequirements: [
-          { type: 'documentation', state: 'draft' }
+          { type: "documentation", state: 'draft' }
         ],
         status: 'pending'
       };
@@ -368,18 +368,18 @@ describe('Task Queue Artifact Validation - Demo Environment', () => {
         type: 'feature_implementation',
         content: { title: 'Implement design' },
         artifactRequirements: [
-          { type: 'documentation', state: 'approved', mustExist: true }
+          { type: "documentation", state: "approved", mustExist: true }
         ],
         status: 'pending'
       };
 
       result = await enhancedQueue.pushWithValidation(implementTask, 'high');
       expect(result.allowed).toBe(false);
-      expect(result.errors.some(e => e.includes('approved'))).toBe(true);
+      expect(result.errors.some(e => e.includes("approved"))).toBe(true);
 
       // Update artifact state to approved
       await artifactManager.updateArtifactState(artifact.id!, 'review');
-      await artifactManager.updateArtifactState(artifact.id!, 'approved');
+      await artifactManager.updateArtifactState(artifact.id!, "approved");
 
       // Now implementation task should work
       result = await enhancedQueue.pushWithValidation(implementTask, 'high');

@@ -24,7 +24,7 @@ test.describe('Explorer Failure Detection', () => {
     });
 
     // Capture network failures
-    page.on('response', response => {
+    page.on("response", response => {
       if (response.status() >= 400) {
         networkErrors.push({
           url: response.url(),
@@ -43,7 +43,7 @@ test.describe('Explorer Failure Detection', () => {
     
     // Verify console errors are present (intentional bug)
     expect(consoleErrors.length).toBeGreaterThan(0);
-    expect(consoleErrors.some(e => e.includes('TypeError'))).toBeTruthy();
+    expect(consoleErrors.some(e => e.includes("TypeError"))).toBeTruthy();
   });
 
   test('should detect XSS vulnerability in search', async ({ page }) => {
@@ -72,7 +72,7 @@ test.describe('Explorer Failure Detection', () => {
     await page.click('button[type=submit]');
     
     // Wait for navigation or error
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState("networkidle");
     const duration = Date.now() - startTime;
     
     // Should detect slow response (>3s)
@@ -122,17 +122,17 @@ test.describe('Explorer Failure Detection', () => {
     
     // Submit invalid credentials
     await page.fill('input[type=email]', 'user@example.com');
-    await page.fill('input[type=password]', 'secretpass');
+    await page.fill('input[type=password]', "secretpass");
     await page.click('button[type=submit]');
     
     // Wait for response
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState("networkidle");
     
     // Check response for PII leak
     const content = await page.content();
     
     // Should contain leaked password in error (bad practice)
-    expect(content).toContain('secretpass');
+    expect(content).toContain("secretpass");
   });
 
   test('should detect 5xx server errors', async ({ page }) => {
@@ -171,17 +171,17 @@ test.describe('Explorer Detection Verification', () => {
   test('generates accurate reproduction steps', async ({ page }) => {
     // Simulate Explorer workflow
     const steps = [
-      { action: 'navigate', target: TEST_APP_URL },
+      { action: "navigate", target: TEST_APP_URL },
       { action: 'click', target: 'a[href="/login"]' },
       { action: 'fill', target: 'input[type=email]', value: 'test@example.com' },
-      { action: 'fill', target: 'input[type=password]', value: 'password' },
+      { action: 'fill', target: 'input[type=password]', value: "password" },
       { action: 'click', target: 'button[type=submit]' }
     ];
     
     // Execute steps
     for (const step of steps) {
       switch (step.action) {
-        case 'navigate':
+        case "navigate":
           await page.goto(step.target);
           break;
         case 'click':
@@ -221,7 +221,7 @@ test.describe('Explorer False Positive Prevention', () => {
     
     // Validation errors are expected, not bugs
     const content = await page.content();
-    expect(content).toContain('required');
+    expect(content).toContain("required");
   });
 });
 
@@ -266,7 +266,7 @@ test.describe('Explorer Report Generation', () => {
     });
     
     // Collect network requests
-    page.on('response', response => {
+    page.on("response", response => {
       evidence.network.push({
         url: response.url(),
         status: response.status()

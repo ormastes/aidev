@@ -3,12 +3,12 @@
  * Manages chat sessions and conversations with Ollama
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { OllamaClient } from '../client';
 import { StreamHandler, StreamChunk } from '../stream';
 
 export interface ChatMessage {
-  role: 'system' | 'user' | 'assistant';
+  role: 'system' | 'user' | "assistant";
   content: string;
   images?: string[];
   timestamp?: Date;
@@ -56,7 +56,7 @@ export interface ChatContext {
 
 export interface ChatCompletion {
   content: string;
-  role: 'assistant';
+  role: "assistant";
   context?: number[];
   finishReason?: 'stop' | 'length' | 'error';
   usage?: {
@@ -163,7 +163,7 @@ export class ChatManager extends EventEmitter {
 
       // Add assistant message to session
       session.messages.push({
-        role: 'assistant',
+        role: "assistant",
         content: response.content,
         timestamp: new Date()
       });
@@ -215,7 +215,7 @@ export class ChatManager extends EventEmitter {
 
     return {
       content: response.response,
-      role: 'assistant',
+      role: "assistant",
       context: response.context,
       finishReason: response.done ? 'stop' : 'length',
       usage: {
@@ -256,7 +256,7 @@ export class ChatManager extends EventEmitter {
         onComplete: () => {
           resolve({
             content,
-            role: 'assistant',
+            role: "assistant",
             context,
             finishReason: 'stop'
           });
@@ -308,7 +308,7 @@ export class ChatManager extends EventEmitter {
 
     // Remove last assistant message if exists
     const lastMessage = session.messages[session.messages.length - 1];
-    if (lastMessage?.role === 'assistant') {
+    if (lastMessage?.role === "assistant") {
       session.messages.pop();
     }
 

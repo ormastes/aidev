@@ -23,7 +23,7 @@ export class TransformNode implements Node {
   constructor(
     public id: string,
     private transform: (data: any) => any,
-    public type: string = 'transform'
+    public type: string = "transform"
   ) {}
 
   async execute(input: NodeInput): Promise<NodeOutput> {
@@ -172,7 +172,7 @@ export class ConditionalNode implements Node {
     private condition: (data: any) => boolean,
     private trueValue: any,
     private falseValue: any,
-    public type: string = 'conditional'
+    public type: string = "conditional"
   ) {}
 
   async execute(input: NodeInput): Promise<NodeOutput> {

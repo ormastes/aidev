@@ -31,11 +31,11 @@ describe('MultiLanguageAnalyzer Integration', () => {
 
       const results = await analyzer.analyzeMultiLanguage(
         tempDir,
-        ['typescript', 'cpp', 'python']
+        ["typescript", 'cpp', 'python']
       );
 
       expect(results).toHaveLength(3);
-      expect(results.map(r => r.language)).toEqual(['typescript', 'cpp', 'python']);
+      expect(results.map(r => r.language)).toEqual(["typescript", 'cpp', 'python']);
       
       // All analyses should complete (success or failure)
       results.forEach(result => {
@@ -47,10 +47,10 @@ describe('MultiLanguageAnalyzer Integration', () => {
     it('should handle single language analysis', async () => {
       await createSampleProject(tempDir);
 
-      const results = await analyzer.analyzeMultiLanguage(tempDir, ['typescript']);
+      const results = await analyzer.analyzeMultiLanguage(tempDir, ["typescript"]);
 
       expect(results).toHaveLength(1);
-      expect(results[0].language).toBe('typescript');
+      expect(results[0].language).toBe("typescript");
     });
 
     it('should handle unsupported language gracefully', async () => {
@@ -62,11 +62,11 @@ describe('MultiLanguageAnalyzer Integration', () => {
     it('should provide analyzer information', () => {
       const info = analyzer.getAnalyzerInfo();
 
-      expect(info).toHaveProperty('typescript');
+      expect(info).toHaveProperty("typescript");
       expect(info).toHaveProperty('cpp');
       expect(info).toHaveProperty('python');
 
-      expect(info.typescript.name).toBe('TypeScript');
+      expect(info.typescript.name).toBe("TypeScript");
       expect(info.typescript.extensions).toContain('.ts');
     });
   });
@@ -94,7 +94,7 @@ describe('MultiLanguageAnalyzer Integration', () => {
       const analyzerWithConfig = new MultiLanguageAnalyzer(config as any);
       const results = await analyzerWithConfig.analyzeMultiLanguage(
         tempDir,
-        ['typescript', 'python']
+        ["typescript", 'python']
       );
 
       expect(results).toHaveLength(2);
@@ -110,13 +110,13 @@ describe('MultiLanguageAnalyzer Integration', () => {
 
       const results = await analyzer.analyzeMultiLanguage(
         tempDir,
-        ['typescript', 'cpp', 'python']
+        ["typescript", 'cpp', 'python']
       );
 
       expect(results).toHaveLength(3);
       
       // TypeScript should work
-      const tsResult = results.find(r => r.language === 'typescript');
+      const tsResult = results.find(r => r.language === "typescript");
       expect(tsResult).toBeDefined();
       
       // Others might have no files but should not crash
@@ -130,7 +130,7 @@ describe('MultiLanguageAnalyzer Integration', () => {
     it('should handle empty directory', async () => {
       const results = await analyzer.analyzeMultiLanguage(
         tempDir,
-        ['typescript', 'cpp', 'python']
+        ["typescript", 'cpp', 'python']
       );
 
       expect(results).toHaveLength(3);
@@ -146,7 +146,7 @@ describe('MultiLanguageAnalyzer Integration', () => {
 // Helper function to create a sample multi-language project
 async function createSampleProject(baseDir: string) {
   // TypeScript files
-  const tsDir = path.join(baseDir, 'src', 'typescript');
+  const tsDir = path.join(baseDir, 'src', "typescript");
   await fs.ensureDir(tsDir);
   
   await fs.writeFile(path.join(tsDir, 'moduleA.ts'), `

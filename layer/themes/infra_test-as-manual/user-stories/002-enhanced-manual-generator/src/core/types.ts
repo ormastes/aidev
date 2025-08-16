@@ -9,8 +9,8 @@ export interface ManualGeneratorOptions {
   generateIndex?: boolean;
   supportMultipleFormats?: boolean;
   template?: string;
-  outputFormat?: 'html' | 'pdf' | 'markdown' | 'json';
-  theme?: 'default' | 'professional' | 'minimal' | 'custom';
+  outputFormat?: 'html' | 'pdf' | "markdown" | 'json';
+  theme?: 'default' | "professional" | 'minimal' | 'custom';
   customStyles?: string;
   customScripts?: string;
 }
@@ -20,7 +20,7 @@ export interface ParsedTest {
   name: string;
   description?: string;
   filePath?: string;
-  type: 'unit' | 'integration' | 'e2e' | 'bdd';
+  type: 'unit' | "integration" | 'e2e' | 'bdd';
   suites: TestSuite[];
   hooks?: TestHook[];
   metadata?: Record<string, any>;
@@ -44,7 +44,7 @@ export interface TestCase {
   preconditions?: string[];
   postconditions?: string[];
   category?: string;
-  priority?: 'critical' | 'high' | 'medium' | 'low';
+  priority?: "critical" | 'high' | 'medium' | 'low';
   tags?: string[];
   metadata?: Record<string, any>;
 }
@@ -52,7 +52,7 @@ export interface TestCase {
 export interface TestStep {
   id: string;
   order: number;
-  type: 'action' | 'assertion' | 'setup' | 'teardown';
+  type: 'action' | "assertion" | 'setup' | "teardown";
   action: string;
   expected?: string;
   actual?: string;
@@ -62,7 +62,7 @@ export interface TestStep {
 }
 
 export interface TestHook {
-  type: 'before' | 'after' | 'beforeEach' | 'afterEach';
+  type: 'before' | 'after' | "beforeEach" | "afterEach";
   description: string;
   code?: string;
 }
@@ -75,7 +75,7 @@ export interface ScreenshotInfo {
 }
 
 export interface ScreenshotAnnotation {
-  type: 'highlight' | 'arrow' | 'text';
+  type: "highlight" | 'arrow' | 'text';
   coordinates: { x: number; y: number; width?: number; height?: number };
   text?: string;
   color?: string;

@@ -45,7 +45,7 @@ describe('Advanced Environment Configuration Scenarios', () => {
     ];
     
     for (const service of services) {
-      for (const env of ['development', 'test', 'release', 'theme', 'demo', 'epic', 'shared']) {
+      for (const env of ["development", 'test', 'release', 'theme', 'demo', 'epic', 'shared']) {
         try {
           await serviceDiscovery.unregisterService(service, env);
         } catch (e) {
@@ -61,27 +61,27 @@ describe('Advanced Environment Configuration Scenarios', () => {
       await serviceDiscovery.registerService({
         name: 'api-service',
         port: 3000,
-        environment: 'development'
+        environment: "development"
       });
       
       // When: Adding a new payment service with specific configuration
       await serviceDiscovery.registerService({
         name: 'payment-service',
         port: 3001,
-        environment: 'development'
+        environment: "development"
       });
       
       // And: API service depends on payment service
       await serviceDiscovery.registerService({
         name: 'api-service',
         port: 3000,
-        environment: 'development',
+        environment: "development",
         dependencies: ['payment-service']
       });
       
       // When: Generating env file for API service
       const config: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'api-service',
         servicePort: 3000,
         additionalVariables: [
@@ -105,13 +105,13 @@ describe('Advanced Environment Configuration Scenarios', () => {
       await serviceDiscovery.registerService({
         name: 'auth-service',
         port: 4000,
-        environment: 'development'
+        environment: "development"
       });
       
       await serviceDiscovery.registerService({
         name: 'user-service',
         port: 4001,
-        environment: 'development',
+        environment: "development",
         dependencies: ['auth-service']
       });
       
@@ -119,24 +119,24 @@ describe('Advanced Environment Configuration Scenarios', () => {
       await serviceDiscovery.registerService({
         name: 'notification-service',
         port: 4002,
-        environment: 'development'
+        environment: "development"
       });
       
       // Update user service to depend on notification
       await serviceDiscovery.registerService({
         name: 'user-service',
         port: 4001,
-        environment: 'development',
+        environment: "development",
         dependencies: ['auth-service', 'notification-service']
       });
       
       // Generate env for user service
       const config: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'user-service',
         servicePort: 4001,
         additionalVariables: [
-          { key: 'EMAIL_PROVIDER', value: 'sendgrid' },
+          { key: 'EMAIL_PROVIDER', value: "sendgrid" },
           { key: 'SMS_PROVIDER', value: 'twilio' }
         ]
       };
@@ -255,7 +255,7 @@ describe('Advanced Environment Configuration Scenarios', () => {
         name: 'new-feature-theme',
         type: 'theme',
         description: 'Theme for new feature development',
-        services: ['frontend', 'backend', 'database']
+        services: ["frontend", 'backend', "database"]
       };
       
       // When: Creating the environment
@@ -340,46 +340,46 @@ describe('Advanced Environment Configuration Scenarios', () => {
       await serviceDiscovery.registerService({
         name: 'frontend-theme',
         port: 3000,
-        environment: 'development',
+        environment: "development",
         healthCheckPath: '/health'
       });
       
       await serviceDiscovery.registerService({
         name: 'backend-theme',
         port: 3001,
-        environment: 'development',
+        environment: "development",
         healthCheckPath: '/api/health'
       });
       
       await serviceDiscovery.registerService({
         name: 'admin-theme',
         port: 3002,
-        environment: 'development',
+        environment: "development",
         dependencies: ['backend-theme']
       });
       
       await serviceDiscovery.registerService({
         name: 'mobile-theme',
         port: 3003,
-        environment: 'development',
+        environment: "development",
         dependencies: ['backend-theme']
       });
       
       // When: Frontend discovers all available services
-      const availableServices = await serviceDiscovery.discoverServices({ environment: 'development' });
+      const availableServices = await serviceDiscovery.discoverServices({ environment: "development" });
       
       // Update frontend to connect to backend
       await serviceDiscovery.registerService({
         name: 'frontend-theme',
         port: 3000,
-        environment: 'development',
+        environment: "development",
         dependencies: ['backend-theme'],
         healthCheckPath: '/health'
       });
       
       // Generate env for frontend
       const frontendConfig: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'frontend-theme',
         servicePort: 3000
       };
@@ -388,7 +388,7 @@ describe('Advanced Environment Configuration Scenarios', () => {
       
       // Generate env for admin
       const adminConfig: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'admin-theme',
         servicePort: 3002
       };
@@ -423,7 +423,7 @@ describe('Advanced Environment Configuration Scenarios', () => {
       await serviceDiscovery.registerService({
         name: 'auth-service',
         port: 4000,
-        environment: 'development',
+        environment: "development",
         dependencies: ['cache-service']
       });
       
@@ -431,7 +431,7 @@ describe('Advanced Environment Configuration Scenarios', () => {
       await serviceDiscovery.registerService({
         name: 'user-service',
         port: 4001,
-        environment: 'development',
+        environment: "development",
         dependencies: ['auth-service', 'cache-service']
       });
       
@@ -439,7 +439,7 @@ describe('Advanced Environment Configuration Scenarios', () => {
       await serviceDiscovery.registerService({
         name: 'analytics-service',
         port: 4002,
-        environment: 'development',
+        environment: "development",
         dependencies: ['cache-service']
       });
       
@@ -447,13 +447,13 @@ describe('Advanced Environment Configuration Scenarios', () => {
       await serviceDiscovery.registerService({
         name: 'api-gateway',
         port: 8080,
-        environment: 'development',
+        environment: "development",
         dependencies: ['auth-service', 'user-service', 'analytics-service']
       });
       
       // When: Generating env for API Gateway
       const config: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'api-gateway',
         servicePort: 8080
       };
@@ -476,8 +476,8 @@ describe('Advanced Environment Configuration Scenarios', () => {
     it('should generate different .env files for each environment automatically', async () => {
       // Given: Same service in multiple environments
       const serviceName = 'multi-env-service';
-      const environments: Array<EnvGeneratorConfig['environment']> = 
-        ['development', 'test', 'release', 'theme', 'demo', 'epic'];
+      const environments: Array<EnvGeneratorConfig["environment"]> = 
+        ["development", 'test', 'release', 'theme', 'demo', 'epic'];
       
       const results = [];
       
@@ -527,19 +527,19 @@ describe('Advanced Environment Configuration Scenarios', () => {
       await serviceDiscovery.registerService({
         name: 'config-service',
         port: 5000,
-        environment: 'development'
+        environment: "development"
       });
       
       await serviceDiscovery.registerService({
         name: 'dependent-service',
         port: 5001,
-        environment: 'development',
+        environment: "development",
         dependencies: ['config-service']
       });
       
       // Initial env generation
       const initialConfig: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'dependent-service',
         servicePort: 5001,
         additionalVariables: [
@@ -554,12 +554,12 @@ describe('Advanced Environment Configuration Scenarios', () => {
       await serviceDiscovery.registerService({
         name: 'config-service',
         port: 5000,
-        environment: 'development'
+        environment: "development"
       });
       
       // Generate updated env for dependent service
       const updatedConfig: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'dependent-service',
         servicePort: 5001,
         additionalVariables: [
@@ -586,7 +586,7 @@ describe('Advanced Environment Configuration Scenarios', () => {
     it('should use appropriate database configuration based on environment', async () => {
       // Given: Services in different environments
       const devConfig: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'db-service',
         servicePort: 3000,
         databaseConfig: {
@@ -604,12 +604,12 @@ describe('Advanced Environment Configuration Scenarios', () => {
         serviceName: 'db-service',
         servicePort: 443,
         databaseConfig: {
-          type: 'postgresql',
+          type: "postgresql",
           host: 'prod-db.example.com',
           port: 5432,
           database: 'prod_db',
           user: 'prod_user',
-          password: 'secure_password'
+          password: "PLACEHOLDER"
         },
         additionalVariables: [
           { key: 'DB_LOGGING', value: 'false' },

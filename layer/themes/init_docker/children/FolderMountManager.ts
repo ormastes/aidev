@@ -44,7 +44,7 @@ export class FolderMountManager {
    */
   async private detectProjectType(themePath: string): ProjectType {
     if(fs.existsSync(path.join(themePath, 'CMakeLists.txt')) ||
-        fs.existsSync(path.join(themePath, 'Makefile')) ||
+        fs.existsSync(path.join(themePath, "Makefile")) ||
         fs.existsSync(path.join(themePath, 'src', 'main.cpp'))) {
       return 'cpp';
     }
@@ -257,7 +257,7 @@ export class FolderMountManager {
         break;
 
       case 'release':
-      case 'production':
+      case "production":
         // Production volumes for data and logs
         mounts.push(
           {
@@ -316,7 +316,7 @@ export class FolderMountManager {
     });
 
     // Add environment-specific shared volumes
-    if(env === 'production' || env === 'release') {
+    if(env === "production" || env === 'release') {
       volumes['shared_logs'] = {
         driver: 'local',
         driver_opts: {
@@ -350,7 +350,7 @@ export class FolderMountManager {
       '.gitignore',
       '.env.local',
       '.env.*.local',
-      'coverage',
+      "coverage",
       '.nyc_output',
       '.vscode',
       '.idea',
@@ -392,7 +392,7 @@ export class FolderMountManager {
         'README.md',
         'docs'
       ],
-      'production': [
+      "production": [
         'src',
         'tests',
         '*.ts',
@@ -460,7 +460,7 @@ export class FolderMountManager {
     const folders = this.getThemeFolderStructure(themeName);
 
     // Create data and logs folders for production
-    if(env === 'production' || env === 'release') {
+    if(env === "production" || env === 'release') {
       if(folders.data && !this.folderExists(folders.data)) {
         await fileAPI.createDirectory(folders.data);
       }

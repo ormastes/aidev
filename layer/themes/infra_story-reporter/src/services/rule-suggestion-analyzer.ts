@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 import * as fs from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
 
@@ -45,9 +46,9 @@ export class RuleSuggestionAnalyzer {
   private requiredStoryReportFields = [
     'storyId',
     'status',
-    'coverage',
+    "coverage",
     'tests',
-    'fraudCheck'
+    "fraudCheck"
   ];
 
   async analyzeRetrospectives(targetPath: string, patterns: string[]): Promise<RetrospectiveAnalysis[]> {
@@ -82,7 +83,7 @@ export class RuleSuggestionAnalyzer {
 
   private async analyzeRetrospectiveFile(filePath: string): Promise<RetrospectiveAnalysis> {
     try {
-      const content = await fs.readFile(filePath, 'utf-8');
+      const content = await fileAPI.readFile(filePath, 'utf-8');
       const lines = content.split('\n');
 
       // Check for required sections
@@ -153,7 +154,7 @@ export class RuleSuggestionAnalyzer {
 
   private async analyzeStoryReportFile(filePath: string): Promise<StoryReportAnalysis> {
     try {
-      const content = await fs.readFile(filePath, 'utf-8');
+      const content = await fileAPI.readFile(filePath, 'utf-8');
       const report = JSON.parse(content);
 
       const missingFields = this.requiredStoryReportFields.filter(

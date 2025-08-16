@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 #!/usr/bin/env node
 
 import * as fs from 'fs/promises';
@@ -58,7 +59,7 @@ class CoverageAnalyzerCLI {
   async run(requestFile: string): Promise<void> {
     try {
       // Read analysis request
-      const requestData = await fs.readFile(requestFile, 'utf8');
+      const requestData = await fileAPI.readFile(requestFile, 'utf8');
       const request: AnalysisRequest = JSON.parse(requestData);
 
       console.log(`Analyzing ${request.mode}: ${path.basename(request.targetPath)}`);

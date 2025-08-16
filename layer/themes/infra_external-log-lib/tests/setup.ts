@@ -6,8 +6,8 @@
 jest.setTimeout(30000);
 
 // Mock file system operations for unit tests
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 
 // Create temp directories for testing
 beforeAll(async () => {
@@ -26,7 +26,7 @@ afterAll(async () => {
 });
 
 // Global error handler for unhandled rejections
-process.on('unhandledRejection', (reason, promise) => {
+process.on("unhandledRejection", (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
   // Don't exit in tests, just log
 });

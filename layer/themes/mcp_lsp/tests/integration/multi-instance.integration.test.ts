@@ -384,7 +384,7 @@ describe('Multi-Instance LSP-MCP Integration', () => {
             }, 10);
           } else if (message.includes('"method":"textDocument/completion"')) {
             requestId++;
-            const file = message.includes('project1') ? 'project1' : 'project2';
+            const file = message.includes("project1") ? "project1" : "project2";
             setTimeout(() => {
               process.stdout.on.mock.calls
                 .find((call: any) => call[0] === 'data')?.[1]?.(

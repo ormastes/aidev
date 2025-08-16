@@ -1,7 +1,7 @@
 import { VFDistributedFeatureWrapper, DistributedFeature, DistributedFeatureFile } from './VFDistributedFeatureWrapper';
 import { VFTaskQueueWrapper } from './VFTaskQueueWrapper';
 import { FeatureStatusManager, StatusChangeValidation } from './FeatureStatusManager';
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 import { getFileAPI, FileType } from '../../infra_external-log-lib/pipe';
 
@@ -11,7 +11,7 @@ const fileAPI = getFileAPI();
 export interface TaskQueueItem {
   id: string;
   type: string;
-  priority: 'critical' | 'high' | 'medium' | 'low';
+  priority: "critical" | 'high' | 'medium' | 'low';
   epic?: string;
   featureId?: string;
   content: {
@@ -19,7 +19,7 @@ export interface TaskQueueItem {
     description: string;
     [key: string]: any;
   };
-  status: 'pending' | 'in_progress' | 'completed' | 'blocked';
+  status: 'pending' | 'in_progress' | "completed" | 'blocked';
   createdAt: string;
   updatedAt?: string;
   completedAt?: string;
@@ -54,7 +54,7 @@ export class FeatureTaskManager {
       autoDeleteOnComplete: true,
       validateTasksOnStatusChange: true,
       taskPriorityMapping: {
-        'critical': 'critical',
+        "critical": "critical",
         'high': 'high',
         'medium': 'medium',
         'low': 'low'
@@ -76,7 +76,7 @@ export class FeatureTaskManager {
   private async loadFeatureTaskLinks(): Promise<void> {
     const linksPath = path.join(this.basePath, '.feature-task-links.json');
     try {
-      const linksData = await fs.readFile(linksPath, 'utf-8');
+      const linksData = await fileAPI.readFile(linksPath, 'utf-8');
       const links = JSON.parse(linksData);
       this.featureTaskLinks = new Map(Object.entries(links));
     } catch {
@@ -99,7 +99,7 @@ export class FeatureTaskManager {
    */
   async addFeature(
     categoryName: string,
-    feature: Omit<DistributedFeature, 'id' | 'createdAt' | 'updatedAt'>,
+    feature: Omit<DistributedFeature, 'id' | "createdAt" | "updatedAt">,
     createTasks: boolean = true
   ): Promise<{ featureId: string; taskIds: string[]; validation: StatusChangeValidation }> {
     // Add feature using status manager for validation
@@ -135,13 +135,13 @@ export class FeatureTaskManager {
    */
   private async createTasksForFeature(
     featureId: string,
-    feature: Omit<DistributedFeature, 'id' | 'createdAt' | 'updatedAt'>
+    feature: Omit<DistributedFeature, 'id' | "createdAt" | "updatedAt">
   ): Promise<string[]> {
     const taskIds: string[] = [];
     const priority = this.options.taskPriorityMapping?.[feature.data.priority] || 'medium';
     
     // Create main feature implementation task
-    const mainTask: Omit<TaskQueueItem, 'id' | 'createdAt'> = {
+    const mainTask: Omit<TaskQueueItem, 'id' | "createdAt"> = {
       type: 'feature_implementation',
       priority: priority as any,
       epic: featureId,
@@ -163,7 +163,7 @@ export class FeatureTaskManager {
     // Create tasks for components if specified
     if (feature.data.components && Array.isArray(feature.data.components)) {
       for (const component of feature.data.components) {
-        const componentTask: Omit<TaskQueueItem, 'id' | 'createdAt'> = {
+        const componentTask: Omit<TaskQueueItem, 'id' | "createdAt"> = {
           type: 'feature_component',
           priority: priority as any,
           epic: featureId,
@@ -187,7 +187,7 @@ export class FeatureTaskManager {
     // Create tasks for acceptance criteria if specified
     if (feature.data.acceptanceCriteria && Array.isArray(feature.data.acceptanceCriteria)) {
       for (const criteria of feature.data.acceptanceCriteria) {
-        const criteriaTask: Omit<TaskQueueItem, 'id' | 'createdAt'> = {
+        const criteriaTask: Omit<TaskQueueItem, 'id' | "createdAt"> = {
           type: 'feature_criteria',
           priority: priority as any,
           epic: featureId,
@@ -220,7 +220,7 @@ export class FeatureTaskManager {
     skipValidation: boolean = false
   ): Promise<StatusChangeValidation> {
     // Check for pending tasks if changing to completed
-    if (newStatus === 'completed' && this.options.validateTasksOnStatusChange && !skipValidation) {
+    if (newStatus === "completed" && this.options.validateTasksOnStatusChange && !skipValidation) {
       const validation = await this.validateFeatureTasks(featureId);
       if (!validation.isValid) {
         return validation;
@@ -258,7 +258,7 @@ export class FeatureTaskManager {
     });
     
     // Auto-delete tasks if feature is completed and option is enabled
-    if (newStatus === 'completed' && this.options.autoDeleteOnComplete && result.isValid) {
+    if (newStatus === "completed" && this.options.autoDeleteOnComplete && result.isValid) {
       await this.deleteFeatureTasks(featureId);
     }
     
@@ -330,7 +330,7 @@ export class FeatureTaskManager {
       if (Array.isArray(tasks)) {
         const remainingTasks = tasks.filter((task: any) => {
           const isFeatureTask = task.epic === featureId || task.featureId === featureId;
-          const isCompleted = task.status === 'completed';
+          const isCompleted = task.status === "completed";
           
           if (isFeatureTask && isCompleted) {
             deletedTaskIds.push(task.id);
@@ -410,7 +410,7 @@ export class FeatureTaskManager {
     // Process each feature
     for (const feature of allFeatures) {
       const tasks = await this.getFeatureTasks(feature.id);
-      const completedTasks = tasks.filter(t => t.status === 'completed').length;
+      const completedTasks = tasks.filter(t => t.status === "completed").length;
       const pendingTasks = tasks.filter(t => t.status === 'pending' || t.status === 'in_progress').length;
       const blockedTasks = tasks.filter(t => t.status === 'blocked').length;
       
@@ -475,7 +475,7 @@ export class FeatureTaskManager {
     if (feature.data.components) {
       for (const component of feature.data.components) {
         if (!existingTitles.has(component)) {
-          const task: Omit<TaskQueueItem, 'id' | 'createdAt'> = {
+          const task: Omit<TaskQueueItem, 'id' | "createdAt"> = {
             type: 'feature_component',
             priority: feature.data.priority as any,
             epic: featureId,

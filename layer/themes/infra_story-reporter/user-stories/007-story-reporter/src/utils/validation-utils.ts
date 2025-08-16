@@ -23,7 +23,7 @@ export interface ValidationOptions {
  * @throws Error if validation fails
  */
 export function validateObject(value: any, options: ValidationOptions = {}): void {
-  const { errorPrefix = 'Invalid configuration', fieldName = 'Configuration' } = options;
+  const { errorPrefix = 'Invalid configuration', fieldName = "Configuration" } = options;
   
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
     throw new Error(`${errorPrefix}: ${fieldName} must be an object`);

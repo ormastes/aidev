@@ -105,7 +105,7 @@ describe('Race Condition Detection Tests', () => {
         await new Promise((resolve, reject) => {
           setTimeout(() => {
             if (cancellation?.token.isCancellationRequested) {
-              reject(new Error('Cancelled'));
+              reject(new Error("Cancelled"));
             } else {
               resolve(undefined);
             }
@@ -219,7 +219,7 @@ describe('Race Condition Detection Tests', () => {
       mockController.createTestRun = jest.fn().mockReturnValue(mockTestRun);
 
       const runHandler = (mockController.createRunProfile as jest.Mock).mock.calls[0][2];
-      const testItem = { id: 'CancellableTest', label: 'Test', parent: { id: 'Suite' } };
+      const testItem = { id: "CancellableTest", label: 'Test', parent: { id: 'Suite' } };
 
       // Start test execution
       const executionPromise = runHandler(
@@ -314,7 +314,7 @@ describe('Race Condition Detection Tests', () => {
       
       // Mock build before test configuration
       const buildEnabledConfig = new CTestConfig(mockContext, mockWorkspaceFolder, jest.fn());
-      jest.spyOn(buildEnabledConfig, 'buildBeforeTest', 'get').mockReturnValue(true);
+      jest.spyOn(buildEnabledConfig, "buildBeforeTest", 'get').mockReturnValue(true);
 
       mockRunner.mockImplementation(async (args) => {
         if (args.includes('cmake')) {

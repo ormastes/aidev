@@ -3,7 +3,7 @@
  * Manages Ollama models and their configurations
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { OllamaClient, OllamaModel, ModelInfo } from '../client';
 
 export interface ModelConfig {
@@ -34,7 +34,7 @@ export interface ModelTemplate {
   examples?: Array<{ input: string; output: string }>;
 }
 
-export type ModelCapability = 'chat' | 'completion' | 'embedding' | 'code' | 'vision' | 'function';
+export type ModelCapability = 'chat' | "completion" | "embedding" | 'code' | 'vision' | "function";
 
 export interface ModelStatus {
   name: string;
@@ -69,7 +69,7 @@ export class ModelManager extends EventEmitter {
       {
         name: 'coding-assistant',
         description: 'Optimized for code generation and debugging',
-        baseModel: 'codellama',
+        baseModel: "codellama",
         system: 'You are an expert programmer. Provide clear, efficient, and well-documented code.',
         parameters: {
           temperature: 0.1,
@@ -106,7 +106,7 @@ export class ModelManager extends EventEmitter {
         }
       },
       {
-        name: 'translator',
+        name: "translator",
         description: 'Optimized for language translation',
         baseModel: 'llama2',
         system: 'You are a professional translator. Provide accurate translations.',
@@ -146,7 +146,7 @@ export class ModelManager extends EventEmitter {
         capabilities: this.detectCapabilities(model.name)
       }));
     } catch (error) {
-      this.emit('error', { operation: 'listModels', error });
+      this.emit('error', { operation: "listModels", error });
       return [];
     }
   }
@@ -162,7 +162,7 @@ export class ModelManager extends EventEmitter {
       this.modelCache.set(name, info);
       return info;
     } catch (error) {
-      this.emit('error', { operation: 'getModel', model: name, error });
+      this.emit('error', { operation: "getModel", model: name, error });
       return null;
     }
   }
@@ -194,7 +194,7 @@ export class ModelManager extends EventEmitter {
       this.emit('model:uninstalled', { model: name });
       return true;
     } catch (error) {
-      this.emit('error', { operation: 'uninstallModel', model: name, error });
+      this.emit('error', { operation: "uninstallModel", model: name, error });
       return false;
     }
   }
@@ -270,7 +270,7 @@ export class ModelManager extends EventEmitter {
       this.emit('model:copied', { source, destination });
       return true;
     } catch (error) {
-      this.emit('error', { operation: 'copyModel', source, destination, error });
+      this.emit('error', { operation: "copyModel", source, destination, error });
       return false;
     }
   }
@@ -292,7 +292,7 @@ export class ModelManager extends EventEmitter {
       this.emit('model:loaded', { model: name });
       return true;
     } catch (error) {
-      this.emit('error', { operation: 'loadModel', model: name, error });
+      this.emit('error', { operation: "loadModel", model: name, error });
       return false;
     }
   }
@@ -307,7 +307,7 @@ export class ModelManager extends EventEmitter {
   }
 
   private detectCapabilities(modelName: string): ModelCapability[] {
-    const capabilities: ModelCapability[] = ['completion', 'chat'];
+    const capabilities: ModelCapability[] = ["completion", 'chat'];
     
     const name = modelName.toLowerCase();
     
@@ -316,15 +316,15 @@ export class ModelManager extends EventEmitter {
     }
     
     if (name.includes('embed') || name.includes('nomic')) {
-      capabilities.push('embedding');
+      capabilities.push("embedding");
     }
     
     if (name.includes('llava') || name.includes('vision')) {
       capabilities.push('vision');
     }
     
-    if (name.includes('function') || name.includes('tool')) {
-      capabilities.push('function');
+    if (name.includes("function") || name.includes('tool')) {
+      capabilities.push("function");
     }
     
     return capabilities;
@@ -416,7 +416,7 @@ export class ModelManager extends EventEmitter {
       this.emit('model:exported', { model: name, path });
       return true;
     } catch (error) {
-      this.emit('error', { operation: 'exportModel', model: name, error });
+      this.emit('error', { operation: "exportModel", model: name, error });
       return false;
     }
   }

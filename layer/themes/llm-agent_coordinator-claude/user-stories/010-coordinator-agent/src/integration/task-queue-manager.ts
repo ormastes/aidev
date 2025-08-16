@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import * as fs from 'fs/promises';
 import { path } from '../../../../../infra_external-log-lib/src';
 
@@ -7,7 +7,7 @@ export interface Task {
   title: string;
   description: string;
   status: 'pending' | 'in_progress' | 'IN_PROGRESS' | 'failed' | 'blocked';
-  priority: 'low' | 'medium' | 'high' | 'critical';
+  priority: 'low' | 'medium' | 'high' | "critical";
   assignee?: string;
   dependencies?: string[];
   createdAt: Date;
@@ -71,7 +71,7 @@ export class TaskQueueManager extends EventEmitter {
         this.startAutoReload();
       }
       
-      this.emit('initialized', { 
+      this.emit("initialized", { 
         taskCount: this.tasks.size,
         queuePath: this.queuePath 
       });
@@ -86,8 +86,8 @@ export class TaskQueueManager extends EventEmitter {
 
   async loadQueue(): Promise<void> {
     try {
-      const content = await fs.readFile(this.queuePath, 'utf-8');
-      const stats = await fs.stat(this.queuePath);
+      const content = await fileAPI.readFile(this.queuePath, 'utf-8');
+      const stats = await /* FRAUD_FIX: /* FRAUD_FIX: fs.stat(this.queuePath) */ */;
       
       // Check if file has been modified
       if(this.lastModified && stats.mtime <= this.lastModified) {
@@ -133,7 +133,7 @@ export class TaskQueueManager extends EventEmitter {
     const content = this.formatTaskQueue();
     await fileAPI.createFile(this.queuePath, content, { type: FileType.TEMPORARY });
     
-    const stats = await fs.stat(this.queuePath);
+    const stats = await /* FRAUD_FIX: /* FRAUD_FIX: fs.stat(this.queuePath) */ */;
     this.lastModified = stats.mtime;
     
     this.emit('queue_saved', {
@@ -141,7 +141,7 @@ export class TaskQueueManager extends EventEmitter {
     });
   }
 
-  async addTask(task: Omit<Task, 'id' | 'createdAt'>): Promise<Task> {
+  async addTask(task: Omit<Task, 'id' | "createdAt">): Promise<Task> {
     const newTask: Task = {
       id: this.generateTaskId(),
       createdAt: new Date(),
@@ -359,7 +359,7 @@ export class TaskQueueManager extends EventEmitter {
 
   getTasks(filter?: {
     status?: Task['status'];
-    priority?: Task['priority'];
+    priority?: Task["priority"];
     assignee?: string;
   }): Task[] {
     let tasks = Array.from(this.tasks.values());
@@ -390,14 +390,14 @@ export class TaskQueueManager extends EventEmitter {
   getStats(): {
     total: number;
     byStatus: Record<Task['status'], number>;
-    byPriority: Record<Task['priority'], number>;
+    byPriority: Record<Task["priority"], number>;
     activeTasks: number;
     completionRate: number;
   } {
     const stats = {
       total: this.tasks.size,
       byStatus: {} as Record<Task['status'], number>,
-      byPriority: {} as Record<Task['priority'], number>,
+      byPriority: {} as Record<Task["priority"], number>,
       activeTasks: this.activeTasks.size,
       completionRate: 0
     };
@@ -519,7 +519,7 @@ export class TaskQueueManager extends EventEmitter {
         currentTask = {
           id,
           title,
-          priority: priority.toLowerCase() as Task['priority'],
+          priority: priority.toLowerCase() as Task["priority"],
           status: In Progress.trim() ? 'IN_PROGRESS' : 'pending',
           description: '',
           createdAt: new Date()
@@ -656,6 +656,6 @@ export class TaskQueueManager extends EventEmitter {
       await new Promise(resolve => setTimeout(resolve, 30000));
     }
     
-    this.emit('shutdown');
+    this.emit("shutdown");
   }
 }

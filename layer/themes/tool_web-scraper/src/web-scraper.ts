@@ -4,23 +4,23 @@
  * progress tracking, error recovery, and caching
  */
 
-import EventEmitter from 'events';
+import EventEmitter from 'node:events';
 import { HTMLParser, DOMNode } from '../children/parser';
 import { CSSSelector } from '../children/selector';
 import { SchemaExtractor, ExtractionResult, ExtractionSchema, PatternExtractor, StructuredDataExtractor } from '../children/extractor';
 import { Fetcher, FetchResult, FetchOptions, RateLimitConfig } from '../children/fetcher';
 import { DataExporter, ExportConfig, ExportOptions, ExportResult } from '../children/exporter';
-// import { Browser, Page } from 'puppeteer';
+// import { Browser, Page } from "puppeteer";
 type Browser = any;
 type Page = any;
-import { Browser as PlaywrightBrowser, Page as PlaywrightPage, chromium } from 'playwright';
+import { Browser as PlaywrightBrowser, Page as PlaywrightPage, chromium } from "playwright";
 
 export interface ScrapingJob {
   id: string;
   url: string;
   schema?: string | ExtractionSchema;
   options?: ScrapingOptions;
-  status: 'pending' | 'running' | 'completed' | 'failed' | 'retrying';
+  status: 'pending' | 'running' | "completed" | 'failed' | "retrying";
   priority: number;
   createdAt: Date;
   startedAt?: Date;
@@ -59,7 +59,7 @@ export interface ScrapingOptions {
     key?: string; // Custom cache key
   };
   browserOptions?: {
-    engine?: 'puppeteer' | 'playwright';
+    engine?: "puppeteer" | "playwright";
     headless?: boolean;
     viewport?: { width: number; height: number };
     userAgent?: string;
@@ -163,7 +163,7 @@ export class WebScrapingQueue {
   markJobCompleted(jobId: string, result: ScrapingResult): void {
     const job = this.jobs.get(jobId);
     if (job) {
-      job.status = 'completed';
+      job.status = "completed";
       job.completedAt = new Date();
       job.result = result;
       job.progress = 100;
@@ -180,7 +180,7 @@ export class WebScrapingQueue {
       job.retryCount++;
 
       if (job.retryCount < job.maxRetries) {
-        job.status = 'retrying';
+        job.status = "retrying";
         // Add back to pending with lower priority
         job.priority = Math.max(1, job.priority - 1);
         this.insertByPriority(job);
@@ -269,7 +269,7 @@ export class WebScrapingQueue {
 
     for (const depUrl of job.dependencies) {
       const depJob = Array.from(this.jobs.values()).find(j => j.url === depUrl);
-      if (!depJob || depJob.status !== 'completed') {
+      if (!depJob || depJob.status !== "completed") {
         return false;
       }
     }
@@ -398,7 +398,7 @@ export class WebScraper extends EventEmitter {
   // Single URL scraping
   async scrape(url: string, options?: ScrapingOptions): Promise<ScrapingResult> {
     const startTime = Date.now();
-    this.emit('scrapeStart', { url, options });
+    this.emit("scrapeStart", { url, options });
 
     try {
       // Check cache first
@@ -407,7 +407,7 @@ export class WebScraper extends EventEmitter {
         const cached = this.cache.get(cacheKey);
         if (cached) {
           this.stats.cacheHits++;
-          this.emit('scrapeComplete', cached);
+          this.emit("scrapeComplete", cached);
           return cached;
         }
         this.stats.cacheMisses++;
@@ -462,7 +462,7 @@ export class WebScraper extends EventEmitter {
         result.exports = await this.exportData([result.data], options.exportOptions.formats);
       }
 
-      this.emit('scrapeComplete', result);
+      this.emit("scrapeComplete", result);
       return result;
 
     } catch (error) {
@@ -477,14 +477,14 @@ export class WebScraper extends EventEmitter {
       //   }
       // };
 
-      this.emit('scrapeError', { url, error, duration: Date.now() - startTime });
+      this.emit("scrapeError", { url, error, duration: Date.now() - startTime });
       throw error;
     }
   }
 
   // Batch scraping with queue management
   async scrapeBatch(urls: string[], options?: ScrapingOptions): Promise<ScrapingResult[]> {
-    this.emit('batchStart', { urls: urls.length, options });
+    this.emit("batchStart", { urls: urls.length, options });
 
     // Add all jobs to queue
     const jobIds = this.queue.addBatchJobs(urls, options);
@@ -507,7 +507,7 @@ export class WebScraper extends EventEmitter {
             return job?.result;
           }).filter(r => r !== undefined) as ScrapingResult[];
 
-          this.emit('batchComplete', { results, stats: this.getStats() });
+          this.emit("batchComplete", { results, stats: this.getStats() });
           resolve(results);
         } else {
           setTimeout(checkCompletion, 1000);
@@ -523,7 +523,7 @@ export class WebScraper extends EventEmitter {
     if (this.isRunning) return;
 
     this.isRunning = true;
-    this.emit('processingStart');
+    this.emit("processingStart");
 
     // Start worker processes
     for (let i = 0; i < this.concurrency; i++) {
@@ -534,13 +534,13 @@ export class WebScraper extends EventEmitter {
   // Stop processing
   stopProcessing(): void {
     this.isRunning = false;
-    this.emit('processingStop');
+    this.emit("processingStop");
   }
 
   // Add job to queue
   addJob(url: string, options?: ScrapingOptions, priority: number = 5): string {
     const jobId = this.queue.addJob(url, options, priority);
-    this.emit('jobAdded', { jobId, url, priority });
+    this.emit("jobAdded", { jobId, url, priority });
 
     if (!this.isRunning) {
       this.startProcessing();
@@ -607,15 +607,15 @@ export class WebScraper extends EventEmitter {
 
     this.activeWorkers++;
     this.queue.markJobRunning(job.id);
-    this.emit('jobStart', job);
+    this.emit("jobStart", job);
 
     try {
       const result = await this.scrape(job.url, job.options);
       this.queue.markJobCompleted(job.id, result);
-      this.emit('jobComplete', { job, result });
+      this.emit("jobComplete", { job, result });
     } catch (error) {
       this.queue.markJobFailed(job.id, String(error));
-      this.emit('jobError', { job, error });
+      this.emit("jobError", { job, error });
     }
 
     this.activeWorkers--;
@@ -704,7 +704,7 @@ export class WebScraper extends EventEmitter {
     let page: Page | PlaywrightPage;
     let content: string;
 
-    if (browserOptions.engine === 'playwright') {
+    if (browserOptions.engine === "playwright") {
       if (!this.playwrightBrowser) {
         this.playwrightBrowser = await chromium.launch({ 
           headless: browserOptions.headless !== false 
@@ -754,7 +754,7 @@ export class WebScraper extends EventEmitter {
 
     } else {
       // Puppeteer implementation
-      const puppeteer = require('puppeteer');
+      const puppeteer = require("puppeteer");
       
       if (!this.puppeteerBrowser) {
         this.puppeteerBrowser = await puppeteer.launch({ 
@@ -772,7 +772,7 @@ export class WebScraper extends EventEmitter {
       }
 
       await pupPage.goto(url, { 
-        waitUntil: 'networkidle0', 
+        waitUntil: "networkidle0", 
         timeout: browserOptions.timeout || 30000 
       });
 

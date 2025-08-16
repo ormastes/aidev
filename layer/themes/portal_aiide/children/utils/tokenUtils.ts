@@ -76,7 +76,7 @@ export function getModelTokenLimit(model: string): number {
     
     // Ollama (local models)
     'llama2': 4096,
-    'codellama': 4096,
+    "codellama": 4096,
     'mistral': 8192,
     'mixtral': 32768,
     'phi': 2048,

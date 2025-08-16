@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 #!/usr/bin/env node
 
 /**
@@ -5,9 +6,9 @@
  * Central command-line interface for all platform features
  */
 
-import { Command } from 'commander';
+import { Command } from "commander";
 import chalk from 'chalk';
-import inquirer from 'inquirer';
+import inquirer from "inquirer";
 import ora from 'ora';
 import { path } from '../../../infra_external-log-lib/src';
 import { spawn } from 'child_process';
@@ -32,7 +33,7 @@ interface ServiceInfo {
   path: string;
   command: string;
   port?: number;
-  status?: 'implemented' | 'in_progress' | 'planned';
+  status?: "implemented" | 'in_progress' | 'planned';
 }
 
 const SERVICES: ServiceInfo[] = [
@@ -42,7 +43,7 @@ const SERVICES: ServiceInfo[] = [
     path: 'layer/themes/llm-agent_chat-space/user-stories/007-chat-room-cli',
     command: 'npm run dev',
     port: 3200,
-    status: 'implemented'
+    status: "implemented"
   },
   {
     name: 'mcp-agent',
@@ -50,7 +51,7 @@ const SERVICES: ServiceInfo[] = [
     path: 'layer/themes/mcp_agent',
     command: 'npm start',
     port: 3100,
-    status: 'implemented'
+    status: "implemented"
   },
   {
     name: 'ollama-coordinator',
@@ -58,7 +59,7 @@ const SERVICES: ServiceInfo[] = [
     path: 'layer/themes/llm-agent_coordinator-ollama',
     command: 'npm run dev',
     port: 11434,
-    status: 'implemented'
+    status: "implemented"
   },
   {
     name: 'claude-coordinator',
@@ -66,7 +67,7 @@ const SERVICES: ServiceInfo[] = [
     path: 'layer/themes/llm-agent_coordinator-claude/user-stories/010-coordinator-agent',
     command: 'npm run dev',
     port: 3300,
-    status: 'implemented'
+    status: "implemented"
   },
   {
     name: 'vllm-coordinator',
@@ -74,7 +75,7 @@ const SERVICES: ServiceInfo[] = [
     path: 'layer/themes/llm-agent_coordinator-vllm/user-stories/027-vllm-coordinator',
     command: 'npm run dev',
     port: 8000,
-    status: 'implemented'
+    status: "implemented"
   },
   {
     name: 'story-reporter',
@@ -82,14 +83,14 @@ const SERVICES: ServiceInfo[] = [
     path: 'layer/themes/infra_story-reporter/user-stories/007-story-reporter',
     command: 'npm start',
     port: 3456,
-    status: 'implemented'
+    status: "implemented"
   },
   {
-    name: 'pocketflow',
+    name: "pocketflow",
     description: '🔄 Workflow Automation Engine',
     path: 'layer/themes/llm-agent_pocketflow',
     command: 'npm run demo',
-    status: 'implemented'
+    status: "implemented"
   },
   {
     name: 'mate-dealer',
@@ -97,7 +98,7 @@ const SERVICES: ServiceInfo[] = [
     path: 'layer/themes/mate-dealer/user-stories/001-mobile-app',
     command: 'npm start',
     port: 19000,
-    status: 'implemented'
+    status: "implemented"
   },
   {
     name: 'portal',
@@ -112,7 +113,7 @@ const SERVICES: ServiceInfo[] = [
     description: '📝 Test-as-Manual Documentation Generator',
     path: 'layer/themes/infra_test-as-manual/user-stories/001-mftod-converter',
     command: 'npm run demo',
-    status: 'implemented'
+    status: "implemented"
   }
 ];
 
@@ -183,7 +184,7 @@ class AiDevCLI {
 
     // Interactive mode - main menu
     this.program
-      .command('interactive')
+      .command("interactive")
       .alias('i')
       .description('Launch interactive mode')
       .action(() => this.interactiveMode());
@@ -251,7 +252,7 @@ class AiDevCLI {
   }
 
   private async interactiveStart(): Promise<void> {
-    const implementedServices = SERVICES.filter(s => s.status === 'implemented');
+    const implementedServices = SERVICES.filter(s => s.status === "implemented");
     
     const choices = implementedServices.map(service => ({
       name: `${service.description} ${service.port ? chalk.gray(`(port ${service.port})`) : ''}`,
@@ -287,7 +288,7 @@ class AiDevCLI {
       return;
     }
 
-    if (service.status !== 'implemented') {
+    if (service.status !== "implemented") {
       console.log(chalk.yellow(`⚠️  Service "${serviceName}" is ${service.status}`));
       return;
     }
@@ -355,7 +356,7 @@ class AiDevCLI {
     console.log(chalk.cyan('\n📦 Available Services:\n'));
     
     const groups = {
-      implemented: SERVICES.filter(s => s.status === 'implemented'),
+      implemented: SERVICES.filter(s => s.status === "implemented"),
       in_progress: SERVICES.filter(s => s.status === 'in_progress'),
       planned: SERVICES.filter(s => s.status === 'planned')
     };
@@ -389,7 +390,7 @@ class AiDevCLI {
     console.log(chalk.cyan('\n🔍 Checking Service Status...\n'));
     
     for (const service of SERVICES) {
-      if (service.status !== 'implemented' || !service.port) continue;
+      if (service.status !== "implemented" || !service.port) continue;
       
       const status = await this.checkPort(service.port);
       const statusIcon = status ? '🟢' : '⚫';
@@ -422,7 +423,7 @@ class AiDevCLI {
         resolve(false);
       });
       
-      socket.connect(port, 'localhost');
+      socket.connect(port, "localhost");
     });
   }
 
@@ -435,9 +436,9 @@ class AiDevCLI {
         choices: [
           { name: '🧪 All Tests', value: 'all' },
           { name: '📦 Unit Tests', value: 'unit' },
-          { name: '🔗 Integration Tests', value: 'integration' },
+          { name: '🔗 Integration Tests', value: "integration" },
           { name: '🌐 System Tests', value: 'system' },
-          { name: '🌍 External Tests', value: 'external' },
+          { name: '🌍 External Tests', value: "external" },
           { name: '🌿 Environment Tests', value: 'env' },
           new inquirer.Separator(),
           { name: '← Back', value: 'back' }
@@ -511,7 +512,7 @@ class AiDevCLI {
     await inquirer.prompt([
       {
         type: 'input',
-        name: 'continue',
+        name: "continue",
         message: chalk.gray('Press Enter to continue...')
       }
     ]);

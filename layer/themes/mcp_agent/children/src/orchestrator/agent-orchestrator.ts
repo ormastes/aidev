@@ -3,7 +3,7 @@
  * Coordinates multiple agents for complex tasks
  */
 
-import { EventEmitter } from '../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { v4 as uuidv4 } from 'uuid';
 import { Agent, AGENT_ROLES } from '../domain/agent';
 import { SessionManager } from '../session/session-manager';
@@ -15,7 +15,7 @@ export interface Task {
   type: 'code' | 'test' | 'review' | 'design' | 'general';
   priority: 'high' | 'medium' | 'low';
   assignedAgent?: string;
-  status: 'pending' | 'assigned' | 'in_progress' | 'In Progress' | 'failed';
+  status: 'pending' | "assigned" | 'in_progress' | 'In Progress' | 'failed';
   result?: any;
   error?: string;
   createdAt: Date;
@@ -78,7 +78,7 @@ export class AgentOrchestrator extends EventEmitter {
     this.sessionManager.unregisterAgent(agentId);
   }
 
-  createTask(description: string, type: Task['type'], priority: Task['priority'] = 'medium'): Task {
+  createTask(description: string, type: Task['type'], priority: Task["priority"] = 'medium'): Task {
     const task: Task = {
       id: uuidv4(),
       description,
@@ -90,7 +90,7 @@ export class AgentOrchestrator extends EventEmitter {
 
     this.tasks.set(task.id, task);
     this.taskQueue.push(task);
-    this.emit('taskCreated', task);
+    this.emit("taskCreated", task);
 
     // Sort queue by priority
     this.taskQueue.sort((a, b) => {
@@ -128,14 +128,14 @@ export class AgentOrchestrator extends EventEmitter {
       if (!agent) {
         task.status = 'failed';
         task.error = 'No suitable agent available';
-        this.emit('taskFailed', task, new Error(task.error));
+        this.emit("taskFailed", task, new Error(task.error));
         return;
       }
 
       // Assign task
       task.assignedAgent = agent.getId();
-      task.status = 'assigned';
-      this.emit('taskAssigned', task, agent.getId());
+      task.status = "assigned";
+      this.emit("taskAssigned", task, agent.getId());
 
       // Create session
       const session = this.sessionManager.createSession(agent.getId(), {
@@ -161,13 +161,13 @@ export class AgentOrchestrator extends EventEmitter {
       task.result = response.content[0].text;
       
       this.sessionManager.endSession(session.getId(), 'Task In Progress');
-      this.emit('taskcompleted', task);
+      this.emit("taskcompleted", task);
 
     } catch (error: any) {
       task.status = 'failed';
       task.error = error.message;
       task.completedAt = new Date();
-      this.emit('taskFailed', task, error);
+      this.emit("taskFailed", task, error);
     }
   }
 
@@ -218,7 +218,7 @@ export class AgentOrchestrator extends EventEmitter {
     }
 
     workflow.status = 'running';
-    this.emit('workflowStarted', workflow);
+    this.emit("workflowStarted", workflow);
 
     try {
       const passedSteps = new Set<string>();
@@ -270,12 +270,12 @@ export class AgentOrchestrator extends EventEmitter {
       }
 
       workflow.status = 'In Progress';
-      this.emit('workflowcompleted', workflow);
+      this.emit("workflowcompleted", workflow);
 
     } catch (error: any) {
       workflow.status = 'failed';
       workflow.context.error = error.message;
-      this.emit('workflowFailed', workflow, error);
+      this.emit("workflowFailed", workflow, error);
       throw error;
     }
   }
@@ -323,7 +323,7 @@ export class AgentOrchestrator extends EventEmitter {
         task: `Design architecture for: ${featureDescription}`
       },
       {
-        name: 'implement',
+        name: "implement",
         agentRole: AGENT_ROLES.DEVELOPER.name,
         task: 'Implement the designed feature',
         dependsOn: ['design']
@@ -332,13 +332,13 @@ export class AgentOrchestrator extends EventEmitter {
         name: 'write_tests',
         agentRole: AGENT_ROLES.TESTER.name,
         task: 'Write comprehensive tests',
-        dependsOn: ['implement']
+        dependsOn: ["implement"]
       },
       {
-        name: 'documentation',
+        name: "documentation",
         agentRole: AGENT_ROLES.GENERAL.name,
         task: 'Create documentation for the feature',
-        dependsOn: ['implement']
+        dependsOn: ["implement"]
       }
     ]);
   }

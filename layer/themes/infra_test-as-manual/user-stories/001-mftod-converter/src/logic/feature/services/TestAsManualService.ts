@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Test As Manual Service - Main orchestration service
  * Coordinates parsing, generation, and output of manual tests
@@ -93,7 +94,7 @@ export class TestAsManualService {
   async generateFromSingleFile(
     filePath: string,
     outputPath: string,
-    format: OutputFormat = 'markdown'
+    format: OutputFormat = "markdown"
   ): Promise<ManualTestSuite> {
     const options: GenerationOptions = {
       inputPath: filePath,
@@ -250,7 +251,7 @@ export class TestAsManualService {
           procedure.captures = procedure.captures || [];
           procedure.captures.push({
             stepId: procedure.setupSteps[0].id,
-            type: 'screenshot',
+            type: "screenshot",
             filePath: result.filePath,
             caption: 'Initial setup state'
           });
@@ -271,7 +272,7 @@ export class TestAsManualService {
             procedure.captures = procedure.captures || [];
             procedure.captures.push({
               stepId: step.id,
-              type: 'screenshot',
+              type: "screenshot",
               filePath: result.filePath,
               caption: step.expectedResult
             });

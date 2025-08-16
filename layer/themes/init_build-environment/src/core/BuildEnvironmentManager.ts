@@ -1,14 +1,14 @@
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import * as fs from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
 import { exec, spawn } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 
 const execAsync = promisify(exec);
 
 export interface BuildEnvironment {
   name: string;
-  type: 'local' | 'container' | 'qemu';
+  type: 'local' | "container" | 'qemu';
   architecture: Architecture;
   compiler: CompilerConfig;
   cpu: CPUConfig;
@@ -170,7 +170,7 @@ export class BuildEnvironmentManager extends EventEmitter {
     const configFile = path.join(this.configPath, `${name}.json`);
     
     try {
-      const content = await fs.readFile(configFile, 'utf-8');
+      const content = await fileAPI.readFile(configFile, 'utf-8');
       const environment = JSON.parse(content) as BuildEnvironment;
       this.environments.set(name, environment);
       return environment;
@@ -221,7 +221,7 @@ export class BuildEnvironmentManager extends EventEmitter {
       case 'local':
         result = await this.buildLocal(projectPath, env, options);
         break;
-      case 'container':
+      case "container":
         result = await this.buildInContainer(projectPath, env, options);
         break;
       case 'qemu':
@@ -401,7 +401,7 @@ export class BuildEnvironmentManager extends EventEmitter {
         -DCMAKE_CXX_COMPILER=${compiler.cppCompiler} \
         -DCMAKE_BUILD_TYPE=${options.buildType || 'Release'} \
         ${compiler.flags.defines.map(d => `-D${d}`).join(' ')}`;
-    } else if (options.buildSystem === 'autotools') {
+    } else if (options.buildSystem === "autotools") {
       return `${projectPath}/configure \
         CC=${compiler.cCompiler} \
         CXX=${compiler.cppCompiler} \
@@ -813,7 +813,7 @@ WORKDIR /workspace
   private async startQEMU(imagePath: string, config: any): Promise<any> {
     // Start QEMU with the specified configuration
     // This is a simplified version - real implementation would be more complex
-    return { pid: 12345, ssh: { host: 'localhost', port: 2222 } };
+    return { pid: 12345, ssh: { host: "localhost", port: 2222 } };
   }
 
   private async stopQEMU(process: any): Promise<void> {
@@ -874,7 +874,7 @@ WORKDIR /workspace
   }
 
   async importEnvironment(inputPath: string, name?: string): Promise<void> {
-    const content = await fs.readFile(inputPath, 'utf-8');
+    const content = await fileAPI.readFile(inputPath, 'utf-8');
     const environment = JSON.parse(content) as BuildEnvironment;
     
     if(name) {
@@ -886,8 +886,8 @@ WORKDIR /workspace
 }
 
 export interface BuildOptions {
-  buildSystem?: 'cmake' | 'make' | 'ninja' | 'autotools';
-  buildType?: 'Debug' | 'Release' | 'RelWithDebInfo' | 'MinSizeRel';
+  buildSystem?: 'cmake' | 'make' | 'ninja' | "autotools";
+  buildType?: 'Debug' | 'Release' | "RelWithDebInfo" | "MinSizeRel";
   buildDir?: string;
   configure?: boolean;
   configureFlags?: string[];

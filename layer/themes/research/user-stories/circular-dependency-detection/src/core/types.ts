@@ -6,7 +6,7 @@ export interface DependencyNode {
   id: string;
   path: string;
   type: 'file' | 'module' | 'package';
-  language: 'typescript' | 'cpp' | 'python';
+  language: "typescript" | 'cpp' | 'python';
   metadata?: Record<string, any>;
 }
 

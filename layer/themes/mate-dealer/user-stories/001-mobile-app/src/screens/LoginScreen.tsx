@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
   demoInfo: {
     fontSize: 12,
     color: '#9ca3af',
-    fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace',
+    fontFamily: Platform.OS === 'ios' ? 'Courier' : "monospace",
   },
 });
 

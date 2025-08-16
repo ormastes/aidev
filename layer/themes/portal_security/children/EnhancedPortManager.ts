@@ -1,15 +1,15 @@
 import { net } from '../../infra_external-log-lib/src';
 import { fs } from '../../infra_external-log-lib/src';
 import { path } from '../../infra_external-log-lib/src';
-import { createServer } from 'http';
+import { createServer } from '../utils/http-wrapper';
 import { Server } from 'net';
 import { getFileAPI, FileType } from '../../infra_external-log-lib/pipe';
 
 const fileAPI = getFileAPI();
 
 
-export type DeployType = 'local' | 'dev' | 'demo' | 'release' | 'production';
-export type AppType = 'predefined' | 'dynamic';
+export type DeployType = 'local' | 'dev' | 'demo' | 'release' | "production";
+export type AppType = "predefined" | 'dynamic';
 
 export interface AppRegistration {
   appId: string;
@@ -21,7 +21,7 @@ export interface AppRegistration {
   ipAddress?: string;
   pid?: number;
   startTime?: Date;
-  status: 'registered' | 'active' | 'inactive' | 'blocked';
+  status: "registered" | 'active' | "inactive" | 'blocked';
 }
 
 export interface PortRange {
@@ -44,7 +44,7 @@ export class EnhancedPortManager {
     { deployType: 'dev', prefix: 32, start: 3200, end: 3299 },
     { deployType: 'demo', prefix: 33, start: 3300, end: 3399 },
     { deployType: 'release', prefix: 34, start: 3400, end: 3499 },
-    { deployType: 'production', prefix: 35, start: 3500, end: 3599 }
+    { deployType: "production", prefix: 35, start: 3500, end: 3599 }
   ];
   
   // Predefined apps with fixed port assignments
@@ -52,7 +52,7 @@ export class EnhancedPortManager {
     ['portal', { name: 'AI Dev Portal', id: 56 }],  // 3456 in release
     ['gui-selector', { name: 'GUI Selector', id: 57 }],  // 3457 in release
     ['chat-space', { name: 'Chat Space', id: 10 }],
-    ['pocketflow', { name: 'PocketFlow', id: 20 }],
+    ["pocketflow", { name: "PocketFlow", id: 20 }],
     ['story-reporter', { name: 'Story Reporter', id: 30 }],
     ['external-log', { name: 'External Logger', id: 40 }],
     ['security-proxy', { name: 'Security Proxy', id: 0 }]
@@ -107,12 +107,12 @@ export class EnhancedPortManager {
       const registration: AppRegistration = {
         appId,
         appName: predefined.name,
-        type: 'predefined',
+        type: "predefined",
         deployType,
         assignedPort: port,
         requestedPort,
         ipAddress,
-        status: 'registered',
+        status: "registered",
         startTime: new Date()
       };
       
@@ -143,7 +143,7 @@ export class EnhancedPortManager {
         assignedPort: port,
         requestedPort,
         ipAddress,
-        status: 'registered',
+        status: "registered",
         startTime: new Date()
       };
       
@@ -240,7 +240,7 @@ export class EnhancedPortManager {
         
         // Check all registrations for this port
         for (const reg of manager.registrations.values()) {
-          if (reg.assignedPort === port && reg.status === 'registered') {
+          if (reg.assignedPort === port && reg.status === "registered") {
             authorized = true;
             registration = reg;
             break;
@@ -350,7 +350,7 @@ export class EnhancedPortManager {
     }
     
     // Update status
-    registration.status = 'registered';
+    registration.status = "registered";
     this.saveConfiguration();
     
     console.log(`📝 Updated ${appId} to port ${registration.assignedPort}`);
@@ -410,7 +410,7 @@ export class EnhancedPortManager {
   private async loadConfiguration(): void {
     if (fs.existsSync(this.configFile)) {
       try {
-        const config = JSON.parse(fs.readFileSync(this.configFile, 'utf-8'));
+        const config = JSON.parse(fileAPI.readFileSync(this.configFile, 'utf-8'));
         
         // Restore registrations
         if (config.registrations) {

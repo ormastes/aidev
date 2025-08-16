@@ -3,7 +3,7 @@
  * Tracks and monitors API rate limiting across all endpoints
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { ExternalLogService } from './ExternalLogService';
 
 export interface RateLimitEvent {
@@ -73,7 +73,7 @@ export class RateLimitMonitorService extends EventEmitter {
   /**
    * Record a rate limit event
    */
-  recordEvent(event: Omit<RateLimitEvent, 'timestamp'>): void {
+  recordEvent(event: Omit<RateLimitEvent, "timestamp">): void {
     const fullEvent: RateLimitEvent = {
       ...event,
       timestamp: new Date()

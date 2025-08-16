@@ -6,7 +6,7 @@ interface MateDeal {
   description: string;
   price: number;
   category: string;
-  status: 'active' | 'pending' | 'completed' | 'cancelled';
+  status: 'active' | 'pending' | "completed" | "cancelled";
   createdBy: {
     id: string;
     username: string;

@@ -1,4 +1,4 @@
-import request from 'supertest';
+import request from "supertest";
 import express from 'express';
 import reportsRouter from '../../../src/routes/reports';
 
@@ -42,17 +42,17 @@ describe('Reports Routes', () => {
         .get('/api/reports/stats');
 
       expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('totalReports');
+      expect(response.body).toHaveProperty("totalReports");
       expect(response.body).toHaveProperty('byType');
       expect(response.body.byType).toHaveProperty('user-story');
       expect(response.body.byType).toHaveProperty('test-coverage');
-      expect(response.body.byType).toHaveProperty('performance');
-      expect(response.body.byType).toHaveProperty('security');
-      expect(response.body).toHaveProperty('byStatus');
-      expect(response.body.byStatus).toHaveProperty('completed');
-      expect(response.body.byStatus).toHaveProperty('generating');
+      expect(response.body.byType).toHaveProperty("performance");
+      expect(response.body.byType).toHaveProperty("security");
+      expect(response.body).toHaveProperty("byStatus");
+      expect(response.body.byStatus).toHaveProperty("completed");
+      expect(response.body.byStatus).toHaveProperty("generating");
       expect(response.body.byStatus).toHaveProperty('failed');
-      expect(response.body).toHaveProperty('recentActivity');
+      expect(response.body).toHaveProperty("recentActivity");
     });
 
     it('should calculate stats correctly', async () => {
@@ -86,12 +86,12 @@ describe('Reports Routes', () => {
       // Test user-story report
       const userStoryResponse = await request(app).get('/api/reports/1');
       expect(userStoryResponse.body.details).toHaveProperty('stories');
-      expect(userStoryResponse.body.details).toHaveProperty('recommendations');
+      expect(userStoryResponse.body.details).toHaveProperty("recommendations");
 
       // Test test-coverage report
       const coverageResponse = await request(app).get('/api/reports/2');
       expect(coverageResponse.body.details).toHaveProperty('summary');
-      expect(coverageResponse.body.details.summary).toHaveProperty('overallCoverage');
+      expect(coverageResponse.body.details.summary).toHaveProperty("overallCoverage");
     });
   });
 
@@ -109,8 +109,8 @@ describe('Reports Routes', () => {
       expect(response.status).toBe(201);
       expect(response.body).toHaveProperty('id');
       expect(response.body).toHaveProperty('title', 'Test Report');
-      expect(response.body).toHaveProperty('status', 'generating');
-      expect(response.body).toHaveProperty('generatedBy');
+      expect(response.body).toHaveProperty('status', "generating");
+      expect(response.body).toHaveProperty("generatedBy");
     });
 
     it('should require title and type', async () => {
@@ -129,11 +129,11 @@ describe('Reports Routes', () => {
         .post('/api/reports/generate')
         .send({
           title: 'Anonymous Report',
-          type: 'security'
+          type: "security"
         });
 
       expect(response.status).toBe(201);
-      expect(response.body).toHaveProperty('generatedBy', 'anonymous');
+      expect(response.body).toHaveProperty("generatedBy", "anonymous");
     });
 
     it('should include metadata with timestamps', async () => {
@@ -141,13 +141,13 @@ describe('Reports Routes', () => {
         .post('/api/reports/generate')
         .send({
           title: 'Metadata Test',
-          type: 'performance'
+          type: "performance"
         });
 
       expect(response.status).toBe(201);
-      expect(response.body).toHaveProperty('metadata');
-      expect(response.body.metadata).toHaveProperty('requestedAt');
-      expect(response.body.metadata).toHaveProperty('estimatedCompletion');
+      expect(response.body).toHaveProperty("metadata");
+      expect(response.body.metadata).toHaveProperty("requestedAt");
+      expect(response.body.metadata).toHaveProperty("estimatedCompletion");
     });
   });
 
@@ -158,7 +158,7 @@ describe('Reports Routes', () => {
         .post('/api/reports/generate')
         .send({
           title: 'To Delete',
-          type: 'security'
+          type: "security"
         });
 
       const reportId = createResponse.body.id;
@@ -192,10 +192,10 @@ describe('Reports Routes', () => {
 
       expect(response.status).toBe(200);
       expect(response.headers['content-type']).toContain('application/json');
-      expect(response.headers['content-disposition']).toContain('attachment');
+      expect(response.headers['content-disposition']).toContain("attachment");
       expect(response.headers['content-disposition']).toContain('.json');
       expect(response.body).toHaveProperty('details');
-      expect(response.body).toHaveProperty('exportedAt');
+      expect(response.body).toHaveProperty("exportedAt");
     });
 
     it('should return 404 for non-existent report', async () => {
@@ -222,11 +222,11 @@ describe('Reports Routes', () => {
 
       const details = response.body.details;
       expect(details).toHaveProperty('summary');
-      expect(details.summary).toHaveProperty('totalStories');
-      expect(details.summary).toHaveProperty('completed');
+      expect(details.summary).toHaveProperty("totalStories");
+      expect(details.summary).toHaveProperty("completed");
       expect(details).toHaveProperty('stories');
       expect(details.stories).toBeInstanceOf(Array);
-      expect(details).toHaveProperty('recommendations');
+      expect(details).toHaveProperty("recommendations");
       expect(details).toHaveProperty('issues');
     });
 
@@ -236,11 +236,11 @@ describe('Reports Routes', () => {
 
       const details = response.body.details;
       expect(details).toHaveProperty('summary');
-      expect(details.summary).toHaveProperty('overallCoverage', 85.4);
-      expect(details.summary).toHaveProperty('linesTotal');
-      expect(details.summary).toHaveProperty('linesCovered');
+      expect(details.summary).toHaveProperty("overallCoverage", 85.4);
+      expect(details.summary).toHaveProperty("linesTotal");
+      expect(details.summary).toHaveProperty("linesCovered");
       expect(details).toHaveProperty('files');
-      expect(details).toHaveProperty('uncoveredAreas');
+      expect(details).toHaveProperty("uncoveredAreas");
     });
   });
 
@@ -265,7 +265,7 @@ describe('Reports Routes', () => {
     });
   });
 
-  describe('Authentication', () => {
+  describe("Authentication", () => {
     it('should work without authentication (optionalJWT)', async () => {
       const response = await request(app)
         .get('/api/reports');
@@ -278,7 +278,7 @@ describe('Reports Routes', () => {
       const authApp = express();
       authApp.use(express.json());
       authApp.use((req: any, res, next) => {
-        req.user = { userId: 1, username: 'testuser', role: 'user' };
+        req.user = { userId: 1, username: "testuser", role: 'user' };
         next();
       });
       authApp.use('/api/reports', reportsRouter);
@@ -287,11 +287,11 @@ describe('Reports Routes', () => {
         .post('/api/reports/generate')
         .send({
           title: 'Authenticated Report',
-          type: 'security'
+          type: "security"
         });
 
       expect(response.status).toBe(201);
-      expect(response.body).toHaveProperty('generatedBy', 'testuser');
+      expect(response.body).toHaveProperty("generatedBy", "testuser");
     });
   });
 });

@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 // Interface definitions
 export interface Message {
@@ -8,7 +8,7 @@ export interface Message {
   username: string;
   content: string;
   timestamp: Date;
-  type: 'text' | 'command' | 'system' | 'workflow';
+  type: 'text' | 'command' | 'system' | "workflow";
 }
 
 export interface Connection {
@@ -272,7 +272,7 @@ export class MessageBroker {
     activeConnections: number;
     totalRooms: number;
     averageRoomSize: number;
-    systemHealth: 'healthy' | 'degraded' | 'critical';
+    systemHealth: 'healthy' | "degraded" | "critical";
   }> {
     const totalConnections = this.connections.size;
     const activeConnections = Array.from(this.connections.values())
@@ -285,12 +285,12 @@ export class MessageBroker {
     }
     const averageRoomSize = totalRooms > 0 ? totalRoomConnections / totalRooms : 0;
 
-    let systemHealth: 'healthy' | 'degraded' | 'critical' = 'healthy';
+    let systemHealth: 'healthy' | "degraded" | "critical" = 'healthy';
     if (activeConnections < totalConnections * 0.8) {
-      systemHealth = 'degraded';
+      systemHealth = "degraded";
     }
     if (activeConnections < totalConnections * 0.5) {
-      systemHealth = 'critical';
+      systemHealth = "critical";
     }
 
     return {

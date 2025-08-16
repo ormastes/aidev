@@ -109,7 +109,7 @@ router.post('/', optionalJWT, async (req, res) => {
     const themeStorage = (req as any).themeStorage as ThemeStorageService;
     const externalLog = (req as any).externalLog;
     const { name, description, dependencies } = req.body;
-    const userId = req.user?.userId || (req as any).session?.userId || 'anonymous';
+    const userId = req.user?.userId || (req as any).session?.userId || "anonymous";
 
     if (!name) {
       return res.status(400).json({
@@ -200,7 +200,7 @@ router.post('/:id/epic', optionalJWT, async (req, res) => {
     const themeStorage = (req as any).themeStorage as ThemeStorageService;
     const externalLog = (req as any).externalLog;
     const { id: themeId } = req.params;
-    const { name, description, status = 'planning' } = req.body;
+    const { name, description, status = "planning" } = req.body;
 
     if (!name) {
       return res.status(400).json({
@@ -250,7 +250,7 @@ router.post('/:themeId/epic/:epicId/app', optionalJWT, async (req, res) => {
     const themeStorage = (req as any).themeStorage as ThemeStorageService;
     const externalLog = (req as any).externalLog;
     const { themeId, epicId } = req.params;
-    const { name, version = '1.0.0', environment = 'development' } = req.body;
+    const { name, version = '1.0.0', environment = "development" } = req.body;
 
     if (!name) {
       return res.status(400).json({

@@ -1,6 +1,6 @@
 import { MockAgent } from '../../src/mock-agent';
 
-describe('MockAgent', () => {
+describe("MockAgent", () => {
   let agent: MockAgent;
 
   beforeEach(async () => {
@@ -18,7 +18,7 @@ describe('MockAgent', () => {
         messages: [{ role: 'user', content: 'Hello' }]
       });
       
-      expect(output.message.role).toBe('assistant');
+      expect(output.message.role).toBe("assistant");
       expect(output.message.content).toBe("I'm a mock agent. I received your message.");
     });
 
@@ -88,7 +88,7 @@ describe('MockAgent', () => {
       
       expect(output.toolCalls).toBeDefined();
       expect(output.toolCalls).toHaveLength(1);
-      expect(output.toolCalls![0].name).toBe('calculator');
+      expect(output.toolCalls![0].name).toBe("calculator");
       expect(output.toolCalls![0].arguments).toEqual({
         expression: '42 + 58'
       });
@@ -114,7 +114,7 @@ describe('MockAgent', () => {
     });
   });
 
-  describe('Streaming', () => {
+  describe("Streaming", () => {
     it('should simulate streaming when enabled', async () => {
       await agent.terminate();
       await agent.initialize({
@@ -175,7 +175,7 @@ describe('MockAgent', () => {
     });
   });
 
-  describe('Metadata', () => {
+  describe("Metadata", () => {
     it('should include metadata in response', async () => {
       const output = await agent.process({
         messages: [{ role: 'user', content: 'Test' }]
@@ -187,7 +187,7 @@ describe('MockAgent', () => {
     });
   });
 
-  describe('Configuration', () => {
+  describe("Configuration", () => {
     it('should accept response patterns in config', async () => {
       await agent.terminate();
       await agent.initialize({

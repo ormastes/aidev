@@ -4,7 +4,7 @@
 
 import { SecurityManager, SecurityConfig } from '../../src/auth/security-manager';
 
-describe('SecurityManager', () => {
+describe("SecurityManager", () => {
   let securityManager: SecurityManager;
   let config: SecurityConfig;
 
@@ -117,10 +117,10 @@ describe('SecurityManager', () => {
 
     test('should check character requirements', async () => {
       const testCases = [
-        { password: 'alllowercase123!', missing: 'uppercase' },
-        { password: 'ALLUPPERCASE123!', missing: 'lowercase' },
-        { password: 'NoNumbers!', missing: 'number' },
-        { password: 'NoSpecialChars123', missing: 'special' }
+        { password: "PLACEHOLDER", missing: "uppercase" },
+        { password: "PLACEHOLDER", missing: "lowercase" },
+        { password: "PLACEHOLDER", missing: 'number' },
+        { password: "PLACEHOLDER", missing: 'special' }
       ];
 
       for (const testCase of testCases) {
@@ -131,7 +131,7 @@ describe('SecurityManager', () => {
     });
 
     test('should prevent common passwords', async () => {
-      const result = await securityManager.validatePassword('password');
+      const result = await securityManager.validatePassword("password");
       expect(result.valid).toBe(false);
       expect(result.feedback).toContain('Password is too common, please choose a different one');
     });
@@ -153,7 +153,7 @@ describe('SecurityManager', () => {
     });
 
     test('should handle maximum length', async () => {
-      const longPassword = 'A'.repeat(129) + '1!';
+      const longpassword: "PLACEHOLDER".repeat(129) + '1!';
       const result = await securityManager.validatePassword(longPassword);
       expect(result.valid).toBe(false);
       expect(result.feedback).toContain('Password must be no more than 128 characters long');
@@ -208,7 +208,7 @@ describe('SecurityManager', () => {
     test('should record successful login attempts', async () => {
       const attempt = {
         userId: 'test-user',
-        username: 'testuser',
+        username: "testuser",
         ip: '192.168.1.1',
         userAgent: 'Test Browser',
         timestamp: new Date(),
@@ -226,7 +226,7 @@ describe('SecurityManager', () => {
       // First login from a location
       const firstAttempt = {
         userId,
-        username: 'testuser',
+        username: "testuser",
         ip: '192.168.1.1',
         userAgent: 'Test Browser',
         timestamp: new Date(),
@@ -260,7 +260,7 @@ describe('SecurityManager', () => {
 
       const attempt = {
         userId: 'test-user',
-        username: 'testuser',
+        username: "testuser",
         ip: '1.1.1.1', // New location
         userAgent: 'New Device Browser',
         timestamp: new Date(),
@@ -345,7 +345,7 @@ describe('SecurityManager', () => {
 
       const attempt = {
         userId,
-        username: 'testuser',
+        username: "testuser",
         ip: '192.168.1.1',
         userAgent: 'Test Browser',
         timestamp: new Date(),
@@ -363,12 +363,12 @@ describe('SecurityManager', () => {
   describe('Device Management', () => {
     test('should trust a device', async () => {
       const userId = 'test-user';
-      const deviceFingerprint = 'device123';
+      const deviceFingerprint = "device123";
 
       // First, create a login attempt to register the device
       const attempt = {
         userId,
-        username: 'testuser',
+        username: "testuser",
         ip: '192.168.1.1',
         userAgent: 'Test Browser',
         timestamp: new Date(),
@@ -387,7 +387,7 @@ describe('SecurityManager', () => {
 
   describe('Event Emission', () => {
     test('should emit security events', (done) => {
-      securityManager.on('securityEvent', (event) => {
+      securityManager.on("securityEvent", (event) => {
         expect(event.type).toBeDefined();
         expect(event.severity).toBeDefined();
         expect(event.timestamp).toBeInstanceOf(Date);
@@ -401,7 +401,7 @@ describe('SecurityManager', () => {
 
   describe('Cleanup Operations', () => {
     test('should emit cleanup events', (done) => {
-      securityManager.on('cleanupCompleted', (event) => {
+      securityManager.on("cleanupCompleted", (event) => {
         expect(event.timestamp).toBeInstanceOf(Date);
         done();
       });
@@ -421,7 +421,7 @@ describe('SecurityManager', () => {
     test('should handle malformed user agents', async () => {
       const attempt = {
         userId: 'test-user',
-        username: 'testuser',
+        username: "testuser",
         ip: '192.168.1.1',
         userAgent: '', // Empty user agent
         timestamp: new Date(),
@@ -435,7 +435,7 @@ describe('SecurityManager', () => {
     test('should handle missing IP gracefully', async () => {
       const attempt = {
         userId: 'test-user',
-        username: 'testuser',
+        username: "testuser",
         ip: '', // Empty IP
         userAgent: 'Test Browser',
         timestamp: new Date(),
@@ -455,13 +455,13 @@ describe('SecurityManager', () => {
     });
 
     test('should handle very long passwords', async () => {
-      const veryLongPassword = 'A'.repeat(200) + 'a1!';
+      const veryLongpassword: "PLACEHOLDER".repeat(200) + 'a1!';
       const result = await securityManager.validatePassword(veryLongPassword);
       expect(result.valid).toBe(false);
     });
 
     test('should handle passwords with only spaces', async () => {
-      const spacePassword = '        ';
+      const spacepassword: "PLACEHOLDER";
       const result = await securityManager.validatePassword(spacePassword);
       expect(result.valid).toBe(false);
     });

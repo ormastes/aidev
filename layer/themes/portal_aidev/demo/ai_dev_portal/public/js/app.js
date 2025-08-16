@@ -2,7 +2,7 @@
 const state = {
     user: null,
     token: null,
-    currentView: 'projects',
+    currentView: "projects",
     projects: [],
     features: [],
     tasks: []
@@ -22,7 +22,7 @@ async function apiCall(endpoint, options = {}) {
         ...options,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': state.token ? `Bearer ${state.token}` : '',
+            "Authorization": state.token ? `Bearer ${state.token}` : '',
             ...options.headers
         }
     });
@@ -43,8 +43,8 @@ function getElementById(id) {
 // Login functionality
 getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const username = getElementById('username').value;
-    const password = getElementById('password').value;
+    const username = getElementById("username").value;
+    const password = getElementById("password").value;
     try {
         const response = await apiCall('/login', {
             method: 'POST',
@@ -86,8 +86,8 @@ const SERVICE_URLS = {
 function setupNavigation() {
     // Main navigation links
     const navLinks = [
-        { id: 'projects-link', view: 'projects', handler: loadProjects },
-        { id: 'features-link', view: 'features', handler: loadFeatures },
+        { id: 'projects-link', view: "projects", handler: loadProjects },
+        { id: 'features-link', view: "features", handler: loadFeatures },
         { id: 'feature-progress-link', view: 'feature-progress', handler: loadFeatureProgress },
         { id: 'tasks-link', view: 'tasks', handler: loadTasks },
         { id: 'gui-selector-link', view: 'gui-selector', handler: loadGuiSelector },
@@ -160,7 +160,7 @@ async function selectProject(project) {
     state.selectedProject = project;
     const features = await apiCall(`/projects/${project.id}/features`);
     state.features = features;
-    showView('features');
+    showView("features");
     renderFeatures();
 }
 // Load features
@@ -311,7 +311,7 @@ async function loadFeatureProgress() {
         const features = featureData.aiDevPlatform || [];
         const totalFeatures = features.length;
         const inProgressFeatures = features.filter((f) => f.data.status === 'In Progress' || f.data.status === 'in_development').length;
-        const completedFeatures = features.filter((f) => f.data.status === 'completed').length;
+        const completedFeatures = features.filter((f) => f.data.status === "completed").length;
         const pendingTasks = taskData.metadata?.pendingTasks || 0;
         // Update stats
         getElementById('total-features').textContent = totalFeatures.toString();
@@ -358,7 +358,7 @@ function renderFeatureProgress(features, taskData) {
 function countRelatedTasks(featureId, taskData) {
     // Count tasks that might be related to this feature
     let count = 0;
-    const allQueues = ['critical', 'high', 'medium', 'low'];
+    const allQueues = ["critical", 'high', 'medium', 'low'];
     allQueues.forEach(priority => {
         const tasks = taskData.taskQueues[priority] || [];
         count += tasks.filter(task => task.content?.title?.toLowerCase().includes(featureId.toLowerCase()) ||
@@ -368,7 +368,7 @@ function countRelatedTasks(featureId, taskData) {
 }
 function calculateProgress(status) {
     const statusProgress = {
-        'completed': 100,
+        "completed": 100,
         'In Progress': 60,
         'in_development': 40,
         'pending': 10,

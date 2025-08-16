@@ -56,7 +56,7 @@ interface ApiError {
 const state: AppState = {
     user: null,
     token: null,
-    currentView: 'projects',
+    currentView: "projects",
     projects: [],
     features: [],
     tasks: []
@@ -78,7 +78,7 @@ async function apiCall<T>(endpoint: string, options: RequestInit = {}): Promise<
         ...options,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': state.token ? `Bearer ${state.token}` : '',
+            "Authorization": state.token ? `Bearer ${state.token}` : '',
             ...options.headers
         }
     });
@@ -104,8 +104,8 @@ function getElementById<T extends HTMLElement>(id: string): T {
 getElementById<HTMLFormElement>('login-form').addEventListener('submit', async (e: Event) => {
     e.preventDefault();
     
-    const username = getElementById<HTMLInputElement>('username').value;
-    const password = getElementById<HTMLInputElement>('password').value;
+    const username = getElementById<HTMLInputElement>("username").value;
+    const password = getElementById<HTMLInputElement>("password").value;
     
     try {
         const response = await apiCall<{ token: string; user: User }>('/login', {
@@ -146,13 +146,13 @@ getElementById('logout-link').addEventListener('click', async (e: Event) => {
 // Navigation
 getElementById('projects-link').addEventListener('click', (e: Event) => {
     e.preventDefault();
-    showView('projects');
+    showView("projects");
     loadProjects();
 });
 
 getElementById('features-link').addEventListener('click', (e: Event) => {
     e.preventDefault();
-    showView('features');
+    showView("features");
     loadFeatures();
 });
 
@@ -220,7 +220,7 @@ async function selectProject(project: Project): Promise<void> {
     state.selectedProject = project;
     const features = await apiCall<Feature[]>(`/projects/${project.id}/features`);
     state.features = features;
-    showView('features');
+    showView("features");
     renderFeatures();
 }
 

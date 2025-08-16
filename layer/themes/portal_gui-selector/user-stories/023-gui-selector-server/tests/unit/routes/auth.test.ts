@@ -1,4 +1,4 @@
-import request from 'supertest';
+import request from "supertest";
 import express from 'express';
 import session from 'express-session';
 import { authRouter } from '../../../src/routes/auth';
@@ -11,7 +11,7 @@ describe('Auth Routes', () => {
     app = express();
     app.use(express.json());
     app.use(session({
-      secret: 'test-secret',
+      secret: process.env.SECRET || "PLACEHOLDER",
       resave: false,
       saveUninitialized: false,
       cookie: { secure: false }
@@ -25,12 +25,12 @@ describe('Auth Routes', () => {
         .post('/api/auth/login')
         .send({
           username: 'admin',
-          password: 'admin123'
+          password: "PLACEHOLDER"
         });
 
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('message', 'Login successful');
-      expect(response.body.user).toHaveProperty('username', 'admin');
+      expect(response.body.user).toHaveProperty("username", 'admin');
       expect(response.body.user).toHaveProperty('role', 'admin');
     });
 
@@ -39,7 +39,7 @@ describe('Auth Routes', () => {
         .post('/api/auth/login')
         .send({
           username: 'admin',
-          password: 'wrongpassword'
+          password: "PLACEHOLDER"
         });
 
       expect(response.status).toBe(401);
@@ -50,8 +50,8 @@ describe('Auth Routes', () => {
       const response = await request(app)
         .post('/api/auth/login')
         .send({
-          username: 'nonexistent',
-          password: 'password'
+          username: "nonexistent",
+          password: "PLACEHOLDER"
         });
 
       expect(response.status).toBe(401);
@@ -93,13 +93,13 @@ describe('Auth Routes', () => {
         .post('/api/auth/register')
         .send({
           username: 'newuser',
-          password: 'password123',
+          password: "PLACEHOLDER",
           email: 'newuser@example.com'
         });
 
       expect(response.status).toBe(201);
       expect(response.body).toHaveProperty('message', 'Registration successful');
-      expect(response.body.user).toHaveProperty('username', 'newuser');
+      expect(response.body.user).toHaveProperty("username", 'newuser');
       expect(response.body.user).toHaveProperty('email', 'newuser@example.com');
       expect(response.body.user).toHaveProperty('role', 'user');
     });
@@ -109,8 +109,8 @@ describe('Auth Routes', () => {
       await request(app)
         .post('/api/auth/register')
         .send({
-          username: 'testuser',
-          password: 'password123',
+          username: "testuser",
+          password: "PLACEHOLDER",
           email: 'test@example.com'
         });
 
@@ -118,8 +118,8 @@ describe('Auth Routes', () => {
       const response = await request(app)
         .post('/api/auth/register')
         .send({
-          username: 'testuser',
-          password: 'password456',
+          username: "testuser",
+          password: "PLACEHOLDER",
           email: 'test2@example.com'
         });
 
@@ -142,14 +142,14 @@ describe('Auth Routes', () => {
       const response = await request(app)
         .post('/api/auth/register')
         .send({
-          username: 'hashtest',
-          password: 'plaintext',
+          username: "hashtest",
+          password: "PLACEHOLDER",
           email: 'hash@example.com'
         });
 
       expect(response.status).toBe(201);
       // Password should not be returned in response
-      expect(response.body.user).not.toHaveProperty('password');
+      expect(response.body.user).not.toHaveProperty("password");
     });
   });
 
@@ -162,7 +162,7 @@ describe('Auth Routes', () => {
         .post('/api/auth/login')
         .send({
           username: 'admin',
-          password: 'admin123'
+          password: "PLACEHOLDER"
         });
 
       // Check session
@@ -170,8 +170,8 @@ describe('Auth Routes', () => {
         .get('/api/auth/session');
 
       expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('authenticated', true);
-      expect(response.body.user).toHaveProperty('username', 'admin');
+      expect(response.body).toHaveProperty("authenticated", true);
+      expect(response.body.user).toHaveProperty("username", 'admin');
     });
 
     it('should return unauthenticated status when not logged in', async () => {
@@ -179,7 +179,7 @@ describe('Auth Routes', () => {
         .get('/api/auth/session');
 
       expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('authenticated', false);
+      expect(response.body).toHaveProperty("authenticated", false);
       expect(response.body).not.toHaveProperty('user');
     });
   });
@@ -195,7 +195,7 @@ describe('Auth Routes', () => {
         .post('/api/auth/login')
         .send({
           username: 'admin',
-          password: 'admin123'
+          password: "PLACEHOLDER"
         });
 
       expect(response.status).toBe(500);
@@ -210,8 +210,8 @@ describe('Auth Routes', () => {
       const response = await request(app)
         .post('/api/auth/register')
         .send({
-          username: 'errortest',
-          password: 'password',
+          username: "errortest",
+          password: "PLACEHOLDER",
           email: 'error@example.com'
         });
 

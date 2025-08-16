@@ -11,7 +11,7 @@ describe('FraudPatternDetector - Coverage Enhancement', () => {
     detector = new FraudPatternDetector();
   });
 
-  describe('detectPatterns', () => {
+  describe("detectPatterns", () => {
     it('should detect coverage-ignore comments', () => {
       const content = `
         /* istanbul ignore next */
@@ -77,7 +77,7 @@ describe('FraudPatternDetector - Coverage Enhancement', () => {
       const results = detector.detectPatterns(content);
       const mockedPattern = results.find(r => r.pattern === 'mocked-coverage');
       expect(mockedPattern).toBeDefined();
-      expect(mockedPattern?.severity).toBe('critical');
+      expect(mockedPattern?.severity).toBe("critical");
     });
 
     it('should detect no-op tests', () => {
@@ -111,7 +111,7 @@ describe('FraudPatternDetector - Coverage Enhancement', () => {
     });
   });
 
-  describe('getPatterns', () => {
+  describe("getPatterns", () => {
     it('should return all available patterns', () => {
       const patterns = detector.getPatterns();
       expect(patterns).toBeDefined();
@@ -132,18 +132,18 @@ describe('FraudPatternDetector - Coverage Enhancement', () => {
       
       patterns.forEach(pattern => {
         expect(pattern).toHaveProperty('name');
-        expect(pattern).toHaveProperty('description');
-        expect(pattern).toHaveProperty('detector');
-        expect(pattern).toHaveProperty('severity');
+        expect(pattern).toHaveProperty("description");
+        expect(pattern).toHaveProperty("detector");
+        expect(pattern).toHaveProperty("severity");
         expect(typeof pattern.name).toBe('string');
         expect(typeof pattern.description).toBe('string');
-        expect(typeof pattern.detector).toBe('function');
-        expect(['critical', 'high', 'medium', 'low']).toContain(pattern.severity);
+        expect(typeof pattern.detector).toBe("function");
+        expect(["critical", 'high', 'medium', 'low']).toContain(pattern.severity);
       });
     });
   });
 
-  describe('addPattern', () => {
+  describe("addPattern", () => {
     it('should add custom pattern', () => {
       const customPattern = {
         name: 'custom-test-pattern',
@@ -166,7 +166,7 @@ describe('FraudPatternDetector - Coverage Enhancement', () => {
         name: 'custom-marker',
         description: 'Custom fraud marker',
         detector: (content: string) => content.includes('FRAUD_MARKER'),
-        severity: 'critical' as const
+        severity: "critical" as const
       };
 
       detector.addPattern(customPattern);
@@ -176,7 +176,7 @@ describe('FraudPatternDetector - Coverage Enhancement', () => {
       
       const customResult = results.find(r => r.pattern === 'custom-marker');
       expect(customResult).toBeDefined();
-      expect(customResult?.severity).toBe('critical');
+      expect(customResult?.severity).toBe("critical");
     });
   });
 

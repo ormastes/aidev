@@ -83,7 +83,7 @@ const OrdersScreen: React.FC = () => {
 
   const handleOrderPress = (order: any) => {
     dispatch(setCurrentOrder(order));
-    navigation.navigate('OrderDetail' as never, { orderId: order.id } as never);
+    navigation.navigate("OrderDetail" as never, { orderId: order.id } as never);
   };
 
   const onRefresh = () => {
@@ -138,7 +138,7 @@ const OrdersScreen: React.FC = () => {
   );
 
   const activeOrders = orders.filter(order => 
-    !['delivered', 'cancelled'].includes(order.status)
+    !["delivered", "cancelled"].includes(order.status)
   );
 
   const currentOrders = selectedTab === 'active' ? activeOrders : orderHistory;
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     alignItems: 'center',
     borderBottomWidth: 2,
-    borderBottomColor: 'transparent',
+    borderBottomColor: "transparent",
   },
   activeTab: {
     borderBottomColor: '#6366f1',

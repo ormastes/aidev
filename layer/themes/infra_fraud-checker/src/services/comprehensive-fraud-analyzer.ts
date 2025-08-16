@@ -5,8 +5,8 @@
 
 import { CircularDependencyDetector, CircularDependencyFraudIssue } from '../detectors/circular-dependency-detector';
 import { EnhancedFraudDetector } from '../detectors/enhanced-fraud-detector';
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as path from 'node:path';
 
 export interface ComprehensiveFraudReport {
   projectPath: string;
@@ -119,7 +119,7 @@ export class ComprehensiveFraudAnalyzer {
     
     // Check for direct imports
     if (fs.existsSync(filePath)) {
-      const content = fs.readFileSync(filePath, 'utf-8');
+      const content = fileAPI.readFileSync(filePath, 'utf-8');
       const directImportIssues = this.checkForDirectImports(content, filePath);
       issues.push(...directImportIssues);
     }
@@ -136,7 +136,7 @@ export class ComprehensiveFraudAnalyzer {
     
     for (const file of files) {
       try {
-        const content = fs.readFileSync(file, 'utf-8');
+        const content = fileAPI.readFileSync(file, 'utf-8');
         const fileIssues = this.checkForDirectImports(content, file);
         issues.push(...fileIssues);
       } catch (error) {

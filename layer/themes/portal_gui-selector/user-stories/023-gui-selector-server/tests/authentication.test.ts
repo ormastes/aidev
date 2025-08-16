@@ -9,7 +9,7 @@ import { RoleBasedAccessControl } from '../src/middleware/RoleBasedAccessControl
 import { SessionPersistenceService } from '../src/services/SessionPersistenceService';
 import { Request, Response, NextFunction } from 'express';
 import * as fs from 'fs/promises';
-import { path } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 // Mock implementations
 const mockDatabaseService = {
@@ -71,20 +71,20 @@ describe('Multi-User Authentication System', () => {
     }
   });
 
-  describe('UserManagementService', () => {
+  describe("UserManagementService", () => {
     describe('User Registration', () => {
       it('should register a new user successfully', async () => {
         const registrationData: RegistrationData = {
-          username: 'testuser',
+          username: "testuser",
           email: 'test@example.com',
-          password: 'TestPassword123',
+          password: "PLACEHOLDER",
           roles: [UserRole.VIEWER]
         };
 
         const user = await userService.registerUser(registrationData);
 
         expect(user).toBeDefined();
-        expect(user.username).toBe('testuser');
+        expect(user.username).toBe("testuser");
         expect(user.email).toBe('test@example.com');
         expect(user.roles).toContain(UserRole.VIEWER);
         expect(user.isActive).toBe(true);
@@ -94,7 +94,7 @@ describe('Multi-User Authentication System', () => {
         const registrationData: RegistrationData = {
           username: 'te', // Too short
           email: 'test@example.com',
-          password: 'TestPassword123'
+          password: "PLACEHOLDER"
         };
 
         await expect(userService.registerUser(registrationData))
@@ -103,9 +103,9 @@ describe('Multi-User Authentication System', () => {
 
       it('should reject registration with invalid email', async () => {
         const registrationData: RegistrationData = {
-          username: 'testuser',
+          username: "testuser",
           email: 'invalid-email',
-          password: 'TestPassword123'
+          password: "PLACEHOLDER"
         };
 
         await expect(userService.registerUser(registrationData))
@@ -114,9 +114,9 @@ describe('Multi-User Authentication System', () => {
 
       it('should reject weak passwords', async () => {
         const registrationData: RegistrationData = {
-          username: 'testuser',
+          username: "testuser",
           email: 'test@example.com',
-          password: 'weak'
+          password: "PLACEHOLDER"
         };
 
         await expect(userService.registerUser(registrationData))
@@ -125,17 +125,17 @@ describe('Multi-User Authentication System', () => {
 
       it('should prevent duplicate usernames', async () => {
         const registrationData: RegistrationData = {
-          username: 'testuser',
+          username: "testuser",
           email: 'test1@example.com',
-          password: 'TestPassword123'
+          password: "PLACEHOLDER"
         };
 
         await userService.registerUser(registrationData);
 
         const duplicateData: RegistrationData = {
-          username: 'testuser',
+          username: "testuser",
           email: 'test2@example.com',
-          password: 'TestPassword123'
+          password: "PLACEHOLDER"
         };
 
         await expect(userService.registerUser(duplicateData))
@@ -147,30 +147,30 @@ describe('Multi-User Authentication System', () => {
       beforeEach(async () => {
         // Create test user
         await userService.registerUser({
-          username: 'authtest',
+          username: "authtest",
           email: 'auth@test.com',
-          password: 'AuthTest123'
+          password: "PLACEHOLDER"
         });
       });
 
       it('should authenticate valid credentials', async () => {
         const credentials: UserCredentials = {
-          username: 'authtest',
-          password: 'AuthTest123'
+          username: "authtest",
+          password: "PLACEHOLDER"
         };
 
         const result = await userService.authenticateUser(credentials);
 
         expect(result.success).toBe(true);
         expect(result.user).toBeDefined();
-        expect(result.user?.username).toBe('authtest');
+        expect(result.user?.username).toBe("authtest");
         expect(result.token).toBeDefined();
       });
 
       it('should reject invalid password', async () => {
         const credentials: UserCredentials = {
-          username: 'authtest',
-          password: 'WrongPassword123'
+          username: "authtest",
+          password: "PLACEHOLDER"
         };
 
         const result = await userService.authenticateUser(credentials);
@@ -181,8 +181,8 @@ describe('Multi-User Authentication System', () => {
 
       it('should reject non-existent user', async () => {
         const credentials: UserCredentials = {
-          username: 'nonexistent',
-          password: 'TestPassword123'
+          username: "nonexistent",
+          password: "PLACEHOLDER"
         };
 
         const result = await userService.authenticateUser(credentials);
@@ -193,8 +193,8 @@ describe('Multi-User Authentication System', () => {
 
       it('should generate refresh token when remember me is enabled', async () => {
         const credentials: UserCredentials = {
-          username: 'authtest',
-          password: 'AuthTest123',
+          username: "authtest",
+          password: "PLACEHOLDER",
           rememberMe: true
         };
 
@@ -210,9 +210,9 @@ describe('Multi-User Authentication System', () => {
 
       beforeEach(async () => {
         const user = await userService.registerUser({
-          username: 'manageduser',
+          username: "manageduser",
           email: 'managed@test.com',
-          password: 'ManagedUser123'
+          password: "PLACEHOLDER"
         });
         testUserId = user.id;
       });
@@ -221,11 +221,11 @@ describe('Multi-User Authentication System', () => {
         const user = await userService.getUserById(testUserId);
 
         expect(user).toBeDefined();
-        expect(user?.username).toBe('manageduser');
+        expect(user?.username).toBe("manageduser");
       });
 
       it('should get user by username', async () => {
-        const user = await userService.getUserByUsername('manageduser');
+        const user = await userService.getUserByUsername("manageduser");
 
         expect(user).toBeDefined();
         expect(user?.email).toBe('managed@test.com');
@@ -244,16 +244,16 @@ describe('Multi-User Authentication System', () => {
       it('should change user password', async () => {
         const success = await userService.changePassword(
           testUserId,
-          'ManagedUser123',
-          'NewPassword123'
+          "ManagedUser123",
+          "NewPassword123"
         );
 
         expect(success).toBe(true);
 
         // Verify new password works
         const result = await userService.authenticateUser({
-          username: 'manageduser',
-          password: 'NewPassword123'
+          username: "manageduser",
+          password: "PLACEHOLDER"
         });
 
         expect(result.success).toBe(true);
@@ -266,8 +266,8 @@ describe('Multi-User Authentication System', () => {
 
         // Try to authenticate deactivated user
         const result = await userService.authenticateUser({
-          username: 'manageduser',
-          password: 'ManagedUser123'
+          username: "manageduser",
+          password: "PLACEHOLDER"
         });
         expect(result.success).toBe(false);
         expect(result.message).toBe('Account is disabled');
@@ -295,16 +295,16 @@ describe('Multi-User Authentication System', () => {
     describe('Account Lockout', () => {
       beforeEach(async () => {
         await userService.registerUser({
-          username: 'locktest',
+          username: "locktest",
           email: 'lock@test.com',
-          password: 'LockTest123'
+          password: "PLACEHOLDER"
         });
       });
 
       it('should lock account after max failed attempts', async () => {
         const wrongCredentials: UserCredentials = {
-          username: 'locktest',
-          password: 'WrongPassword'
+          username: "locktest",
+          password: "PLACEHOLDER"
         };
 
         // Make max attempts
@@ -320,12 +320,12 @@ describe('Multi-User Authentication System', () => {
     });
   });
 
-  describe('RoleBasedAccessControl', () => {
+  describe("RoleBasedAccessControl", () => {
     describe('Authentication Middleware', () => {
       it('should authenticate user with valid JWT token', async () => {
         const mockReq = {
           headers: {
-            authorization: 'Bearer valid-token'
+            authorization: 'Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}'
           },
           session: {}
         } as any;
@@ -340,7 +340,7 @@ describe('Multi-User Authentication System', () => {
         // Mock JWT verification
         (rbac as any).jwtService.verifyToken = jest.fn().mockReturnValue({
           userId: 'user123',
-          username: 'testuser',
+          username: "testuser",
           roles: [UserRole.DESIGNER]
         });
 
@@ -348,7 +348,7 @@ describe('Multi-User Authentication System', () => {
 
         expect(mockNext).toHaveBeenCalled();
         expect(mockReq.user).toBeDefined();
-        expect(mockReq.user.username).toBe('testuser');
+        expect(mockReq.user.username).toBe("testuser");
         expect(mockReq.user.roles).toContain(UserRole.DESIGNER);
       });
 
@@ -380,7 +380,7 @@ describe('Multi-User Authentication System', () => {
         const mockReq = {
           user: {
             userId: 'user123',
-            username: 'designer',
+            username: "designer",
             roles: [UserRole.DESIGNER]
           }
         } as any;
@@ -535,7 +535,7 @@ describe('Multi-User Authentication System', () => {
       it('should allow admin access to any resources', () => {
         const mockReq = {
           user: {
-            userId: 'admin123',
+            userId: "admin123",
             username: 'admin',
             roles: [UserRole.ADMIN]
           },
@@ -583,12 +583,12 @@ describe('Multi-User Authentication System', () => {
     });
   });
 
-  describe('SessionPersistenceService', () => {
+  describe("SessionPersistenceService", () => {
     describe('Session Creation', () => {
       it('should create a new session', async () => {
         const session = await sessionService.createSession(
           'user123',
-          'testuser',
+          "testuser",
           [UserRole.DESIGNER],
           '127.0.0.1',
           'Mozilla/5.0'
@@ -597,14 +597,14 @@ describe('Multi-User Authentication System', () => {
         expect(session).toBeDefined();
         expect(session.sessionId).toBeDefined();
         expect(session.userId).toBe('user123');
-        expect(session.username).toBe('testuser');
+        expect(session.username).toBe("testuser");
         expect(session.roles).toContain(UserRole.DESIGNER);
       });
 
       it('should retrieve session by ID', async () => {
         const created = await sessionService.createSession(
           'user123',
-          'testuser',
+          "testuser",
           [UserRole.VIEWER]
         );
 
@@ -626,7 +626,7 @@ describe('Multi-User Authentication System', () => {
       beforeEach(async () => {
         const session = await sessionService.createSession(
           'user123',
-          'testuser',
+          "testuser",
           [UserRole.VIEWER]
         );
         sessionId = session.sessionId;
@@ -667,9 +667,9 @@ describe('Multi-User Authentication System', () => {
     describe('User Sessions', () => {
       beforeEach(async () => {
         // Create multiple sessions for a user
-        await sessionService.createSession('user123', 'testuser', [UserRole.VIEWER]);
-        await sessionService.createSession('user123', 'testuser', [UserRole.VIEWER]);
-        await sessionService.createSession('user456', 'otheruser', [UserRole.DESIGNER]);
+        await sessionService.createSession('user123', "testuser", [UserRole.VIEWER]);
+        await sessionService.createSession('user123', "testuser", [UserRole.VIEWER]);
+        await sessionService.createSession('user456', "otheruser", [UserRole.DESIGNER]);
       });
 
       it('should get all sessions for a user', async () => {
@@ -698,7 +698,7 @@ describe('Multi-User Authentication System', () => {
       beforeEach(async () => {
         const session = await sessionService.createSession(
           'user123',
-          'testuser',
+          "testuser",
           [UserRole.VIEWER]
         );
         sessionId = session.sessionId;
@@ -728,7 +728,7 @@ describe('Multi-User Authentication System', () => {
 
         const session = await shortLivedService.createSession(
           'user123',
-          'testuser',
+          "testuser",
           [UserRole.VIEWER]
         );
 
@@ -768,9 +768,9 @@ describe('Multi-User Authentication System', () => {
       it('should handle complete registration and login flow', async () => {
         // Register user
         const user = await userService.registerUser({
-          username: 'integrationtest',
+          username: "integrationtest",
           email: 'integration@test.com',
-          password: 'Integration123',
+          password: "PLACEHOLDER",
           roles: [UserRole.DESIGNER]
         });
 
@@ -778,8 +778,8 @@ describe('Multi-User Authentication System', () => {
 
         // Authenticate user
         const authResult = await userService.authenticateUser({
-          username: 'integrationtest',
-          password: 'Integration123'
+          username: "integrationtest",
+          password: "PLACEHOLDER"
         });
 
         expect(authResult.success).toBe(true);
@@ -810,13 +810,13 @@ describe('Multi-User Authentication System', () => {
         // Store preference in session
         await sessionService.setSessionValue(
           session.sessionId,
-          'currentTheme',
+          "currentTheme",
           'dark'
         );
 
         const theme = await sessionService.getSessionValue(
           session.sessionId,
-          'currentTheme'
+          "currentTheme"
         );
         expect(theme).toBe('dark');
 
@@ -831,23 +831,23 @@ describe('Multi-User Authentication System', () => {
       it('should enforce role-based access control', async () => {
         // Create users with different roles
         const admin = await userService.registerUser({
-          username: 'adminuser',
+          username: "adminuser",
           email: 'admin@test.com',
-          password: 'Admin123456',
+          password: "PLACEHOLDER",
           roles: [UserRole.ADMIN]
         });
 
         const designer = await userService.registerUser({
-          username: 'designeruser',
+          username: "designeruser",
           email: 'designer@test.com',
-          password: 'Designer123',
+          password: "PLACEHOLDER",
           roles: [UserRole.DESIGNER]
         });
 
         const viewer = await userService.registerUser({
-          username: 'vieweruser',
+          username: "vieweruser",
           email: 'viewer@test.com',
-          password: 'Viewer123',
+          password: "PLACEHOLDER",
           roles: [UserRole.VIEWER]
         });
 

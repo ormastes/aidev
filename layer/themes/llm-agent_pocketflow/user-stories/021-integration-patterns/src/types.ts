@@ -1,7 +1,7 @@
 // Core types for PocketFlow integration patterns
 
 export interface Message {
-  role: 'system' | 'user' | 'assistant' | 'tool';
+  role: 'system' | 'user' | "assistant" | 'tool';
   content: string;
   name?: string;
   toolCallId?: string;
@@ -194,7 +194,7 @@ export interface ProviderConfig {
 export interface IntegrationPattern {
   name: string;
   description: string;
-  category: 'provider' | 'tool' | 'memory' | 'service' | 'application';
+  category: "provider" | 'tool' | 'memory' | 'service' | "application";
   dependencies?: string[];
   configure(config: any): void;
   validate(): ValidationResult;
@@ -211,7 +211,7 @@ export class IntegrationError extends Error {
     public context?: any
   ) {
     super(message);
-    this.name = 'IntegrationError';
+    this.name = "IntegrationError";
   }
 }
 
@@ -221,7 +221,7 @@ export class ProviderError extends IntegrationError {
     public provider: string,
     public originalError?: Error
   ) {
-    super(message, 'PROVIDER_ERROR', 'provider', { provider, originalError });
+    super(message, 'PROVIDER_ERROR', "provider", { provider, originalError });
   }
 }
 

@@ -101,17 +101,17 @@ Process:
         description: 'Contemporary look with focus on usability'
       },
       {
-        style: 'Professional',
+        style: "Professional",
         preview: 'Corporate colors, structured layout',
         description: 'Business-oriented design with formal elements'
       },
       {
-        style: 'Creative',
+        style: "Creative",
         preview: 'Bold colors, unique layouts, animations',
         description: 'Artistic approach with visual appeal'
       },
       {
-        style: 'Accessible',
+        style: "Accessible",
         preview: 'High contrast, large text, clear navigation',
         description: 'Optimized for accessibility and readability'
       }

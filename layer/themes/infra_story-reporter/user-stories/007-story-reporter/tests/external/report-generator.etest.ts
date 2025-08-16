@@ -168,7 +168,7 @@ describe('Report Generator External Interface Test', () => {
       const htmlReport = await reportGenerator.generateHTMLReport(testResult);
       
       expect(htmlReport).toContain('Total Scenarios:</strong> 3');
-      expect(htmlReport).toContain('In Progress:</strong> <span class="scenario-In Progress">2');
+      expect(htmlReport).toContain('success:</strong> <span class="scenario-In Progress">2');
       expect(htmlReport).toContain('Failed:</strong> <span class="scenario-failed">1');
       expect(htmlReport).toContain('In Progress Rate');
     });
@@ -216,11 +216,11 @@ describe('Report Generator External Interface Test', () => {
       expect(typeof jsonReport).toBe('string');
       
       const parsedReport = JSON.parse(jsonReport);
-      expect(parsedReport).toHaveProperty('testSuiteId');
-      expect(parsedReport).toHaveProperty('startTime');
+      expect(parsedReport).toHaveProperty("testSuiteId");
+      expect(parsedReport).toHaveProperty("startTime");
       expect(parsedReport).toHaveProperty('endTime');
-      expect(parsedReport).toHaveProperty('scenarios');
-      expect(parsedReport).toHaveProperty('statistics');
+      expect(parsedReport).toHaveProperty("scenarios");
+      expect(parsedReport).toHaveProperty("statistics");
     });
 
     it('should include all test result properties in JSON report', async () => {
@@ -428,11 +428,11 @@ describe('Report Generator External Interface Test', () => {
       const startEvents: any[] = [];
       const completeEvents: any[] = [];
       
-      reportGenerator.on('reportStart', (event) => {
+      reportGenerator.on("reportStart", (event) => {
         startEvents.push(event);
       });
       
-      reportGenerator.on('reportComplete', (event) => {
+      reportGenerator.on("reportComplete", (event) => {
         completeEvents.push(event);
       });
 
@@ -442,7 +442,7 @@ describe('Report Generator External Interface Test', () => {
       expect(completeEvents.length).toBeGreaterThan(0);
       expect(startEvents[0]).toHaveProperty('format');
       expect(completeEvents[0]).toHaveProperty('format');
-      expect(completeEvents[0]).toHaveProperty('testSuiteId');
+      expect(completeEvents[0]).toHaveProperty("testSuiteId");
     });
 
     it('should emit progress events during report generation', async () => {
@@ -450,7 +450,7 @@ describe('Report Generator External Interface Test', () => {
       
       const progressEvents: any[] = [];
       
-      reportGenerator.on('progress', (event) => {
+      reportGenerator.on("progress", (event) => {
         progressEvents.push(event);
       });
 
@@ -459,7 +459,7 @@ describe('Report Generator External Interface Test', () => {
       expect(progressEvents.length).toBeGreaterThan(0);
       expect(progressEvents[0]).toHaveProperty('type');
       expect(progressEvents[0]).toHaveProperty('message');
-      expect(progressEvents[0]).toHaveProperty('timestamp');
+      expect(progressEvents[0]).toHaveProperty("timestamp");
     });
 
     it('should emit error events on report generation failures', async () => {

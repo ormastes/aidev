@@ -115,9 +115,9 @@ export const PromptLibrary: React.FC<PromptLibraryProps> = ({
     { id: 'all', name: 'All Prompts', icon: <BookOutlined />, color: '#1890ff', count: 0 },
     { id: 'coding', name: 'Coding', icon: <CodeOutlined />, color: '#52c41a', count: 0 },
     { id: 'writing', name: 'Writing', icon: <EditOutlined />, color: '#722ed1', count: 0 },
-    { id: 'analysis', name: 'Analysis', icon: <BulbOutlined />, color: '#fa8c16', count: 0 },
-    { id: 'creative', name: 'Creative', icon: <RocketOutlined />, color: '#eb2f96', count: 0 },
-    { id: 'productivity', name: 'Productivity', icon: <ToolOutlined />, color: '#13c2c2', count: 0 }
+    { id: "analysis", name: "Analysis", icon: <BulbOutlined />, color: '#fa8c16', count: 0 },
+    { id: "creative", name: "Creative", icon: <RocketOutlined />, color: '#eb2f96', count: 0 },
+    { id: "productivity", name: "Productivity", icon: <ToolOutlined />, color: '#13c2c2', count: 0 }
   ];
 
   // Sample prompts
@@ -141,10 +141,10 @@ Context: {{context}}
 
 Provide detailed feedback with specific line references and improvement suggestions.`,
       category: 'coding',
-      tags: ['review', 'quality', 'security'],
+      tags: ['review', 'quality', "security"],
       variables: [
         { name: 'code', description: 'Code to review', type: 'text', required: true },
-        { name: 'language', description: 'Programming language', type: 'select', options: ['JavaScript', 'TypeScript', 'Python', 'Java', 'Go'], required: true },
+        { name: "language", description: 'Programming language', type: 'select', options: ["JavaScript", "TypeScript", 'Python', 'Java', 'Go'], required: true },
         { name: 'context', description: 'Additional context', type: 'text', required: false }
       ],
       author: 'System',
@@ -175,10 +175,10 @@ Additional requirements: {{requirements}}`,
       category: 'coding',
       tags: ['testing', 'tdd', 'quality'],
       variables: [
-        { name: 'function', description: 'Function to test', type: 'text', required: true },
-        { name: 'framework', description: 'Testing framework', type: 'select', options: ['Jest', 'Mocha', 'Pytest', 'JUnit'], default: 'Jest' },
-        { name: 'coverage', description: 'Target coverage', type: 'number', default: 80 },
-        { name: 'requirements', description: 'Additional requirements', type: 'text' }
+        { name: "function", description: 'Function to test', type: 'text', required: true },
+        { name: "framework", description: 'Testing framework', type: 'select', options: ['Jest', 'Mocha', 'Pytest', 'JUnit'], default: 'Jest' },
+        { name: "coverage", description: 'Target coverage', type: 'number', default: 80 },
+        { name: "requirements", description: 'Additional requirements', type: 'text' }
       ],
       author: 'System',
       createdAt: new Date('2024-01-10'),
@@ -205,11 +205,11 @@ Original code:
 Specific focus areas: {{focus}}
 Constraints: {{constraints}}`,
       category: 'coding',
-      tags: ['refactoring', 'clean-code', 'patterns'],
+      tags: ["refactoring", 'clean-code', "patterns"],
       variables: [
         { name: 'code', description: 'Code to refactor', type: 'text', required: true },
         { name: 'focus', description: 'Focus areas', type: 'text' },
-        { name: 'constraints', description: 'Constraints or limitations', type: 'text' }
+        { name: "constraints", description: 'Constraints or limitations', type: 'text' }
       ],
       author: 'System',
       createdAt: new Date('2024-01-05'),
@@ -247,7 +247,7 @@ Constraints: {{constraints}}`,
     }
     
     // Filter by active tab
-    if (activeTab === 'favorites') {
+    if (activeTab === "favorites") {
       filtered = filtered.filter(p => p.isFavorite);
     } else if (activeTab === 'public') {
       filtered = filtered.filter(p => p.isPublic);

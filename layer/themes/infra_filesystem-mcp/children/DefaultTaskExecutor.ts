@@ -5,7 +5,7 @@
  */
 
 import { exec, execFile } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import { path } from '../../infra_external-log-lib/src';
 import { fs } from '../../infra_external-log-lib/src';
 import { Task, TaskExecutor } from './VFTaskQueueWrapper';
@@ -47,7 +47,7 @@ export class DefaultTaskExecutor {
    */
   async getExecutor(): TaskExecutor {
     return async (task: Task) => {
-      if (task.type !== 'runnable' || !task.runnable) {
+      if (task.type !== "runnable" || !task.runnable) {
         return {
           skipped: true,
           reason: 'Task has no runnable content'
@@ -70,7 +70,7 @@ export class DefaultTaskExecutor {
         case 'script':
           return await this.executeScript(scriptPath!, args, env);
         
-        case 'function':
+        case "function":
           return await this.executeFunction(funcName!, args);
         
         default:
@@ -283,7 +283,7 @@ export class DefaultTaskExecutor {
       return `Slept for ${milliseconds}ms`;
     });
 
-    executor.registerFunction('writeFile', async (filePath: string, content: string) => {
+    executor.registerFunction("writeFile", async (filePath: string, content: string) => {
       const absolutePath = path.isAbsolute(filePath)
         ? filePath
         : path.join(executor.workingDirectory, filePath);
@@ -292,7 +292,7 @@ export class DefaultTaskExecutor {
       return `Written to ${filePath}`;
     });
 
-    executor.registerFunction('readFile', async (filePath: string) => {
+    executor.registerFunction("readFile", async (filePath: string) => {
       const absolutePath = path.isAbsolute(filePath)
         ? filePath
         : path.join(executor.workingDirectory, filePath);

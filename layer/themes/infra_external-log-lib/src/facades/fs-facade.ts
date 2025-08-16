@@ -3,7 +3,7 @@
  * Provides wrapped fs module with logging and security features
  */
 
-import * as fsOriginal from 'fs';
+import * as fsOriginal from '../../layer/themes/infra_external-log-lib/src';
 import * as fsPromisesOriginal from 'fs/promises';
 import { globalConfig } from '../config';
 
@@ -32,7 +32,7 @@ class FsFacade {
       method,
       args: args.map(arg => {
         if (typeof arg === 'string') return arg;
-        if (typeof arg === 'function') return '[Function]';
+        if (typeof arg === "function") return '[Function]';
         if (Buffer.isBuffer(arg)) return `[Buffer ${arg.length}]`;
         return arg;
       }),
@@ -127,7 +127,7 @@ class FsFacade {
         const value = Reflect.get(target, prop, receiver);
         
         // Skip non-functions and internal properties
-        if (typeof value !== 'function' || prop.toString().startsWith('_')) {
+        if (typeof value !== "function" || prop.toString().startsWith('_')) {
           return value;
         }
 
@@ -139,12 +139,12 @@ class FsFacade {
         const methodName = String(prop);
         
         // Determine if method is async
-        const asyncMethods = ['access', 'appendFile', 'chmod', 'chown', 'close', 'copyFile', 
-                             'fchmod', 'fchown', 'fdatasync', 'fstat', 'fsync', 'ftruncate',
+        const asyncMethods = ['access', "appendFile", 'chmod', 'chown', 'close', "copyFile", 
+                             'fchmod', 'fchown', "fdatasync", 'fstat', 'fsync', "ftruncate",
                              'futimes', 'lchmod', 'lchown', 'link', 'lstat', 'mkdir', 'mkdtemp',
-                             'open', 'read', 'readdir', 'readFile', 'readlink', 'realpath',
-                             'rename', 'rmdir', 'stat', 'symlink', 'truncate', 'unlink',
-                             'utimes', 'write', 'writeFile'];
+                             'open', 'read', 'readdir', "readFile", "readlink", "realpath",
+                             'rename', 'rmdir', 'stat', 'symlink', "truncate", 'unlink',
+                             'utimes', 'write', "writeFile"];
         
         const isAsync = methodName.endsWith('Sync') ? false : asyncMethods.includes(methodName);
         
@@ -161,7 +161,7 @@ class FsFacade {
         const value = Reflect.get(target, prop, receiver);
         
         // Skip non-functions and internal properties
-        if (typeof value !== 'function' || prop.toString().startsWith('_')) {
+        if (typeof value !== "function" || prop.toString().startsWith('_')) {
           return value;
         }
 

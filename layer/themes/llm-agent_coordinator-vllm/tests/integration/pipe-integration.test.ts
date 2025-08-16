@@ -90,7 +90,7 @@ describe('VLLM Coordinator Agent - Pipe Integration', () => {
             registerAgent: (agentConfig: any) => {
               return { 
                 agentId: `agent_${Date.now()}`,
-                status: 'registered' 
+                status: "registered" 
               };
             },
 
@@ -163,8 +163,8 @@ describe('VLLM Coordinator Agent - Pipe Integration', () => {
       
       expect(api.coordinator).toBeDefined();
       expect(api.vllm).toBeDefined();
-      expect(typeof api.coordinator.registerAgent).toBe('function');
-      expect(typeof api.vllm.complete).toBe('function');
+      expect(typeof api.coordinator.registerAgent).toBe("function");
+      expect(typeof api.vllm.complete).toBe("function");
     });
   });
 });

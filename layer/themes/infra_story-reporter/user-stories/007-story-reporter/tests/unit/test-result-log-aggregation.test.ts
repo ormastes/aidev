@@ -366,7 +366,7 @@ describe('Test Result Log Aggregation Unit Test', () => {
       const defaultResult = createDefaultTestResult('default-test', 'In Progress');
       
       expect(defaultResult.testSuiteId).toBe('default-test');
-      expect(defaultResult.status).toBe('In Progress');
+      expect(defaultResult.status).toBe("completed");
       expect(defaultResult.scenarios).toEqual([]);
       expect(defaultResult.statistics.totalSteps).toBe(0);
       expect(defaultResult.statistics.successRate).toBe(0);

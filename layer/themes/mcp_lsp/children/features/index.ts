@@ -3,7 +3,7 @@
  * Provides code intelligence features for MCP LSP
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 // Types
 export interface Position {
@@ -108,7 +108,7 @@ export interface Hover {
 }
 
 export interface MarkupContent {
-  kind: 'plaintext' | 'markdown';
+  kind: "plaintext" | "markdown";
   value: string;
 }
 
@@ -160,8 +160,8 @@ export interface CodeAction {
 }
 
 export type CodeActionKind = 
-  | 'quickfix'
-  | 'refactor'
+  | "quickfix"
+  | "refactor"
   | 'refactor.extract'
   | 'refactor.inline'
   | 'refactor.rewrite'
@@ -330,42 +330,42 @@ export class LanguageFeatures extends EventEmitter {
   // Provider registration
   registerCompletionProvider(languageId: string, provider: CompletionProvider): void {
     this.completionProviders.set(languageId, provider);
-    this.emit('providerRegistered', { type: 'completion', languageId });
+    this.emit("providerRegistered", { type: "completion", languageId });
   }
 
   registerHoverProvider(languageId: string, provider: HoverProvider): void {
     this.hoverProviders.set(languageId, provider);
-    this.emit('providerRegistered', { type: 'hover', languageId });
+    this.emit("providerRegistered", { type: 'hover', languageId });
   }
 
   registerDiagnosticsProvider(languageId: string, provider: DiagnosticsProvider): void {
     this.diagnosticsProviders.set(languageId, provider);
-    this.emit('providerRegistered', { type: 'diagnostics', languageId });
+    this.emit("providerRegistered", { type: "diagnostics", languageId });
   }
 
   registerDefinitionProvider(languageId: string, provider: DefinitionProvider): void {
     this.definitionProviders.set(languageId, provider);
-    this.emit('providerRegistered', { type: 'definition', languageId });
+    this.emit("providerRegistered", { type: "definition", languageId });
   }
 
   registerReferencesProvider(languageId: string, provider: ReferencesProvider): void {
     this.referencesProviders.set(languageId, provider);
-    this.emit('providerRegistered', { type: 'references', languageId });
+    this.emit("providerRegistered", { type: "references", languageId });
   }
 
   registerDocumentSymbolProvider(languageId: string, provider: DocumentSymbolProvider): void {
     this.documentSymbolProviders.set(languageId, provider);
-    this.emit('providerRegistered', { type: 'documentSymbol', languageId });
+    this.emit("providerRegistered", { type: "documentSymbol", languageId });
   }
 
   registerCodeActionProvider(languageId: string, provider: CodeActionProvider): void {
     this.codeActionProviders.set(languageId, provider);
-    this.emit('providerRegistered', { type: 'codeAction', languageId });
+    this.emit("providerRegistered", { type: "codeAction", languageId });
   }
 
   registerFormattingProvider(languageId: string, provider: FormattingProvider): void {
     this.formattingProviders.set(languageId, provider);
-    this.emit('providerRegistered', { type: 'formatting', languageId });
+    this.emit("providerRegistered", { type: "formatting", languageId });
   }
 
   // Document management
@@ -379,7 +379,7 @@ export class LanguageFeatures extends EventEmitter {
       doc.update(content, version);
     }
     
-    this.emit('documentUpdated', { uri, languageId, version });
+    this.emit("documentUpdated", { uri, languageId, version });
     
     // Trigger diagnostics
     this.triggerDiagnostics(uri, languageId);
@@ -387,7 +387,7 @@ export class LanguageFeatures extends EventEmitter {
 
   removeDocument(uri: string): void {
     this.documents.delete(uri);
-    this.emit('documentRemoved', { uri });
+    this.emit("documentRemoved", { uri });
   }
 
   // Feature execution
@@ -405,7 +405,7 @@ export class LanguageFeatures extends EventEmitter {
     try {
       return await provider.provideCompletionItems(doc, position, context);
     } catch (error) {
-      this.emit('error', { feature: 'completion', error });
+      this.emit('error', { feature: "completion", error });
       return [];
     }
   }
@@ -435,7 +435,7 @@ export class LanguageFeatures extends EventEmitter {
     try {
       return await provider.provideDiagnostics(doc);
     } catch (error) {
-      this.emit('error', { feature: 'diagnostics', error });
+      this.emit('error', { feature: "diagnostics", error });
       return [];
     }
   }
@@ -450,7 +450,7 @@ export class LanguageFeatures extends EventEmitter {
     try {
       return await provider.provideDefinition(doc, position);
     } catch (error) {
-      this.emit('error', { feature: 'definition', error });
+      this.emit('error', { feature: "definition", error });
       return null;
     }
   }
@@ -469,7 +469,7 @@ export class LanguageFeatures extends EventEmitter {
     try {
       return await provider.provideReferences(doc, position, { includeDeclaration });
     } catch (error) {
-      this.emit('error', { feature: 'references', error });
+      this.emit('error', { feature: "references", error });
       return null;
     }
   }
@@ -484,7 +484,7 @@ export class LanguageFeatures extends EventEmitter {
     try {
       return await provider.provideDocumentSymbols(doc);
     } catch (error) {
-      this.emit('error', { feature: 'documentSymbol', error });
+      this.emit('error', { feature: "documentSymbol", error });
       return [];
     }
   }
@@ -503,7 +503,7 @@ export class LanguageFeatures extends EventEmitter {
     try {
       return await provider.provideCodeActions(doc, range, { diagnostics });
     } catch (error) {
-      this.emit('error', { feature: 'codeAction', error });
+      this.emit('error', { feature: "codeAction", error });
       return [];
     }
   }
@@ -518,7 +518,7 @@ export class LanguageFeatures extends EventEmitter {
     try {
       return await provider.provideDocumentFormatting(doc, options);
     } catch (error) {
-      this.emit('error', { feature: 'formatting', error });
+      this.emit('error', { feature: "formatting", error });
       return [];
     }
   }
@@ -529,7 +529,7 @@ export class LanguageFeatures extends EventEmitter {
     
     const diagnostics = await this.getDiagnostics(uri);
     if (diagnostics.length > 0) {
-      this.emit('diagnostics', { uri, diagnostics });
+      this.emit("diagnostics", { uri, diagnostics });
     }
   }
 
@@ -557,14 +557,14 @@ export class LanguageFeatures extends EventEmitter {
   getCapabilities(languageId: string): string[] {
     const capabilities: string[] = [];
     
-    if (this.completionProviders.has(languageId)) capabilities.push('completion');
+    if (this.completionProviders.has(languageId)) capabilities.push("completion");
     if (this.hoverProviders.has(languageId)) capabilities.push('hover');
-    if (this.diagnosticsProviders.has(languageId)) capabilities.push('diagnostics');
-    if (this.definitionProviders.has(languageId)) capabilities.push('definition');
-    if (this.referencesProviders.has(languageId)) capabilities.push('references');
-    if (this.documentSymbolProviders.has(languageId)) capabilities.push('documentSymbol');
-    if (this.codeActionProviders.has(languageId)) capabilities.push('codeAction');
-    if (this.formattingProviders.has(languageId)) capabilities.push('formatting');
+    if (this.diagnosticsProviders.has(languageId)) capabilities.push("diagnostics");
+    if (this.definitionProviders.has(languageId)) capabilities.push("definition");
+    if (this.referencesProviders.has(languageId)) capabilities.push("references");
+    if (this.documentSymbolProviders.has(languageId)) capabilities.push("documentSymbol");
+    if (this.codeActionProviders.has(languageId)) capabilities.push("codeAction");
+    if (this.formattingProviders.has(languageId)) capabilities.push("formatting");
     
     return capabilities;
   }

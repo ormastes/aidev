@@ -5,14 +5,14 @@
 
 import { TemplateService } from '../../src/services/TemplateService';
 
-describe('TemplateService', () => {
+describe("TemplateService", () => {
   let templateService: TemplateService;
 
   beforeEach(() => {
     templateService = new TemplateService();
   });
 
-  describe('listTemplates', () => {
+  describe("listTemplates", () => {
     test('should return all available templates', async () => {
       const templates = await templateService.listTemplates();
       
@@ -25,16 +25,16 @@ describe('TemplateService', () => {
       templates.forEach(template => {
         expect(template).toHaveProperty('id');
         expect(template).toHaveProperty('name');
-        expect(template).toHaveProperty('description');
-        expect(template).toHaveProperty('category');
-        expect(template).toHaveProperty('previewUrl');
-        expect(template).toHaveProperty('thumbnailUrl');
-        expect(template).toHaveProperty('features');
-        expect(template).toHaveProperty('metadata');
+        expect(template).toHaveProperty("description");
+        expect(template).toHaveProperty("category");
+        expect(template).toHaveProperty("previewUrl");
+        expect(template).toHaveProperty("thumbnailUrl");
+        expect(template).toHaveProperty("features");
+        expect(template).toHaveProperty("metadata");
         expect(Array.isArray(template.features)).toBe(true);
         expect(template.metadata).toHaveProperty('author');
         expect(template.metadata).toHaveProperty('version');
-        expect(template.metadata).toHaveProperty('lastUpdated');
+        expect(template.metadata).toHaveProperty("lastUpdated");
         expect(Array.isArray(template.metadata.tags)).toBe(true);
       });
     });
@@ -53,7 +53,7 @@ describe('TemplateService', () => {
     });
   });
 
-  describe('getTemplate', () => {
+  describe("getTemplate", () => {
     test('should return specific template by ID', async () => {
       const template = await templateService.getTemplate('modern-01');
       
@@ -61,10 +61,10 @@ describe('TemplateService', () => {
       expect(template!.id).toBe('modern-01');
       expect(template!.name).toBe('Modern Dashboard');
       expect(template!.category).toBe('modern');
-      expect(template!.features).toContain('responsive');
+      expect(template!.features).toContain("responsive");
       expect(template!.features).toContain('dark-mode');
       expect(template!.metadata.author).toBe('Design Team');
-      expect(template!.metadata.tags).toContain('dashboard');
+      expect(template!.metadata.tags).toContain("dashboard");
     });
 
     test('should return null for non-existent template', async () => {
@@ -78,7 +78,7 @@ describe('TemplateService', () => {
     });
   });
 
-  describe('getTemplatePreview', () => {
+  describe("getTemplatePreview", () => {
     test('should return preview data for existing template', async () => {
       const preview = await templateService.getTemplatePreview('modern-01');
       
@@ -120,9 +120,9 @@ describe('TemplateService', () => {
     });
   });
 
-  describe('searchTemplates', () => {
+  describe("searchTemplates", () => {
     test('should find templates by name', async () => {
-      const results = await templateService.searchTemplates('dashboard');
+      const results = await templateService.searchTemplates("dashboard");
       
       expect(results).toHaveLength(1);
       expect(results[0].id).toBe('modern-01');
@@ -138,17 +138,17 @@ describe('TemplateService', () => {
     });
 
     test('should find templates by tags', async () => {
-      const results = await templateService.searchTemplates('portfolio');
+      const results = await templateService.searchTemplates("portfolio");
       
       expect(results).toHaveLength(1);
       expect(results[0].id).toBe('creative-01');
-      expect(results[0].metadata.tags).toContain('portfolio');
+      expect(results[0].metadata.tags).toContain("portfolio");
     });
 
     test('should be case insensitive', async () => {
-      const lowerResults = await templateService.searchTemplates('corporate');
-      const upperResults = await templateService.searchTemplates('CORPORATE');
-      const mixedResults = await templateService.searchTemplates('Corporate');
+      const lowerResults = await templateService.searchTemplates("corporate");
+      const upperResults = await templateService.searchTemplates("CORPORATE");
+      const mixedResults = await templateService.searchTemplates("Corporate");
       
       expect(lowerResults).toHaveLength(1);
       expect(upperResults).toHaveLength(1);
@@ -159,7 +159,7 @@ describe('TemplateService', () => {
     });
 
     test('should return empty array for no matches', async () => {
-      const results = await templateService.searchTemplates('nonexistent');
+      const results = await templateService.searchTemplates("nonexistent");
       expect(results).toHaveLength(0);
       expect(Array.isArray(results)).toBe(true);
     });
@@ -185,7 +185,7 @@ describe('TemplateService', () => {
     });
   });
 
-  describe('getTemplatesByCategory', () => {
+  describe("getTemplatesByCategory", () => {
     test('should return templates for modern category', async () => {
       const templates = await templateService.getTemplatesByCategory('modern');
       
@@ -195,31 +195,31 @@ describe('TemplateService', () => {
     });
 
     test('should return templates for professional category', async () => {
-      const templates = await templateService.getTemplatesByCategory('professional');
+      const templates = await templateService.getTemplatesByCategory("professional");
       
       expect(templates).toHaveLength(1);
       expect(templates[0].id).toBe('professional-01');
-      expect(templates[0].category).toBe('professional');
+      expect(templates[0].category).toBe("professional");
     });
 
     test('should return templates for creative category', async () => {
-      const templates = await templateService.getTemplatesByCategory('creative');
+      const templates = await templateService.getTemplatesByCategory("creative");
       
       expect(templates).toHaveLength(1);
       expect(templates[0].id).toBe('creative-01');
-      expect(templates[0].category).toBe('creative');
+      expect(templates[0].category).toBe("creative");
     });
 
     test('should return templates for accessible category', async () => {
-      const templates = await templateService.getTemplatesByCategory('accessible');
+      const templates = await templateService.getTemplatesByCategory("accessible");
       
       expect(templates).toHaveLength(1);
       expect(templates[0].id).toBe('accessible-01');
-      expect(templates[0].category).toBe('accessible');
+      expect(templates[0].category).toBe("accessible");
     });
 
     test('should return empty array for non-existent category', async () => {
-      const templates = await templateService.getTemplatesByCategory('nonexistent');
+      const templates = await templateService.getTemplatesByCategory("nonexistent");
       expect(templates).toHaveLength(0);
       expect(Array.isArray(templates)).toBe(true);
     });
@@ -246,7 +246,7 @@ describe('TemplateService', () => {
         templateService.getTemplate('professional-01'),
         templateService.getTemplatePreview('creative-01'),
         templateService.searchTemplates('design'),
-        templateService.getTemplatesByCategory('accessible')
+        templateService.getTemplatesByCategory("accessible")
       ];
       
       const results = await Promise.all(promises);

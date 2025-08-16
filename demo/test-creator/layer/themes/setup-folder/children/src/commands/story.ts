@@ -1,4 +1,4 @@
-import { Command } from 'commander';
+import { Command } from "commander";
 import chalk from 'chalk';
 import { StorySetupOptions } from '../types';
 import { StorySetup } from '../setup/story-setup';

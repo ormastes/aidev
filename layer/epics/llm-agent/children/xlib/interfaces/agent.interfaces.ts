@@ -12,7 +12,7 @@ export interface ILLMAgent extends IAgent {
 }
 
 export interface StreamChunk {
-  type: 'content' | 'tool_call' | 'metadata' | 'error' | 'done';
+  type: 'content' | 'tool_call' | "metadata" | 'error' | 'done';
   content?: string;
   toolCall?: ToolCall;
   metadata?: any;
@@ -99,7 +99,7 @@ export interface IRoleAgent extends IAgent {
   executeTask(task: Task): Promise<TaskResult>;
 }
 
-export type AgentRole = 'developer' | 'tester' | 'architect' | 'coordinator' | 'general';
+export type AgentRole = "developer" | 'tester' | "architect" | "coordinator" | 'general';
 
 export interface Task {
   id: string;
@@ -159,7 +159,7 @@ export interface CodeIssue {
   rule?: string;
 }
 
-export type RefactorTarget = 'performance' | 'readability' | 'modularity' | 'testability';
+export type RefactorTarget = "performance" | "readability" | "modularity" | "testability";
 
 export interface ITesterAgent extends IRoleAgent {
   generateTests(code: string, framework?: string): Promise<GeneratedTests>;
@@ -177,7 +177,7 @@ export interface GeneratedTests {
 export interface TestCase {
   name: string;
   code: string;
-  type: 'unit' | 'integration' | 'e2e';
+  type: 'unit' | "integration" | 'e2e';
   tags?: string[];
 }
 
@@ -290,7 +290,7 @@ export interface IMonitorAgent extends IAgent {
 export interface Metrics {
   timestamp: Date;
   values: Record<string, number>;
-  status: 'normal' | 'warning' | 'critical';
+  status: 'normal' | 'warning' | "critical";
 }
 
 export interface AlertThresholds {

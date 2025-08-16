@@ -1,5 +1,6 @@
+import { fileAPI } from '../utils/file-api';
 import * as fs from 'fs/promises';
-import { readFileSync } from 'fs';
+import { readFileSync } from '../../layer/themes/infra_external-log-lib/src';
 import { path } from '../../../infra_external-log-lib/src';
 
 interface SystemTestClassCoverageResult {

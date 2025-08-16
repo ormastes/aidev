@@ -1,6 +1,6 @@
 import { TokenStore, TokenStoreConfig, StoredToken } from '../../user-stories/024-aidev-portal/src/auth/token-store';
 
-describe('TokenStore', () => {
+describe("TokenStore", () => {
   let tokenStore: TokenStore;
   let config: TokenStoreConfig;
 
@@ -16,7 +16,7 @@ describe('TokenStore', () => {
     await tokenStore.disconnect();
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should create instance with config', () => {
       expect(tokenStore).toBeInstanceOf(TokenStore);
     });
@@ -25,7 +25,7 @@ describe('TokenStore', () => {
   describe('connect', () => {
     it('should connect successfully', async () => {
       const connectedPromise = new Promise(resolve => {
-        tokenStore.once('connected', resolve);
+        tokenStore.once("connected", resolve);
       });
 
       await tokenStore.connect();
@@ -34,7 +34,7 @@ describe('TokenStore', () => {
       // Verify connected by trying to store a token
       const tokenData = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000),
       };
@@ -43,13 +43,13 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('disconnect', () => {
+  describe("disconnect", () => {
     it('should disconnect and clear all data', async () => {
       await tokenStore.connect();
 
       const tokenData = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000),
       };
@@ -57,7 +57,7 @@ describe('TokenStore', () => {
       await tokenStore.storeToken('test-token', tokenData);
 
       const disconnectedPromise = new Promise(resolve => {
-        tokenStore.once('disconnected', resolve);
+        tokenStore.once("disconnected", resolve);
       });
 
       await tokenStore.disconnect();
@@ -69,7 +69,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('storeToken', () => {
+  describe("storeToken", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -77,7 +77,7 @@ describe('TokenStore', () => {
     it('should store token successfully', async () => {
       const tokenData = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000),
       };
@@ -87,14 +87,14 @@ describe('TokenStore', () => {
       const storedToken = await tokenStore.getToken('test-token');
       expect(storedToken).toMatchObject({
         ...tokenData,
-        token: 'test-token',
+        token: process.env.TOKEN || "PLACEHOLDER",
       });
     });
 
     it('should create user session when storing token', async () => {
       const tokenData = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000),
       };
@@ -113,7 +113,7 @@ describe('TokenStore', () => {
 
       const tokenData = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000),
       };
@@ -124,7 +124,7 @@ describe('TokenStore', () => {
     it('should auto-expire tokens', async () => {
       const tokenData = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 100), // Expires in 100ms
       };
@@ -139,7 +139,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('getToken', () => {
+  describe("getToken", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -147,7 +147,7 @@ describe('TokenStore', () => {
     it('should return stored token', async () => {
       const tokenData = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000),
       };
@@ -166,7 +166,7 @@ describe('TokenStore', () => {
     it('should return null for expired token', async () => {
       const tokenData = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() - 1000), // Already expired
       };
@@ -184,7 +184,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('removeToken', () => {
+  describe("removeToken", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -192,7 +192,7 @@ describe('TokenStore', () => {
     it('should remove token', async () => {
       const tokenData = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000),
       };
@@ -205,7 +205,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('getSession', () => {
+  describe("getSession", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -213,7 +213,7 @@ describe('TokenStore', () => {
     it('should return active session', async () => {
       const tokenData = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000),
       };
@@ -239,7 +239,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('updateSessionActivity', () => {
+  describe("updateSessionActivity", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -247,7 +247,7 @@ describe('TokenStore', () => {
     it('should update session last activity', async () => {
       const tokenData = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000),
       };
@@ -264,7 +264,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('setSessionExpiry', () => {
+  describe("setSessionExpiry", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -272,7 +272,7 @@ describe('TokenStore', () => {
     it('should expire session after timeout', async () => {
       const tokenData = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000),
       };
@@ -288,7 +288,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('removeSession', () => {
+  describe("removeSession", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -296,7 +296,7 @@ describe('TokenStore', () => {
     it('should remove session', async () => {
       const tokenData = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000),
       };
@@ -309,7 +309,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('blacklistToken', () => {
+  describe("blacklistToken", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -317,7 +317,7 @@ describe('TokenStore', () => {
     it('should blacklist token and remove it', async () => {
       const tokenData = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000),
       };
@@ -333,7 +333,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('isTokenBlacklisted', () => {
+  describe("isTokenBlacklisted", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -350,7 +350,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('clearExpiredTokens', () => {
+  describe("clearExpiredTokens", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -358,14 +358,14 @@ describe('TokenStore', () => {
     it('should clear expired tokens', async () => {
       const validTokenData = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000),
       };
 
       const expiredTokenData = {
         userId: 'user-456',
-        username: 'expireduser',
+        username: "expireduser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() - 1000),
       };
@@ -383,7 +383,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('getActiveSessionCount', () => {
+  describe("getActiveSessionCount", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -411,7 +411,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('getUserTokens', () => {
+  describe("getUserTokens", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -419,7 +419,7 @@ describe('TokenStore', () => {
     it('should return all user tokens', async () => {
       const tokenData = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000),
       };
@@ -440,14 +440,14 @@ describe('TokenStore', () => {
     it('should not return expired tokens', async () => {
       const validTokenData = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000),
       };
 
       const expiredTokenData = {
         userId: 'user-123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() - 1000),
       };

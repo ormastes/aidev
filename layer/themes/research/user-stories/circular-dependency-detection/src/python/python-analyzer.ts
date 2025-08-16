@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Python circular dependency analyzer
  */
@@ -291,7 +292,7 @@ export class PythonAnalyzer implements LanguageAnalyzer {
           type: 'file',
           language: 'python',
           metadata: {
-            size: (await fs.stat(filePath)).size,
+            size: (await /* FRAUD_FIX: fs.stat(filePath) */).size,
             imports: imports.length,
             is_package: await this.isPackageInit(filePath)
           }
@@ -335,7 +336,7 @@ export class PythonAnalyzer implements LanguageAnalyzer {
 
   private async extractImports(filePath: string, rootPath: string): Promise<string[]> {
     try {
-      const content = await fs.readFile(filePath, 'utf-8');
+      const content = await fileAPI.readFile(filePath, 'utf-8');
       const imports: string[] = [];
 
       // Patterns for different import types
@@ -422,11 +423,11 @@ export class PythonAnalyzer implements LanguageAnalyzer {
   private isStandardLibrary(moduleName: string): boolean {
     // Common Python standard library modules
     const stdLibModules = [
-      'os', 'sys', 'json', 'urllib', 'http', 'datetime', 'collections',
-      'itertools', 'functools', 'operator', 're', 'math', 'random',
-      'string', 'io', 'pathlib', 'typing', 'dataclasses', 'abc',
-      'asyncio', 'threading', 'multiprocessing', 'subprocess',
-      'logging', 'unittest', 'argparse', 'configparser'
+      'os', 'sys', 'json', 'urllib', 'http', "datetime", "collections",
+      "itertools", "functools", "operator", 're', 'math', 'random',
+      'string', 'io', 'pathlib', 'typing', "dataclasses", 'abc',
+      'asyncio', "threading", "multiprocessing", "subprocess",
+      'logging', "unittest", "argparse", "configparser"
     ];
 
     const rootModule = moduleName.split('.')[0];

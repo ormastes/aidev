@@ -33,9 +33,9 @@ export interface MCPError {
 // Protocol methods
 export enum MCPMethod {
   // Lifecycle
-  INITIALIZE = 'initialize',
-  INITIALIZED = 'initialized',
-  SHUTDOWN = 'shutdown',
+  INITIALIZE = "initialize",
+  INITIALIZED = "initialized",
+  SHUTDOWN = "shutdown",
   
   // Capabilities
   LIST_TOOLS = 'tools/list',
@@ -76,7 +76,7 @@ export interface ToolCall {
 
 export interface ToolResult {
   content: Array<{
-    type: 'text' | 'image' | 'resource';
+    type: 'text' | 'image' | "resource";
     text?: string;
     data?: string;
     mimeType?: string;
@@ -112,9 +112,9 @@ export interface Prompt {
 }
 
 export interface PromptMessage {
-  role: 'user' | 'assistant' | 'system';
+  role: 'user' | "assistant" | 'system';
   content: {
-    type: 'text' | 'image' | 'resource';
+    type: 'text' | 'image' | "resource";
     text?: string;
     data?: string;
     mimeType?: string;
@@ -124,9 +124,9 @@ export interface PromptMessage {
 
 // Sampling definitions
 export interface SamplingMessage {
-  role: 'user' | 'assistant' | 'system';
+  role: 'user' | "assistant" | 'system';
   content: {
-    type: 'text' | 'resource';
+    type: 'text' | "resource";
     text?: string;
     uri?: string;
   };
@@ -143,7 +143,7 @@ export interface CreateMessageRequest {
     intelligencePriority?: number;
   };
   systemPrompt?: string;
-  includeContext?: 'none' | 'thisServer' | 'allServers';
+  includeContext?: 'none' | "thisServer" | "allServers";
   temperature?: number;
   maxTokens?: number;
   stopSequences?: string[];
@@ -151,13 +151,13 @@ export interface CreateMessageRequest {
 }
 
 export interface CreateMessageResult {
-  role: 'assistant';
+  role: "assistant";
   content: {
     type: 'text';
     text: string;
   };
   model: string;
-  stopReason?: 'endTurn' | 'stopSequence' | 'maxTokens';
+  stopReason?: 'endTurn' | "stopSequence" | "maxTokens";
 }
 
 // Server capabilities
@@ -214,7 +214,7 @@ export interface LogMessage {
 }
 
 // Connection types
-export type MCPTransport = 'stdio' | 'websocket';
+export type MCPTransport = 'stdio' | "websocket";
 
 export interface MCPConnectionConfig {
   transport: MCPTransport;

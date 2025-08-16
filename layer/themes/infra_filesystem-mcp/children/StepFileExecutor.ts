@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * StepFileExecutor - Executes step_file scripts from before_insert_steps and after_pop_steps
  */
@@ -8,7 +9,7 @@ import { fs } from '../../infra_external-log-lib/src';
 
 export interface StepConfig {
   content: string;
-  type: 'runnable' | 'message';
+  type: "runnable" | 'message';
   step_file?: string;
   display?: string;
 }
@@ -65,7 +66,7 @@ export class StepFileExecutor {
     }
 
     // Handle runnable type steps
-    if (step.type === 'runnable' && step.step_file) {
+    if (step.type === "runnable" && step.step_file) {
       return await this.executeStepFile(step.step_file, parameters);
     }
 
@@ -190,7 +191,7 @@ export class StepFileExecutor {
       results.push(result);
       
       // Stop on first failure if it's a runnable step
-      if (step.type === 'runnable' && !result.success) {
+      if (step.type === "runnable" && !result.success) {
         break;
       }
     }

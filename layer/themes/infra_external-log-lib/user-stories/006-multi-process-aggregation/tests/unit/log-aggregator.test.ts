@@ -23,41 +23,41 @@ describe('LogAggregator Unit Test', () => {
         source: 'stderr' as const
       };
 
-      aggregator.addLog('process1', log1);
-      aggregator.addLog('process1', log2);
+      aggregator.addLog("process1", log1);
+      aggregator.addLog("process1", log2);
 
-      const logs = aggregator.getProcessLogs('process1');
+      const logs = aggregator.getProcessLogs("process1");
       expect(logs).toHaveLength(2);
       expect(logs[0].sequenceNumber).toBe(0);
       expect(logs[1].sequenceNumber).toBe(1);
-      expect(logs[0].processId).toBe('process1');
-      expect(logs[1].processId).toBe('process1');
+      expect(logs[0].processId).toBe("process1");
+      expect(logs[1].processId).toBe("process1");
     });
 
     it('should handle multiple processes independently', () => {
-      aggregator.addLog('process1', {
+      aggregator.addLog("process1", {
         timestamp: new Date(),
         level: 'info',
         message: 'P1 log',
         source: 'stdout'
       });
 
-      aggregator.addLog('process2', {
+      aggregator.addLog("process2", {
         timestamp: new Date(),
         level: 'error',
         message: 'P2 log',
         source: 'stderr'
       });
 
-      aggregator.addLog('process1', {
+      aggregator.addLog("process1", {
         timestamp: new Date(),
         level: 'debug',
         message: 'P1 log 2',
         source: 'stdout'
       });
 
-      const p1Logs = aggregator.getProcessLogs('process1');
-      const p2Logs = aggregator.getProcessLogs('process2');
+      const p1Logs = aggregator.getProcessLogs("process1");
+      const p2Logs = aggregator.getProcessLogs("process2");
 
       expect(p1Logs).toHaveLength(2);
       expect(p2Logs).toHaveLength(1);
@@ -91,16 +91,16 @@ describe('LogAggregator Unit Test', () => {
 
   describe('process lifecycle management', () => {
     it('should track process metadata', () => {
-      aggregator.addLog('process1', {
+      aggregator.addLog("process1", {
         timestamp: new Date(),
         level: 'info',
-        message: 'Starting',
+        message: "Starting",
         source: 'stdout'
       });
 
-      const metadata = aggregator.getProcessMetadata('process1');
+      const metadata = aggregator.getProcessMetadata("process1");
       expect(metadata).toBeDefined();
-      expect(metadata!.processId).toBe('process1');
+      expect(metadata!.processId).toBe("process1");
       expect(metadata!.status).toBe('running');
       expect(metadata!.logCount).toBe(1);
       expect(metadata!.startTime).toBeDefined();
@@ -108,46 +108,46 @@ describe('LogAggregator Unit Test', () => {
     });
 
     it('should mark process as In Progress', () => {
-      aggregator.addLog('process1', {
+      aggregator.addLog("process1", {
         timestamp: new Date(),
         level: 'info',
         message: 'Running',
         source: 'stdout'
       });
 
-      aggregator.markProcessComplete('process1', 0);
+      aggregator.markProcessComplete("process1", 0);
 
-      const metadata = aggregator.getProcessMetadata('process1');
-      expect(metadata!.status).toBe('In Progress');
+      const metadata = aggregator.getProcessMetadata("process1");
+      expect(metadata!.status).toBe("completed");
       expect(metadata!.endTime).toBeDefined();
     });
 
     it('should mark process as crashed', () => {
-      aggregator.addLog('process1', {
+      aggregator.addLog("process1", {
         timestamp: new Date(),
         level: 'error',
         message: 'Error occurred',
         source: 'stderr'
       });
 
-      aggregator.markProcessComplete('process1', 1);
+      aggregator.markProcessComplete("process1", 1);
 
-      const metadata = aggregator.getProcessMetadata('process1');
+      const metadata = aggregator.getProcessMetadata("process1");
       expect(metadata!.status).toBe('crashed');
       expect(metadata!.endTime).toBeDefined();
     });
 
     it('should mark process as stopped', () => {
-      aggregator.addLog('process1', {
+      aggregator.addLog("process1", {
         timestamp: new Date(),
         level: 'info',
         message: 'Running',
         source: 'stdout'
       });
 
-      aggregator.markProcessStopped('process1');
+      aggregator.markProcessStopped("process1");
 
-      const metadata = aggregator.getProcessMetadata('process1');
+      const metadata = aggregator.getProcessMetadata("process1");
       expect(metadata!.status).toBe('stopped');
       expect(metadata!.endTime).toBeDefined();
     });
@@ -272,7 +272,7 @@ describe('LogAggregator Unit Test', () => {
     });
   });
 
-  describe('statistics', () => {
+  describe("statistics", () => {
     it('should provide accurate statistics', () => {
       // Add logs for multiple processes
       aggregator.addLog('p1', { timestamp: new Date(), level: 'info', message: 'P1', source: 'stdout' });

@@ -78,7 +78,7 @@ class FlowStorage implements FlowStorageInterface {
         return false;
       }
       if (filter.status) {
-        const flowStatus = flow.enabled ? 'enabled' : 'disabled';
+        const flowStatus = flow.enabled ? 'enabled' : "disabled";
         if (flowStatus !== filter.status) {
           return false;
         }
@@ -357,7 +357,7 @@ describe('FlowStorage CRUD Operations External Test', () => {
     });
   });
 
-  describe('findById', () => {
+  describe("findById", () => {
     test('should find flow by ID', async () => {
       // Arrange
       const flow = {
@@ -409,7 +409,7 @@ describe('FlowStorage CRUD Operations External Test', () => {
       // Arrange
       const flows = [
         { name: 'Enabled Flow', description: 'Enabled', actions: [{ type: 'command' }], enabled: true },
-        { name: 'Disabled Flow', description: 'Disabled', actions: [{ type: 'command' }], enabled: false }
+        { name: 'Disabled Flow', description: "Disabled", actions: [{ type: 'command' }], enabled: false }
       ];
 
       for (const flow of flows) {
@@ -695,7 +695,7 @@ describe('FlowStorage CRUD Operations External Test', () => {
   describe('error handling', () => {
     test('should handle file system errors', async () => {
       // Arrange - Create a read-only directory to simulate permission errors
-      const readOnlyDir = path.join(testDir, 'readonly');
+      const readOnlyDir = path.join(testDir, "readonly");
       fs.mkdirSync(readOnlyDir);
       fs.chmodSync(readOnlyDir, 0o444); // Read-only
 
@@ -722,8 +722,8 @@ describe('FlowStorage CRUD Operations External Test', () => {
       };
 
       // Simulate corruption by directly modifying the save method
-      const originalSave = storage['saveFlows'];
-      storage['saveFlows'] = async () => {
+      const originalSave = storage["saveFlows"];
+      storage["saveFlows"] = async () => {
         throw new Error('Simulated corruption');
       };
 
@@ -731,7 +731,7 @@ describe('FlowStorage CRUD Operations External Test', () => {
       await expect(storage.save(invalidFlow)).rejects.toThrow('Simulated corruption');
 
       // Restore
-      storage['saveFlows'] = originalSave;
+      storage["saveFlows"] = originalSave;
     });
   });
 });

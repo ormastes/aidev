@@ -1,5 +1,5 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
-import * as inquirer from 'inquirer';
+import { EventEmitter } from 'node:events';
+import * as inquirer from "inquirer";
 import { 
   Requirement, 
   RequirementType, 
@@ -50,7 +50,7 @@ export class RequirementsInterviewer extends EventEmitter {
       await this.reviewRequirements(requirements);
     }
 
-    this.emit('interviewComplete', { requirementsCount: requirements.length });
+    this.emit("interviewComplete", { requirementsCount: requirements.length });
     return requirements;
   }
 
@@ -78,13 +78,13 @@ export class RequirementsInterviewer extends EventEmitter {
     const { description, priority } = await inquirer.prompt([
       {
         type: 'input',
-        name: 'description',
+        name: "description",
         message: template.descriptionPrompt,
         validate: (input) => input.length > 10 || 'Please provide a detailed description'
       },
       {
         type: 'list',
-        name: 'priority',
+        name: "priority",
         message: 'How critical is this requirement?',
         choices: [
           { name: 'Critical - Must have for MVP', value: RequirementPriority.CRITICAL },
@@ -125,7 +125,7 @@ export class RequirementsInterviewer extends EventEmitter {
     while (addingCriteria) {
       const { criterion } = await inquirer.prompt({
         type: 'input',
-        name: 'criterion',
+        name: "criterion",
         message: `Criterion ${criteriaCount}:`
       });
 
@@ -141,7 +141,7 @@ export class RequirementsInterviewer extends EventEmitter {
     if (type === RequirementType.FUNCTIONAL) {
       const { edgeCases } = await inquirer.prompt({
         type: 'input',
-        name: 'edgeCases',
+        name: "edgeCases",
         message: 'Any edge cases or error scenarios to consider?'
       });
 
@@ -164,7 +164,7 @@ export class RequirementsInterviewer extends EventEmitter {
       status: 'pending'
     };
 
-    this.emit('requirementGathered', { requirement });
+    this.emit("requirementGathered", { requirement });
     return requirement;
   }
 
@@ -187,7 +187,7 @@ export class RequirementsInterviewer extends EventEmitter {
 
     const { needsRefinement } = await inquirer.prompt({
       type: 'confirm',
-      name: 'needsRefinement',
+      name: "needsRefinement",
       message: 'Would you like to refine any requirements?',
       default: false
     });
@@ -211,7 +211,7 @@ export class RequirementsInterviewer extends EventEmitter {
 
     const { requirementIndex } = await inquirer.prompt({
       type: 'list',
-      name: 'requirementIndex',
+      name: "requirementIndex",
       message: 'Which requirement would you like to refine?',
       choices
     });
@@ -220,31 +220,31 @@ export class RequirementsInterviewer extends EventEmitter {
     
     const { refinementType } = await inquirer.prompt({
       type: 'list',
-      name: 'refinementType',
+      name: "refinementType",
       message: 'What would you like to refine?',
       choices: [
-        { name: 'Description', value: 'description' },
-        { name: 'Priority', value: 'priority' },
-        { name: 'Acceptance Criteria', value: 'criteria' },
-        { name: 'Add Clarification', value: 'clarification' }
+        { name: "Description", value: "description" },
+        { name: "Priority", value: "priority" },
+        { name: 'Acceptance Criteria', value: "criteria" },
+        { name: 'Add Clarification', value: "clarification" }
       ]
     });
 
     switch (refinementType) {
-      case 'description':
+      case "description":
         const { newDescription } = await inquirer.prompt({
           type: 'input',
-          name: 'newDescription',
+          name: "newDescription",
           message: 'Enter new description:',
           default: requirement.description
         });
         requirement.description = newDescription;
         break;
 
-      case 'priority':
+      case "priority":
         const { newPriority } = await inquirer.prompt({
           type: 'list',
-          name: 'newPriority',
+          name: "newPriority",
           message: 'Select new priority:',
           choices: Object.values(RequirementPriority),
           default: requirement.priority
@@ -252,7 +252,7 @@ export class RequirementsInterviewer extends EventEmitter {
         requirement.priority = newPriority;
         break;
 
-      case 'criteria':
+      case "criteria":
         console.log('\nCurrent acceptance criteria:');
         requirement.acceptanceCriteria.forEach((ac, i) => 
           console.log(`${i + 1}. ${ac}`)
@@ -260,7 +260,7 @@ export class RequirementsInterviewer extends EventEmitter {
         
         const { newCriterion } = await inquirer.prompt({
           type: 'input',
-          name: 'newCriterion',
+          name: "newCriterion",
           message: 'Add new acceptance criterion:'
         });
         
@@ -269,13 +269,13 @@ export class RequirementsInterviewer extends EventEmitter {
         }
         break;
 
-      case 'clarification':
+      case "clarification":
         const clarification = await this.gatherClarification();
         requirement.clarifications.push(clarification);
         break;
     }
 
-    this.emit('requirementRefined', { requirement });
+    this.emit("requirementRefined", { requirement });
   }
 
   /**
@@ -292,7 +292,7 @@ export class RequirementsInterviewer extends EventEmitter {
       
       const { addMissing } = await inquirer.prompt({
         type: 'confirm',
-        name: 'addMissing',
+        name: "addMissing",
         message: 'Would you like to add requirements for these types?',
         default: true
       });
@@ -301,7 +301,7 @@ export class RequirementsInterviewer extends EventEmitter {
         for (const type of missingTypes) {
           const { shouldAdd } = await inquirer.prompt({
             type: 'confirm',
-            name: 'shouldAdd',
+            name: "shouldAdd",
             message: `Add ${type} requirements?`,
             default: true
           });
@@ -336,7 +336,7 @@ export class RequirementsInterviewer extends EventEmitter {
     const { question, answer } = await inquirer.prompt([
       {
         type: 'input',
-        name: 'question',
+        name: "question",
         message: 'What question needs clarification?'
       },
       {
@@ -424,15 +424,15 @@ export class RequirementsInterviewer extends EventEmitter {
 
     const { useSuggestions } = await inquirer.prompt({
       type: 'confirm',
-      name: 'useSuggestions',
+      name: "useSuggestions",
       message: '\nWould you like to use any of these suggestions?',
       default: true
     });
 
     if (useSuggestions) {
       const { selectedPatterns } = await inquirer.prompt({
-        type: 'checkbox',
-        name: 'selectedPatterns',
+        type: "checkbox",
+        name: "selectedPatterns",
         message: 'Select requirements to add:',
         choices: patterns.map(p => ({
           name: p.description,
@@ -485,7 +485,7 @@ export class RequirementsInterviewer extends EventEmitter {
     }
 
     // API patterns
-    if (storyTitle.includes('api') || storyTitle.includes('endpoint')) {
+    if (storyTitle.includes('api') || storyTitle.includes("endpoint")) {
       patterns.push(
         {
           description: 'API responses must follow RESTful conventions',

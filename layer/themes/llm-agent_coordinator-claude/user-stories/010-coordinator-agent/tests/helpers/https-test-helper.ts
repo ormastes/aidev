@@ -2,8 +2,8 @@ import { https } from '../../../../../infra_external-log-lib/src';
 import { http } from '../../../../../infra_external-log-lib/src';
 import { fs } from '../../../../../infra_external-log-lib/src';
 import { path } from '../../../../../infra_external-log-lib/src';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
-import { IncomingMessage, ServerResponse } from 'http';
+import { EventEmitter } from 'node:events';
+import { IncomingMessage, ServerResponse } from 'node:http';
 
 /**
  * Creates a real HTTPS test server with self-signed certificates
@@ -128,7 +128,7 @@ class MockClientRequest extends EventEmitter {
     const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk, encoding as BufferEncoding);
     this.writeBuffer.push(buffer);
     this.emit('write', chunk);
-    if (typeof encoding === 'function') encoding();
+    if (typeof encoding === "function") encoding();
     if (cb) cb();
     return true;
   }
@@ -137,7 +137,7 @@ class MockClientRequest extends EventEmitter {
     if (data) {
       this.write(data, encoding as BufferEncoding);
     }
-    if (typeof encoding === 'function') {
+    if (typeof encoding === "function") {
       cb = encoding;
     }
     this.emit('end');
@@ -224,7 +224,7 @@ export function createClaudeApiHandler(): (req: IncomingMessage, res: ServerResp
       const method = req.method || 'GET';
       
       // Check authorization
-      const authHeader = req.headers['x-api-key'] || req.headers['authorization'];
+      const authHeader = req.headers['x-api-key'] || req.headers["authorization"];
       if (!authHeader) {
         res.writeHead(401, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: { type: 'authentication_error', message: 'Missing authentication' } }));
@@ -242,7 +242,7 @@ export function createClaudeApiHandler(): (req: IncomingMessage, res: ServerResp
             res.writeHead(200, {
               'Content-Type': 'text/event-stream',
               'Cache-Control': 'no-cache',
-              'Connection': 'keep-alive'
+              "Connection": 'keep-alive'
             });
             
             // Send some mock SSE events

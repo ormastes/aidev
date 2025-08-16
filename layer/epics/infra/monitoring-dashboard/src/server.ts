@@ -6,12 +6,12 @@
  */
 
 import express from 'express';
-import { createServer } from 'http';
+import { createServer } from '../utils/http-wrapper';
 import { WebSocketServer } from 'ws';
-import { path } from '../../../../themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import cors from 'cors';
 import helmet from 'helmet';
-import compression from 'compression';
+import compression from "compression";
 import { MetricsCollector } from './metrics/metrics-collector';
 import { LogAggregator } from './logs/log-aggregator';
 import { HealthChecker } from './health/health-checker';
@@ -211,7 +211,7 @@ export class MonitoringDashboard {
       this.alertManager
     );
 
-    this.wss.on('connection', (ws) => {
+    this.wss.on("connection", (ws) => {
       logger.info('New WebSocket connection established');
       
       ws.on('message', (message) => {
@@ -237,10 +237,10 @@ export class MonitoringDashboard {
 
   private handleWebSocketMessage(ws: any, data: any): void {
     switch (data.type) {
-      case 'subscribe':
+      case "subscribe":
         this.realtimeUpdater.subscribe(ws, data.channel, data.filters);
         break;
-      case 'unsubscribe':
+      case "unsubscribe":
         this.realtimeUpdater.unsubscribe(ws, data.channel);
         break;
       case 'ping':

@@ -1,6 +1,6 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { ChildProcess, SpawnOptions, spawn as NodeSpawn } from 'child_process';
-import { Readable } from 'stream';
+import { Readable } from 'node:stream';
 
 /**
  * Spawn simulator for testing without mocks

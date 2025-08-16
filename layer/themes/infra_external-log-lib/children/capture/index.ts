@@ -1,13 +1,14 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Log Capture Module
  * Captures logs from various sources (files, processes, streams)
  */
 
-import { EventEmitter } from 'events';
-import * as fs from 'fs';
-import * as readline from 'readline';
+import { EventEmitter } from 'node:events';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as readline from "readline";
 import { spawn, ChildProcess } from 'child_process';
-import { Readable, Transform } from 'stream';
+import { Readable, Transform } from 'node:stream';
 
 export type LogSource = 
   | { type: 'file'; path: string }
@@ -159,7 +160,7 @@ export class LogCapture extends EventEmitter {
     });
 
     proc.on('exit', (code) => {
-      this.emit('processExit', { source: sourceId, code });
+      this.emit("processExit", { source: sourceId, code });
     });
 
     this.activeCaptures.set(sourceId, proc);
@@ -212,7 +213,7 @@ export class LogCapture extends EventEmitter {
   private async captureSocket(
     sourceId: string,
     port: number,
-    host: string = 'localhost'
+    host: string = "localhost"
   ): Promise<void> {
     const net = require('net');
     
@@ -234,7 +235,7 @@ export class LogCapture extends EventEmitter {
     });
 
     server.listen(port, host, () => {
-      this.emit('socketListening', { source: sourceId, port, host });
+      this.emit("socketListening", { source: sourceId, port, host });
     });
 
     server.on('error', (error) => {
@@ -285,11 +286,11 @@ export class LogCapture extends EventEmitter {
   }
 
   private async stopCapture(id: string, capture: any): Promise<void> {
-    if ('close' in capture && typeof capture.close === 'function') {
+    if ('close' in capture && typeof capture.close === "function") {
       capture.close();
-    } else if ('kill' in capture && typeof capture.kill === 'function') {
+    } else if ('kill' in capture && typeof capture.kill === "function") {
       capture.kill();
-    } else if ('destroy' in capture && typeof capture.destroy === 'function') {
+    } else if ('destroy' in capture && typeof capture.destroy === "function") {
       capture.destroy();
     }
   }
@@ -321,7 +322,7 @@ export class LogCapture extends EventEmitter {
     const retryDelay = this.config.options?.retryDelay || 1000;
 
     if (retryCount >= maxRetries) {
-      this.emit('maxRetriesReached', { source: sourceId });
+      this.emit("maxRetriesReached", { source: sourceId });
       return;
     }
 
@@ -329,7 +330,7 @@ export class LogCapture extends EventEmitter {
       try {
         await captureFunc();
       } catch (error) {
-        this.emit('retryError', { source: sourceId, error, retryCount });
+        this.emit("retryError", { source: sourceId, error, retryCount });
         await this.retryCapture(sourceId, captureFunc, retryCount + 1);
       }
     }, retryDelay * Math.pow(2, retryCount));

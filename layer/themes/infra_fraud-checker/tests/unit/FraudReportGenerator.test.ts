@@ -6,7 +6,7 @@ import { FileSystemWrapper } from '../../external/FileSystemWrapper';
 // Mock the FileSystemWrapper
 jest.mock('../../external/FileSystemWrapper');
 
-describe('FraudReportGenerator', () => {
+describe("FraudReportGenerator", () => {
   let generator: FraudReportGenerator;
   let mockFileSystem: jest.Mocked<FileSystemWrapper>;
 
@@ -26,7 +26,7 @@ describe('FraudReportGenerator', () => {
     generator = new FraudReportGenerator('/test/path');
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with provided base path', () => {
       expect(FileSystemWrapper).toHaveBeenCalledWith('/test/path');
     });
@@ -37,7 +37,7 @@ describe('FraudReportGenerator', () => {
     });
   });
 
-  describe('generateReport', () => {
+  describe("generateReport", () => {
     it('should generate comprehensive report with all sections', async () => {
       const fraudCheckResult: FraudCheckResult = {
         passed: false,
@@ -51,7 +51,7 @@ describe('FraudReportGenerator', () => {
           },
           {
             type: 'fake-assertions',
-            severity: 'critical',
+            severity: "critical",
             message: 'Always-true assertion',
             location: 'test.ts:15:8'
           }
@@ -104,7 +104,7 @@ describe('FraudReportGenerator', () => {
         },
         violations: {
           bySeverity: {
-            critical: [expect.objectContaining({ severity: 'critical' })],
+            critical: [expect.objectContaining({ severity: "critical" })],
             high: [expect.objectContaining({ severity: 'high' })],
             medium: [],
             low: []
@@ -145,7 +145,7 @@ describe('FraudReportGenerator', () => {
         passed: false,
         score: 60,
         violations: [
-          { type: 'test-manipulation', severity: 'critical', message: 'Critical issue', location: 'file1.ts' },
+          { type: 'test-manipulation', severity: "critical", message: 'Critical issue', location: 'file1.ts' },
           { type: 'fake-assertions', severity: 'high', message: 'High issue', location: 'file2.ts' },
           { type: 'disabled-tests', severity: 'medium', message: 'Medium issue', location: 'file3.ts' },
           { type: 'coverage-bypass', severity: 'low', message: 'Low issue', location: 'file4.ts' }
@@ -168,7 +168,7 @@ describe('FraudReportGenerator', () => {
         violations: [
           { type: 'test-manipulation', severity: 'high', message: 'Manipulation 1', location: 'file1.ts' },
           { type: 'test-manipulation', severity: 'medium', message: 'Manipulation 2', location: 'file2.ts' },
-          { type: 'fake-assertions', severity: 'critical', message: 'Fake assertion', location: 'file3.ts' }
+          { type: 'fake-assertions', severity: "critical", message: 'Fake assertion', location: 'file3.ts' }
         ],
         metrics: { filesChecked: 3, totalTests: 12, skippedTests: 0, emptyTests: 0, suspiciousPatterns: 3 }
       };
@@ -201,7 +201,7 @@ describe('FraudReportGenerator', () => {
         passed: false,
         score: 50,
         violations: [
-          { type: 'fake-assertions', severity: 'critical', message: 'Critical issue', location: 'test.ts' }
+          { type: 'fake-assertions', severity: "critical", message: 'Critical issue', location: 'test.ts' }
         ],
         metrics: { filesChecked: 1, totalTests: 5, skippedTests: 0, emptyTests: 0, suspiciousPatterns: 1 }
       };
@@ -242,7 +242,7 @@ describe('FraudReportGenerator', () => {
     });
   });
 
-  describe('saveReport', () => {
+  describe("saveReport", () => {
     it('should save JSON and HTML reports', async () => {
       const fraudCheckResult: FraudCheckResult = {
         passed: true,
@@ -362,7 +362,7 @@ describe('FraudReportGenerator', () => {
         passed: false,
         score: 60,
         violations: [
-          { type: 'fake-assertions', severity: 'critical', message: 'Critical issue', location: 'test1.ts' },
+          { type: 'fake-assertions', severity: "critical", message: 'Critical issue', location: 'test1.ts' },
           { type: 'test-manipulation', severity: 'high', message: 'High issue', location: 'test2.ts' },
           { type: 'disabled-tests', severity: 'medium', message: 'Medium issue', location: 'test3.ts' },
           { type: 'coverage-bypass', severity: 'low', message: 'Low issue', location: 'test4.ts' }

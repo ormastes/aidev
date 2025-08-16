@@ -12,7 +12,7 @@ const fileAPI = getFileAPI();
 
 
 export interface Annotation {
-  type: 'box' | 'arrow' | 'text' | 'circle' | 'highlight' | 'blur' | 'number';
+  type: 'box' | 'arrow' | 'text' | 'circle' | "highlight" | 'blur' | 'number';
   x: number;
   y: number;
   width?: number;
@@ -110,7 +110,7 @@ export class ImageAnnotator {
       case 'text':
         this.drawText(ctx, annotation);
         break;
-      case 'highlight':
+      case "highlight":
         this.drawHighlight(ctx, annotation);
         break;
       case 'blur':

@@ -1,6 +1,6 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join } from 'path';
+import { EventEmitter } from 'node:events';
+import { fsPromises as fs } from 'fs/promises';
+import { join } from 'node:path';
 import { 
 import { getFileAPI, FileType } from '../../../../../infra_external-log-lib/pipe';
 
@@ -48,7 +48,7 @@ export class StoryService extends EventEmitter {
       
       for (const file of storyFiles) {
         try {
-          const content = await fs.readFile(join(this.storiesPath, file), 'utf8');
+          const content = await fileAPI.readFile(join(this.storiesPath, file), 'utf8');
           const story = JSON.parse(content);
           
           // Convert date strings back to Date objects
@@ -62,17 +62,17 @@ export class StoryService extends EventEmitter {
           this.stories.set(story.id, story);
         } catch (error) {
           this.emit('error', { 
-            operation: 'loadStory', 
+            operation: "loadStory", 
             file, 
             error: error instanceof Error ? error.message : 'Unknown error' 
           });
         }
       }
       
-      this.emit('initialized', { storyCount: this.stories.size });
+      this.emit("initialized", { storyCount: this.stories.size });
     } catch (error) {
       this.emit('error', { 
-        operation: 'initialize', 
+        operation: "initialize", 
         error: error instanceof Error ? error.message : 'Unknown error' 
       });
       throw error;
@@ -87,7 +87,7 @@ export class StoryService extends EventEmitter {
     story.description = description;
     
     await this.saveStory(story);
-    this.emit('storyCreated', { story });
+    this.emit("storyCreated", { story });
     
     return story;
   }
@@ -100,7 +100,7 @@ export class StoryService extends EventEmitter {
     if (!story) {
       // Try loading from disk in case it was created externally
       try {
-        const content = await fs.readFile(join(this.storiesPath, `${id}.json`), 'utf8');
+        const content = await fileAPI.readFile(join(this.storiesPath, `${id}.json`), 'utf8');
         const loadedStory = JSON.parse(content);
         this.stories.set(id, loadedStory);
         return loadedStory;
@@ -140,7 +140,7 @@ export class StoryService extends EventEmitter {
     validateStory(updatedStory);
     
     await this.saveStory(updatedStory);
-    this.emit('storyUpdated', { story: updatedStory, updates });
+    this.emit("storyUpdated", { story: updatedStory, updates });
     
     return updatedStory;
   }
@@ -155,13 +155,13 @@ export class StoryService extends EventEmitter {
     }
     
     try {
-      await fs.unlink(join(this.storiesPath, `${id}.json`));
+      await fileAPI.unlink(join(this.storiesPath, `${id}.json`));
       this.stories.delete(id);
-      this.emit('storyDeleted', { id, story });
+      this.emit("storyDeleted", { id, story });
       return true;
     } catch (error) {
       this.emit('error', { 
-        operation: 'deleteStory', 
+        operation: "deleteStory", 
         id, 
         error: error instanceof Error ? error.message : 'Unknown error' 
       });
@@ -255,7 +255,7 @@ export class StoryService extends EventEmitter {
     }
     
     const verification = verifyQualityGates(story);
-    this.emit('storyVerified', { story, verification });
+    this.emit("storyVerified", { story, verification });
     
     return { story, verification };
   }
@@ -338,7 +338,7 @@ export class StoryService extends EventEmitter {
     await fileAPI.createFile(filePath, JSON.stringify(story, { type: FileType.TEMPORARY }));
     
     this.stories.set(story.id, story);
-    this.emit('storySaved', { story, filePath });
+    this.emit("storySaved", { story, filePath });
   }
 
   /**
@@ -380,7 +380,7 @@ export class StoryService extends EventEmitter {
     }
     
     await this.saveStory(storyData);
-    this.emit('storyImported', { story: storyData });
+    this.emit("storyImported", { story: storyData });
     
     return storyData;
   }

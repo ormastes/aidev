@@ -6,7 +6,7 @@
 export type FilterOperator = 
   | 'equals' 
   | 'not_equals'
-  | 'contains' 
+  | "contains" 
   | 'not_contains'
   | 'starts_with' 
   | 'ends_with'
@@ -91,7 +91,7 @@ export class LogFilter {
     }
 
     const results = group.rules.map(rule => {
-      if ('operator' in rule && 'rules' in rule) {
+      if ("operator" in rule && 'rules' in rule) {
         // It's a nested group
         return this.evaluateFilterGroup(log, rule as FilterGroup, depth + 1);
       } else {
@@ -115,7 +115,7 @@ export class LogFilter {
         return this.equals(fieldValue, rule.value, rule.caseSensitive);
       case 'not_equals':
         return !this.equals(fieldValue, rule.value, rule.caseSensitive);
-      case 'contains':
+      case "contains":
         return this.contains(fieldValue, rule.value, rule.caseSensitive);
       case 'not_contains':
         return !this.contains(fieldValue, rule.value, rule.caseSensitive);
@@ -264,7 +264,7 @@ export class LogFilter {
 
   private compileFilterGroup(id: string, group: FilterGroup): void {
     for (const rule of group.rules) {
-      if ('operator' in rule && 'rules' in rule) {
+      if ("operator" in rule && 'rules' in rule) {
         this.compileFilterGroup(`${id}_nested`, rule as FilterGroup);
       } else {
         const filterRule = rule as FilterRule;
@@ -340,13 +340,13 @@ export class LogFilter {
 
   static createTimeRangeFilter(start: Date, end: Date): FilterPreset {
     return {
-      name: 'timeRange',
+      name: "timeRange",
       description: `Logs between ${start.toISOString()} and ${end.toISOString()}`,
       filter: {
         operator: 'and',
         rules: [
-          { field: 'timestamp', operator: 'gte', value: start },
-          { field: 'timestamp', operator: 'lte', value: end },
+          { field: "timestamp", operator: 'gte', value: start },
+          { field: "timestamp", operator: 'lte', value: end },
         ],
       },
     };

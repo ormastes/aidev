@@ -1,4 +1,4 @@
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 import { VFDistributedFeatureWrapper, DistributedFeatureFile } from '../children/VFDistributedFeatureWrapper';
 
@@ -48,15 +48,15 @@ describe('Real-World Demo E2E Tests', () => {
         ]
       });
 
-      const platformId = await rootWrapper.addFeature('platform', {
+      const platformId = await rootWrapper.addFeature("platform", {
         name: 'E-Commerce Platform',
         data: {
           title: 'E-Commerce Platform',
           description: 'Complete online shopping platform',
           level: 'root',
           status: 'in-progress',
-          priority: 'critical',
-          tags: ['e-commerce', 'platform', 'web'],
+          priority: "critical",
+          tags: ['e-commerce', "platform", 'web'],
           virtual_path: '/ecommerce-root.json'
         }
       });
@@ -93,7 +93,7 @@ describe('Real-World Demo E2E Tests', () => {
           parent_feature_id: platformId,
           status: 'in-progress',
           priority: 'high',
-          tags: ['users', 'authentication', 'security'],
+          tags: ['users', "authentication", "security"],
           virtual_path: '/layer/themes/user-management/FEATURE.vf.json'
         }
       });
@@ -116,7 +116,7 @@ describe('Real-World Demo E2E Tests', () => {
         features: {}
       });
 
-      const registrationId = await registrationWrapper.addFeature('registration', {
+      const registrationId = await registrationWrapper.addFeature("registration", {
         name: 'User Registration',
         data: {
           title: 'User Registration',
@@ -124,9 +124,9 @@ describe('Real-World Demo E2E Tests', () => {
           level: 'user_story',
           parent_feature_id: userEpicId,
           epic_id: userEpicId,
-          status: 'completed',
+          status: "completed",
           priority: 'high',
-          tags: ['registration', 'signup', 'email-verification'],
+          tags: ["registration", 'signup', 'email-verification'],
           acceptanceCriteria: [
             'User can enter email and password',
             'Email verification is sent',
@@ -168,7 +168,7 @@ describe('Real-World Demo E2E Tests', () => {
           parent_feature_id: platformId,
           status: 'planned',
           priority: 'high',
-          tags: ['products', 'catalog', 'search'],
+          tags: ["products", 'catalog', 'search'],
           virtual_path: '/layer/themes/product-catalog/FEATURE.vf.json'
         }
       });
@@ -227,7 +227,7 @@ describe('Real-World Demo E2E Tests', () => {
       });
 
       // Add orphaned feature (no explicit epic)
-      const dashboardId = await themeWrapper.addFeature('dashboards', {
+      const dashboardId = await themeWrapper.addFeature("dashboards", {
         name: 'Analytics Dashboard',
         data: {
           title: 'Analytics Dashboard',
@@ -235,7 +235,7 @@ describe('Real-World Demo E2E Tests', () => {
           level: 'user_story',
           status: 'in-progress',
           priority: 'medium',
-          tags: ['analytics', 'dashboard', 'reporting'],
+          tags: ["analytics", "dashboard", "reporting"],
           virtual_path: '/layer/themes/analytics/FEATURE.vf.json'
         }
       });
@@ -243,7 +243,7 @@ describe('Real-World Demo E2E Tests', () => {
       console.log(`   ✅ Added orphaned feature: ${dashboardId}`);
 
       // Add another orphaned feature
-      const reportingId = await themeWrapper.addFeature('reporting', {
+      const reportingId = await themeWrapper.addFeature("reporting", {
         name: 'Custom Reports',
         data: {
           title: 'Custom Reports',
@@ -251,7 +251,7 @@ describe('Real-World Demo E2E Tests', () => {
           level: 'user_story',
           status: 'planned',
           priority: 'low',
-          tags: ['analytics', 'reports', 'business'],
+          tags: ["analytics", 'reports', "business"],
           virtual_path: '/layer/themes/analytics/FEATURE.vf.json'
         }
       });
@@ -314,7 +314,7 @@ describe('Real-World Demo E2E Tests', () => {
                 description: 'Epic level feature',
                 level: 'epic',
                 status: 'in-progress',
-                priority: 'critical',
+                priority: "critical",
                 tags: ['epic', 'main'],
                 virtual_path: '/layer/themes/mixed/FEATURE.vf.json'
               },
@@ -330,7 +330,7 @@ describe('Real-World Demo E2E Tests', () => {
                 level: 'theme',
                 status: 'planned',
                 priority: 'high',
-                tags: ['theme', 'secondary'],
+                tags: ['theme', "secondary"],
                 virtual_path: '/layer/themes/mixed/FEATURE.vf.json'
               },
               createdAt: new Date().toISOString(),
@@ -343,7 +343,7 @@ describe('Real-World Demo E2E Tests', () => {
                 title: 'User Story Feature',
                 description: 'User story level feature',
                 level: 'user_story',
-                status: 'completed',
+                status: "completed",
                 priority: 'medium',
                 tags: ['story', 'user'],
                 virtual_path: '/layer/themes/mixed/FEATURE.vf.json'
@@ -360,7 +360,7 @@ describe('Real-World Demo E2E Tests', () => {
                 level: 'user_story',
                 status: 'blocked',
                 priority: 'low',
-                tags: ['story', 'secondary'],
+                tags: ['story', "secondary"],
                 virtual_path: '/layer/themes/mixed/FEATURE.vf.json'
               },
               createdAt: new Date().toISOString(),
@@ -428,15 +428,15 @@ describe('Real-World Demo E2E Tests', () => {
       // === STEP 2: Add multiple platform features ===
       const platformIds: string[] = [];
       const platforms = [
-        { name: 'Customer Portal', priority: 'critical', status: 'in-progress' },
+        { name: 'Customer Portal', priority: "critical", status: 'in-progress' },
         { name: 'Admin Dashboard', priority: 'high', status: 'planned' },
         { name: 'Mobile App', priority: 'medium', status: 'planned' },
-        { name: 'API Gateway', priority: 'critical', status: 'completed' },
+        { name: 'API Gateway', priority: "critical", status: "completed" },
         { name: 'Analytics Engine', priority: 'medium', status: 'in-progress' }
       ];
 
       for (const platform of platforms) {
-        const platformId = await enterpriseRootWrapper.addFeature('platforms', {
+        const platformId = await enterpriseRootWrapper.addFeature("platforms", {
           name: platform.name,
           data: {
             title: platform.name,
@@ -444,7 +444,7 @@ describe('Real-World Demo E2E Tests', () => {
             level: 'root',
             status: platform.status as any,
             priority: platform.priority as any,
-            tags: ['enterprise', 'platform', platform.name.toLowerCase().replace(' ', '-')],
+            tags: ["enterprise", "platform", platform.name.toLowerCase().replace(' ', '-')],
             virtual_path: '/enterprise-root.json'
           }
         });
@@ -470,7 +470,7 @@ describe('Real-World Demo E2E Tests', () => {
 
       // Add multiple epics and user stories
       const modules = [
-        'authentication', 'authorization', 'user-management', 'content-management',
+        "authentication", "authorization", 'user-management', 'content-management',
         'workflow-engine', 'notification-system', 'audit-logging', 'data-export',
         'integration-hub', 'reporting-suite'
       ];
@@ -487,7 +487,7 @@ describe('Real-World Demo E2E Tests', () => {
             parent_feature_id: platformIds[0],
             status: 'in-progress',
             priority: 'high',
-            tags: ['enterprise', 'epic', module],
+            tags: ["enterprise", 'epic', module],
             virtual_path: '/layer/themes/customer-portal/FEATURE.vf.json'
           }
         });
@@ -502,9 +502,9 @@ describe('Real-World Demo E2E Tests', () => {
               level: 'user_story',
               parent_feature_id: epicId,
               epic_id: epicId,
-              status: i === 1 ? 'completed' : i === 2 ? 'in-progress' : 'planned',
+              status: i === 1 ? "completed" : i === 2 ? 'in-progress' : 'planned',
               priority: i === 1 ? 'high' : 'medium',
-              tags: ['enterprise', 'story', module, `story-${i}`],
+              tags: ["enterprise", 'story', module, `story-${i}`],
               acceptanceCriteria: [
                 `User can access ${module} feature`,
                 `${module} works correctly`,
@@ -568,15 +568,15 @@ describe('Real-World Demo E2E Tests', () => {
       });
 
       // Add platform
-      const platformId = await microservicesWrapper.addFeature('platform', {
+      const platformId = await microservicesWrapper.addFeature("platform", {
         name: 'Microservices Platform',
         data: {
           title: 'Microservices Platform',
           description: 'Distributed microservices architecture',
           level: 'root',
           status: 'in-progress',
-          priority: 'critical',
-          tags: ['microservices', 'distributed', 'architecture'],
+          priority: "critical",
+          tags: ["microservices", "distributed", "architecture"],
           virtual_path: '/microservices-root.json'
         }
       });
@@ -613,7 +613,7 @@ describe('Real-World Demo E2E Tests', () => {
       const serviceIds: { [key: string]: string } = {};
 
       for (const service of services) {
-        const serviceId = await microservicesWrapper.addFeature('microservices', {
+        const serviceId = await microservicesWrapper.addFeature("microservices", {
           name: service.name,
           data: {
             title: service.title,
@@ -622,7 +622,7 @@ describe('Real-World Demo E2E Tests', () => {
             parent_feature_id: platformId,
             status: 'in-progress',
             priority: 'high',
-            tags: ['microservice', service.name, 'backend'],
+            tags: ["microservice", service.name, 'backend'],
             dependencies: service.dependencies,
             components: [`${service.name}-api`, `${service.name}-db`, `${service.name}-cache`],
             virtual_path: '/microservices-root.json'
@@ -642,12 +642,12 @@ describe('Real-World Demo E2E Tests', () => {
           affects: Object.values(serviceIds)
         },
         {
-          name: 'monitoring',
+          name: "monitoring",
           title: 'Service Monitoring',
           affects: Object.values(serviceIds)
         },
         {
-          name: 'security',
+          name: "security",
           title: 'Cross-Service Security',
           affects: [serviceIds['auth-service-001'], serviceIds['user-service-001']]
         }
@@ -663,7 +663,7 @@ describe('Real-World Demo E2E Tests', () => {
             parent_feature_id: platformId,
             status: 'planned',
             priority: 'medium',
-            tags: ['cross-cutting', feature.name, 'infrastructure'],
+            tags: ['cross-cutting', feature.name, "infrastructure"],
             dependencies: feature.affects,
             virtual_path: '/microservices-root.json'
           }

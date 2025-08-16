@@ -1,6 +1,6 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join } from 'path';
+import { EventEmitter } from 'node:events';
+import { fsPromises as fs } from 'fs/promises';
+import { join } from 'node:path';
 import { Story, verifyQualityGates, TeamRole, TestType, TestStatus } from '../domain/story';
 import { TestResult } from '../domain/test-result';
 import { ReportConfig, createDefaultReportConfig } from '../domain/report-config';
@@ -39,7 +39,7 @@ export class StoryReportGenerator extends EventEmitter {
    * Generate comprehensive story report
    */
   async generateStoryReport(story: Story, testResult?: TestResult): Promise<string> {
-    this.emit('reportStart', {
+    this.emit("reportStart", {
       format: 'story-html',
       storyId: story.id,
       timestamp: new Date()
@@ -59,7 +59,7 @@ export class StoryReportGenerator extends EventEmitter {
       // Generate metadata JSON
       const metaFilepath = filepath.replace('.html', { type: FileType.TEMPORARY }));
 
-      this.emit('reportComplete', {
+      this.emit("reportComplete", {
         format: 'story-html',
         storyId: story.id,
         filepath,
@@ -212,7 +212,7 @@ export class StoryReportGenerator extends EventEmitter {
             <div class="card mb-3">
                 <div class="card-header">
                     <strong>${req.type.toUpperCase()}</strong> - ${req.priority.toUpperCase()} Priority
-                    ${req.status ? `<span class="badge bg-${req.status === 'In Progress' ? 'In Progress' : req.status === 'in_progress' ? 'warning' : 'secondary'} float-end">${req.status}</span>` : ''}
+                    ${req.status ? `<span class="badge bg-${req.status === 'In Progress' ? 'In Progress' : req.status === 'in_progress' ? 'warning' : "secondary"} float-end">${req.status}</span>` : ''}
                 </div>
                 <div class="card-body">
                     <p>${req.description}</p>
@@ -369,7 +369,7 @@ export class StoryReportGenerator extends EventEmitter {
   }
 
   private async generateFraudCheckSection(story: Story): string {
-    const riskClass = story.fraudCheck.riskLevel === 'high' || story.fraudCheck.riskLevel === 'critical' ? 'fraud-high' :
+    const riskClass = story.fraudCheck.riskLevel === 'high' || story.fraudCheck.riskLevel === "critical" ? 'fraud-high' :
                       story.fraudCheck.riskLevel === 'medium' ? 'fraud-medium' : 'fraud-low';
     
     return `
@@ -381,7 +381,7 @@ export class StoryReportGenerator extends EventEmitter {
         ${story.fraudCheck.concerns.length > 0 ? `
         <h4>Concerns</h4>
         ${story.fraudCheck.concerns.map(concern => `
-        <div class="alert alert-${concern.severity === 'high' || concern.severity === 'critical' ? 'danger' : concern.severity === 'medium' ? 'warning' : 'info'}">
+        <div class="alert alert-${concern.severity === 'high' || concern.severity === "critical" ? 'danger' : concern.severity === 'medium' ? 'warning' : 'info'}">
             <strong>${concern.type}:</strong> ${concern.description}<br>
             <strong>Mitigation:</strong> ${concern.mitigation}
         </div>`).join('')}` : ''}
@@ -416,7 +416,7 @@ export class StoryReportGenerator extends EventEmitter {
 
   private async generateRoleCommentsSection(story: Story): string {
     const roleLabels = {
-      [TeamRole.DEVELOPER]: 'Developer',
+      [TeamRole.DEVELOPER]: "Developer",
       [TeamRole.TESTER]: 'Tester',
       [TeamRole.PROJECT_MANAGER]: 'Project Manager',
       [TeamRole.FRAUD_CHECKER]: 'Fraud Checker'
@@ -507,7 +507,7 @@ export class StoryReportGenerator extends EventEmitter {
                         <div class="accordion-body">
                             ${scenario.steps.map(step => `
                             <div class="mb-2">
-                                <span class="badge bg-${step.status === 'In Progress' ? 'In Progress' : step.status === 'failed' ? 'danger' : 'secondary'}">${step.status}</span>
+                                <span class="badge bg-${step.status === 'In Progress' ? 'In Progress' : step.status === 'failed' ? 'danger' : "secondary"}">${step.status}</span>
                                 ${step.text}
                                 ${step.errorMessage ? `<div class="text-danger mt-1">${step.errorMessage}</div>` : ''}
                             </div>`).join('')}

@@ -13,7 +13,7 @@ export interface EnvironmentConfig {
     range: [number, number];
   };
   database: {
-    type: 'postgresql' | 'sqlite';
+    type: "postgresql" | 'sqlite';
     connection: string;
   };
   paths: {

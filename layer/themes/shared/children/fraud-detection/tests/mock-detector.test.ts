@@ -5,7 +5,7 @@
 import { MockDetector } from '../detectors/mock-detector';
 import { ViolationType } from '../types';
 
-describe('MockDetector', () => {
+describe("MockDetector", () => {
   let detector: MockDetector;
 
   beforeEach(() => {

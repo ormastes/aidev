@@ -37,14 +37,14 @@ async function runSimpleQA() {
   
   // Create and configure agent
   const agent = new MockAgent();
-  agent.addResponse('typescript', 'TypeScript is a typed superset of JavaScript.');
-  agent.addResponse('pocketflow', 'PocketFlow is a minimalist LLM framework.');
+  agent.addResponse("typescript", 'TypeScript is a typed superset of JavaScript.');
+  agent.addResponse("pocketflow", 'PocketFlow is a minimalist LLM framework.');
   await agent.initialize({
     defaultResponse: 'I can help you with programming questions.'
   });
   
   // Add to workflow
-  const agentNode = new AgentNode('assistant', agent, {
+  const agentNode = new AgentNode("assistant", agent, {
     formatOutput: (output) => output.message.content
   });
   
@@ -60,7 +60,7 @@ async function runSimpleQA() {
   for (const question of questions) {
     const result = await flow.execute(question);
     console.log(`Q: ${question}`);
-    console.log(`A: ${result.outputs.get('assistant')}\n`);
+    console.log(`A: ${result.outputs.get("assistant")}\n`);
   }
 }
 
@@ -75,7 +75,7 @@ async function runAgentWithTools() {
     tools: [calculatorTool, dateTimeTool, webSearchTool]
   });
   
-  const agentNode = new AgentNode('toolAgent', agent);
+  const agentNode = new AgentNode("toolAgent", agent);
   
   flow.addNode(agentNode);
   
@@ -92,7 +92,7 @@ async function runAgentWithTools() {
       messages: [{ role: 'user', content: prompt }]
     });
     
-    const output = result.outputs.get('toolAgent');
+    const output = result.outputs.get("toolAgent");
     if (output.toolCalls) {
       console.log(`🔧 Tool calls:`, output.toolCalls.map((t: any) => t.name).join(', '));
     }
@@ -107,14 +107,14 @@ async function runMultiAgentWorkflow() {
   
   // Agent 1: Research Agent
   const researcher = new MockAgent();
-  researcher.addResponse('research', 'I found 3 relevant articles about AI workflows.');
+  researcher.addResponse("research", 'I found 3 relevant articles about AI workflows.');
   await researcher.initialize({
     defaultResponse: 'Researching the topic...'
   });
   
   // Agent 2: Summary Agent  
   const summarizer = new MockAgent();
-  summarizer.addResponse('articles', 'Summary: AI workflows enable automated task processing.');
+  summarizer.addResponse("articles", 'Summary: AI workflows enable automated task processing.');
   await summarizer.initialize({
     defaultResponse: 'Creating summary...'
   });
@@ -127,14 +127,14 @@ async function runMultiAgentWorkflow() {
   });
   
   // Create workflow
-  const researchNode = new AgentNode('researcher', researcher, {
+  const researchNode = new AgentNode("researcher", researcher, {
     formatOutput: (output) => ({
-      stage: 'research',
+      stage: "research",
       result: output.message.content
     })
   });
   
-  const summaryNode = new AgentNode('summarizer', summarizer, {
+  const summaryNode = new AgentNode("summarizer", summarizer, {
     extractInput: (data) => ({
       messages: [{ 
         role: 'user', 
@@ -164,14 +164,14 @@ async function runMultiAgentWorkflow() {
   flow.addNode(summaryNode);
   flow.addNode(writerNode);
   
-  flow.addEdge({ from: 'researcher', to: 'summarizer' });
-  flow.addEdge({ from: 'summarizer', to: 'writer' });
+  flow.addEdge({ from: "researcher", to: "summarizer" });
+  flow.addEdge({ from: "summarizer", to: 'writer' });
   
   const result = await flow.execute('Research AI workflow patterns');
   
   console.log('📊 Workflow stages:');
-  console.log('1. Research:', result.outputs.get('researcher').result);
-  console.log('2. Summary:', result.outputs.get('summarizer').result);
+  console.log('1. Research:', result.outputs.get("researcher").result);
+  console.log('2. Summary:', result.outputs.get("summarizer").result);
   console.log('3. Final:', result.outputs.get('writer').result);
 }
 
@@ -181,8 +181,8 @@ async function runConversationalAgent() {
   // Create agent with conversation patterns
   const agent = new MockAgent();
   agent.addResponse('name', "Nice to meet you! I'll remember your name.");
-  agent.addResponse('remember', "I remember our previous conversation.");
-  agent.addResponse('favorite', "I've noted your favorite color.");
+  agent.addResponse("remember", "I remember our previous conversation.");
+  agent.addResponse("favorite", "I've noted your favorite color.");
   await agent.initialize({
     memory: new ConversationMemory(),
     defaultResponse: "Let's continue our conversation."

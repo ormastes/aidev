@@ -2,7 +2,7 @@
  * Service Health Monitor - Monitors health of registered services
  */
 
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import fetch from 'node-fetch';
 import { ServiceRegistry, ServiceInfo } from '../core/service-registry';
 
@@ -14,7 +14,7 @@ export interface HealthMonitorConfig {
 
 export interface HealthCheckResult {
   serviceId: string;
-  status: 'healthy' | 'unhealthy' | 'unknown';
+  status: 'healthy' | "unhealthy" | 'unknown';
   responseTime?: number;
   error?: string;
 }
@@ -67,7 +67,7 @@ export class ServiceHealthMonitor extends EventEmitter {
 
     // Process results
     results.forEach((result, index) => {
-      if (result.status === 'fulfilled') {
+      if (result.status === "fulfilled") {
         const healthResult = result.value;
         const service = services[index];
         
@@ -125,7 +125,7 @@ export class ServiceHealthMonitor extends EventEmitter {
       } else {
         return {
           serviceId: service.id,
-          status: 'unhealthy',
+          status: "unhealthy",
           responseTime,
           error: `HTTP ${response.status}`
         };
@@ -133,7 +133,7 @@ export class ServiceHealthMonitor extends EventEmitter {
     } catch (error: any) {
       return {
         serviceId: service.id,
-        status: 'unhealthy',
+        status: "unhealthy",
         error: error.message
       };
     }

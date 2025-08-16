@@ -64,7 +64,7 @@ export const DashboardView: React.FC = () => {
             onClick={() => handleConversion({
               files: [],
               options: {
-                format: 'markdown',
+                format: "markdown",
                 includeCommonScenarios: true,
                 generateSequences: true
               }

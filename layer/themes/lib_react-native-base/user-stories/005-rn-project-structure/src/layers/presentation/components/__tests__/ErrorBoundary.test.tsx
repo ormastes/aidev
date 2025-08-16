@@ -18,7 +18,7 @@ const ThrowError: React.FC<{ shouldThrow: boolean }> = ({ shouldThrow }) => {
   return <Text>No error</Text>;
 };
 
-describe('ErrorBoundary', () => {
+describe("ErrorBoundary", () => {
   // Suppress console errors during tests
   const originalError = console.error;
   beforeAll(() => {

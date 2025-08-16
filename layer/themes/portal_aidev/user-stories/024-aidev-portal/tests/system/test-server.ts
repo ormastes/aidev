@@ -25,19 +25,19 @@ const users = new Map([
   ['developer@aidev.com', { 
     id: 'user-1', 
     username: 'developer@aidev.com', 
-    password: 'Dev123!@#', 
+    password: "PLACEHOLDER", 
     fullName: 'Test Developer' 
   }],
   ['dev1@aidev.com', { 
     id: 'user-2', 
     username: 'dev1@aidev.com', 
-    password: 'Dev123!@#', 
+    password: "PLACEHOLDER", 
     fullName: 'Developer One' 
   }],
   ['dev2@aidev.com', { 
     id: 'user-3', 
     username: 'dev2@aidev.com', 
-    password: 'Dev123!@#', 
+    password: "PLACEHOLDER", 
     fullName: 'Developer Two' 
   }]
 ]);
@@ -513,11 +513,11 @@ app.get('/apps/:appId/settings', (req, res) => {
         <div>
           <label>Theme:</label>
           <select data-testid="theme-select" onchange="updateTheme(this.value)">
-            <option value="default" ${app.theme === 'default' ? 'selected' : ''}>Default</option>
-            <option value="modern" data-testid="theme-modern" ${app.theme === 'modern' ? 'selected' : ''}>Modern</option>
-            <option value="classic" data-testid="theme-classic" ${app.theme === 'classic' ? 'selected' : ''}>Classic</option>
-            <option value="professional" data-testid="theme-professional" ${app.theme === 'professional' ? 'selected' : ''}>Professional</option>
-            <option value="creative" data-testid="theme-creative" ${app.theme === 'creative' ? 'selected' : ''}>Creative</option>
+            <option value="default" ${app.theme === 'default' ? "selected" : ''}>Default</option>
+            <option value="modern" data-testid="theme-modern" ${app.theme === 'modern' ? "selected" : ''}>Modern</option>
+            <option value="classic" data-testid="theme-classic" ${app.theme === 'classic' ? "selected" : ''}>Classic</option>
+            <option value="professional" data-testid="theme-professional" ${app.theme === "professional" ? "selected" : ''}>Professional</option>
+            <option value="creative" data-testid="theme-creative" ${app.theme === "creative" ? "selected" : ''}>Creative</option>
           </select>
         </div>
         <div data-testid="current-theme">Current theme: ${app.theme || 'default'}</div>

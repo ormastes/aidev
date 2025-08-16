@@ -4,7 +4,7 @@
 
 import { v4 as uuidv4 } from 'uuid';
 import * as fs from 'fs/promises';
-import { path } from '../../../../../themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import {
   ISessionManager,
   Session,
@@ -70,7 +70,7 @@ export class SessionManager implements ISessionManager {
     // Try to load from disk
     try {
       const filePath = path.join(this.sessionPath, `${sessionId}.json`);
-      const data = await fs.readFile(filePath, 'utf-8');
+      const data = await fileAPI.readFile(filePath, 'utf-8');
       session = JSON.parse(data, this.reviveSession);
       
       // Check if session is expired
@@ -108,7 +108,7 @@ export class SessionManager implements ISessionManager {
     // Delete from disk
     try {
       const filePath = path.join(this.sessionPath, `${sessionId}.json`);
-      await fs.unlink(filePath);
+      await fileAPI.unlink(filePath);
     } catch (error) {
       // Ignore file not found errors
     }

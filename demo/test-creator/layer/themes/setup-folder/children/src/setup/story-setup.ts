@@ -1,4 +1,4 @@
-import { path } from '../../../../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import * as fs from 'fs-extra';
 import chalk from 'chalk';
 import { StorySetupOptions, PORT_ALLOCATIONS } from '../types';
@@ -217,7 +217,7 @@ ${this.tasks.length > 0
       },
       devDependencies: {
         '@types/node': '^20.0.0',
-        'typescript': '^5.0.0',
+        "typescript": '^5.0.0',
         'jest': '^29.5.0',
         '@types/jest': '^29.5.0',
         'eslint': '^8.0.0'

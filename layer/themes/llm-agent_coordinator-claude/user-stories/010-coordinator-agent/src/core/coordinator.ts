@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { path } from '../../../../../infra_external-log-lib/src';
 import { ClaudeAPIClient, ClaudeAPIConfig } from './claude-api-client';
 import { SessionManager, SessionData, SessionManagerConfig } from './session-manager';
@@ -96,7 +96,7 @@ export class Coordinator extends EventEmitter {
     }
 
     try {
-      this.emit('starting');
+      this.emit("starting");
 
       // Initialize session manager
       await this.sessionManager.initialize();
@@ -167,14 +167,14 @@ export class Coordinator extends EventEmitter {
     }
 
     this.shutdownInProgress = true;
-    this.emit('stopping', { reason });
+    this.emit("stopping", { reason });
 
     try {
       // Create checkpoint before stopping
       if (this.state.sessionId) {
         await this.sessionManager.createCheckpoint(
           this.state.sessionId,
-          reason === 'interrupt' ? 'interrupt' : 'manual'
+          reason === "interrupt" ? "interrupt" : 'manual'
         );
       }
 
@@ -221,7 +221,7 @@ export class Coordinator extends EventEmitter {
       return;
     }
 
-    this.emit('interrupted');
+    this.emit("interrupted");
 
     // Mark session as interrupted
     if (this.state.sessionId) {
@@ -229,7 +229,7 @@ export class Coordinator extends EventEmitter {
     }
 
     // Stop coordinator
-    await this.stop('interrupt');
+    await this.stop("interrupt");
   }
 
   async resume(sessionId: string): Promise<void> {
@@ -349,7 +349,7 @@ export class Coordinator extends EventEmitter {
       this.emit('dangerous_mode_enabled', data);
     });
 
-    this.dangerousModeManager.on('disabled', (data) => {
+    this.dangerousModeManager.on("disabled", (data) => {
       this.emit('dangerous_mode_disabled', data);
     });
 
@@ -381,7 +381,7 @@ export class Coordinator extends EventEmitter {
 
     // Chat-space events
     this.on('chat_message', async ({ message }) => {
-      if (message.content.toLowerCase().includes('coordinator')) {
+      if (message.content.toLowerCase().includes("coordinator")) {
         await this.handleChatMessage(message);
       }
     });
@@ -404,7 +404,7 @@ export class Coordinator extends EventEmitter {
     process.on('SIGTERM', this.interruptHandler);
 
     // Handle uncaught errors
-    process.on('uncaughtException', async (error) => {
+    process.on("uncaughtException", async (error) => {
       console.error('Uncaught exception:', error);
       this.state.stats.errors++;
       
@@ -453,7 +453,7 @@ export class Coordinator extends EventEmitter {
       async (params, context) => {
         const checkpoint = await this.sessionManager.createCheckpoint(
           context.sessionId || this.state.sessionId!,
-          params.reason || 'workflow'
+          params.reason || "workflow"
         );
         return { checkpointId: checkpoint.id };
       }
@@ -553,7 +553,7 @@ Please analyze this task and provide a solution or implementation plan.
     return { ...this.state };
   }
 
-  async addTask(task: Omit<Task, 'id' | 'createdAt'>): Promise<Task | undefined> {
+  async addTask(task: Omit<Task, 'id' | "createdAt">): Promise<Task | undefined> {
     if (!this.taskQueueManager) {
       throw new Error('Task queue manager not initialized');
     }

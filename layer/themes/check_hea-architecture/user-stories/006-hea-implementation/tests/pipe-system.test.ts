@@ -1,6 +1,6 @@
-import { fs } from '../../../../infra_external-log-lib/src';
-import { path } from '../../../../infra_external-log-lib/src';
-import * as ts from 'typescript';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import * as ts from "typescript";
 import { createPipeBuilder, PipeValidationError } from '../src/core/pipe-builder';
 import { PipeRegistryImpl } from '../src/core/pipe-registry';
 import { Pipe, PipeMetadata, ValidationResult } from '../src/interfaces/pipe';
@@ -74,7 +74,7 @@ describe('Pipe Pattern System Tests', () => {
             createdAt: new Date(),
           };
         })
-        .withDependency('database')
+        .withDependency("database")
         .withDependency('auth')
         .build();
 
@@ -107,7 +107,7 @@ describe('Pipe Pattern System Tests', () => {
         version: '1.0.0',
         layer: 'themes',
         description: 'Creates a new user with validation',
-        dependencies: ['database', 'auth'],
+        dependencies: ["database", 'auth'],
       });
     });
 
@@ -297,7 +297,7 @@ describe('Pipe Pattern System Tests', () => {
         { name: 'core-pipe', layer: 'core', deps: [] },
         { name: 'shared-pipe', layer: 'shared', deps: ['core-pipe'] },
         { name: 'theme-pipe', layer: 'themes', deps: ['core-pipe', 'shared-pipe'] },
-        { name: 'infra-pipe', layer: 'infrastructure', deps: ['core-pipe', 'shared-pipe'] },
+        { name: 'infra-pipe', layer: "infrastructure", deps: ['core-pipe', 'shared-pipe'] },
       ];
 
       pipes.forEach(({ name, layer, deps }) => {
@@ -337,8 +337,8 @@ describe('Pipe Pattern System Tests', () => {
           
           // Check themes/infrastructure isolation
           if (
-            (metadata.layer === 'themes' && depMetadata.layer === 'infrastructure') ||
-            (metadata.layer === 'infrastructure' && depMetadata.layer === 'themes')
+            (metadata.layer === 'themes' && depMetadata.layer === "infrastructure") ||
+            (metadata.layer === "infrastructure" && depMetadata.layer === 'themes')
           ) {
             return false;
           }
@@ -457,7 +457,7 @@ describe('Pipe Pattern System Tests', () => {
           .map(method => method.name && ts.isIdentifier(method.name) ? method.name.text : '');
         
         expect(methodNames).toContain('execute');
-        expect(methodNames).toContain('getMetadata');
+        expect(methodNames).toContain("getMetadata");
       }
     });
   });
@@ -486,7 +486,7 @@ describe('Pipe Pattern System Tests', () => {
           age: { type: 'number' },
           createdAt: { type: 'string', format: 'date-time' },
         },
-        required: ['id', 'name', 'email', 'age', 'createdAt'],
+        required: ['id', 'name', 'email', 'age', "createdAt"],
       };
 
       const schemaPipe = createPipeBuilder()

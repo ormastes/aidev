@@ -45,10 +45,10 @@ export const StatusBar: React.FC<Props> = ({ screen, notifications, template, th
   const getScreenIcon = () => {
     switch (screen) {
       case 'main': return figures.home;
-      case 'templates': return figures.hamburger;
+      case "templates": return figures.hamburger;
       case 'themes': return figures.heart;
-      case 'projects': return figures.folder;
-      case 'settings': return figures.gear;
+      case "projects": return figures.folder;
+      case "settings": return figures.gear;
       default: return figures.pointer;
     }
   };

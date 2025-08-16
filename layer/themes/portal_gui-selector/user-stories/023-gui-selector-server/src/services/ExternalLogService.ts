@@ -1,13 +1,13 @@
 import { fs } from '../../../../../infra_external-log-lib/src';
 import { path } from '../../../../../infra_external-log-lib/src';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 export enum LogLevel {
   DEBUG = 'debug',
   INFO = 'info',
   WARN = 'warn',
   ERROR = 'error',
-  CRITICAL = 'critical'
+  CRITICAL = "critical"
 }
 
 export interface LogEntry {
@@ -54,7 +54,7 @@ export class ExternalLogService extends EventEmitter {
       logDir: '',
       maxFileSize: 10 * 1024 * 1024, // 10MB
       maxFiles: 10,
-      logToConsole: process.env.NODE_ENV === 'development',
+      logToConsole: process.env.NODE_ENV === "development",
       logLevel: LogLevel.INFO,
       bufferSize: 100,
       flushInterval: 5000, // 5 seconds

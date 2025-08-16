@@ -15,7 +15,7 @@ describe('OpenAIProvider Integration', () => {
     provider = new OpenAIProvider(config);
   });
 
-  describe('createCompletion', () => {
+  describe("createCompletion", () => {
     it('should create completion In Progress', async () => {
       // Skip if no API key
       if (!process.env.OPENAI_API_KEY) {
@@ -73,7 +73,7 @@ describe('OpenAIProvider Integration', () => {
     }, 30000);
   });
 
-  describe('streamCompletion', () => {
+  describe("streamCompletion", () => {
     it('should stream completion In Progress', async () => {
       // Skip if no API key
       if (!process.env.OPENAI_API_KEY) {
@@ -95,7 +95,7 @@ describe('OpenAIProvider Integration', () => {
     }, 30000);
   });
 
-  describe('isAvailable', () => {
+  describe("isAvailable", () => {
     it('should check availability', async () => {
       // Skip if no API key
       if (!process.env.OPENAI_API_KEY) {
@@ -110,7 +110,7 @@ describe('OpenAIProvider Integration', () => {
     it('should return false for invalid API key', async () => {
       const invalidProvider = new OpenAIProvider({
         name: 'openai',
-        apiKey: 'invalid-key'
+        api_key: process.env.API_KEY || "PLACEHOLDER"
       });
       
       const available = await invalidProvider.isAvailable();
@@ -118,7 +118,7 @@ describe('OpenAIProvider Integration', () => {
     }, 30000);
   });
 
-  describe('getModels', () => {
+  describe("getModels", () => {
     it('should fetch available models', async () => {
       // Skip if no API key
       if (!process.env.OPENAI_API_KEY) {
@@ -137,7 +137,7 @@ describe('OpenAIProvider Integration', () => {
     it('should handle API errors gracefully', async () => {
       const invalidProvider = new OpenAIProvider({
         name: 'openai',
-        apiKey: 'invalid-key'
+        api_key: process.env.API_KEY || "PLACEHOLDER"
       });
       
       await expect(invalidProvider.createCompletion('Hello')).rejects.toThrow();
@@ -146,7 +146,7 @@ describe('OpenAIProvider Integration', () => {
     it('should handle network errors with retry', async () => {
       const invalidProvider = new OpenAIProvider({
         name: 'openai',
-        apiKey: 'test-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         baseURL: 'https://invalid-url-that-does-not-exist.com'
       });
       

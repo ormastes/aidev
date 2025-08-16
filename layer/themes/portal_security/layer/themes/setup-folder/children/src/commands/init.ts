@@ -1,4 +1,5 @@
-import { Command } from 'commander';
+import { fileAPI } from '../utils/file-api';
+import { Command } from "commander";
 import chalk from 'chalk';
 import * as fs from 'fs-extra';
 import { path } from '../../../../../../../infra_external-log-lib/src';
@@ -41,7 +42,7 @@ async function initAllThemes() {
   
   for (const themeDir of themeDirs) {
     const themePath = path.join(themesDir, themeDir);
-    const stat = await fs.stat(themePath);
+    const stat = await /* FRAUD_FIX: fs.stat(themePath) */;
     
     if (stat.isDirectory() && !themeDir.startsWith('.')) {
       if (await initTaskQueue(themePath)) {

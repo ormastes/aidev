@@ -2,7 +2,7 @@ import { ReportGenerator } from '../../src/external/report-generator';
 import { TestConfiguration } from '../../src/domain/test-configuration';
 import { createDefaultTestResult, TestResult } from '../../src/domain/test-result';
 import { TestFileSystem } from '../helpers/test-file-system';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../../../../infra_external-log-lib/src';
 
 describe('ReportGenerator Error Scenarios Unit Tests', () => {
@@ -242,7 +242,7 @@ describe('ReportGenerator Error Scenarios Unit Tests', () => {
 
     it('should handle file write failures', async () => {
       // Create a read-only directory
-      const readOnlyDir = path.join(tempDir, 'readonly');
+      const readOnlyDir = path.join(tempDir, "readonly");
       await fs.mkdir(readOnlyDir);
       
       // Make directory read-only (this might not work on all platforms)
@@ -293,7 +293,7 @@ describe('ReportGenerator Error Scenarios Unit Tests', () => {
       
       const result = await reportGenerator.generateReports(resultWithoutScenarios);
       
-      expect(result.status).toBe('In Progress');
+      expect(result.status).toBe("completed");
       expect(result.reportPaths).toBeDefined();
     });
 
@@ -307,7 +307,7 @@ describe('ReportGenerator Error Scenarios Unit Tests', () => {
       
       const result = await reportGenerator.generateReports(resultWithEmptyScenarios);
       
-      expect(result.status).toBe('In Progress');
+      expect(result.status).toBe("completed");
       expect(result.reportPaths).toBeDefined();
     });
 
@@ -326,7 +326,7 @@ describe('ReportGenerator Error Scenarios Unit Tests', () => {
       
       const result = await reportGenerator.generateReports(resultWithBadScenarios);
       
-      expect(result.status).toBe('In Progress');
+      expect(result.status).toBe("completed");
       expect(result.reportPaths).toBeDefined();
     });
 
@@ -351,7 +351,7 @@ describe('ReportGenerator Error Scenarios Unit Tests', () => {
       
       const result = await reportGenerator.generateReports(largeResult);
       
-      expect(result.status).toBe('In Progress');
+      expect(result.status).toBe("completed");
       expect(result.reportPaths).toBeDefined();
     });
   });
@@ -372,7 +372,7 @@ describe('ReportGenerator Error Scenarios Unit Tests', () => {
       
       const result = await reportGenerator.generateReports(specialCharResult);
       
-      expect(result.status).toBe('In Progress');
+      expect(result.status).toBe("completed");
       expect(result.reportPaths).toBeDefined();
     });
 
@@ -396,7 +396,7 @@ describe('ReportGenerator Error Scenarios Unit Tests', () => {
       
       const result = await reportGenerator.generateReports(unicodeResult);
       
-      expect(result.status).toBe('In Progress');
+      expect(result.status).toBe("completed");
       expect(result.reportPaths).toBeDefined();
     });
 
@@ -412,7 +412,7 @@ describe('ReportGenerator Error Scenarios Unit Tests', () => {
       
       const result = await reportGenerator.generateReports(resultWithNulls);
       
-      expect(result.status).toBe('In Progress');
+      expect(result.status).toBe("completed");
       expect(result.reportPaths).toBeDefined();
     });
 

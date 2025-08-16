@@ -37,11 +37,11 @@ export class DatabaseService {
   }
 
   private getDefaultConfig(): DatabaseConfig {
-    const env = process.env.NODE_ENV || 'development';
+    const env = process.env.NODE_ENV || "development";
     
-    if (env === 'production' || env === 'release') {
+    if (env === "production" || env === 'release') {
       return {
-        host: process.env.DB_HOST || 'localhost',
+        host: process.env.DB_HOST || "localhost",
         port: parseInt(process.env.DB_PORT || '5432'),
         database: process.env.DB_NAME || 'mate_dealer_prod',
         user: process.env.DB_USER || 'mate_user',
@@ -53,7 +53,7 @@ export class DatabaseService {
       };
     } else if (env === 'demo') {
       return {
-        host: process.env.DB_HOST || 'localhost',
+        host: process.env.DB_HOST || "localhost",
         port: parseInt(process.env.DB_PORT || '5432'),
         database: process.env.DB_NAME || 'mate_dealer_demo',
         user: process.env.DB_USER || 'mate_user',
@@ -66,7 +66,7 @@ export class DatabaseService {
     } else {
       // Development configuration
       return {
-        host: process.env.DB_HOST || 'localhost',
+        host: process.env.DB_HOST || "localhost",
         port: parseInt(process.env.DB_PORT || '5432'),
         database: process.env.DB_NAME || 'mate_dealer_dev',
         user: process.env.DB_USER || 'mate_user',
@@ -151,7 +151,7 @@ export class DatabaseService {
       await client.query('COMMIT');
       return result;
     } catch (error) {
-      await client.query('ROLLBACK');
+      await client.query("ROLLBACK");
       throw error;
     } finally {
       client.release();
@@ -170,7 +170,7 @@ export class DatabaseService {
         first_name VARCHAR(255),
         last_name VARCHAR(255),
         phone VARCHAR(50),
-        role VARCHAR(50) DEFAULT 'customer',
+        role VARCHAR(50) DEFAULT "customer",
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )`,
@@ -286,21 +286,21 @@ export class DatabaseService {
       INSERT INTO users (username, email, password_hash, first_name, last_name, role)
       VALUES 
         ('admin', 'admin@matedealer.com', '$2b$10$YourHashedPasswordHere', 'Admin', 'User', 'admin'),
-        ('customer1', 'customer1@example.com', '$2b$10$YourHashedPasswordHere', 'John', 'Doe', 'customer'),
-        ('customer2', 'customer2@example.com', '$2b$10$YourHashedPasswordHere', 'Jane', 'Smith', 'customer')
+        ("customer1", 'customer1@example.com', '$2b$10$YourHashedPasswordHere', 'John', 'Doe', "customer"),
+        ("customer2", 'customer2@example.com', '$2b$10$YourHashedPasswordHere', 'Jane', 'Smith', "customer")
     `);
 
     // Seed products (mate products)
     await this.query(`
       INSERT INTO products (name, description, price, stock_quantity, category, brand, image_url)
       VALUES 
-        ('Yerba Mate Traditional 500g', 'Classic yerba mate blend with stems', 12.99, 100, 'Traditional', 'MateMax', '/images/traditional-500g.jpg'),
+        ('Yerba Mate Traditional 500g', 'Classic yerba mate blend with stems', 12.99, 100, "Traditional", 'MateMax', '/images/traditional-500g.jpg'),
         ('Yerba Mate Pure Leaf 1kg', 'Pure leaf yerba mate without stems', 24.99, 50, 'Pure Leaf', 'MateMax', '/images/pure-leaf-1kg.jpg'),
         ('Organic Yerba Mate 500g', 'Certified organic yerba mate', 18.99, 75, 'Organic', 'EcoMate', '/images/organic-500g.jpg'),
-        ('Mate Gourd - Traditional', 'Handcrafted calabash gourd', 34.99, 30, 'Accessories', 'Artisan', '/images/gourd-traditional.jpg'),
-        ('Bombilla - Stainless Steel', 'Premium stainless steel bombilla straw', 14.99, 60, 'Accessories', 'MateMax', '/images/bombilla-steel.jpg'),
+        ('Mate Gourd - Traditional', 'Handcrafted calabash gourd', 34.99, 30, "Accessories", 'Artisan', '/images/gourd-traditional.jpg'),
+        ('Bombilla - Stainless Steel', 'Premium stainless steel bombilla straw', 14.99, 60, "Accessories", 'MateMax', '/images/bombilla-steel.jpg'),
         ('Mate Starter Kit', 'Complete kit with gourd, bombilla, and 250g mate', 49.99, 25, 'Kits', 'MateMax', '/images/starter-kit.jpg'),
-        ('Energy Mate Blend 500g', 'Mate blend with guarana for extra energy', 16.99, 40, 'Blends', 'PowerMate', '/images/energy-blend.jpg'),
+        ('Energy Mate Blend 500g', 'Mate blend with guarana for extra energy', 16.99, 40, 'Blends', "PowerMate", '/images/energy-blend.jpg'),
         ('Relaxing Mate Blend 500g', 'Mate with chamomile and mint', 15.99, 45, 'Blends', 'ZenMate', '/images/relax-blend.jpg')
     `);
 

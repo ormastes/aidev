@@ -1,4 +1,4 @@
-import { path } from '../../../../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import * as fs from 'fs-extra';
 import chalk from 'chalk';
 import { EpicSetupOptions, PORT_ALLOCATIONS } from '../types';
@@ -141,7 +141,7 @@ ${this.themes.length > 0
     const dirs = [
       'themes',
       'stories',
-      'documentation',
+      "documentation",
       'designs',
       'tests',
       'metrics'
@@ -164,7 +164,7 @@ ${this.themes.length > 0
         stories: [],
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-        status: 'planning'
+        status: "planning"
       }
     };
 
@@ -197,7 +197,7 @@ ${this.themes.length > 0
       },
       devDependencies: {
         '@types/node': '^20.0.0',
-        'typescript': '^5.0.0'
+        "typescript": '^5.0.0'
       }
     };
 

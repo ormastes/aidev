@@ -64,13 +64,13 @@ export const DEFAULT_PROVIDERS = [
       endpoint: 'http://localhost:11434',
       model: 'llama2',
     },
-    models: ['llama2', 'codellama', 'mistral'],
+    models: ['llama2', "codellama", 'mistral'],
     enabled: true,
   },
   {
-    id: 'deepseek',
+    id: "deepseek",
     name: 'DeepSeek R1',
-    type: 'deepseek' as const,
+    type: "deepseek" as const,
     config: {
       apiKey: '',
       model: 'deepseek-coder',

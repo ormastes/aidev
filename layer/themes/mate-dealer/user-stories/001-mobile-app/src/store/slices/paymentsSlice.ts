@@ -25,7 +25,7 @@ export interface PaymentTransaction {
   amount: number;
   currency: 'USD' | 'ARS' | 'EUR';
   paymentMethodId: string;
-  status: 'pending' | 'processing' | 'completed' | 'failed' | 'cancelled' | 'refunded';
+  status: 'pending' | "processing" | "completed" | 'failed' | "cancelled" | "refunded";
   transactionId?: string;
   failureReason?: string;
   refundAmount?: number;
@@ -41,7 +41,7 @@ export interface PaymentIntent {
   currency: string;
   paymentMethodId: string;
   clientSecret: string;
-  status: 'requires_payment_method' | 'requires_confirmation' | 'requires_action' | 'processing' | 'succeeded' | 'canceled';
+  status: 'requires_payment_method' | 'requires_confirmation' | 'requires_action' | "processing" | "succeeded" | "canceled";
 }
 
 interface PaymentsState {
@@ -63,7 +63,7 @@ const initialState: PaymentsState = {
 };
 
 const paymentsSlice = createSlice({
-  name: 'payments',
+  name: "payments",
   initialState,
   reducers: {
     // Payment Methods
@@ -158,7 +158,7 @@ const paymentsSlice = createSlice({
         if (action.payload.failureReason) {
           transaction.failureReason = action.payload.failureReason;
         }
-        if (action.payload.status === 'completed') {
+        if (action.payload.status === "completed") {
           transaction.completedAt = new Date().toISOString();
         }
       }
@@ -172,7 +172,7 @@ const paymentsSlice = createSlice({
     processRefundSuccess: (state, action: PayloadAction<{ transactionId: string; refundAmount: number; refundReason: string }>) => {
       const transaction = state.transactions.find(t => t.id === action.payload.transactionId);
       if (transaction) {
-        transaction.status = 'refunded';
+        transaction.status = "refunded";
         transaction.refundAmount = action.payload.refundAmount;
         transaction.refundReason = action.payload.refundReason;
       }

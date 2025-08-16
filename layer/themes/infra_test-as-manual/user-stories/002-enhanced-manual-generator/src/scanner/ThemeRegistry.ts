@@ -17,7 +17,7 @@ export interface ThemeEntry {
   tests: DiscoveredTest[];
   statistics: ThemeStatistics;
   lastScanned: Date;
-  status: 'active' | 'inactive' | 'error';
+  status: 'active' | "inactive" | 'error';
   errors?: string[];
 }
 

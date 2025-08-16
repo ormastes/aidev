@@ -3,7 +3,7 @@
  * Detects when code directly imports external libraries instead of using wrapped versions
  */
 
-import * as ts from 'typescript';
+import * as ts from "typescript";
 import { path } from '../../infra_external-log-lib/src';
 
 export interface ExternalLibraryViolation {

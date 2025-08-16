@@ -1,7 +1,7 @@
 import { fs } from '../../../infra_external-log-lib/src';
 import { path } from '../../../infra_external-log-lib/src';
 import { exec } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import { getFileAPI, FileType } from '../../../infra_external-log-lib/pipe';
 
 const fileAPI = getFileAPI();
@@ -260,7 +260,7 @@ CMD ["node", "build/index.js"]
 
   private async getEnvironmentVariables(options: DockerSetupOptions): Record<string, string> {
     const baseEnv: Record<string, string> = {
-      NODE_ENV: options.environment === 'release' ? 'production' : 'development',
+      NODE_ENV: options.environment === 'release' ? "production" : "development",
       APP_NAME: options.projectName,
       ENVIRONMENT: options.environment
     };
@@ -366,8 +366,8 @@ CMD ["node", "build/index.js"]
 
   private async getResourceLimits(environment: string): any {
     const limits: Record<string, any> = {
-      'local': { memory: 'unlimited', cpu: 'unlimited' },
-      'dev': { memory: 'unlimited', cpu: 'unlimited' },
+      'local': { memory: "unlimited", cpu: "unlimited" },
+      'dev': { memory: "unlimited", cpu: "unlimited" },
       'dev-demo': { memory: '1G', cpu: '1' },
       'demo': { memory: '512M', cpu: '0.5' },
       'release': { memory: '2G', cpu: '2' }
@@ -466,11 +466,11 @@ install(TARGETS ${projectName} DESTINATION bin)
         type: 'node',
         request: 'attach',
         name: `Debug ${options.projectName} (Docker)`,
-        address: 'localhost',
+        address: "localhost",
         port: 9229,
         localRoot: '${workspaceFolder}',
         remoteRoot: '/app',
-        protocol: 'inspector',
+        protocol: "inspector",
         restart: true
       });
     } else {

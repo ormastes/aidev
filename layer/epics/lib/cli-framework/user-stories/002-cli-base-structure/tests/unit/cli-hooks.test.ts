@@ -14,7 +14,7 @@ describe('CLI Hooks', () => {
 
   describe('addHook', () => {
     it('should add hooks for all hook types', () => {
-      const hookTypes: HookType[] = ['preparse', 'postparse', 'precommand', 'postcommand', 'error'];
+      const hookTypes: HookType[] = ["preparse", "postparse", "precommand", "postcommand", 'error'];
       const handlers = new Map<HookType, jest.Mock>();
 
       hookTypes.forEach(type => {
@@ -33,8 +33,8 @@ describe('CLI Hooks', () => {
       const handler1 = jest.fn();
       const handler2 = jest.fn();
 
-      cli.addHook({ type: 'precommand', handler: handler1 });
-      cli.addHook({ type: 'precommand', handler: handler2 });
+      cli.addHook({ type: "precommand", handler: handler1 });
+      cli.addHook({ type: "precommand", handler: handler2 });
 
       // Both hooks should be registered
       expect(cli).toBeDefined();
@@ -46,8 +46,8 @@ describe('CLI Hooks', () => {
       const preparseHandler = jest.fn();
       const postparseHandler = jest.fn();
 
-      cli.addHook({ type: 'preparse', handler: preparseHandler });
-      cli.addHook({ type: 'postparse', handler: postparseHandler });
+      cli.addHook({ type: "preparse", handler: preparseHandler });
+      cli.addHook({ type: "postparse", handler: postparseHandler });
 
       await cli.parse(['test']);
 
@@ -84,8 +84,8 @@ describe('CLI Hooks', () => {
         }
       }
 
-      cli.addHook({ type: 'precommand', handler: precommandHandler });
-      cli.addHook({ type: 'postcommand', handler: postcommandHandler });
+      cli.addHook({ type: "precommand", handler: precommandHandler });
+      cli.addHook({ type: "postcommand", handler: postcommandHandler });
       cli.addCommand(new TestCommand());
 
       await cli.parse(['test']);
@@ -134,41 +134,41 @@ describe('CLI Hooks', () => {
       const asyncResults: string[] = [];
 
       cli.addHook({
-        type: 'preparse',
+        type: "preparse",
         handler: async () => {
           await new Promise(resolve => setTimeout(resolve, 10));
-          asyncResults.push('preparse');
+          asyncResults.push("preparse");
         }
       });
 
       cli.addHook({
-        type: 'postparse',
+        type: "postparse",
         handler: async () => {
           await new Promise(resolve => setTimeout(resolve, 10));
-          asyncResults.push('postparse');
+          asyncResults.push("postparse");
         }
       });
 
       await cli.parse(['help']);
 
-      expect(asyncResults).toEqual(['preparse', 'postparse']);
+      expect(asyncResults).toEqual(["preparse", "postparse"]);
     });
 
     it('should execute hooks in order', async () => {
       const executionOrder: number[] = [];
 
       cli.addHook({
-        type: 'preparse',
+        type: "preparse",
         handler: () => { executionOrder.push(1); }
       });
 
       cli.addHook({
-        type: 'preparse',
+        type: "preparse",
         handler: () => { executionOrder.push(2); }
       });
 
       cli.addHook({
-        type: 'preparse',
+        type: "preparse",
         handler: () => { executionOrder.push(3); }
       });
 
@@ -181,14 +181,14 @@ describe('CLI Hooks', () => {
       const executedHooks: string[] = [];
 
       cli.addHook({
-        type: 'preparse',
+        type: "preparse",
         handler: () => {
           executedHooks.push('hook1');
         }
       });
 
       cli.addHook({
-        type: 'preparse',
+        type: "preparse",
         handler: () => {
           executedHooks.push('hook2');
           throw new Error('Hook error');
@@ -196,7 +196,7 @@ describe('CLI Hooks', () => {
       });
 
       cli.addHook({
-        type: 'preparse',
+        type: "preparse",
         handler: () => {
           executedHooks.push('hook3');
         }
@@ -213,14 +213,14 @@ describe('CLI Hooks', () => {
       let postparseContext: any;
 
       cli.addHook({
-        type: 'preparse',
+        type: "preparse",
         handler: (context) => {
           preparseContext = context;
         }
       });
 
       cli.addHook({
-        type: 'postparse',
+        type: "postparse",
         handler: (context) => {
           postparseContext = context;
         }

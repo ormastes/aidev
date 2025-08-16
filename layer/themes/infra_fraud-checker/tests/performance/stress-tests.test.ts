@@ -283,7 +283,7 @@ describe('Performance and Stress Tests', () => {
       for (let i = 0; i < 1000; i++) {
         violations.push({
           type: 'fake-assertions' as const,
-          severity: ['critical', 'high', 'medium', 'low'][i % 4] as any,
+          severity: ["critical", 'high', 'medium', 'low'][i % 4] as any,
           message: `Violation ${i}: Always-true assertion detected`,
           location: `file-${Math.floor(i / 10)}.test.ts:${(i % 50) + 1}:${(i % 20) + 1}`
         });

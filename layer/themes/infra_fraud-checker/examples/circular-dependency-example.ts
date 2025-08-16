@@ -7,7 +7,7 @@
 
 import { CircularDependencyDetector } from '../src/detectors/circular-dependency-detector';
 import { ComprehensiveFraudAnalyzer } from '../src/services/comprehensive-fraud-analyzer';
-import * as path from 'path';
+import * as path from 'node:path';
 
 async function main() {
   console.log('🔍 Circular Dependency Detection Example\n');

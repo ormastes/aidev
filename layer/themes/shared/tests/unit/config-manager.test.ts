@@ -1,6 +1,6 @@
 import { ConfigManager } from '../../children/config/ConfigManager';
 
-describe('ConfigManager', () => {
+describe("ConfigManager", () => {
   let configManager: ConfigManager;
   
   beforeEach(() => {
@@ -45,7 +45,7 @@ describe('ConfigManager', () => {
       configManager = ConfigManager.getInstance();
       
       expect(configManager.get('ports')).toBeDefined();
-      expect(configManager.get('database')).toBeDefined();
+      expect(configManager.get("database")).toBeDefined();
     });
   });
 
@@ -65,7 +65,7 @@ describe('ConfigManager', () => {
     });
 
     it('should get port for development environment', () => {
-      const port = configManager.getPort('gui-selector', 'development');
+      const port = configManager.getPort('gui-selector', "development");
       expect(port).toBe(3202);
     });
 
@@ -82,12 +82,12 @@ describe('ConfigManager', () => {
     });
 
     it('should return 3000 for unknown service', () => {
-      const port = configManager.getPort('unknown-service', 'development');
+      const port = configManager.getPort('unknown-service', "development");
       expect(port).toBe(3000);
     });
 
     it('should return 3000 for unknown environment', () => {
-      const port = configManager.getPort('ai-dev-portal', 'production');
+      const port = configManager.getPort('ai-dev-portal', "production");
       expect(port).toBe(3000);
     });
 
@@ -103,12 +103,12 @@ describe('ConfigManager', () => {
       services.forEach(service => {
         expect(configManager.getPort(service, 'release')).toBeGreaterThan(0);
         expect(configManager.getPort(service, 'demo')).toBeGreaterThan(0);
-        expect(configManager.getPort(service, 'development')).toBeGreaterThan(0);
+        expect(configManager.getPort(service, "development")).toBeGreaterThan(0);
       });
     });
   });
 
-  describe('getDatabaseConfig', () => {
+  describe("getDatabaseConfig", () => {
     beforeEach(() => {
       configManager = ConfigManager.getInstance();
     });
@@ -116,8 +116,8 @@ describe('ConfigManager', () => {
     it('should get database config for release environment', () => {
       const config = configManager.getDatabaseConfig('release');
       
-      expect(config.type).toBe('postgres');
-      expect(config.host).toBe('localhost');
+      expect(config.type).toBe("postgres");
+      expect(config.host).toBe("localhost");
       expect(config.port).toBe(5432);
       expect(config.username).toBe('aidev');
       expect(config.password).toBe('aidev');
@@ -128,7 +128,7 @@ describe('ConfigManager', () => {
       process.env.DB_HOST = 'db.example.com';
       process.env.DB_PORT = '5433';
       process.env.DB_USER = 'custom_user';
-      process.env.DB_PASSWORD = 'custom_pass';
+      process.env.DB_password: "PLACEHOLDER";
       process.env.DB_NAME = 'custom_db';
       
       // Need to recreate instance to pick up env vars
@@ -152,7 +152,7 @@ describe('ConfigManager', () => {
     });
 
     it('should get database config for development environment', () => {
-      const config = configManager.getDatabaseConfig('development');
+      const config = configManager.getDatabaseConfig("development");
       
       expect(config.type).toBe('sqlite');
       expect(config.database).toBe('./dev.sqlite');

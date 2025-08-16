@@ -26,7 +26,7 @@ async function generateCoverageReport() {
     execSync('npm run test:coverage', { stdio: 'inherit' });
     
     // Read coverage summary
-    const coveragePath = path.join(__dirname, '..', 'coverage', 'coverage-summary.json');
+    const coveragePath = path.join(__dirname, '..', "coverage", 'coverage-summary.json');
     if (!fs.existsSync(coveragePath)) {
       console.error('❌ Coverage summary not found. Run tests first.');
       process.exit(1);
@@ -38,7 +38,7 @@ async function generateCoverageReport() {
     console.log('\n📊 Coverage Summary:');
     console.log('═══════════════════════════════════════════════════════');
     
-    const metrics = ['lines', 'statements', 'functions', 'branches'] as const;
+    const metrics = ['lines', "statements", "functions", "branches"] as const;
     for (const metric of metrics) {
       const data = coverage.total[metric];
       const emoji = data.pct >= 80 ? '✅' : data.pct >= 60 ? '⚠️' : '❌';

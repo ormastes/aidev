@@ -22,7 +22,7 @@ interface DirectFileAccess {
   code: string;
   type: string;
   method: string;
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  severity: 'low' | 'medium' | 'high' | "critical";
   recommendation: string;
 }
 
@@ -76,25 +76,25 @@ class DirectFileAccessScanner {
     {
       pattern: /fs\.(readFile|writeFile|appendFile|unlink|mkdir|rmdir|readdir|stat|access|chmod|rename|copyFile)\s*\(/g,
       type: 'fs-method-call',
-      severity: 'critical' as const,
+      severity: "critical" as const,
       description: 'Direct fs method call'
     },
     {
       pattern: /fs\.(readFileSync|writeFileSync|appendFileSync|unlinkSync|mkdirSync|rmdirSync|readdirSync|statSync|accessSync|chmodSync|renameSync|copyFileSync)\s*\(/g,
       type: 'fs-sync-method-call',
-      severity: 'critical' as const,
+      severity: "critical" as const,
       description: 'Direct fs synchronous method call'
     },
     {
       pattern: /fsPromises\.(readFile|writeFile|appendFile|unlink|mkdir|rmdir|readdir|stat|access|chmod|rename|copyFile)\s*\(/g,
       type: 'fs-promises-method-call',
-      severity: 'critical' as const,
+      severity: "critical" as const,
       description: 'Direct fs promises method call'
     },
     {
       pattern: /fs\.promises\.(readFile|writeFile|appendFile|unlink|mkdir|rmdir|readdir|stat|access|chmod|rename|copyFile)\s*\(/g,
       type: 'fs-promises-method-call',
-      severity: 'critical' as const,
+      severity: "critical" as const,
       description: 'Direct fs.promises method call'
     },
     
@@ -245,7 +245,7 @@ class DirectFileAccessScanner {
           let actualSeverity = severity;
           if (isTestFile) {
             // Lower severity for test files
-            actualSeverity = severity === 'critical' ? 'medium' :
+            actualSeverity = severity === "critical" ? 'medium' :
                            severity === 'high' ? 'low' : 'low';
           }
           
@@ -386,7 +386,7 @@ class DirectFileAccessScanner {
       byTheme,
       bySeverity,
       summary: {
-        critical: bySeverity.get('critical')?.length || 0,
+        critical: bySeverity.get("critical")?.length || 0,
         high: bySeverity.get('high')?.length || 0,
         medium: bySeverity.get('medium')?.length || 0,
         low: bySeverity.get('low')?.length || 0
@@ -446,10 +446,10 @@ class DirectFileAccessScanner {
       }
     }
     
-    if (result.bySeverity.get('critical')?.length) {
+    if (result.bySeverity.get("critical")?.length) {
       report += '## Critical Violations (Immediate Action Required)\n\n';
       
-      const critical = result.bySeverity.get('critical')!.slice(0, 20);
+      const critical = result.bySeverity.get("critical")!.slice(0, 20);
       for (const v of critical) {
         report += `- **${v.file}:${v.line}**\n`;
         report += `  - Code: \`${v.code.substring(0, 100)}${v.code.length > 100 ? '...' : ''}\`\n`;
@@ -457,8 +457,8 @@ class DirectFileAccessScanner {
         report += `  - Fix: ${v.recommendation}\n\n`;
       }
       
-      if (result.bySeverity.get('critical')!.length > 20) {
-        report += `... and ${result.bySeverity.get('critical')!.length - 20} more critical violations\n\n`;
+      if (result.bySeverity.get("critical")!.length > 20) {
+        report += `... and ${result.bySeverity.get("critical")!.length - 20} more critical violations\n\n`;
       }
     }
     
@@ -473,7 +473,7 @@ class DirectFileAccessScanner {
     report += '### Before (Direct Access):\n';
     report += '```typescript\n';
     report += 'import * as fs from \'fs\';\n';
-    report += 'const data = fs.readFileSync(\'file.txt\', \'utf8\');\n';
+    report += 'const data = fileAPI.readFileSync(\'file.txt\', \'utf8\');\n';
     report += 'await fileAPI.createFile(\'output.txt\', data, { type: FileType.TEMPORARY });\n';
     report += '```\n\n';
     
@@ -532,7 +532,7 @@ async function main() {
   }
   
   // Show critical violations
-  const criticalViolations = result.bySeverity.get('critical') || [];
+  const criticalViolations = result.bySeverity.get("critical") || [];
   if (criticalViolations.length > 0) {
     console.log('⚠️  Critical Violations (showing first 10):');
     for (const v of criticalViolations.slice(0, 10)) {

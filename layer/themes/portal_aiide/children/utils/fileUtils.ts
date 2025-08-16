@@ -8,10 +8,10 @@ export function getFileExtension(filename: string): string {
 export function getFileLanguage(filename: string): string {
   const ext = getFileExtension(filename).toLowerCase();
   const languageMap: Record<string, string> = {
-    js: 'javascript',
-    jsx: 'javascript',
-    ts: 'typescript',
-    tsx: 'typescript',
+    js: "javascript",
+    jsx: "javascript",
+    ts: "typescript",
+    tsx: "typescript",
     py: 'python',
     java: 'java',
     cpp: 'cpp',
@@ -30,7 +30,7 @@ export function getFileLanguage(filename: string): string {
     sh: 'bash',
     bash: 'bash',
     zsh: 'bash',
-    ps1: 'powershell',
+    ps1: "powershell",
     json: 'json',
     xml: 'xml',
     html: 'html',
@@ -38,23 +38,23 @@ export function getFileLanguage(filename: string): string {
     scss: 'scss',
     sass: 'sass',
     less: 'less',
-    md: 'markdown',
+    md: "markdown",
     yaml: 'yaml',
     yml: 'yaml',
     toml: 'toml',
     ini: 'ini',
     conf: 'conf',
-    txt: 'plaintext',
+    txt: "plaintext",
   };
-  return languageMap[ext] || 'plaintext';
+  return languageMap[ext] || "plaintext";
 }
 
 export function sortFileTree(node: FileNode): FileNode {
-  if (node.type === 'directory' && node.children) {
+  if (node.type === "directory" && node.children) {
     const sortedChildren = [...node.children].sort((a, b) => {
       // Directories first
-      if (a.type === 'directory' && b.type === 'file') return -1;
-      if (a.type === 'file' && b.type === 'directory') return 1;
+      if (a.type === "directory" && b.type === 'file') return -1;
+      if (a.type === 'file' && b.type === "directory") return 1;
       // Then alphabetically
       return a.name.localeCompare(b.name);
     });
@@ -62,7 +62,7 @@ export function sortFileTree(node: FileNode): FileNode {
     return {
       ...node,
       children: sortedChildren.map(child => 
-        child.type === 'directory' ? sortFileTree(child) : child
+        child.type === "directory" ? sortFileTree(child) : child
       ),
     };
   }
@@ -75,7 +75,7 @@ export function findFileInTree(
 ): FileNode | undefined {
   if (node.path === path) return node;
   
-  if (node.type === 'directory' && node.children) {
+  if (node.type === "directory" && node.children) {
     for (const child of node.children) {
       const found = findFileInTree(child, path);
       if (found) return found;

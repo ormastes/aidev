@@ -1,10 +1,11 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Log Streamer Module
  * Real-time streaming and buffering of logs
  */
 
-import { EventEmitter } from 'events';
-import { Transform, Writable, PassThrough } from 'stream';
+import { EventEmitter } from 'node:events';
+import { Transform, Writable, PassThrough } from 'node:stream';
 import { fs, path } from '../../src';
 
 
@@ -24,7 +25,7 @@ export interface StreamConfig {
 }
 
 export interface StreamDestination {
-  type: 'console' | 'file' | 'http' | 'websocket' | 'custom';
+  type: 'console' | 'file' | 'http' | "websocket" | 'custom';
   config: any;
 }
 
@@ -111,7 +112,7 @@ export class LogStreamer extends EventEmitter {
         try {
           transformedLog = transformer.transform(transformedLog);
         } catch (error) {
-          this.emit('transformError', { transformer: transformer.name, error });
+          this.emit("transformError", { transformer: transformer.name, error });
         }
       }
     }
@@ -123,7 +124,7 @@ export class LogStreamer extends EventEmitter {
           this.stats.droppedLogs++;
           return false;
         case 'pause':
-          this.emit('backpressure', { action: 'pause' });
+          this.emit("backpressure", { action: 'pause' });
           return false;
         case 'buffer':
         default:
@@ -179,12 +180,12 @@ export class LogStreamer extends EventEmitter {
           this.backpressure = true;
           stream.once('drain', () => {
             this.backpressure = false;
-            this.emit('backpressure', { action: 'resume' });
+            this.emit("backpressure", { action: 'resume' });
           });
         }
       }
     } catch (error) {
-      this.emit('writeError', { destination: id, error });
+      this.emit("writeError", { destination: id, error });
     }
   }
 
@@ -203,7 +204,7 @@ export class LogStreamer extends EventEmitter {
       case 'file':
         return JSON.stringify(log) + '\n';
       case 'http':
-      case 'websocket':
+      case "websocket":
         return JSON.stringify(log);
       default:
         return JSON.stringify(log) + '\n';
@@ -248,7 +249,7 @@ export class LogStreamer extends EventEmitter {
         return this.createFileStream(destination.config);
       case 'http':
         return this.createHttpStream(destination.config);
-      case 'websocket':
+      case "websocket":
         return this.createWebSocketStream(destination.config);
       case 'custom':
         return destination.config.stream;
@@ -287,7 +288,7 @@ export class LogStreamer extends EventEmitter {
 
       const req = https.request(options, (res: any) => {
         if (res.statusCode >= 400) {
-          this.emit('httpError', { 
+          this.emit("httpError", { 
             statusCode: res.statusCode,
             config 
           });
@@ -295,7 +296,7 @@ export class LogStreamer extends EventEmitter {
       });
 
       req.on('error', (error: Error) => {
-        this.emit('httpError', { error, config });
+        this.emit("httpError", { error, config });
       });
 
       req.write(chunk);
@@ -312,11 +313,11 @@ export class LogStreamer extends EventEmitter {
     const ws = new WebSocket(config.url);
     
     ws.on('open', () => {
-      this.emit('websocketConnected', { url: config.url });
+      this.emit("websocketConnected", { url: config.url });
     });
 
     ws.on('error', (error: Error) => {
-      this.emit('websocketError', { error, config });
+      this.emit("websocketError", { error, config });
     });
 
     stream.on('data', (chunk) => {
@@ -335,7 +336,7 @@ export class LogStreamer extends EventEmitter {
 
   private closeStreams(): void {
     for (const [id, stream] of this.streams) {
-      if (stream && typeof stream.end === 'function') {
+      if (stream && typeof stream.end === "function") {
         stream.end();
       }
     }

@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import * as os from 'os';
 import { FileManager } from '../../src/domain/file-manager';
 import { LogEntry } from '../../src/external/external-log-lib';
@@ -23,7 +23,7 @@ describe('FileManager Unit Test', () => {
     }
   });
 
-  describe('saveLogsToFile', () => {
+  describe("saveLogsToFile", () => {
     const testLogs: LogEntry[] = [
       {
         timestamp: new Date('2024-01-01T10:00:00.000Z'),
@@ -51,7 +51,7 @@ describe('FileManager Unit Test', () => {
     });
 
     it('should not create directory if it exists', async () => {
-      const subDir = path.join(tempDir, 'existing');
+      const subDir = path.join(tempDir, "existing");
       const filePath = path.join(subDir, 'logs.txt');
       
       // Create directory beforehand
@@ -149,7 +149,7 @@ describe('FileManager Unit Test', () => {
     });
   });
 
-  describe('formatAsText', () => {
+  describe("formatAsText", () => {
     it('should format logs as plain text with timestamp and level', () => {
       const logs: LogEntry[] = [
         {
@@ -189,7 +189,7 @@ describe('FileManager Unit Test', () => {
     });
   });
 
-  describe('formatAsJson', () => {
+  describe("formatAsJson", () => {
     const logs: LogEntry[] = [{
       timestamp: new Date('2024-01-01T10:00:00.000Z'),
       level: 'info',
@@ -222,7 +222,7 @@ describe('FileManager Unit Test', () => {
     });
   });
 
-  describe('formatAsCsv', () => {
+  describe("formatAsCsv", () => {
     it('should include CSV header', () => {
       const logs: LogEntry[] = [];
       const formatted = (fileManager as any).formatAsCsv(logs);

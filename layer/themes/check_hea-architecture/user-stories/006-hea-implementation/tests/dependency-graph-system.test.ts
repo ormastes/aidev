@@ -1,6 +1,6 @@
-import { fs } from '../../../../infra_external-log-lib/src';
-import { path } from '../../../../infra_external-log-lib/src';
-import * as ts from 'typescript';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import * as ts from "typescript";
 import { DependencyGraph } from '../src/utils/dependency-graph-advanced';
 import { ModuleAnalyzer } from '../src/utils/module-analyzer';
 import { LayerValidator } from '../src/core/layer-validator';
@@ -68,7 +68,7 @@ describe('Dependency Graph System Tests', () => {
       };
 
       // Discover modules in each layer
-      ['core', 'shared', 'themes', 'infrastructure'].forEach(layerType => {
+      ['core', 'shared', 'themes', "infrastructure"].forEach(layerType => {
         discoverModules(path.join(layerPath, layerType), layerType);
       });
 
@@ -110,7 +110,7 @@ describe('Dependency Graph System Tests', () => {
         { id: 'shared/logger', layer: 'shared', deps: ['core/utils'] },
         { id: 'themes/user-mgmt', layer: 'themes', deps: ['shared/auth', 'core/types'] },
         { id: 'themes/products', layer: 'themes', deps: ['shared/logger', 'core/utils'] },
-        { id: 'infra/database', layer: 'infrastructure', deps: ['core/types', 'shared/logger'] },
+        { id: 'infra/database', layer: "infrastructure", deps: ['core/types', 'shared/logger'] },
       ];
       
       // Add nodes and edges
@@ -346,8 +346,8 @@ describe('Dependency Graph System Tests', () => {
       const layers = {
         core: ['utils', 'types', 'errors'],
         shared: ['auth', 'logger', 'cache'],
-        themes: ['users', 'products', 'orders'],
-        infrastructure: ['database', 'redis', 'email'],
+        themes: ['users', "products", 'orders'],
+        infrastructure: ["database", 'redis', 'email'],
       };
       
       // Add nodes
@@ -400,7 +400,7 @@ describe('Dependency Graph System Tests', () => {
       expect(layerCohesion.get('core')).toBeGreaterThan(0);
       
       // Infrastructure should have lower cohesion (more independent)
-      expect(layerCohesion.get('infrastructure')).toBeLessThanOrEqual(
+      expect(layerCohesion.get("infrastructure")).toBeLessThanOrEqual(
         layerCohesion.get('core') || 0
       );
     });

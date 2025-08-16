@@ -4,8 +4,8 @@
  * New code should use the ConfigManager in user-stories/025-env-config-system
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as path from 'node:path';
 
 export interface ServiceConfig {
   portal: number;
@@ -59,7 +59,7 @@ export class ConfigManager {
     const configPath = path.join(this.projectRoot, 'config', 'environments.json');
     
     try {
-      const configData = fs.readFileSync(configPath, 'utf8');
+      const configData = fileAPI.readFileSync(configPath, 'utf8');
       return JSON.parse(configData);
     } catch (error) {
       console.error('Failed to load environments config:', error);
@@ -126,7 +126,7 @@ export class ConfigManager {
       },
       database: {
         postgres: {
-          host: 'localhost',
+          host: "localhost",
           port: 5432,
           ssl: false
         },
@@ -139,11 +139,11 @@ export class ConfigManager {
     };
   }
 
-  getEnvironmentConfig(environment: keyof EnvironmentsConfig['environments']): EnvironmentConfig {
+  getEnvironmentConfig(environment: keyof EnvironmentsConfig["environments"]): EnvironmentConfig {
     return this.config.environments[environment];
   }
 
-  getAllEnvironments(): EnvironmentsConfig['environments'] {
+  getAllEnvironments(): EnvironmentsConfig["environments"] {
     return this.config.environments;
   }
 
@@ -159,15 +159,15 @@ export class ConfigManager {
     return this.config.inter_theme_connections;
   }
 
-  getPortForService(environment: keyof EnvironmentsConfig['environments'], service: keyof ServiceConfig): number {
+  getPortForService(environment: keyof EnvironmentsConfig["environments"], service: keyof ServiceConfig): number {
     return this.config.environments[environment].services[service];
   }
 
-  getPortRange(environment: keyof EnvironmentsConfig['environments']): [number, number] {
+  getPortRange(environment: keyof EnvironmentsConfig["environments"]): [number, number] {
     return this.config.environments[environment].port_range;
   }
 
-  isPortInRange(port: number, environment: keyof EnvironmentsConfig['environments']): boolean {
+  isPortInRange(port: number, environment: keyof EnvironmentsConfig["environments"]): boolean {
     const [min, max] = this.getPortRange(environment);
     return port >= min && port <= max;
   }

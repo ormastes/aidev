@@ -8,7 +8,7 @@ import {
 } from '../validation';
 
 describe('React Native Validation Utilities', () => {
-  describe('validateEmail', () => {
+  describe("validateEmail", () => {
     test('should validate correct email addresses', () => {
       const validEmails = [
         'user@example.com',
@@ -24,7 +24,7 @@ describe('React Native Validation Utilities', () => {
 
     test('should reject invalid email addresses', () => {
       const invalidEmails = [
-        'notanemail',
+        "notanemail",
         '@example.com',
         'test@',
         'test @example.com',
@@ -38,7 +38,7 @@ describe('React Native Validation Utilities', () => {
     });
   });
 
-  describe('validatePassword', () => {
+  describe("validatePassword", () => {
     test('should validate strong passwords', () => {
       const result = validatePassword('StrongP@ss123');
       expect(result.isValid).toBe(true);
@@ -70,7 +70,7 @@ describe('React Native Validation Utilities', () => {
     });
 
     test('should require special characters', () => {
-      const result = validatePassword('NoSpecial123');
+      const result = validatePassword("NoSpecial123");
       expect(result.isValid).toBe(false);
       expect(result.errors).toContain('Password must contain at least one special character');
     });
@@ -82,7 +82,7 @@ describe('React Native Validation Utilities', () => {
     });
   });
 
-  describe('validateUsername', () => {
+  describe("validateUsername", () => {
     test('should validate correct usernames', () => {
       const validUsernames = [
         'user123',
@@ -99,7 +99,7 @@ describe('React Native Validation Utilities', () => {
     test('should reject invalid usernames', () => {
       const invalidUsernames = [
         'ab',  // too short
-        'thisusernameiswaytoolong',  // too long
+        "thisusernameiswaytoolong",  // too long
         'user@name',  // invalid character
         'user-name',  // invalid character
         'user name',  // space
@@ -117,10 +117,10 @@ describe('React Native Validation Utilities', () => {
     });
   });
 
-  describe('validatePhoneNumber', () => {
+  describe("validatePhoneNumber", () => {
     test('should validate various phone number formats', () => {
       const validNumbers = [
-        '1234567890',
+        "1234567890",
         '123-456-7890',
         '(123) 456-7890',
         '(123)456-7890',
@@ -139,7 +139,7 @@ describe('React Native Validation Utilities', () => {
         '123',  // too short
         'abc-def-ghij',  // letters
         '12-34-56',  // wrong format
-        '123456789012345',  // too long
+        "123456789012345",  // too long
       ];
 
       invalidNumbers.forEach(phone => {
@@ -148,7 +148,7 @@ describe('React Native Validation Utilities', () => {
     });
   });
 
-  describe('validateURL', () => {
+  describe("validateURL", () => {
     test('should validate correct URLs', () => {
       const validURLs = [
         'http://example.com',

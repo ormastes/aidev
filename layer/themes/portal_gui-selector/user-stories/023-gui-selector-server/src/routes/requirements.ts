@@ -9,10 +9,10 @@ interface Requirement {
   id: string;
   userId: string;
   selectionId: string;
-  type: 'functional' | 'design' | 'technical' | 'other';
+  type: "functional" | 'design' | "technical" | 'other';
   description: string;
   priority: 'high' | 'medium' | 'low';
-  status: 'pending' | 'approved' | 'rejected';
+  status: 'pending' | "approved" | "rejected";
   createdAt: Date;
   updatedAt: Date;
 }
@@ -38,7 +38,7 @@ requirementsRouter.post('/', optionalJWT, (req, res) => {
     }
 
     const requirementId = `req-${Date.now()}`;
-    const userId = req.user?.userId || req.session?.userId || 'anonymous';
+    const userId = req.user?.userId || req.session?.userId || "anonymous";
     const newRequirement: Requirement = {
       id: requirementId,
       userId: userId.toString(),
@@ -69,7 +69,7 @@ requirementsRouter.get('/export', optionalJWT, (req, res) => {
     const userRequirements = Array.from(requirements.values())
       .filter(r => userId ? r.userId === userId.toString() : true);
 
-    if (format === 'markdown') {
+    if (format === "markdown") {
       let markdown = '# GUI Requirements Export\n\n';
       markdown += `Generated on: ${new Date().toISOString()}\n\n`;
       

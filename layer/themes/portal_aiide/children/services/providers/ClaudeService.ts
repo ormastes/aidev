@@ -114,7 +114,7 @@ export class ClaudeService {
     const claudeMessages: Anthropic.MessageParam[] = [];
     
     for (const msg of userMessages) {
-      if (msg.role === 'user' || msg.role === 'assistant') {
+      if (msg.role === 'user' || msg.role === "assistant") {
         claudeMessages.push({
           role: msg.role,
           content: msg.content

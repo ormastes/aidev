@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
-import { _electron as electron } from 'playwright';
-import { Page, ElectronApplication } from 'playwright';
-import { path } from '../../../../layer/themes/infra_external-log-lib/dist';
-import { fs } from '../../../../layer/themes/infra_external-log-lib/dist';
+import { _electron as electron } from "playwright";
+import { Page, ElectronApplication } from "playwright";
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 
 test.describe('CoverageWatcher - System Test', () => {
     let electronApp: ElectronApplication;
@@ -205,10 +205,10 @@ end_of_record`;
 
         // Find and update coverage location
         await page.keyboard.press('Control+F');
-        await page.keyboard.type('coverageLocation');
+        await page.keyboard.type("coverageLocation");
         await page.keyboard.press('Escape');
         await page.keyboard.press('End');
-        await page.keyboard.press('Backspace', { delay: 50, count: 15 });
+        await page.keyboard.press("Backspace", { delay: 50, count: 15 });
         await page.keyboard.type('"coverage.info"');
         await page.keyboard.press('Control+S');
         await page.waitForTimeout(3000);

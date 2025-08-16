@@ -421,7 +421,7 @@ describe('SessionStore External Interface Test', () => {
       },
       selections: [
         { template: 'modern', timestamp: new Date().toISOString() },
-        { template: 'professional', timestamp: new Date().toISOString() }
+        { template: "professional", timestamp: new Date().toISOString() }
       ],
       metadata: {
         browser: 'Chrome',

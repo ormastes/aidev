@@ -10,7 +10,7 @@ import { MetricsCollector } from '../metrics/metrics-collector';
 interface PrometheusMetric {
   name: string;
   help: string;
-  type: 'counter' | 'gauge' | 'histogram' | 'summary';
+  type: 'counter' | 'gauge' | "histogram" | 'summary';
   labels?: string[];
   instance?: Counter<string> | Gauge<string> | Histogram<string> | Summary<string>;
 }
@@ -131,25 +131,25 @@ export class PrometheusExporter {
     this.registerCounter(
       'system_network_bytes_received_total',
       'Total bytes received',
-      ['interface']
+      ["interface"]
     );
 
     this.registerCounter(
       'system_network_bytes_sent_total',
       'Total bytes sent',
-      ['interface']
+      ["interface"]
     );
 
     this.registerCounter(
       'system_network_packets_received_total',
       'Total packets received',
-      ['interface']
+      ["interface"]
     );
 
     this.registerCounter(
       'system_network_packets_sent_total',
       'Total packets sent',
-      ['interface']
+      ["interface"]
     );
   }
 
@@ -181,7 +181,7 @@ export class PrometheusExporter {
     this.registerCounter(
       'application_errors_total',
       'Total application errors',
-      ['service', 'type', 'severity']
+      ['service', 'type', "severity"]
     );
 
     this.registerGauge(
@@ -206,26 +206,26 @@ export class PrometheusExporter {
     this.registerCounter(
       'database_queries_total',
       'Total database queries',
-      ['service', 'operation', 'table']
+      ['service', "operation", 'table']
     );
 
     this.registerHistogram(
       'database_query_duration_seconds',
       'Database query duration in seconds',
-      ['service', 'operation', 'table'],
+      ['service', "operation", 'table'],
       [0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1, 2, 5]
     );
 
     this.registerGauge(
       'database_connections_active',
       'Active database connections',
-      ['service', 'database']
+      ['service', "database"]
     );
 
     this.registerGauge(
       'database_connections_idle',
       'Idle database connections',
-      ['service', 'database']
+      ['service', "database"]
     );
   }
 
@@ -257,13 +257,13 @@ export class PrometheusExporter {
     this.registerGauge(
       'alerts_active_total',
       'Total active alerts',
-      ['severity']
+      ["severity"]
     );
 
     this.registerCounter(
       'alerts_triggered_total',
       'Total alerts triggered',
-      ['rule_name', 'severity', 'service']
+      ['rule_name', "severity", 'service']
     );
 
     this.registerCounter(
@@ -275,7 +275,7 @@ export class PrometheusExporter {
     this.registerHistogram(
       'alert_resolution_duration_seconds',
       'Alert resolution duration in seconds',
-      ['rule_name', 'severity'],
+      ['rule_name', "severity"],
       [60, 300, 900, 1800, 3600, 7200, 14400, 28800]
     );
 
@@ -308,7 +308,7 @@ export class PrometheusExporter {
     this.registerHistogram(
       'trace_duration_seconds',
       'Trace duration in seconds',
-      ['service', 'operation'],
+      ['service', "operation"],
       [0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1, 2, 5, 10]
     );
 
@@ -321,7 +321,7 @@ export class PrometheusExporter {
     this.registerCounter(
       'trace_spans_total',
       'Total spans processed',
-      ['service', 'operation', 'status']
+      ['service', "operation", 'status']
     );
 
     // Monitoring dashboard metrics
@@ -333,13 +333,13 @@ export class PrometheusExporter {
     this.registerCounter(
       'dashboard_api_requests_total',
       'Total API requests to dashboard',
-      ['endpoint', 'method', 'status']
+      ["endpoint", 'method', 'status']
     );
 
     this.registerHistogram(
       'dashboard_api_duration_seconds',
       'Dashboard API request duration',
-      ['endpoint', 'method'],
+      ["endpoint", 'method'],
       [0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1]
     );
 
@@ -428,7 +428,7 @@ export class PrometheusExporter {
     this.customMetrics.set(name, {
       name,
       help,
-      type: 'histogram',
+      type: "histogram",
       labels,
       instance: histogram
     });
@@ -534,7 +534,7 @@ export class PrometheusExporter {
     this.observeHistogram('health_check_duration_seconds', duration / 1000, 
       { service: serviceId, check_name: checkName });
     this.incrementCounter('health_checks_total', 1, 
-      { service: serviceId, check_name: checkName, status: isHealthy ? 'healthy' : 'unhealthy' });
+      { service: serviceId, check_name: checkName, status: isHealthy ? 'healthy' : "unhealthy" });
   }
 
   /**
@@ -576,7 +576,7 @@ export class PrometheusExporter {
         case 'counter':
           this.incrementCounter(metricName, value, labels);
           break;
-        case 'histogram':
+        case "histogram":
           this.observeHistogram(metricName, value, labels);
           break;
       }
@@ -618,7 +618,7 @@ export class PrometheusExporter {
    */
   private observeHistogram(name: string, value: number, labels?: Record<string, string>): void {
     const metric = this.customMetrics.get(name);
-    if (metric?.instance && metric.type === 'histogram') {
+    if (metric?.instance && metric.type === "histogram") {
       const histogram = metric.instance as Histogram<string>;
       if (labels) {
         histogram.observe(labels, value);

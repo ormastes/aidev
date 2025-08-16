@@ -65,7 +65,7 @@ async function composePlatform() {
     console.log(`   docker-compose -f ${composePath} down\n`);
 
     // Optionally start the services
-    const readline = require('readline');
+    const readline = require("readline");
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout

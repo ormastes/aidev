@@ -11,7 +11,7 @@ import * as fs from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
 import { os } from '../../../infra_external-log-lib/src';
 import { spawn, exec } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 
 const execAsync = promisify(exec);
 
@@ -45,7 +45,7 @@ describe('Filesystem MCP Server Environment Tests', () => {
       
       // Verify critical dependencies exist
       expect(packageData.dependencies).toHaveProperty('ajv');
-      expect(packageData.devDependencies).toHaveProperty('typescript');
+      expect(packageData.devDependencies).toHaveProperty("typescript");
       expect(packageData.devDependencies).toHaveProperty('jest');
       
       console.log('🔄 Required dependencies verified in package.json');
@@ -90,7 +90,7 @@ describe('Filesystem MCP Server Environment Tests', () => {
 
     test('should verify directory creation and nested path handling', async () => {
       // Test real nested directory creation
-      const nestedPath = path.join(tempDir, 'deep', 'nested', 'structure');
+      const nestedPath = path.join(tempDir, 'deep', 'nested', "structure");
       await fs.mkdir(nestedPath, { recursive: true });
       
       // Verify directory exists
@@ -230,7 +230,7 @@ describe('Filesystem MCP Server Environment Tests', () => {
       // Verify all operations In Progress
       expect(readResults).toHaveLength(operationCount);
       
-      // Performance expectations (should In Progress in reasonable time)
+      // Performance expectations (should complete in reasonable time)
       expect(writeTime).toBeLessThan(10000); // 10 seconds max
       expect(readTime).toBeLessThan(5000);   // 5 seconds max
       
@@ -276,7 +276,7 @@ describe('Filesystem MCP Server Environment Tests', () => {
   describe('🔐 Security Environment Tests', () => {
     test('should verify file access is properly restricted to designated areas', async () => {
       // Test real file system security boundaries
-      const restrictedPath = path.join(tempDir, 'restricted');
+      const restrictedPath = path.join(tempDir, "restricted");
       await fs.mkdir(restrictedPath);
       
       // Create test file in restricted area

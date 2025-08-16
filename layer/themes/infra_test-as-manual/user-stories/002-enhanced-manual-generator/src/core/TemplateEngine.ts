@@ -1,9 +1,10 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Template Engine for rendering manual documentation
  * Supports Handlebars templates with custom helpers and partials
  */
 
-import * as Handlebars from 'handlebars';
+import * as Handlebars from "handlebars";
 import * as fs from 'fs/promises';
 import { path } from '../../../../../infra_external-log-lib/src';
 import { TestDocument, TemplateContext } from './types';
@@ -46,7 +47,7 @@ export class TemplateEngine {
    * Load template from file
    */
   async loadTemplate(templatePath: string): Promise<void> {
-    const content = await fs.readFile(templatePath, 'utf-8');
+    const content = await fileAPI.readFile(templatePath, 'utf-8');
     const name = path.basename(templatePath, path.extname(templatePath));
     const compiled = this.handlebars.compile(content);
     
@@ -66,7 +67,7 @@ export class TemplateEngine {
    * Register partial template
    */
   async registerPartial(name: string, partialPath: string): Promise<void> {
-    const content = await fs.readFile(partialPath, 'utf-8');
+    const content = await fileAPI.readFile(partialPath, 'utf-8');
     this.partials.set(name, content);
     this.handlebars.registerPartial(name, content);
   }
@@ -113,17 +114,17 @@ export class TemplateEngine {
 
   private registerDefaultHelpers(): void {
     // String helpers
-    this.registerHelper('uppercase', (str: string) => str?.toUpperCase());
-    this.registerHelper('lowercase', (str: string) => str?.toLowerCase());
-    this.registerHelper('capitalize', (str: string) => 
+    this.registerHelper("uppercase", (str: string) => str?.toUpperCase());
+    this.registerHelper("lowercase", (str: string) => str?.toLowerCase());
+    this.registerHelper("capitalize", (str: string) => 
       str?.charAt(0).toUpperCase() + str?.slice(1));
-    this.registerHelper('truncate', (str: string, length: number) => 
+    this.registerHelper("truncate", (str: string, length: number) => 
       str?.length > length ? str.substring(0, length) + '...' : str);
     
     // Date helpers
-    this.registerHelper('formatDate', (date: Date) => 
+    this.registerHelper("formatDate", (date: Date) => 
       date ? new Date(date).toLocaleDateString() : '');
-    this.registerHelper('formatDateTime', (date: Date) => 
+    this.registerHelper("formatDateTime", (date: Date) => 
       date ? new Date(date).toLocaleString() : '');
     
     // Logic helpers
@@ -148,7 +149,7 @@ export class TemplateEngine {
     this.registerHelper('values', (obj: object) => Object.values(obj || {}));
     
     // Test-specific helpers
-    this.registerHelper('stepType', (type: string) => {
+    this.registerHelper("stepType", (type: string) => {
       const types: Record<string, string> = {
         action: '🎯',
         assertion: '✓',
@@ -158,7 +159,7 @@ export class TemplateEngine {
       return types[type] || '•';
     });
     
-    this.registerHelper('priority', (priority: string) => {
+    this.registerHelper("priority", (priority: string) => {
       const priorities: Record<string, string> = {
         critical: '🔴 Critical',
         high: '🟠 High',
@@ -168,7 +169,7 @@ export class TemplateEngine {
       return priorities[priority] || priority;
     });
     
-    this.registerHelper('testStatus', (success: boolean) => 
+    this.registerHelper("testStatus", (success: boolean) => 
       success ? '✅ Passed' : '❌ Failed');
   }
 
@@ -177,8 +178,8 @@ export class TemplateEngine {
     this.handlebars.registerPartial('header', this.getHeaderPartial());
     this.handlebars.registerPartial('footer', this.getFooterPartial());
     this.handlebars.registerPartial('toc', this.getTOCPartial());
-    this.handlebars.registerPartial('testCase', this.getTestCasePartial());
-    this.handlebars.registerPartial('testStep', this.getTestStepPartial());
+    this.handlebars.registerPartial("testCase", this.getTestCasePartial());
+    this.handlebars.registerPartial("testStep", this.getTestStepPartial());
   }
 
   private getDefaultTemplate(): string {

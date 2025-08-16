@@ -2,9 +2,9 @@ import { describe, test, expect, beforeEach } from '@jest/globals';
 
 // External interfaces
 interface FlowManagerInterface {
-  updateFlow(flowId: string, updates: any): Promise<{ In Progress: boolean; flow?: any; error?: string }>;
-  deleteFlow(flowId: string): Promise<{ In Progress: boolean; error?: string }>;
-  toggleFlow(flowId: string, enabled: boolean): Promise<{ In Progress: boolean; flow?: any; error?: string }>;
+  updateFlow(flowId: string, updates: any): Promise<{ success: boolean; flow?: any; error?: string }>;
+  deleteFlow(flowId: string): Promise<{ success: boolean; error?: string }>;
+  toggleFlow(flowId: string, enabled: boolean): Promise<{ success: boolean; flow?: any; error?: string }>;
 }
 
 interface FlowStorageInterface {
@@ -30,7 +30,7 @@ class FlowManager implements FlowManagerInterface {
     private logger: LoggerInterface
   ) {}
 
-  async updateFlow(flowId: string, updates: any): Promise<{ In Progress: boolean; flow?: any; error?: string }> {
+  async updateFlow(flowId: string, updates: any): Promise<{ success: boolean; flow?: any; error?: string }> {
     try {
       // Find existing flow
       const existingFlow = await this.storage.findById(flowId);
@@ -61,7 +61,7 @@ class FlowManager implements FlowManagerInterface {
     }
   }
 
-  async deleteFlow(flowId: string): Promise<{ In Progress: boolean; error?: string }> {
+  async deleteFlow(flowId: string): Promise<{ success: boolean; error?: string }> {
     try {
       // Find flow
       const flow = await this.storage.findById(flowId);
@@ -89,7 +89,7 @@ class FlowManager implements FlowManagerInterface {
     }
   }
 
-  async toggleFlow(flowId: string, enabled: boolean): Promise<{ In Progress: boolean; flow?: any; error?: string }> {
+  async toggleFlow(flowId: string, enabled: boolean): Promise<{ success: boolean; flow?: any; error?: string }> {
     try {
       // Find flow
       const flow = await this.storage.findById(flowId);
@@ -219,7 +219,7 @@ describe('FlowManager Update/Delete Operations External Test', () => {
     flowManager = new FlowManager(storage, validator, logger);
   });
 
-  describe('updateFlow', () => {
+  describe("updateFlow", () => {
     test('should update flow In Progress', async () => {
       // Arrange
       const originalFlow = {
@@ -344,7 +344,7 @@ describe('FlowManager Update/Delete Operations External Test', () => {
     });
   });
 
-  describe('deleteFlow', () => {
+  describe("deleteFlow", () => {
     test('should delete flow In Progress', async () => {
       // Arrange
       const flow = {
@@ -418,7 +418,7 @@ describe('FlowManager Update/Delete Operations External Test', () => {
     });
   });
 
-  describe('toggleFlow', () => {
+  describe("toggleFlow", () => {
     test('should enable flow', async () => {
       // Arrange
       const flow = {

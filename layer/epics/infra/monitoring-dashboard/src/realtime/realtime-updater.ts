@@ -2,7 +2,7 @@
  * RealtimeUpdater - WebSocket management and live data streaming
  */
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from 'node:events';
 import { WebSocketServer, WebSocket } from 'ws';
 import winston from 'winston';
 import { MetricsCollector } from '../metrics/metrics-collector';
@@ -26,7 +26,7 @@ interface Subscription {
 }
 
 interface RealtimeMessage {
-  type: 'data' | 'heartbeat' | 'error' | 'subscription' | 'unsubscription';
+  type: 'data' | "heartbeat" | 'error' | "subscription" | "unsubscription";
   channel?: string;
   data?: any;
   timestamp: number;
@@ -75,7 +75,7 @@ export class RealtimeUpdater extends EventEmitter {
    * Setup WebSocket server handlers
    */
   private setupWebSocketHandlers(): void {
-    this.wss.on('connection', (ws: WebSocket, req) => {
+    this.wss.on("connection", (ws: WebSocket, req) => {
       const clientId = this.generateClientId();
       const client: WebSocketClient = {
         id: clientId,
@@ -98,7 +98,7 @@ export class RealtimeUpdater extends EventEmitter {
 
       // Send welcome message
       this.sendMessage(client, {
-        type: 'subscription',
+        type: "subscription",
         data: {
           clientId,
           message: 'Connected to monitoring dashboard',
@@ -128,7 +128,7 @@ export class RealtimeUpdater extends EventEmitter {
         client.lastHeartbeat = Date.now();
       });
 
-      this.emit('clientConnected', { clientId, clientCount: this.clients.size });
+      this.emit("clientConnected", { clientId, clientCount: this.clients.size });
     });
   }
 
@@ -137,14 +137,14 @@ export class RealtimeUpdater extends EventEmitter {
    */
   private setupComponentListeners(): void {
     // Metrics updates
-    this.metricsCollector.on('metricsUpdated', (metrics) => {
+    this.metricsCollector.on("metricsUpdated", (metrics) => {
       this.broadcastToChannel('metrics', {
         type: 'metrics_update',
         data: metrics
       });
     });
 
-    this.metricsCollector.on('customMetricRecorded', (metric) => {
+    this.metricsCollector.on("customMetricRecorded", (metric) => {
       this.broadcastToChannel('metrics', {
         type: 'custom_metric',
         data: metric
@@ -152,14 +152,14 @@ export class RealtimeUpdater extends EventEmitter {
     });
 
     // Log updates
-    this.logAggregator.on('logReceived', (logEntry) => {
+    this.logAggregator.on("logReceived", (logEntry) => {
       this.broadcastToChannel('logs', {
         type: 'new_log',
         data: logEntry
       });
     });
 
-    this.logAggregator.on('patternMatched', (match) => {
+    this.logAggregator.on("patternMatched", (match) => {
       this.broadcastToChannel('logs', {
         type: 'pattern_match',
         data: match
@@ -167,14 +167,14 @@ export class RealtimeUpdater extends EventEmitter {
     });
 
     // Health updates
-    this.healthChecker.on('healthCheckCompleted', (result) => {
+    this.healthChecker.on("healthCheckCompleted", (result) => {
       this.broadcastToChannel('health', {
         type: 'health_update',
         data: result
       });
     });
 
-    this.healthChecker.on('healthStatusChanged', (change) => {
+    this.healthChecker.on("healthStatusChanged", (change) => {
       this.broadcastToChannel('health', {
         type: 'status_change',
         data: change
@@ -182,21 +182,21 @@ export class RealtimeUpdater extends EventEmitter {
     });
 
     // Alert updates
-    this.alertManager.on('alertTriggered', (alert) => {
+    this.alertManager.on("alertTriggered", (alert) => {
       this.broadcastToChannel('alerts', {
         type: 'alert_triggered',
         data: alert
       });
     });
 
-    this.alertManager.on('alertAcknowledged', (alert) => {
+    this.alertManager.on("alertAcknowledged", (alert) => {
       this.broadcastToChannel('alerts', {
         type: 'alert_acknowledged',
         data: alert
       });
     });
 
-    this.alertManager.on('alertResolved', (alert) => {
+    this.alertManager.on("alertResolved", (alert) => {
       this.broadcastToChannel('alerts', {
         type: 'alert_resolved',
         data: alert
@@ -228,7 +228,7 @@ export class RealtimeUpdater extends EventEmitter {
       this.checkClientHeartbeats();
     }, this.heartbeatFrequency);
 
-    this.emit('updatesStarted');
+    this.emit("updatesStarted");
   }
 
   /**
@@ -254,7 +254,7 @@ export class RealtimeUpdater extends EventEmitter {
     }
     this.clients.clear();
 
-    this.emit('updatesStopped');
+    this.emit("updatesStopped");
   }
 
   /**
@@ -290,7 +290,7 @@ export class RealtimeUpdater extends EventEmitter {
     this.logger.info(`Client ${client.id} subscribed to channel: ${channel}`);
     
     this.sendMessage(client, {
-      type: 'subscription',
+      type: "subscription",
       channel,
       data: { subscribed: true, filters },
       timestamp: Date.now()
@@ -299,7 +299,7 @@ export class RealtimeUpdater extends EventEmitter {
     // Send initial data for the channel
     this.sendInitialChannelData(client, channel);
 
-    this.emit('clientSubscribed', { clientId: client.id, channel });
+    this.emit("clientSubscribed", { clientId: client.id, channel });
     return true;
   }
 
@@ -328,13 +328,13 @@ export class RealtimeUpdater extends EventEmitter {
     this.logger.info(`Client ${client.id} unsubscribed from channel: ${channel}`);
     
     this.sendMessage(client, {
-      type: 'unsubscription',
+      type: "unsubscription",
       channel,
       data: { unsubscribed: true },
       timestamp: Date.now()
     });
 
-    this.emit('clientUnsubscribed', { clientId: client.id, channel });
+    this.emit("clientUnsubscribed", { clientId: client.id, channel });
     return true;
   }
 
@@ -356,11 +356,11 @@ export class RealtimeUpdater extends EventEmitter {
       const data = JSON.parse(message.toString());
       
       switch (data.type) {
-        case 'subscribe':
+        case "subscribe":
           this.subscribe(client.ws, data.channel, data.filters);
           break;
           
-        case 'unsubscribe':
+        case "unsubscribe":
           this.unsubscribe(client.ws, data.channel);
           break;
           
@@ -368,7 +368,7 @@ export class RealtimeUpdater extends EventEmitter {
           client.isAlive = true;
           client.lastHeartbeat = Date.now();
           this.sendMessage(client, {
-            type: 'heartbeat',
+            type: "heartbeat",
             data: { pong: true },
             timestamp: Date.now()
           });
@@ -422,7 +422,7 @@ export class RealtimeUpdater extends EventEmitter {
     // Remove client
     this.clients.delete(client.id);
 
-    this.emit('clientDisconnected', { 
+    this.emit("clientDisconnected", { 
       clientId: client.id, 
       clientCount: this.clients.size,
       code,

@@ -14,7 +14,7 @@ interface CheckOptions {
   directory: string;
   pattern?: string;
   output?: string;
-  format?: 'json' | 'html' | 'markdown' | 'all';
+  format?: 'json' | 'html' | "markdown" | 'all';
   verbose?: boolean;
 }
 
@@ -47,7 +47,7 @@ async function main() {
     let totalPatternIssues = 0;
 
     for (const file of testFiles) {
-      const content = await fs.readFile(file, 'utf8');
+      const content = await fileAPI.readFile(file, 'utf8');
       const analysis = patternDetector.analyzeTestQuality(content);
       
       if (analysis.issues.length > 0 && options.verbose) {
@@ -84,7 +84,7 @@ async function main() {
         console.log(`📄 HTML report saved to: ${htmlPath}`);
       }
       
-      if (options.format === 'all' || options.format === 'markdown') {
+      if (options.format === 'all' || options.format === "markdown") {
         const mdPath = outputPath.replace('.json', '.md');
         const markdown = reportGenerator.generateMarkdownReport(report);
         await fileAPI.createFile(mdPath, markdown, {

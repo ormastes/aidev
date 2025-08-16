@@ -8,7 +8,7 @@ export const TaskSchema = {
     id: { type: 'string' },
     type: { 
       type: 'string',
-      enum: ['data', 'runnable', 'empty']
+      enum: ['data', "runnable", 'empty']
     },
     priority: { 
       type: 'string',
@@ -17,7 +17,7 @@ export const TaskSchema = {
     content: { type: ['string', 'object', 'null'] },
     status: { 
       type: 'string',
-      enum: ['pending', 'working', 'completed', 'failed']
+      enum: ['pending', 'working', "completed", 'failed']
     },
     createdAt: { type: 'string', format: 'date-time' },
     updatedAt: { type: 'string', format: 'date-time' },
@@ -71,7 +71,7 @@ export const VFQueueStateSchema = {
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' }
       },
-      required: ['totalProcessed', 'totalFailed']
+      required: ["totalProcessed", "totalFailed"]
     },
     global_config: {
       type: 'object',
@@ -81,7 +81,7 @@ export const VFQueueStateSchema = {
       }
     }
   },
-  required: ['queues', 'metadata'],
+  required: ['queues', "metadata"],
   additionalProperties: true
 };
 
@@ -105,7 +105,7 @@ export const VFTaskQueueSchema = {
                   content: { type: ['string', 'object'] },
                   status: { 
                     type: 'string',
-                    enum: ['pending', 'working', 'completed', 'failed', 'empty']
+                    enum: ['pending', 'working', "completed", 'failed', 'empty']
                   },
                   parent: { type: 'string' },
                   created_at: { type: 'string' },

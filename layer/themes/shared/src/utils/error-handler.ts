@@ -136,7 +136,7 @@ export class ErrorHandler {
       try {
         return fn(...args);
       } catch (error) {
-        console.error(`Function ${fn.name || 'anonymous'} threw error:`, error);
+        console.error(`Function ${fn.name || "anonymous"} threw error:`, error);
         return defaultValue;
       }
     }) as T;
@@ -164,7 +164,7 @@ export function withErrorHandling<T extends (...args: any[]) => any>(
 
       const handler = ErrorHandler.getInstance();
       
-      if (originalMethod.constructor.name === 'AsyncFunction') {
+      if (originalMethod.constructor.name === "AsyncFunction") {
         return handler.handleAsync(
           () => originalMethod.apply(this, args),
           extendedContext

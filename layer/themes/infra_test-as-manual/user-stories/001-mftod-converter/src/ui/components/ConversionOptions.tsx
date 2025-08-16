@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 
 export interface ConversionSettings {
-  format: 'markdown' | 'html' | 'json';
+  format: "markdown" | 'html' | 'json';
   includeCommonScenarios: boolean;
   generateSequences: boolean;
   minSequenceLength: number;
@@ -25,7 +25,7 @@ interface ConversionOptionsProps {
 
 export const ConversionOptions: React.FC<ConversionOptionsProps> = ({ onOptionsChange }) => {
   const [options, setOptions] = useState<ConversionSettings>({
-    format: 'markdown',
+    format: "markdown",
     includeCommonScenarios: true,
     generateSequences: true,
     minSequenceLength: 2,
@@ -65,7 +65,7 @@ export const ConversionOptions: React.FC<ConversionOptionsProps> = ({ onOptionsC
           <input
             type="checkbox"
             checked={options.includeCommonScenarios}
-            onChange={(e) => updateOption('includeCommonScenarios', e.target.checked)}
+            onChange={(e) => updateOption("includeCommonScenarios", e.target.checked)}
           />
           Detect and group common scenarios
         </label>
@@ -76,7 +76,7 @@ export const ConversionOptions: React.FC<ConversionOptionsProps> = ({ onOptionsC
           <input
             type="checkbox"
             checked={options.generateSequences}
-            onChange={(e) => updateOption('generateSequences', e.target.checked)}
+            onChange={(e) => updateOption("generateSequences", e.target.checked)}
           />
           Generate test sequences
         </label>
@@ -90,7 +90,7 @@ export const ConversionOptions: React.FC<ConversionOptionsProps> = ({ onOptionsC
                 min="2"
                 max="10"
                 value={options.minSequenceLength}
-                onChange={(e) => updateOption('minSequenceLength', parseInt(e.target.value))}
+                onChange={(e) => updateOption("minSequenceLength", parseInt(e.target.value))}
               />
             </label>
           </div>
@@ -106,7 +106,7 @@ export const ConversionOptions: React.FC<ConversionOptionsProps> = ({ onOptionsC
             max="1"
             step="0.1"
             value={options.commonScenarioThreshold}
-            onChange={(e) => updateOption('commonScenarioThreshold', parseFloat(e.target.value))}
+            onChange={(e) => updateOption("commonScenarioThreshold", parseFloat(e.target.value))}
           />
           <span>{(options.commonScenarioThreshold * 100).toFixed(0)}%</span>
         </label>
@@ -117,7 +117,7 @@ export const ConversionOptions: React.FC<ConversionOptionsProps> = ({ onOptionsC
           <input
             type="checkbox"
             checked={options.enableCaptures}
-            onChange={(e) => updateOption('enableCaptures', e.target.checked)}
+            onChange={(e) => updateOption("enableCaptures", e.target.checked)}
           />
           Enable screenshot captures
         </label>
@@ -128,7 +128,7 @@ export const ConversionOptions: React.FC<ConversionOptionsProps> = ({ onOptionsC
               Platform:
               <select
                 value={options.captureOptions?.platform || 'web'}
-                onChange={(e) => updateOption('captureOptions', {
+                onChange={(e) => updateOption("captureOptions", {
                   ...options.captureOptions,
                   platform: e.target.value as any
                 })}
@@ -144,8 +144,8 @@ export const ConversionOptions: React.FC<ConversionOptionsProps> = ({ onOptionsC
               <label>
                 Browser:
                 <select
-                  value={options.captureOptions?.browserName || 'chromium'}
-                  onChange={(e) => updateOption('captureOptions', {
+                  value={options.captureOptions?.browserName || "chromium"}
+                  onChange={(e) => updateOption("captureOptions", {
                     ...options.captureOptions,
                     browserName: e.target.value
                   })}

@@ -27,7 +27,7 @@ describe('auth middleware', () => {
     mockNext = jest.fn();
   });
 
-  describe('requireAuth', () => {
+  describe("requireAuth", () => {
     it('should call next() when userId is in session', () => {
       if (mockReq.session) {
         (mockReq.session as any).userId = 123;

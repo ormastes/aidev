@@ -4,7 +4,7 @@ import { TestAnalyzer } from '../../children/TestAnalyzer';
 import { FraudReportGenerator } from '../../children/FraudReportGenerator';
 
 describe('Simple Coverage Tests', () => {
-  describe('FraudChecker', () => {
+  describe("FraudChecker", () => {
     it('should create instance and check simple test', async () => {
       const checker = new FraudChecker();
       const result = await checker.checkTestFiles([
@@ -24,7 +24,7 @@ describe('Simple Coverage Tests', () => {
     });
   });
 
-  describe('FraudPatternDetector', () => {
+  describe("FraudPatternDetector", () => {
     it('should detect patterns', () => {
       const detector = new FraudPatternDetector();
       // Test implementation pending
@@ -32,7 +32,7 @@ describe('Simple Coverage Tests', () => {
     });
   });
 
-  describe('TestAnalyzer', () => {
+  describe("TestAnalyzer", () => {
     it('should analyze test results', () => {
       const analyzer = new TestAnalyzer();
       const analysis = analyzer.analyzeTestResults({
@@ -49,7 +49,7 @@ describe('Simple Coverage Tests', () => {
     });
   });
 
-  describe('FraudReportGenerator', () => {
+  describe("FraudReportGenerator", () => {
     it('should generate report', async () => {
       const generator = new FraudReportGenerator();
       const report = await generator.generateReport({

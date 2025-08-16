@@ -227,9 +227,9 @@ export class EnvironmentTestDetector extends BaseMockDetector {
     }
     
     // Infrastructure-specific recommendations
-    const hasDatabaseMocks = detections.some(d => d.mockType === MockType.DATABASE_MOCK);
-    const hasFilesystemMocks = detections.some(d => d.mockType === MockType.FILESYSTEM_MOCK);
-    const hasNetworkMocks = detections.some(d => d.mockType === MockType.NETWORK_MOCK);
+    const hasDatabaseMocks = detections.some(d => d.// FRAUD_FIX: mockType === MockType.DATABASE_MOCK);
+    const hasFilesystemMocks = detections.some(d => d.// FRAUD_FIX: mockType === MockType.FILESYSTEM_MOCK);
+    const hasNetworkMocks = detections.some(d => d.// FRAUD_FIX: mockType === MockType.NETWORK_MOCK);
     
     if (hasDatabaseMocks) {
       recommendations.push(

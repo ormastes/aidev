@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach } from '@jest/globals';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { fs } from '../../../../../infra_external-log-lib/src';
 import { path } from '../../../../../infra_external-log-lib/src';
 import { os } from '../../../../../infra_external-log-lib/src';
@@ -40,7 +40,7 @@ interface Message {
   roomId: string;
   userId: string;
   content: string;
-  type: 'text' | 'command' | 'system' | 'workflow' | 'context';
+  type: 'text' | 'command' | 'system' | "workflow" | 'context';
   timestamp: Date;
   metadata?: Record<string, any>;
   delivered: boolean;
@@ -557,7 +557,7 @@ class IntegratedChatRoomPlatform implements ChatRoomPlatform {
     const [cmd, ...args] = command.split(' ');
 
     switch (cmd) {
-      case 'workflow':
+      case "workflow":
         if (args[0] === 'trigger' && args[1]) {
           await this.integration.triggerWorkflow(args[1], {
             userId: user.id,
@@ -771,7 +771,7 @@ class MockContextService implements ContextService {
       name: 'Test Workspace',
       rootPath: this.workspaceRoot,
       version: '1.0.0',
-      themes: ['chat-space', 'pocketflow']
+      themes: ['chat-space', "pocketflow"]
     };
   }
 
@@ -884,15 +884,15 @@ describe('ChatRoomPlatform Coordination Integration Test', () => {
 
   test('should coordinate user registration and authentication across components', async () => {
     // Register user
-    const user = await platform.registerUser('TestUser', { email: 'test@example.com' });
+    const user = await platform.registerUser("TestUser", { email: 'test@example.com' });
     expect(user.id).toBeDefined();
-    expect(user.username).toBe('TestUser');
+    expect(user.username).toBe("TestUser");
     expect(user.status).toBe('offline');
 
     // Verify user is persisted in storage
     const storedUser = await storage.getUser(user.id);
     expect(storedUser).toBeDefined();
-    expect(storedUser?.username).toBe('TestUser');
+    expect(storedUser?.username).toBe("TestUser");
 
     // Authenticate user
     const authenticatedUser = await platform.authenticateUser(user.id);
@@ -906,7 +906,7 @@ describe('ChatRoomPlatform Coordination Integration Test', () => {
 
   test('should coordinate room creation and joining across all components', async () => {
     // Setup: Register and authenticate user
-    const user = await platform.registerUser('RoomCreator');
+    const user = await platform.registerUser("RoomCreator");
     await platform.authenticateUser(user.id);
 
     // Create room
@@ -933,7 +933,7 @@ describe('ChatRoomPlatform Coordination Integration Test', () => {
     expect(messages[0].content).toContain('created by RoomCreator');
 
     // Register and authenticate second user
-    const user2 = await platform.registerUser('RoomJoiner');
+    const user2 = await platform.registerUser("RoomJoiner");
     await platform.authenticateUser(user2.id);
 
     // Join room
@@ -954,7 +954,7 @@ describe('ChatRoomPlatform Coordination Integration Test', () => {
 
   test('should coordinate message sending with context extraction', async () => {
     // Setup
-    const user = await platform.registerUser('MessageSender');
+    const user = await platform.registerUser("MessageSender");
     await platform.authenticateUser(user.id);
     const room = await platform.createRoom(user.id, 'Message Test Room');
 
@@ -999,7 +999,7 @@ describe('ChatRoomPlatform Coordination Integration Test', () => {
 
   test('should coordinate command processing with integrations', async () => {
     // Setup
-    const user = await platform.registerUser('CommandUser');
+    const user = await platform.registerUser("CommandUser");
     await platform.authenticateUser(user.id);
     const room = await platform.createRoom(user.id, 'Command Test Room');
 
@@ -1094,8 +1094,8 @@ describe('ChatRoomPlatform Coordination Integration Test', () => {
 
   test('should coordinate workflow notifications to subscribed rooms', async () => {
     // Create users and rooms
-    const user1 = await platform.registerUser('WorkflowUser1');
-    const user2 = await platform.registerUser('WorkflowUser2');
+    const user1 = await platform.registerUser("WorkflowUser1");
+    const user2 = await platform.registerUser("WorkflowUser2");
     await platform.authenticateUser(user1.id);
     await platform.authenticateUser(user2.id);
 
@@ -1153,7 +1153,7 @@ describe('ChatRoomPlatform Coordination Integration Test', () => {
     ).rejects.toThrow('User not authenticated');
 
     // Authenticate user but try to send to non-existent room
-    const user = await platform.registerUser('ErrorUser');
+    const user = await platform.registerUser("ErrorUser");
     await platform.authenticateUser(user.id);
 
     await expect(
@@ -1162,7 +1162,7 @@ describe('ChatRoomPlatform Coordination Integration Test', () => {
 
     // Create room but try to send as non-member
     const room = await platform.createRoom(user.id, 'Private Room');
-    const otherUser = await platform.registerUser('OtherUser');
+    const otherUser = await platform.registerUser("OtherUser");
     await platform.authenticateUser(otherUser.id);
 
     await expect(
@@ -1172,7 +1172,7 @@ describe('ChatRoomPlatform Coordination Integration Test', () => {
 
   test('should coordinate message history and filtering', async () => {
     // Setup
-    const user = await platform.registerUser('HistoryUser');
+    const user = await platform.registerUser("HistoryUser");
     await platform.authenticateUser(user.id);
     const room = await platform.createRoom(user.id, 'History Room');
 
@@ -1209,7 +1209,7 @@ describe('ChatRoomPlatform Coordination Integration Test', () => {
     const eventLog: Array<{ event: string; data: any; timestamp: Date }> = [];
     
     const events = [
-      'initialized',
+      "initialized",
       'user_registered',
       'user_authenticated', 
       'room_created',
@@ -1225,7 +1225,7 @@ describe('ChatRoomPlatform Coordination Integration Test', () => {
     });
 
     // Perform actions
-    const user = await platform.registerUser('EventUser');
+    const user = await platform.registerUser("EventUser");
     await platform.authenticateUser(user.id);
     const room = await platform.createRoom(user.id, 'Event Room');
     await platform.sendMessage(user.id, room.id, 'Event test message');
@@ -1241,7 +1241,7 @@ describe('ChatRoomPlatform Coordination Integration Test', () => {
 
     // Verify event data
     const registerEvent = eventLog.find(e => e.event === 'user_registered');
-    expect(registerEvent?.data.user.username).toBe('EventUser');
+    expect(registerEvent?.data.user.username).toBe("EventUser");
 
     const messageEvent = eventLog.find(e => e.event === 'message_sent');
     expect(messageEvent?.data.message.content).toBe('Event test message');

@@ -2,7 +2,7 @@
  * Token Store - Manages token storage and session management
  */
 
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 export interface TokenStoreConfig {
   redisUrl?: string;
@@ -40,7 +40,7 @@ export class TokenStore extends EventEmitter {
   async connect(): Promise<void> {
     // Simulate Redis connection
     this.connected = true;
-    this.emit('connected');
+    this.emit("connected");
   }
 
   async disconnect(): Promise<void> {
@@ -48,7 +48,7 @@ export class TokenStore extends EventEmitter {
     this.tokens.clear();
     this.sessions.clear();
     this.blacklistedTokens.clear();
-    this.emit('disconnected');
+    this.emit("disconnected");
   }
 
   async storeToken(token: string, data: Omit<StoredToken, 'token'>): Promise<void> {

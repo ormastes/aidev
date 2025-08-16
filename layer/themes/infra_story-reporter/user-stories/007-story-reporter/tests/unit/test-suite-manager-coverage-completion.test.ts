@@ -84,7 +84,7 @@ describe('TestSuiteManager Coverage Completion Tests', () => {
       
       const result = await executionPromise;
       
-      expect(result.status).toBe('cancelled');
+      expect(result.status).toBe("cancelled");
       expect(result.errorMessage).toBe('Test suite execution was cancelled');
     });
 
@@ -104,7 +104,7 @@ describe('TestSuiteManager Coverage Completion Tests', () => {
       // Cleanup while running
       const cleanupPromise = testSuiteManager.cleanup();
       
-      // Both should In Progress without error
+      // Both should complete without error
       await Promise.all([executionPromise, cleanupPromise]);
       
       expect(testSuiteManager.isConfigured()).toBe(false);
@@ -132,12 +132,12 @@ describe('TestSuiteManager Coverage Completion Tests', () => {
       const testSuiteEvents: any[] = [];
       const featureEvents: any[] = [];
       
-      testSuiteManager.on('progress', (event) => progressEvents.push(event));
+      testSuiteManager.on("progress", (event) => progressEvents.push(event));
       testSuiteManager.on('log', (message) => logEvents.push(message));
-      testSuiteManager.on('testSuiteStart', (event) => testSuiteEvents.push(event));
-      testSuiteManager.on('testSuiteComplete', (event) => testSuiteEvents.push(event));
-      testSuiteManager.on('featureStart', (event) => featureEvents.push(event));
-      testSuiteManager.on('featureComplete', (event) => featureEvents.push(event));
+      testSuiteManager.on("testSuiteStart", (event) => testSuiteEvents.push(event));
+      testSuiteManager.on("testSuiteComplete", (event) => testSuiteEvents.push(event));
+      testSuiteManager.on("featureStart", (event) => featureEvents.push(event));
+      testSuiteManager.on("featureComplete", (event) => featureEvents.push(event));
       
       await testSuiteManager.executeTestSuite();
       
@@ -157,8 +157,8 @@ describe('TestSuiteManager Coverage Completion Tests', () => {
       const progressEvents: any[] = [];
       const reportEvents: any[] = [];
       
-      testSuiteManager.on('progress', (event) => progressEvents.push(event));
-      testSuiteManager.on('reportGenerated', (event) => reportEvents.push(event));
+      testSuiteManager.on("progress", (event) => progressEvents.push(event));
+      testSuiteManager.on("reportGenerated", (event) => reportEvents.push(event));
       
       const testResult = createDefaultTestResult('test', 'In Progress');
       const reportPaths = await testSuiteManager.generateReports(testResult);
@@ -175,15 +175,15 @@ describe('TestSuiteManager Coverage Completion Tests', () => {
       const logLibEvents: any[] = [];
       const logEvents: string[] = [];
       
-      testSuiteManager.on('progress', (event) => progressEvents.push(event));
-      testSuiteManager.on('logLibraryInit', (event) => logLibEvents.push(event));
+      testSuiteManager.on("progress", (event) => progressEvents.push(event));
+      testSuiteManager.on("logLibraryInit", (event) => logLibEvents.push(event));
       testSuiteManager.on('log', (message) => logEvents.push(message));
       
       await testSuiteManager.initializeLogLibrary();
       
       expect(progressEvents.some(e => e.type === 'log-library-init')).toBe(true);
       expect(logLibEvents.length).toBe(1);
-      expect(logLibEvents[0].status).toBe('initialized');
+      expect(logLibEvents[0].status).toBe("initialized");
       expect(logEvents.some(m => m.includes('External log library initialized'))).toBe(true);
     });
 
@@ -285,7 +285,7 @@ describe('TestSuiteManager Coverage Completion Tests', () => {
       await testSuiteManager.initializeLogLibrary();
       
       const cleanupEvents: any[] = [];
-      testSuiteManager.on('logLibraryCleanup', (event) => cleanupEvents.push(event));
+      testSuiteManager.on("logLibraryCleanup", (event) => cleanupEvents.push(event));
       
       await testSuiteManager.cleanup();
       
@@ -297,8 +297,8 @@ describe('TestSuiteManager Coverage Completion Tests', () => {
       testSuiteManager.configure(testConfig);
       
       const forwardedEvents: any[] = [];
-      testSuiteManager.on('mockFreeTestRunnerConfigured', (event) => forwardedEvents.push(event));
-      testSuiteManager.on('reportGeneratorConfigured', (event) => forwardedEvents.push(event));
+      testSuiteManager.on("mockFreeTestRunnerConfigured", (event) => forwardedEvents.push(event));
+      testSuiteManager.on("reportGeneratorConfigured", (event) => forwardedEvents.push(event));
       
       // Events should have been emitted during configuration
       expect(forwardedEvents.length).toBe(2);

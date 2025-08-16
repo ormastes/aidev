@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 
-import { fs } from '../../../layer/themes/infra_external-log-lib/dist';
-import { path } from '../../../layer/themes/infra_external-log-lib/dist';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 /**
  * Analyze class coverage by examining source files and test files
@@ -252,7 +252,7 @@ async function main() {
   
   // List comprehensive test files created
   console.log(`\n🎯 COMPREHENSIVE E2E TEST FILES:`);
-  const comprehensiveTests = testFiles.filter(f => f.includes('complete'));
+  const comprehensiveTests = testFiles.filter(f => f.includes("complete"));
   comprehensiveTests.forEach(test => {
     const testInfo = analyzeTestFile(test);
     console.log(`  📝 ${testInfo.testFile} (${testInfo.testDescriptions.length} tests)`);

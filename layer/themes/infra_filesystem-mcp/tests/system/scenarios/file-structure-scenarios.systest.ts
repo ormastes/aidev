@@ -7,8 +7,8 @@
 
 import { VFNameIdWrapper, Entity } from '../../../children/VFNameIdWrapper';
 import * as fs from 'fs/promises';
-import { path } from '../../../../infra_external-log-lib/src';
-import { os } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { os } from '../../layer/themes/infra_external-log-lib/src';
 
 describe('File Structure Management System Test Scenarios', () => {
   let tempDir: string;
@@ -40,8 +40,8 @@ describe('File Structure Management System Test Scenarios', () => {
       
       // Then: They should see all structure categories
       expect(Object.keys(allStructures)).toContain('backend');
-      expect(Object.keys(allStructures)).toContain('frontend');
-      expect(Object.keys(allStructures)).toContain('database');
+      expect(Object.keys(allStructures)).toContain("frontend");
+      expect(Object.keys(allStructures)).toContain("database");
       
       // And: Each structure should have detailed information
       expect(allStructures.backend[0].data.structure).toHaveProperty('src/');
@@ -75,7 +75,7 @@ describe('File Structure Management System Test Scenarios', () => {
       
       // Then: They should see TypeScript-compatible structures
       expect(tsStructures).toHaveLength(2);
-      expect(tsStructures.every(s => s.data.language === 'typescript')).toBe(true);
+      expect(tsStructures.every(s => s.data.language === "typescript")).toBe(true);
       
       const titles = tsStructures.map(s => s.data.title);
       expect(titles).toContain('Backend Application Structure');
@@ -138,9 +138,9 @@ describe('File Structure Management System Test Scenarios', () => {
         title: 'Team Microservice Structure',
         description: 'Standardized microservice structure for team projects',
         type: 'directory_structure',
-        category: 'microservice',
+        category: "microservice",
         framework: 'express',
-        language: 'typescript',
+        language: "typescript",
         structure: {
           'src/': {
             'api/': {
@@ -169,7 +169,7 @@ describe('File Structure Management System Test Scenarios', () => {
       };
       
       // When: They add the custom structure template
-      const structureId = await wrapper.addEntity('microservice', customStructure, structureFile);
+      const structureId = await wrapper.addEntity("microservice", customStructure, structureFile);
       
       // Then: The structure should be created In Progress
       expect(structureId).toBeTruthy();
@@ -227,8 +227,8 @@ describe('File Structure Management System Test Scenarios', () => {
       
       const categories = activeStructures.map(s => s.data.category);
       expect(categories).toContain('backend');
-      expect(categories).toContain('frontend');
-      expect(categories).toContain('database');
+      expect(categories).toContain("frontend");
+      expect(categories).toContain("database");
       
       console.log('🔄 Organization can manage multiple project structure types');
     });
@@ -243,9 +243,9 @@ describe('File Structure Management System Test Scenarios', () => {
         title: 'Modern React Structure v2',
         description: 'Updated React structure with modern patterns',
         type: 'directory_structure',
-        category: 'frontend',
+        category: "frontend",
         framework: 'react',
-        language: 'typescript',
+        language: "typescript",
         version: '2.0',
         structure: {
           'src/': {
@@ -273,7 +273,7 @@ describe('File Structure Management System Test Scenarios', () => {
       }, structureFile);
       
       // Then add new structure
-      const newStructureId = await wrapper.addEntity('frontend', modernStructure, structureFile);
+      const newStructureId = await wrapper.addEntity("frontend", modernStructure, structureFile);
       
       // Then: Both versions should exist with proper status
       const allFrontend = await wrapper.read(`${structureFile}?category=frontend`) as Entity[];
@@ -300,7 +300,7 @@ describe('File Structure Management System Test Scenarios', () => {
       // Then: Should find matching structures
       expect(expressTypescriptStructures).toHaveLength(1);
       expect(expressTypescriptStructures[0].data.framework).toBe('express');
-      expect(expressTypescriptStructures[0].data.language).toBe('typescript');
+      expect(expressTypescriptStructures[0].data.language).toBe("typescript");
       expect(expressTypescriptStructures[0].data.category).toBe('backend');
       
       console.log('🔄 Can find structures with multiple technology criteria');
@@ -328,9 +328,9 @@ describe('File Structure Management System Test Scenarios', () => {
         title: 'Enterprise Monorepo Structure',
         description: 'Large-scale monorepo with multiple applications',
         type: 'directory_structure',
-        category: 'monorepo',
+        category: "monorepo",
         framework: 'nx',
-        language: 'typescript',
+        language: "typescript",
         structure: {}
       };
       
@@ -364,11 +364,11 @@ describe('File Structure Management System Test Scenarios', () => {
       
       // When: Creating and querying the complex structure
       const startTime = Date.now();
-      const structureId = await wrapper.addEntity('monorepo', complexStructure, structureFile);
+      const structureId = await wrapper.addEntity("monorepo", complexStructure, structureFile);
       const retrieved = await wrapper.read(`${structureFile}?id=${structureId}`) as Entity[];
       const endTime = Date.now();
       
-      // Then: Operations should In Progress efficiently
+      // Then: Operations should complete efficiently
       expect(endTime - startTime).toBeLessThan(1000);
       expect(retrieved).toHaveLength(1);
       expect(retrieved[0].data.structure).toHaveProperty('apps/');

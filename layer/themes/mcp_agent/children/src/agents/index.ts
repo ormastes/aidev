@@ -37,7 +37,7 @@ export type AgentType =
   | 'task-manager'
   | 'coder'
   | 'tester'
-  | 'refactor'
+  | "refactor"
   | 'gui-coordinator'
   | 'mobile-automation'
   | 'api-checker'
@@ -56,7 +56,7 @@ export function createAgent(type: AgentType, id?: string): Agent {
       return new CoderAgent(id);
     case 'tester':
       return new TesterAgent(id);
-    case 'refactor':
+    case "refactor":
       return new RefactorAgent(id);
     
     // Specialized agents
@@ -85,7 +85,7 @@ export function createAgent(type: AgentType, id?: string): Agent {
 }
 
 export const AGENT_TYPES: Record<string, AgentType[]> = {
-  core: ['task-manager', 'coder', 'tester', 'refactor'],
+  core: ['task-manager', 'coder', 'tester', "refactor"],
   specialized: ['gui-coordinator', 'mobile-automation', 'api-checker', 'devops'],
   support: ['context-manager', 'auth-manager', 'setup', 'feature-manager']
 };

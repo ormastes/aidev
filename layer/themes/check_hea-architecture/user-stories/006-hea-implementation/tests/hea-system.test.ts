@@ -1,6 +1,6 @@
-import { fs } from '../../../../infra_external-log-lib/src';
-import { path } from '../../../../infra_external-log-lib/src';
-import * as ts from 'typescript';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import * as ts from "typescript";
 import { execSync } from 'child_process';
 import { LayerValidator } from '../src/core/layer-validator';
 import { ModuleAnalyzer } from '../src/utils/module-analyzer';
@@ -20,7 +20,7 @@ describe('HEA Architecture System Tests', () => {
       expect(fs.existsSync(layerPath)).toBe(true);
       
       // Check for expected layer directories
-      const expectedDirs = ['themes', 'infrastructure', 'shared', 'core'];
+      const expectedDirs = ['themes', "infrastructure", 'shared', 'core'];
       const actualDirs = fs.readdirSync(layerPath)
         .filter(item => fs.statSync(path.join(layerPath, item)).isDirectory());
       
@@ -192,7 +192,7 @@ describe('HEA Architecture System Tests', () => {
           version: '1.0.0',
         },
         {
-          name: 'database',
+          name: "database",
           type: LayerType.Infrastructure,
           path: '/layer/infrastructure/database',
           dependencies: [],
@@ -262,7 +262,7 @@ describe('HEA Architecture System Tests', () => {
       };
 
       const infraLayer: LayerConfig = {
-        name: 'database',
+        name: "database",
         type: LayerType.Infrastructure,
         path: '/layer/infrastructure/database',
         dependencies: [],
@@ -340,8 +340,8 @@ describe('HEA Architecture System Tests', () => {
           exports: [],
           version: '1.0.0',
         }],
-        ['database', {
-          name: 'database',
+        ["database", {
+          name: "database",
           type: LayerType.Infrastructure,
           path: '/layer/infrastructure/database',
           dependencies: [LayerType.Core, LayerType.Shared],
@@ -473,8 +473,8 @@ describe('HEA Architecture System Tests', () => {
       
       expect(methods).toContainEqual(
         expect.objectContaining({
-          name: 'getMetadata',
-          returnType: expect.stringContaining('PipeMetadata'),
+          name: "getMetadata",
+          returnType: expect.stringContaining("PipeMetadata"),
         })
       );
     });
@@ -498,7 +498,7 @@ describe('HEA Architecture System Tests', () => {
         );
         
         // Verify core directories are preserved
-        ['core', 'interfaces', 'utils'].forEach(dir => {
+        ['core', "interfaces", 'utils'].forEach(dir => {
           if (subdirs.includes(dir)) {
             expect(subdirs).toContain(dir);
           }

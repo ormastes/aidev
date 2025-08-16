@@ -3,7 +3,7 @@
  * Manages persistent volumes for QEMU containers with Docker-like functionality
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import * as fs from 'fs/promises';
 import { path } from '../../../infra_external-log-lib/src';
 import { v4 as uuidv4 } from 'uuid';
@@ -15,7 +15,7 @@ const fileAPI = getFileAPI();
 
 export interface VolumeConfig {
   name?: string;
-  driver?: 'local' | 'nfs' | 'ceph' | 'glusterfs';
+  driver?: 'local' | 'nfs' | 'ceph' | "glusterfs";
   driverOpts?: Record<string, string>;
   labels?: Record<string, string>;
   size?: string;
@@ -28,7 +28,7 @@ export interface Volume {
   driver: string;
   mountpoint: string;
   created: Date;
-  status: 'created' | 'mounted' | 'unmounted' | 'error';
+  status: 'created' | 'mounted' | "unmounted" | 'error';
   size: number;
   used: number;
   available: number;
@@ -41,8 +41,8 @@ export interface Volume {
 
 export interface MountOptions {
   readonly?: boolean;
-  propagation?: 'private' | 'rprivate' | 'shared' | 'rshared' | 'slave' | 'rslave';
-  consistency?: 'consistent' | 'cached' | 'delegated';
+  propagation?: 'private' | "rprivate" | 'shared' | 'rshared' | 'slave' | 'rslave';
+  consistency?: "consistent" | 'cached' | "delegated";
   volumeOptions?: {
     noCopy?: boolean;
     labels?: Record<string, string>;
@@ -79,7 +79,7 @@ export class VolumeManager extends EventEmitter {
     this.registerDriver('local', new LocalVolumeDriver(this.dataDir));
     this.registerDriver('nfs', new NFSVolumeDriver());
     this.registerDriver('ceph', new CephVolumeDriver());
-    this.registerDriver('glusterfs', new GlusterFSVolumeDriver());
+    this.registerDriver("glusterfs", new GlusterFSVolumeDriver());
   }
 
   /**
@@ -95,7 +95,7 @@ export class VolumeManager extends EventEmitter {
       await driver.initialize();
     }
     
-    this.emit('initialized');
+    this.emit("initialized");
   }
 
   /**
@@ -245,12 +245,12 @@ export class VolumeManager extends EventEmitter {
     volume.containers = volume.containers.filter(id => id !== containerId);
     
     if (volume.refCount === 0) {
-      volume.status = 'unmounted';
+      volume.status = "unmounted";
     }
     
     await this.saveVolume(volume);
     
-    this.emit('unmounted', volume, containerId);
+    this.emit("unmounted", volume, containerId);
   }
 
   /**
@@ -417,7 +417,7 @@ export class VolumeManager extends EventEmitter {
     // Extract backup
     await this.extractTarArchive(backupFile, volume.mountpoint);
     
-    this.emit('restored', volume, backupFile);
+    this.emit("restored", volume, backupFile);
     return volume;
   }
 
@@ -449,7 +449,7 @@ export class VolumeManager extends EventEmitter {
    */
   async registerDriver(name: string, driver: VolumeDriver): void {
     this.drivers.set(name, driver);
-    this.emit('driverRegistered', name);
+    this.emit("driverRegistered", name);
   }
 
   /**
@@ -583,7 +583,7 @@ export class VolumeManager extends EventEmitter {
       for (const file of files) {
         if (file.endsWith('.json')) {
           const volumePath = path.join(this.dataDir, file);
-          const data = await fs.readFile(volumePath, 'utf-8');
+          const data = await fileAPI.readFile(volumePath, 'utf-8');
           const volume = JSON.parse(data);
           
           // Convert dates
@@ -610,7 +610,7 @@ export class VolumeManager extends EventEmitter {
    */
   private async deleteVolumeFile(volumeId: string): Promise<void> {
     const volumePath = path.join(this.dataDir, `${volumeId}.json`);
-    await fs.unlink(volumePath).catch(() => {});
+    await fileAPI.unlink(volumePath).catch(() => {});
   }
 }
 
@@ -676,7 +676,7 @@ class LocalVolumeDriver implements VolumeDriver {
   }
 
   async unmount(mountPoint: string): Promise<void> {
-    await fs.unlink(mountPoint).catch(() => {});
+    await fileAPI.unlink(mountPoint).catch(() => {});
   }
 
   async getStats(id: string): Promise<{ size: number; used: number; available: number }> {

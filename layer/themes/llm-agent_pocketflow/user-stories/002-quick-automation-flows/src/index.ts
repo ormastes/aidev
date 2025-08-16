@@ -58,16 +58,16 @@ export class PocketFlow {
     }
   }
 
-  static createFlow(type: 'sequential', nodes: BaseNode[]): SequentialFlow;
-  static createFlow(type: 'parallel', nodes: BaseNode[]): ParallelFlow;
-  static createFlow(type: 'conditional', condition: (result: any) => boolean, trueNode: BaseNode, falseNode: BaseNode): ConditionalFlow;
+  static createFlow(type: "sequential", nodes: BaseNode[]): SequentialFlow;
+  static createFlow(type: "parallel", nodes: BaseNode[]): ParallelFlow;
+  static createFlow(type: "conditional", condition: (result: any) => boolean, trueNode: BaseNode, falseNode: BaseNode): ConditionalFlow;
   static createFlow(type: string, ...args: any[]): Flow {
     switch (type) {
-      case 'sequential':
+      case "sequential":
         return new SequentialFlow(args[0]);
-      case 'parallel':
+      case "parallel":
         return new ParallelFlow(args[0]);
-      case 'conditional':
+      case "conditional":
         return new ConditionalFlow(args[0], args[1], args[2]);
       default:
         throw new Error(`Unknown flow type: ${type}`);
@@ -108,7 +108,7 @@ const workflow = flow(node1).then(node2).then(node3).build();
 await PocketFlow.run(workflow);
 
 // Method 2: Using sequential flow
-const seqFlow = PocketFlow.createFlow('sequential', [node1, node2, node3]);
+const seqFlow = PocketFlow.createFlow("sequential", [node1, node2, node3]);
 await PocketFlow.run(seqFlow);
 
 // Method 3: Manual chaining

@@ -11,7 +11,7 @@ import { BasePattern } from '../base-pattern';
 import { ParallelConfig } from '../types';
 
 export class ParallelPattern extends BasePattern {
-  name = 'parallel';
+  name = "parallel";
   description = 'Multiple agents process the same input simultaneously';
   minAgents = 2;
 
@@ -44,7 +44,7 @@ export class ParallelPattern extends BasePattern {
     });
     
     // Add aggregation node
-    const aggregatorNode = new TransformNode('aggregator', (inputs: any[]) => {
+    const aggregatorNode = new TransformNode("aggregator", (inputs: any[]) => {
       // Handle different aggregation strategies
       switch (strategy) {
         case 'array':
@@ -75,11 +75,11 @@ export class ParallelPattern extends BasePattern {
     
     // Connect all agents to aggregator
     agentNodes.forEach(nodeId => {
-      flow.addEdge({ from: nodeId, to: 'aggregator' });
+      flow.addEdge({ from: nodeId, to: "aggregator" });
     });
     
     // Connect aggregator to output
-    flow.addEdge({ from: 'aggregator', to: 'output' });
+    flow.addEdge({ from: "aggregator", to: 'output' });
     
     return flow;
   }

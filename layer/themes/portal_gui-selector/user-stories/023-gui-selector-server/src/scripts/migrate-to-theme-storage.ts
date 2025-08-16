@@ -48,7 +48,7 @@ async function migrateToThemeStorage() {
       themeId: defaultTheme.id,
       name: 'GUI Selector Migration',
       description: 'Migrated data from the original database',
-      status: 'completed'
+      status: "completed"
     });
     
     // Create default app
@@ -58,7 +58,7 @@ async function migrateToThemeStorage() {
       epicId: defaultEpic.id,
       name: 'GUI Selector Server',
       version: '1.0.0',
-      environment: 'production'
+      environment: "production"
     });
     
     console.log('Migration structure created successfully!');

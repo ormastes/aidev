@@ -1,8 +1,8 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { ErrorHandler } from '../../s../utils/error-handler';
 import { TestConfiguration } from '../../src/domain/test-configuration';
 
-describe('ErrorHandler', () => {
+describe("ErrorHandler", () => {
   let emitter: EventEmitter;
   let logEvents: string[];
 
@@ -14,7 +14,7 @@ describe('ErrorHandler', () => {
     });
   });
 
-  describe('handleTestExecutionError', () => {
+  describe("handleTestExecutionError", () => {
     const mockConfig: TestConfiguration = {
       testSuiteId: 'test-suite-123',
       featureFiles: ['feature1.feature'],
@@ -86,7 +86,7 @@ describe('ErrorHandler', () => {
     });
   });
 
-  describe('handleFileSystemError', () => {
+  describe("handleFileSystemError", () => {
     it('should handle Error instance and throw with formatted message', () => {
       const error = new Error('Permission denied');
       
@@ -110,7 +110,7 @@ describe('ErrorHandler', () => {
     });
   });
 
-  describe('handleProcessError', () => {
+  describe("handleProcessError", () => {
     it('should handle Error instance and throw with formatted message', () => {
       const error = new Error('Process crashed');
       
@@ -134,7 +134,7 @@ describe('ErrorHandler', () => {
     });
   });
 
-  describe('handleValidationError', () => {
+  describe("handleValidationError", () => {
     it('should handle Error instance and throw with formatted message', () => {
       const error = new Error('Invalid configuration');
       
@@ -158,7 +158,7 @@ describe('ErrorHandler', () => {
     });
   });
 
-  describe('handleConfigurationError', () => {
+  describe("handleConfigurationError", () => {
     it('should handle Error instance and throw with formatted message', () => {
       const error = new Error('Missing required field');
       
@@ -182,7 +182,7 @@ describe('ErrorHandler', () => {
     });
   });
 
-  describe('extractErrorMessage', () => {
+  describe("extractErrorMessage", () => {
     it('should extract message from Error instance', () => {
       const error = new Error('Test error message');
       expect(ErrorHandler.extractErrorMessage(error)).toBe('Test error message');
@@ -202,7 +202,7 @@ describe('ErrorHandler', () => {
     });
   });
 
-  describe('extractErrorStack', () => {
+  describe("extractErrorStack", () => {
     it('should extract stack from Error instance', () => {
       const error = new Error('Test error');
       error.stack = 'Stack trace content';
@@ -222,7 +222,7 @@ describe('ErrorHandler', () => {
     });
   });
 
-  describe('createErrorContext', () => {
+  describe("createErrorContext", () => {
     it('should create context with Error instance', () => {
       const error = new Error('Context test error');
       error.stack = 'Stack trace for context';

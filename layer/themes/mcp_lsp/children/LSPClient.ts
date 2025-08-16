@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 import { spawn, ChildProcess } from 'child_process';
 import { createConnection, StreamMessageReader, StreamMessageWriter } from 'vscode-jsonrpc/node';
 import {
@@ -78,12 +79,12 @@ export class LSPClient {
             completionItem: {
               snippetSupport: true,
               commitCharactersSupport: true,
-              documentationFormat: ['markdown', 'plaintext']
+              documentationFormat: ["markdown", "plaintext"]
             }
           },
           hover: {
             dynamicRegistration: true,
-            contentFormat: ['markdown', 'plaintext']
+            contentFormat: ["markdown", "plaintext"]
           },
           definition: {
             dynamicRegistration: true
@@ -114,8 +115,8 @@ export class LSPClient {
       }] : []
     };
     
-    await this.connection.sendRequest('initialize', initParams);
-    await this.connection.sendNotification('initialized');
+    await this.connection.sendRequest("initialize", initParams);
+    await this.connection.sendNotification("initialized");
     
     this.initialized = true;
   }
@@ -123,7 +124,7 @@ export class LSPClient {
   async shutdown(): Promise<void> {
     if (!this.initialized) return;
     
-    await this.connection.sendRequest('shutdown');
+    await this.connection.sendRequest("shutdown");
     await this.connection.sendNotification('exit');
     
     this.process?.kill();
@@ -155,7 +156,7 @@ export class LSPClient {
     const languageId = this.getLanguageId(filePath);
     
     if (!content) {
-      content = await fs.readFile(filePath, 'utf-8');
+      content = await fileAPI.readFile(filePath, 'utf-8');
     }
     
     const version = 1;
@@ -220,12 +221,12 @@ export class LSPClient {
   private getLanguageId(filePath: string): string {
     const ext = path.extname(filePath).toLowerCase();
     switch (ext) {
-      case '.ts': return 'typescript';
-      case '.tsx': return 'typescriptreact';
-      case '.js': return 'javascript';
-      case '.jsx': return 'javascriptreact';
+      case '.ts': return "typescript";
+      case '.tsx': return "typescriptreact";
+      case '.js': return "javascript";
+      case '.jsx': return "javascriptreact";
       case '.json': return 'json';
-      default: return 'plaintext';
+      default: return "plaintext";
     }
   }
   

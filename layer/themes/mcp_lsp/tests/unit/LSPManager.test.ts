@@ -7,7 +7,7 @@ jest.mock('fs/promises');
 
 const mockFs = fs as jest.Mocked<typeof fs>;
 
-describe('LSPManager', () => {
+describe("LSPManager", () => {
   let manager: LSPManager;
   let mockClients: Map<string, jest.Mocked<LSPClient>>;
   
@@ -38,7 +38,7 @@ describe('LSPManager', () => {
     });
   });
   
-  describe('createInstance', () => {
+  describe("createInstance", () => {
     it('should create a new LSP instance', async () => {
       const instanceId = await manager.createInstance({
         name: 'test-project',
@@ -112,30 +112,30 @@ describe('LSPManager', () => {
     });
   });
   
-  describe('getInstance', () => {
+  describe("getInstance", () => {
     beforeEach(async () => {
       await manager.createInstance({
-        id: 'instance1',
+        id: "instance1",
         name: 'Project 1',
         rootPath: '/project1'
       });
       await manager.createInstance({
-        id: 'instance2',
+        id: "instance2",
         name: 'Project 2',
         rootPath: '/project2'
       });
     });
     
     it('should get instance by ID', () => {
-      const instance = manager.getInstance('instance1');
+      const instance = manager.getInstance("instance1");
       expect(instance).not.toBeNull();
-      expect(instance?.id).toBe('instance1');
+      expect(instance?.id).toBe("instance1");
     });
     
     it('should get active instance if no ID provided', () => {
-      manager.setActiveInstance('instance2');
+      manager.setActiveInstance("instance2");
       const instance = manager.getInstance();
-      expect(instance?.id).toBe('instance2');
+      expect(instance?.id).toBe("instance2");
     });
     
     it('should return null if instance not found', () => {
@@ -144,33 +144,33 @@ describe('LSPManager', () => {
     });
   });
   
-  describe('setActiveInstance', () => {
+  describe("setActiveInstance", () => {
     beforeEach(async () => {
       await manager.createInstance({
-        id: 'instance1',
+        id: "instance1",
         name: 'Project 1',
         rootPath: '/project1'
       });
       await manager.createInstance({
-        id: 'instance2',
+        id: "instance2",
         name: 'Project 2',
         rootPath: '/project2'
       });
     });
     
     it('should set active instance', () => {
-      manager.setActiveInstance('instance2');
+      manager.setActiveInstance("instance2");
       
       const instances = manager.listInstances();
-      expect(instances.find(i => i.id === 'instance1')?.isActive).toBe(false);
-      expect(instances.find(i => i.id === 'instance2')?.isActive).toBe(true);
+      expect(instances.find(i => i.id === "instance1")?.isActive).toBe(false);
+      expect(instances.find(i => i.id === "instance2")?.isActive).toBe(true);
     });
     
     it('should update last used time', () => {
       const beforeTime = new Date();
-      manager.setActiveInstance('instance2');
+      manager.setActiveInstance("instance2");
       
-      const instance = manager.getInstance('instance2');
+      const instance = manager.getInstance("instance2");
       expect(instance?.lastUsed.getTime()).toBeGreaterThanOrEqual(beforeTime.getTime());
     });
     
@@ -180,26 +180,26 @@ describe('LSPManager', () => {
     });
   });
   
-  describe('removeInstance', () => {
+  describe("removeInstance", () => {
     beforeEach(async () => {
       await manager.createInstance({
-        id: 'instance1',
+        id: "instance1",
         name: 'Project 1',
         rootPath: '/project1'
       });
       await manager.createInstance({
-        id: 'instance2',
+        id: "instance2",
         name: 'Project 2',
         rootPath: '/project2'
       });
     });
     
     it('should remove instance and shutdown client', async () => {
-      await manager.removeInstance('instance1');
+      await manager.removeInstance("instance1");
       
       const instances = manager.listInstances();
       expect(instances).toHaveLength(1);
-      expect(instances[0].id).toBe('instance2');
+      expect(instances[0].id).toBe("instance2");
       
       const removedClient = Array.from(mockClients.values())[0];
       expect(removedClient.shutdown).toHaveBeenCalled();
@@ -207,7 +207,7 @@ describe('LSPManager', () => {
     
     it('should update default instance if removed', async () => {
       // instance1 is default
-      await manager.removeInstance('instance1');
+      await manager.removeInstance("instance1");
       
       const instances = manager.listInstances();
       expect(instances[0].isDefault).toBe(true);
@@ -219,7 +219,7 @@ describe('LSPManager', () => {
     });
   });
   
-  describe('getInstanceByPath', () => {
+  describe("getInstanceByPath", () => {
     beforeEach(async () => {
       await manager.createInstance({
         name: 'Project 1',
@@ -249,7 +249,7 @@ describe('LSPManager', () => {
     });
   });
   
-  describe('ensureInstanceForWorkspace', () => {
+  describe("ensureInstanceForWorkspace", () => {
     it('should return existing instance if found', async () => {
       const id1 = await manager.createInstance({
         name: 'Test',
@@ -270,7 +270,7 @@ describe('LSPManager', () => {
     });
   });
   
-  describe('findWorkspaceRoot', () => {
+  describe("findWorkspaceRoot", () => {
     it('should find workspace root by package.json', async () => {
       mockFs.access.mockImplementation(async (path) => {
         if (path.includes('package.json')) {
@@ -309,7 +309,7 @@ describe('LSPManager', () => {
     });
   });
   
-  describe('shutdownAll', () => {
+  describe("shutdownAll", () => {
     it('should shutdown all instances', async () => {
       await manager.createInstance({
         name: 'Project 1',
@@ -334,7 +334,7 @@ describe('LSPManager', () => {
   describe('events', () => {
     it('should emit instanceCreated event', async () => {
       const listener = jest.fn();
-      manager.on('instanceCreated', listener);
+      manager.on("instanceCreated", listener);
       
       await manager.createInstance({
         name: 'Test',
@@ -353,7 +353,7 @@ describe('LSPManager', () => {
       await manager.createInstance({ id: 'test2', name: 'Test 2', rootPath: '/test2' });
       
       const listener = jest.fn();
-      manager.on('activeInstanceChanged', listener);
+      manager.on("activeInstanceChanged", listener);
       
       manager.setActiveInstance('test2');
       
@@ -367,7 +367,7 @@ describe('LSPManager', () => {
       await manager.createInstance({ id: 'test', name: 'Test', rootPath: '/test' });
       
       const listener = jest.fn();
-      manager.on('instanceRemoved', listener);
+      manager.on("instanceRemoved", listener);
       
       await manager.removeInstance('test');
       

@@ -1,4 +1,4 @@
-import { path } from '../../../../../../../../layer/themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import * as fs from 'fs-extra';
 import chalk from 'chalk';
 import { ThemeSetupOptions, PORT_ALLOCATIONS } from '../types';
@@ -139,9 +139,9 @@ ${this.epicId ? `- **Parent Epic**: ${this.epicId}` : '- **Parent Epic**: None (
     const dirs = [
       'stories',
       'designs',
-      'documentation',
+      "documentation",
       'tests',
-      'resources'
+      "resources"
     ];
 
     for (const dir of dirs) {
@@ -158,7 +158,7 @@ ${this.epicId ? `- **Parent Epic**: ${this.epicId}` : '- **Parent Epic**: None (
         stories: [],
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-        status: 'planning'
+        status: "planning"
       }
     };
 
@@ -188,7 +188,7 @@ ${this.epicId ? `- **Parent Epic**: ${this.epicId}` : '- **Parent Epic**: None (
       },
       devDependencies: {
         '@types/node': '^20.0.0',
-        'typescript': '^5.0.0'
+        "typescript": '^5.0.0'
       }
     };
 

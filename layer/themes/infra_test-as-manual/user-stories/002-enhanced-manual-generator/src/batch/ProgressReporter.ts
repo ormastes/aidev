@@ -3,11 +3,11 @@
  * Provides real-time progress updates and status reporting
  */
 
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import * as chalk from 'chalk';
 
 export interface ProgressUpdate {
-  type: 'start' | 'progress' | 'complete' | 'error' | 'warning';
+  type: 'start' | "progress" | "complete" | 'error' | 'warning';
   message: string;
   details?: any;
   timestamp: Date;
@@ -30,7 +30,7 @@ export interface ReporterOptions {
   showProgress?: boolean;
   showStatistics?: boolean;
   logFile?: string;
-  format?: 'simple' | 'detailed' | 'json';
+  format?: 'simple' | "detailed" | 'json';
 }
 
 export class ProgressReporter extends EventEmitter {
@@ -94,7 +94,7 @@ export class ProgressReporter extends EventEmitter {
       : `Progress: ${processedItems}/${this.statistics.totalItems} (${percentage}%)`;
     
     const update: ProgressUpdate = {
-      type: 'progress',
+      type: "progress",
       message,
       details: {
         processedItems,
@@ -106,7 +106,7 @@ export class ProgressReporter extends EventEmitter {
     };
     
     this.addUpdate(update);
-    this.emit('progress', update);
+    this.emit("progress", update);
     
     if (this.options.showProgress) {
       this.displayProgress(percentage, message);
@@ -123,7 +123,7 @@ export class ProgressReporter extends EventEmitter {
     this.statistics.successfulItems++;
     
     const update: ProgressUpdate = {
-      type: 'complete',
+      type: "complete",
       message: `✓ Successfully processed: ${item}`,
       details,
       timestamp: new Date()
@@ -188,14 +188,14 @@ export class ProgressReporter extends EventEmitter {
     const durationStr = this.formatDuration(duration);
     
     const update: ProgressUpdate = {
-      type: 'complete',
+      type: "complete",
       message: summary || `Batch processing completed in ${durationStr}`,
       details: this.statistics,
       timestamp: new Date()
     };
     
     this.addUpdate(update);
-    this.emit('complete', update);
+    this.emit("complete", update);
     
     if (this.options.showProgress) {
       this.displayComplete();

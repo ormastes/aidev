@@ -47,8 +47,8 @@ describe('Environment Tests', () => {
       const originalEnv = process.env;
       
       // Set test environment variables
-      process.env.OPENAI_API_KEY = 'test-openai-key';
-      process.env.ANTHROPIC_API_KEY = 'test-anthropic-key';
+      process.env.OPENAI_apiKey = process.env.API_KEY || 'PLACEHOLDER_API_KEY';
+      process.env.ANTHROPIC_apiKey = process.env.API_KEY || 'PLACEHOLDER_API_KEY';
       process.env.OLLAMA_BASE_URL = 'http://localhost:11434';
 
       const registry = new ProviderRegistry();
@@ -60,7 +60,7 @@ describe('Environment Tests', () => {
       };
       
       const anthropicConfig: ProviderConfig = {
-        name: 'anthropic',
+        name: "anthropic",
         apiKey: process.env.ANTHROPIC_API_KEY
       };
       
@@ -70,11 +70,11 @@ describe('Environment Tests', () => {
       };
 
       const openaiProvider = registry.createProvider('openai', openaiConfig);
-      const anthropicProvider = registry.createProvider('anthropic', anthropicConfig);
+      const anthropicProvider = registry.createProvider("anthropic", anthropicConfig);
       const ollamaProvider = registry.createProvider('ollama', ollamaConfig);
 
       expect(openaiProvider.name).toBe('openai');
-      expect(anthropicProvider.name).toBe('anthropic');
+      expect(anthropicProvider.name).toBe("anthropic");
       expect(ollamaProvider.name).toBe('ollama');
 
       // Restore environment
@@ -86,7 +86,7 @@ describe('Environment Tests', () => {
     it('should handle production configuration', () => {
       const prodConfig = {
         defaultProvider: 'openai',
-        fallbackProviders: ['anthropic'],
+        fallbackProviders: ["anthropic"],
         loadBalancing: 'least-latency' as const,
         healthCheckInterval: 30000
       };
@@ -108,7 +108,7 @@ describe('Environment Tests', () => {
       };
 
       const anthropicConfig: ProviderConfig = {
-        name: 'anthropic',
+        name: "anthropic",
         apiKey: process.env.ANTHROPIC_API_KEY || 'prod-key',
         baseURL: 'https://api.anthropic.com/v1',
         timeout: 45000,
@@ -120,7 +120,7 @@ describe('Environment Tests', () => {
       };
 
       const openaiProvider = registry.createProvider('openai', openaiConfig);
-      const anthropicProvider = registry.createProvider('anthropic', anthropicConfig);
+      const anthropicProvider = registry.createProvider("anthropic", anthropicConfig);
 
       expect(openaiProvider).toBeInstanceOf(OpenAIProvider);
       expect(anthropicProvider).toBeInstanceOf(AnthropicProvider);
@@ -129,16 +129,16 @@ describe('Environment Tests', () => {
     it('should handle high availability setup', async () => {
       const registry = new ProviderRegistry({
         defaultProvider: 'primary',
-        fallbackProviders: ['secondary', 'tertiary'],
+        fallbackProviders: ["secondary", "tertiary"],
         loadBalancing: 'round-robin',
         healthCheckInterval: 10000
       });
 
       // Simulate multiple provider instances
       const configs = [
-        { name: 'primary', apiKey: 'key1' },
-        { name: 'secondary', apiKey: 'key2' },
-        { name: 'tertiary', apiKey: 'key3' }
+        { name: 'primary', apiKey: process.env.API_KEY || "PLACEHOLDER" },
+        { name: "secondary", apiKey: process.env.API_KEY || "PLACEHOLDER" },
+        { name: "tertiary", apiKey: process.env.API_KEY || "PLACEHOLDER" }
       ];
 
       configs.forEach(config => {
@@ -167,7 +167,7 @@ describe('Environment Tests', () => {
       // Test with mock-like configuration
       const testProviderConfig: ProviderConfig = {
         name: 'test',
-        apiKey: 'test-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         baseURL: 'http://localhost:3000/mock-api',
         timeout: 5000
       };
@@ -184,7 +184,7 @@ describe('Environment Tests', () => {
 
       const config: ProviderConfig = {
         name: 'test',
-        apiKey: 'test-key'
+        api_key: process.env.API_KEY || "PLACEHOLDER"
       };
 
       registry1.createProvider('openai', config);
@@ -199,7 +199,7 @@ describe('Environment Tests', () => {
     it('should handle network connectivity issues', async () => {
       const config: ProviderConfig = {
         name: 'openai',
-        apiKey: 'test-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         baseURL: 'https://non-existent-domain-12345.com',
         timeout: 2000
       };
@@ -216,7 +216,7 @@ describe('Environment Tests', () => {
     it('should handle API rate limits', async () => {
       const config: ProviderConfig = {
         name: 'openai',
-        apiKey: 'test-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         retryPolicy: {
           maxAttempts: 2,
           backoffMs: 100,
@@ -234,17 +234,17 @@ describe('Environment Tests', () => {
     it('should handle service unavailability', async () => {
       const registry = new ProviderRegistry({
         defaultProvider: 'primary',
-        fallbackProviders: ['secondary']
+        fallbackProviders: ["secondary"]
       });
 
       const unavailableConfig: ProviderConfig = {
         name: 'primary',
-        apiKey: 'test-key',
+        api_key: process.env.API_KEY || "PLACEHOLDER",
         baseURL: 'https://httpstat.us/503' // Returns 503 Service Unavailable
       };
 
       const workingConfig: ProviderConfig = {
-        name: 'secondary',
+        name: "secondary",
         apiKey: process.env.OPENAI_API_KEY || 'test-key'
       };
 
@@ -285,8 +285,8 @@ describe('Environment Tests', () => {
         const results = await Promise.allSettled(requests);
         
         // At least some should succeed or all should fail consistently
-        const In Progress = results.filter(r => r.status === 'fulfilled');
-        const failed = results.filter(r => r.status === 'rejected');
+        const In Progress = results.filter(r => r.status === "fulfilled");
+        const failed = results.filter(r => r.status === "rejected");
         
         expect(In Progress.length + failed.length).toBe(5);
       } catch (error) {
@@ -302,7 +302,7 @@ describe('Environment Tests', () => {
       
       const config: ProviderConfig = {
         name: 'test',
-        apiKey: 'test-key'
+        api_key: process.env.API_KEY || "PLACEHOLDER"
       };
 
       registry.createProvider('openai', config);

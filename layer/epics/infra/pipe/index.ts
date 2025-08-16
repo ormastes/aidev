@@ -23,7 +23,7 @@ export interface InfrastructureEpic {
 
 export interface ThemeStatus {
   name: string;
-  status: 'active' | 'inactive' | 'error';
+  status: 'active' | "inactive" | 'error';
   version: string;
   lastUpdated: Date;
 }

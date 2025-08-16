@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Port Security Auditor - Part of Fraud Checker Theme
  * Monitors and audits port usage across the system
@@ -68,7 +69,7 @@ export class PortSecurityAuditor {
       .filter(f => f.toString().endsWith('.ts') || f.toString().endsWith('.js'));
 
     for (const file of testFiles) {
-      const content = fs.readFileSync(path.join(projectRoot, 'test', file.toString()), 'utf-8');
+      const content = fileAPI.readFileSync(path.join(projectRoot, 'test', file.toString()), 'utf-8');
       
       let match;
       while ((match = portRegex.exec(content)) !== null) {
@@ -97,7 +98,7 @@ export class PortSecurityAuditor {
       .filter(f => f.toString().endsWith('.spec.ts') || f.toString().endsWith('.test.ts'));
 
     for (const file of files) {
-      const content = fs.readFileSync(path.join(testDir, file.toString()), 'utf-8');
+      const content = fileAPI.readFileSync(path.join(testDir, file.toString()), 'utf-8');
       
       // Check if file uses ports but doesn't import test-as-manual
       if (content.includes('PORT') || content.includes('port')) {

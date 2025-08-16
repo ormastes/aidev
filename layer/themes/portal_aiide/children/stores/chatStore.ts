@@ -124,7 +124,7 @@ export const useChatStore = create<ChatState>()(
             // Add AI response
             const assistantMessage: ChatMessage = {
               id: uuidv4(),
-              role: 'assistant',
+              role: "assistant",
               content: response.content,
               timestamp: new Date(),
               model: response.model,

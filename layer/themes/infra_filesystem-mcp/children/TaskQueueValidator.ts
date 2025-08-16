@@ -1,5 +1,6 @@
+import { fileAPI } from '../utils/file-api';
 import { VFTaskQueueWrapper } from './VFTaskQueueWrapper';
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 
 export interface TaskDependency {
@@ -19,7 +20,7 @@ export interface TaskValidation {
 
 export interface TaskRequirement {
   id: string;
-  type: 'file' | 'task' | 'feature' | 'artifact';
+  type: 'file' | 'task' | 'feature' | "artifact";
   required: boolean;
   path?: string;
   taskId?: string;
@@ -225,7 +226,7 @@ export class TaskQueueValidator {
               } else {
                 warnings.push(`Optional task does not exist: ${req.taskId}`);
               }
-            } else if (task.status !== 'completed') {
+            } else if (task.status !== "completed") {
               if (req.required) {
                 errors.push(`Required task not completed: ${req.taskId}`);
               } else {
@@ -249,7 +250,7 @@ export class TaskQueueValidator {
           }
           break;
           
-        case 'artifact':
+        case "artifact":
           // Check artifact exists
           if (req.artifactId) {
             const artifactExists = await this.checkArtifactExists(req.artifactId);
@@ -337,7 +338,7 @@ export class TaskQueueValidator {
     
     for (const depId of task.dependencies) {
       const depTask = await this.findTaskById(depId);
-      if (!depTask || depTask.status !== 'completed') {
+      if (!depTask || depTask.status !== "completed") {
         incomplete.push(depId);
       }
     }
@@ -351,7 +352,7 @@ export class TaskQueueValidator {
   private async checkFeatureExists(featureId: string): Promise<boolean> {
     try {
       const featurePath = path.join(this.basePath, 'FEATURE.vf.json');
-      const featureContent = await fs.readFile(featurePath, 'utf-8');
+      const featureContent = await fileAPI.readFile(featurePath, 'utf-8');
       const features = JSON.parse(featureContent);
       
       // Search in all feature categories
@@ -376,7 +377,7 @@ export class TaskQueueValidator {
   private async checkArtifactExists(artifactId: string): Promise<boolean> {
     try {
       const artifactPath = path.join(this.basePath, 'ARTIFACTS.vf.json');
-      const artifactContent = await fs.readFile(artifactPath, 'utf-8');
+      const artifactContent = await fileAPI.readFile(artifactPath, 'utf-8');
       const artifacts = JSON.parse(artifactContent);
       
       return artifacts.artifacts?.some((a: any) => a.id === artifactId) || false;
@@ -480,7 +481,7 @@ export class TaskQueueValidator {
     for (const [priority, queue] of Object.entries(taskQueue.taskQueues || {})) {
       if (Array.isArray(queue)) {
         for (const task of queue) {
-          if (task.status !== 'completed') {
+          if (task.status !== "completed") {
             allTasks.set(task.id, task);
             dependencies.set(task.id, task.dependencies || []);
           }

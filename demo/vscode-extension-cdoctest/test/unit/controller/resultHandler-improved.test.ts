@@ -61,7 +61,7 @@ describe('ResultHandler - Improved', () => {
     getTestListHandler = resultHandlerModule.getTestListHandler;
   });
 
-  describe('loadDetailedCoverageHandler', () => {
+  describe("loadDetailedCoverageHandler", () => {
     test('should filter covered lines for MarkdownFileCoverage instance', async () => {
       const coveredLines = [
         { executed: 1, location: { line: 0 } },
@@ -148,14 +148,14 @@ describe('ResultHandler - Improved', () => {
       );
       expect(mockController.createTestItem).toHaveBeenCalledWith(
         'Namespace::Class::TestCase',
-        'TestCase',
+        "TestCase",
         expect.any(Object)
       );
     });
 
     test('should reuse existing fixture item', () => {
       const existingFixture = {
-        id: 'TestSuite',
+        id: "TestSuite",
         children: {
           get: jest.fn().mockReturnValue(undefined),
           add: jest.fn()
@@ -171,7 +171,7 @@ describe('ResultHandler - Improved', () => {
       expect(mockController.createTestItem).toHaveBeenCalledTimes(1); // Only test case
       expect(mockController.createTestItem).toHaveBeenCalledWith(
         'TestSuite::TestCase',
-        'TestCase',
+        "TestCase",
         expect.any(Object)
       );
     });
@@ -182,7 +182,7 @@ describe('ResultHandler - Improved', () => {
         range: undefined
       };
       const existingFixture = {
-        id: 'TestSuite',
+        id: "TestSuite",
         children: {
           get: jest.fn().mockReturnValue(existingTest),
           add: jest.fn()

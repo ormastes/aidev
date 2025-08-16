@@ -40,10 +40,10 @@ export class ConfigManager {
     });
     
     // Database configuration
-    this.config.set('database', {
+    this.config.set("database", {
       release: {
-        type: 'postgres',
-        host: process.env.DB_HOST || 'localhost',
+        type: "postgres",
+        host: process.env.DB_HOST || "localhost",
         port: process.env.DB_PORT || 5432,
         username: process.env.DB_USER || 'aidev',
         password: process.env.DB_PASSWORD || 'aidev',
@@ -61,14 +61,14 @@ export class ConfigManager {
   }
   
   getPort(service: string, environment?: string): number {
-    const env = environment || process.env.NODE_ENV || 'development';
+    const env = environment || process.env.NODE_ENV || "development";
     const ports = this.config.get('ports');
     return ports[env]?.[service] || 3000;
   }
   
   getDatabaseConfig(environment?: string): any {
-    const env = environment || process.env.NODE_ENV || 'development';
-    return this.config.get('database')[env];
+    const env = environment || process.env.NODE_ENV || "development";
+    return this.config.get("database")[env];
   }
   
   get(key: string): any {

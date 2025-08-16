@@ -10,7 +10,7 @@ import { TaskQueueInputItem } from '../../src/types/task-queue-input';
 // Mock fs module
 jest.mock('fs');
 
-describe('TaskQueueManager', () => {
+describe("TaskQueueManager", () => {
   const mockQueue = {
     metadata: {
       version: '1.0.0',
@@ -64,7 +64,7 @@ describe('TaskQueueManager', () => {
     (fs.writeFileSync as jest.Mock).mockImplementation(() => {});
   });
 
-  describe('insertWithChildren', () => {
+  describe("insertWithChildren", () => {
     test('should insert item with generated children', () => {
       const manager = new TaskQueueManager('test-queue.json');
       

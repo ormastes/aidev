@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { MessageBroker, Message } from '../../src/external/message-broker';
 
 describe('MessageBroker Comprehensive Tests', () => {
@@ -169,7 +169,7 @@ describe('MessageBroker Comprehensive Tests', () => {
       id: 'msg-1',
       roomId: 'room-1',
       userId: 'user-1',
-      username: 'testuser',
+      username: "testuser",
       content: 'Hello, world!',
       timestamp: new Date(),
       type: 'text'
@@ -234,7 +234,7 @@ describe('MessageBroker Comprehensive Tests', () => {
     });
 
     test('should handle different message types', async () => {
-      const types: Array<Message['type']> = ['text', 'command', 'system', 'workflow'];
+      const types: Array<Message['type']> = ['text', 'command', 'system', "workflow"];
       
       for (const type of types) {
         await broker.broadcastMessage('room-1', {
@@ -332,7 +332,7 @@ describe('MessageBroker Comprehensive Tests', () => {
     test('should start heartbeat monitoring', () => {
       broker.startHeartbeat(100); // 100ms interval for testing
       
-      const connection = broker['heartbeatInterval'];
+      const connection = broker["heartbeatInterval"];
       expect(connection).toBeDefined();
     });
 
@@ -340,7 +340,7 @@ describe('MessageBroker Comprehensive Tests', () => {
       broker.startHeartbeat(100);
       broker.stopHeartbeat();
       
-      const connection = broker['heartbeatInterval'];
+      const connection = broker["heartbeatInterval"];
       expect(connection).toBeUndefined();
     });
 
@@ -349,7 +349,7 @@ describe('MessageBroker Comprehensive Tests', () => {
       await broker.connect('conn-2', 'user-2');
       
       // Manually set one connection as inactive
-      const connection = broker['connections'].get('conn-1');
+      const connection = broker["connections"].get('conn-1');
       if (connection) {
         connection.lastActivity = new Date(Date.now() - 70000); // 70 seconds ago
       }
@@ -450,7 +450,7 @@ const testMessage: Message = {
   id: 'msg-test',
   roomId: 'room-1',
   userId: 'user-1',
-  username: 'testuser',
+  username: "testuser",
   content: 'Test message',
   timestamp: new Date(),
   type: 'text'

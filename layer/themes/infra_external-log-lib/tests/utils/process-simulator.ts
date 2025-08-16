@@ -1,7 +1,7 @@
 import { spawn, ChildProcess } from 'child_process';
-import { EventEmitter } from 'events';
-import * as path from 'path';
-import * as fs from 'fs';
+import { EventEmitter } from 'node:events';
+import * as path from 'node:path';
+import * as fs from 'node:fs';
 
 /**
  * Creates a real child process that simulates specific behaviors for testing

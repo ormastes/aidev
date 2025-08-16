@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 import { fs } from '../../../../../infra_external-log-lib/src';
 import { path } from '../../../../../infra_external-log-lib/src';
 import { VFThemeStorageWrapper, ThemeMetadata, EpicMetadata, AppMetadata, StorageLayer } from './VFThemeStorageWrapper';
@@ -5,7 +6,7 @@ import { VFThemeStorageWrapper, ThemeMetadata, EpicMetadata, AppMetadata, Storag
 export interface GUIDesignCandidate {
   candidateId: string;
   name: string;
-  category: 'modern' | 'professional' | 'creative' | 'accessible';
+  category: 'modern' | "professional" | "creative" | "accessible";
   assets: {
     preview: string;
     mockups: string[];
@@ -21,7 +22,7 @@ export interface GUIDesignCandidate {
 export interface StoryTestReport {
   executionId: string;
   storyId: string;
-  environment: 'development' | 'staging' | 'production';
+  environment: "development" | 'staging' | "production";
   results: {
     passed: number;
     failed: number;
@@ -94,7 +95,7 @@ export class VFThemeStorageExtended extends VFThemeStorageWrapper {
     themeId: string,
     epicId?: string,
     appId?: string,
-    category?: GUIDesignCandidate['category']
+    category?: GUIDesignCandidate["category"]
   ): Promise<GUIDesignCandidate[]> {
     const storageData = await this.getStorageLayerData('gui_selector', themeId, epicId, appId);
     
@@ -173,7 +174,7 @@ export class VFThemeStorageExtended extends VFThemeStorageWrapper {
     themeId: string,
     epicId?: string,
     appId?: string,
-    priority?: ManualTestCase['priority']
+    priority?: ManualTestCase["priority"]
   ): Promise<ManualTestCase[]> {
     const storageData = await this.getStorageLayerData('test_manual', themeId, epicId, appId);
     
@@ -188,11 +189,11 @@ export class VFThemeStorageExtended extends VFThemeStorageWrapper {
 
   // Batch Operations
   async bulkImportTheme(importData: {
-    theme: Omit<ThemeMetadata, 'id' | 'createdAt' | 'updatedAt'>;
-    epics?: Array<Omit<EpicMetadata, 'id' | 'themeId' | 'createdAt' | 'updatedAt'>>;
+    theme: Omit<ThemeMetadata, 'id' | "createdAt" | "updatedAt">;
+    epics?: Array<Omit<EpicMetadata, 'id' | 'themeId' | "createdAt" | "updatedAt">>;
     apps?: Array<{
       epicName: string;
-      app: Omit<AppMetadata, 'id' | 'epicId' | 'themeId' | 'createdAt' | 'updatedAt'>;
+      app: Omit<AppMetadata, 'id' | 'epicId' | 'themeId' | "createdAt" | "updatedAt">;
     }>;
   }): Promise<{
     themeId: string;

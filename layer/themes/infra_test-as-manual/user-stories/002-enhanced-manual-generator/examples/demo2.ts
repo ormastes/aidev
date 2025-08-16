@@ -8,7 +8,7 @@
 import { ManualGenerator } from '../src/core/ManualGenerator';
 import { TestParser } from '../src/core/TestParser';
 import * as fs from 'fs/promises';
-import { path } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import { getFileAPI, FileType } from '../../../../infra_external-log-lib/pipe';
 
 const fileAPI = getFileAPI();
@@ -124,7 +124,7 @@ describe('Shopping Cart Module', { type: FileType.TEMPORARY }) => {
   console.log('-'.repeat(40));
   
   generator.configure({
-    template: 'professional'
+    template: "professional"
   });
   
   const htmlResult = await generator.generateFromParsedTest(parsedBDD);
@@ -152,7 +152,7 @@ describe('Shopping Cart Module', { type: FileType.TEMPORARY }) => {
     
     // Export as HTML
     const htmlOutput = await generator.export(jestResult.document, { type: FileType.TEMPORARY });
-    await fs.writeFile(htmlPath, htmlOutput);
+    await fileAPI.writeFile(htmlPath, htmlOutput);
     console.log(`✅ HTML export: ${htmlPath}\n`);
   }
 

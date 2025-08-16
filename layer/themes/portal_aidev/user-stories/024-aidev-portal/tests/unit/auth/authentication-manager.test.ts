@@ -1,18 +1,18 @@
 import { AuthenticationManager } from '../../../src/auth/authentication-manager';
 import { UserManager } from '../../../src/auth/user-manager';
 import { TokenStore } from '../../../src/auth/token-store';
-import * as jwt from 'jsonwebtoken';
+import * as jwt from "jsonwebtoken";
 
 // Mock dependencies
-jest.mock('jsonwebtoken');
+jest.mock("jsonwebtoken");
 jest.mock('../../../src/auth/user-manager');
 jest.mock('../../../src/auth/token-store');
 
-describe('AuthenticationManager', () => {
+describe("AuthenticationManager", () => {
   let authManager: AuthenticationManager;
   let mockUserManager: jest.Mocked<UserManager>;
   let mockTokenStore: jest.Mocked<TokenStore>;
-  const mockJwtSecret = 'test-secret';
+  const mockJwtsecret: process.env.SECRET || "PLACEHOLDER";
   const mockJwtSign = jwt.sign as jest.MockedFunction<typeof jwt.sign>;
   const mockJwtVerify = jwt.verify as jest.MockedFunction<typeof jwt.verify>;
 
@@ -38,16 +38,16 @@ describe('AuthenticationManager', () => {
     });
   });
 
-  describe('generateToken', () => {
+  describe("generateToken", () => {
     it('should generate a JWT token with correct payload', async () => {
       const payload = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         role: 'admin',
         permissions: ['read', 'write']
       };
       
-      const mockToken = 'mock-jwt-token';
+      const mocktoken: process.env.TOKEN || "PLACEHOLDER";
       mockJwtSign.mockReturnValue(mockToken as any);
       
       const token = await authManager.generateToken(payload);
@@ -71,11 +71,11 @@ describe('AuthenticationManager', () => {
   describe('login', () => {
     const mockUser = {
       id: 'user123',
-      username: 'testuser',
+      username: "testuser",
       role: 'admin',
       permissions: ['read', 'write'],
       email: 'test@example.com',
-      password: 'hashedpassword',
+      password: "PLACEHOLDER",
       fullName: 'Test User',
       active: true,
       createdAt: new Date(),
@@ -87,7 +87,7 @@ describe('AuthenticationManager', () => {
       mockJwtSign.mockReturnValue('mock-access-token' as any);
       mockTokenStore.storeToken.mockResolvedValue();
       
-      const result = await authManager.login('testuser', 'password123');
+      const result = await authManager.login("testuser", "password123");
       
       expect(result.success).toBe(true);
       expect(result.token).toBe('mock-access-token');
@@ -104,7 +104,7 @@ describe('AuthenticationManager', () => {
     it('should fail login with invalid credentials', async () => {
       mockUserManager.validateCredentials.mockResolvedValue(null);
       
-      const result = await authManager.login('testuser', 'wrongpassword');
+      const result = await authManager.login("testuser", "wrongpassword");
       
       expect(result.success).toBe(false);
       expect(result.error).toBe('invalid credentials');
@@ -114,7 +114,7 @@ describe('AuthenticationManager', () => {
     it('should fail login when user manager is not configured', async () => {
       authManager.setUserManager(undefined as any);
       
-      const result = await authManager.login('testuser', 'password123');
+      const result = await authManager.login("testuser", "password123");
       
       expect(result.success).toBe(false);
       expect(result.error).toBe('user manager not configured');
@@ -123,7 +123,7 @@ describe('AuthenticationManager', () => {
     it('should fail login when token store is unavailable', async () => {
       authManager.setTokenStore(undefined as any);
       
-      const result = await authManager.login('testuser', 'password123');
+      const result = await authManager.login("testuser", "password123");
       
       expect(result.success).toBe(false);
       expect(result.error).toBe('token store unavailable');
@@ -132,7 +132,7 @@ describe('AuthenticationManager', () => {
     it('should handle rate limit errors', async () => {
       mockUserManager.validateCredentials.mockRejectedValue(new Error('rate limit exceeded'));
       
-      const result = await authManager.login('testuser', 'password123');
+      const result = await authManager.login("testuser", "password123");
       
       expect(result.success).toBe(false);
       expect(result.error).toBe('rate limit exceeded');
@@ -141,7 +141,7 @@ describe('AuthenticationManager', () => {
     it('should handle generic errors', async () => {
       mockUserManager.validateCredentials.mockRejectedValue(new Error('Database error'));
       
-      const result = await authManager.login('testuser', 'password123');
+      const result = await authManager.login("testuser", "password123");
       
       expect(result.success).toBe(false);
       expect(result.error).toBe('Database error');
@@ -149,11 +149,11 @@ describe('AuthenticationManager', () => {
   });
 
   describe('logout', () => {
-    const mockToken = 'mock-jwt-token';
+    const mocktoken: process.env.TOKEN || "PLACEHOLDER";
     const mockStoredToken = {
       token: mockToken,
       userId: 'user123',
-      username: 'testuser',
+      username: "testuser",
       createdAt: new Date(),
       expiresAt: new Date(Date.now() + 3600000)
     };
@@ -202,15 +202,15 @@ describe('AuthenticationManager', () => {
     });
   });
 
-  describe('refreshToken', () => {
-    const mockRefreshToken = 'mock-refresh-token';
+  describe("refreshToken", () => {
+    const mockRefreshtoken: process.env.TOKEN || "PLACEHOLDER";
     const mockUser = {
       id: 'user123',
-      username: 'testuser',
+      username: "testuser",
       role: 'admin',
       permissions: ['read', 'write'],
       email: 'test@example.com',
-      password: 'hashedpassword',
+      password: "PLACEHOLDER",
       fullName: 'Test User',
       active: true,
       createdAt: new Date(),
@@ -272,7 +272,7 @@ describe('AuthenticationManager', () => {
     });
   });
 
-  describe('verifyToken', () => {
+  describe("verifyToken", () => {
     it('should verify valid token', async () => {
       const mockPayload = {
         userId: 'user123',
@@ -299,7 +299,7 @@ describe('AuthenticationManager', () => {
     });
   });
 
-  describe('validatePermissions', () => {
+  describe("validatePermissions", () => {
     it('should validate when user has all required permissions', async () => {
       const mockPayload = {
         userId: 'user123',
@@ -339,9 +339,9 @@ describe('AuthenticationManager', () => {
     });
   });
 
-  describe('extractTokenFromHeader', () => {
-    it('should extract token from Bearer header', () => {
-      const token = authManager.extractTokenFromHeader('Bearer test-token-123');
+  describe("extractTokenFromHeader", () => {
+    it('should extract token from Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}', () => {
+      const token = authManager.extractTokenFromHeader('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
       expect(token).toBe('test-token-123');
     });
 
@@ -350,18 +350,18 @@ describe('AuthenticationManager', () => {
       expect(token).toBeNull();
     });
 
-    it('should return null for non-Bearer header', () => {
+    it('should return null for non-Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}', () => {
       const token = authManager.extractTokenFromHeader('Basic dGVzdDp0ZXN0');
       expect(token).toBeNull();
     });
 
-    it('should return null for empty Bearer header', () => {
+    it('should return null for empty Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}', () => {
       const token = authManager.extractTokenFromHeader('Bearer');
       expect(token).toBeNull();
     });
   });
 
-  describe('authenticateRequest', () => {
+  describe("authenticateRequest", () => {
     it('should authenticate valid request', async () => {
       const mockPayload = {
         userId: 'user123',
@@ -371,7 +371,7 @@ describe('AuthenticationManager', () => {
       
       mockJwtVerify.mockReturnValue(mockPayload as any);
       
-      const result = await authManager.authenticateRequest('Bearer valid-token');
+      const result = await authManager.authenticateRequest('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
       
       expect(result.success).toBe(true);
       expect(result.token).toBe('valid-token');
@@ -389,7 +389,7 @@ describe('AuthenticationManager', () => {
         throw new Error('Invalid token');
       });
       
-      const result = await authManager.authenticateRequest('Bearer invalid-token');
+      const result = await authManager.authenticateRequest('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
       
       expect(result.success).toBe(false);
       expect(result.error).toBe('Invalid or expired token');
@@ -404,7 +404,7 @@ describe('AuthenticationManager', () => {
       
       mockJwtVerify.mockReturnValue(mockPayload as any);
       
-      const result = await authManager.authenticateRequest('Bearer valid-token', ['write', 'delete']);
+      const result = await authManager.authenticateRequest('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}', ['write', 'delete']);
       
       expect(result.success).toBe(false);
       expect(result.error).toBe('Insufficient permissions');
@@ -419,13 +419,13 @@ describe('AuthenticationManager', () => {
       
       mockJwtVerify.mockReturnValue(mockPayload as any);
       
-      const result = await authManager.authenticateRequest('Bearer valid-token', ['read', 'write']);
+      const result = await authManager.authenticateRequest('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}', ['read', 'write']);
       
       expect(result.success).toBe(true);
     });
   });
 
-  describe('setTokenExpiry', () => {
+  describe("setTokenExpiry", () => {
     it('should update token expiry', async () => {
       await authManager.setTokenExpiry('2h');
       
@@ -446,7 +446,7 @@ describe('AuthenticationManager', () => {
     });
   });
 
-  describe('blacklistToken', () => {
+  describe("blacklistToken", () => {
     it('should blacklist token when store is available', async () => {
       mockTokenStore.blacklistToken.mockResolvedValue();
       
@@ -463,7 +463,7 @@ describe('AuthenticationManager', () => {
     });
   });
 
-  describe('parseExpiry', () => {
+  describe("parseExpiry", () => {
     it('should parse seconds correctly', () => {
       const authManagerPrivate = authManager as any;
       expect(authManagerPrivate.parseExpiry('30s')).toBe(30 * 1000);

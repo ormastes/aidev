@@ -253,7 +253,7 @@ app.get('/dashboard', async (req: AuthRequest, res: Response) => {
       <a href="/projects" class="btn">View Projects</a>
       <a href="${appRegistry.get('gui-selector')?.url}" class="btn">Select GUI Design</a>
       <a href="${appRegistry.get('chat-space')?.url}" class="btn">Open Chat</a>
-      <a href="${appRegistry.get('pocketflow')?.url}" class="btn">Manage Tasks</a>
+      <a href="${appRegistry.get("pocketflow")?.url}" class="btn">Manage Tasks</a>
     </div>
   </div>
 </body>

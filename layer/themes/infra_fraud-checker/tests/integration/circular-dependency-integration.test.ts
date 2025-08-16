@@ -5,8 +5,8 @@
 
 import { CircularDependencyDetector } from '../../src/detectors/circular-dependency-detector';
 import { ComprehensiveFraudAnalyzer } from '../../src/services/comprehensive-fraud-analyzer';
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
 describe('Circular Dependency Integration', () => {
   let detector: CircularDependencyDetector;
@@ -59,7 +59,7 @@ describe('Circular Dependency Integration', () => {
     `);
   });
 
-  describe('CircularDependencyDetector', () => {
+  describe("CircularDependencyDetector", () => {
     test('should detect circular dependencies in test project', async () => {
       const issues = await detector.detectFraud(testProjectPath);
       
@@ -89,7 +89,7 @@ describe('Circular Dependency Integration', () => {
     });
   });
 
-  describe('ComprehensiveFraudAnalyzer', () => {
+  describe("ComprehensiveFraudAnalyzer", () => {
     test('should include circular dependencies in comprehensive analysis', async () => {
       const report = await analyzer.analyzeProject(testProjectPath);
       

@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { HierarchicalBuildConfig } from '../domain/hierarchical-build-config';
 import { DistributedBuildExecutor } from './distributed-build-executor';
 import { TestResultAggregator } from './test-result-aggregator';
@@ -45,7 +45,7 @@ export class HierarchicalStoryReporter extends EventEmitter {
     await this.storyService.initialize();
     await this.artifactCollector.initialize();
     
-    this.emit('initialized', {
+    this.emit("initialized", {
       timestamp: new Date()
     });
   }
@@ -59,7 +59,7 @@ export class HierarchicalStoryReporter extends EventEmitter {
   ): Promise<HierarchicalBuildReport> {
     const startTime = new Date();
     
-    this.emit('executionStart', {
+    this.emit("executionStart", {
       buildId: config.testSuiteId,
       buildType: config.buildType,
       timestamp: startTime
@@ -84,7 +84,7 @@ export class HierarchicalStoryReporter extends EventEmitter {
       // Aggregate test results
       this.emit('phase', { phase: 'result-aggregation', timestamp: new Date() });
       const aggregatedResults = this.resultAggregator.aggregateResults(buildResults, {
-        method: options.aggregationMethod || 'hierarchical',
+        method: options.aggregationMethod || "hierarchical",
         aggregateCoverage: options.aggregateCoverage ?? true
       });
       
@@ -136,7 +136,7 @@ export class HierarchicalStoryReporter extends EventEmitter {
         }
       };
       
-      this.emit('executionComplete', {
+      this.emit("executionComplete", {
         buildId: config.testSuiteId,
         status: buildResults.status,
         duration: report.summary.duration,
@@ -148,7 +148,7 @@ export class HierarchicalStoryReporter extends EventEmitter {
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       
-      this.emit('executionError', {
+      this.emit("executionError", {
         buildId: config.testSuiteId,
         error: errorMessage,
         timestamp: new Date()
@@ -206,8 +206,8 @@ export class HierarchicalStoryReporter extends EventEmitter {
         aggregateTests: true,
         aggregateCoverage: true,
         aggregateLogs: true,
-        strategy: 'hierarchical',
-        failureHandling: 'continue'
+        strategy: "hierarchical",
+        failureHandling: "continue"
       },
       executionOrder: {
         parallelizable: true,
@@ -236,8 +236,8 @@ export class HierarchicalStoryReporter extends EventEmitter {
         aggregateTests: true,
         aggregateCoverage: true,
         aggregateLogs: true,
-        strategy: 'hierarchical',
-        failureHandling: epicConfig.failureHandling || 'continue'
+        strategy: "hierarchical",
+        failureHandling: epicConfig.failureHandling || "continue"
       },
       executionOrder: {
         parallelizable: epicConfig.parallel ?? true,
@@ -306,7 +306,7 @@ export class HierarchicalStoryReporter extends EventEmitter {
    */
   cancel(): void {
     this.buildExecutor.cancel();
-    this.emit('cancelled', { timestamp: new Date() });
+    this.emit("cancelled", { timestamp: new Date() });
   }
   
   /**
@@ -374,7 +374,7 @@ export class HierarchicalStoryReporter extends EventEmitter {
     // Add summary comment
     const summary = this.resultAggregator.generateSummaryReport(aggregatedResults);
     await this.storyService.addComment(storyId, {
-      role: 'reporter',
+      role: "reporter",
       content: `Build completed with status: ${buildResults.status}\n\n` +
                `Total Builds: ${summary.overview.totalBuilds}\n` +
                `Total Tests: ${summary.overview.totalTests}\n` +
@@ -389,7 +389,7 @@ export class HierarchicalStoryReporter extends EventEmitter {
    * Calculate overall coverage percentage
    */
   private calculateOverallCoverage(coverage: any): number {
-    const metrics = ['lines', 'branches', 'functions', 'statements'];
+    const metrics = ['lines', "branches", "functions", "statements"];
     const sum = metrics.reduce((acc, metric) => acc + coverage[metric].percentage, 0);
     return sum / metrics.length;
   }
@@ -399,32 +399,32 @@ export class HierarchicalStoryReporter extends EventEmitter {
    */
   private setupEventForwarding(): void {
     // Forward build executor events
-    this.buildExecutor.on('buildStart', (event) => 
-      this.emit('buildStart', event));
-    this.buildExecutor.on('buildComplete', (event) => 
-      this.emit('buildComplete', event));
-    this.buildExecutor.on('buildError', (event) => 
-      this.emit('buildError', event));
-    this.buildExecutor.on('buildLog', (event) => 
-      this.emit('buildLog', event));
+    this.buildExecutor.on("buildStart", (event) => 
+      this.emit("buildStart", event));
+    this.buildExecutor.on("buildComplete", (event) => 
+      this.emit("buildComplete", event));
+    this.buildExecutor.on("buildError", (event) => 
+      this.emit("buildError", event));
+    this.buildExecutor.on("buildLog", (event) => 
+      this.emit("buildLog", event));
     
     // Forward aggregator events
-    this.resultAggregator.on('aggregationStart', (event) => 
-      this.emit('aggregationStart', event));
-    this.resultAggregator.on('aggregationComplete', (event) => 
-      this.emit('aggregationComplete', event));
+    this.resultAggregator.on("aggregationStart", (event) => 
+      this.emit("aggregationStart", event));
+    this.resultAggregator.on("aggregationComplete", (event) => 
+      this.emit("aggregationComplete", event));
     
     // Forward artifact collector events
-    this.artifactCollector.on('collectionStart', (event) => 
-      this.emit('artifactCollectionStart', event));
-    this.artifactCollector.on('collectionComplete', (event) => 
-      this.emit('artifactCollectionComplete', event));
+    this.artifactCollector.on("collectionStart", (event) => 
+      this.emit("artifactCollectionStart", event));
+    this.artifactCollector.on("collectionComplete", (event) => 
+      this.emit("artifactCollectionComplete", event));
     
     // Forward report generator events
-    this.reportGenerator.on('reportGenerationStart', (event) => 
-      this.emit('reportGenerationStart', event));
-    this.reportGenerator.on('reportGenerationComplete', (event) => 
-      this.emit('reportGenerationComplete', event));
+    this.reportGenerator.on("reportGenerationStart", (event) => 
+      this.emit("reportGenerationStart", event));
+    this.reportGenerator.on("reportGenerationComplete", (event) => 
+      this.emit("reportGenerationComplete", event));
   }
 }
 
@@ -442,7 +442,7 @@ interface HierarchicalReporterOptions {
 }
 
 interface ExecutionOptions {
-  aggregationMethod?: 'hierarchical' | 'flat' | 'grouped';
+  aggregationMethod?: "hierarchical" | 'flat' | 'grouped';
   aggregateCoverage?: boolean;
   includeChildArtifacts?: boolean;
   includeLogs?: boolean;
@@ -479,7 +479,7 @@ interface HierarchicalBuildReport {
 interface EpicConfiguration {
   id: string;
   buildSettings?: any;
-  failureHandling?: 'fail-fast' | 'continue' | 'ignore-children';
+  failureHandling?: 'fail-fast' | "continue" | 'ignore-children';
   parallel?: boolean;
   maxParallel?: number;
   themes: ThemeConfiguration[];

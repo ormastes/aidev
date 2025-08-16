@@ -16,12 +16,12 @@ export class MultiProxyManager {
   private readonly PROXY_CONFIGS = {
     'dev-local': {
       env: 'dev-local',
-      host: 'localhost',  // Local dev only on localhost
+      host: "localhost",  // Local dev only on localhost
       name: 'Local Development Proxy',
       color: '\x1b[36m'  // Cyan
     },
     'dev': {
-      env: 'development',
+      env: "development",
       host: '0.0.0.0',   // Dev server accessible remotely
       name: 'Development Server Proxy',
       color: '\x1b[32m'  // Green

@@ -27,7 +27,7 @@ class TestCodeAgent extends BaseCodeAgent {
   }
 }
 
-describe('BaseCodeAgent', () => {
+describe("BaseCodeAgent", () => {
   let agent: TestCodeAgent;
   let context: AgentContext;
 
@@ -40,7 +40,7 @@ describe('BaseCodeAgent', () => {
     };
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with name and config', () => {
       expect(agent.name).toBe('test-agent');
       expect(agent.id).toContain('test-agent');
@@ -126,18 +126,18 @@ describe('BaseCodeAgent', () => {
     });
   });
 
-  describe('simulateResponse', () => {
+  describe("simulateResponse", () => {
     it('should generate mock response based on prompt', () => {
       const mockAgent = new TestCodeAgent();
-      const response = mockAgent['simulateResponse']('Generate a function');
+      const response = mockAgent["simulateResponse"]('Generate a function');
       
-      expect(response).toContain('function');
+      expect(response).toContain("function");
     });
 
     it('should generate different responses for different prompts', () => {
       const mockAgent = new TestCodeAgent();
-      const response1 = mockAgent['simulateResponse']('Create a class');
-      const response2 = mockAgent['simulateResponse']('Create a function');
+      const response1 = mockAgent["simulateResponse"]('Create a class');
+      const response2 = mockAgent["simulateResponse"]('Create a function');
       
       expect(response1).not.toBe(response2);
     });
@@ -154,14 +154,14 @@ describe('BaseCodeAgent', () => {
 
     it('should respect model config', () => {
       const customAgent = new TestCodeAgent();
-      customAgent['codeConfig'] = {
+      customAgent["codeConfig"] = {
         model: 'custom-model',
         temperature: 0.9,
         maxTokens: 1000
       };
       
-      expect(customAgent['codeConfig'].model).toBe('custom-model');
-      expect(customAgent['codeConfig'].temperature).toBe(0.9);
+      expect(customAgent["codeConfig"].model).toBe('custom-model');
+      expect(customAgent["codeConfig"].temperature).toBe(0.9);
     });
   });
 

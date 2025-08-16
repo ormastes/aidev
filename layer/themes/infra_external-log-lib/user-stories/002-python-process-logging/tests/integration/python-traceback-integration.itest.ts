@@ -263,7 +263,7 @@ except NameError:
     
     // Verify different error types are captured
     expect(messages).toContain("ModuleNotFoundError: No module named 'non_existent_module_12345'");
-    expect(messages).toContain("AttributeError: 'NoneType' object has no attribute 'non_existent_method'");
+    expect(messages).toContain("AttributeError: "NoneType" object has no attribute 'non_existent_method'");
     expect(messages).toContain("NameError: name 'undefined_variable' is not defined");
   });
 

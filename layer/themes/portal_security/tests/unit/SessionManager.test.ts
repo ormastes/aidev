@@ -6,7 +6,7 @@
 import { SessionManager, Session, SessionStore } from '../../children/SessionManager';
 import { UserRole } from '.././User';
 
-describe('SessionManager', () => {
+describe("SessionManager", () => {
   let sessionManager: SessionManager;
   let sessionStore: SessionStore;
 
@@ -16,13 +16,13 @@ describe('SessionManager', () => {
     sessionManager = new SessionManager(sessionStore);
   });
 
-  describe('createSession', () => {
+  describe("createSession", () => {
     it('should create a new session', async () => {
       const session: Session = {
         id: 'session-123',
         userId: 'user-456',
         data: {
-          username: 'testuser',
+          username: "testuser",
           roles: [UserRole.USER]
         },
         expiresAt: new Date(Date.now() + 3600000) // 1 hour
@@ -33,7 +33,7 @@ describe('SessionManager', () => {
       expect(created).toBeDefined();
       expect(created.id).toBe('session-123');
       expect(created.userId).toBe('user-456');
-      expect(created.data.username).toBe('testuser');
+      expect(created.data.username).toBe("testuser");
       expect(created.createdAt).toBeDefined();
       expect(created.updatedAt).toBeDefined();
     });
@@ -42,7 +42,7 @@ describe('SessionManager', () => {
       const session: Session = {
         id: 'session-456',
         userId: 'user-789',
-        data: { username: 'timeuser', roles: [UserRole.USER] },
+        data: { username: "timeuser", roles: [UserRole.USER] },
         expiresAt: new Date(Date.now() + 3600000)
       };
 
@@ -58,7 +58,7 @@ describe('SessionManager', () => {
 
     it('should store session data correctly', async () => {
       const sessionData = {
-        username: 'datauser',
+        username: "datauser",
         roles: [UserRole.ADMIN, UserRole.USER],
         email: 'data@example.com',
         preferences: { theme: 'dark', language: 'en' }
@@ -78,7 +78,7 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('getSession', () => {
+  describe("getSession", () => {
     it('should retrieve existing session', async () => {
       const session: Session = {
         id: 'session-get',
@@ -105,7 +105,7 @@ describe('SessionManager', () => {
       const session: Session = {
         id: 'session-expired',
         userId: 'user-expired',
-        data: { username: 'expireduser', roles: [UserRole.USER] },
+        data: { username: "expireduser", roles: [UserRole.USER] },
         expiresAt: new Date(Date.now() - 1000) // Already expired
       };
 
@@ -119,7 +119,7 @@ describe('SessionManager', () => {
       const session: Session = {
         id: 'session-access',
         userId: 'user-access',
-        data: { username: 'accessuser', roles: [UserRole.USER] },
+        data: { username: "accessuser", roles: [UserRole.USER] },
         expiresAt: new Date(Date.now() + 3600000)
       };
 
@@ -138,35 +138,35 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('updateSession', () => {
+  describe("updateSession", () => {
     it('should update session data', async () => {
       const session: Session = {
         id: 'session-update',
         userId: 'user-update',
-        data: { username: 'updateuser', roles: [UserRole.USER] },
+        data: { username: "updateuser", roles: [UserRole.USER] },
         expiresAt: new Date(Date.now() + 3600000)
       };
 
       await sessionManager.createSession(session);
 
       const newData = {
-        username: 'updateuser',
+        username: "updateuser",
         roles: [UserRole.ADMIN],
-        newField: 'newValue'
+        newField: "newValue"
       };
 
       const updated = await sessionManager.updateSession('session-update', newData);
 
       expect(updated).toBeDefined();
       expect(updated?.data.roles).toEqual([UserRole.ADMIN]);
-      expect(updated?.data.newField).toBe('newValue');
+      expect(updated?.data.newField).toBe("newValue");
     });
 
     it('should update updatedAt timestamp', async () => {
       const session: Session = {
         id: 'session-timestamp',
         userId: 'user-timestamp',
-        data: { username: 'timestampuser', roles: [UserRole.USER] },
+        data: { username: "timestampuser", roles: [UserRole.USER] },
         expiresAt: new Date(Date.now() + 3600000)
       };
 
@@ -177,7 +177,7 @@ describe('SessionManager', () => {
       await new Promise(resolve => setTimeout(resolve, 10));
 
       const updated = await sessionManager.updateSession('session-timestamp', {
-        username: 'timestampuser',
+        username: "timestampuser",
         roles: [UserRole.USER],
         updated: true
       });
@@ -200,7 +200,7 @@ describe('SessionManager', () => {
       const session: Session = {
         id: 'session-expired-update',
         userId: 'user-expired',
-        data: { username: 'expireduser', roles: [UserRole.USER] },
+        data: { username: "expireduser", roles: [UserRole.USER] },
         expiresAt: new Date(Date.now() - 1000) // Already expired
       };
 
@@ -214,12 +214,12 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('destroySession', () => {
+  describe("destroySession", () => {
     it('should remove session', async () => {
       const session: Session = {
         id: 'session-destroy',
         userId: 'user-destroy',
-        data: { username: 'destroyuser', roles: [UserRole.USER] },
+        data: { username: "destroyuser", roles: [UserRole.USER] },
         expiresAt: new Date(Date.now() + 3600000)
       };
 
@@ -245,12 +245,12 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('extendSession', () => {
+  describe("extendSession", () => {
     it('should extend session expiry', async () => {
       const session: Session = {
         id: 'session-extend',
         userId: 'user-extend',
-        data: { username: 'extenduser', roles: [UserRole.USER] },
+        data: { username: "extenduser", roles: [UserRole.USER] },
         expiresAt: new Date(Date.now() + 3600000) // 1 hour
       };
 
@@ -278,7 +278,7 @@ describe('SessionManager', () => {
       const session: Session = {
         id: 'session-expired-extend',
         userId: 'user-expired',
-        data: { username: 'expireduser', roles: [UserRole.USER] },
+        data: { username: "expireduser", roles: [UserRole.USER] },
         expiresAt: new Date(Date.now() - 1000) // Already expired
       };
 
@@ -293,7 +293,7 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('getUserSessions', () => {
+  describe("getUserSessions", () => {
     it('should get all sessions for a user', async () => {
       const userId = 'user-multi';
 
@@ -301,14 +301,14 @@ describe('SessionManager', () => {
       await sessionManager.createSession({
         id: 'session-multi-1',
         userId,
-        data: { username: 'multiuser', roles: [UserRole.USER], device: 'desktop' },
+        data: { username: "multiuser", roles: [UserRole.USER], device: 'desktop' },
         expiresAt: new Date(Date.now() + 3600000)
       });
 
       await sessionManager.createSession({
         id: 'session-multi-2',
         userId,
-        data: { username: 'multiuser', roles: [UserRole.USER], device: 'mobile' },
+        data: { username: "multiuser", roles: [UserRole.USER], device: 'mobile' },
         expiresAt: new Date(Date.now() + 3600000)
       });
 
@@ -316,7 +316,7 @@ describe('SessionManager', () => {
       await sessionManager.createSession({
         id: 'session-other',
         userId: 'user-other',
-        data: { username: 'otheruser', roles: [UserRole.USER] },
+        data: { username: "otheruser", roles: [UserRole.USER] },
         expiresAt: new Date(Date.now() + 3600000)
       });
 
@@ -335,14 +335,14 @@ describe('SessionManager', () => {
       await sessionManager.createSession({
         id: 'session-active',
         userId,
-        data: { username: 'activeuser', roles: [UserRole.USER] },
+        data: { username: "activeuser", roles: [UserRole.USER] },
         expiresAt: new Date(Date.now() + 3600000)
       });
 
       await sessionManager.createSession({
         id: 'session-expired',
         userId,
-        data: { username: 'expireduser', roles: [UserRole.USER] },
+        data: { username: "expireduser", roles: [UserRole.USER] },
         expiresAt: new Date(Date.now() - 1000)
       });
 
@@ -358,27 +358,27 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('cleanupExpiredSessions', () => {
+  describe("cleanupExpiredSessions", () => {
     it('should remove expired sessions', async () => {
       // Create mix of expired and active sessions
       await sessionManager.createSession({
         id: 'session-cleanup-active',
         userId: 'user-1',
-        data: { username: 'activeuser', roles: [UserRole.USER] },
+        data: { username: "activeuser", roles: [UserRole.USER] },
         expiresAt: new Date(Date.now() + 3600000)
       });
 
       await sessionManager.createSession({
         id: 'session-cleanup-expired-1',
         userId: 'user-2',
-        data: { username: 'expireduser1', roles: [UserRole.USER] },
+        data: { username: "expireduser1", roles: [UserRole.USER] },
         expiresAt: new Date(Date.now() - 1000)
       });
 
       await sessionManager.createSession({
         id: 'session-cleanup-expired-2',
         userId: 'user-3',
-        data: { username: 'expireduser2', roles: [UserRole.USER] },
+        data: { username: "expireduser2", roles: [UserRole.USER] },
         expiresAt: new Date(Date.now() - 2000)
       });
 
@@ -424,19 +424,19 @@ describe('SessionManager', () => {
         sessionManager.createSession({
           id: 'concurrent-1',
           userId: 'user-concurrent',
-          data: { username: 'concurrent', roles: [UserRole.USER] },
+          data: { username: "concurrent", roles: [UserRole.USER] },
           expiresAt: new Date(Date.now() + 3600000)
         }),
         sessionManager.createSession({
           id: 'concurrent-2',
           userId: 'user-concurrent',
-          data: { username: 'concurrent', roles: [UserRole.USER] },
+          data: { username: "concurrent", roles: [UserRole.USER] },
           expiresAt: new Date(Date.now() + 3600000)
         }),
         sessionManager.createSession({
           id: 'concurrent-3',
           userId: 'user-concurrent',
-          data: { username: 'concurrent', roles: [UserRole.USER] },
+          data: { username: "concurrent", roles: [UserRole.USER] },
           expiresAt: new Date(Date.now() + 3600000)
         })
       ]);

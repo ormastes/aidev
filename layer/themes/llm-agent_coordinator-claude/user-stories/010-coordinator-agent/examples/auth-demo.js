@@ -1,3 +1,4 @@
+const { fileAPI } = require('../utils/file-api');
 #!/usr/bin/env node
 
 /**
@@ -81,11 +82,11 @@ function demo3() {
   console.log('   - Error if neither is available\n');
   
   console.log('📝 Environment Variables:');
-  console.log('   CLAUDE_API_KEY: ' + (process.env.CLAUDE_API_KEY ? '🔄 Set' : '❌ Not set'));
+  console.log('   CLAUDE_api_key: process.env.API_KEY || "PLACEHOLDER"🔄 Set' : '❌ Not set'));
   console.log('   CLAUDE_MODEL: ' + (process.env.CLAUDE_MODEL || 'claude-opus-4-20250514'));
   
   console.log('\n🏠 Local Credentials:');
-  const fs = require('fs');
+  const fs = require('../../layer/themes/infra_external-log-lib/src');
   const os = require('os');
   const credPath = path.join(os.homedir(), '.claude', '.credentials.json');
   
@@ -96,7 +97,7 @@ function demo3() {
     console.log('   📅 Modified: ' + stats.mtime.toLocaleString());
     
     // Check if expired
-    const creds = JSON.parse(fs.readFileSync(credPath, 'utf-8'));
+    const creds = JSON.parse(fileAPI.readFileSync(credPath, 'utf-8'));
     if (creds.claudeAiOauth?.expiresAt) {
       const expiresAt = new Date(creds.claudeAiOauth.expiresAt);
       const isExpired = expiresAt < new Date();
@@ -111,7 +112,7 @@ function demo3() {
 }
 
 // Handle errors
-process.on('uncaughtException', (error) => {
+process.on("uncaughtException", (error) => {
   console.error('\n❌ Unexpected error:', error.message);
   process.exit(1);
 });

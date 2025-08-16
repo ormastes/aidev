@@ -1,0 +1,39 @@
+default:
+  require:
+    - 'layer/**/features/step_definitions/**/*.ts'
+    - 'layer/**/features/step_definitions/**/*.js'
+  requireModule:
+    - 'ts-node/register'
+  format:
+    - 'progress'
+    - 'json:gen/doc/cucumber-report.json'
+    - 'html:gen/doc/cucumber-report.html'
+  formatOptions:
+    snippetInterface: 'async-await'
+  publishQuiet: true
+
+system:
+  require:
+    - 'layer/**/features/step_definitions/**/*.ts'
+    - 'layer/**/features/step_definitions/**/*.js'
+  requireModule:
+    - 'ts-node/register'
+  format:
+    - 'progress'
+    - 'json:gen/doc/cucumber-system-report.json'
+  tags: '@system'
+  publishQuiet: true
+
+ci:
+  require:
+    - 'layer/**/features/step_definitions/**/*.ts'
+    - 'layer/**/features/step_definitions/**/*.js'
+  requireModule:
+    - 'ts-node/register'
+  format:
+    - 'progress'
+    - 'junit:gen/doc/cucumber-junit.xml'
+    - 'json:gen/doc/cucumber-report.json'
+  parallel: 4
+  retry: 2
+  publishQuiet: true

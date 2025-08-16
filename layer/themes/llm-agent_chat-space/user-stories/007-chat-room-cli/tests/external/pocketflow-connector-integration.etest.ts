@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach } from '@jest/globals';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 /**
  * External Test: PocketFlowConnector Integration
@@ -11,7 +11,7 @@ import { EventEmitter } from '../../../../../infra_external-log-lib/src';
 // PocketFlow integration interface contract - external interface
 interface WorkflowEvent {
   id: string;
-  type: 'started' | 'In Progress' | 'failed' | 'paused' | 'resumed' | 'cancelled';
+  type: 'started' | "completed" | 'failed' | 'paused' | 'resumed' | "cancelled";
   workflowId: string;
   workflowName: string;
   userId: string;
@@ -32,7 +32,7 @@ interface WorkflowInfo {
   id: string;
   name: string;
   description: string;
-  status: 'idle' | 'running' | 'In Progress' | 'failed' | 'paused';
+  status: 'idle' | 'running' | "completed" | 'failed' | 'paused';
   createdAt: Date;
   lastRun?: Date;
   runCount: number;
@@ -45,7 +45,7 @@ interface WorkflowStep {
   id: string;
   name: string;
   type: string;
-  status: 'pending' | 'running' | 'In Progress' | 'failed' | 'skipped';
+  status: 'pending' | 'running' | "completed" | 'failed' | 'skipped';
   config: Record<string, any>;
   order: number;
 }
@@ -53,7 +53,7 @@ interface WorkflowStep {
 interface WorkflowExecution {
   id: string;
   workflowId: string;
-  status: 'running' | 'In Progress' | 'failed' | 'cancelled';
+  status: 'running' | "completed" | 'failed' | "cancelled";
   startedAt: Date;
   completedAt?: Date;
   triggeredBy: string;
@@ -65,7 +65,7 @@ interface WorkflowExecution {
 
 interface WorkflowExecutionStep {
   stepId: string;
-  status: 'pending' | 'running' | 'In Progress' | 'failed' | 'skipped';
+  status: 'pending' | 'running' | "completed" | 'failed' | 'skipped';
   startedAt?: Date;
   completedAt?: Date;
   logs: string[];
@@ -124,10 +124,10 @@ class MockPocketFlowConnector implements PocketFlowConnector {
       lastRun: new Date('2024-01-15'),
       runCount: 42,
       enabled: true,
-      triggers: ['schedule', 'manual'],
+      triggers: ["schedule", 'manual'],
       steps: [
         { id: 'step1', name: 'Create backup', type: 'backup', status: 'pending', config: {}, order: 1 },
-        { id: 'step2', name: 'Compress files', type: 'compress', status: 'pending', config: {}, order: 2 },
+        { id: 'step2', name: 'Compress files', type: "compress", status: 'pending', config: {}, order: 2 },
         { id: 'step3', name: 'Upload to cloud', type: 'upload', status: 'pending', config: {}, order: 3 }
       ]
     },
@@ -156,9 +156,9 @@ class MockPocketFlowConnector implements PocketFlowConnector {
       lastRun: new Date(),
       runCount: 128,
       enabled: true,
-      triggers: ['schedule', 'manual', 'git-push'],
+      triggers: ["schedule", 'manual', 'git-push'],
       steps: [
-        { id: 'step1', name: 'Unit tests', type: 'test', status: 'In Progress', config: {}, order: 1 },
+        { id: 'step1', name: 'Unit tests', type: 'test', status: "completed", config: {}, order: 1 },
         { id: 'step2', name: 'Integration tests', type: 'test', status: 'running', config: {}, order: 2 },
         { id: 'step3', name: 'E2E tests', type: 'test', status: 'pending', config: {}, order: 3 }
       ]
@@ -350,7 +350,7 @@ class MockPocketFlowConnector implements PocketFlowConnector {
       return { "success": false, error: 'Execution is not running' };
     }
     
-    execution.status = 'cancelled';
+    execution.status = "cancelled";
     execution.completedAt = new Date();
     execution.logs.push('Execution cancelled by user');
     
@@ -359,7 +359,7 @@ class MockPocketFlowConnector implements PocketFlowConnector {
     if (workflow) {
       const event: WorkflowEvent = {
         id: 'event-' + Date.now(),
-        type: 'cancelled',
+        type: "cancelled",
         workflowId: execution.workflowId,
         workflowName: workflow.name,
         userId: execution.triggeredBy,
@@ -431,7 +431,7 @@ class MockPocketFlowConnector implements PocketFlowConnector {
     let progress;
     
     if (workflow.status === 'running') {
-      const passedSteps = workflow.steps.filter(s => s.status === 'In Progress').length;
+      const passedSteps = workflow.steps.filter(s => s.status === "completed").length;
       const totalSteps = workflow.steps.length;
       progress = {
         current: passedSteps,
@@ -460,7 +460,7 @@ class MockPocketFlowConnector implements PocketFlowConnector {
       case 'started':
         return `🚀 [${timestamp}] Workflow '${event.workflowName}' started`;
       
-      case 'In Progress':
+      case "completed":
         const progress = event.data.progress;
         return `🔄 [${timestamp}] Workflow '${event.workflowName}' In Progress${progress ? ` (${progress.current}/${progress.total} steps)` : ''}`;
       
@@ -473,7 +473,7 @@ class MockPocketFlowConnector implements PocketFlowConnector {
       case 'resumed':
         return `▶️ [${timestamp}] Workflow '${event.workflowName}' resumed`;
       
-      case 'cancelled':
+      case "cancelled":
         return `🛑 [${timestamp}] Workflow '${event.workflowName}' cancelled`;
       
       default:
@@ -743,7 +743,7 @@ describe('PocketFlowConnector Integration External Test', () => {
 
     // Verify execution is cancelled
     const getResult = await connector.getExecution(executionId);
-    expect(getResult.data?.status).toBe('cancelled');
+    expect(getResult.data?.status).toBe("cancelled");
   });
 
   test('should subscribe to workflow events', async () => {
@@ -830,7 +830,7 @@ describe('PocketFlowConnector Integration External Test', () => {
     await connector.connect();
     const event: WorkflowEvent = {
       id: 'test-event',
-      type: 'In Progress',
+      type: "completed",
       workflowId: 'backup-flow',
       workflowName: 'Backup Flow',
       userId: 'user1',
@@ -846,7 +846,7 @@ describe('PocketFlowConnector Integration External Test', () => {
     // Assert
     expect(notification).toContain('🔄');
     expect(notification).toContain('Backup Flow');
-    expect(notification).toContain('In Progress');
+    expect(notification).toContain("completed");
     expect(notification).toContain('3/3');
   });
 
@@ -919,7 +919,7 @@ describe('PocketFlowConnector Integration External Test', () => {
     // Assert
     expect(events.length).toBeGreaterThanOrEqual(2);
     expect(events.find(e => e.type === 'started')).toBeDefined();
-    expect(events.find(e => e.type === 'cancelled')).toBeDefined();
+    expect(events.find(e => e.type === "cancelled")).toBeDefined();
   });
 
   test('should maintain connection state correctly', async () => {

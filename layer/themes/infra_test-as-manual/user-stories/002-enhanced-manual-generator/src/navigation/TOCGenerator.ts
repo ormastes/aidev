@@ -15,7 +15,7 @@ export interface TOCEntry {
 export interface TOCOptions {
   maxDepth?: number;
   includePageNumbers?: boolean;
-  format?: 'html' | 'markdown' | 'json';
+  format?: 'html' | "markdown" | 'json';
   collapsible?: boolean;
   numbered?: boolean;
 }
@@ -88,7 +88,7 @@ export class TOCGenerator {
    */
   generate(): string {
     switch (this.options.format) {
-      case 'markdown':
+      case "markdown":
         return this.generateMarkdown();
       case 'json':
         return this.generateJSON();
@@ -126,7 +126,7 @@ export class TOCGenerator {
         `;
       }).join('');
 
-      return `<ul class="toc-list ${this.options.collapsible ? 'collapsible' : ''}">${items}</ul>`;
+      return `<ul class="toc-list ${this.options.collapsible ? "collapsible" : ''}">${items}</ul>`;
     };
 
     return `

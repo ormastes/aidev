@@ -5,12 +5,12 @@
 
 import { TestAsManualService, GenerationOptions } from './logic/pipe';
 import { OutputFormat } from './external/pipe';
-import { path } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 export interface ConversionOptions {
   inputPath: string;
   outputPath: string;
-  format?: 'markdown' | 'html' | 'json';
+  format?: "markdown" | 'html' | 'json';
   includeCommonScenarios?: boolean;
   generateSequences?: boolean;
   minSequenceLength?: number;
@@ -39,7 +39,7 @@ export class TestAsManualConverter {
     const generationOptions: GenerationOptions = {
       inputPath: options.inputPath,
       outputPath: options.outputPath,
-      format: (options.format || 'markdown') as OutputFormat,
+      format: (options.format || "markdown") as OutputFormat,
       includeCommonScenarios: options.includeCommonScenarios ?? true,
       generateSequences: options.generateSequences ?? true,
       minSequenceLength: options.minSequenceLength ?? 2,
@@ -106,7 +106,7 @@ export class TestAsManualConverter {
   async convertFile(
     inputFile: string,
     outputDir: string,
-    format: 'markdown' | 'html' | 'json' = 'markdown'
+    format: "markdown" | 'html' | 'json' = "markdown"
   ): Promise<void> {
     await this.convert({
       inputPath: inputFile,
@@ -121,12 +121,12 @@ export class TestAsManualConverter {
   async generateDocumentation(testFile: string, outputFile: string): Promise<void> {
     const outputDir = path.dirname(outputFile);
     const format = outputFile.endsWith('.html') ? 'html' : 
-                   outputFile.endsWith('.json') ? 'json' : 'markdown';
+                   outputFile.endsWith('.json') ? 'json' : "markdown";
     
     await this.convert({
       inputPath: testFile,
       outputPath: outputDir,
-      format: format as 'markdown' | 'html' | 'json'
+      format: format as "markdown" | 'html' | 'json'
     });
   }
 }

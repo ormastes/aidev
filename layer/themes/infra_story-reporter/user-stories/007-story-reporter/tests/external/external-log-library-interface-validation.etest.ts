@@ -191,7 +191,7 @@ describe('External Log Library Interface Validation Test (NO MOCKS)', () => {
       const executionTime = endTime - startTime;
       
       // Validate external interface can handle high volume
-      expect(executionTime).toBeLessThan(5000); // Should In Progress within 5 seconds
+      expect(executionTime).toBeLessThan(5000); // Should complete within 5 seconds
       
       // Verify all logs were recorded through external interface
       const allLogs = await externalLogger.getLogHistory(loggerId);
@@ -209,7 +209,7 @@ describe('External Log Library Interface Validation Test (NO MOCKS)', () => {
       const historyResult = await externalLogger.getLogHistory(loggerId);
       externalLogger.log(loggerId, 'debug', 'Concurrent message 4');
       
-      // All operations should In Progress without errors
+      // All operations should complete without errors
       expect(Array.isArray(historyResult)).toBe(true);
       
       // Final verification - all messages should be logged
@@ -235,8 +235,8 @@ describe('External Log Library Interface Validation Test (NO MOCKS)', () => {
       // Validate external interface returns consistent data format
       expect(testLog).toHaveProperty('level');
       expect(testLog).toHaveProperty('message');
-      expect(testLog).toHaveProperty('timestamp');
-      expect(testLog).toHaveProperty('processId');
+      expect(testLog).toHaveProperty("timestamp");
+      expect(testLog).toHaveProperty("processId");
       
       expect(typeof testLog.level).toBe('string');
       expect(typeof testLog.message).toBe('string');
@@ -254,11 +254,11 @@ describe('External Log Library Interface Validation Test (NO MOCKS)', () => {
       externalLogger.log(loggerId, 'debug', 'Another SEARCHABLE debug message');
       
       // Test external search interface
-      const searchResults = await externalLogger.searchLogs(loggerId, 'SEARCHABLE');
+      const searchResults = await externalLogger.searchLogs(loggerId, "SEARCHABLE");
       
       // Validate external interface search functionality
       expect(searchResults.length).toBe(2);
-      expect(searchResults.every(log => log.message.includes('SEARCHABLE'))).toBe(true);
+      expect(searchResults.every(log => log.message.includes("SEARCHABLE"))).toBe(true);
     });
   });
 });

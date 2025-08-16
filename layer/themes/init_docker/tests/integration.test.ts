@@ -10,7 +10,7 @@ describe('Container Environment Integration', () => {
     containerEnv = new ContainerEnvironment();
   });
 
-  describe('ContainerEnvironment', () => {
+  describe("ContainerEnvironment", () => {
     it('should be instantiable', () => {
       expect(containerEnv).toBeDefined();
       expect(containerEnv).toBeInstanceOf(ContainerEnvironment);
@@ -40,7 +40,7 @@ describe('Container Environment Integration', () => {
         baseImage: 'node:18-alpine',
         workDir: '/app',
         ports: [3000],
-        env: { NODE_ENV: 'production' }
+        env: { NODE_ENV: "production" }
       };
 
       const dockerfile = dockerBuilder.generateDockerfile(config);
@@ -111,7 +111,7 @@ describe('Container Environment Integration', () => {
         base: 'node:18-alpine',
         ports: [3000],
         environment: {
-          NODE_ENV: 'production',
+          NODE_ENV: "production",
           PORT: '3000'
         }
       });

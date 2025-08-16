@@ -11,7 +11,7 @@ jest.mock('../../children/src/domain/agent');
 const MockedSessionManager = SessionManager as jest.MockedClass<typeof SessionManager>;
 const MockedMCPServerManager = MCPServerManager as jest.MockedClass<typeof MCPServerManager>;
 
-describe('AgentOrchestrator', () => {
+describe("AgentOrchestrator", () => {
   let orchestrator: AgentOrchestrator;
   let mockSessionManager: jest.Mocked<SessionManager>;
   let mockMCPManager: jest.Mocked<MCPServerManager>;
@@ -27,7 +27,7 @@ describe('AgentOrchestrator', () => {
     jest.clearAllMocks();
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should create AgentOrchestrator instance', () => {
       expect(orchestrator).toBeDefined();
     });
@@ -67,7 +67,7 @@ describe('AgentOrchestrator', () => {
       const result = await orchestrator.assignTask(task);
 
       expect(result).toBe(true);
-      expect(task.status).toBe('assigned');
+      expect(task.status).toBe("assigned");
       expect(task.assignedAgent).toBeDefined();
     });
 
@@ -77,14 +77,14 @@ describe('AgentOrchestrator', () => {
         description: 'Review code changes',
         type: 'review',
         priority: 'high',
-        status: 'assigned',
+        status: "assigned",
         assignedAgent: 'agent-1',
         createdAt: new Date()
       };
 
       await orchestrator.executeTask(task);
 
-      expect(task.status).toBe('completed');
+      expect(task.status).toBe("completed");
       expect(task.completedAt).toBeInstanceOf(Date);
     });
 
@@ -124,12 +124,12 @@ describe('AgentOrchestrator', () => {
       const steps: WorkflowStep[] = [
         {
           name: 'design',
-          agentRole: 'designer',
+          agentRole: "designer",
           task: 'Create system design',
           dependsOn: []
         },
         {
-          name: 'implement',
+          name: "implement",
           agentRole: 'coder',
           task: 'Implement the design',
           dependsOn: ['design']
@@ -138,7 +138,7 @@ describe('AgentOrchestrator', () => {
           name: 'test',
           agentRole: 'tester',
           task: 'Write and run tests',
-          dependsOn: ['implement']
+          dependsOn: ["implement"]
         }
       ];
 
@@ -164,7 +164,7 @@ describe('AgentOrchestrator', () => {
     it('should execute workflow steps in order', async () => {
       await orchestrator.executeWorkflow(testWorkflow);
 
-      expect(testWorkflow.status).toBe('completed');
+      expect(testWorkflow.status).toBe("completed");
     });
 
     it('should handle workflow step dependencies', () => {
@@ -177,7 +177,7 @@ describe('AgentOrchestrator', () => {
 
     it('should execute step with condition', () => {
       const conditionalStep: WorkflowStep = {
-        name: 'conditional',
+        name: "conditional",
         agentRole: 'general',
         task: 'Run if condition is true',
         condition: (context) => context.shouldRun === true
@@ -230,14 +230,14 @@ describe('AgentOrchestrator', () => {
     });
 
     it('should handle agent unavailability', () => {
-      const unavailableAgent = orchestrator.findAgentByRole('nonexistent');
+      const unavailableAgent = orchestrator.findAgentByRole("nonexistent");
       expect(unavailableAgent).toBeUndefined();
     });
   });
 
   describe('event handling', () => {
     it('should emit task created event', (done) => {
-      orchestrator.on('taskCreated', (task: Task) => {
+      orchestrator.on("taskCreated", (task: Task) => {
         expect(task.description).toBe('Test task');
         done();
       });
@@ -248,7 +248,7 @@ describe('AgentOrchestrator', () => {
     it('should emit task assigned event', (done) => {
       const task = orchestrator.createTask('Assign test', 'test', 'medium');
 
-      orchestrator.on('taskAssigned', (assignedTask: Task, agentId: string) => {
+      orchestrator.on("taskAssigned", (assignedTask: Task, agentId: string) => {
         expect(assignedTask.id).toBe(task.id);
         expect(agentId).toBeDefined();
         done();
@@ -258,8 +258,8 @@ describe('AgentOrchestrator', () => {
     });
 
     it('should emit workflow events', (done) => {
-      orchestrator.on('workflowCompleted', (workflow: Workflow) => {
-        expect(workflow.status).toBe('completed');
+      orchestrator.on("workflowCompleted", (workflow: Workflow) => {
+        expect(workflow.status).toBe("completed");
         done();
       });
 
@@ -274,7 +274,7 @@ describe('AgentOrchestrator', () => {
         description: 'This will fail',
         type: 'code',
         priority: 'high',
-        status: 'assigned',
+        status: "assigned",
         assignedAgent: 'failing-agent',
         createdAt: new Date()
       };
@@ -300,7 +300,7 @@ describe('AgentOrchestrator', () => {
         steps: [
           {
             name: 'failing-step',
-            agentRole: 'nonexistent',
+            agentRole: "nonexistent",
             task: 'This will fail'
           }
         ],
@@ -326,7 +326,7 @@ describe('AgentOrchestrator', () => {
 
       await orchestrator.executeWorkflow(emptyWorkflow);
 
-      expect(emptyWorkflow.status).toBe('completed');
+      expect(emptyWorkflow.status).toBe("completed");
     });
 
     it('should handle task with invalid type', () => {

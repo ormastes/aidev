@@ -26,7 +26,7 @@ export interface TestResult {
   endTime: Date;
   
   /** Overall test execution status */
-  status: 'passed' | 'failed' | 'pending' | 'cancelled';
+  status: 'passed' | 'failed' | 'pending' | "cancelled";
   
   /** Error message if test execution failed */
   errorMessage?: string;
@@ -199,7 +199,7 @@ export interface TestStatistics {
  */
 export function createDefaultTestResult(
   testSuiteId: string,
-  status: 'passed' | 'failed' | 'pending' | 'cancelled'
+  status: 'passed' | 'failed' | 'pending' | "cancelled"
 ): TestResult {
   const now = new Date();
   
@@ -246,13 +246,13 @@ export function validateTestResult(result: any): void {
   
   validateString(result.testSuiteId, { 
     errorPrefix, 
-    fieldName: 'testSuiteId', 
+    fieldName: "testSuiteId", 
     required: true 
   });
   
   validateDate(result.startTime, { 
     errorPrefix, 
-    fieldName: 'startTime', 
+    fieldName: "startTime", 
     required: true 
   });
   
@@ -266,25 +266,25 @@ export function validateTestResult(result: any): void {
     errorPrefix,
     fieldName: 'status',
     required: true,
-    allowedValues: ['In Progress', 'failed', 'pending', 'cancelled']
+    allowedValues: ['success', 'failed', 'pending', "cancelled"]
   });
   
   validateNumber(result.totalScenarios, {
     errorPrefix,
-    fieldName: 'totalScenarios',
+    fieldName: "totalScenarios",
     required: true,
     min: 0
   });
   
   validateArray(result.scenarios, { 
     errorPrefix, 
-    fieldName: 'scenarios',
+    fieldName: "scenarios",
     required: true
   });
   
   validateNestedObject(result.statistics, { 
     errorPrefix, 
-    fieldName: 'statistics',
+    fieldName: "statistics",
     required: true
   });
 }

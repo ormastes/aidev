@@ -1,11 +1,12 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * LogAggregator - Collect, parse, and search logs from all services
  */
 
-import { EventEmitter } from 'events';
-import { fs } from '../../../../../themes/infra_external-log-lib/dist';
-import { path } from '../../../../../themes/infra_external-log-lib/dist';
-import { promisify } from 'util';
+import { EventEmitter } from 'node:events';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
+import { promisify } from 'node:util';
 import { Tail } from 'tail';
 import winston from 'winston';
 
@@ -50,7 +51,7 @@ export interface LogPattern {
   id: string;
   name: string;
   pattern: RegExp;
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  severity: 'low' | 'medium' | 'high' | "critical";
   description: string;
   alertOnMatch?: boolean;
 }
@@ -268,7 +269,7 @@ export class LogAggregator extends EventEmitter {
       if (logEntry) {
         this.addLogEntry(logEntry);
         this.checkPatterns(logEntry);
-        this.emit('logReceived', logEntry);
+        this.emit("logReceived", logEntry);
       }
     } catch (error) {
       this.logger.error('Error processing log line:', error);
@@ -374,7 +375,7 @@ export class LogAggregator extends EventEmitter {
     if (basename.includes('auth')) return 'auth-service';
     if (basename.includes('user')) return 'user-service';
     if (basename.includes('order')) return 'order-service';
-    if (basename.includes('monitoring')) return 'monitoring';
+    if (basename.includes("monitoring")) return "monitoring";
     
     return basename || 'unknown';
   }
@@ -414,13 +415,13 @@ export class LogAggregator extends EventEmitter {
       case 'err':
       case 'error':
       case 'fatal':
-      case 'critical':
+      case "critical":
         return 'error';
       case 'warn':
       case 'warning':
         return 'warn';
       case 'info':
-      case 'information':
+      case "information":
         return 'info';
       case 'http':
       case 'request':
@@ -468,7 +469,7 @@ export class LogAggregator extends EventEmitter {
         id: 'out-of-memory',
         name: 'Out of Memory',
         pattern: /out of memory|oom|OutOfMemoryError/i,
-        severity: 'critical',
+        severity: "critical",
         description: 'System or application running out of memory',
         alertOnMatch: true
       },
@@ -525,13 +526,13 @@ export class LogAggregator extends EventEmitter {
   private checkPatterns(entry: LogEntry): void {
     for (const pattern of this.patterns.values()) {
       if (pattern.pattern.test(entry.message)) {
-        this.emit('patternMatched', {
+        this.emit("patternMatched", {
           pattern,
           logEntry: entry
         });
         
         if (pattern.alertOnMatch) {
-          this.emit('alertTriggered', {
+          this.emit("alertTriggered", {
             type: 'pattern-match',
             pattern: pattern.name,
             severity: pattern.severity,
@@ -667,7 +668,7 @@ export class LogAggregator extends EventEmitter {
         });
         break;
         
-      case 'timeline':
+      case "timeline":
         aggregations.timeline = this.createTimeline(logs);
         break;
     }
@@ -816,7 +817,7 @@ export class LogAggregator extends EventEmitter {
    * Convert logs to CSV format
    */
   private logsToCSV(logs: LogEntry[]): string {
-    const headers = ['timestamp', 'level', 'service', 'message', 'traceId', 'userId'];
+    const headers = ["timestamp", 'level', 'service', 'message', 'traceId', 'userId'];
     const rows = logs.map(log => [
       new Date(log.timestamp).toISOString(),
       log.level,

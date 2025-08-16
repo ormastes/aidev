@@ -1,7 +1,7 @@
 import { StructuredLogParser, StructuredLogParserConfig } from '../../src/external/structured-log-parser';
 
-describe('StructuredLogParser', () => {
-  describe('constructor', () => {
+describe("StructuredLogParser", () => {
+  describe("constructor", () => {
     it('should create parser with default config', () => {
       const parser = new StructuredLogParser();
       expect(parser).toBeDefined();
@@ -25,7 +25,7 @@ describe('StructuredLogParser', () => {
     });
   });
 
-  describe('parseLogLine', () => {
+  describe("parseLogLine", () => {
     describe('with auto format detection', () => {
       let parser: StructuredLogParser;
 
@@ -111,7 +111,7 @@ describe('StructuredLogParser', () => {
       let parser: StructuredLogParser;
 
       beforeEach(() => {
-        parser = new StructuredLogParser({ format: 'keyvalue' });
+        parser = new StructuredLogParser({ format: "keyvalue" });
       });
 
       it('should parse key-value pairs', () => {
@@ -227,7 +227,7 @@ describe('StructuredLogParser', () => {
     });
   });
 
-  describe('parseMultipleLines', () => {
+  describe("parseMultipleLines", () => {
     let parser: StructuredLogParser;
 
     beforeEach(() => {
@@ -266,7 +266,7 @@ describe('StructuredLogParser', () => {
     });
   });
 
-  describe('formatLogEntry', () => {
+  describe("formatLogEntry", () => {
     it('should format to JSON when format is json', () => {
       const parser = new StructuredLogParser({ format: 'json' });
       const entry = {
@@ -286,7 +286,7 @@ describe('StructuredLogParser', () => {
     });
 
     it('should format to key-value when format is keyvalue', () => {
-      const parser = new StructuredLogParser({ format: 'keyvalue' });
+      const parser = new StructuredLogParser({ format: "keyvalue" });
       const entry = {
         timestamp: new Date('2024-01-15T10:30:00.000Z'),
         level: 'warn' as const,

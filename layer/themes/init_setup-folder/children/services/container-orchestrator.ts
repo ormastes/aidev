@@ -37,7 +37,7 @@ export interface OrchestratorConfig {
 export interface DeploymentStatus {
   name: string;
   runtime: ContainerRuntime;
-  status: 'running' | 'stopped' | 'building' | 'error';
+  status: 'running' | 'stopped' | "building" | 'error';
   containerId?: string;
   ports?: Array<{ host: number; container: number }>;
   startedAt?: Date;
@@ -67,7 +67,7 @@ export class ContainerOrchestrator {
   private async loadDeployments(): void {
     const stateFile = path.join(this.configPath, 'deployments.json');
     if (fs.existsSync(stateFile)) {
-      const data = JSON.parse(fs.readFileSync(stateFile, 'utf-8'));
+      const data = JSON.parse(fileAPI.readFileSync(stateFile, 'utf-8'));
       for (const deployment of data) {
         this.deployments.set(deployment.name, deployment);
       }
@@ -86,7 +86,7 @@ export class ContainerOrchestrator {
     const deployment: DeploymentStatus = {
       name: config.name,
       runtime: config.runtime,
-      status: 'building'
+      status: "building"
     };
     
     this.deployments.set(config.name, deployment);
@@ -332,7 +332,7 @@ export class ContainerOrchestrator {
       throw new Error(`Configuration file not found: ${configPath}`);
     }
     
-    const config: OrchestratorConfig = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+    const config: OrchestratorConfig = JSON.parse(fileAPI.readFileSync(configPath, 'utf-8'));
     
     console.log(`Importing configuration with ${config.projects.length} projects`);
     

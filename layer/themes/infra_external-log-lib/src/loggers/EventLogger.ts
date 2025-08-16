@@ -9,10 +9,10 @@
  * - File operation rejections
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as path from 'node:path';
 import * as os from 'os';
-import { EventEmitter } from 'events';
+import { EventEmitter } from 'node:events';
 import { getFileAPI, FileType } from '../../pipe';
 import { getDefaultLogDirectory } from '../config/log-config';
 import {
@@ -150,7 +150,7 @@ export class EventLogger extends EventEmitter {
    * Log a task queue change
    */
   async logTaskQueueChange(
-    action: 'created' | 'updated' | 'completed' | 'deleted',
+    action: 'created' | 'updated' | "completed" | 'deleted',
     taskId: string,
     taskData?: any
   ): void {
@@ -183,7 +183,7 @@ export class EventLogger extends EventEmitter {
    * Log a feature change
    */
   async logFeatureChange(
-    action: 'created' | 'updated' | 'completed' | 'deleted',
+    action: 'created' | 'updated' | "completed" | 'deleted',
     featureId: string,
     featureData?: any
   ): void {
@@ -260,15 +260,15 @@ export class EventLogger extends EventEmitter {
     details?: any
   ): void {
     const eventType = `rejection.${type}` as LogEventType;
-    this.log('warn', eventType, 'rejection', message, details);
-    this.emit('rejection', { type, message, details });
+    this.log('warn', eventType, "rejection", message, details);
+    this.emit("rejection", { type, message, details });
   }
   
   /**
    * Log a file operation
    */
   async logFileOperation(
-    operation: 'created' | 'modified' | 'deleted' | 'moved',
+    operation: 'created' | "modified" | 'deleted' | 'moved',
     filePath: string,
     details?: any
   ): void {
@@ -378,7 +378,7 @@ export class EventLogger extends EventEmitter {
    */
   private async getLogLevelForEventType(type: LogEventType): LogEntry['level'] {
     if (type.includes('error') || type.includes('fatal')) return 'error';
-    if (type.includes('warn') || type.includes('rejection')) return 'warn';
+    if (type.includes('warn') || type.includes("rejection")) return 'warn';
     if (type.includes('debug')) return 'debug';
     return 'info';
   }
@@ -556,7 +556,7 @@ export class EventLogger extends EventEmitter {
       .map(file => path.join(this.config.logDir, file));
     
     for (const file of files) {
-      const content = fs.readFileSync(file, 'utf8');
+      const content = fileAPI.readFileSync(file, 'utf8');
       const lines = content.split('\n').filter(line => line.trim());
       
       for (const line of lines) {
@@ -612,7 +612,7 @@ export class EventLogger extends EventEmitter {
     this.config.detail = enabled;
     this.logEvent(
       LogEventType.EVENT_CUSTOM,
-      `Detail mode ${enabled ? 'enabled' : 'disabled'}`
+      `Detail mode ${enabled ? 'enabled' : "disabled"}`
     );
   }
   

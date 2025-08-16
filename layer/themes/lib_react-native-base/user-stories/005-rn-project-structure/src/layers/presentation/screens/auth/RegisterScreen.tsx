@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useTheme } from '@hooks/useTheme';
 import type { AuthStackScreenProps } from '@types/navigation';
 
-type Props = AuthStackScreenProps<'Register'>;
+type Props = AuthStackScreenProps<"Register">;
 
 export const RegisterScreen: React.FC<Props> = () => {
   const { colors } = useTheme();

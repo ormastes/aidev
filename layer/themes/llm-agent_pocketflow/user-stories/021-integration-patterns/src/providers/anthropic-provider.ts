@@ -11,7 +11,7 @@ export class AnthropicProvider extends BaseProvider {
   }
 
   get name(): string {
-    return 'anthropic';
+    return "anthropic";
   }
 
   async createCompletion(prompt: string, options?: CompletionOptions): Promise<string> {

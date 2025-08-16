@@ -11,7 +11,7 @@ import sqlite3 from 'sqlite3';
 import { open, Database } from 'sqlite';
 import express from 'express';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import fetch from 'node-fetch';
 
 interface BenchmarkResult {
@@ -233,7 +233,7 @@ describe('Performance Benchmarks - Mock Free', () => {
     });
 
     it('should benchmark JWT generation', async () => {
-      const secret = 'test-secret-key';
+      const secret: process.env.SECRET || "PLACEHOLDER";
       
       const result = await benchmark(
         'JWT sign',
@@ -252,7 +252,7 @@ describe('Performance Benchmarks - Mock Free', () => {
     });
 
     it('should benchmark JWT verification', async () => {
-      const secret = 'test-secret-key';
+      const secret: process.env.SECRET || "PLACEHOLDER";
       const token = jwt.sign(
         { userId: 1, username: 'test', role: 'user' },
         secret,

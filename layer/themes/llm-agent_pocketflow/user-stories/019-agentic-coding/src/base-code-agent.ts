@@ -61,7 +61,7 @@ export abstract class BaseCodeAgent extends BaseAgent implements CodeAgent {
     
     return {
       message: {
-        role: 'assistant',
+        role: "assistant",
         content: JSON.stringify(result.data)
       },
       metadata: result.metadata || {}
@@ -102,7 +102,7 @@ export abstract class BaseCodeAgent extends BaseAgent implements CodeAgent {
       // Store in memory if available
       if (context.memory) {
         await context.memory.store(`agent-${this.name}-${Date.now()}`, {
-          role: 'assistant',
+          role: "assistant",
           content: JSON.stringify(result),
           metadata: {
             agent: this.name,
@@ -173,9 +173,9 @@ export abstract class BaseCodeAgent extends BaseAgent implements CodeAgent {
     // In a real implementation, this would use a parser
     // For now, just check for basic syntax markers
     switch (language) {
-      case 'typescript':
-      case 'javascript':
-        return code.includes('function') || code.includes('const') || code.includes('class');
+      case "typescript":
+      case "javascript":
+        return code.includes("function") || code.includes('const') || code.includes('class');
       case 'python':
         return code.includes('def') || code.includes('class') || code.includes('import');
       default:

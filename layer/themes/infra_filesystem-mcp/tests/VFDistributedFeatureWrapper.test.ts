@@ -1,5 +1,5 @@
 import { VFDistributedFeatureWrapper, DistributedFeatureFile, DistributedFeature } from '../children/VFDistributedFeatureWrapper';
-import { fsPromises as fs } from '../../infra_external-log-lib/dist';
+import { fsPromises as fs } from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 
 // Mock fs module
@@ -14,7 +14,7 @@ jest.mock('fs', () => ({
 
 const mockFs = fs as jest.Mocked<typeof fs>;
 
-describe('VFDistributedFeatureWrapper', () => {
+describe("VFDistributedFeatureWrapper", () => {
   let wrapper: VFDistributedFeatureWrapper;
   const testFilePath = '/test/FEATURE.vf.json';
   const testSchemaPath = '/test/schema.json';
@@ -43,7 +43,7 @@ describe('VFDistributedFeatureWrapper', () => {
               description: 'Complete platform for AI-assisted development',
               level: 'root',
               status: 'in-progress',
-              priority: 'critical',
+              priority: "critical",
               virtual_path: '/FEATURE.vf.json'
             },
             createdAt: '2025-01-24T10:00:00Z',
@@ -154,7 +154,7 @@ describe('VFDistributedFeatureWrapper', () => {
 
   describe('Parent-Child Relationship Management', () => {
     test('should automatically assign epic for user story without parent', async () => {
-      const userStoryFeature: Omit<DistributedFeature, 'id' | 'createdAt' | 'updatedAt'> = {
+      const userStoryFeature: Omit<DistributedFeature, 'id' | "createdAt" | "updatedAt"> = {
         name: 'Login Form',
         data: {
           title: 'User Login Form',
@@ -198,7 +198,7 @@ describe('VFDistributedFeatureWrapper', () => {
     });
 
     test('should use existing parent epic when available', async () => {
-      const userStoryFeature: Omit<DistributedFeature, 'id' | 'createdAt' | 'updatedAt'> = {
+      const userStoryFeature: Omit<DistributedFeature, 'id' | "createdAt" | "updatedAt"> = {
         name: 'Login Form',
         data: {
           title: 'User Login Form',
@@ -354,7 +354,7 @@ describe('VFDistributedFeatureWrapper', () => {
               description: 'Basic file wrapper implementation',
               level: 'user_story',
               parent_feature_id: 'epic-001',
-              status: 'completed',
+              status: "completed",
               priority: 'high',
               virtual_path: '/layer/themes/filesystem_mcp/user-stories/001-wrapper/FEATURE.vf.json'
             },
@@ -419,7 +419,7 @@ describe('VFDistributedFeatureWrapper', () => {
 
   describe('Common Epic Creation', () => {
     test('should create common epic with correct naming', async () => {
-      const userStoryFeature: Omit<DistributedFeature, 'id' | 'createdAt' | 'updatedAt'> = {
+      const userStoryFeature: Omit<DistributedFeature, 'id' | "createdAt" | "updatedAt"> = {
         name: 'Test Feature',
         data: {
           title: 'Test Feature',
@@ -488,7 +488,7 @@ describe('VFDistributedFeatureWrapper', () => {
         }
       };
 
-      const userStoryFeature: Omit<DistributedFeature, 'id' | 'createdAt' | 'updatedAt'> = {
+      const userStoryFeature: Omit<DistributedFeature, 'id' | "createdAt" | "updatedAt"> = {
         name: 'Test Feature',
         data: {
           title: 'Test Feature',

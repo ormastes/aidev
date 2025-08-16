@@ -331,9 +331,9 @@ describe('AsyncNode Parallel Execution Unit Tests', () => {
 
     test('should handle node execution errors in batch flow', async () => {
       // Arrange
-      const node1 = new TestAsyncNode('completed1', 25);
+      const node1 = new TestAsyncNode("completed1", 25);
       const node2 = new TestAsyncNode('error', 25);
-      const node3 = new TestAsyncNode('completed2', 25);
+      const node3 = new TestAsyncNode("completed2", 25);
 
       node2.failUntilAttempt = 5;
       node2.shouldFailFallback = true;
@@ -363,7 +363,7 @@ describe('AsyncNode Parallel Execution Unit Tests', () => {
   });
 
   describe('Concrete AsyncNode Implementations', () => {
-    describe('AsyncCommandNode', () => {
+    describe("AsyncCommandNode", () => {
       test('should execute commands asynchronously', async () => {
         // Arrange
         const commandNode = new AsyncCommandNode('echo "async command"');
@@ -399,7 +399,7 @@ describe('AsyncNode Parallel Execution Unit Tests', () => {
       });
     });
 
-    describe('AsyncHttpNode', () => {
+    describe("AsyncHttpNode", () => {
       test('should make async HTTP requests', async () => {
         // Arrange
         const mockResponse = {
@@ -488,7 +488,7 @@ describe('AsyncNode Parallel Execution Unit Tests', () => {
       });
     });
 
-    describe('AsyncDelayNode', () => {
+    describe("AsyncDelayNode", () => {
       test('should handle async delays', async () => {
         // Arrange
         const delayNode = new AsyncDelayNode(150);
@@ -510,7 +510,7 @@ describe('AsyncNode Parallel Execution Unit Tests', () => {
         await delayNode.execute();
 
         // Assert
-        expect(delayNode['maxRetries']).toBe(1);
+        expect(delayNode["maxRetries"]).toBe(1);
         expect(delayNode['wait']).toBe(0);
       });
 
@@ -596,7 +596,7 @@ describe('AsyncNode Parallel Execution Unit Tests', () => {
       (global.fetch as jest.MockedFunction<typeof fetch>).mockResolvedValue({
         ok: true,
         status: 200,
-        json: () => Promise.resolve({ data: 'response' })
+        json: () => Promise.resolve({ data: "response" })
       } as any);
 
       // Act
@@ -617,7 +617,7 @@ describe('AsyncNode Parallel Execution Unit Tests', () => {
   describe('Async Error Recovery', () => {
     test('should handle partial failures in parallel batch', async () => {
       // Arrange
-      const items = ['completed1', 'error', 'completed2', 'error2', 'completed3'];
+      const items = ["completed1", 'error', "completed2", 'error2', "completed3"];
       const processor = async (item: string) => {
         if (item.includes('error')) {
           throw new Error(`Failed to process ${item}`);

@@ -69,7 +69,7 @@ describe('Code Enhancement Pipeline Integration', () => {
       `;
 
       const config: EnhancementConfig = {
-        language: 'javascript',
+        language: "javascript",
         refactorings: [
           RefactoringType.MODERNIZE_SYNTAX,
           RefactoringType.EXTRACT_CONSTANTS,
@@ -110,7 +110,7 @@ describe('Code Enhancement Pipeline Integration', () => {
       `;
 
       const config: EnhancementConfig = {
-        language: 'typescript',
+        language: "typescript",
         refactorings: [
           RefactoringType.IMPROVE_TYPES,
           RefactoringType.ADD_TYPE_GUARDS
@@ -121,7 +121,7 @@ describe('Code Enhancement Pipeline Integration', () => {
       const result = await codeEnhancer.enhance(originalCode, config);
 
       expect(result.enhancedCode).not.toContain(': any');
-      expect(result.enhancedCode).toContain('interface');
+      expect(result.enhancedCode).toContain("interface");
       expect(result.enhancedCode).toContain('type guard');
       expect(result.improvements).toContain('Replaced any types with specific interfaces');
     });
@@ -153,7 +153,7 @@ describe('Code Enhancement Pipeline Integration', () => {
       );
 
       const config: EnhancementConfig = {
-        language: 'javascript',
+        language: "javascript",
         refactorings: [RefactoringType.REDUCE_COMPLEXITY]
       };
 
@@ -183,7 +183,7 @@ describe('Code Enhancement Pipeline Integration', () => {
       `;
 
       const config: EnhancementConfig = {
-        language: 'javascript',
+        language: "javascript",
         refactorings: [
           RefactoringType.MODERNIZE_SYNTAX,
           RefactoringType.IMPROVE_NULL_CHECKS,
@@ -207,7 +207,7 @@ describe('Code Enhancement Pipeline Integration', () => {
       `;
 
       const config: EnhancementConfig = {
-        language: 'javascript',
+        language: "javascript",
         refactorings: [
           RefactoringType.EXTRACT_VARIABLE,
           RefactoringType.INLINE_VARIABLE
@@ -240,7 +240,7 @@ describe('Code Enhancement Pipeline Integration', () => {
       `;
 
       const config: EnhancementConfig = {
-        language: 'javascript',
+        language: "javascript",
         optimizations: {
           level: OptimizationLevel.AGGRESSIVE,
           preserveReadability: true,
@@ -285,7 +285,7 @@ describe('Code Enhancement Pipeline Integration', () => {
       );
 
       const config: EnhancementConfig = {
-        language: 'javascript',
+        language: "javascript",
         projectMode: true,
         refactorings: [
           RefactoringType.MODERNIZE_SYNTAX,
@@ -298,11 +298,11 @@ describe('Code Enhancement Pipeline Integration', () => {
       expect(result.filesEnhanced).toBe(2);
       
       const enhancedUtils = await fs.readFile(
-        path.join(testProjectDir, 'enhanced', 'utils.js'),
+        path.join(testProjectDir, "enhanced", 'utils.js'),
         'utf-8'
       );
       const enhancedMain = await fs.readFile(
-        path.join(testProjectDir, 'enhanced', 'main.js'),
+        path.join(testProjectDir, "enhanced", 'main.js'),
         'utf-8'
       );
 
@@ -320,7 +320,7 @@ describe('Code Enhancement Pipeline Integration', () => {
       `;
 
       const config: EnhancementConfig = {
-        language: 'javascript',
+        language: "javascript",
         qualityTargets: {
           minScore: 85,
           maxComplexity: 3,
@@ -349,7 +349,7 @@ describe('Code Enhancement Pipeline Integration', () => {
       `;
 
       const config: EnhancementConfig = {
-        language: 'javascript',
+        language: "javascript",
         attemptAutoFix: true
       };
 
@@ -368,7 +368,7 @@ describe('Code Enhancement Pipeline Integration', () => {
       
       // Force a failure by requesting impossible refactoring
       const config: EnhancementConfig = {
-        language: 'javascript',
+        language: "javascript",
         refactorings: ['INVALID_REFACTORING' as RefactoringType],
         rollbackOnFailure: true
       };
@@ -398,7 +398,7 @@ describe('Code Enhancement Pipeline Integration', () => {
       const code = 'function processData() { return 42; }';
       
       const config: EnhancementConfig = {
-        language: 'javascript',
+        language: "javascript",
         customRules: ['company-naming-convention']
       };
 

@@ -7,7 +7,7 @@ import * as fs from 'fs/promises';
 import { path } from '../../infra_external-log-lib/src';
 import { os } from '../../infra_external-log-lib/src';
 
-describe('VFNameIdWrapper', () => {
+describe("VFNameIdWrapper", () => {
   let tempDir: string;
   let wrapper: VFNameIdWrapper;
   let testFile: string;
@@ -24,19 +24,19 @@ describe('VFNameIdWrapper', () => {
     await fs.rm(tempDir, { recursive: true, force: true });
   });
 
-  describe('addEntity', () => {
+  describe("addEntity", () => {
     test('should add new entity with unique ID', async () => {
       const entityData = { title: 'Test Entity', value: 42 };
       
-      const id = await wrapper.addEntity('testEntity', entityData, testFile);
+      const id = await wrapper.addEntity("testEntity", entityData, testFile);
       
       expect(id).toBeTruthy();
       expect(typeof id).toBe('string');
       
       // Verify entity was saved
-      const entities = await wrapper.getEntities('testEntity', testFile);
+      const entities = await wrapper.getEntities("testEntity", testFile);
       expect(entities).toHaveLength(1);
-      expect(entities[0].name).toBe('testEntity');
+      expect(entities[0].name).toBe("testEntity");
       expect(entities[0].data).toEqual(entityData);
       expect(entities[0].id).toBe(id);
     });
@@ -45,12 +45,12 @@ describe('VFNameIdWrapper', () => {
       const entity1 = { value: 1 };
       const entity2 = { value: 2 };
       
-      const id1 = await wrapper.addEntity('duplicate', entity1, testFile);
-      const id2 = await wrapper.addEntity('duplicate', entity2, testFile);
+      const id1 = await wrapper.addEntity("duplicate", entity1, testFile);
+      const id2 = await wrapper.addEntity("duplicate", entity2, testFile);
       
       expect(id1).not.toBe(id2);
       
-      const entities = await wrapper.getEntities('duplicate', testFile);
+      const entities = await wrapper.getEntities("duplicate", testFile);
       expect(entities).toHaveLength(2);
       expect(entities.map(e => e.data.value)).toContain(1);
       expect(entities.map(e => e.data.value)).toContain(2);
@@ -63,7 +63,7 @@ describe('VFNameIdWrapper', () => {
       await wrapper.addEntity('user', { role: 'admin', active: true }, testFile);
       await wrapper.addEntity('user', { role: 'user', active: true }, testFile);
       await wrapper.addEntity('user', { role: 'user', active: false }, testFile);
-      await wrapper.addEntity('product', { category: 'electronics', price: 100 }, testFile);
+      await wrapper.addEntity('product', { category: "electronics", price: 100 }, testFile);
     });
 
     test('should filter by name parameter', async () => {
@@ -97,9 +97,9 @@ describe('VFNameIdWrapper', () => {
     });
   });
 
-  describe('updateEntity', () => {
+  describe("updateEntity", () => {
     test('should update entity by ID', async () => {
-      const id = await wrapper.addEntity('item', { value: 'original' }, testFile);
+      const id = await wrapper.addEntity('item', { value: "original" }, testFile);
       
       await wrapper.updateEntity(id, { data: { value: 'updated' } }, testFile);
       
@@ -125,7 +125,7 @@ describe('VFNameIdWrapper', () => {
     });
   });
 
-  describe('deleteEntity', () => {
+  describe("deleteEntity", () => {
     test('should delete entity by ID', async () => {
       const id1 = await wrapper.addEntity('item', { value: 1 }, testFile);
       const id2 = await wrapper.addEntity('item', { value: 2 }, testFile);
@@ -138,12 +138,12 @@ describe('VFNameIdWrapper', () => {
     });
 
     test('should remove name key when last entity deleted', async () => {
-      const id = await wrapper.addEntity('singleton', { value: 'only' }, testFile);
+      const id = await wrapper.addEntity("singleton", { value: 'only' }, testFile);
       
       await wrapper.deleteEntity(id, testFile);
       
       const storage = await wrapper.read(testFile);
-      expect(storage).not.toHaveProperty('singleton');
+      expect(storage).not.toHaveProperty("singleton");
     });
 
     test('should throw error for non-existent ID', async () => {
@@ -181,7 +181,7 @@ describe('VFNameIdWrapper', () => {
     test('should write single entity', async () => {
       const entity: Entity = {
         id: 'custom-id',
-        name: 'customEntity',
+        name: "customEntity",
         data: { custom: true },
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
@@ -189,7 +189,7 @@ describe('VFNameIdWrapper', () => {
       
       await wrapper.write(testFile, entity);
       
-      const entities = await wrapper.getEntities('customEntity', testFile);
+      const entities = await wrapper.getEntities("customEntity", testFile);
       expect(entities).toHaveLength(1);
       expect(entities[0].id).toBe('custom-id');
     });
@@ -208,7 +208,7 @@ describe('VFNameIdWrapper', () => {
         products: [
           {
             id: '2',
-            name: 'products',
+            name: "products",
             data: { title: 'Product 1' },
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString()
@@ -220,7 +220,7 @@ describe('VFNameIdWrapper', () => {
       
       const readStorage = await wrapper.read(testFile) as any;
       expect(readStorage).toHaveProperty('users');
-      expect(readStorage).toHaveProperty('products');
+      expect(readStorage).toHaveProperty("products");
       expect(readStorage.users).toHaveLength(1);
       expect(readStorage.products).toHaveLength(1);
     });
@@ -239,13 +239,13 @@ describe('VFNameIdWrapper', () => {
         title: 'Task 2', 
         status: 'In Progress', 
         priority: 'low',
-        tags: ['frontend']
+        tags: ["frontend"]
       }, testFile);
       await wrapper.addEntity('task', { 
         title: 'Task 3', 
         status: 'pending', 
         priority: 'low',
-        tags: ['backend', 'database']
+        tags: ['backend', "database"]
       }, testFile);
     });
 

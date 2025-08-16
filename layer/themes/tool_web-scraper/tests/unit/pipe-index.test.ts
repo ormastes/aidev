@@ -69,7 +69,7 @@ describe('web-scraper pipe/index.ts', () => {
   });
 
   describe('factory functions', () => {
-    describe('createWebScraper', () => {
+    describe("createWebScraper", () => {
       it('should create a WebScraper instance with default config', () => {
         const mockScraper = new WebScraper();
         (WebScraper as jest.MockedClass<typeof WebScraper>).mockImplementation(() => mockScraper);
@@ -113,7 +113,7 @@ describe('web-scraper pipe/index.ts', () => {
       });
     });
 
-    describe('createHTMLParser', () => {
+    describe("createHTMLParser", () => {
       it('should create an HTMLParser instance', () => {
         const mockParser = new HTMLParser();
         (HTMLParser as jest.MockedClass<typeof HTMLParser>).mockImplementation(() => mockParser);
@@ -136,7 +136,7 @@ describe('web-scraper pipe/index.ts', () => {
       });
     });
 
-    describe('createFetcher', () => {
+    describe("createFetcher", () => {
       it('should create a Fetcher instance', () => {
         const mockFetcher = new Fetcher();
         (Fetcher as jest.MockedClass<typeof Fetcher>).mockImplementation(() => mockFetcher);
@@ -161,7 +161,7 @@ describe('web-scraper pipe/index.ts', () => {
       });
     });
 
-    describe('createExtractor', () => {
+    describe("createExtractor", () => {
       it('should create a SchemaExtractor instance', () => {
         const mockExtractor = new SchemaExtractor();
         (SchemaExtractor as jest.MockedClass<typeof SchemaExtractor>).mockImplementation(() => mockExtractor);
@@ -173,7 +173,7 @@ describe('web-scraper pipe/index.ts', () => {
       });
     });
 
-    describe('createExporter', () => {
+    describe("createExporter", () => {
       it('should create a DataExporter instance', () => {
         const mockExporter = new DataExporter();
         (DataExporter as jest.MockedClass<typeof DataExporter>).mockImplementation(() => mockExporter);
@@ -196,7 +196,7 @@ describe('web-scraper pipe/index.ts', () => {
       });
     });
 
-    describe('createSelector', () => {
+    describe("createSelector", () => {
       it('should create a CSSSelector instance', () => {
         const mockSelector = new CSSSelector();
         (CSSSelector as jest.MockedClass<typeof CSSSelector>).mockImplementation(() => mockSelector);
@@ -209,7 +209,7 @@ describe('web-scraper pipe/index.ts', () => {
     });
   });
 
-  describe('BuiltInSchemas', () => {
+  describe("BuiltInSchemas", () => {
     it('should provide ECOMMERCE_PRODUCT schema', () => {
       const schema = webScraperPipe.BuiltInSchemas.ECOMMERCE_PRODUCT;
       
@@ -226,7 +226,7 @@ describe('web-scraper pipe/index.ts', () => {
       
       expect(schema.name).toBe('news-article');
       expect(schema.description).toContain('news');
-      expect(schema.rules.find(r => r.name === 'headline')).toBeDefined();
+      expect(schema.rules.find(r => r.name === "headline")).toBeDefined();
       expect(schema.rules.find(r => r.name === 'author')).toBeDefined();
     });
 
@@ -252,13 +252,13 @@ describe('web-scraper pipe/index.ts', () => {
       
       expect(schema.name).toBe('real-estate');
       expect(schema.rules.find(r => r.name === 'price')).toBeDefined();
-      expect(schema.rules.find(r => r.name === 'bedrooms')).toBeDefined();
-      expect(schema.rules.find(r => r.name === 'bathrooms')).toBeDefined();
+      expect(schema.rules.find(r => r.name === "bedrooms")).toBeDefined();
+      expect(schema.rules.find(r => r.name === "bathrooms")).toBeDefined();
     });
   });
 
   describe('quick helper functions', () => {
-    describe('quickScrape', () => {
+    describe("quickScrape", () => {
       it('should perform a quick scrape with default options', async () => {
         const mockScraper = {
           scrape: jest.fn().mockResolvedValue({ url: 'https://example.com', data: {} }),
@@ -335,7 +335,7 @@ describe('web-scraper pipe/index.ts', () => {
       });
     });
 
-    describe('quickBatchScrape', () => {
+    describe("quickBatchScrape", () => {
       it('should perform batch scrape', async () => {
         const mockResults = [
           { url: 'https://example1.com', data: {} },
@@ -394,7 +394,7 @@ describe('web-scraper pipe/index.ts', () => {
       });
     });
 
-    describe('validateUrl', () => {
+    describe("validateUrl", () => {
       it('should validate correct URLs', () => {
         const result = webScraperPipe.validateUrl('https://example.com');
         
@@ -424,7 +424,7 @@ describe('web-scraper pipe/index.ts', () => {
       });
     });
 
-    describe('testSelector', () => {
+    describe("testSelector", () => {
       it('should test CSS selector on a URL', async () => {
         const mockScraper = {
           scrape: jest.fn().mockResolvedValue({
@@ -505,7 +505,7 @@ describe('web-scraper pipe/index.ts', () => {
         cacheEnabled: true,
         defaultExportFormat: 'json',
         outputDirectory: '/tmp/output',
-        browserEngine: 'puppeteer'
+        browserEngine: "puppeteer"
       };
       
       expect(config.rateLimitConfig?.requestsPerSecond).toBe(1);

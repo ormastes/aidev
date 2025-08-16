@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach, jest } from '@jest/globals';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { CLIInterface } from '../../src/external/cli-interface';
 import type { CLIResponse, Message } from '../../src/external/cli-interface';
 
@@ -153,7 +153,7 @@ describe('CLI Interface Unit Tests', () => {
       
       expect(response.success).toBe(true);
       const createEvent = emittedEvents.find(e => e.event === 'cli:create_room');
-      expect(createEvent?.data.name).toBe('testroom');
+      expect(createEvent?.data.name).toBe("testroom");
       expect(createEvent?.data.description).toBe('"Test room"');
     });
 
@@ -254,11 +254,11 @@ describe('CLI Interface Unit Tests', () => {
       const message: Message = {
         id: 'msg1',
         roomId: 'general',
-        userId: 'workflow',
-        username: 'workflow',
+        userId: "workflow",
+        username: "workflow",
         content: 'Code review in progress',
         timestamp: new Date('2023-01-01T12:00:00Z'),
-        type: 'workflow'
+        type: "workflow"
       };
 
       const formatted = cli.formatMessage(message);
@@ -336,7 +336,7 @@ describe('CLI Interface Unit Tests', () => {
     test('should format table data', () => {
       const response: CLIResponse = {
         success: true,
-        message: 'Settings',
+        message: "Settings",
         data: {
           showTimestamps: true,
           colorOutput: false,
@@ -469,9 +469,9 @@ describe('CLI Interface Unit Tests', () => {
       const state1 = cli.getState();
       const state2 = cli.getState();
       
-      state1.currentRoom = 'modified';
+      state1.currentRoom = "modified";
       
-      expect(state2.currentRoom).not.toBe('modified');
+      expect(state2.currentRoom).not.toBe("modified");
     });
   });
 });

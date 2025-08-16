@@ -1,5 +1,5 @@
 import { MockFreeTestRunner } from '../../src/external/mock-free-test-runner';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 describe('Mock Free Test Oriented Development Test Runner Log Forwarding Unit Test', () => {
   let mockFreeTestRunner: MockFreeTestRunner;
@@ -18,7 +18,7 @@ describe('Mock Free Test Oriented Development Test Runner Log Forwarding Unit Te
       capturedLogs.push({ timestamp: new Date(), message });
     });
 
-    mockFreeTestRunner.on('progress', (event) => {
+    mockFreeTestRunner.on("progress", (event) => {
       capturedProgress.push(event);
     });
 
@@ -70,9 +70,9 @@ describe('Mock Free Test Oriented Development Test Runner Log Forwarding Unit Te
     it('should emit testStart event with proper structure', (done) => {
       let testStartEmitted = false;
 
-      mockFreeTestRunner.on('testStart', (event) => {
-        expect(event).toHaveProperty('testSuiteId');
-        expect(event).toHaveProperty('timestamp');
+      mockFreeTestRunner.on("testStart", (event) => {
+        expect(event).toHaveProperty("testSuiteId");
+        expect(event).toHaveProperty("timestamp");
         expect(event.testSuiteId).toBe('lifecycle-test');
         expect(event.timestamp).toBeInstanceOf(Date);
         testStartEmitted = true;
@@ -80,7 +80,7 @@ describe('Mock Free Test Oriented Development Test Runner Log Forwarding Unit Te
       });
 
       // Manually emit testStart as we can't run actual cucumber
-      mockFreeTestRunner.emit('testStart', {
+      mockFreeTestRunner.emit("testStart", {
         testSuiteId: 'lifecycle-test',
         timestamp: new Date()
       });
@@ -91,17 +91,17 @@ describe('Mock Free Test Oriented Development Test Runner Log Forwarding Unit Te
     it('should emit testComplete event with status', (done) => {
       let testCompleteEmitted = false;
 
-      mockFreeTestRunner.on('testComplete', (event) => {
-        expect(event).toHaveProperty('testSuiteId');
+      mockFreeTestRunner.on("testComplete", (event) => {
+        expect(event).toHaveProperty("testSuiteId");
         expect(event).toHaveProperty('status');
-        expect(event).toHaveProperty('timestamp');
+        expect(event).toHaveProperty("timestamp");
         expect(event.status).toMatch(/^(success|failed|pending|cancelled)$/);
         testCompleteEmitted = true;
         done();
       });
 
       // Manually emit testComplete
-      mockFreeTestRunner.emit('testComplete', {
+      mockFreeTestRunner.emit("testComplete", {
         testSuiteId: 'lifecycle-test',
         status: 'success',
         timestamp: new Date()
@@ -159,7 +159,7 @@ describe('Mock Free Test Oriented Development Test Runner Log Forwarding Unit Te
 
       // Simulate progress event
       const progressMessage = 'Running scenario 1 of 5';
-      mockFreeTestRunner.emit('progress', {
+      mockFreeTestRunner.emit("progress", {
         type: 'output',
         message: progressMessage,
         timestamp: new Date()
@@ -181,16 +181,16 @@ describe('Mock Free Test Oriented Development Test Runner Log Forwarding Unit Te
         { name: 'Password reset', timestamp: new Date() }
       ];
 
-      mockFreeTestRunner.on('scenarioStart', (event) => {
+      mockFreeTestRunner.on("scenarioStart", (event) => {
         scenarioStartCount++;
         expect(event).toHaveProperty('name');
-        expect(event).toHaveProperty('timestamp');
+        expect(event).toHaveProperty("timestamp");
         expect(scenarios.some(s => s.name === event.name)).toBe(true);
       });
 
       // Simulate scenario start events
       scenarios.forEach(scenario => {
-        mockFreeTestRunner.emit('scenarioStart', scenario);
+        mockFreeTestRunner.emit("scenarioStart", scenario);
       });
 
       expect(scenarioStartCount).toBe(3);
@@ -204,19 +204,19 @@ describe('Mock Free Test Oriented Development Test Runner Log Forwarding Unit Te
         { name: 'Skipped scenario', status: 'skipped', duration: 0, timestamp: new Date() }
       ];
 
-      mockFreeTestRunner.on('scenarioComplete', (event) => {
+      mockFreeTestRunner.on("scenarioComplete", (event) => {
         scenarioCompleteCount++;
         expect(event).toHaveProperty('name');
         expect(event).toHaveProperty('status');
-        expect(event).toHaveProperty('duration');
-        expect(event).toHaveProperty('timestamp');
+        expect(event).toHaveProperty("duration");
+        expect(event).toHaveProperty("timestamp");
         expect(event.status).toMatch(/^(success|failed|pending|skipped)$/);
         expect(event.duration).toBeGreaterThanOrEqual(0);
       });
 
       // Simulate scenario completion events
       passedScenarios.forEach(scenario => {
-        mockFreeTestRunner.emit('scenarioComplete', scenario);
+        mockFreeTestRunner.emit("scenarioComplete", scenario);
       });
 
       expect(scenarioCompleteCount).toBe(3);
@@ -225,12 +225,12 @@ describe('Mock Free Test Oriented Development Test Runner Log Forwarding Unit Te
     it('should emit step events with proper details', () => {
       const stepEvents: any[] = [];
 
-      mockFreeTestRunner.on('stepStart', (event) => {
+      mockFreeTestRunner.on("stepStart", (event) => {
         stepEvents.push({ type: 'start', ...event });
       });
 
-      mockFreeTestRunner.on('stepComplete', (event) => {
-        stepEvents.push({ type: 'complete', ...event });
+      mockFreeTestRunner.on("stepComplete", (event) => {
+        stepEvents.push({ type: "complete", ...event });
       });
 
       // Simulate step execution
@@ -241,8 +241,8 @@ describe('Mock Free Test Oriented Development Test Runner Log Forwarding Unit Te
       ];
 
       steps.forEach((step, index) => {
-        mockFreeTestRunner.emit('stepStart', step);
-        mockFreeTestRunner.emit('stepComplete', {
+        mockFreeTestRunner.emit("stepStart", step);
+        mockFreeTestRunner.emit("stepComplete", {
           ...step,
           status: 'success',
           duration: 100 * (index + 1)
@@ -251,12 +251,12 @@ describe('Mock Free Test Oriented Development Test Runner Log Forwarding Unit Te
 
       expect(stepEvents).toHaveLength(6); // 3 starts + 3 completes
       expect(stepEvents.filter(e => e.type === 'start')).toHaveLength(3);
-      expect(stepEvents.filter(e => e.type === 'complete')).toHaveLength(3);
+      expect(stepEvents.filter(e => e.type === "complete")).toHaveLength(3);
       
-      const completeEvents = stepEvents.filter(e => e.type === 'complete');
+      const completeEvents = stepEvents.filter(e => e.type === "complete");
       completeEvents.forEach(event => {
         expect(event).toHaveProperty('status');
-        expect(event).toHaveProperty('duration');
+        expect(event).toHaveProperty("duration");
       });
     });
   });

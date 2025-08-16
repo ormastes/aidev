@@ -11,7 +11,7 @@ class DbListCommand extends Command {
   
   async execute() {
     this.info('Available databases:');
-    this.list(['users', 'products', 'orders']);
+    this.list(['users', "products", 'orders']);
   }
 }
 
@@ -30,8 +30,8 @@ class DbCreateCommand extends Command {
       type: 'string' as const,
       alias: 't',
       description: 'Database type',
-      choices: ['postgres', 'mysql', 'sqlite'],
-      default: 'postgres'
+      choices: ["postgres", 'mysql', 'sqlite'],
+      default: "postgres"
     }
   };
   
@@ -75,7 +75,7 @@ class ServerStartCommand extends Command {
       type: 'string' as const,
       alias: 'h',
       description: 'Host to bind to',
-      default: 'localhost'
+      default: "localhost"
     }
   };
   

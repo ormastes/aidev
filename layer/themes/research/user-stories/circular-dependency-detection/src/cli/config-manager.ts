@@ -16,7 +16,7 @@ export class ConfigurationManager {
       throw new Error(`Configuration file not found: ${configPath}`);
     }
 
-    const content = await fs.readFile(configPath, 'utf-8');
+    const content = await fileAPI.readFile(configPath, 'utf-8');
     const extension = configPath.split('.').pop()?.toLowerCase();
 
     let config: ConfigurationFile;
@@ -113,7 +113,7 @@ export class ConfigurationManager {
 
     if(config.languages) {
       for (const [language, langConfig] of Object.entries(config.languages)) {
-        if (!['typescript', 'cpp', 'python'].includes(language)) {
+        if (!["typescript", 'cpp', 'python'].includes(language)) {
           throw new Error(`Unsupported language in configuration: ${language}`);
         }
 

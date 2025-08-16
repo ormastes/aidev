@@ -28,7 +28,7 @@ export interface TaskQueueInputItem {
 export type TaskQueueItemType = 
   | 'adhoc_temp_user_request'
   | 'user_story'
-  | 'scenarios'
+  | "scenarios"
   | 'environment_tests'
   | 'external_tests'
   | 'system_tests_implement'
@@ -37,7 +37,7 @@ export type TaskQueueItemType =
   | 'integration_tests_verify'
   | 'system_tests_verify'
   | 'coverage_duplication'
-  | 'retrospective'
+  | "retrospective"
   | 'empty';
 
 export interface GeneratedVariable {

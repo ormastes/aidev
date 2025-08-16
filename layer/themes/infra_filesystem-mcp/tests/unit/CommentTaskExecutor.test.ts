@@ -25,7 +25,7 @@ jest.mock('../../../../llm_rules/steps/script-matcher.js', () => {
   };
 }, { virtual: true });
 
-describe('CommentTaskExecutor', () => {
+describe("CommentTaskExecutor", () => {
   let executor: CommentTaskExecutor;
   let tempDir: string;
 
@@ -45,7 +45,7 @@ describe('CommentTaskExecutor', () => {
     fs.writeFileSync(path.join(stepsDir, 'script-matcher.js'), `
       module.exports = class ScriptMatcher {
         async execute(text, parameters) {
-          if (text.includes('register')) {
+          if (text.includes("register")) {
             return { success: true, output: 'Registered successfully' };
           }
           if (text.includes('check')) {
@@ -66,7 +66,7 @@ describe('CommentTaskExecutor', () => {
     }
   });
 
-  describe('executePopComment', () => {
+  describe("executePopComment", () => {
     it('should handle string comments', async () => {
       const result = await executor.executePopComment('Simple message');
       
@@ -148,20 +148,20 @@ describe('CommentTaskExecutor', () => {
     });
   });
 
-  describe('getEnhancedExecutor', () => {
+  describe("getEnhancedExecutor", () => {
     it('should execute runnable tasks', async () => {
       const mockExecutor = jest.fn(() => Promise.resolve({ success: true }));
       executor.registerFunction('test', mockExecutor);
       
       const task: Task = {
         id: 'task-1',
-        type: 'runnable',
+        type: "runnable",
         priority: 'high',
         content: {},
         status: 'working',
         createdAt: new Date().toISOString(),
         runnable: {
-          type: 'function',
+          type: "function",
           function: 'test'
         }
       };
@@ -191,7 +191,7 @@ describe('CommentTaskExecutor', () => {
     });
   });
 
-  describe('createWithCommentSupport', () => {
+  describe("createWithCommentSupport", () => {
     it('should create executor with comment support', () => {
       const commentExecutor = CommentTaskExecutor.createWithCommentSupport(tempDir);
       
@@ -212,8 +212,8 @@ describe('CommentTaskExecutor', () => {
       // Test the registered function
       const entityData = {
         id: 'test-1',
-        type: 'component',
-        name: 'TestComponent'
+        type: "component",
+        name: "TestComponent"
       };
       
       const executor = commentExecutor.getExecutor();
@@ -223,7 +223,7 @@ describe('CommentTaskExecutor', () => {
     });
   });
 
-  describe('findStepsDirectory', () => {
+  describe("findStepsDirectory", () => {
     it('should find steps directory in parent directories', () => {
       // Create a nested directory structure
       const nestedDir = path.join(tempDir, 'deep', 'nested', 'path');

@@ -2,11 +2,11 @@
  * HealthChecker - Service health monitoring with dependency checks
  */
 
-import { EventEmitter } from 'events';
-import * as http from 'http';
-import * as https from 'https';
+import { EventEmitter } from 'node:events';
+import * as http from '../utils/http-wrapper';
+import * as https from 'node:https';
 import { URL } from 'url';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import * as net from 'net';
 import * as dns from 'dns';
 import winston from 'winston';
@@ -14,12 +14,12 @@ import * as cron from 'node-cron';
 
 const dnsLookup = promisify(dns.lookup);
 
-export type HealthStatus = 'healthy' | 'warning' | 'critical' | 'unknown';
+export type HealthStatus = 'healthy' | 'warning' | "critical" | 'unknown';
 
 export interface ServiceHealthCheck {
   id: string;
   name: string;
-  type: 'http' | 'tcp' | 'dns' | 'database' | 'custom';
+  type: 'http' | 'tcp' | 'dns' | "database" | 'custom';
   config: {
     url?: string;
     host?: string;
@@ -115,7 +115,7 @@ export class HealthChecker extends EventEmitter {
             return {
               serviceId: 'system-memory',
               serviceName: 'System Memory',
-              status: usage > 90 ? 'critical' : usage > 75 ? 'warning' : 'healthy',
+              status: usage > 90 ? "critical" : usage > 75 ? 'warning' : 'healthy',
               timestamp: Date.now(),
               details: {
                 heapUsed: memUsage.heapUsed,
@@ -145,7 +145,7 @@ export class HealthChecker extends EventEmitter {
               return {
                 serviceId: 'system-disk',
                 serviceName: 'System Disk Space',
-                status: usage > 90 ? 'critical' : usage > 80 ? 'warning' : 'healthy',
+                status: usage > 90 ? "critical" : usage > 80 ? 'warning' : 'healthy',
                 timestamp: Date.now(),
                 details: { diskUsage: usage },
                 message: `Disk usage: ${usage}%`
@@ -294,7 +294,7 @@ export class HealthChecker extends EventEmitter {
         case 'dns':
           result = await this.performDNSCheck(check);
           break;
-        case 'database':
+        case "database":
           result = await this.performDatabaseCheck(check);
           break;
         case 'custom':
@@ -311,12 +311,12 @@ export class HealthChecker extends EventEmitter {
       }
 
       this.healthResults.set(checkId, result);
-      this.emit('healthCheckCompleted', result);
+      this.emit("healthCheckCompleted", result);
 
       // Emit status change events
       const previousResult = this.healthResults.get(checkId);
       if (previousResult && previousResult.status !== result.status) {
-        this.emit('healthStatusChanged', {
+        this.emit("healthStatusChanged", {
           serviceId: checkId,
           serviceName: check.name,
           previousStatus: previousResult.status,
@@ -329,13 +329,13 @@ export class HealthChecker extends EventEmitter {
       const errorResult: HealthResult = {
         serviceId: check.id,
         serviceName: check.name,
-        status: 'critical',
+        status: "critical",
         timestamp: Date.now(),
         error: error.message
       };
 
       this.healthResults.set(checkId, errorResult);
-      this.emit('healthCheckError', errorResult);
+      this.emit("healthCheckError", errorResult);
       this.logger.error(`Health check failed for ${check.name}:`, error);
     }
   }
@@ -350,7 +350,7 @@ export class HealthChecker extends EventEmitter {
         resolve({
           serviceId: check.id,
           serviceName: check.name,
-          status: 'critical',
+          status: "critical",
           timestamp: Date.now(),
           error: 'No URL configured for HTTP check'
         });
@@ -384,7 +384,7 @@ export class HealthChecker extends EventEmitter {
           const statusOk = res.statusCode === expectedStatus;
           const contentOk = !config.expectedContent || data.includes(config.expectedContent);
 
-          const status: HealthStatus = statusOk && contentOk ? 'healthy' : 'critical';
+          const status: HealthStatus = statusOk && contentOk ? 'healthy' : "critical";
           
           resolve({
             serviceId: check.id,
@@ -408,7 +408,7 @@ export class HealthChecker extends EventEmitter {
         resolve({
           serviceId: check.id,
           serviceName: check.name,
-          status: 'critical',
+          status: "critical",
           timestamp: Date.now(),
           responseTime: Date.now() - startTime,
           error: error.message
@@ -420,7 +420,7 @@ export class HealthChecker extends EventEmitter {
         resolve({
           serviceId: check.id,
           serviceName: check.name,
-          status: 'critical',
+          status: "critical",
           timestamp: Date.now(),
           responseTime: Date.now() - startTime,
           error: 'Request timeout'
@@ -441,7 +441,7 @@ export class HealthChecker extends EventEmitter {
         resolve({
           serviceId: check.id,
           serviceName: check.name,
-          status: 'critical',
+          status: "critical",
           timestamp: Date.now(),
           error: 'Host and port required for TCP check'
         });
@@ -473,7 +473,7 @@ export class HealthChecker extends EventEmitter {
         resolve({
           serviceId: check.id,
           serviceName: check.name,
-          status: 'critical',
+          status: "critical",
           timestamp: Date.now(),
           responseTime: Date.now() - startTime,
           error: error.message
@@ -485,7 +485,7 @@ export class HealthChecker extends EventEmitter {
         resolve({
           serviceId: check.id,
           serviceName: check.name,
-          status: 'critical',
+          status: "critical",
           timestamp: Date.now(),
           responseTime: Date.now() - startTime,
           error: 'Connection timeout'
@@ -503,7 +503,7 @@ export class HealthChecker extends EventEmitter {
       return {
         serviceId: check.id,
         serviceName: check.name,
-        status: 'critical',
+        status: "critical",
         timestamp: Date.now(),
         error: 'Host required for DNS check'
       };
@@ -531,7 +531,7 @@ export class HealthChecker extends EventEmitter {
       return {
         serviceId: check.id,
         serviceName: check.name,
-        status: 'critical',
+        status: "critical",
         timestamp: Date.now(),
         responseTime: Date.now() - startTime,
         error: error.message
@@ -552,7 +552,7 @@ export class HealthChecker extends EventEmitter {
       ...check,
       config: {
         ...config,
-        host: config.host || 'localhost',
+        host: config.host || "localhost",
         port: dbPort
       }
     });
@@ -567,7 +567,7 @@ export class HealthChecker extends EventEmitter {
       return {
         serviceId: check.id,
         serviceName: check.name,
-        status: 'critical',
+        status: "critical",
         timestamp: Date.now(),
         error: 'No custom check function provided'
       };
@@ -579,7 +579,7 @@ export class HealthChecker extends EventEmitter {
       return {
         serviceId: check.id,
         serviceName: check.name,
-        status: 'critical',
+        status: "critical",
         timestamp: Date.now(),
         error: error.message
       };
@@ -620,7 +620,7 @@ export class HealthChecker extends EventEmitter {
     // Calculate overall health
     let overall: HealthStatus = 'healthy';
     if (summary.critical > 0) {
-      overall = 'critical';
+      overall = "critical";
     } else if (summary.warning > 0) {
       overall = 'warning';
     } else if (summary.unknown > 0 && summary.healthy === 0) {
@@ -652,14 +652,14 @@ export class HealthChecker extends EventEmitter {
 
         for (const dep of check.dependencies) {
           const depResult = this.healthResults.get(dep);
-          if (!depResult || depResult.status === 'critical' || depResult.status === 'unknown') {
+          if (!depResult || depResult.status === "critical" || depResult.status === 'unknown') {
             failedDependencies.push(dep);
           }
         }
 
         let status: HealthStatus = 'healthy';
         if (failedDependencies.length > 0) {
-          status = failedDependencies.length === check.dependencies.length ? 'critical' : 'warning';
+          status = failedDependencies.length === check.dependencies.length ? "critical" : 'warning';
         }
 
         dependencyMap.push({
@@ -694,7 +694,7 @@ export class HealthChecker extends EventEmitter {
       }
     }
 
-    this.emit('healthAnalysis', analysis);
+    this.emit("healthAnalysis", analysis);
     this.logger.info('Health analysis completed', analysis);
   }
 

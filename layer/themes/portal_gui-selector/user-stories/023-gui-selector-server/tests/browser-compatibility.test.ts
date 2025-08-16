@@ -26,7 +26,7 @@ const USER_AGENTS = {
 };
 
 describe('Browser Compatibility System', () => {
-  describe('BrowserCompatibilityService', () => {
+  describe("BrowserCompatibilityService", () => {
     let service: BrowserCompatibilityService;
 
     beforeEach(() => {
@@ -268,7 +268,7 @@ describe('Browser Compatibility System', () => {
         
         const versionIssue = issues.find(i => i.feature === 'browser-version');
         expect(versionIssue).toBeDefined();
-        expect(versionIssue?.severity).toBe('critical');
+        expect(versionIssue?.severity).toBe("critical");
       });
 
       it('should not identify issues for modern browsers', () => {
@@ -400,12 +400,12 @@ describe('Browser Compatibility System', () => {
 
         const issues = service.analyzeCompatibility(browserInfo, capabilities);
         
-        const criticalIssues = issues.filter(i => i.severity === 'critical');
+        const criticalIssues = issues.filter(i => i.severity === "critical");
         expect(criticalIssues.length).toBeGreaterThan(0);
         
         const flexboxIssue = issues.find(i => i.feature === 'css-flexbox');
         expect(flexboxIssue).toBeDefined();
-        expect(flexboxIssue?.severity).toBe('critical');
+        expect(flexboxIssue?.severity).toBe("critical");
       });
     });
 
@@ -519,7 +519,7 @@ describe('Browser Compatibility System', () => {
         const issues: CompatibilityIssue[] = [
           { 
             feature: 'css-flexbox', 
-            severity: 'critical', 
+            severity: "critical", 
             browser: 'unknown', 
             version: '1.0',
             description: 'Missing flexbox',
@@ -527,7 +527,7 @@ describe('Browser Compatibility System', () => {
           },
           { 
             feature: 'js-promises', 
-            severity: 'critical', 
+            severity: "critical", 
             browser: 'unknown', 
             version: '1.0',
             description: 'Missing promises',
@@ -543,7 +543,7 @@ describe('Browser Compatibility System', () => {
         expect(service.determineSupportLevel(95)).toBe('full');
         expect(service.determineSupportLevel(75)).toBe('partial');
         expect(service.determineSupportLevel(55)).toBe('limited');
-        expect(service.determineSupportLevel(30)).toBe('unsupported');
+        expect(service.determineSupportLevel(30)).toBe("unsupported");
       });
     });
 
@@ -577,7 +577,7 @@ describe('Browser Compatibility System', () => {
         const issues: CompatibilityIssue[] = [
           {
             feature: 'js-promises',
-            severity: 'critical',
+            severity: "critical",
             browser: 'old',
             version: '1.0',
             description: 'Promises not supported',
@@ -637,7 +637,7 @@ describe('Browser Compatibility System', () => {
     });
   });
 
-  describe('BrowserDetectionMiddleware', () => {
+  describe("BrowserDetectionMiddleware", () => {
     let middleware: BrowserDetectionMiddleware;
     let mockReq: Partial<Request>;
     let mockRes: Partial<Response>;

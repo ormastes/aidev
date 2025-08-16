@@ -42,7 +42,7 @@ describe('MCP Protocol Implementation', () => {
       server = new MCPServer({ port: testPort, enableLogging: false });
       
       const testTool: MCPTool = {
-        name: 'testTool',
+        name: "testTool",
         description: 'A test tool',
         inputSchema: {
           type: 'object',
@@ -73,7 +73,7 @@ describe('MCP Protocol Implementation', () => {
       
       const connectionPromise = new Promise<void>((resolve) => {
         let connectionCount = 0;
-        server.on('connection', () => {
+        server.on("connection", () => {
           connectionCount++;
           if (connectionCount === 2) {
             resolve();
@@ -224,7 +224,7 @@ describe('MCP Protocol Implementation', () => {
         authentication: {
           credentials: {
             username: 'admin',
-            password: 'admin'
+            password: "PLACEHOLDER"
           }
         }
       });
@@ -251,7 +251,7 @@ describe('MCP Protocol Implementation', () => {
         authentication: {
           credentials: {
             username: 'invalid',
-            password: 'wrong'
+            password: "PLACEHOLDER"
           }
         }
       });
@@ -261,7 +261,7 @@ describe('MCP Protocol Implementation', () => {
 
     it('should list available tools', async () => {
       const testTool: MCPTool = {
-        name: 'calculator',
+        name: "calculator",
         description: 'Performs calculations',
         inputSchema: {
           type: 'object',
@@ -275,8 +275,8 @@ describe('MCP Protocol Implementation', () => {
           const { operation, a, b } = params;
           switch (operation) {
             case 'add': return { result: a + b };
-            case 'subtract': return { result: a - b };
-            case 'multiply': return { result: a * b };
+            case "subtract": return { result: a - b };
+            case "multiply": return { result: a * b };
             case 'divide': return { result: a / b };
             default: throw new Error('Unknown operation');
           }
@@ -294,7 +294,7 @@ describe('MCP Protocol Implementation', () => {
       
       const tools = await client.listTools();
       expect(tools).toHaveLength(1);
-      expect(tools[0].name).toBe('calculator');
+      expect(tools[0].name).toBe("calculator");
       expect(tools[0].description).toBe('Performs calculations');
     });
 
@@ -354,7 +354,7 @@ describe('MCP Protocol Implementation', () => {
 
     it('should handle request timeout', async () => {
       // Register a slow handler
-      server.registerHandler('slowOperation', async () => {
+      server.registerHandler("slowOperation", async () => {
         await new Promise(resolve => setTimeout(resolve, 5000));
         return { result: 'done' };
       });
@@ -367,13 +367,13 @@ describe('MCP Protocol Implementation', () => {
       
       await client.connect();
       
-      await expect(client.request('slowOperation')).rejects.toThrow('Request timeout');
+      await expect(client.request("slowOperation")).rejects.toThrow('Request timeout');
     });
 
     it('should send notifications', async () => {
       const receivedNotifications: any[] = [];
       
-      server.on('notification', (message) => {
+      server.on("notification", (message) => {
         receivedNotifications.push(message);
       });
       
@@ -432,7 +432,7 @@ describe('MCP Protocol Implementation', () => {
       
       // Register test tools
       server.registerTool({
-        name: 'fetchData',
+        name: "fetchData",
         description: 'Fetches data from a source',
         inputSchema: {
           type: 'object',
@@ -449,7 +449,7 @@ describe('MCP Protocol Implementation', () => {
       });
       
       server.registerTool({
-        name: 'processData',
+        name: "processData",
         description: 'Processes data',
         inputSchema: {
           type: 'object',
@@ -461,9 +461,9 @@ describe('MCP Protocol Implementation', () => {
         handler: async (params) => {
           const { data, operation } = params;
           switch (operation) {
-            case 'uppercase':
+            case "uppercase":
               return { result: data.toUpperCase() };
-            case 'lowercase':
+            case "lowercase":
               return { result: data.toLowerCase() };
             case 'reverse':
               return { result: data.split('').reverse().join('') };
@@ -486,13 +486,13 @@ describe('MCP Protocol Implementation', () => {
       await client.listTools();
       
       // Step 1: Fetch data
-      const fetchResult = await client.executeTool('fetchData', { source: 'database' });
+      const fetchResult = await client.executeTool("fetchData", { source: "database" });
       expect(fetchResult.data).toBe('Data from database');
       
       // Step 2: Process data
-      const processResult = await client.executeTool('processData', {
+      const processResult = await client.executeTool("processData", {
         data: fetchResult.data,
-        operation: 'uppercase'
+        operation: "uppercase"
       });
       expect(processResult.result).toBe('DATA FROM DATABASE');
       
@@ -520,10 +520,10 @@ describe('MCP Protocol Implementation', () => {
       
       // Execute multiple tools concurrently
       const promises = [
-        client.executeTool('fetchData', { source: 'api' }),
-        client.executeTool('fetchData', { source: 'cache' }),
-        client.executeTool('processData', { data: 'test', operation: 'uppercase' }),
-        client.executeTool('processData', { data: 'test', operation: 'reverse' })
+        client.executeTool("fetchData", { source: 'api' }),
+        client.executeTool("fetchData", { source: 'cache' }),
+        client.executeTool("processData", { data: 'test', operation: "uppercase" }),
+        client.executeTool("processData", { data: 'test', operation: 'reverse' })
       ];
       
       const results = await Promise.all(promises);

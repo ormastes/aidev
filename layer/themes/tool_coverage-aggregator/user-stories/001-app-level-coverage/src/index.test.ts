@@ -8,7 +8,7 @@ describe('Coverage Aggregator Index', () => {
     jest.clearAllMocks();
   });
 
-  describe('generateAppCoverageReport', () => {
+  describe("generateAppCoverageReport", () => {
     it('should create service with default paths when not provided', async () => {
       const mockGenerateIntegratedReport = jest.fn().mockResolvedValue(undefined);
       (IntegratedCoverageService as jest.MockedClass<typeof IntegratedCoverageService>).mockImplementation(() => ({

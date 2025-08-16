@@ -2,7 +2,7 @@ import { TestGenAgent } from '../../src/agents/test-gen-agent';
 import { TestGenRequest, AgentContext } from '../../src/types';
 import { InMemoryStorage } from '../../../016-agent-abstraction/src/memory';
 
-describe('TestGenAgent', () => {
+describe("TestGenAgent", () => {
   let agent: TestGenAgent;
   let context: AgentContext;
 
@@ -18,7 +18,7 @@ describe('TestGenAgent', () => {
     };
   });
 
-  describe('generatePrompt', () => {
+  describe("generatePrompt", () => {
     it('should generate prompt for unit tests', () => {
       const request: TestGenRequest = {
         code: 'function add(a: number, b: number): number { return a + b; }',
@@ -50,7 +50,7 @@ describe('TestGenAgent', () => {
       const request: TestGenRequest = {
         code: 'class Service { }',
         framework: 'jest',
-        testType: 'integration',
+        testType: "integration",
         mockStrategy: 'manual'
       };
       
@@ -72,7 +72,7 @@ describe('TestGenAgent', () => {
     });
   });
 
-  describe('parseResponse', () => {
+  describe("parseResponse", () => {
     it('should extract test code from response', () => {
       const response = `Here are the tests:
 \`\`\`typescript
@@ -114,7 +114,7 @@ describe('Service', () => {
 
     it('should calculate coverage estimates', () => {
       const response = `\`\`\`typescript
-describe('Calculator', () => {
+describe("Calculator", () => {
   it('should add', () => { });
   it('should subtract', () => { });
   it('should multiply', () => { });
@@ -146,7 +146,7 @@ describe('test', () => {});
     });
   });
 
-  describe('validate', () => {
+  describe("validate", () => {
     it('should validate test with describe blocks', () => {
       const result = {
         testCode: 'describe("Test", () => { it("works", () => {}); });',
@@ -203,7 +203,7 @@ describe('test', () => {});
       const result = await agent.execute(request, context);
       
       expect(result.success).toBe(true);
-      expect(result.data.testCode).toContain('describe');
+      expect(result.data.testCode).toContain("describe");
       expect(result.data.testCode).toContain('greet');
     });
 
@@ -224,8 +224,8 @@ describe('test', () => {});
       
       expect(result.success).toBe(true);
       expect(result.data.testCode).toContain('Counter');
-      expect(result.data.testCode).toContain('increment');
-      expect(result.data.testCode).toContain('getValue');
+      expect(result.data.testCode).toContain("increment");
+      expect(result.data.testCode).toContain("getValue");
     });
 
     it('should generate integration tests when specified', async () => {
@@ -237,7 +237,7 @@ describe('test', () => {});
           }
         `,
         framework: 'jest',
-        testType: 'integration',
+        testType: "integration",
         mockStrategy: 'auto'
       };
       
@@ -301,7 +301,7 @@ describe('test', () => {});
   describe('framework detection', () => {
     it('should use default framework', () => {
       const testAgent = new TestGenAgent({ defaultFramework: 'mocha' });
-      expect(testAgent['testConfig'].defaultFramework).toBe('mocha');
+      expect(testAgent["testConfig"].defaultFramework).toBe('mocha');
     });
 
     it('should support vitest framework', async () => {

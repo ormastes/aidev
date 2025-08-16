@@ -19,7 +19,7 @@ export interface InputProps extends TextInputProps {
   label?: string;
   error?: string;
   helperText?: string;
-  variant?: 'outlined' | 'filled' | 'underlined';
+  variant?: "outlined" | 'filled' | "underlined";
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   containerStyle?: ViewStyle;
@@ -33,7 +33,7 @@ export const Input = forwardRef<TextInput, InputProps>(
       label,
       error,
       helperText,
-      variant = 'outlined',
+      variant = "outlined",
       leftIcon,
       rightIcon,
       containerStyle,
@@ -70,7 +70,7 @@ export const Input = forwardRef<TextInput, InputProps>(
               paddingHorizontal: theme.spacing.md,
             },
           };
-        case 'underlined':
+        case "underlined":
           return {
             container: {
               borderBottomWidth: 1,

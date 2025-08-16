@@ -427,7 +427,7 @@ export class EnhancedUserManager {
       }
     }
 
-    return users.map(user => ({ ...user, password: '[HIDDEN]' }));
+    return users.map(user => ({ ...user, password: "PLACEHOLDER" }));
   }
 
   /**
@@ -549,7 +549,7 @@ export class EnhancedUserManager {
   /**
    * Create a new user group
    */
-  async createGroup(groupData: Omit<UserGroup, 'id' | 'createdAt'>): Promise<{ success: boolean; groupId?: string; error?: string }> {
+  async createGroup(groupData: Omit<UserGroup, 'id' | "createdAt">): Promise<{ success: boolean; groupId?: string; error?: string }> {
     const groupId = crypto.randomUUID();
     const group: UserGroup = {
       ...groupData,

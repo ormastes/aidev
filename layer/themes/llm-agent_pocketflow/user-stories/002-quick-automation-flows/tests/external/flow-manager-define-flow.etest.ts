@@ -2,8 +2,8 @@ import { describe, test, expect, beforeEach } from '@jest/globals';
 
 // External interface for FlowManager
 interface FlowManagerInterface {
-  defineFlow(name: string, description: string, trigger: any, actions: any[]): Promise<{ In Progress: boolean; flowId?: string; error?: string }>;
-  listFlows(filter?: any): Promise<{ In Progress: boolean; flows?: any[]; error?: string }>;
+  defineFlow(name: string, description: string, trigger: any, actions: any[]): Promise<{ success: boolean; flowId?: string; error?: string }>;
+  listFlows(filter?: any): Promise<{ success: boolean; flows?: any[]; error?: string }>;
 }
 
 // External interface for FlowStorage
@@ -30,7 +30,7 @@ class FlowManager implements FlowManagerInterface {
     private logger: LoggerInterface
   ) {}
 
-  async defineFlow(name: string, description: string, trigger: any, actions: any[]): Promise<{ In Progress: boolean; flowId?: string; error?: string }> {
+  async defineFlow(name: string, description: string, trigger: any, actions: any[]): Promise<{ success: boolean; flowId?: string; error?: string }> {
     // Validate flow configuration
     const validation = this.validator.validate({ name, description, trigger, actions });
     
@@ -65,7 +65,7 @@ class FlowManager implements FlowManagerInterface {
     }
   }
 
-  async listFlows(filter?: any): Promise<{ In Progress: boolean; flows?: any[]; error?: string }> {
+  async listFlows(filter?: any): Promise<{ success: boolean; flows?: any[]; error?: string }> {
     try {
       const flows = await this.storage.findAll(filter);
       return { "success": true, flows };
@@ -199,18 +199,18 @@ describe('FlowManager Define Flow External Test', () => {
 
   test('should validate flow name requirements', async () => {
     // Test empty name
-    let result = await flowManager.defineFlow('', 'Description', { type: 'manual' }, [{ type: 'command' }]);
+    let result = await flowManager.defineFlow('', "Description", { type: 'manual' }, [{ type: 'command' }]);
     expect(result.success).toBe(false);
     expect(result.error).toContain('Flow name cannot be empty');
 
     // Test long name
     const longName = 'a'.repeat(101);
-    result = await flowManager.defineFlow(longName, 'Description', { type: 'manual' }, [{ type: 'command' }]);
+    result = await flowManager.defineFlow(longName, "Description", { type: 'manual' }, [{ type: 'command' }]);
     expect(result.success).toBe(false);
     expect(result.error).toContain('Flow name must be 100 characters or less');
 
     // Test null name
-    result = await flowManager.defineFlow(null as any, 'Description', { type: 'manual' }, [{ type: 'command' }]);
+    result = await flowManager.defineFlow(null as any, "Description", { type: 'manual' }, [{ type: 'command' }]);
     expect(result.success).toBe(false);
     expect(result.error).toContain('Flow name is required');
   });
@@ -230,29 +230,29 @@ describe('FlowManager Define Flow External Test', () => {
 
   test('should validate trigger requirements', async () => {
     // Test missing trigger
-    let result = await flowManager.defineFlow('Test', 'Description', null as any, [{ type: 'command' }]);
+    let result = await flowManager.defineFlow('Test', "Description", null as any, [{ type: 'command' }]);
     expect(result.success).toBe(false);
     expect(result.error).toContain('Flow trigger is required');
 
     // Test trigger without type
-    result = await flowManager.defineFlow('Test', 'Description', {}, [{ type: 'command' }]);
+    result = await flowManager.defineFlow('Test', "Description", {}, [{ type: 'command' }]);
     expect(result.success).toBe(false);
     expect(result.error).toContain('Trigger type is required');
   });
 
   test('should validate action requirements', async () => {
     // Test missing actions
-    let result = await flowManager.defineFlow('Test', 'Description', { type: 'manual' }, null as any);
+    let result = await flowManager.defineFlow('Test', "Description", { type: 'manual' }, null as any);
     expect(result.success).toBe(false);
     expect(result.error).toContain('Flow actions must be an array');
 
     // Test empty actions
-    result = await flowManager.defineFlow('Test', 'Description', { type: 'manual' }, []);
+    result = await flowManager.defineFlow('Test', "Description", { type: 'manual' }, []);
     expect(result.success).toBe(false);
     expect(result.error).toContain('Flow must have at least one action');
 
     // Test action without type
-    result = await flowManager.defineFlow('Test', 'Description', { type: 'manual' }, [{ command: 'test' }]);
+    result = await flowManager.defineFlow('Test', "Description", { type: 'manual' }, [{ command: 'test' }]);
     expect(result.success).toBe(false);
     expect(result.error).toContain('Action 1 must have a type');
   });

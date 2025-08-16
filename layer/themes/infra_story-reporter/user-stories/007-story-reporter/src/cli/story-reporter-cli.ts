@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { Command } from 'commander';
+import { Command } from "commander";
 import { StoryService } from '../services/story-service';
 import { StoryReportGenerator } from '../external/story-report-generator';
 import { 
@@ -15,7 +15,7 @@ const fileAPI = getFileAPI();
   TestType,
   TestStatus
 } from '../domain/story';
-import * as inquirer from 'inquirer';
+import * as inquirer from "inquirer";
 import * as chalk from 'chalk';
 import * as Table from 'cli-table3';
 import * as ora from 'ora';
@@ -28,7 +28,7 @@ const reportGenerator = new StoryReportGenerator();
 
 // CLI configuration
 interface CliConfig {
-  theme: 'default' | 'dark' | 'light' | 'colorblind';
+  theme: 'default' | 'dark' | 'light' | "colorblind";
   outputFormat: 'table' | 'json' | 'compact';
   colorEnabled: boolean;
   verbosity: 'quiet' | 'normal' | 'verbose';
@@ -45,7 +45,7 @@ let cliConfig: CliConfig = {
 async function loadConfig() {
   try {
     const configPath = path.join(process.env.HOME || '.', '.story-reporter-cli.json');
-    const configData = await fs.readFile(configPath, 'utf-8');
+    const configData = await fileAPI.readFile(configPath, 'utf-8');
     cliConfig = { ...cliConfig, ...JSON.parse(configData) };
   } catch {
     // Use defaults if config doesn't exist
@@ -86,10 +86,10 @@ async function formatStatus(status: string): string {
   const statusColors: Record<string, string> = {
     'success': 'green',
     'passed': 'green',
-    'completed': 'green',
+    "completed": 'green',
     'in_progress': 'yellow',
     'testing': 'yellow',
-    'implementation': 'yellow',
+    "implementation": 'yellow',
     'failed': 'red',
     'draft': 'gray',
     'pending': 'gray'
@@ -113,7 +113,7 @@ program
   .option('-q, --quiet', 'Quiet mode - minimal output')
   .option('-v, --verbose', 'Verbose output')
   .option('--no-color', 'Disable colored output')
-  .hook('preAction', async (thisCommand) => {
+  .hook("preAction", async (thisCommand) => {
     if (thisCommand.opts().quiet) cliConfig.verbosity = 'quiet';
     if (thisCommand.opts().verbose) cliConfig.verbosity = 'verbose';
     if (thisCommand.opts().noColor) {
@@ -124,7 +124,7 @@ program
 
 // Dashboard command - NEW
 program
-  .command('dashboard')
+  .command("dashboard")
   .description('Display dashboard with statistics and overview')
   .option('-r, --refresh <seconds>', 'Auto-refresh interval in seconds')
   .action(async (options) => {
@@ -139,7 +139,7 @@ program
         const stats = {
           total: stories.length,
           passed: stories.filter(s => s.status === 'passed' || s.status === 'success').length,
-          inProgress: stories.filter(s => ['implementation', 'testing', 'verification'].includes(s.status)).length,
+          inProgress: stories.filter(s => ["implementation", 'testing', "verification"].includes(s.status)).length,
           draft: stories.filter(s => s.status === 'draft').length,
           failing: failing.length,
           avgCoverage: stories.length > 0
@@ -177,7 +177,7 @@ program
           console.log(chalk.bold.cyan('\n📝 Recent Stories:\n'));
           
           const recentTable = new Table({
-            head: ['ID', 'Title', 'Status', 'Coverage', 'Updated'],
+            head: ['ID', 'Title', 'Status', "Coverage", 'Updated'],
             colWidths: [25, 35, 15, 12, 15],
             style: { head: ['cyan'] }
           });
@@ -291,7 +291,7 @@ program
           case 'status':
             comparison = a.status.localeCompare(b.status);
             break;
-          case 'coverage':
+          case "coverage":
             comparison = (a.coverage?.overall || 0) - (b.coverage?.overall || 0);
             break;
           case 'updated':
@@ -325,7 +325,7 @@ program
       }
       
       const table = new Table({
-        head: ['ID', 'Title', 'Status', 'Coverage', 'Fraud', 'Updated'],
+        head: ['ID', 'Title', 'Status', "Coverage", 'Fraud', 'Updated'],
         colWidths: [20, 30, 15, 10, 10, 15],
         style: { head: ['cyan'] }
       });
@@ -374,7 +374,7 @@ program
 
 // Settings command - NEW
 program
-  .command('settings')
+  .command("settings")
   .description('Manage CLI settings and preferences')
   .option('--set <key=value>', 'Set a configuration value')
   .option('--get <key>', 'Get a configuration value')
@@ -421,7 +421,7 @@ program
     console.log(chalk.cyan('\n⚙️  Current Settings:\n'));
     
     const table = new Table({
-      head: ['Setting', 'Value', 'Description'],
+      head: ['Setting', 'Value', "Description"],
       colWidths: [20, 20, 40],
       style: { head: ['cyan'] }
     });
@@ -442,7 +442,7 @@ program
     // Show server info
     console.log(chalk.cyan('\n🌐 Server Information:\n'));
     console.log(`  API Endpoint: http://localhost:3467/api`);
-    console.log(`  Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`  Environment: ${process.env.NODE_ENV || "development"}`);
     console.log(`  Config Path: ${path.join(process.env.HOME || '.', '.story-reporter-cli.json')}`);
   });
 
@@ -459,7 +459,7 @@ async function exportStories(stories: any[], format: string) {
       break;
       
     case 'csv':
-      const headers = ['ID', 'Title', 'Status', 'Coverage', 'Created', 'Updated'];
+      const headers = ['ID', 'Title', 'Status', "Coverage", 'Created', 'Updated'];
       const rows = stories.map(s => [
         s.id,
         `"${s.title.replace(/"/g, '""')}"`,
@@ -668,14 +668,14 @@ program
       });
       
       statsTable.push(
-        ['Requirements', story.requirements?.length || 0, 
+        ["Requirements", story.requirements?.length || 0, 
          story.requirements?.length > 0 ? 
          `${story.requirements.filter((r: any) => r.priority === 'HIGH').length} high priority` : '-'],
         ['User Stories', story.userStories?.length || 0, '-'],
         ['Tests', story.tests?.length || 0,
          story.tests?.length > 0 ?
          `${story.tests.filter((t: any) => t.status === 'passed').length} passed` : '-'],
-        ['Comments', story.comments?.length || 0,
+        ["Comments", story.comments?.length || 0,
          story.comments?.length > 0 ?
          `Latest: ${formatDate(story.comments[story.comments.length - 1].timestamp)}` : '-']
       );
@@ -686,7 +686,7 @@ program
       console.log(chalk.bold.cyan('\n🎯 Coverage\n'));
       
       const coverageTable = new Table({
-        head: ['Type', 'Coverage', 'Status'],
+        head: ['Type', "Coverage", 'Status'],
         colWidths: [20, 15, 30],
         style: { head: ['cyan'] }
       });
@@ -696,7 +696,7 @@ program
         ['Overall', formatPercentage(coverage.overall || 0), 
          coverage.overall >= 80 ? '✓ Excellent' : coverage.overall >= 60 ? '⚠ Good' : '✗ Needs improvement'],
         ['Unit Tests', formatPercentage(coverage.unit || 0), '-'],
-        ['Integration', formatPercentage(coverage.integration || 0), '-'],
+        ["Integration", formatPercentage(coverage.integration || 0), '-'],
         ['E2E Tests', formatPercentage(coverage.e2e || 0), '-']
       );
       
@@ -779,7 +779,7 @@ program
       const answers = await inquirer.prompt([
         {
           type: 'input',
-          name: 'description',
+          name: "description",
           message: 'Requirement description:',
           validate: (input) => input.length > 0
         },
@@ -791,13 +791,13 @@ program
         },
         {
           type: 'list',
-          name: 'priority',
+          name: "priority",
           message: 'Priority:',
           choices: Object.values(RequirementPriority)
         },
         {
           type: 'input',
-          name: 'acceptanceCriteria',
+          name: "acceptanceCriteria",
           message: 'Acceptance criteria (comma-separated):'
         }
       ]);
@@ -846,7 +846,7 @@ program
           name: 'role',
           message: 'Select your role:',
           choices: [
-            { name: 'Developer', value: TeamRole.DEVELOPER },
+            { name: "Developer", value: TeamRole.DEVELOPER },
             { name: 'Tester', value: TeamRole.TESTER },
             { name: 'Project Manager', value: TeamRole.PROJECT_MANAGER },
             { name: 'Fraud Checker', value: TeamRole.FRAUD_CHECKER }
@@ -873,12 +873,12 @@ program
         },
         {
           type: 'input',
-          name: 'lessonsLearned',
+          name: "lessonsLearned",
           message: 'Lessons learned (comma-separated):'
         },
         {
           type: 'input',
-          name: 'suggestions',
+          name: "suggestions",
           message: 'Suggestions (comma-separated):'
         }
       ]);
@@ -979,7 +979,7 @@ program
           await fileAPI.createFile(outputPath, JSON.stringify(jsonData, { type: FileType.TEMPORARY }));
           break;
           
-        case 'markdown':
+        case "markdown":
           const markdown = generateMarkdownReport(story, options);
           outputPath = path.join(options.output, `${baseFilename}.md`);
           await fileAPI.createDirectory(options.output);
@@ -1143,7 +1143,7 @@ async function exportStory(story: any, format: string, outputDir: string) {
     case 'json':
       await fileAPI.createFile(outputPath, JSON.stringify(story, { type: FileType.TEMPORARY }));
       break;
-    case 'markdown':
+    case "markdown":
       await fileAPI.createFile(outputPath, generateMarkdownReport(story, { type: FileType.TEMPORARY }): string {
   let md = `# ${story.title}\n\n`;
   md += `**ID:** ${story.id}\n`;
@@ -1266,7 +1266,7 @@ program
 
 // Interactive mode command
 program
-  .command('interactive')
+  .command("interactive")
   .description('Start interactive mode')
   .action(async () => {
     await initialize();
@@ -1282,7 +1282,7 @@ program
           { name: 'Create a new story', value: 'create' },
           { name: 'List all stories', value: 'list' },
           { name: 'View story details', value: 'view' },
-          { name: 'Add requirement', value: 'requirement' },
+          { name: 'Add requirement', value: "requirement" },
           { name: 'Add comment', value: 'comment' },
           { name: 'Update status', value: 'status' },
           { name: 'Generate report', value: 'report' },
@@ -1302,7 +1302,7 @@ program
             },
             {
               type: 'input',
-              name: 'description',
+              name: "description",
               message: 'Story description (optional):'
             }
           ]);

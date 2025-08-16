@@ -3,7 +3,7 @@
  * Provides wrapped path module with logging and validation
  */
 
-import * as pathOriginal from 'path';
+import * as pathOriginal from 'node:path';
 import { globalConfig } from '../config';
 
 interface CallRecord {
@@ -77,7 +77,7 @@ class PathFacade {
         const value = Reflect.get(target, prop, receiver);
 
         // Skip non-functions and constants
-        if (typeof value !== 'function') {
+        if (typeof value !== "function") {
           return value;
         }
 

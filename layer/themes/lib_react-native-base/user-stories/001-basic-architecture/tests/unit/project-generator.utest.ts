@@ -10,7 +10,7 @@ import { path } from '../../../../../infra_external-log-lib/src';
 jest.mock('fs');
 jest.mock('child_process');
 
-describe('ProjectGenerator', () => {
+describe("ProjectGenerator", () => {
   let generator: ProjectGenerator;
   let mockFs: jest.Mocked<typeof fs>;
   
@@ -20,11 +20,11 @@ describe('ProjectGenerator', () => {
     jest.clearAllMocks();
   });
 
-  describe('generateProject', () => {
+  describe("generateProject", () => {
     it('should create project with valid config', async () => {
       const config: ProjectConfig = {
         name: 'TestApp',
-        template: 'typescript',
+        template: "typescript",
         outputDir: '/tmp/test-app'
       };
 
@@ -44,7 +44,7 @@ describe('ProjectGenerator', () => {
     it('should throw error for invalid project name', async () => {
       const config: ProjectConfig = {
         name: '123-invalid',
-        template: 'typescript',
+        template: "typescript",
         outputDir: '/tmp'
       };
 
@@ -53,8 +53,8 @@ describe('ProjectGenerator', () => {
 
     it('should handle existing directory', async () => {
       const config: ProjectConfig = {
-        name: 'ExistingApp',
-        template: 'typescript',
+        name: "ExistingApp",
+        template: "typescript",
         outputDir: '/tmp'
       };
 
@@ -64,10 +64,10 @@ describe('ProjectGenerator', () => {
     });
   });
 
-  describe('validateProjectName', () => {
+  describe("validateProjectName", () => {
     it('should validate correct project names', () => {
       expect(generator.validateProjectName('MyApp')).toBe(true);
-      expect(generator.validateProjectName('TestApp123')).toBe(true);
+      expect(generator.validateProjectName("TestApp123")).toBe(true);
       expect(generator.validateProjectName('my_app')).toBe(true);
     });
 
@@ -79,7 +79,7 @@ describe('ProjectGenerator', () => {
     });
   });
 
-  describe('createProjectStructure', () => {
+  describe("createProjectStructure", () => {
     it('should create all required directories', async () => {
       const projectPath = '/tmp/test-app';
       mockFs.promises = {
@@ -93,7 +93,7 @@ describe('ProjectGenerator', () => {
         expect.any(Object)
       );
       expect(mockFs.promises.mkdir).toHaveBeenCalledWith(
-        expect.stringContaining('components'),
+        expect.stringContaining("components"),
         expect.any(Object)
       );
       expect(mockFs.promises.mkdir).toHaveBeenCalledWith(
@@ -103,28 +103,28 @@ describe('ProjectGenerator', () => {
     });
   });
 
-  describe('generatePackageJson', () => {
+  describe("generatePackageJson", () => {
     it('should generate correct package.json content', () => {
-      const packageJson = generator.generatePackageJson('TestApp', 'typescript');
+      const packageJson = generator.generatePackageJson('TestApp', "typescript");
 
       expect(packageJson.name).toBe('TestApp');
       expect(packageJson.version).toBe('0.1.0');
       expect(packageJson.dependencies).toHaveProperty('react');
       expect(packageJson.dependencies).toHaveProperty('react-native');
-      expect(packageJson.devDependencies).toHaveProperty('typescript');
+      expect(packageJson.devDependencies).toHaveProperty("typescript");
     });
 
     it('should include TypeScript dependencies for TS template', () => {
-      const packageJson = generator.generatePackageJson('TestApp', 'typescript');
+      const packageJson = generator.generatePackageJson('TestApp', "typescript");
 
       expect(packageJson.devDependencies).toHaveProperty('@types/react');
       expect(packageJson.devDependencies).toHaveProperty('@types/react-native');
     });
 
     it('should not include TypeScript for JS template', () => {
-      const packageJson = generator.generatePackageJson('TestApp', 'javascript');
+      const packageJson = generator.generatePackageJson('TestApp', "javascript");
 
-      expect(packageJson.devDependencies).not.toHaveProperty('typescript');
+      expect(packageJson.devDependencies).not.toHaveProperty("typescript");
       expect(packageJson.devDependencies).not.toHaveProperty('@types/react');
     });
   });

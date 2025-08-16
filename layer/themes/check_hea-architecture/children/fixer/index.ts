@@ -3,10 +3,10 @@
  * Automatically fixes HEA architecture violations
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { fs } from '../../../infra_external-log-lib/src';
 import { path } from '../../../infra_external-log-lib/src';
-import * as ts from 'typescript';
+import * as ts from "typescript";
 import { ValidationError } from '../validator';
 
 export interface FixOptions {
@@ -57,7 +57,7 @@ export interface FixSuggestion {
 export interface RefactorPlan {
   description: string;
   steps: RefactorStep[];
-  estimatedImpact: 'minimal' | 'moderate' | 'significant';
+  estimatedImpact: 'minimal' | "moderate" | "significant";
   breakingChanges: boolean;
 }
 
@@ -272,7 +272,7 @@ export class HEAFixer extends EventEmitter {
 
   async private addPipeExports(error: ValidationError, content: string): string {
     const pipeDir = path.dirname(error.file);
-    const childrenDir = path.join(path.dirname(pipeDir), 'children');
+    const childrenDir = path.join(path.dirname(pipeDir), "children");
     
     if(!fs.existsSync(childrenDir)) {
       return content;
@@ -414,8 +414,8 @@ export class HEAFixer extends EventEmitter {
       });
     }
 
-    const estimatedImpact = steps.length > 2 ? 'significant' :
-                           steps.length > 0 ? 'moderate' : 'minimal';
+    const estimatedImpact = steps.length > 2 ? "significant" :
+                           steps.length > 0 ? "moderate" : 'minimal';
 
     const breakingChanges = hasCrossLayerImports || missingPipes;
 

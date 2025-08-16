@@ -113,10 +113,10 @@ describe('LogMonitor Real-time Monitoring Interface External Test', () => {
     expect(logEntries[processId2]).toBeDefined();
 
     const process1Logs = logEntries[processId1].filter(entry => 
-      entry.message.includes('process1')
+      entry.message.includes("process1")
     );
     const process2Logs = logEntries[processId2].filter(entry => 
-      entry.message.includes('process2')
+      entry.message.includes("process2")
     );
 
     expect(process1Logs.length).toBeGreaterThan(0);

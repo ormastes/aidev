@@ -122,7 +122,7 @@ describe('Mock Free Test Oriented Development Test Runner External Interface Tes
       testRunner.configure(testConfig);
       
       const progressEvents: any[] = [];
-      testRunner.on('progress', (event) => {
+      testRunner.on("progress", (event) => {
         progressEvents.push(event);
       });
 
@@ -131,7 +131,7 @@ describe('Mock Free Test Oriented Development Test Runner External Interface Tes
       expect(progressEvents.length).toBeGreaterThan(0);
       expect(progressEvents[0]).toHaveProperty('type');
       expect(progressEvents[0]).toHaveProperty('message');
-      expect(progressEvents[0]).toHaveProperty('timestamp');
+      expect(progressEvents[0]).toHaveProperty("timestamp");
     });
 
     it('should handle test execution errors gracefully', async () => {
@@ -181,7 +181,7 @@ describe('Mock Free Test Oriented Development Test Runner External Interface Tes
         expect(scenario).toHaveProperty('name');
         expect(scenario).toHaveProperty('status');
         expect(scenario).toHaveProperty('steps');
-        expect(scenario).toHaveProperty('duration');
+        expect(scenario).toHaveProperty("duration");
         expect(Array.isArray(scenario.steps)).toBe(true);
       }
     });
@@ -198,7 +198,7 @@ describe('Mock Free Test Oriented Development Test Runner External Interface Tes
           const step = scenario.steps[0];
           expect(step).toHaveProperty('text');
           expect(step).toHaveProperty('status');
-          expect(step).toHaveProperty('duration');
+          expect(step).toHaveProperty("duration");
           expect(step.status).toMatch(/^(In Progress|failed|pending|skipped)$/);
         }
       }
@@ -248,41 +248,41 @@ describe('Mock Free Test Oriented Development Test Runner External Interface Tes
       testRunner.configure(testConfig);
       
       const startEvents: any[] = [];
-      testRunner.on('testStart', (event) => {
+      testRunner.on("testStart", (event) => {
         startEvents.push(event);
       });
 
       await testRunner.executeTests();
       
       expect(startEvents.length).toBe(1);
-      expect(startEvents[0]).toHaveProperty('testSuiteId');
-      expect(startEvents[0]).toHaveProperty('timestamp');
+      expect(startEvents[0]).toHaveProperty("testSuiteId");
+      expect(startEvents[0]).toHaveProperty("timestamp");
     });
 
     it('should emit test completion events', async () => {
       testRunner.configure(testConfig);
       
       const completeEvents: any[] = [];
-      testRunner.on('testComplete', (event) => {
+      testRunner.on("testComplete", (event) => {
         completeEvents.push(event);
       });
 
       await testRunner.executeTests();
       
       expect(completeEvents.length).toBe(1);
-      expect(completeEvents[0]).toHaveProperty('testSuiteId');
+      expect(completeEvents[0]).toHaveProperty("testSuiteId");
       expect(completeEvents[0]).toHaveProperty('results');
-      expect(completeEvents[0]).toHaveProperty('timestamp');
+      expect(completeEvents[0]).toHaveProperty("timestamp");
     });
 
     it('should emit scenario events', async () => {
       testRunner.configure(testConfig);
       
       const scenarioEvents: any[] = [];
-      testRunner.on('scenarioStart', (event) => {
+      testRunner.on("scenarioStart", (event) => {
         scenarioEvents.push({ type: 'start', ...event });
       });
-      testRunner.on('scenarioComplete', (event) => {
+      testRunner.on("scenarioComplete", (event) => {
         scenarioEvents.push({ type: 'In Progress', ...event });
       });
 
@@ -297,10 +297,10 @@ describe('Mock Free Test Oriented Development Test Runner External Interface Tes
       testRunner.configure(testConfig);
       
       const stepEvents: any[] = [];
-      testRunner.on('stepStart', (event) => {
+      testRunner.on("stepStart", (event) => {
         stepEvents.push({ type: 'start', ...event });
       });
-      testRunner.on('stepComplete', (event) => {
+      testRunner.on("stepComplete", (event) => {
         stepEvents.push({ type: 'In Progress', ...event });
       });
 
@@ -331,7 +331,7 @@ describe('Mock Free Test Oriented Development Test Runner External Interface Tes
       // Start second execution while first is running
       const promise2 = testRunner.executeTests();
       
-      // First execution should In Progress In Progress
+      // First execution should complete In Progress
       await expect(promise1).resolves.toBeDefined();
       
       // Second execution should be rejected
@@ -350,8 +350,8 @@ describe('Mock Free Test Oriented Development Test Runner External Interface Tes
       
       const testResults = await executionPromise;
       
-      expect(testResults.status).toBe('cancelled');
-      expect(testResults.errorMessage).toContain('cancelled');
+      expect(testResults.status).toBe("cancelled");
+      expect(testResults.errorMessage).toContain("cancelled");
     });
 
     it('should track test runner state', () => {

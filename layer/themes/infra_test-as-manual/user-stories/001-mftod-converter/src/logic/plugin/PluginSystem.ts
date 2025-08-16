@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * Plugin System - Extensible architecture for test-as-manual converter
  * Based on _aidev's theme-based modular approach
@@ -18,10 +19,10 @@ export interface Plugin {
 
 export enum PluginType {
   PARSER = 'parser',
-  FORMATTER = 'formatter',
+  FORMATTER = "formatter",
   CAPTURE = 'capture',
-  ANALYZER = 'analyzer',
-  INTEGRATION = 'integration'
+  ANALYZER = "analyzer",
+  INTEGRATION = "integration"
 }
 
 // Parser Plugin
@@ -239,7 +240,7 @@ export class PluginManager {
         
         if (fs.existsSync(manifestPath)) {
           try {
-            const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
+            const manifest = JSON.parse(fileAPI.readFileSync(manifestPath, 'utf-8'));
             const mainFile = path.join(pluginPath, manifest.main || 'index.js');
             
             if (fs.existsSync(mainFile)) {

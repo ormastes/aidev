@@ -163,9 +163,9 @@ export class Agent {
 // Predefined roles
 export const AGENT_ROLES = {
   DEVELOPER: {
-    name: 'developer',
+    name: "developer",
     description: 'Software development agent',
-    defaultCapabilities: ['code_generation', 'code_review', 'debugging', 'testing'],
+    defaultCapabilities: ['code_generation', 'code_review', "debugging", 'testing'],
     systemPrompt: 'You are a skilled software developer. Help with coding tasks, debugging, and best practices.'
   },
   TESTER: {
@@ -175,21 +175,21 @@ export const AGENT_ROLES = {
     systemPrompt: 'You are a QA specialist. Focus on testing, quality assurance, and finding potential issues.'
   },
   ARCHITECT: {
-    name: 'architect',
+    name: "architect",
     description: 'System architecture and design agent',
-    defaultCapabilities: ['system_design', 'architecture_review', 'documentation', 'planning'],
+    defaultCapabilities: ['system_design', 'architecture_review', "documentation", "planning"],
     systemPrompt: 'You are a system architect. Help with design decisions, architecture patterns, and technical planning.'
   },
   COORDINATOR: {
-    name: 'coordinator',
+    name: "coordinator",
     description: 'Project coordination and management agent',
-    defaultCapabilities: ['task_management', 'workflow_automation', 'team_coordination', 'reporting'],
+    defaultCapabilities: ['task_management', 'workflow_automation', 'team_coordination', "reporting"],
     systemPrompt: 'You are a project coordinator. Help manage tasks, coordinate team efforts, and track progress.'
   },
   GENERAL: {
     name: 'general',
     description: 'General purpose assistant',
-    defaultCapabilities: ['general_assistance', 'documentation', 'communication'],
+    defaultCapabilities: ['general_assistance', "documentation", "communication"],
     systemPrompt: 'You are a helpful AI assistant. Provide assistance with various tasks as requested.'
   }
 } as const;

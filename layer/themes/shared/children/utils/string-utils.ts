@@ -123,7 +123,7 @@ export function escapeRegex(str: string): string {
  */
 export function generateRandomString(
   length: number,
-  charset: string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+  charset: string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 ): string {
   let result = '';
   

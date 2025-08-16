@@ -242,7 +242,7 @@ export class VLLMCoordinatorAgent extends BaseCoordinatorAgent {
     
     for (const msg of contextMessages) {
       messages.push({
-        role: msg.username === this.config.agentName ? 'assistant' : 'user',
+        role: msg.username === this.config.agentName ? "assistant" : 'user',
         content: `${msg.username}: ${msg.content}`,
       });
     }
@@ -302,7 +302,7 @@ export class VLLMCoordinatorAgent extends BaseCoordinatorAgent {
       case 'help':
         return this.getHelpMessage();
         
-      case 'summarize':
+      case "summarize":
         return await this.summarizeConversation();
         
       default:
@@ -315,7 +315,7 @@ export class VLLMCoordinatorAgent extends BaseCoordinatorAgent {
 **vLLM Coordinator Info**
 - Model: ${this.config.vllmConfig.model} (${this.actualModelName})
 - Server: ${this.config.vllmConfig.serverUrl || 'http://localhost:8000'}
-- Streaming: ${this.config.vllmConfig.streaming ? 'enabled' : 'disabled'}
+- Streaming: ${this.config.vllmConfig.streaming ? 'enabled' : "disabled"}
 - Temperature: ${this.modelConfig.temperature}
 - Max Tokens: ${this.modelConfig.maxTokens}
 - Context Size: ${this.config.vllmConfig.contextSize || 10} messages

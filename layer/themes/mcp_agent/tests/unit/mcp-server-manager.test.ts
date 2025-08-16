@@ -6,7 +6,7 @@ import { MCPConnectionConfig, Tool, Resource, Prompt } from '../../children/src/
 jest.mock('../../children/src/server/mcp-connection');
 const MockedMCPConnection = MCPConnection as jest.MockedClass<typeof MCPConnection>;
 
-describe('MCPServerManager', () => {
+describe("MCPServerManager", () => {
   let serverManager: MCPServerManager;
   let mockConnection: jest.Mocked<MCPConnection>;
 
@@ -28,7 +28,7 @@ describe('MCPServerManager', () => {
     serverManager = new MCPServerManager();
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should create empty server manager', () => {
       expect(serverManager).toBeDefined();
       expect(serverManager.getAllServers()).toHaveLength(0);
@@ -61,7 +61,7 @@ describe('MCPServerManager', () => {
     });
   });
 
-  describe('addServer', () => {
+  describe("addServer", () => {
     it('should add new server', () => {
       const serverInfo: MCPServerInfo = {
         id: 'test-server',
@@ -115,7 +115,7 @@ describe('MCPServerManager', () => {
     });
   });
 
-  describe('removeServer', () => {
+  describe("removeServer", () => {
     beforeEach(() => {
       const serverInfo: MCPServerInfo = {
         id: 'removable-server',
@@ -150,7 +150,7 @@ describe('MCPServerManager', () => {
     });
   });
 
-  describe('connectServer', () => {
+  describe("connectServer", () => {
     beforeEach(() => {
       const serverInfo: MCPServerInfo = {
         id: 'connectable-server',
@@ -205,7 +205,7 @@ describe('MCPServerManager', () => {
     });
   });
 
-  describe('disconnectServer', () => {
+  describe("disconnectServer", () => {
     beforeEach(async () => {
       const serverInfo: MCPServerInfo = {
         id: 'disconnectable-server',
@@ -240,7 +240,7 @@ describe('MCPServerManager', () => {
     });
   });
 
-  describe('connectAll', () => {
+  describe("connectAll", () => {
     beforeEach(() => {
       const servers: MCPServerInfo[] = [
         {
@@ -288,7 +288,7 @@ describe('MCPServerManager', () => {
     });
   });
 
-  describe('getAllTools', () => {
+  describe("getAllTools", () => {
     beforeEach(async () => {
       const serverInfos: MCPServerInfo[] = [
         {
@@ -498,7 +498,7 @@ describe('MCPServerManager', () => {
       const results = await Promise.allSettled(promises);
       
       // At least one operation should succeed
-      expect(results.some(result => result.status === 'fulfilled')).toBe(true);
+      expect(results.some(result => result.status === "fulfilled")).toBe(true);
     });
   });
 });

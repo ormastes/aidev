@@ -39,7 +39,7 @@ export async function isPortAvailable(port: number): Promise<boolean> {
       resolve(false);
     });
     
-    server.once('listening', () => {
+    server.once("listening", () => {
       server.close();
       resolve(true);
     });

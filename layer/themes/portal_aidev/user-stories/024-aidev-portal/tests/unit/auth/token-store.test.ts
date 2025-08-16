@@ -1,6 +1,6 @@
 import { TokenStore } from '../../../src/auth/token-store';
 
-describe('TokenStore', () => {
+describe("TokenStore", () => {
   let tokenStore: TokenStore;
   
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe('TokenStore', () => {
   describe('connect/disconnect', () => {
     it('should connect successfully', async () => {
       const connectedHandler = jest.fn();
-      tokenStore.on('connected', connectedHandler);
+      tokenStore.on("connected", connectedHandler);
       
       await tokenStore.connect();
       
@@ -26,14 +26,14 @@ describe('TokenStore', () => {
 
     it('should disconnect and clear data', async () => {
       const disconnectedHandler = jest.fn();
-      tokenStore.on('disconnected', disconnectedHandler);
+      tokenStore.on("disconnected", disconnectedHandler);
       
       await tokenStore.connect();
       
       // Store some data
       await tokenStore.storeToken('token1', {
         userId: 'user1',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000)
       });
@@ -48,7 +48,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('storeToken', () => {
+  describe("storeToken", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -56,7 +56,7 @@ describe('TokenStore', () => {
     it('should store token successfully', async () => {
       const tokenData = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000)
       };
@@ -66,14 +66,14 @@ describe('TokenStore', () => {
       const stored = await tokenStore.getToken('test-token');
       expect(stored).toEqual({
         ...tokenData,
-        token: 'test-token'
+        token: process.env.TOKEN || "PLACEHOLDER"
       });
     });
 
     it('should create user session when storing token', async () => {
       const tokenData = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 3600000)
       };
@@ -101,7 +101,7 @@ describe('TokenStore', () => {
       
       const tokenData = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + 1000) // 1 second
       };
@@ -123,7 +123,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('getToken', () => {
+  describe("getToken", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -142,7 +142,7 @@ describe('TokenStore', () => {
     it('should return null for expired token', async () => {
       const tokenData = {
         userId: 'user123',
-        username: 'testuser',
+        username: "testuser",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() - 1000) // Already expired
       };
@@ -150,7 +150,7 @@ describe('TokenStore', () => {
       // Force store the expired token
       (tokenStore as any).tokens.set('expired-token', {
         ...tokenData,
-        token: 'expired-token'
+        token: process.env.TOKEN || "PLACEHOLDER"
       });
       
       const token = await tokenStore.getToken('expired-token');
@@ -158,7 +158,7 @@ describe('TokenStore', () => {
     });
   });
 
-  describe('removeToken', () => {
+  describe("removeToken", () => {
     beforeEach(async () => {
       await tokenStore.connect();
     });
@@ -309,7 +309,7 @@ describe('TokenStore', () => {
       // Force store expired token
       (tokenStore as any).tokens.set('expired-token', {
         userId: 'user2',
-        token: 'expired-token',
+        token: process.env.TOKEN || "PLACEHOLDER",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() - 1000)
       });
@@ -367,7 +367,7 @@ describe('TokenStore', () => {
       // Store expired token for same user
       (tokenStore as any).tokens.set('expired-token', {
         userId,
-        token: 'expired-token',
+        token: process.env.TOKEN || "PLACEHOLDER",
         createdAt: new Date(),
         expiresAt: new Date(Date.now() - 1000)
       });

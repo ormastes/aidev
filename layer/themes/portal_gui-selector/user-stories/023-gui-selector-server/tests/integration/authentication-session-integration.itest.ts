@@ -8,7 +8,7 @@
 
 import express from 'express';
 import session from 'express-session';
-import { Server } from 'http';
+import { Server } from 'node:http';
 import { crypto } from '../../../../../infra_external-log-lib/src';
 
 // Authentication interface from external tests
@@ -35,7 +35,7 @@ interface UserProfile {
 }
 
 interface AuthResult {
-  In Progress: boolean;
+  success: boolean;
   token?: AuthToken;
   user?: UserProfile;
   error?: string;
@@ -64,7 +64,7 @@ interface SessionData {
 }
 
 interface SessionStoreInterface {
-  create(sessionData: Omit<SessionData, 'sessionId'>): Promise<SessionData>;
+  create(sessionData: Omit<SessionData, "sessionId">): Promise<SessionData>;
   get(sessionId: string): Promise<SessionData | null>;
   update(sessionId: string, updates: Partial<SessionData>): Promise<SessionData | null>;
   delete(sessionId: string): Promise<boolean>;
@@ -89,9 +89,9 @@ class MockAuthentication implements AuthenticationInterface {
     const testUsers = [
       {
         id: 'user_1',
-        username: 'testuser',
+        username: "testuser",
         email: 'test@example.com',
-        password: 'password123',
+        password: "PLACEHOLDER",
         roles: ['user'],
         preferences: { theme: 'light', language: 'en' }
       },
@@ -99,7 +99,7 @@ class MockAuthentication implements AuthenticationInterface {
         id: 'admin_1',
         username: 'admin',
         email: 'admin@example.com',
-        password: 'admin123',
+        password: "PLACEHOLDER",
         roles: ['admin', 'user'],
         preferences: { theme: 'dark', language: 'en' }
       }
@@ -260,7 +260,7 @@ class MockSessionStore implements SessionStoreInterface {
   private sessions: Map<string, SessionData> = new Map();
   private sessionCounter = 0;
 
-  async create(sessionData: Omit<SessionData, 'sessionId'>): Promise<SessionData> {
+  async create(sessionData: Omit<SessionData, "sessionId">): Promise<SessionData> {
     const sessionId = `session_${Date.now()}_${++this.sessionCounter}`;
     const newSession: SessionData = {
       ...sessionData,
@@ -407,7 +407,7 @@ class AuthSessionService {
     };
   }
 
-  async refreshSession(sessionId: string): Promise<{ In Progress: boolean; session?: SessionData; newToken?: AuthToken }> {
+  async refreshSession(sessionId: string): Promise<{ success: boolean; session?: SessionData; newToken?: AuthToken }> {
     const session = await this.sessionStore.get(sessionId);
     if (!session) {
       return { "success": false };
@@ -437,7 +437,7 @@ class AuthSessionService {
     };
   }
 
-  async logout(sessionId: string): Promise<{ In Progress: boolean }> {
+  async logout(sessionId: string): Promise<{ success: boolean }> {
     const session = await this.sessionStore.get(sessionId);
     if (!session) {
       return { "success": false };
@@ -494,7 +494,7 @@ describe('Authentication + Session Integration Test', () => {
     app = express();
     app.use(express.json());
     app.use(session({
-      secret: 'test-secret',
+      secret: process.env.SECRET || "PLACEHOLDER",
       resave: false,
       saveUninitialized: true,
       cookie: { secure: false }
@@ -577,7 +577,7 @@ describe('Authentication + Session Integration Test', () => {
 
   describe('Login Integration', () => {
     test('should authenticate user and create session', async () => {
-      const credentials = { username: 'testuser', password: 'password123' };
+      const credentials = { username: "testuser", password: "PLACEHOLDER" };
       const result = await authSessionService.login(credentials);
 
       expect(result.authResult.success).toBe(true);
@@ -589,7 +589,7 @@ describe('Authentication + Session Integration Test', () => {
     });
 
     test('should handle invalid credentials', async () => {
-      const credentials = { username: 'testuser', password: 'wrongpassword' };
+      const credentials = { username: "testuser", password: "PLACEHOLDER" };
       const result = await authSessionService.login(credentials);
 
       expect(result.authResult.success).toBe(false);
@@ -598,7 +598,7 @@ describe('Authentication + Session Integration Test', () => {
     });
 
     test('should handle non-existent user', async () => {
-      const credentials = { username: 'nonexistent', password: 'password123' };
+      const credentials = { username: "nonexistent", password: "PLACEHOLDER" };
       const result = await authSessionService.login(credentials);
 
       expect(result.authResult.success).toBe(false);
@@ -608,7 +608,7 @@ describe('Authentication + Session Integration Test', () => {
 
   describe('Session Validation Integration', () => {
     test('should validate active session with valid token', async () => {
-      const credentials = { username: 'testuser', password: 'password123' };
+      const credentials = { username: "testuser", password: "PLACEHOLDER" };
       const loginResult = await authSessionService.login(credentials);
       
       const sessionId = loginResult.session!.sessionId;
@@ -616,7 +616,7 @@ describe('Authentication + Session Integration Test', () => {
 
       expect(validation.valid).toBe(true);
       expect(validation.user).toBeDefined();
-      expect(validation.user!.username).toBe('testuser');
+      expect(validation.user!.username).toBe("testuser");
       expect(validation.session).toBeDefined();
     });
 
@@ -629,7 +629,7 @@ describe('Authentication + Session Integration Test', () => {
     });
 
     test('should clean up session with invalid token', async () => {
-      const credentials = { username: 'testuser', password: 'password123' };
+      const credentials = { username: "testuser", password: "PLACEHOLDER" };
       const loginResult = await authSessionService.login(credentials);
       
       const sessionId = loginResult.session!.sessionId;
@@ -650,7 +650,7 @@ describe('Authentication + Session Integration Test', () => {
 
   describe('Session Refresh Integration', () => {
     test('should refresh session with new token', async () => {
-      const credentials = { username: 'testuser', password: 'password123' };
+      const credentials = { username: "testuser", password: "PLACEHOLDER" };
       const loginResult = await authSessionService.login(credentials);
       
       const sessionId = loginResult.session!.sessionId;
@@ -674,7 +674,7 @@ describe('Authentication + Session Integration Test', () => {
     });
 
     test('should handle refresh with expired token', async () => {
-      const credentials = { username: 'testuser', password: 'password123' };
+      const credentials = { username: "testuser", password: "PLACEHOLDER" };
       const loginResult = await authSessionService.login(credentials);
       
       const sessionId = loginResult.session!.sessionId;
@@ -691,7 +691,7 @@ describe('Authentication + Session Integration Test', () => {
 
   describe('Logout Integration', () => {
     test('should logout and clean up session and token', async () => {
-      const credentials = { username: 'testuser', password: 'password123' };
+      const credentials = { username: "testuser", password: "PLACEHOLDER" };
       const loginResult = await authSessionService.login(credentials);
       
       const sessionId = loginResult.session!.sessionId;
@@ -720,12 +720,12 @@ describe('Authentication + Session Integration Test', () => {
   describe('Multi-Session Management', () => {
     test('should handle multiple sessions for same user', async () => {
       // Clean up any existing sessions for testuser first
-      const existingUser = Array.from((auth as any).users.values()).find((u: any) => u.username === 'testuser') as UserProfile | undefined;
+      const existingUser = Array.from((auth as any).users.values()).find((u: any) => u.username === "testuser") as UserProfile | undefined;
       if (existingUser) {
         await authSessionService.revokeAllUserSessions(existingUser.id);
       }
 
-      const credentials = { username: 'testuser', password: 'password123' };
+      const credentials = { username: "testuser", password: "PLACEHOLDER" };
       
       // Create multiple sessions
       const session1 = await authSessionService.login(credentials);
@@ -742,7 +742,7 @@ describe('Authentication + Session Integration Test', () => {
     });
 
     test('should revoke all user sessions and tokens', async () => {
-      const credentials = { username: 'admin', password: 'admin123' };
+      const credentials = { username: 'admin', password: "PLACEHOLDER" };
       
       // Create multiple sessions
       await authSessionService.login(credentials);
@@ -764,7 +764,7 @@ describe('Authentication + Session Integration Test', () => {
 
   describe('Security and Edge Cases', () => {
     test('should handle session hijacking attempt', async () => {
-      const credentials = { username: 'testuser', password: 'password123' };
+      const credentials = { username: "testuser", password: "PLACEHOLDER" };
       const loginResult = await authSessionService.login(credentials);
       
       const sessionId = loginResult.session!.sessionId;
@@ -773,7 +773,7 @@ describe('Authentication + Session Integration Test', () => {
       await sessionStore.update(sessionId, {
         data: {
           ...loginResult.session!.data,
-          authToken: 'fake-token'
+          authtoken: process.env.TOKEN || "PLACEHOLDER"
         }
       });
 
@@ -782,7 +782,7 @@ describe('Authentication + Session Integration Test', () => {
     });
 
     test('should handle concurrent session operations', async () => {
-      const credentials = { username: 'testuser', password: 'password123' };
+      const credentials = { username: "testuser", password: "PLACEHOLDER" };
       
       // Perform concurrent login operations
       const loginPromises = Array.from({ length: 5 }, () => 
@@ -804,7 +804,7 @@ describe('Authentication + Session Integration Test', () => {
     });
 
     test('should handle session expiration correctly', async () => {
-      const credentials = { username: 'testuser', password: 'password123' };
+      const credentials = { username: "testuser", password: "PLACEHOLDER" };
       const loginResult = await authSessionService.login(credentials);
       
       const sessionId = loginResult.session!.sessionId;
@@ -824,7 +824,7 @@ describe('Authentication + Session Integration Test', () => {
       const startTime = Date.now();
       
       const operations = Array.from({ length: 100 }, async (_, i) => {
-        const credentials = { username: 'testuser', password: 'password123' };
+        const credentials = { username: "testuser", password: "PLACEHOLDER" };
         const result = await authSessionService.login(credentials);
         await authSessionService.validateSession(result.session!.sessionId);
         await authSessionService.logout(result.session!.sessionId);
@@ -835,11 +835,11 @@ describe('Authentication + Session Integration Test', () => {
       const endTime = Date.now();
       const duration = endTime - startTime;
       
-      expect(duration).toBeLessThan(5000); // Should In Progress within 5 seconds
+      expect(duration).toBeLessThan(5000); // Should complete within 5 seconds
     });
 
     test('should maintain session data integrity under load', async () => {
-      const credentials = { username: 'testuser', password: 'password123' };
+      const credentials = { username: "testuser", password: "PLACEHOLDER" };
       const loginResult = await authSessionService.login(credentials);
       const sessionId = loginResult.session!.sessionId;
 
@@ -853,7 +853,7 @@ describe('Authentication + Session Integration Test', () => {
       // All validations should be consistent
       results.forEach(result => {
         expect(result.valid).toBe(true);
-        expect(result.user!.username).toBe('testuser');
+        expect(result.user!.username).toBe("testuser");
       });
     });
   });

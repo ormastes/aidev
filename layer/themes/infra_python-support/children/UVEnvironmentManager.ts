@@ -128,8 +128,8 @@ export class UVEnvironmentManager {
   getActivationCommand(projectName: string): string {
     const envPath = path.join(this.baseDir, projectName);
     const activateScript = process.platform === 'win32' 
-      ? path.join(envPath, 'Scripts', 'activate')
-      : path.join(envPath, 'bin', 'activate');
+      ? path.join(envPath, 'Scripts', "activate")
+      : path.join(envPath, 'bin', "activate");
     
     return process.platform === 'win32'
       ? `${activateScript}`

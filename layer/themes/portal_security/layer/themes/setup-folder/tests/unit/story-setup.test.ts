@@ -6,7 +6,7 @@ import chalk from 'chalk';
 
 // Mocks are configured in jest.setup.js
 
-describe('StorySetup', () => {
+describe("StorySetup", () => {
   let storySetup: StorySetup;
   const mockOptions: StorySetupOptions = {
     appName: 'test-story-app',
@@ -32,17 +32,17 @@ describe('StorySetup', () => {
     jest.restoreAllMocks();
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with story-specific properties', () => {
       expect(storySetup['title']).toBe('Test Story');
-      expect(storySetup['description']).toBe('Test story description');
+      expect(storySetup["description"]).toBe('Test story description');
       expect(storySetup['epicId']).toBe('epic-456');
       expect(storySetup['themeId']).toBe('theme-123');
-      expect(storySetup['acceptanceCriteria']).toEqual(['Criteria 1', 'Criteria 2']);
+      expect(storySetup["acceptanceCriteria"]).toEqual(['Criteria 1', 'Criteria 2']);
       expect(storySetup['tasks']).toEqual(['Task 1', 'Task 2']);
-      expect(storySetup['priority']).toBe('high');
-      expect(storySetup['storyPoints']).toBe(5);
-      expect(storySetup['deploymentType']).toBe('story');
+      expect(storySetup["priority"]).toBe('high');
+      expect(storySetup["storyPoints"]).toBe(5);
+      expect(storySetup["deploymentType"]).toBe('story');
     });
 
     it('should use default values when optional properties not provided', () => {
@@ -53,28 +53,28 @@ describe('StorySetup', () => {
         description: 'Minimal description',
       });
       
-      expect(minimalSetup['acceptanceCriteria']).toEqual([]);
+      expect(minimalSetup["acceptanceCriteria"]).toEqual([]);
       expect(minimalSetup['tasks']).toEqual([]);
-      expect(minimalSetup['priority']).toBe('medium');
-      expect(minimalSetup['storyPoints']).toBe(3);
+      expect(minimalSetup["priority"]).toBe('medium');
+      expect(minimalSetup["storyPoints"]).toBe(3);
     });
   });
 
-  describe('getDeployDir', () => {
+  describe("getDeployDir", () => {
     it('should return correct deployment directory path', () => {
       const deployDir = storySetup.getDeployDir();
       expect(deployDir).toContain('scripts/setup/agile/stories/test-story-app');
     });
   });
 
-  describe('getDbPassword', () => {
+  describe("getDbPassword", () => {
     it('should return story-specific database password', () => {
       const password = storySetup.getDbPassword();
       expect(password).toBe('story_password_2024');
     });
   });
 
-  describe('getEnvConfig', () => {
+  describe("getEnvConfig", () => {
     it('should generate correct environment configuration', () => {
       const envConfig = storySetup.getEnvConfig();
       
@@ -107,35 +107,35 @@ describe('StorySetup', () => {
     });
   });
 
-  describe('getPortAllocation', () => {
+  describe("getPortAllocation", () => {
     it('should return correct port for story deployment', () => {
-      const port = storySetup['getPortAllocation']();
+      const port = storySetup["getPortAllocation"]();
       const expectedPort = PORT_ALLOCATIONS.agile.main + 20; // Offset for stories
       expect(port).toBe(expectedPort);
     });
   });
 
-  describe('createDeploymentConfig', () => {
+  describe("createDeploymentConfig", () => {
     beforeEach(() => {
       // Mock all the internal methods
-      storySetup['createStoryDocumentation'] = jest.fn().mockResolvedValue(true);
-      storySetup['createStoryStructure'] = jest.fn().mockResolvedValue(true);
-      storySetup['createStoryPackageJson'] = jest.fn().mockResolvedValue(true);
-      storySetup['createDevelopmentArtifacts'] = jest.fn().mockResolvedValue(true);
+      storySetup["createStoryDocumentation"] = jest.fn().mockResolvedValue(true);
+      storySetup["createStoryStructure"] = jest.fn().mockResolvedValue(true);
+      storySetup["createStoryPackageJson"] = jest.fn().mockResolvedValue(true);
+      storySetup["createDevelopmentArtifacts"] = jest.fn().mockResolvedValue(true);
     });
 
     it('should successfully create deployment configuration', async () => {
       const result = await storySetup.createDeploymentConfig();
       
       expect(result).toBe(true);
-      expect(storySetup['createStoryDocumentation']).toHaveBeenCalled();
-      expect(storySetup['createStoryStructure']).toHaveBeenCalled();
-      expect(storySetup['createStoryPackageJson']).toHaveBeenCalled();
-      expect(storySetup['createDevelopmentArtifacts']).toHaveBeenCalled();
+      expect(storySetup["createStoryDocumentation"]).toHaveBeenCalled();
+      expect(storySetup["createStoryStructure"]).toHaveBeenCalled();
+      expect(storySetup["createStoryPackageJson"]).toHaveBeenCalled();
+      expect(storySetup["createDevelopmentArtifacts"]).toHaveBeenCalled();
     });
 
     it('should handle errors during deployment config creation', async () => {
-      storySetup['createStoryDocumentation'] = jest.fn().mockRejectedValue(new Error('Doc creation failed'));
+      storySetup["createStoryDocumentation"] = jest.fn().mockRejectedValue(new Error('Doc creation failed'));
       
       const result = await storySetup.createDeploymentConfig();
       
@@ -144,7 +144,7 @@ describe('StorySetup', () => {
     });
   });
 
-  describe('printSuccessMessage', () => {
+  describe("printSuccessMessage", () => {
     it('should print story-specific success message', () => {
       storySetup.printSuccessMessage();
       

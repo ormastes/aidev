@@ -4,7 +4,7 @@
 
 import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
 import * as fs from 'fs/promises';
-import { path } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import {
   ScreenshotCapture,
   ImageAnnotator,
@@ -13,7 +13,7 @@ import {
 } from '../src/screenshot';
 
 // Mock playwright
-jest.mock('playwright', () => ({
+jest.mock("playwright", () => ({
   chromium: {
     launch: jest.fn().mockResolvedValue({
       newContext: jest.fn().mockResolvedValue({
@@ -100,7 +100,7 @@ jest.mock('sharp', () => {
   }));
 });
 
-describe('ScreenshotCapture', () => {
+describe("ScreenshotCapture", () => {
   let capture: ScreenshotCapture;
   const testOutputDir = '/tmp/test-screenshots';
 
@@ -118,7 +118,7 @@ describe('ScreenshotCapture', () => {
     }
   });
 
-  describe('initialization', () => {
+  describe("initialization", () => {
     it('should initialize browser and context', async () => {
       await capture.initialize({
         headless: true,
@@ -152,8 +152,8 @@ describe('ScreenshotCapture', () => {
       
       expect(result).toHaveProperty('id');
       expect(result).toHaveProperty('path');
-      expect(result).toHaveProperty('timestamp');
-      expect(result).toHaveProperty('metadata');
+      expect(result).toHaveProperty("timestamp");
+      expect(result).toHaveProperty("metadata");
       expect(result.metadata.url).toBe('https://example.com');
     });
 
@@ -161,7 +161,7 @@ describe('ScreenshotCapture', () => {
       await capture.initialize();
       const page = await capture.createPage();
       
-      const result = await capture.capture(page, 'highlighted', {
+      const result = await capture.capture(page, "highlighted", {
         highlight: ['.button', '.input']
       });
       
@@ -180,7 +180,7 @@ describe('ScreenshotCapture', () => {
     });
   });
 
-  describe('captureSequence', () => {
+  describe("captureSequence", () => {
     it('should capture multiple screenshots in sequence', async () => {
       await capture.initialize();
       const page = await capture.createPage();
@@ -196,7 +196,7 @@ describe('ScreenshotCapture', () => {
     });
   });
 
-  describe('captureResponsive', () => {
+  describe("captureResponsive", () => {
     it('should capture screenshots at different viewports', async () => {
       await capture.initialize();
       
@@ -215,7 +215,7 @@ describe('ScreenshotCapture', () => {
   });
 });
 
-describe('ImageAnnotator', () => {
+describe("ImageAnnotator", () => {
   let annotator: ImageAnnotator;
   const testImagePath = '/tmp/test-image.png';
   
@@ -233,7 +233,7 @@ describe('ImageAnnotator', () => {
     }
   });
 
-  describe('annotate', () => {
+  describe("annotate", () => {
     it('should add box annotation', async () => {
       const outputPath = await annotator.annotate(testImagePath, [
         {
@@ -307,7 +307,7 @@ describe('ImageAnnotator', () => {
     });
   });
 
-  describe('createStepByStep', () => {
+  describe("createStepByStep", () => {
     it('should create step-by-step annotated images', async () => {
       const outputDir = '/tmp/steps';
       await fs.mkdir(outputDir, { recursive: true });
@@ -335,7 +335,7 @@ describe('ImageAnnotator', () => {
   });
 });
 
-describe('ImageOptimizer', () => {
+describe("ImageOptimizer", () => {
   let optimizer: ImageOptimizer;
   const testImagePath = '/tmp/test-image.png';
   
@@ -352,16 +352,16 @@ describe('ImageOptimizer', () => {
     }
   });
 
-  describe('optimize', () => {
+  describe("optimize", () => {
     it('should optimize image with default options', async () => {
       const result = await optimizer.optimize(testImagePath);
       
-      expect(result).toHaveProperty('originalPath');
-      expect(result).toHaveProperty('optimizedPath');
-      expect(result).toHaveProperty('originalSize');
-      expect(result).toHaveProperty('optimizedSize');
-      expect(result).toHaveProperty('reduction');
-      expect(result).toHaveProperty('reductionPercentage');
+      expect(result).toHaveProperty("originalPath");
+      expect(result).toHaveProperty("optimizedPath");
+      expect(result).toHaveProperty("originalSize");
+      expect(result).toHaveProperty("optimizedSize");
+      expect(result).toHaveProperty("reduction");
+      expect(result).toHaveProperty("reductionPercentage");
       
       await fs.unlink(result.optimizedPath);
     });
@@ -387,7 +387,7 @@ describe('ImageOptimizer', () => {
     });
   });
 
-  describe('batchOptimize', () => {
+  describe("batchOptimize", () => {
     it('should optimize multiple images', async () => {
       const image2Path = '/tmp/test-image2.png';
       await fs.writeFile(image2Path, Buffer.from('mock-image-data-2'));
@@ -403,7 +403,7 @@ describe('ImageOptimizer', () => {
     });
   });
 
-  describe('createResponsiveVariants', () => {
+  describe("createResponsiveVariants", () => {
     it('should create multiple size variants', async () => {
       const outputDir = '/tmp/responsive';
       await fs.mkdir(outputDir, { recursive: true });
@@ -420,7 +420,7 @@ describe('ImageOptimizer', () => {
     });
   });
 
-  describe('createThumbnail', () => {
+  describe("createThumbnail", () => {
     it('should create thumbnail', async () => {
       const result = await optimizer.createThumbnail(testImagePath);
       
@@ -430,7 +430,7 @@ describe('ImageOptimizer', () => {
   });
 });
 
-describe('GalleryGenerator', () => {
+describe("GalleryGenerator", () => {
   let generator: GalleryGenerator;
   const testImages = [
     {
@@ -449,7 +449,7 @@ describe('GalleryGenerator', () => {
     generator = new GalleryGenerator();
   });
 
-  describe('generateHTML', () => {
+  describe("generateHTML", () => {
     it('should generate HTML gallery with grid layout', async () => {
       const outputPath = '/tmp/gallery.html';
       
@@ -472,7 +472,7 @@ describe('GalleryGenerator', () => {
       
       await generator.generateHTML(testImages, outputPath, {
         title: 'Carousel Gallery',
-        layout: 'carousel'
+        layout: "carousel"
       });
       
       const content = await fs.readFile(outputPath, 'utf-8');
@@ -487,7 +487,7 @@ describe('GalleryGenerator', () => {
       
       await generator.generateHTML(testImages, outputPath, {
         title: 'Comparison Gallery',
-        layout: 'comparison'
+        layout: "comparison"
       });
       
       const content = await fs.readFile(outputPath, 'utf-8');
@@ -499,7 +499,7 @@ describe('GalleryGenerator', () => {
     });
   });
 
-  describe('generateMarkdown', () => {
+  describe("generateMarkdown", () => {
     it('should generate Markdown gallery', async () => {
       const outputPath = '/tmp/gallery.md';
       
@@ -520,8 +520,8 @@ describe('GalleryGenerator', () => {
       const outputPath = '/tmp/comparison.md';
       
       await generator.generateMarkdown(testImages, outputPath, {
-        title: 'Comparison',
-        layout: 'comparison'
+        title: "Comparison",
+        layout: "comparison"
       });
       
       const content = await fs.readFile(outputPath, 'utf-8');
@@ -531,7 +531,7 @@ describe('GalleryGenerator', () => {
     });
   });
 
-  describe('generateFromCaptures', () => {
+  describe("generateFromCaptures", () => {
     it('should generate gallery from capture results', async () => {
       const captures = [
         {
@@ -541,7 +541,7 @@ describe('GalleryGenerator', () => {
           metadata: {
             url: 'https://example.com',
             title: 'Test Page',
-            browser: 'chromium'
+            browser: "chromium"
           },
           size: 1024,
           dimensions: { width: 1920, height: 1080 }

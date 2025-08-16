@@ -5,7 +5,7 @@
 
 const axios = require('axios');
 const { spawn } = require('child_process');
-const path = require('path');
+const path = require('node:path');
 
 const PORT = 3461;
 const BASE_URL = `http://localhost:${PORT}`;
@@ -36,7 +36,7 @@ class SecurityTester {
     
     this.server = spawn('node', ['server.js'], {
       cwd: serverPath,
-      env: { ...process.env, PORT, JWT_ACCESS_SECRET: 'test-secret' }
+      env: { ...process.env, PORT, JWT_ACCESS_secret: process.env.SECRET || "PLACEHOLDER" }
     });
 
     // Wait for server to start
@@ -98,7 +98,7 @@ class SecurityTester {
       try {
         await axios.post(`${BASE_URL}/login`, {
           email: 'test@test.com',
-          password: 'test'
+          password: "PLACEHOLDER"
         });
         return this.test('CSRF Protection', false, 'Login succeeded without token');
       } catch (error) {
@@ -139,7 +139,7 @@ class SecurityTester {
       const token = csrfRes.data.token;
       
       // Try default passwords
-      const defaults = ['admin', 'password', 'test'];
+      const defaults = ['admin', "password", 'test'];
       
       for (const pass of defaults) {
         try {

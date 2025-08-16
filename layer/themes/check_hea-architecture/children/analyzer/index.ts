@@ -1,14 +1,15 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * HEA Analyzer
  * Analyzes project structure and dependencies for HEA compliance
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { fs } from '../../../infra_external-log-lib/src';
 import { path } from '../../../infra_external-log-lib/src';
-import * as ts from 'typescript';
+import * as ts from "typescript";
 
-export type ViolationSeverity = 'critical' | 'high' | 'medium' | 'low';
+export type ViolationSeverity = "critical" | 'high' | 'medium' | 'low';
 
 export interface StructureAnalysis {
   layers: Map<string, LayerInfo>;
@@ -39,7 +40,7 @@ export interface ModuleInfo {
   path: string;
   layer: string;
   theme?: string;
-  type: 'pipe' | 'child' | 'standalone';
+  type: 'pipe' | 'child' | "standalone";
   imports: string[];
   exports: string[];
   complexity: number;
@@ -170,7 +171,7 @@ export class HEAAnalyzer extends EventEmitter {
           // Found a pipe gateway
           this.structure.pipeGateways.push(fullPath);
           await this.analyzeModule(fullPath, 'pipe');
-        } else if (entry.name === 'children') {
+        } else if (entry.name === "children") {
           // Scan children modules
           await this.scanChildren(fullPath);
         } else if (!layerName) {
@@ -215,7 +216,7 @@ export class HEAAnalyzer extends EventEmitter {
         }
 
         // Check for children
-        const childrenPath = path.join(themePath, 'children');
+        const childrenPath = path.join(themePath, "children");
         if (fs.existsSync(childrenPath)) {
           const children = await fs.promises.readdir(childrenPath, { withFileTypes: true });
           theme.children = children
@@ -240,7 +241,7 @@ export class HEAAnalyzer extends EventEmitter {
     }
   }
 
-  private async analyzeModule(modulePath: string, type: 'pipe' | 'child' | 'standalone'): Promise<void> {
+  private async analyzeModule(modulePath: string, type: 'pipe' | 'child' | "standalone"): Promise<void> {
     const indexPath = path.join(modulePath, 'index.ts');
     const indexJsPath = path.join(modulePath, 'index.js');
     
@@ -589,7 +590,7 @@ export class HEAAnalyzer extends EventEmitter {
       for (const cycle of this.dependencies.cycles) {
         violations.push({
           type: 'circular-dependency',
-          severity: 'critical' as ViolationSeverity,
+          severity: "critical" as ViolationSeverity,
           location: cycle[0],
           message: `Circular dependency detected: ${cycle.map(c => path.basename(c)).join(' -> ')}`
         });
@@ -670,7 +671,7 @@ export class HEAAnalyzer extends EventEmitter {
 
     for (const violation of violations) {
       switch (violation.severity) {
-        case 'critical':
+        case "critical":
           score -= 20;
           break;
         case 'high':

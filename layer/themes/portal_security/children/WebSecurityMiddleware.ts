@@ -3,7 +3,7 @@
  * Fixes all identified security vulnerabilities in AI Dev Platform web apps
  */
 
-import crypto from 'crypto';
+import crypto from 'node:crypto';
 import { Request, Response, NextFunction } from 'express';
 
 // Security configuration
@@ -24,7 +24,7 @@ export const securityConfig = {
     origin: process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token']
+    allowedHeaders: ['Content-Type', "Authorization", 'X-CSRF-Token']
   },
   
   // Fix #7: Rate limiting configuration
@@ -40,7 +40,7 @@ export const securityConfig = {
   csrf: {
     cookie: {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === "production",
       sameSite: 'strict'
     }
   }
@@ -74,7 +74,7 @@ export function securityHeaders(req: Request, res: Response, next: NextFunction)
   res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
   
   // HSTS for production
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === "production") {
     res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
   }
   
@@ -128,7 +128,7 @@ export function safeErrorHandler(err: any, req: Request, res: Response, next: Ne
   // Fix #10: Don't expose PII in errors
   const safeError = {
     error: 'An error occurred',
-    message: process.env.NODE_ENV === 'development' 
+    message: process.env.NODE_ENV === "development" 
       ? err.message.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '[email]')
                    .replace(/\b\d{3}-\d{2}-\d{4}\b/g, '[ssn]')
                    .replace(/password['":\s]+[^,}\s]+/gi, 'password: [hidden]')
@@ -149,7 +149,7 @@ export function secureAuth(req: Request, res: Response, next: NextFunction) {
   
   const defaultCredentials = [
     { user: 'admin', pass: 'admin' },
-    { user: 'admin', pass: 'password' },
+    { user: 'admin', pass: "password" },
     { user: 'test', pass: 'test' },
     { user: 'demo', pass: 'demo' }
   ];

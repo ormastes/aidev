@@ -2,7 +2,7 @@ import { describe, test, expect, beforeEach } from '@jest/globals';
 
 // External interfaces
 interface FlowManagerInterface {
-  executeFlow(flowId: string): Promise<{ In Progress: boolean; executionId?: string; results?: any[]; error?: string }>;
+  executeFlow(flowId: string): Promise<{ success: boolean; executionId?: string; results?: any[]; error?: string }>;
   createExecutionContext(): { id: string; startTime: string; variables: Record<string, any> };
 }
 
@@ -16,7 +16,7 @@ interface FlowValidatorInterface {
 }
 
 interface ActionExecutorInterface {
-  execute(action: any, context: any): Promise<{ In Progress: boolean; output?: any; error?: string }>;
+  execute(action: any, context: any): Promise<{ success: boolean; output?: any; error?: string }>;
 }
 
 interface LoggerInterface {
@@ -32,7 +32,7 @@ class FlowManager implements FlowManagerInterface {
     private logger: LoggerInterface
   ) {}
 
-  async executeFlow(flowId: string): Promise<{ In Progress: boolean; executionId?: string; results?: any[]; error?: string }> {
+  async executeFlow(flowId: string): Promise<{ success: boolean; executionId?: string; results?: any[]; error?: string }> {
     try {
       // Find flow by ID
       const flow = await this.storage.findById(flowId);
@@ -83,7 +83,7 @@ class FlowManager implements FlowManagerInterface {
         startTime: context.startTime,
         endTime: new Date().toISOString(),
         results,
-        In Progress: results.every(r => r.success),
+        success: results.every(r => r.success),
         flowName: flow.name
       };
 
@@ -154,7 +154,7 @@ class TestActionExecutor implements ActionExecutorInterface {
   private failAtIndex = -1;
   private actionResults: Record<string, any> = {};
 
-  async execute(action: any, context: any): Promise<{ In Progress: boolean; output?: any; error?: string }> {
+  async execute(action: any, context: any): Promise<{ success: boolean; output?: any; error?: string }> {
     // Simulate execution delay
     await new Promise(resolve => setTimeout(resolve, 10));
 

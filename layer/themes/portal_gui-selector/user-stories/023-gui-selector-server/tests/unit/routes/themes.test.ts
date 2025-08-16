@@ -1,4 +1,4 @@
-import request from 'supertest';
+import request from "supertest";
 import express from 'express';
 import { themesRouter } from '../../../src/routes/themes';
 import { themeService } from '../../../src/services/ThemeService';
@@ -50,7 +50,7 @@ describe('Themes Routes', () => {
     it('should return all themes', async () => {
       const mockThemes = [
         { id: 'modern', name: 'Modern', category: 'modern' },
-        { id: 'professional', name: 'Professional', category: 'professional' }
+        { id: "professional", name: "Professional", category: "professional" }
       ];
 
       mockThemeService.getAllThemes.mockResolvedValue(mockThemes);
@@ -62,7 +62,7 @@ describe('Themes Routes', () => {
       expect(response.body).toHaveProperty('success', true);
       expect(response.body).toHaveProperty('themes');
       expect(response.body.themes).toEqual(mockThemes);
-      expect(response.body).toHaveProperty('platform', 'web');
+      expect(response.body).toHaveProperty("platform", 'web');
     });
 
     it('should filter themes by platform', async () => {
@@ -77,7 +77,7 @@ describe('Themes Routes', () => {
 
       expect(response.status).toBe(200);
       expect(mockThemeService.getAllThemes).toHaveBeenCalledWith('ios');
-      expect(response.body).toHaveProperty('platform', 'ios');
+      expect(response.body).toHaveProperty("platform", 'ios');
     });
 
     it('should handle errors gracefully', async () => {
@@ -166,7 +166,7 @@ describe('Themes Routes', () => {
       const authApp = express();
       authApp.use(express.json());
       authApp.use((req: any, res, next) => {
-        req.user = { userId: 1, username: 'testuser', role: 'user' };
+        req.user = { userId: 1, username: "testuser", role: 'user' };
         next();
       });
       authApp.use('/api/themes', themesRouter);
@@ -306,7 +306,7 @@ describe('Themes Routes', () => {
     it('should be caught by :id route due to route ordering', async () => {
       // This test documents the current behavior where /preferences is treated as an :id
       mockThemeService.getTheme.mockResolvedValue({
-        id: 'preferences',
+        id: "preferences",
         name: 'Mock Theme',
         category: 'modern'
       });
@@ -314,9 +314,9 @@ describe('Themes Routes', () => {
       const response = await request(app)
         .get('/api/themes/preferences');
 
-      // Currently calls getTheme with id='preferences'
+      // Currently calls getTheme with id="preferences"
       expect(response.status).toBe(200);
-      expect(mockThemeService.getTheme).toHaveBeenCalledWith('preferences', undefined);
+      expect(mockThemeService.getTheme).toHaveBeenCalledWith("preferences", undefined);
       expect(response.body).toHaveProperty('success', true);
       expect(response.body).toHaveProperty('theme');
     });
@@ -327,7 +327,7 @@ describe('Themes Routes', () => {
       const authApp = express();
       authApp.use(express.json());
       authApp.use((req: any, res, next) => {
-        req.user = { userId: 1, username: 'testuser', role: 'user' };
+        req.user = { userId: 1, username: "testuser", role: 'user' };
         next();
       });
       authApp.use('/api/themes', themesRouter);
@@ -369,7 +369,7 @@ describe('Themes Routes', () => {
       const authApp = express();
       authApp.use(express.json());
       authApp.use((req: any, res, next) => {
-        req.user = { userId: 1, username: 'testuser', role: 'user' };
+        req.user = { userId: 1, username: "testuser", role: 'user' };
         next();
       });
       authApp.use('/api/themes', themesRouter);
@@ -389,7 +389,7 @@ describe('Themes Routes', () => {
       const authApp = express();
       authApp.use(express.json());
       authApp.use((req: any, res, next) => {
-        req.user = { userId: 1, username: 'testuser', role: 'user' };
+        req.user = { userId: 1, username: "testuser", role: 'user' };
         next();
       });
       authApp.use('/api/themes', themesRouter);
@@ -414,7 +414,7 @@ describe('Themes Routes', () => {
       const authApp = express();
       authApp.use(express.json());
       authApp.use((req: any, res, next) => {
-        req.user = { userId: 1, username: 'testuser', role: 'user' };
+        req.user = { userId: 1, username: "testuser", role: 'user' };
         next();
       });
       authApp.use('/api/themes', themesRouter);

@@ -11,7 +11,7 @@ import { User, UserRole } from '.././User';
 import { SecurityConstants } from '.././security';
 import * as bcrypt from 'bcrypt';
 
-describe('AuthService', () => {
+describe("AuthService", () => {
   let authService: AuthService;
   let credentialStore: CredentialStore;
   let tokenService: TokenService;
@@ -73,22 +73,22 @@ describe('AuthService', () => {
     it('should successfully authenticate valid user', async () => {
       // Create a test user
       const testUser = await authService.createUser({
-        username: 'testuser',
-        password: 'testpass123',
+        username: "testuser",
+        password: "PLACEHOLDER",
         email: 'test@example.com'
       });
 
       // Attempt login
       const credentials: LoginCredentials = {
-        username: 'testuser',
-        password: 'testpass123'
+        username: "testuser",
+        password: "PLACEHOLDER"
       };
 
       const result = await authService.login(credentials);
 
       expect(result.success).toBe(true);
       expect(result.user).toBeDefined();
-      expect(result.user?.username).toBe('testuser');
+      expect(result.user?.username).toBe("testuser");
       expect(result.token).toBeDefined();
       expect(result.refreshToken).toBeUndefined(); // No remember me
     });
@@ -96,15 +96,15 @@ describe('AuthService', () => {
     it('should fail with invalid password', async () => {
       // Create a test user
       await authService.createUser({
-        username: 'testuser',
-        password: 'correctpass',
+        username: "testuser",
+        password: "PLACEHOLDER",
         email: 'test@example.com'
       });
 
       // Attempt login with wrong password
       const credentials: LoginCredentials = {
-        username: 'testuser',
-        password: 'wrongpass'
+        username: "testuser",
+        password: "PLACEHOLDER"
       };
 
       const result = await authService.login(credentials);
@@ -117,8 +117,8 @@ describe('AuthService', () => {
 
     it('should fail with non-existent user', async () => {
       const credentials: LoginCredentials = {
-        username: 'nonexistent',
-        password: 'anypass'
+        username: "nonexistent",
+        password: "PLACEHOLDER"
       };
 
       const result = await authService.login(credentials);
@@ -130,7 +130,7 @@ describe('AuthService', () => {
     it('should fail with missing credentials', async () => {
       const result1 = await authService.login({
         username: '',
-        password: 'pass'
+        password: "PLACEHOLDER"
       });
 
       expect(result1.success).toBe(false);
@@ -148,13 +148,13 @@ describe('AuthService', () => {
     it('should generate refresh token when remember me is enabled', async () => {
       // Create a test user
       await authService.createUser({
-        username: 'testuser',
-        password: 'testpass123'
+        username: "testuser",
+        password: "PLACEHOLDER"
       });
 
       const credentials: LoginCredentials = {
-        username: 'testuser',
-        password: 'testpass123',
+        username: "testuser",
+        password: "PLACEHOLDER",
         rememberMe: true
       };
 
@@ -166,7 +166,7 @@ describe('AuthService', () => {
 
     it('should create default admin in development mode', async () => {
       const originalEnv = process.env.NODE_ENV;
-      process.env.NODE_ENV = 'development';
+      process.env.NODE_ENV = "development";
 
       const credentials: LoginCredentials = {
         username: SecurityConstants.DEFAULT_CREDENTIALS.USERNAME,
@@ -190,7 +190,7 @@ describe('AuthService', () => {
       await sessionManager.createSession({
         id: sessionId,
         userId: 'user-123',
-        data: { username: 'testuser', roles: [UserRole.USER] },
+        data: { username: "testuser", roles: [UserRole.USER] },
         expiresAt: new Date(Date.now() + 3600000)
       });
 
@@ -207,12 +207,12 @@ describe('AuthService', () => {
     });
   });
 
-  describe('validateToken', () => {
+  describe("validateToken", () => {
     it('should validate and return user for valid token', async () => {
       // Create a test user
       const testUser = await authService.createUser({
-        username: 'tokenuser',
-        password: 'pass123'
+        username: "tokenuser",
+        password: "PLACEHOLDER"
       });
 
       // Generate a token
@@ -227,7 +227,7 @@ describe('AuthService', () => {
 
       expect(user).toBeDefined();
       expect(user?.id).toBe(testUser.id);
-      expect(user?.username).toBe('tokenuser');
+      expect(user?.username).toBe("tokenuser");
     });
 
     it('should return null for invalid token', async () => {
@@ -250,12 +250,12 @@ describe('AuthService', () => {
     });
   });
 
-  describe('getCurrentUser', () => {
+  describe("getCurrentUser", () => {
     it('should get user from session', async () => {
       // Create a test user
       const testUser = await authService.createUser({
-        username: 'sessionuser',
-        password: 'pass123'
+        username: "sessionuser",
+        password: "PLACEHOLDER"
       });
 
       // Create mock request with session
@@ -270,14 +270,14 @@ describe('AuthService', () => {
 
       expect(user).toBeDefined();
       expect(user?.id).toBe(testUser.id);
-      expect(user?.username).toBe('sessionuser');
+      expect(user?.username).toBe("sessionuser");
     });
 
-    it('should get user from Bearer token', async () => {
+    it('should get user from Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}', async () => {
       // Create a test user
       const testUser = await authService.createUser({
-        username: 'beareruser',
-        password: 'pass123'
+        username: "beareruser",
+        password: "PLACEHOLDER"
       });
 
       // Generate token
@@ -299,7 +299,7 @@ describe('AuthService', () => {
 
       expect(user).toBeDefined();
       expect(user?.id).toBe(testUser.id);
-      expect(user?.username).toBe('beareruser');
+      expect(user?.username).toBe("beareruser");
     });
 
     it('should return null when no auth is present', async () => {
@@ -313,11 +313,11 @@ describe('AuthService', () => {
     });
   });
 
-  describe('createUser', () => {
+  describe("createUser", () => {
     it('should create user with hashed password', async () => {
       const userData = {
         username: 'newuser',
-        password: 'newpass123',
+        password: "PLACEHOLDER",
         email: 'new@example.com'
       };
 
@@ -331,17 +331,17 @@ describe('AuthService', () => {
       // Verify password is hashed in credential store
       const credential = await credentialStore.getCredential(user.id);
       expect(credential?.passwordHash).toBeDefined();
-      expect(credential?.passwordHash).not.toBe('newpass123');
+      expect(credential?.passwordHash).not.toBe("newpass123");
 
       // Verify hashed password works
-      const isValid = await bcrypt.compare('newpass123', credential?.passwordHash || '');
+      const isValid = await bcrypt.compare("newpass123", credential?.passwordHash || '');
       expect(isValid).toBe(true);
     });
 
     it('should create user with specified roles', async () => {
       const userData = {
-        username: 'adminuser',
-        password: 'adminpass123',
+        username: "adminuser",
+        password: "PLACEHOLDER",
         roles: [UserRole.ADMIN, UserRole.USER]
       };
 
@@ -352,13 +352,13 @@ describe('AuthService', () => {
 
     it('should create user without email', async () => {
       const userData = {
-        username: 'noemailuser',
-        password: 'pass123'
+        username: "noemailuser",
+        password: "PLACEHOLDER"
       };
 
       const user = await authService.createUser(userData);
 
-      expect(user.username).toBe('noemailuser');
+      expect(user.username).toBe("noemailuser");
       expect(user.email).toBeUndefined();
     });
   });
@@ -367,16 +367,16 @@ describe('AuthService', () => {
     it('should handle complete authentication flow', async () => {
       // 1. Create user
       const userData = {
-        username: 'flowuser',
-        password: 'flowpass123',
+        username: "flowuser",
+        password: "PLACEHOLDER",
         email: 'flow@example.com'
       };
       const createdUser = await authService.createUser(userData);
 
       // 2. Login
       const loginResult = await authService.login({
-        username: 'flowuser',
-        password: 'flowpass123',
+        username: "flowuser",
+        password: "PLACEHOLDER",
         rememberMe: true
       });
 
@@ -406,14 +406,14 @@ describe('AuthService', () => {
     it('should update last login timestamp', async () => {
       // Create user
       await authService.createUser({
-        username: 'timestampuser',
-        password: 'pass123'
+        username: "timestampuser",
+        password: "PLACEHOLDER"
       });
 
       // Login
       const result = await authService.login({
-        username: 'timestampuser',
-        password: 'pass123'
+        username: "timestampuser",
+        password: "PLACEHOLDER"
       });
 
       expect(result.success).toBe(true);

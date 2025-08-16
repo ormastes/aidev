@@ -69,7 +69,7 @@ export class AuthService {
       const user = await this.userRepository.findByUsername(credentials.username);
       if (!user) {
         // Check default credentials in development
-        if (process.env.NODE_ENV === 'development' &&
+        if (process.env.NODE_ENV === "development" &&
             credentials.username === SecurityConstants.DEFAULT_CREDENTIALS.USERNAME &&
             credentials.password === SecurityConstants.DEFAULT_CREDENTIALS.PASSWORD) {
           // Create default admin user
@@ -189,7 +189,7 @@ export class AuthService {
     // Store credentials
     await this.credentialStore.storeCredential({
       userId: user.id,
-      type: 'password',
+      type: "password",
       passwordHash,
       createdAt: new Date()
     });

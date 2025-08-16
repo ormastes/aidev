@@ -46,7 +46,7 @@ describe('EnhancedPortManager Enforcement', () => {
     test('should handle IP-based registration', () => {
       const result = portManager.registerApp({
         appId: 'multi-server-app',
-        deployType: 'production',
+        deployType: "production",
         ipAddress: '192.168.1.100'
       });
       
@@ -124,7 +124,7 @@ describe('EnhancedPortManager Enforcement', () => {
     });
   });
   
-  describe('Reporting', () => {
+  describe("Reporting", () => {
     test('should generate comprehensive report', () => {
       // Register some apps
       portManager.registerApp({ appId: 'portal', deployType: 'release' });
@@ -142,7 +142,7 @@ describe('EnhancedPortManager Enforcement', () => {
   });
   
   describe('Deploy Type Handling', () => {
-    const deployTypes = ['local', 'dev', 'demo', 'release', 'production'] as const;
+    const deployTypes = ['local', 'dev', 'demo', 'release', "production"] as const;
     
     deployTypes.forEach(deployType => {
       test(`should assign correct port range for ${deployType}`, () => {

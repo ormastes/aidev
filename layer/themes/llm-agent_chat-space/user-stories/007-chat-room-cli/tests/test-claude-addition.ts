@@ -131,7 +131,7 @@ async function testClaudeAddition() {
     const history = claude.getHistory();
     console.log(`   Total messages: ${history.length}`);
     console.log(`   User messages: ${history.filter(m => m.role === 'user').length}`);
-    console.log(`   Assistant messages: ${history.filter(m => m.role === 'assistant').length}`);
+    console.log(`   Assistant messages: ${history.filter(m => m.role === "assistant").length}`);
 
     // Test multiple additions in one message
     console.log('');

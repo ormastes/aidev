@@ -12,7 +12,7 @@ const {
 } = require('./string');
 
 describe('String Utils', () => {
-  describe('capitalize', () => {
+  describe("capitalize", () => {
     test('capitalizes first letter', () => {
       expect(capitalize('hello')).toBe('Hello');
     });
@@ -45,7 +45,7 @@ describe('String Utils', () => {
     });
   });
 
-  describe('isPalindrome', () => {
+  describe("isPalindrome", () => {
     test('identifies palindrome', () => {
       expect(isPalindrome('racecar')).toBe(true);
     });
@@ -63,7 +63,7 @@ describe('String Utils', () => {
     });
   });
 
-  describe('truncate', () => {
+  describe("truncate", () => {
     test('truncates long string', () => {
       expect(truncate('Hello world', 5)).toBe('Hello...');
     });
@@ -81,7 +81,7 @@ describe('String Utils', () => {
     });
   });
 
-  describe('countWords', () => {
+  describe("countWords", () => {
     test('counts words', () => {
       expect(countWords('Hello world')).toBe(2);
     });
@@ -104,13 +104,13 @@ describe('String Utils', () => {
     });
   });
 
-  describe('toSnakeCase', () => {
+  describe("toSnakeCase", () => {
     test('converts camelCase', () => {
-      expect(toSnakeCase('helloWorld')).toBe('hello_world');
+      expect(toSnakeCase("helloWorld")).toBe('hello_world');
     });
 
     test('converts PascalCase', () => {
-      expect(toSnakeCase('HelloWorld')).toBe('hello_world');
+      expect(toSnakeCase("HelloWorld")).toBe('hello_world');
     });
 
     test('handles spaces', () => {
@@ -122,13 +122,13 @@ describe('String Utils', () => {
     });
   });
 
-  describe('toCamelCase', () => {
+  describe("toCamelCase", () => {
     test('converts snake_case', () => {
-      expect(toCamelCase('hello_world')).toBe('helloWorld');
+      expect(toCamelCase('hello_world')).toBe("helloWorld");
     });
 
     test('converts spaces', () => {
-      expect(toCamelCase('hello world')).toBe('helloWorld');
+      expect(toCamelCase('hello world')).toBe("helloWorld");
     });
 
     test('handles single word', () => {
@@ -136,23 +136,23 @@ describe('String Utils', () => {
     });
   });
 
-  describe('removeWhitespace', () => {
+  describe("removeWhitespace", () => {
     test('removes spaces', () => {
-      expect(removeWhitespace('hello world')).toBe('helloworld');
+      expect(removeWhitespace('hello world')).toBe("helloworld");
     });
 
     test('removes tabs and newlines', () => {
-      expect(removeWhitespace('hello\tworld\n')).toBe('helloworld');
+      expect(removeWhitespace('hello\tworld\n')).toBe("helloworld");
     });
 
     test('handles no whitespace', () => {
-      expect(removeWhitespace('helloworld')).toBe('helloworld');
+      expect(removeWhitespace("helloworld")).toBe("helloworld");
     });
   });
 
-  describe('extractNumbers', () => {
+  describe("extractNumbers", () => {
     test('extracts numbers', () => {
-      expect(extractNumbers('abc123def456')).toEqual([123, 456]);
+      expect(extractNumbers("abc123def456")).toEqual([123, 456]);
     });
 
     test('handles no numbers', () => {
@@ -168,7 +168,7 @@ describe('String Utils', () => {
     });
   });
 
-  describe('replaceAll', () => {
+  describe("replaceAll", () => {
     test('replaces all occurrences', () => {
       expect(replaceAll('hello hello', 'hello', 'hi')).toBe('hi hi');
     });

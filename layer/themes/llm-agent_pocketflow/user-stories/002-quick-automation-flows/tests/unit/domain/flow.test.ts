@@ -57,7 +57,7 @@ describe('Flow', () => {
   });
 
   describe('Flow', () => {
-    describe('constructor', () => {
+    describe("constructor", () => {
       it('should initialize with empty state', () => {
         const newFlow = new Flow();
         expect(newFlow.getFlowNodes()).toHaveLength(0);
@@ -178,7 +178,7 @@ describe('Flow', () => {
       });
     });
 
-    describe('getFlowNodes', () => {
+    describe("getFlowNodes", () => {
       it('should return copy of flow nodes', () => {
         flow.addNode(mockNode1).addNode(mockNode2);
         
@@ -195,8 +195,8 @@ describe('Flow', () => {
     });
   });
 
-  describe('SequentialFlow', () => {
-    describe('constructor', () => {
+  describe("SequentialFlow", () => {
+    describe("constructor", () => {
       it('should create sequential flow with nodes', () => {
         const nodes = [mockNode1, mockNode2, mockNode3];
         const sequentialFlow = new SequentialFlow(nodes);
@@ -232,8 +232,8 @@ describe('Flow', () => {
     });
   });
 
-  describe('ParallelFlow', () => {
-    describe('constructor', () => {
+  describe("ParallelFlow", () => {
+    describe("constructor", () => {
       it('should create parallel flow with nodes', () => {
         const nodes = [mockNode1, mockNode2, mockNode3];
         const parallelFlow = new ParallelFlow(nodes);
@@ -311,7 +311,7 @@ describe('Flow', () => {
     });
   });
 
-  describe('ConditionalFlow', () => {
+  describe("ConditionalFlow", () => {
     let trueNode: MockNode;
     let falseNode: MockNode;
     let conditionalFlow: ConditionalFlow;
@@ -321,7 +321,7 @@ describe('Flow', () => {
       falseNode = new MockNode('false', 'false-result');
     });
 
-    describe('constructor', () => {
+    describe("constructor", () => {
       it('should create conditional flow with condition and nodes', () => {
         const condition = (result: any) => result > 5;
         conditionalFlow = new ConditionalFlow(condition, trueNode, falseNode);
@@ -399,7 +399,7 @@ describe('Flow', () => {
       });
 
       it('should handle missing condition input', async () => {
-        const condition = (result: any) => result === 'expected';
+        const condition = (result: any) => result === "expected";
         conditionalFlow = new ConditionalFlow(condition, trueNode, falseNode);
         
         // No conditionInput set in params

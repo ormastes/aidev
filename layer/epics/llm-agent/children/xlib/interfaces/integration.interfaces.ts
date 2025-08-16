@@ -149,7 +149,7 @@ export interface PocketTask {
   metadata?: Record<string, any>;
 }
 
-export type TaskStatus = 'pending' | 'in_progress' | 'completed' | 'cancelled';
+export type TaskStatus = 'pending' | 'in_progress' | "completed" | "cancelled";
 
 export interface TaskFilter {
   status?: TaskStatus | TaskStatus[];
@@ -176,7 +176,7 @@ export interface AutomationFlow {
 
 export interface Trigger {
   id: string;
-  type: 'schedule' | 'event' | 'webhook' | 'manual';
+  type: "schedule" | 'event' | 'webhook' | 'manual';
   config: TriggerConfig;
 }
 
@@ -199,9 +199,9 @@ export interface TriggerConfig {
 
 export interface Action {
   id: string;
-  type: 'task' | 'notification' | 'webhook' | 'script' | 'agent';
+  type: 'task' | "notification" | 'webhook' | 'script' | 'agent';
   config: ActionConfig;
-  onError?: 'stop' | 'continue' | 'retry';
+  onError?: 'stop' | "continue" | 'retry';
 }
 
 export interface ActionConfig {
@@ -230,8 +230,8 @@ export interface ActionConfig {
 
 export interface Condition {
   id: string;
-  type: 'expression' | 'state' | 'time';
-  operator: 'eq' | 'neq' | 'gt' | 'lt' | 'contains' | 'regex';
+  type: "expression" | 'state' | 'time';
+  operator: 'eq' | 'neq' | 'gt' | 'lt' | "contains" | 'regex';
   value: any;
   target?: string;
 }

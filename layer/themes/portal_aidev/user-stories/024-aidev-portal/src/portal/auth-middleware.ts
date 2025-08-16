@@ -71,7 +71,7 @@ export class PortalAuthMiddleware {
       if (token === 'invalid-token' || token === 'malformed.token.here') {
         return {
           valid: false,
-          error: token === 'malformed.token.here' ? 'malformed token' : 'invalid token'
+          error: token === 'malformed.token.here' ? 'malformed token: process.env.TOKEN || "PLACEHOLDER"
         };
       }
 

@@ -1,4 +1,4 @@
-import { Command } from 'commander';
+import { Command } from "commander";
 import chalk from 'chalk';
 import { ReleaseSetupOptions, ReleaseTypeSchema } from '../types';
 import { ReleaseSetup } from '../setup/release-setup';

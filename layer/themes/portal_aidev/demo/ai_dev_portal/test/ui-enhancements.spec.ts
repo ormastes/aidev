@@ -19,7 +19,7 @@ test.describe('AI Dev Portal - UI Enhancements', () => {
                 };
             });
             
-            expect(styles.backgroundImage).toContain('gradient');
+            expect(styles.backgroundImage).toContain("gradient");
         });
 
         test('should have glassmorphism effect on login form', async ({ page }) => {
@@ -59,7 +59,7 @@ test.describe('AI Dev Portal - UI Enhancements', () => {
         });
     });
 
-    test.describe('Animations', () => {
+    test.describe("Animations", () => {
         test('should animate login transition', async ({ page }) => {
             // Fill login form
             await page.fill('#username', 'admin');
@@ -85,7 +85,7 @@ test.describe('AI Dev Portal - UI Enhancements', () => {
 
         test('should display loading skeletons', async ({ page }) => {
             // Login first
-            await page.fill('#username', 'developer');
+            await page.fill('#username', "developer");
             await page.fill('#password', 'demo123');
             await page.click('button[type="submit"]');
             
@@ -161,7 +161,7 @@ test.describe('AI Dev Portal - UI Enhancements', () => {
         });
     });
 
-    test.describe('Notifications', () => {
+    test.describe("Notifications", () => {
         test('should show success notification on login', async ({ page }) => {
             await page.fill('#username', 'admin');
             await page.fill('#password', 'demo123');
@@ -233,14 +233,14 @@ test.describe('AI Dev Portal - UI Enhancements', () => {
 
     test.describe('Interactive Elements', () => {
         test('should highlight active navigation items', async ({ page }) => {
-            await page.fill('#username', 'developer');
+            await page.fill('#username', "developer");
             await page.fill('#password', 'demo123');
             await page.click('button[type="submit"]');
             
             await page.waitForSelector('#dashboard-page', { state: 'visible' });
             
             // Click different nav items
-            const navItems = ['projects', 'features', 'tasks'];
+            const navItems = ["projects", "features", 'tasks'];
             
             for (const item of navItems) {
                 await page.click(`#${item}-link`);
@@ -295,11 +295,11 @@ test.describe('AI Dev Portal - UI Enhancements', () => {
                 return pseudo.background;
             });
             
-            expect(beforeStyles).toContain('gradient');
+            expect(beforeStyles).toContain("gradient");
         });
     });
 
-    test.describe('Accessibility', () => {
+    test.describe("Accessibility", () => {
         test('should have proper focus states', async ({ page }) => {
             // Tab through form elements
             await page.keyboard.press('Tab');
@@ -336,11 +336,11 @@ test.describe('AI Dev Portal - UI Enhancements', () => {
     });
 });
 
-test.describe('Performance', () => {
+test.describe("Performance", () => {
     test('should load quickly', async ({ page }) => {
         const startTime = Date.now();
         await page.goto('http://localhost:3456');
-        await page.waitForLoadState('networkidle');
+        await page.waitForLoadState("networkidle");
         const loadTime = Date.now() - startTime;
         
         // Should load in under 3 seconds

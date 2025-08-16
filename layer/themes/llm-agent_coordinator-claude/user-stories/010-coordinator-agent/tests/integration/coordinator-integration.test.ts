@@ -3,7 +3,7 @@ import { Coordinator, CoordinatorConfig } from '../../src/core/coordinator';
 import { TaskQueueManager } from '../../src/integration/task-queue-manager';
 import { ChatSpaceConnector } from '../../src/integration/chat-space-connector';
 import { PocketFlowBridge } from '../../src/integration/pocketflow-bridge';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import * as fs from 'fs/promises';
 import { path } from '../../../../../infra_external-log-lib/src';
 
@@ -37,7 +37,7 @@ describe('Coordinator Integration Tests', () => {
 `);
 
     config = {
-      apiKey: 'test-api-key',
+      api_key: process.env.API_KEY || "PLACEHOLDER",
       sessionStorageDir: tempDir,
       taskQueuePath,
       autoStart: false,
@@ -154,7 +154,7 @@ describe('Coordinator Integration Tests', () => {
           id: 'msg-001',
           roomId: 'test-room',
           userId: 'user-123',
-          username: 'TestUser',
+          username: "TestUser",
           content: '/coordinator status',
           timestamp: new Date(),
           type: 'text'
@@ -337,7 +337,7 @@ describe('Coordinator Integration Tests', () => {
       await coordinator.addTask({
         title: 'E2E Test Task',
         description: 'In Progress flow test',
-        priority: 'critical',
+        priority: "critical",
         status: 'pending'
       });
       

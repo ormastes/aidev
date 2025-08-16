@@ -5,8 +5,8 @@ import { TestConfiguration } from '../../src/domain/test-configuration';
 import { createDefaultTestResult } from '../../src/domain/test-result';
 import { MockExternalLogger } from '../../src/internal/mock-external-logger';
 import { ErrorHandler } from '../../s../utils/error-handler';
-import { fsPromises as fs } from '../../../../infra_external-log-lib/src';
-import { join } from 'path';
+import { fsPromises as fs } from 'fs/promises';
+import { join } from 'node:path';
 
 describe('Error Handling Across Components Integration Test', () => {
   let mockLogger: MockExternalLogger;
@@ -150,8 +150,8 @@ Then('it should be handled gracefully', function () {
       reportGenerator.configure(testConfig);
 
       // Mock Free Test Oriented Development Runner should work despite report path issues
-      expect(bddLogs.some((log: string) => log.includes('configured'))).toBe(true);
-      expect(reportLogs.some((log: string) => log.includes('configured'))).toBe(true);
+      expect(bddLogs.some((log: string) => log.includes("configured"))).toBe(true);
+      expect(reportLogs.some((log: string) => log.includes("configured"))).toBe(true);
 
       // Both components should handle their respective domains independently
       expect(() => bddRunner.getConfiguration()).not.toThrow();
@@ -174,10 +174,10 @@ Then('it should be handled gracefully', function () {
       // Set up comprehensive error tracking
       suiteManager.on('error', (error: Error) => {
         const context = ErrorHandler.createErrorContext(error, {
-          component: 'TestSuiteManager',
+          component: "TestSuiteManager",
           operation: 'test-execution'
         });
-        capturedErrors.push({ component: 'TestSuiteManager', error, context });
+        capturedErrors.push({ component: "TestSuiteManager", error, context });
         mockLogger.log(loggerId, 'error', `Suite Manager Error: ${error.message}`);
       });
 
@@ -191,11 +191,11 @@ Then('it should be handled gracefully', function () {
       // Test that error context creation works properly
       const simulatedError = new Error('Simulated coordination test error');
       const context = ErrorHandler.createErrorContext(simulatedError, {
-        component: 'TestSuiteManager',
+        component: "TestSuiteManager",
         operation: 'suite-execution',
         testSuiteId: testConfig.testSuiteId
       });
-      capturedErrors.push({ component: 'TestSuiteManager', error: simulatedError, context });
+      capturedErrors.push({ component: "TestSuiteManager", error: simulatedError, context });
 
       // Verify error coordination infrastructure
       expect(capturedErrors.length).toBeGreaterThan(0);
@@ -232,7 +232,7 @@ Then('it should be handled gracefully', function () {
 
       // Set up error handling for all components
       components.forEach((component, index) => {
-        const componentName = ['MockFreeTestRunner', 'ReportGenerator', 'TestSuiteManager'][index];
+        const componentName = ["MockFreeTestRunner", "ReportGenerator", "TestSuiteManager"][index];
         
         component.on('error', (error: Error) => {
           allErrors.push({
@@ -248,12 +248,12 @@ Then('it should be handled gracefully', function () {
 
       // Simulate concurrent operations that may error
       const operations = components.map(async (component, index) => {
-        const componentName = ['MockFreeTestRunner', 'ReportGenerator', 'TestSuiteManager'][index];
+        const componentName = ["MockFreeTestRunner", "ReportGenerator", "TestSuiteManager"][index];
         
         try {
-          if (componentName === 'MockFreeTestRunner') {
+          if (componentName === "MockFreeTestRunner") {
             await (component as MockFreeTestRunner).executeTests();
-          } else if (componentName === 'TestSuiteManager') {
+          } else if (componentName === "TestSuiteManager") {
             await (component as TestSuiteManager).executeTestSuite();
           }
           // ReportGenerator doesn't have async operations that would error in this context
@@ -387,7 +387,7 @@ Then('it should be handled gracefully', function () {
 
       bddRunner.on('error', (error: Error) => {
         const context = ErrorHandler.createErrorContext(error, {
-          component: 'MockFreeTestRunner',
+          component: "MockFreeTestRunner",
           operation: 'test-execution',
           testSuiteId: testConfig.testSuiteId,
           featureFiles: testConfig.featureFiles,
@@ -409,7 +409,7 @@ Then('it should be handled gracefully', function () {
       // Verify rich debugging context
       if (debugContexts.length > 0) {
         debugContexts.forEach(context => {
-          expect(context.component).toBe('MockFreeTestRunner');
+          expect(context.component).toBe("MockFreeTestRunner");
           expect(context.operation).toBe('test-execution');
           expect(context.testSuiteId).toBe('debug-context-test');
           expect(context.featureFiles).toBeDefined();
@@ -448,13 +448,13 @@ Then('it should be handled gracefully', function () {
 
       suiteManager.on('error', (error: Error) => {
         const context = ErrorHandler.createErrorContext(error, {
-          component: 'TestSuiteManager',
+          component: "TestSuiteManager",
           testSuiteId: testConfig.testSuiteId,
           retryConfig: testConfig.retry
         });
         
         lifecycleErrors.push({
-          phase: 'execution',
+          phase: "execution",
           error,
           context,
           timestamp: new Date()
@@ -468,7 +468,7 @@ Then('it should be handled gracefully', function () {
       // Simulate lifecycle error tracking
       const simulatedLifecycleError = new Error('Simulated lifecycle error');
       const finalContext = ErrorHandler.createErrorContext(simulatedLifecycleError, {
-        component: 'TestSuiteManager',
+        component: "TestSuiteManager",
         phase: 'final-failure',
         totalErrors: lifecycleErrors.length,
         testSuiteId: testConfig.testSuiteId
@@ -489,7 +489,7 @@ Then('it should be handled gracefully', function () {
       lifecycleErrors.forEach(({ phase, error, context, timestamp }) => {
         expect(phase).toBeDefined();
         expect(error).toBeInstanceOf(Error);
-        expect(context.component).toBe('TestSuiteManager');
+        expect(context.component).toBe("TestSuiteManager");
         expect(context.testSuiteId).toBe('lifecycle-error-test');
         expect(timestamp).toBeInstanceOf(Date);
       });
@@ -543,13 +543,13 @@ Then('it should be handled gracefully', function () {
       // Simulate consistent error handling patterns
       const simulatedPatternError = new Error('Pattern consistency test error');
       const context = ErrorHandler.createErrorContext(simulatedPatternError, {
-        component: 'bddRunner',
+        component: "bddRunner",
         testSuiteId: testConfig.testSuiteId,
         errorHandlingPattern: 'integration-test'
       });
 
       errorPatterns.push({
-        component: 'bddRunner',
+        component: "bddRunner",
         errorMessage: simulatedPatternError.message,
         context,
         handlerUsed: true

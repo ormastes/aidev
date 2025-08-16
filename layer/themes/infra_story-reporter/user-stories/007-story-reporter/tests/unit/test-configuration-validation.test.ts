@@ -670,7 +670,7 @@ describe('Test Configuration Validation Unit Tests', () => {
       const originalTagsLength = config.tags?.length || 0;
       
       // Modifying returned config should not affect subsequent calls
-      config.tags?.push('modified');
+      config.tags?.push("modified");
       
       const config2 = createDefaultTestConfiguration('test2', ['test2.feature'], ['steps2.js']);
       expect(config2.tags?.length).toBe(originalTagsLength);

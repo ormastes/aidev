@@ -82,8 +82,8 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
       
       expect(output).toContain('Current Settings');
       expect(output).toContain('theme');
-      expect(output).toContain('outputFormat');
-      expect(output).toContain('colorEnabled');
+      expect(output).toContain("outputFormat");
+      expect(output).toContain("colorEnabled");
     });
     
     it('should set and get configuration values', () => {
@@ -101,7 +101,7 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
       
       expect(output).toContain('Server Information');
       expect(output).toContain('API Endpoint');
-      expect(output).toContain('Environment');
+      expect(output).toContain("Environment");
     });
   });
   
@@ -149,8 +149,8 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
         
         if (jsonFile) {
           const content = JSON.parse(fs.readFileSync(`./reports/${jsonFile}`, 'utf-8'));
-          expect(content).toHaveProperty('metadata');
-          expect(content).toHaveProperty('comments');
+          expect(content).toHaveProperty("metadata");
+          expect(content).toHaveProperty("comments");
         }
       } catch (error) {
         // Story might not exist in test environment
@@ -182,8 +182,8 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
         const output = execSync(`bunx ts-node ${CLI_PATH} view ${testStoryId}`, { encoding: 'utf-8' });
         
         expect(output).toContain('Story Details');
-        expect(output).toContain('Statistics');
-        expect(output).toContain('Coverage');
+        expect(output).toContain("Statistics");
+        expect(output).toContain("Coverage");
         expect(output).toContain('Quality Gates');
       } catch (error) {
         // Story might not exist in test environment
@@ -214,7 +214,7 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
         const output = execSync(`bunx ts-node ${CLI_PATH} view ${testStoryId} --full`, { encoding: 'utf-8' });
         
         expect(output).toContain('Unit Tests');
-        expect(output).toContain('Integration');
+        expect(output).toContain("Integration");
         expect(output).toContain('E2E Tests');
       } catch (error) {
         // Story might not exist in test environment
@@ -229,7 +229,7 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
       // Just verify the command exists
       const helpOutput = execSync(`bunx ts-node ${CLI_PATH} --help`, { encoding: 'utf-8' });
       
-      expect(helpOutput).toContain('interactive');
+      expect(helpOutput).toContain("interactive");
       expect(helpOutput).toContain('Start interactive mode');
     });
   });
@@ -261,9 +261,9 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
       const output = execSync(`bunx ts-node ${CLI_PATH} --help`, { encoding: 'utf-8' });
       
       // Verify all new commands are documented
-      expect(output).toContain('dashboard');
+      expect(output).toContain("dashboard");
       expect(output).toContain('browse');
-      expect(output).toContain('settings');
+      expect(output).toContain("settings");
       expect(output).toContain('export');
       expect(output).toContain('batch');
       expect(output).toContain('view');
@@ -285,13 +285,13 @@ describe('CLI Feature Parity with Web GUI', () => {
     const helpOutput = execSync(`bunx ts-node ${CLI_PATH} --help`, { encoding: 'utf-8' });
     
     // Dashboard features
-    expect(helpOutput).toContain('dashboard');
+    expect(helpOutput).toContain("dashboard");
     
     // Browse/Search features
     expect(helpOutput).toContain('browse');
     
     // Settings/Theme management
-    expect(helpOutput).toContain('settings');
+    expect(helpOutput).toContain("settings");
     
     // Export functionality
     expect(helpOutput).toContain('export');
@@ -303,6 +303,6 @@ describe('CLI Feature Parity with Web GUI', () => {
     expect(helpOutput).toContain('view');
     
     // Interactive mode
-    expect(helpOutput).toContain('interactive');
+    expect(helpOutput).toContain("interactive");
   });
 });

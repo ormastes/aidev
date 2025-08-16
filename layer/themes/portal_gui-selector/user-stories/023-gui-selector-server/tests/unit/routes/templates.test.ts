@@ -12,7 +12,7 @@ jest.mock('../../../src/services/TemplateService', () => ({
 }));
 jest.mock('../../../src/utils/logger');
 
-import request from 'supertest';
+import request from "supertest";
 import express from 'express';
 import { templateRouter } from '../../../src/routes/templates';
 
@@ -27,7 +27,7 @@ describe('templates routes', () => {
       category: 'modern' as const,
       previewUrl: '/templates/modern-01/preview',
       thumbnailUrl: '/templates/modern-01/thumbnail.jpg',
-      features: ['responsive', 'dark-mode'],
+      features: ["responsive", 'dark-mode'],
       metadata: { author: 'Design Team', version: '1.0.0', lastUpdated: '2024-01-15', tags: ['modern'] }
     }
   ];
@@ -127,7 +127,7 @@ describe('templates routes', () => {
     });
 
     it('should handle different categories', async () => {
-      const categories = ['professional', 'creative', 'accessible'];
+      const categories = ["professional", "creative", "accessible"];
       
       for (const category of categories) {
         mockTemplateService.getTemplatesByCategory.mockResolvedValue([]);
@@ -241,7 +241,7 @@ describe('templates routes', () => {
         .get('/templates/category/modern')
         .expect(200);
       
-      // Should call getTemplatesByCategory, not getTemplate with 'category' as id
+      // Should call getTemplatesByCategory, not getTemplate with "category" as id
       expect(mockTemplateService.getTemplatesByCategory).toHaveBeenCalledWith('modern');
       expect(mockTemplateService.getTemplate).not.toHaveBeenCalled();
     });

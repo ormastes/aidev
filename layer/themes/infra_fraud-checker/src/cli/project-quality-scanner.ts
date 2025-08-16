@@ -6,15 +6,15 @@
  * Merged from: project-quality-improver.ts, run-enhanced-fraud-check.*, run-project-fraud-check.ts
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as path from 'node:path';
 import { execSync } from 'child_process';
 import { EnhancedFraudChecker, EnhancedFraudCheckResult } from '../detectors/enhanced-fraud-detector';
 
 interface QualityIssue {
   file: string;
   issue: string;
-  severity: 'critical' | 'high' | 'medium' | 'low';
+  severity: "critical" | 'high' | 'medium' | 'low';
   fixed: boolean;
   action: string;
 }
@@ -27,7 +27,7 @@ interface ProjectScanResult {
   highIssues: number;
   mediumIssues: number;
   lowIssues: number;
-  overallHealth: 'critical' | 'poor' | 'fair' | 'good' | 'excellent';
+  overallHealth: "critical" | 'poor' | 'fair' | 'good' | "excellent";
   improvements: string[];
   recommendations: string[];
 }
@@ -44,7 +44,7 @@ export class ProjectQualityScanner {
     '.git',
     'dist',
     'build',
-    'coverage',
+    "coverage",
     '.next',
     'target',
     'vendor',
@@ -150,7 +150,7 @@ export class ProjectQualityScanner {
       id: 'proj_direct_fs',
       name: 'Direct File System Access',
       description: 'Detects direct fs/path imports instead of using FileAPI',
-      category: 'architecture',
+      category: "architecture",
       severity: 'medium',
       enabled: true,
       weight: 5,
@@ -162,7 +162,7 @@ export class ProjectQualityScanner {
               id: `violation_${Date.now()}_proj_direct_fs`,
               type: 'error',
               severity: 'medium',
-              category: 'architecture',
+              category: "architecture",
               rule: 'proj_direct_fs',
               confidence: 90,
               message: 'Direct file system imports detected - should use FileAPI',
@@ -194,7 +194,7 @@ export class ProjectQualityScanner {
       id: 'proj_unused_deps',
       name: 'Unused Dependencies',
       description: 'Detects potentially unused dependencies',
-      category: 'performance',
+      category: "performance",
       severity: 'low',
       enabled: true,
       weight: 2,
@@ -210,7 +210,7 @@ export class ProjectQualityScanner {
               dep.includes('jquery') || 
               dep.includes('moment') || 
               dep.includes('lodash') ||
-              dep.includes('underscore')
+              dep.includes("underscore")
             );
             
             if (suspiciousDeps.length > 0) {
@@ -218,7 +218,7 @@ export class ProjectQualityScanner {
                 id: `violation_${Date.now()}_proj_unused_deps`,
                 type: 'warning',
                 severity: 'low',
-                category: 'performance',
+                category: "performance",
                 rule: 'proj_unused_deps',
                 confidence: 60,
                 message: `Potentially unused or replaceable dependencies detected`,
@@ -261,7 +261,7 @@ export class ProjectQualityScanner {
     }
 
     try {
-      const content = fs.readFileSync(filePath, 'utf8');
+      const content = fileAPI.readFileSync(filePath, 'utf8');
       const lines = content.split('\n');
       this.totalLines += lines.length;
       this.filesScanned++;
@@ -333,7 +333,7 @@ export class ProjectQualityScanner {
           ecmaVersion: 12,
           sourceType: 'module'
         },
-        plugins: ['@typescript-eslint', 'security'],
+        plugins: ['@typescript-eslint', "security"],
         rules: {
           'no-console': 'warn',
           'no-unused-vars': 'error',
@@ -378,7 +378,7 @@ API_KEY=your-api-key`;
     let lowIssues = 0;
 
     for (const result of results) {
-      criticalIssues += result.violations.filter(v => v.severity === 'critical').length;
+      criticalIssues += result.violations.filter(v => v.severity === "critical").length;
       highIssues += result.violations.filter(v => v.severity === 'high').length;
       mediumIssues += result.violations.filter(v => v.severity === 'medium').length;
       lowIssues += result.violations.filter(v => v.severity === 'low').length;
@@ -386,15 +386,15 @@ API_KEY=your-api-key`;
 
     const totalIssues = criticalIssues + highIssues + mediumIssues + lowIssues;
     
-    let overallHealth: ProjectScanResult['overallHealth'];
+    let overallHealth: ProjectScanResult["overallHealth"];
     if (criticalIssues > 0) {
-      overallHealth = 'critical';
+      overallHealth = "critical";
     } else if (highIssues > 5) {
       overallHealth = 'poor';
     } else if (highIssues > 0 || mediumIssues > 10) {
       overallHealth = 'fair';
     } else if (totalIssues < 20) {
-      overallHealth = 'excellent';
+      overallHealth = "excellent";
     } else {
       overallHealth = 'good';
     }
@@ -510,13 +510,13 @@ API_KEY=your-api-key`;
   /**
    * Get health emoji
    */
-  private getHealthEmoji(health: ProjectScanResult['overallHealth']): string {
+  private getHealthEmoji(health: ProjectScanResult["overallHealth"]): string {
     switch (health) {
-      case 'excellent': return '🌟';
+      case "excellent": return '🌟';
       case 'good': return '✅';
       case 'fair': return '⚠️';
       case 'poor': return '⛔';
-      case 'critical': return '🚨';
+      case "critical": return '🚨';
     }
   }
 }

@@ -1,13 +1,13 @@
 import { JSONLogParser } from '../../src/external/json-log-parser';
 
-describe('JSONLogParser', () => {
+describe("JSONLogParser", () => {
   let parser: JSONLogParser;
 
   beforeEach(() => {
     parser = new JSONLogParser();
   });
 
-  describe('parseJSONLog', () => {
+  describe("parseJSONLog", () => {
     it('should parse valid JSON log with all fields', () => {
       const line = JSON.stringify({
         timestamp: '2024-01-15T10:30:00.000Z',
@@ -101,7 +101,7 @@ describe('JSONLogParser', () => {
         { input: 'DEBUG', expected: 'debug' },
         { input: 'TRACE', expected: 'trace' },
         { input: 'FATAL', expected: 'fatal' },
-        { input: 'CRITICAL', expected: 'fatal' },
+        { input: "CRITICAL", expected: 'fatal' },
         { input: 'unknown', expected: 'info' }
       ];
 
@@ -135,8 +135,8 @@ describe('JSONLogParser', () => {
       const timestamps = [
         '2024-01-15T10:30:00.000Z',
         '2024-01-15 10:30:00',
-        '1705315800000', // Unix timestamp in ms
-        '1705315800', // Unix timestamp in seconds
+        "1705315800000", // Unix timestamp in ms
+        "1705315800", // Unix timestamp in seconds
         new Date().toISOString()
       ];
 
@@ -169,7 +169,7 @@ describe('JSONLogParser', () => {
     });
   });
 
-  describe('isValidJSON', () => {
+  describe("isValidJSON", () => {
     it('should return true for valid JSON', () => {
       expect(parser.isValidJSON('{"key": "value"}')).toBe(true);
       expect(parser.isValidJSON('[]')).toBe(true);
@@ -188,7 +188,7 @@ describe('JSONLogParser', () => {
     });
   });
 
-  describe('formatJSONLog', () => {
+  describe("formatJSONLog", () => {
     it('should format log entry to JSON string', () => {
       const entry = {
         timestamp: new Date('2024-01-15T10:30:00.000Z'),

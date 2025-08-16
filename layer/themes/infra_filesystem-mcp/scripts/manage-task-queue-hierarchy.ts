@@ -70,7 +70,7 @@ class TaskQueueHierarchyManager {
    */
   private loadRegistry(): TaskQueueRegistry {
     if (fs.existsSync(this.registryPath)) {
-      return JSON.parse(fs.readFileSync(this.registryPath, 'utf-8'));
+      return JSON.parse(fileAPI.readFileSync(this.registryPath, 'utf-8'));
     }
     
     return {
@@ -196,7 +196,7 @@ class TaskQueueHierarchyManager {
     const fullPath = path.join(this.projectRoot, queuePath);
     
     try {
-      const content = JSON.parse(fs.readFileSync(fullPath, 'utf-8'));
+      const content = JSON.parse(fileAPI.readFileSync(fullPath, 'utf-8'));
       
       // Update parent field
       if (parentPath) {
@@ -238,7 +238,7 @@ class TaskQueueHierarchyManager {
       
       let itemCount = 0;
       try {
-        const content = JSON.parse(fs.readFileSync(fullPath, 'utf-8'));
+        const content = JSON.parse(fileAPI.readFileSync(fullPath, 'utf-8'));
         
         // Count items in queue
         if (content.queues) {
@@ -533,7 +533,7 @@ async function main() {
   const command = args[0] || 'help';
   
   switch (command) {
-    case 'discover':
+    case "discover":
       console.log('🔍 Discovering task queues...');
       await manager.buildHierarchy();
       manager.saveRegistry();
@@ -548,7 +548,7 @@ async function main() {
       await manager.addQueue(args[1], args[2]);
       break;
       
-    case 'validate':
+    case "validate":
       await manager.buildHierarchy();
       await manager.validateRelationships();
       break;

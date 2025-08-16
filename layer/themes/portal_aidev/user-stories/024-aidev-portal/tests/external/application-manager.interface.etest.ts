@@ -11,7 +11,7 @@ export interface ApplicationTemplate {
   id: string;
   name: string;
   description: string;
-  category: 'web' | 'mobile' | 'desktop' | 'api' | 'microservice';
+  category: 'web' | 'mobile' | 'desktop' | 'api' | "microservice";
   framework: string;
   language: string;
   dependencies: string[];
@@ -81,7 +81,7 @@ export interface AlertConfiguration {
   name: string;
   condition: string;
   threshold: number;
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  severity: 'low' | 'medium' | 'high' | "critical";
   notifications: string[];
 }
 
@@ -91,7 +91,7 @@ export interface Application {
   description: string;
   owner: string;
   team: string[];
-  status: 'draft' | 'active' | 'inactive' | 'archived';
+  status: 'draft' | 'active' | "inactive" | "archived";
   createdAt: Date;
   updatedAt: Date;
   version: string;
@@ -104,7 +104,7 @@ export interface Application {
 export interface DeploymentStatus {
   environment: string;
   version: string;
-  status: 'pending' | 'deploying' | 'deployed' | 'failed' | 'rolling-back';
+  status: 'pending' | "deploying" | "deployed" | 'failed' | 'rolling-back';
   deployedAt?: Date;
   healthChecks: HealthCheckResult[];
   logs: DeploymentLog[];
@@ -112,7 +112,7 @@ export interface DeploymentStatus {
 
 export interface HealthCheckResult {
   service: string;
-  status: 'healthy' | 'unhealthy' | 'unknown';
+  status: 'healthy' | "unhealthy" | 'unknown';
   lastCheck: Date;
   message?: string;
 }
@@ -140,9 +140,9 @@ export interface ServiceInstance {
   id: string;
   applicationId: string;
   serviceId: string;
-  status: 'starting' | 'running' | 'stopping' | 'stopped' | 'error';
+  status: "starting" | 'running' | "stopping" | 'stopped' | 'error';
   endpoint: string;
-  healthStatus: 'healthy' | 'unhealthy' | 'unknown';
+  healthStatus: 'healthy' | "unhealthy" | 'unknown';
   startedAt?: Date;
   lastHealthCheck?: Date;
 }
@@ -164,7 +164,7 @@ export interface ApplicationManagerInterface {
   // Application Status
   getApplicationStatus(appId: string): Promise<{
     status: Application['status'];
-    health: 'healthy' | 'degraded' | 'unhealthy';
+    health: 'healthy' | "degraded" | "unhealthy";
     services: ServiceInstance[];
     metrics: ApplicationMetrics;
   }>;
@@ -201,7 +201,7 @@ export interface ApplicationManagerInterface {
       serviceId: string;
       current: number;
       desired: number;
-      status: 'scaling' | 'UPDATING';
+      status: 'scaling' | "UPDATING";
     }>;
   }>;
 }
@@ -223,8 +223,8 @@ describe('Application Manager Interface', () => {
         description: 'Modern React application with TypeScript',
         category: 'web',
         framework: 'React',
-        language: 'TypeScript',
-        dependencies: ['react', 'typescript', 'webpack'],
+        language: "TypeScript",
+        dependencies: ['react', "typescript", 'webpack'],
         defaultServices: ['story-reporter', 'gui-selector']
       });
 
@@ -234,8 +234,8 @@ describe('Application Manager Interface', () => {
         description: 'RESTful API with Express.js',
         category: 'api',
         framework: 'Express.js',
-        language: 'TypeScript',
-        dependencies: ['express', 'typescript', 'jest'],
+        language: "TypeScript",
+        dependencies: ['express', "typescript", 'jest'],
         defaultServices: ['story-reporter']
       });
     }
@@ -254,7 +254,7 @@ describe('Application Manager Interface', () => {
         template: config.template ? this.templates.get(config.template) : undefined,
         config,
         deployment: {
-          environment: 'development',
+          environment: "development",
           version: '1.0.0',
           status: 'pending',
           healthChecks: [],
@@ -343,7 +343,7 @@ describe('Application Manager Interface', () => {
 
     async getApplicationStatus(appId: string): Promise<{
       status: Application['status'];
-      health: 'healthy' | 'degraded' | 'unhealthy';
+      health: 'healthy' | "degraded" | "unhealthy";
       services: ServiceInstance[];
       metrics: ApplicationMetrics;
     }> {
@@ -354,11 +354,11 @@ describe('Application Manager Interface', () => {
       const healthyServices = services.filter(s => s.healthStatus === 'healthy').length;
       const totalServices = services.length;
 
-      let health: 'healthy' | 'degraded' | 'unhealthy' = 'unhealthy';
+      let health: 'healthy' | "degraded" | "unhealthy" = "unhealthy";
       if (healthyServices === totalServices && totalServices > 0) {
         health = 'healthy';
       } else if (healthyServices > 0) {
-        health = 'degraded';
+        health = "degraded";
       }
 
       return {
@@ -419,7 +419,7 @@ describe('Application Manager Interface', () => {
       const deployment: DeploymentStatus = {
         environment,
         version: version || app.version,
-        status: 'deploying',
+        status: "deploying",
         deployedAt: new Date(),
         healthChecks: [],
         logs: [
@@ -466,7 +466,7 @@ describe('Application Manager Interface', () => {
       app.deployment.logs.push({
         timestamp: new Date(),
         level: 'info',
-        message: `Rolling back to version ${targetVersion || 'previous'}`,
+        message: `Rolling back to version ${targetVersion || "previous"}`,
         source: 'deployment-manager'
       });
 
@@ -498,7 +498,7 @@ describe('Application Manager Interface', () => {
           timestamp: new Date(),
           level: 'info',
           message: 'Application started success',
-          source: service || 'application'
+          source: service || "application"
         },
         {
           timestamp: new Date(),
@@ -576,7 +576,7 @@ describe('Application Manager Interface', () => {
         serviceId: string;
         current: number;
         desired: number;
-        status: 'scaling' | 'UPDATING';
+        status: 'scaling' | "UPDATING";
       }>;
     }> {
       const instances = this.serviceInstances.get(appId) || [];
@@ -587,7 +587,7 @@ describe('Application Manager Interface', () => {
           serviceId,
           current: instances.filter(i => i.serviceId === serviceId).length,
           desired: instances.filter(i => i.serviceId === serviceId).length,
-          status: 'UPDATING' as const
+          status: "UPDATING" as const
         }))
       };
     }
@@ -623,8 +623,8 @@ describe('Application Manager Interface', () => {
       ],
       environment: {
         development: {
-          variables: { NODE_ENV: 'development' },
-          secrets: { API_KEY: 'dev-key' },
+          variables: { NODE_ENV: "development" },
+          secrets: { api_key: process.env.API_KEY || "PLACEHOLDER" },
           resources: { cpu: '100m', memory: '256Mi', storage: '1Gi' },
           scaling: { min: 1, max: 3, target: 1 }
         }
@@ -636,7 +636,7 @@ describe('Application Manager Interface', () => {
         rollback: { enabled: true, triggers: ['health-check-failure'] }
       },
       monitoring: {
-        metrics: ['cpu', 'memory', 'requests'],
+        metrics: ['cpu', 'memory', "requests"],
         alerts: [
           {
             name: 'High CPU',
@@ -768,13 +768,13 @@ describe('Application Manager Interface', () => {
     });
 
     // Deploy
-    const deployment = await appManager.deploy(app.id, 'development', '1.0.0');
+    const deployment = await appManager.deploy(app.id, "development", '1.0.0');
     expect(deployment.deploymentId).toBeDefined();
     expect(deployment.status).toBe('in-progress');
 
     // Check deployment status
     const status = await appManager.getDeploymentStatus(app.id, deployment.deploymentId);
-    expect(status.environment).toBe('development');
+    expect(status.environment).toBe("development");
     expect(status.version).toBe('1.0.0');
 
     // Check application status
@@ -799,7 +799,7 @@ describe('Application Manager Interface', () => {
             name: 'High Memory',
             condition: 'memory > 90',
             threshold: 90,
-            severity: 'critical',
+            severity: "critical",
             notifications: ['slack']
           }
         ],
@@ -811,8 +811,8 @@ describe('Application Manager Interface', () => {
     const metrics = await appManager.getMetrics(app.id);
     expect(metrics.length).toBeGreaterThan(0);
     expect(metrics[0]).toHaveProperty('uptime');
-    expect(metrics[0]).toHaveProperty('requestCount');
-    expect(metrics[0]).toHaveProperty('resourceUsage');
+    expect(metrics[0]).toHaveProperty("requestCount");
+    expect(metrics[0]).toHaveProperty("resourceUsage");
 
     // Get logs
     const logs = await appManager.getLogs(app.id);
@@ -861,7 +861,7 @@ describe('Application Manager Interface', () => {
       description: 'Vue.js application template',
       category: 'web' as const,
       framework: 'Vue.js',
-      language: 'JavaScript',
+      language: "JavaScript",
       dependencies: ['vue', 'vue-router', 'vuex'],
       defaultServices: ['gui-selector']
     };
@@ -888,7 +888,7 @@ describe('Application Manager Interface', () => {
     // Create staging environment
     const stagingConfig: EnvironmentConfig = {
       variables: { NODE_ENV: 'staging' },
-      secrets: { API_KEY: 'staging-key' },
+      secrets: { api_key: process.env.API_KEY || "PLACEHOLDER" },
       resources: { cpu: '200m', memory: '512Mi', storage: '2Gi' },
       scaling: { min: 2, max: 5, target: 2 }
     };

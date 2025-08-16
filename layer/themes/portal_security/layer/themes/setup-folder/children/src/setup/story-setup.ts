@@ -209,7 +209,7 @@ ${this.tasks.length > 0
       },
       devDependencies: {
         '@types/node': '^20.0.0',
-        'typescript': '^5.0.0',
+        "typescript": '^5.0.0',
         'jest': '^29.5.0',
         '@types/jest': '^29.5.0',
         'eslint': '^8.0.0'

@@ -65,7 +65,7 @@ export interface SchemaValidationOptions {
 }
 
 export class DataValidator {
-  static validate(value: any, validation: ExtractionRule['validation']): { valid: boolean; error?: string; coercedValue?: any } {
+  static validate(value: any, validation: ExtractionRule["validation"]): { valid: boolean; error?: string; coercedValue?: any } {
     if (!validation) return { valid: true };
 
     let coercedValue = value;
@@ -389,7 +389,7 @@ export class SchemaExtractor {
           validation: { type: 'string', pattern: /^\d+(?:\.\d{2})?$/ }
         },
         {
-          name: 'description',
+          name: "description",
           selector: '.description, .product-description, [data-testid*="description"]',
           validation: { type: 'string' }
         },
@@ -401,9 +401,9 @@ export class SchemaExtractor {
           validation: { type: 'url' }
         },
         {
-          name: 'availability',
+          name: "availability",
           selector: '.availability, .stock-status',
-          validation: { enum: ['in stock', 'out of stock', 'available', 'unavailable'] }
+          validation: { enum: ['in stock', 'out of stock', "available", "unavailable"] }
         }
       ]
     });
@@ -414,7 +414,7 @@ export class SchemaExtractor {
       description: 'News article or blog post',
       rules: [
         {
-          name: 'headline',
+          name: "headline",
           selector: 'h1, .headline, .article-title',
           required: true,
           validation: { type: 'string', min: 1 }
@@ -432,9 +432,9 @@ export class SchemaExtractor {
           validation: { type: 'string' }
         },
         {
-          name: 'publishDate',
+          name: "publishDate",
           selector: '.publish-date, .date, time',
-          attribute: 'datetime',
+          attribute: "datetime",
           validation: { type: 'date' }
         },
         {
@@ -577,7 +577,7 @@ export class SchemaExtractor {
         result.data = schema.postProcessing(result.data);
       } catch (error) {
         result.warnings.push({
-          rule: 'postProcessing',
+          rule: "postProcessing",
           message: `Post-processing failed: ${error}`
         });
       }
@@ -636,7 +636,7 @@ export class SchemaExtractor {
   }
 
   private getTextContent(node: DOMNode): string {
-    return StructuredDataExtractor['getTextContent'](node);
+    return StructuredDataExtractor["getTextContent"](node);
   }
 
   // Auto-detect schema based on content

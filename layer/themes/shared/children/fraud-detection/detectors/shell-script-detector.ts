@@ -10,7 +10,7 @@
 import { FraudDetector, FraudCheckResult, FraudCheckType, ViolationType, FraudSeverity, FraudContext } from '../types';
 
 export class ShellScriptDetector implements FraudDetector {
-  name = 'ShellScriptDetector';
+  name = "ShellScriptDetector";
   
   private readonly MAX_ALLOWED_LINES = 10;
   private readonly SHELL_EXTENSIONS = ['.sh', '.bat', '.ps1', '.bash', '.zsh', '.fish', '.cmd'];
@@ -142,7 +142,7 @@ export class ShellScriptDetector implements FraudDetector {
     // Patterns that indicate complex logic
     const patterns = {
       'nested loops': /for.*\n.*for|while.*\n.*while/gi,
-      'functions': /function\s+\w+\s*\(|^\w+\s*\(\)\s*{/gm,
+      "functions": /function\s+\w+\s*\(|^\w+\s*\(\)\s*{/gm,
       'case statements': /case\s+.*\s+in/gi,
       'array operations': /\${.*\[@\]}/g,
       'complex conditionals': /if.*&&.*\|\|.*then/gi,

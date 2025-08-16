@@ -2,16 +2,16 @@ import { describe, it, expect } from '@jest/globals';
 import { ArgumentParser } from '../../src/application/parser';
 import { OptionsSchema, ValidationError } from '../../src/domain/types';
 
-describe('ArgumentParser', () => {
+describe("ArgumentParser", () => {
   const parser = new ArgumentParser();
 
   describe('basic parsing', () => {
     it('should parse command and options', () => {
-      const args = ['deploy', '--env', 'production', '--force'];
+      const args = ['deploy', '--env', "production", '--force'];
       const result = parser.parse(args);
 
       expect(result.command).toEqual(['deploy']);
-      expect(result.options['env']).toEqual('production');
+      expect(result.options['env']).toEqual("production");
       expect(result.options['force']).toEqual(true);
       expect(result.positionals).toEqual([]);
     });
@@ -70,8 +70,8 @@ describe('ArgumentParser', () => {
     const schema: OptionsSchema = {
       env: {
         type: 'string',
-        description: 'Environment',
-        choices: ['dev', 'staging', 'production'],
+        description: "Environment",
+        choices: ['dev', 'staging', "production"],
         required: true
       },
       port: {
@@ -99,7 +99,7 @@ describe('ArgumentParser', () => {
     });
 
     it('should validate option types', () => {
-      const args = ['deploy', '--env', 'production', '--port', 'invalid'];
+      const args = ['deploy', '--env', "production", '--port', 'invalid'];
       const result = parser.parse(args, schema);
 
       expect(result.options['port']).toBeUndefined();
@@ -112,11 +112,11 @@ describe('ArgumentParser', () => {
     });
 
     it('should apply defaults', () => {
-      const args = ['deploy', '--env', 'production'];
+      const args = ['deploy', '--env', "production"];
       const result = parser.parse(args, schema);
 
       expect(result.options).toMatchObject({
-        env: 'production',
+        env: "production",
         port: 3000,
         verbose: false,
         tags: []
@@ -124,14 +124,14 @@ describe('ArgumentParser', () => {
     });
 
     it('should handle aliases', () => {
-      const args = ['deploy', '--env', 'production', '-v'];
+      const args = ['deploy', '--env', "production", '-v'];
       const result = parser.parse(args, schema);
 
       expect(result.options['verbose']).toBe(true);
     });
 
     it('should parse arrays', () => {
-      const args = ['deploy', '--env', 'production', '--tags', 'web', 'api', 'v2'];
+      const args = ['deploy', '--env', "production", '--tags', 'web', 'api', 'v2'];
       const result = parser.parse(args, schema);
 
       expect(result.options['tags']).toEqual(['web', 'api', 'v2']);

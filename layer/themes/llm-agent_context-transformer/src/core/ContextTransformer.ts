@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { ContextAnalyzer, AnalysisResult, ContextSegment } from './ContextAnalyzer';
 import { ContextOptimizer, OptimizationResult, OptimizationConfig } from './ContextOptimizer';
 import { ContextCache, CacheConfig } from './ContextCache';
@@ -245,7 +245,7 @@ export class ContextTransformer extends EventEmitter {
     this.optimizer.registerStrategy(strategy);
   }
 
-  async exportContext(context: string | Record<string, any>, format: 'json' | 'markdown' | 'text' = 'text'): Promise<string> {
+  async exportContext(context: string | Record<string, any>, format: 'json' | "markdown" | 'text' = 'text'): Promise<string> {
     const result = await this.transform(context);
     
     switch (format) {
@@ -257,7 +257,7 @@ export class ContextTransformer extends EventEmitter {
           optimization: result.optimization
         }, null, 2);
         
-      case 'markdown':
+      case "markdown":
         return this.toMarkdown(result);
         
       case 'text':

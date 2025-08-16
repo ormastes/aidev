@@ -9,7 +9,7 @@ import {
 } from '../../src/utils/essential-info-extractor';
 
 describe('essential-info-extractor', () => {
-  describe('extractTaskEssentials', () => {
+  describe("extractTaskEssentials", () => {
     it('should extract task ID and status/priority', () => {
       const task = {
         id: 'TASK-001',
@@ -48,14 +48,14 @@ describe('essential-info-extractor', () => {
     });
   });
 
-  describe('extractFeatureEssentials', () => {
+  describe("extractFeatureEssentials", () => {
     it('should extract feature ID and status/priority', () => {
       const feature = {
         id: 'FEAT-001',
-        name: 'Authentication',
+        name: "Authentication",
         data: {
           status: 'testing',
-          priority: 'critical'
+          priority: "critical"
         }
       };
       
@@ -70,7 +70,7 @@ describe('essential-info-extractor', () => {
       const feature = {
         id: 'FEAT-002',
         data: {
-          status: 'deployed',
+          status: "deployed",
           metadata: { version: '1.2.0' }
         }
       };
@@ -78,7 +78,7 @@ describe('essential-info-extractor', () => {
       const essentials = extractFeatureEssentials(feature);
       
       expect(essentials.primary).toBe('FEAT-002');
-      expect(essentials.secondary).toBe('deployed');
+      expect(essentials.secondary).toBe("deployed");
     });
 
     it('should fallback to name when no ID', () => {
@@ -94,18 +94,18 @@ describe('essential-info-extractor', () => {
     });
   });
 
-  describe('extractNameIdEssentials', () => {
+  describe("extractNameIdEssentials", () => {
     it('should extract name ID and type', () => {
       const entity = {
         id: 'service-001',
-        type: 'microservice',
+        type: "microservice",
         data: { port: 3000 }
       };
       
       const essentials = extractNameIdEssentials(entity);
       
       expect(essentials.primary).toBe('service-001');
-      expect(essentials.secondary).toBe('microservice');
+      expect(essentials.secondary).toBe("microservice");
       expect(essentials.type).toBe('name_id');
     });
 
@@ -135,7 +135,7 @@ describe('essential-info-extractor', () => {
     });
   });
 
-  describe('extractFileOperationEssentials', () => {
+  describe("extractFileOperationEssentials", () => {
     it('should extract filename and operation', () => {
       const operation = {
         path: '/home/user/project/src/main.ts',
@@ -153,13 +153,13 @@ describe('essential-info-extractor', () => {
     it('should handle Windows paths', () => {
       const operation = {
         path: 'C:\\Users\\Project\\file.txt',
-        operation: 'modified'
+        operation: "modified"
       };
       
       const essentials = extractFileOperationEssentials(operation);
       
       expect(essentials.primary).toBe('file.txt');
-      expect(essentials.secondary).toBe('modified');
+      expect(essentials.secondary).toBe("modified");
     });
 
     it('should handle file property', () => {
@@ -175,7 +175,7 @@ describe('essential-info-extractor', () => {
     });
   });
 
-  describe('extractRejectionEssentials', () => {
+  describe("extractRejectionEssentials", () => {
     it('should extract rejection type and severity', () => {
       const rejection = {
         type: 'file_violation',
@@ -188,7 +188,7 @@ describe('essential-info-extractor', () => {
       
       expect(essentials.primary).toBe('file_violation');
       expect(essentials.secondary).toBe('high');
-      expect(essentials.type).toBe('rejection');
+      expect(essentials.type).toBe("rejection");
     });
 
     it('should use reason when no severity', () => {
@@ -215,11 +215,11 @@ describe('essential-info-extractor', () => {
     });
   });
 
-  describe('extractEssentials', () => {
+  describe("extractEssentials", () => {
     it('should detect and extract task essentials', () => {
       const data = {
         id: 'TASK-001',
-        status: 'completed'
+        status: "completed"
       };
       
       const essentials = extractEssentials(data, 'task');
@@ -271,7 +271,7 @@ describe('essential-info-extractor', () => {
     });
   });
 
-  describe('formatEssentialInfo', () => {
+  describe("formatEssentialInfo", () => {
     it('should format with both primary and secondary', () => {
       const essentials = {
         primary: 'TASK-001',
@@ -314,7 +314,7 @@ describe('essential-info-extractor', () => {
         id: 'TASK-100',
         title: 'Complex Implementation',
         description: 'This is a very long description with lots of details...',
-        priority: 'critical',
+        priority: "critical",
         status: 'in_progress',
         assignee: {
           id: 'user-001',

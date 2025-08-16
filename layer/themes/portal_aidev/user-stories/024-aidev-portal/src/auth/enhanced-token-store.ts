@@ -2,7 +2,7 @@
  * Enhanced Token Store - Advanced token storage and session management
  */
 
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import * as NodeCache from 'node-cache';
 
 export interface TokenStoreConfig {
@@ -110,11 +110,11 @@ export class EnhancedTokenStore extends EventEmitter {
       }
       
       this.connected = true;
-      this.emit('connected');
+      this.emit("connected");
     } catch (error) {
       console.warn('Failed to connect to Redis, using in-memory storage:', error);
       this.connected = true;
-      this.emit('connected');
+      this.emit("connected");
     }
   }
 
@@ -135,13 +135,13 @@ export class EnhancedTokenStore extends EventEmitter {
     this.refreshTokens.clear();
     this.cache.flushAll();
     
-    this.emit('disconnected');
+    this.emit("disconnected");
   }
 
   /**
    * Store token with enhanced session management
    */
-  async storeToken(token: string, data: Omit<StoredToken, 'token' | 'lastActivity'>): Promise<void> {
+  async storeToken(token: string, data: Omit<StoredToken, 'token' | "lastActivity">): Promise<void> {
     if (!this.connected) {
       throw new Error('Token store not connected');
     }
@@ -191,7 +191,7 @@ export class EnhancedTokenStore extends EventEmitter {
       }, ttl * 1000);
     }
 
-    this.emit('tokenStored', { token: token.substring(0, 8) + '...', userId: data.userId });
+    this.emit("tokenStored", { token: token.substring(0, 8) + '...', userId: data.userId });
   }
 
   /**
@@ -259,7 +259,7 @@ export class EnhancedTokenStore extends EventEmitter {
       }
     }
 
-    this.emit('tokenRemoved', { token: token.substring(0, 8) + '...' });
+    this.emit("tokenRemoved", { token: token.substring(0, 8) + '...' });
   }
 
   /**
@@ -311,7 +311,7 @@ export class EnhancedTokenStore extends EventEmitter {
     }
     deviceSessionIds.add(session.sessionId);
 
-    this.emit('sessionCreated', { sessionId: session.sessionId, userId: session.userId });
+    this.emit("sessionCreated", { sessionId: session.sessionId, userId: session.userId });
   }
 
   /**
@@ -393,7 +393,7 @@ export class EnhancedTokenStore extends EventEmitter {
         }
       }
 
-      this.emit('sessionRemoved', { sessionId, userId: session.userId });
+      this.emit("sessionRemoved", { sessionId, userId: session.userId });
     }
   }
 
@@ -456,7 +456,7 @@ export class EnhancedTokenStore extends EventEmitter {
       this.blacklistedTokens.delete(token);
     }, 24 * 60 * 60 * 1000);
 
-    this.emit('tokenBlacklisted', { token: token.substring(0, 8) + '...' });
+    this.emit("tokenBlacklisted", { token: token.substring(0, 8) + '...' });
   }
 
   /**
@@ -492,7 +492,7 @@ export class EnhancedTokenStore extends EventEmitter {
         }
       }
 
-      this.emit('sessionLimitEnforced', { userId, removedSessions: sessionsToRemove });
+      this.emit("sessionLimitEnforced", { userId, removedSessions: sessionsToRemove });
     }
   }
 
@@ -559,7 +559,7 @@ export class EnhancedTokenStore extends EventEmitter {
     }
 
     if (expiredTokens.length > 0) {
-      this.emit('tokensCleanedUp', { count: expiredTokens.length });
+      this.emit("tokensCleanedUp", { count: expiredTokens.length });
     }
   }
 
@@ -583,7 +583,7 @@ export class EnhancedTokenStore extends EventEmitter {
     }
 
     if (idleSessions.length > 0) {
-      this.emit('sessionsCleanedUp', { count: idleSessions.length });
+      this.emit("sessionsCleanedUp", { count: idleSessions.length });
     }
   }
 
@@ -634,7 +634,7 @@ export class EnhancedTokenStore extends EventEmitter {
       await this.removeToken(token);
     }
 
-    this.emit('allUserSessionsRevoked', { userId, sessionCount: sessions.length, tokenCount: tokens.length });
+    this.emit("allUserSessionsRevoked", { userId, sessionCount: sessions.length, tokenCount: tokens.length });
   }
 
   /**

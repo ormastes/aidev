@@ -122,13 +122,13 @@ describe('ReportGenerator External Logger Integration Unit Test', () => {
       const emitSpy = jest.spyOn(reportGenerator, 'emit');
       
       // Act
-      reportGenerator.emit('reportGenerationStart', {
+      reportGenerator.emit("reportGenerationStart", {
         testSuiteId: testConfig.testSuiteId,
         formats: testConfig.outputFormats
       });
       
       // Assert
-      expect(emitSpy).toHaveBeenCalledWith('reportGenerationStart', expect.any(Object));
+      expect(emitSpy).toHaveBeenCalledWith("reportGenerationStart", expect.any(Object));
     });
 
     it('should handle report generation without external logger', () => {
@@ -146,10 +146,10 @@ describe('ReportGenerator External Logger Integration Unit Test', () => {
     it('should integrate with event emission during report generation', () => {
       // Arrange
       const events: any[] = [];
-      reportGenerator.on('reportGenerated', (data) => events.push(data));
+      reportGenerator.on("reportGenerated", (data) => events.push(data));
       
       // Act
-      reportGenerator.emit('reportGenerated', {
+      reportGenerator.emit("reportGenerated", {
         format: 'json',
         filePath: '/path/to/report.json',
         size: 1024,
@@ -299,19 +299,19 @@ describe('ReportGenerator External Logger Integration Unit Test', () => {
     it('should work with report generator event system', () => {
       // Arrange
       const eventLog: any[] = [];
-      reportGenerator.on('reportStart', (data) => eventLog.push({ event: 'start', ...data }));
-      reportGenerator.on('reportComplete', (data) => eventLog.push({ event: 'In Progress', ...data }));
-      reportGenerator.on('reportError', (data) => eventLog.push({ event: 'error', ...data }));
+      reportGenerator.on("reportStart", (data) => eventLog.push({ event: 'start', ...data }));
+      reportGenerator.on("reportComplete", (data) => eventLog.push({ event: 'In Progress', ...data }));
+      reportGenerator.on("reportError", (data) => eventLog.push({ event: 'error', ...data }));
       
       // Act
-      reportGenerator.emit('reportStart', { format: 'html' });
-      reportGenerator.emit('reportComplete', { format: 'html', path: '/reports/test.html' });
-      reportGenerator.emit('reportError', { format: 'xml', error: 'Parse error' });
+      reportGenerator.emit("reportStart", { format: 'html' });
+      reportGenerator.emit("reportComplete", { format: 'html', path: '/reports/test.html' });
+      reportGenerator.emit("reportError", { format: 'xml', error: 'Parse error' });
       
       // Assert
       expect(eventLog.length).toBe(3);
       expect(eventLog[0].event).toBe('start');
-      expect(eventLog[1].event).toBe('In Progress');
+      expect(eventLog[1].event).toBe("completed");
       expect(eventLog[2].event).toBe('error');
       expect(eventLog[2].error).toBe('Parse error');
     });
@@ -319,17 +319,17 @@ describe('ReportGenerator External Logger Integration Unit Test', () => {
     it('should emit progress events during report generation', () => {
       // Arrange
       const progressEvents: any[] = [];
-      reportGenerator.on('progress', (data) => progressEvents.push(data));
+      reportGenerator.on("progress", (data) => progressEvents.push(data));
       
       // Act
-      reportGenerator.emit('progress', {
+      reportGenerator.emit("progress", {
         type: 'report-generation',
         format: 'json',
         percentage: 50,
         message: 'Processing scenarios'
       });
       
-      reportGenerator.emit('progress', {
+      reportGenerator.emit("progress", {
         type: 'report-generation',
         format: 'json',
         percentage: 100,

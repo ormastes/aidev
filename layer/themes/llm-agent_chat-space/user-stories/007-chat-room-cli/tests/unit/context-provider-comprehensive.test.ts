@@ -26,9 +26,9 @@ describe('ContextProvider Comprehensive Tests', () => {
     await testFileSystem.createDirectory(path.join(aidevDir, 'themes', 'theme2'));
     
     // Create project directories
-    await testFileSystem.createDirectory(path.join(aidevDir, 'projects'));
-    await testFileSystem.createFile(path.join(aidevDir, 'projects'), 'project1.json', '{"active": true}');
-    await testFileSystem.createFile(path.join(aidevDir, 'projects'), 'project2.json', '{"active": false}');
+    await testFileSystem.createDirectory(path.join(aidevDir, "projects"));
+    await testFileSystem.createFile(path.join(aidevDir, "projects"), 'project1.json', '{"active": true}');
+    await testFileSystem.createFile(path.join(aidevDir, "projects"), 'project2.json', '{"active": false}');
     
     // Create test file for cache tests
     await testFileSystem.createFile(workspaceDir, 'test.txt', 'Hello, World!');
@@ -40,14 +40,14 @@ describe('ContextProvider Comprehensive Tests', () => {
     await testFileSystem.cleanup();
   });
 
-  describe('loadAidevContext', () => {
+  describe("loadAidevContext", () => {
     test('should load workspace context successfully', async () => {
       const context = await provider.loadAidevContext();
       
       expect(context.path).toBe(aidevDir);
       expect(context.themes).toContain('theme1');
       expect(context.themes).toContain('theme2');
-      expect(context.activeProjects).toContain('project1');
+      expect(context.activeProjects).toContain("project1");
       expect(context.settings.version).toBe('1.0.0');
       expect(context.metadata.version).toBe('1.0.0');
     });
@@ -87,7 +87,7 @@ describe('ContextProvider Comprehensive Tests', () => {
     });
   });
 
-  describe('getCurrentContext', () => {
+  describe("getCurrentContext", () => {
     test('should get current context', async () => {
       const context = await provider.getCurrentContext();
       
@@ -98,8 +98,8 @@ describe('ContextProvider Comprehensive Tests', () => {
 
     test('should include additional context info', async () => {
       // Create some workspace files
-      await testFileSystem.createFile(workspaceDir, 'file1.ts', 'content1');
-      await testFileSystem.createFile(workspaceDir, 'file2.ts', 'content2');
+      await testFileSystem.createFile(workspaceDir, 'file1.ts', "content1");
+      await testFileSystem.createFile(workspaceDir, 'file2.ts', "content2");
       await testFileSystem.createDirectory(path.join(workspaceDir, 'src'));
       
       const context = await provider.getCurrentContext();
@@ -107,7 +107,7 @@ describe('ContextProvider Comprehensive Tests', () => {
     });
   });
 
-  describe('getFileContent', () => {
+  describe("getFileContent", () => {
     beforeEach(async () => {
       await testFileSystem.createFile(workspaceDir, 'test.txt', 'Hello, World!');
       await testFileSystem.createFile(workspaceDir, 'data.json', '{"key": "value"}');
@@ -168,7 +168,7 @@ describe('ContextProvider Comprehensive Tests', () => {
     });
   });
 
-  describe('getFileInfo', () => {
+  describe("getFileInfo", () => {
     beforeEach(async () => {
       await testFileSystem.createFile(workspaceDir, 'info-test.txt', 'File info test content');
     });
@@ -206,11 +206,11 @@ describe('ContextProvider Comprehensive Tests', () => {
     });
   });
 
-  describe('getDirectoryInfo', () => {
+  describe("getDirectoryInfo", () => {
     beforeEach(async () => {
       await testFileSystem.createDirectory(path.join(workspaceDir, 'test-dir'));
-      await testFileSystem.createFile(path.join(workspaceDir, 'test-dir'), 'file1.txt', 'content1');
-      await testFileSystem.createFile(path.join(workspaceDir, 'test-dir'), 'file2.txt', 'content2');
+      await testFileSystem.createFile(path.join(workspaceDir, 'test-dir'), 'file1.txt', "content1");
+      await testFileSystem.createFile(path.join(workspaceDir, 'test-dir'), 'file2.txt', "content2");
       await testFileSystem.createDirectory(path.join(workspaceDir, 'test-dir', 'subdir1'));
       await testFileSystem.createDirectory(path.join(workspaceDir, 'test-dir', 'subdir2'));
     });
@@ -265,7 +265,7 @@ describe('ContextProvider Comprehensive Tests', () => {
     });
   });
 
-  describe('searchFiles', () => {
+  describe("searchFiles", () => {
     beforeEach(async () => {
       await testFileSystem.createFile(workspaceDir, 'search1.txt', 'Hello World');
       await testFileSystem.createFile(workspaceDir, 'search2.txt', 'Hello Universe');

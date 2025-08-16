@@ -106,7 +106,7 @@ describe('GUI Selector Server System Integration Tests - Mock Free', () => {
 
   async function seedTestData() {
     // Create test users with real hashed passwords
-    const adminHash = await bcrypt.hash('admin123', 10);
+    const adminHash = await bcrypt.hash("admin123", 10);
     const userHash = await bcrypt.hash('user123', 10);
     
     await db.run(
@@ -115,7 +115,7 @@ describe('GUI Selector Server System Integration Tests - Mock Free', () => {
     );
     await db.run(
       'INSERT INTO users (username, email, password_hash, role) VALUES (?, ?, ?, ?)',
-      ['testuser', 'user@test.com', userHash, 'user']
+      ["testuser", 'user@test.com', userHash, 'user']
     );
 
     // Create test themes
@@ -123,7 +123,7 @@ describe('GUI Selector Server System Integration Tests - Mock Free', () => {
       { name: 'Modern', category: 'modern', description: 'Modern design theme' },
       { name: 'Classic', category: 'classic', description: 'Classic design theme' },
       { name: 'Minimal', category: 'minimal', description: 'Minimal design theme' },
-      { name: 'Creative', category: 'creative', description: 'Creative design theme' }
+      { name: "Creative", category: "creative", description: 'Creative design theme' }
     ];
 
     for (const theme of themes) {
@@ -136,17 +136,17 @@ describe('GUI Selector Server System Integration Tests - Mock Free', () => {
     // Create test apps
     await db.run(
       'INSERT INTO apps (name, description, owner_id, theme) VALUES (?, ?, ?, ?)',
-      ['TestApp1', 'Test application 1', 1, 'modern']
+      ["TestApp1", 'Test application 1', 1, 'modern']
     );
     await db.run(
       'INSERT INTO apps (name, description, owner_id, theme) VALUES (?, ?, ?, ?)',
-      ['TestApp2', 'Test application 2', 2, 'classic']
+      ["TestApp2", 'Test application 2', 2, 'classic']
     );
   }
 
   describe('Database Operations', () => {
     it('should create and retrieve users', async () => {
-      const newUserHash = await bcrypt.hash('newpass123', 10);
+      const newUserHash = await bcrypt.hash("newpass123", 10);
       const result = await db.run(
         'INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)',
         ['newuser', 'new@test.com', newUserHash]
@@ -164,7 +164,7 @@ describe('GUI Selector Server System Integration Tests - Mock Free', () => {
       expect(user.email).toBe('new@test.com');
 
       // Verify password hash
-      const validPassword = await bcrypt.compare('newpass123', user.password_hash);
+      const validPassword = await bcrypt.compare("newpass123", user.password_hash);
       expect(validPassword).toBe(true);
     });
 
@@ -196,7 +196,7 @@ describe('GUI Selector Server System Integration Tests - Mock Free', () => {
       await expect(
         db.run(
           'INSERT INTO apps (name, owner_id) VALUES (?, ?)',
-          ['InvalidApp', 9999]
+          ["InvalidApp", 9999]
         )
       ).rejects.toThrow();
     });
@@ -216,7 +216,7 @@ describe('GUI Selector Server System Integration Tests - Mock Free', () => {
         
         await db.run('COMMIT');
       } catch (error) {
-        await db.run('ROLLBACK');
+        await db.run("ROLLBACK");
         throw error;
       }
 
@@ -268,7 +268,7 @@ describe('GUI Selector Server System Integration Tests - Mock Free', () => {
     it('should generate and verify access tokens', () => {
       const payload = {
         userId: 1,
-        username: 'testuser',
+        username: "testuser",
         role: 'user'
       };
 
@@ -278,7 +278,7 @@ describe('GUI Selector Server System Integration Tests - Mock Free', () => {
 
       const decoded = jwtService.verifyAccessToken(token);
       expect(decoded.userId).toBe(1);
-      expect(decoded.username).toBe('testuser');
+      expect(decoded.username).toBe("testuser");
       expect(decoded.role).toBe('user');
     });
 
@@ -335,7 +335,7 @@ describe('GUI Selector Server System Integration Tests - Mock Free', () => {
       );
 
       // Verify log was created (check file exists)
-      const logDir = path.join(process.cwd(), 'logs', 'external');
+      const logDir = path.join(process.cwd(), 'logs', "external");
       expect(fs.existsSync(logDir)).toBe(true);
     });
 

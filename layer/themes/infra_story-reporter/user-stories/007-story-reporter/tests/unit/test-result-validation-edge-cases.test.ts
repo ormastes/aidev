@@ -1,5 +1,5 @@
 import { validateTestResult, createDefaultTestResult, TestResult } from '../../src/domain/test-result';
-import { ErrorPrefixes } from '../../s../utils/validation-utils';
+import { ErrorPrefixes } from '../../src/utils/validation-utils';
 
 describe('Test Result Validation Edge Cases Unit Tests', () => {
   describe('validateTestResult - Input Type Edge Cases', () => {
@@ -375,7 +375,7 @@ describe('Test Result Validation Edge Cases Unit Tests', () => {
     });
 
     it('should accept all valid status values', () => {
-      const validStatuses = ['passed', 'failed', 'pending', 'cancelled'];
+      const validStatuses = ['passed', 'failed', 'pending', "cancelled"];
 
       validStatuses.forEach(validStatus => {
         const result = {
@@ -616,7 +616,7 @@ describe('Test Result Validation Edge Cases Unit Tests', () => {
           totalScenarios: 2,
           scenarios: [
             { name: 'Scenario 1', status: 'pending' },
-            { invalid: 'scenario', data: true },
+            { invalid: "scenario", data: true },
             'string scenario',
             123,
             null
@@ -786,7 +786,7 @@ describe('Test Result Validation Edge Cases Unit Tests', () => {
     });
 
     it('should handle all valid status values', () => {
-      const validStatuses = ['passed', 'failed', 'pending', 'cancelled'] as const;
+      const validStatuses = ['passed', 'failed', 'pending', "cancelled"] as const;
       
       validStatuses.forEach(status => {
         const result = createDefaultTestResult('test-suite', status);
@@ -835,7 +835,7 @@ describe('Test Result Validation Edge Cases Unit Tests', () => {
           environment: 'test',
           browser: 'chrome',
           version: '1.0.0',
-          tags: ['regression', 'smoke']
+          tags: ["regression", 'smoke']
         }
       };
       

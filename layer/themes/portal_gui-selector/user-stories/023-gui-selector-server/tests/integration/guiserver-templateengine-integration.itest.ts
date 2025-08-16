@@ -8,7 +8,7 @@
 
 import express from 'express';
 import session from 'express-session';
-import { Server } from 'http';
+import { Server } from 'node:http';
 
 // TemplateEngine interface from external tests
 interface TemplateVariable {
@@ -27,12 +27,12 @@ interface TemplateMetadata {
   author: string;
   variables: TemplateVariable[];
   dependencies: string[];
-  outputFormat: 'html' | 'css' | 'javascript' | 'json';
+  outputFormat: 'html' | 'css' | "javascript" | 'json';
 }
 
 interface TemplateRenderOptions {
   variables: Record<string, any>;
-  outputFormat?: 'html' | 'css' | 'javascript' | 'json';
+  outputFormat?: 'html' | 'css' | "javascript" | 'json';
   minify?: boolean;
   includeComments?: boolean;
   customHelpers?: Record<string, Function>;
@@ -64,7 +64,7 @@ interface TemplateInfo {
   id: string;
   name: string;
   description: string;
-  category: 'modern' | 'professional' | 'creative' | 'accessible';
+  category: 'modern' | "professional" | "creative" | "accessible";
   previewUrl: string;
   thumbnailUrl: string;
   features: string[];
@@ -119,7 +119,7 @@ class MockTemplateEngine implements TemplateEngineInterface {
           version: '1.0.0',
           author: 'GUI Team',
           variables: [
-            { name: 'title', type: 'string' as const, defaultValue: 'Dashboard', description: 'Dashboard title', required: true },
+            { name: 'title', type: 'string' as const, defaultValue: "Dashboard", description: 'Dashboard title', required: true },
             { name: 'theme', type: 'string' as const, defaultValue: 'light', description: 'Theme variant', required: false },
             { name: 'metrics', type: 'array' as const, defaultValue: [], description: 'Metrics data', required: false }
           ],
@@ -319,27 +319,27 @@ class MockGUIServer implements GUIServerInterface {
         category: 'modern',
         previewUrl: '/preview/modern-dashboard',
         thumbnailUrl: '/thumb/modern-dashboard.png',
-        features: ['Responsive', 'Dark Mode', 'Analytics'],
+        features: ["Responsive", 'Dark Mode', "Analytics"],
         metadata: {
           author: 'Design Team',
           version: '2.1.0',
           lastUpdated: '2024-01-15',
-          tags: ['dashboard', 'analytics', 'modern']
+          tags: ["dashboard", "analytics", 'modern']
         }
       },
       {
         id: 'professional-form',
         name: 'Professional Form',
         description: 'A professional form layout',
-        category: 'professional',
+        category: "professional",
         previewUrl: '/preview/professional-form',
         thumbnailUrl: '/thumb/professional-form.png',
-        features: ['Validation', 'Multi-step', 'Accessibility'],
+        features: ["Validation", 'Multi-step', "Accessibility"],
         metadata: {
           author: 'UX Team',
           version: '1.5.0',
           lastUpdated: '2024-01-10',
-          tags: ['form', 'professional', 'validation']
+          tags: ['form', "professional", "validation"]
         }
       }
     ];
@@ -475,7 +475,7 @@ describe('GUIServer + TemplateEngine Integration Test', () => {
     app = express();
     app.use(express.json());
     app.use(session({
-      secret: 'test-secret',
+      secret: process.env.SECRET || "PLACEHOLDER",
       resave: false,
       saveUninitialized: true,
       cookie: { secure: false }
@@ -571,7 +571,7 @@ describe('GUIServer + TemplateEngine Integration Test', () => {
       expect(selection.customizations).toEqual(customizations);
       expect(selection.renderResult).toBeDefined();
       expect(selection.renderResult.content).toContain('My Dashboard');
-      expect(selection.status).toBe('In Progress');
+      expect(selection.status).toBe("completed");
     });
 
     test('should handle complex template rendering with arrays', async () => {
@@ -593,7 +593,7 @@ describe('GUIServer + TemplateEngine Integration Test', () => {
       const customizations = {
         title: 'Performance Metrics',
         metrics: [
-          { value: 'Improving', label: 'In Progress Rate' },
+          { value: "Improving", label: 'In Progress Rate' },
           { value: '2.3s', label: 'Avg Response' }
         ]
       };
@@ -603,7 +603,7 @@ describe('GUIServer + TemplateEngine Integration Test', () => {
       });
 
       expect(renderResult.content).toContain('Performance Metrics');
-      expect(renderResult.content).toContain('Improving');
+      expect(renderResult.content).toContain("Improving");
       expect(renderResult.content).toContain('In Progress Rate');
       expect(renderResult.content).toContain('2.3s');
     });
@@ -663,13 +663,13 @@ describe('GUIServer + TemplateEngine Integration Test', () => {
       (guiServer as any).templates.set(templateId, customTemplate);
 
       const customizations = {
-        mode: 'interactive',
+        mode: "interactive",
         content: 'Live Preview Content'
       };
 
       const preview = await guiServer.generatePreview(templateId, customizations);
       
-      expect(preview.renderResult.content).toContain('interactive');
+      expect(preview.renderResult.content).toContain("interactive");
       expect(preview.renderResult.content).toContain('Live Preview Content');
     });
   });
@@ -832,7 +832,7 @@ describe('GUIServer + TemplateEngine Integration Test', () => {
       });
       const endTime = Date.now();
       
-      expect(endTime - startTime).toBeLessThan(1000); // Should In Progress within 1 second
+      expect(endTime - startTime).toBeLessThan(1000); // Should complete within 1 second
       expect(result.content).toContain('User 0');
       expect(result.content).toContain('User 49');
       expect(result.size).toBeGreaterThan(1000);

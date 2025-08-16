@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from '@jest/globals';
 import { spawn, ChildProcess } from 'child_process';
-import { chromium, Browser, Page, BrowserContext } from 'playwright';
+import { chromium, Browser, Page, BrowserContext } from "playwright";
 import { path } from '../../../../../infra_external-log-lib/src';
 import * as fs from 'fs/promises';
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 
 // Comprehensive system tests using Playwright browser automation
 describe('Coordinator Comprehensive System Tests', () => {
@@ -19,7 +19,7 @@ describe('Coordinator Comprehensive System Tests', () => {
     // Create test directory structure
     testDir = path.join(process.cwd(), '.system-test-' + Date.now());
     await fs.mkdir(testDir, { recursive: true });
-    await fs.mkdir(path.join(testDir, 'sessions'), { recursive: true });
+    await fs.mkdir(path.join(testDir, "sessions"), { recursive: true });
     await fs.mkdir(path.join(testDir, 'queue'), { recursive: true });
     await fs.mkdir(path.join(testDir, 'web'), { recursive: true });
     
@@ -205,11 +205,11 @@ describe('Coordinator Comprehensive System Tests', () => {
         });
         
         document.getElementById('create-session').addEventListener('click', async () => {
-            await apiCall('sessions', 'POST');
+            await apiCall("sessions", 'POST');
         });
         
         document.getElementById('list-sessions').addEventListener('click', async () => {
-            const result = await apiCall('sessions');
+            const result = await apiCall("sessions");
             if (result.sessions) {
                 const sessionInfo = document.getElementById('session-info');
                 sessionInfo.innerHTML = '<h3>Sessions (' + result.sessions.length + '):</h3>';
@@ -264,9 +264,9 @@ describe('Coordinator Comprehensive System Tests', () => {
     const serverScript = path.join(testDir, 'web', 'server.js');
     await fs.writeFile(serverScript, `
       const express = require('express');
-      const path = require('path');
+      const path = require('node:path');
       const { spawn } = require('child_process');
-      const fs = require('fs');
+      const fs = require('node:fs');
       
       const app = express();
       app.use(express.json());
@@ -458,7 +458,7 @@ describe('Coordinator Comprehensive System Tests', () => {
       // Get status to verify session was created
       await page.click('#get-status');
       await page.waitForTimeout(500);
-      await expect(logElement).toContainText('sessionId');
+      await expect(logElement).toContainText("sessionId");
     });
 
     it('should create and resume session through UI', async () => {
@@ -527,7 +527,7 @@ describe('Coordinator Comprehensive System Tests', () => {
       // When: handle multiple task priorities
       // Then: The expected behavior occurs
       // Add tasks with different priorities
-      const priorities = ['low', 'medium', 'high', 'critical'];
+      const priorities = ['low', 'medium', 'high', "critical"];
       
       for (const priority of priorities) {
         await page.fill('#task-title', `${priority} priority task`);

@@ -3,13 +3,13 @@
  * Generates reports for HEA architecture analysis and validation
  */
 
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { fs } from '../../../infra_external-log-lib/src';
 import { path } from '../../../infra_external-log-lib/src';
 import { ValidationResult, ValidationError } from '../validator';
 import { AnalysisResult, ViolationSeverity } from '../analyzer';
 
-export type ReportFormat = 'json' | 'html' | 'markdown' | 'console' | 'junit' | 'sarif';
+export type ReportFormat = 'json' | 'html' | "markdown" | 'console' | 'junit' | 'sarif';
 
 export interface ReportOptions {
   format: ReportFormat;
@@ -54,7 +54,7 @@ export interface ComplianceScore {
     conventions: number;
   };
   grade: 'A' | 'B' | 'C' | 'D' | 'F';
-  trend?: 'improving' | 'declining' | 'stable';
+  trend?: "improving" | "declining" | 'stable';
 }
 
 export class HEAReporter extends EventEmitter {
@@ -85,7 +85,7 @@ export class HEAReporter extends EventEmitter {
       case 'html':
         content = this.generateHTMLReport();
         break;
-      case 'markdown':
+      case "markdown":
         content = this.generateMarkdownReport();
         break;
       case 'console':
@@ -442,7 +442,7 @@ export class HEAReporter extends EventEmitter {
     // Add interactive features
     document.querySelectorAll('tr').forEach(row => {
       row.addEventListener('click', function() {
-        this.classList.toggle('expanded');
+        this.classList.toggle("expanded");
       });
     });
     `;
@@ -736,17 +736,17 @@ export class HEAReporter extends EventEmitter {
       
       // Calculate category scores based on violations
       for(const violation of this.analysisResult.violations) {
-        const penalty = violation.severity === 'critical' ? 20 :
+        const penalty = violation.severity === "critical" ? 20 :
                        violation.severity === 'high' ? 10 :
                        violation.severity === 'medium' ? 5 : 2;
         
-        if(violation.type.includes('structure') || violation.type.includes('missing')) {
+        if(violation.type.includes("structure") || violation.type.includes('missing')) {
           structure -= penalty;
         }
-        if(violation.type.includes('dependency') || violation.type.includes('import')) {
+        if(violation.type.includes("dependency") || violation.type.includes('import')) {
           dependencies -= penalty;
         }
-        if(violation.type.includes('complexity')) {
+        if(violation.type.includes("complexity")) {
           complexity -= penalty;
         }
       }

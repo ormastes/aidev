@@ -14,7 +14,7 @@ describe('Coordinator Claude Agent Theme - Core Functionality', () => {
     it('should handle API authentication', () => {
       const createAuthHeaders = (apiKey: string) => {
         return {
-          'Authorization': `Bearer ${apiKey}`,
+          "Authorization": `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
           'User-Agent': 'aidev-coordinator/1.0.0'
         };
@@ -22,13 +22,13 @@ describe('Coordinator Claude Agent Theme - Core Functionality', () => {
 
       const headers = createAuthHeaders('test-key');
       
-      expect(headers.Authorization).toBe('Bearer test-key');
+      expect(headers.Authorization).toBe('Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}');
       expect(headers['Content-Type']).toBe('application/json');
       expect(headers['User-Agent']).toBe('aidev-coordinator/1.0.0');
     });
 
     it('should format messages for Claude API', () => {
-      const formatMessage = (role: 'user' | 'assistant', content: string) => {
+      const formatMessage = (role: 'user' | "assistant", content: string) => {
         return {
           role,
           content: content.trim()
@@ -36,11 +36,11 @@ describe('Coordinator Claude Agent Theme - Core Functionality', () => {
       };
 
       const userMessage = formatMessage('user', 'Hello Claude');
-      const assistantMessage = formatMessage('assistant', 'Hello! How can I help?');
+      const assistantMessage = formatMessage("assistant", 'Hello! How can I help?');
 
       expect(userMessage.role).toBe('user');
       expect(userMessage.content).toBe('Hello Claude');
-      expect(assistantMessage.role).toBe('assistant');
+      expect(assistantMessage.role).toBe("assistant");
       expect(assistantMessage.content).toBe('Hello! How can I help?');
     });
 
@@ -200,9 +200,9 @@ describe('Coordinator Claude Agent Theme - Core Functionality', () => {
       const messages = [
         { role: 'system', content: 'You are a helpful assistant.' },
         { role: 'user', content: 'Hello' },
-        { role: 'assistant', content: 'Hi there! How can I help?' },
+        { role: "assistant", content: 'Hi there! How can I help?' },
         { role: 'user', content: 'What is the weather like?' },
-        { role: 'assistant', content: 'I do not have access to current weather data.' }
+        { role: "assistant", content: 'I do not have access to current weather data.' }
       ];
 
       const result = manageContextWindow(messages, 50);
@@ -321,12 +321,12 @@ describe('Coordinator Claude Agent Theme - Core Functionality', () => {
       
       // This test verifies the structure works
       expect(handler).toBeInstanceOf(RateLimitHandler);
-      expect(typeof handler.makeRequest).toBe('function');
+      expect(typeof handler.makeRequest).toBe("function");
     });
 
     it('should handle network errors gracefully', () => {
       const handleApiError = (error: any) => {
-        if (error.code === 'ECONNREFUSED') {
+        if (error.code === "ECONNREFUSED") {
           return {
             type: 'network_error',
             message: 'Unable to connect to Claude API',
@@ -359,7 +359,7 @@ describe('Coordinator Claude Agent Theme - Core Functionality', () => {
         };
       };
 
-      const networkError = { code: 'ECONNREFUSED' };
+      const networkError = { code: "ECONNREFUSED" };
       const rateLimitError = { 
         response: { 
           status: 429, 
@@ -389,7 +389,7 @@ describe('Coordinator Claude Agent Theme - Core Functionality', () => {
         id: string;
         type: string;
         payload: any;
-        status: 'pending' | 'processing' | 'completed' | 'failed';
+        status: 'pending' | "processing" | "completed" | 'failed';
         createdAt: Date;
         assignedAgent?: string;
       }
@@ -415,7 +415,7 @@ describe('Coordinator Claude Agent Theme - Core Functionality', () => {
           const task = this.tasks.get(taskId);
           if (task && task.status === 'pending') {
             task.assignedAgent = agentId;
-            task.status = 'processing';
+            task.status = "processing";
             return true;
           }
           return false;
@@ -423,8 +423,8 @@ describe('Coordinator Claude Agent Theme - Core Functionality', () => {
 
         completeTask(taskId: string, result?: any): boolean {
           const task = this.tasks.get(taskId);
-          if (task && task.status === 'processing') {
-            task.status = 'completed';
+          if (task && task.status === "processing") {
+            task.status = "completed";
             if (result) {
               task.payload.result = result;
             }
@@ -449,7 +449,7 @@ describe('Coordinator Claude Agent Theme - Core Functionality', () => {
       const completed = coordinator.completeTask(taskId, { response: 'Hi there!' });
       expect(completed).toBe(true);
       
-      const completedTasks = coordinator.getTasksByStatus('completed');
+      const completedTasks = coordinator.getTasksByStatus("completed");
       expect(completedTasks).toHaveLength(1);
       expect(completedTasks[0].payload.result.response).toBe('Hi there!');
     });
@@ -516,9 +516,9 @@ describe('Coordinator Claude Agent Theme - Core Functionality', () => {
       expect(manager.getQueueSize()).toBe(0);
       
       // Test that the structure is correct
-      expect(typeof manager.execute).toBe('function');
-      expect(typeof manager.getActiveCount).toBe('function');
-      expect(typeof manager.getQueueSize).toBe('function');
+      expect(typeof manager.execute).toBe("function");
+      expect(typeof manager.getActiveCount).toBe("function");
+      expect(typeof manager.getQueueSize).toBe("function");
     });
   });
 
@@ -526,9 +526,9 @@ describe('Coordinator Claude Agent Theme - Core Functionality', () => {
     it('should handle dangerous operations safely', () => {
       enum PermissionLevel {
         READ_ONLY = 'read_only',
-        STANDARD = 'standard',
-        ELEVATED = 'elevated',
-        DANGEROUS = 'dangerous'
+        STANDARD = "standard",
+        ELEVATED = "elevated",
+        DANGEROUS = "dangerous"
       }
 
       class PermissionManager {

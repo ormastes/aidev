@@ -15,24 +15,24 @@ class TestPattern extends BasePattern {
   }
 }
 
-describe('PatternRegistry', () => {
+describe("PatternRegistry", () => {
   describe('Built-in Patterns', () => {
     it('should have all built-in patterns registered', () => {
       const patterns = PatternRegistry.list();
       
-      expect(patterns).toContain('sequential');
-      expect(patterns).toContain('parallel');
+      expect(patterns).toContain("sequential");
+      expect(patterns).toContain("parallel");
       expect(patterns).toContain('map-reduce');
-      expect(patterns).toContain('supervisor');
+      expect(patterns).toContain("supervisor");
       expect(patterns).toContain('rag');
       expect(patterns).toContain('debate');
-      expect(patterns).toContain('reflection');
+      expect(patterns).toContain("reflection");
     });
 
     it('should get pattern by name', () => {
-      const sequential = PatternRegistry.get('sequential');
+      const sequential = PatternRegistry.get("sequential");
       expect(sequential).toBeDefined();
-      expect(sequential?.name).toBe('sequential');
+      expect(sequential?.name).toBe("sequential");
     });
 
     it('should return undefined for unknown pattern', () => {
@@ -41,9 +41,9 @@ describe('PatternRegistry', () => {
     });
 
     it('should create pattern instance', () => {
-      const pattern = PatternRegistry.create('parallel');
+      const pattern = PatternRegistry.create("parallel");
       expect(pattern).toBeDefined();
-      expect(pattern.name).toBe('parallel');
+      expect(pattern.name).toBe("parallel");
     });
 
     it('should throw for unknown pattern creation', () => {
@@ -71,11 +71,11 @@ describe('PatternRegistry', () => {
 
   describe('Pattern Info', () => {
     it('should get pattern info', () => {
-      const info = PatternRegistry.getInfo('sequential');
+      const info = PatternRegistry.getInfo("sequential");
       
       expect(info).toBeDefined();
-      expect(info?.name).toBe('sequential');
-      expect(info?.description).toContain('sequence');
+      expect(info?.name).toBe("sequential");
+      expect(info?.description).toContain("sequence");
       expect(info?.minAgents).toBe(2);
     });
 
@@ -92,7 +92,7 @@ describe('PatternRegistry', () => {
       const patterns = PatternRegistry.find({ minAgents: 1 });
       
       expect(patterns).toContain('rag');
-      expect(patterns).toContain('reflection');
+      expect(patterns).toContain("reflection");
       expect(patterns).toContain('map-reduce');
     });
 
@@ -104,18 +104,18 @@ describe('PatternRegistry', () => {
     });
 
     it('should find patterns by keyword', () => {
-      const patterns = PatternRegistry.find({ keyword: 'parallel' });
+      const patterns = PatternRegistry.find({ keyword: "parallel" });
       
-      expect(patterns).toContain('parallel');
+      expect(patterns).toContain("parallel");
       
-      const ragPatterns = PatternRegistry.find({ keyword: 'retrieval' });
+      const ragPatterns = PatternRegistry.find({ keyword: "retrieval" });
       expect(ragPatterns).toContain('rag');
     });
 
     it('should combine search criteria', () => {
       const patterns = PatternRegistry.find({
         minAgents: 1,
-        keyword: 'generate'
+        keyword: "generate"
       });
       
       expect(patterns.length).toBeGreaterThan(0);

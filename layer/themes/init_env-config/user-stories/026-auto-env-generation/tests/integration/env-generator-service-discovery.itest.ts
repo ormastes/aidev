@@ -30,7 +30,7 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
     await cleanupTestServices();
   });
   
-  describe('includeServiceUrls', () => {
+  describe("includeServiceUrls", () => {
     it('should include URLs for dependent services in .env file', async () => {
       // Arrange
       const dependencies = ['auth-service', 'database-service'];
@@ -90,7 +90,7 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
     it('should automatically include dependent service URLs', async () => {
       // Arrange
       const config: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'api-gateway',
         servicePort: 8080
       };
@@ -99,7 +99,7 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
       await serviceDiscovery.registerService({
         name: 'api-gateway',
         port: 8080,
-        environment: 'development',
+        environment: "development",
         dependencies: ['auth-service', 'user-service']
       });
       
@@ -120,14 +120,14 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
       // Arrange
       // Register a frontend service with auth-service dependency
       await serviceDiscovery.registerService({
-        name: 'frontend',
+        name: "frontend",
         port: 3000,
-        environment: 'development',
+        environment: "development",
         dependencies: ['auth-service']
       });
       
       await serviceDiscovery.registerService({
-        name: 'frontend',
+        name: "frontend",
         port: 3000,
         environment: 'release',
         dependencies: ['auth-service']
@@ -142,14 +142,14 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
       });
       
       const devConfig: EnvGeneratorConfig = {
-        environment: 'development',
-        serviceName: 'frontend',
+        environment: "development",
+        serviceName: "frontend",
         servicePort: 3000
       };
       
       const releaseConfig: EnvGeneratorConfig = {
         environment: 'release',
-        serviceName: 'frontend',
+        serviceName: "frontend",
         servicePort: 3000
       };
       
@@ -161,7 +161,7 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
       const devAuthUrl = devResult.variables.find(v => v.key === 'AUTH_SERVICE_URL');
       const releaseAuthUrl = releaseResult.variables.find(v => v.key === 'AUTH_SERVICE_URL');
       
-      expect(devAuthUrl?.value).toContain('localhost');
+      expect(devAuthUrl?.value).toContain("localhost");
       expect(releaseAuthUrl?.value).toBe('http://auth.production.com:4000');
     });
   });
@@ -170,7 +170,7 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
     it('should only include healthy services in .env', async () => {
       // Arrange
       // Mark one service as unhealthy
-      await serviceDiscovery.updateServiceStatus('database-service', 'development', 'unhealthy');
+      await serviceDiscovery.updateServiceStatus('database-service', "development", "unhealthy");
       
       const dependencies = ['auth-service', 'database-service'];
       
@@ -189,7 +189,7 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
       await serviceDiscovery.registerService({
         name: 'monitored-service',
         port: 9000,
-        environment: 'development',
+        environment: "development",
         healthCheckPath: '/health'
       });
       
@@ -197,12 +197,12 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
       await serviceDiscovery.registerService({
         name: 'monitoring-client',
         port: 9001,
-        environment: 'development',
+        environment: "development",
         dependencies: ['monitored-service']
       });
       
       const config: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'monitoring-client',
         servicePort: 9001
       };
@@ -232,12 +232,12 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
       await serviceDiscovery.registerService({
         name: 'app-service',
         port: 3000,
-        environment: 'development',
+        environment: "development",
         dependencies: ['shared-cache']
       });
       
       const config: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'app-service',
         servicePort: 3000
       };
@@ -259,25 +259,25 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
       await serviceDiscovery.registerService({
         name: 'service-c',
         port: 7003,
-        environment: 'development'
+        environment: "development"
       });
       
       await serviceDiscovery.registerService({
         name: 'service-b',
         port: 7002,
-        environment: 'development',
+        environment: "development",
         dependencies: ['service-c']
       });
       
       await serviceDiscovery.registerService({
         name: 'service-a',
         port: 7001,
-        environment: 'development',
+        environment: "development",
         dependencies: ['service-b']
       });
       
       const config: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'service-a',
         servicePort: 7001
       };
@@ -299,7 +299,7 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
     it('should handle service registration during env generation', async () => {
       // Arrange
       const config: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'dynamic-client',
         servicePort: 8000
       };
@@ -309,7 +309,7 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
         await serviceDiscovery.registerService({
           name: 'late-service',
           port: 8001,
-          environment: 'development'
+          environment: "development"
         });
       }, 100);
       
@@ -331,7 +331,7 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
       await serviceDiscovery.registerService({
         name: 'auth-theme',
         port: 4000,
-        environment: 'development',
+        environment: "development",
         healthCheckPath: '/api/health'
       });
       
@@ -339,7 +339,7 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
       await serviceDiscovery.registerService({
         name: 'user-theme',
         port: 4001,
-        environment: 'development',
+        environment: "development",
         dependencies: ['auth-theme'],
         healthCheckPath: '/api/health'
       });
@@ -348,7 +348,7 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
       await serviceDiscovery.registerService({
         name: 'api-gateway-theme',
         port: 8080,
-        environment: 'development',
+        environment: "development",
         dependencies: ['auth-theme', 'user-theme']
       });
       
@@ -356,13 +356,13 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
       await serviceDiscovery.registerService({
         name: 'frontend-theme',
         port: 3000,
-        environment: 'development',
+        environment: "development",
         dependencies: ['api-gateway-theme']
       });
       
       // Act - Generate env file for frontend theme
       const config: EnvGeneratorConfig = {
-        environment: 'development',
+        environment: "development",
         serviceName: 'frontend-theme',
         servicePort: 3000,
         additionalVariables: [
@@ -415,18 +415,18 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
       {
         name: 'auth-service',
         port: 4000,
-        environment: 'development',
+        environment: "development",
         healthCheckPath: '/health'
       },
       {
         name: 'user-service',
         port: 4001,
-        environment: 'development'
+        environment: "development"
       },
       {
         name: 'database-service',
         port: 5432,
-        environment: 'development'
+        environment: "development"
       }
     ];
     
@@ -437,10 +437,10 @@ describe('Integration: EnvGenerator with ServiceDiscovery', () => {
 
   async function cleanupTestServices(): Promise<void> {
     // Get all registered services and clean them up
-    const environments = ['development', 'test', 'release', 'shared'];
+    const environments = ["development", 'test', 'release', 'shared'];
     const services = [
       'auth-service', 'user-service', 'database-service', 'secure-api',
-      'api-gateway', 'frontend', 'monitored-service', 'monitoring-client',
+      'api-gateway', "frontend", 'monitored-service', 'monitoring-client',
       'shared-cache', 'app-service', 'service-a', 'service-b', 'service-c',
       'dynamic-client', 'late-service', 'auth-theme', 'user-theme',
       'api-gateway-theme', 'frontend-theme'

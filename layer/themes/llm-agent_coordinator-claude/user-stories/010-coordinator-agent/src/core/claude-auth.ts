@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 import * as fs from 'fs/promises';
 import { path } from '../../../../../infra_external-log-lib/src';
 import { os } from '../../../../../infra_external-log-lib/src';
@@ -52,7 +53,7 @@ export class ClaudeAuthManager {
 
   async loadLocalCredentials(): Promise<void> {
     try {
-      const credentialsFile = await fs.readFile(this.credentialsPath, 'utf-8');
+      const credentialsFile = await fileAPI.readFile(this.credentialsPath, 'utf-8');
       const data = JSON.parse(credentialsFile);
       
       if (data.claudeAiOauth) {

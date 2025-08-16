@@ -41,15 +41,15 @@ describe('jwt-auth middleware', () => {
     mockNext = jest.fn();
   });
 
-  describe('authenticateJWT', () => {
+  describe("authenticateJWT", () => {
     it('should authenticate valid JWT token', () => {
       const mockPayload = {
         userId: 1,
-        username: 'testuser',
+        username: "testuser",
         role: 'user'
       };
       
-      mockReq.headers = { authorization: 'Bearer valid-token' };
+      mockReq.headers = { authorization: 'Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}' };
       mockJWTService.verifyAccessToken.mockReturnValue(mockPayload);
 
       authenticateJWT(mockReq as Request, mockRes as Response, mockNext);
@@ -81,7 +81,7 @@ describe('jwt-auth middleware', () => {
     });
 
     it('should return 401 when authorization header has wrong format', () => {
-      mockReq.headers = { authorization: 'InvalidFormat' };
+      mockReq.headers = { authorization: "InvalidFormat" };
 
       authenticateJWT(mockReq as Request, mockRes as Response, mockNext);
 
@@ -92,7 +92,7 @@ describe('jwt-auth middleware', () => {
 
     it('should return 403 when token verification fails', () => {
       const error = new Error('Invalid token');
-      mockReq.headers = { authorization: 'Bearer invalid-token' };
+      mockReq.headers = { authorization: 'Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}' };
       mockJWTService.verifyAccessToken.mockImplementation(() => {
         throw error;
       });
@@ -122,15 +122,15 @@ describe('jwt-auth middleware', () => {
     });
   });
 
-  describe('optionalJWT', () => {
+  describe("optionalJWT", () => {
     it('should authenticate valid JWT token and set user', () => {
       const mockPayload = {
         userId: 1,
-        username: 'testuser',
+        username: "testuser",
         role: 'user'
       };
       
-      mockReq.headers = { authorization: 'Bearer valid-token' };
+      mockReq.headers = { authorization: 'Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}' };
       mockJWTService.verifyAccessToken.mockReturnValue(mockPayload);
 
       optionalJWT(mockReq as Request, mockRes as Response, mockNext);
@@ -154,7 +154,7 @@ describe('jwt-auth middleware', () => {
 
     it('should continue without setting user when token is invalid', () => {
       const error = new Error('Invalid token');
-      mockReq.headers = { authorization: 'Bearer invalid-token' };
+      mockReq.headers = { authorization: 'Bearer ${process.env.AUTH_TOKEN || "PLACEHOLDER_TOKEN"}' };
       mockJWTService.verifyAccessToken.mockImplementation(() => {
         throw error;
       });
@@ -169,7 +169,7 @@ describe('jwt-auth middleware', () => {
     });
 
     it('should continue when authorization header has wrong format', () => {
-      mockReq.headers = { authorization: 'InvalidFormat' };
+      mockReq.headers = { authorization: "InvalidFormat" };
 
       optionalJWT(mockReq as Request, mockRes as Response, mockNext);
 
@@ -217,7 +217,7 @@ describe('jwt-auth middleware', () => {
     });
 
     it('should preserve existing req.user if already set', () => {
-      const existingUser = { userId: 999, username: 'existing', role: 'admin' };
+      const existingUser = { userId: 999, username: "existing", role: 'admin' };
       mockReq.user = existingUser;
       mockReq.headers = {};
 
@@ -228,11 +228,11 @@ describe('jwt-auth middleware', () => {
     });
   });
 
-  describe('authorizeRole', () => {
+  describe("authorizeRole", () => {
     it('should authorize user with correct role', () => {
-      mockReq.user = { userId: 1, username: 'testuser', role: 'admin' };
+      mockReq.user = { userId: 1, username: "testuser", role: 'admin' };
       
-      const middleware = authorizeRole('admin', 'superadmin');
+      const middleware = authorizeRole('admin', "superadmin");
       middleware(mockReq as Request, mockRes as Response, mockNext);
 
       expect(mockNext).toHaveBeenCalled();
@@ -251,9 +251,9 @@ describe('jwt-auth middleware', () => {
     });
 
     it('should return 403 when user has insufficient permissions', () => {
-      mockReq.user = { userId: 1, username: 'testuser', role: 'user' };
+      mockReq.user = { userId: 1, username: "testuser", role: 'user' };
       
-      const middleware = authorizeRole('admin', 'superadmin');
+      const middleware = authorizeRole('admin', "superadmin");
       middleware(mockReq as Request, mockRes as Response, mockNext);
 
       expect(mockRes.status).toHaveBeenCalledWith(403);
@@ -262,7 +262,7 @@ describe('jwt-auth middleware', () => {
     });
 
     it('should handle single role authorization', () => {
-      mockReq.user = { userId: 1, username: 'testuser', role: 'editor' };
+      mockReq.user = { userId: 1, username: "testuser", role: 'editor' };
       
       const middleware = authorizeRole('editor');
       middleware(mockReq as Request, mockRes as Response, mockNext);
@@ -271,16 +271,16 @@ describe('jwt-auth middleware', () => {
     });
 
     it('should handle multiple role authorization', () => {
-      mockReq.user = { userId: 1, username: 'testuser', role: 'moderator' };
+      mockReq.user = { userId: 1, username: "testuser", role: "moderator" };
       
-      const middleware = authorizeRole('user', 'editor', 'moderator', 'admin');
+      const middleware = authorizeRole('user', 'editor', "moderator", 'admin');
       middleware(mockReq as Request, mockRes as Response, mockNext);
 
       expect(mockNext).toHaveBeenCalled();
     });
 
     it('should be case sensitive for roles', () => {
-      mockReq.user = { userId: 1, username: 'testuser', role: 'Admin' };
+      mockReq.user = { userId: 1, username: "testuser", role: 'Admin' };
       
       const middleware = authorizeRole('admin');
       middleware(mockReq as Request, mockRes as Response, mockNext);
@@ -290,7 +290,7 @@ describe('jwt-auth middleware', () => {
     });
 
     it('should handle empty roles array', () => {
-      mockReq.user = { userId: 1, username: 'testuser', role: 'user' };
+      mockReq.user = { userId: 1, username: "testuser", role: 'user' };
       
       const middleware = authorizeRole();
       middleware(mockReq as Request, mockRes as Response, mockNext);

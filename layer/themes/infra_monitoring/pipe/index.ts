@@ -60,7 +60,7 @@ export class MonitoringPipe {
 
   // Health checks
   async getSystemHealth(): Promise<{
-    status: 'healthy' | 'degraded' | 'unhealthy';
+    status: 'healthy' | "degraded" | "unhealthy";
     services: Record<string, boolean>;
     metrics: Record<string, number>;
   }> {

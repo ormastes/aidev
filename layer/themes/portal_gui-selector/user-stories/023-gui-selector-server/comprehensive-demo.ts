@@ -56,7 +56,7 @@ async function testWebInterface() {
       
       // Check for key components
       const hasReports = html.includes('Story Reports');
-      const hasTemplates = html.includes('Templates');
+      const hasTemplates = html.includes("Templates");
       const hasAuth = html.includes('Login');
       
       addResult('UI Components', hasReports && hasTemplates && hasAuth, 
@@ -75,7 +75,7 @@ async function testAuthentication() {
     const loginResponse = await fetch(`${BASE_URL}/api/v2/auth/token`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: 'admin', password: 'admin123' })
+      body: JSON.stringify({ username: 'admin', password: "PLACEHOLDER" })
     });
 
     if (loginResponse.ok) {
@@ -87,7 +87,7 @@ async function testAuthentication() {
 
       // Test token verification
       const verifyResponse = await fetch(`${BASE_URL}/api/v2/auth/verify`, {
-        headers: { 'Authorization': `Bearer ${accessToken}` }
+        headers: { "Authorization": `Bearer ${accessToken}` }
       });
 
       if (verifyResponse.ok) {
@@ -104,10 +104,10 @@ async function testAuthentication() {
     const sessionResponse = await fetch(`${BASE_URL}/api/auth/session`);
     const sessionData = await sessionResponse.json();
     addResult('Session Auth', sessionData.authenticated || false, 
-      `Session auth ${sessionData.authenticated ? 'active' : 'inactive'}`);
+      `Session auth ${sessionData.authenticated ? 'active' : "inactive"}`);
 
   } catch (error) {
-    addResult('Authentication', false, `Auth test failed: ${error}`);
+    addResult("Authentication", false, `Auth test failed: ${error}`);
   }
 }
 
@@ -187,7 +187,7 @@ async function testReportGeneration() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`
+        "Authorization": `Bearer ${accessToken}`
       },
       body: JSON.stringify({
         title: 'Demo Test Report',
@@ -206,7 +206,7 @@ async function testReportGeneration() {
       await delay(4000);
       
       const statusResponse = await fetch(`${BASE_URL}/api/reports/${newReport.id}`, {
-        headers: { 'Authorization': `Bearer ${accessToken}` }
+        headers: { "Authorization": `Bearer ${accessToken}` }
       });
       
       if (statusResponse.ok) {
@@ -234,7 +234,7 @@ async function testGUISelector() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`
+        "Authorization": `Bearer ${accessToken}`
       },
       body: JSON.stringify({
         name: 'Demo App',
@@ -258,7 +258,7 @@ async function testGUISelector() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`
+        "Authorization": `Bearer ${accessToken}`
       },
       body: JSON.stringify({
         templateId: 'modern-01',
@@ -277,10 +277,10 @@ async function testGUISelector() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
+          "Authorization": `Bearer ${accessToken}`
         },
         body: JSON.stringify({
-          type: 'functional',
+          type: "functional",
           description: 'Demo requirement for testing',
           priority: 'medium',
           selectionId: selection.id || 1
@@ -306,7 +306,7 @@ async function testDataExport() {
   try {
     // Test requirements export
     const exportResponse = await fetch(`${BASE_URL}/api/requirements/export?format=json`, {
-      headers: accessToken ? { 'Authorization': `Bearer ${accessToken}` } : {}
+      headers: accessToken ? { "Authorization": `Bearer ${accessToken}` } : {}
     });
 
     if (exportResponse.ok) {
@@ -323,7 +323,7 @@ async function testDataExport() {
       const reports = await reportsResponse.json();
       if (reports.length > 0) {
         const downloadResponse = await fetch(`${BASE_URL}/api/reports/${reports[0].id}/download`, {
-          headers: accessToken ? { 'Authorization': `Bearer ${accessToken}` } : {}
+          headers: accessToken ? { "Authorization": `Bearer ${accessToken}` } : {}
         });
         
         if (downloadResponse.ok) {
@@ -352,9 +352,9 @@ async function generateSummaryReport() {
   
   // Group results by category
   const categories = {
-    'Infrastructure': ['Health Check', 'Web Interface', 'UI Components'],
-    'Authentication': ['JWT Authentication', 'Token Verification', 'Session Auth'],
-    'Templates': ['Templates API', 'Template Preview'],
+    "Infrastructure": ['Health Check', 'Web Interface', 'UI Components'],
+    "Authentication": ['JWT Authentication', 'Token Verification', 'Session Auth'],
+    "Templates": ['Templates API', 'Template Preview'],
     'Story Reports': ['Story Reports API', 'Report Details', 'Report Statistics', 'Report Generation', 'Report Status Update'],
     'GUI Selector': ['App Creation', 'Template Selection', 'Requirements Management'],
     'Data Management': ['Data Export', 'Report Download']

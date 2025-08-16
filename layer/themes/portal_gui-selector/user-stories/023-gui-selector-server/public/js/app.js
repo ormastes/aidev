@@ -4,7 +4,7 @@ class GuiSelectorApp {
         this.templates = [];
         this.currentUser = null;
         this.selectedTemplateId = null;
-        this.accessToken = localStorage.getItem('accessToken') || null;
+        this.accessToken = localStorage.getItem("accessToken") || null;
         this.reports = [];
         this.init();
     }
@@ -124,9 +124,9 @@ class GuiSelectorApp {
         document.getElementById(`${viewName}-view`).classList.add('active');
         document.querySelector(`.app-nav a[href="#${viewName}"]`).classList.add('active');
         
-        if (viewName === 'selections' && this.currentUser) {
+        if (viewName === "selections" && this.currentUser) {
             this.loadSelections();
-        } else if (viewName === 'requirements' && this.currentUser) {
+        } else if (viewName === "requirements" && this.currentUser) {
             this.loadRequirements();
         } else if (viewName === 'reports') {
             this.loadReports();
@@ -138,7 +138,7 @@ class GuiSelectorApp {
             try {
                 const response = await fetch('/api/v2/auth/verify', {
                     headers: {
-                        'Authorization': `Bearer ${this.accessToken}`
+                        "Authorization": `Bearer ${this.accessToken}`
                     }
                 });
                 
@@ -169,7 +169,7 @@ class GuiSelectorApp {
 
     updateAuthUI() {
         const authBtn = document.getElementById('auth-btn');
-        const username = document.getElementById('username');
+        const username = document.getElementById("username");
         
         if (this.currentUser) {
             authBtn.textContent = 'Logout';
@@ -202,8 +202,8 @@ class GuiSelectorApp {
                 const data = await jwtResponse.json();
                 this.currentUser = data.user;
                 this.accessToken = data.accessToken;
-                localStorage.setItem('accessToken', this.accessToken);
-                localStorage.setItem('refreshToken', data.refreshToken);
+                localStorage.setItem("accessToken", this.accessToken);
+                localStorage.setItem("refreshToken", data.refreshToken);
                 this.updateAuthUI();
                 document.getElementById('login-modal').classList.remove('active');
                 document.getElementById('login-form').reset();
@@ -240,11 +240,11 @@ class GuiSelectorApp {
                 await fetch('/api/v2/auth/logout', {
                     method: 'POST',
                     headers: {
-                        'Authorization': `Bearer ${this.accessToken}`
+                        "Authorization": `Bearer ${this.accessToken}`
                     }
                 });
-                localStorage.removeItem('accessToken');
-                localStorage.removeItem('refreshToken');
+                localStorage.removeItem("accessToken");
+                localStorage.removeItem("refreshToken");
                 this.accessToken = null;
             } else {
                 await fetch('/api/auth/logout', { method: 'POST' });
@@ -338,7 +338,7 @@ class GuiSelectorApp {
         try {
             const headers = { 'Content-Type': 'application/json' };
             if (this.accessToken) {
-                headers['Authorization'] = `Bearer ${this.accessToken}`;
+                headers["Authorization"] = `Bearer ${this.accessToken}`;
             }
 
             const response = await fetch('/api/selections', {
@@ -370,7 +370,7 @@ class GuiSelectorApp {
         try {
             const headers = {};
             if (this.accessToken) {
-                headers['Authorization'] = `Bearer ${this.accessToken}`;
+                headers["Authorization"] = `Bearer ${this.accessToken}`;
             }
 
             const response = await fetch('/api/selections', { headers });
@@ -413,7 +413,7 @@ class GuiSelectorApp {
         try {
             const headers = {};
             if (this.accessToken) {
-                headers['Authorization'] = `Bearer ${this.accessToken}`;
+                headers["Authorization"] = `Bearer ${this.accessToken}`;
             }
 
             const response = await fetch('/api/requirements', { headers });
@@ -458,7 +458,7 @@ class GuiSelectorApp {
         try {
             const headers = {};
             if (this.accessToken) {
-                headers['Authorization'] = `Bearer ${this.accessToken}`;
+                headers["Authorization"] = `Bearer ${this.accessToken}`;
             }
 
             const response = await fetch('/api/requirements/export?format=json', { headers });
@@ -511,7 +511,7 @@ class GuiSelectorApp {
         try {
             const headers = { 'Content-Type': 'application/json' };
             if (this.accessToken) {
-                headers['Authorization'] = `Bearer ${this.accessToken}`;
+                headers["Authorization"] = `Bearer ${this.accessToken}`;
             }
 
             // Simulate API call for report generation
@@ -545,7 +545,7 @@ class GuiSelectorApp {
                     title,
                     type,
                     description,
-                    status: 'completed',
+                    status: "completed",
                     createdAt: new Date().toISOString(),
                     storyPath
                 };
@@ -573,7 +573,7 @@ class GuiSelectorApp {
         try {
             const headers = {};
             if (this.accessToken) {
-                headers['Authorization'] = `Bearer ${this.accessToken}`;
+                headers["Authorization"] = `Bearer ${this.accessToken}`;
             }
 
             // Try to load from API, fallback to mock data
@@ -601,7 +601,7 @@ class GuiSelectorApp {
                 title: 'Test-as-Manual Feature Analysis',
                 type: 'user-story',
                 description: 'Comprehensive analysis of test-as-manual conversion features and user stories',
-                status: 'completed',
+                status: "completed",
                 createdAt: new Date(Date.now() - 86400000).toISOString(), // Yesterday
                 storyPath: 'layer/themes/test-as-manual/user-stories/'
             },
@@ -610,16 +610,16 @@ class GuiSelectorApp {
                 title: 'GUI Selector Coverage Report',
                 type: 'test-coverage',
                 description: 'Test coverage analysis for GUI selector components',
-                status: 'completed', 
+                status: "completed", 
                 createdAt: new Date(Date.now() - 172800000).toISOString(), // 2 days ago
                 storyPath: 'layer/themes/gui-selector/user-stories/'
             },
             {
                 id: 3,
                 title: 'Sprint Q3 Security Assessment',
-                type: 'security',
+                type: "security",
                 description: 'Security vulnerability analysis for current sprint deliverables',
-                status: 'generating',
+                status: "generating",
                 createdAt: new Date().toISOString(),
                 storyPath: 'layer/themes/*/user-stories/'
             }
@@ -690,8 +690,8 @@ class GuiSelectorApp {
         const labels = {
             'user-story': 'User Stories',
             'test-coverage': 'Test Coverage',
-            'performance': 'Performance',
-            'security': 'Security'
+            "performance": "Performance",
+            "security": "Security"
         };
         return labels[type] || type;
     }
@@ -824,7 +824,7 @@ class GuiSelectorApp {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    ...(this.accessToken ? { 'Authorization': `Bearer ${this.accessToken}` } : {})
+                    ...(this.accessToken ? { "Authorization": `Bearer ${this.accessToken}` } : {})
                 },
                 body: JSON.stringify({
                     fromDevice: 'gui-selector-web',
@@ -1036,6 +1036,6 @@ class GuiSelectorApp {
 }
 
 // Initialize the app
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     new GuiSelectorApp();
 });

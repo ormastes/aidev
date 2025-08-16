@@ -47,7 +47,7 @@ class MockProvider implements LLMProvider {
   }
 }
 
-describe('ProviderRegistry', () => {
+describe("ProviderRegistry", () => {
   let registry: ProviderRegistry;
   let mockProvider1: MockProvider;
   let mockProvider2: MockProvider;
@@ -55,22 +55,22 @@ describe('ProviderRegistry', () => {
 
   beforeEach(() => {
     registry = new ProviderRegistry({
-      defaultProvider: 'provider1',
-      fallbackProviders: ['provider2', 'provider3'],
+      defaultProvider: "provider1",
+      fallbackProviders: ["provider2", "provider3"],
       healthCheckInterval: 0, // Disable auto health checks
       loadBalancing: 'round-robin'
     });
 
-    mockProvider1 = new MockProvider('provider1', false, 50);
-    mockProvider2 = new MockProvider('provider2', false, 100);
-    mockProvider3 = new MockProvider('provider3', false, 150);
+    mockProvider1 = new MockProvider("provider1", false, 50);
+    mockProvider2 = new MockProvider("provider2", false, 100);
+    mockProvider3 = new MockProvider("provider3", false, 150);
 
-    registry.registerProvider('provider1', mockProvider1);
-    registry.registerProvider('provider2', mockProvider2);
-    registry.registerProvider('provider3', mockProvider3);
+    registry.registerProvider("provider1", mockProvider1);
+    registry.registerProvider("provider2", mockProvider2);
+    registry.registerProvider("provider3", mockProvider3);
   });
 
-  describe('registerProvider', () => {
+  describe("registerProvider", () => {
     it('should register provider', () => {
       const newProvider = new MockProvider('new-provider');
       registry.registerProvider('new-provider', newProvider);
@@ -80,11 +80,11 @@ describe('ProviderRegistry', () => {
     });
   });
 
-  describe('createProvider', () => {
+  describe("createProvider", () => {
     it('should create OpenAI provider', () => {
       const config: ProviderConfig = {
         name: 'openai',
-        apiKey: 'test-key'
+        api_key: process.env.API_KEY || "PLACEHOLDER"
       };
       const provider = registry.createProvider('openai', config);
       expect(provider.name).toBe('openai');
@@ -92,11 +92,11 @@ describe('ProviderRegistry', () => {
 
     it('should create Anthropic provider', () => {
       const config: ProviderConfig = {
-        name: 'anthropic',
-        apiKey: 'test-key'
+        name: "anthropic",
+        api_key: process.env.API_KEY || "PLACEHOLDER"
       };
-      const provider = registry.createProvider('anthropic', config);
-      expect(provider.name).toBe('anthropic');
+      const provider = registry.createProvider("anthropic", config);
+      expect(provider.name).toBe("anthropic");
     });
 
     it('should create Ollama provider', () => {
@@ -114,9 +114,9 @@ describe('ProviderRegistry', () => {
     });
   });
 
-  describe('getProvider', () => {
+  describe("getProvider", () => {
     it('should get registered provider', () => {
-      const provider = registry.getProvider('provider1');
+      const provider = registry.getProvider("provider1");
       expect(provider).toBe(mockProvider1);
     });
 
@@ -125,9 +125,9 @@ describe('ProviderRegistry', () => {
     });
   });
 
-  describe('getHealthyProvider', () => {
+  describe("getHealthyProvider", () => {
     it('should return preferred provider if healthy', async () => {
-      const provider = await registry.getHealthyProvider('provider2');
+      const provider = await registry.getHealthyProvider("provider2");
       expect(provider).toBe(mockProvider2);
     });
 
@@ -143,7 +143,7 @@ describe('ProviderRegistry', () => {
       
       const provider = await registry.getHealthyProvider();
       expect(provider).toBeInstanceOf(MockProvider);
-      expect(provider.name).not.toBe('provider1');
+      expect(provider.name).not.toBe("provider1");
     });
 
     it('should throw error if no healthy providers', async () => {
@@ -157,7 +157,7 @@ describe('ProviderRegistry', () => {
     });
   });
 
-  describe('selectProvider', () => {
+  describe("selectProvider", () => {
     it('should select provider using round-robin', async () => {
       const providers = [
         await registry.selectProvider(),
@@ -167,10 +167,10 @@ describe('ProviderRegistry', () => {
       ];
 
       // Should cycle through providers
-      expect(providers[0].name).toBe('provider1');
-      expect(providers[1].name).toBe('provider2');
-      expect(providers[2].name).toBe('provider3');
-      expect(providers[3].name).toBe('provider1');
+      expect(providers[0].name).toBe("provider1");
+      expect(providers[1].name).toBe("provider2");
+      expect(providers[2].name).toBe("provider3");
+      expect(providers[3].name).toBe("provider1");
     });
 
     it('should select provider using random', async () => {
@@ -178,11 +178,11 @@ describe('ProviderRegistry', () => {
         loadBalancing: 'random'
       });
       
-      randomRegistry.registerProvider('provider1', mockProvider1);
-      randomRegistry.registerProvider('provider2', mockProvider2);
+      randomRegistry.registerProvider("provider1", mockProvider1);
+      randomRegistry.registerProvider("provider2", mockProvider2);
       
       const provider = await randomRegistry.selectProvider();
-      expect(['provider1', 'provider2']).toContain(provider.name);
+      expect(["provider1", "provider2"]).toContain(provider.name);
     });
 
     it('should select provider using least-latency', async () => {
@@ -190,24 +190,24 @@ describe('ProviderRegistry', () => {
         loadBalancing: 'least-latency'
       });
       
-      latencyRegistry.registerProvider('provider1', mockProvider1); // 50ms
-      latencyRegistry.registerProvider('provider2', mockProvider2); // 100ms
-      latencyRegistry.registerProvider('provider3', mockProvider3); // 150ms
+      latencyRegistry.registerProvider("provider1", mockProvider1); // 50ms
+      latencyRegistry.registerProvider("provider2", mockProvider2); // 100ms
+      latencyRegistry.registerProvider("provider3", mockProvider3); // 150ms
       
       // Simulate latency measurements
-      latencyRegistry['providerLatency'].set('provider1', 50);
-      latencyRegistry['providerLatency'].set('provider2', 100);
-      latencyRegistry['providerLatency'].set('provider3', 150);
+      latencyRegistry["providerLatency"].set("provider1", 50);
+      latencyRegistry["providerLatency"].set("provider2", 100);
+      latencyRegistry["providerLatency"].set("provider3", 150);
       
       const provider = await latencyRegistry.selectProvider();
-      expect(provider.name).toBe('provider1');
+      expect(provider.name).toBe("provider1");
     });
   });
 
-  describe('createCompletionWithFallback', () => {
+  describe("createCompletionWithFallback", () => {
     it('should create completion with preferred provider', async () => {
       const result = await registry.createCompletionWithFallback('Hello', {
-        preferredProvider: 'provider2'
+        preferredProvider: "provider2"
       });
       expect(result).toBe('Response from provider2: Hello');
     });
@@ -216,10 +216,10 @@ describe('ProviderRegistry', () => {
       mockProvider1.setFailure(true);
       
       const result = await registry.createCompletionWithFallback('Hello', {
-        preferredProvider: 'provider1'
+        preferredProvider: "provider1"
       });
       expect(result).toContain('Response from provider');
-      expect(result).not.toContain('provider1');
+      expect(result).not.toContain("provider1");
     });
 
     it('should throw error if all providers fail', async () => {
@@ -233,12 +233,12 @@ describe('ProviderRegistry', () => {
     });
   });
 
-  describe('streamCompletionWithFallback', () => {
+  describe("streamCompletionWithFallback", () => {
     it('should stream completion with preferred provider', async () => {
       const chunks: string[] = [];
       await registry.streamCompletionWithFallback('Hello', (chunk) => {
         chunks.push(chunk);
-      }, { preferredProvider: 'provider2' });
+      }, { preferredProvider: "provider2" });
       
       expect(chunks).toHaveLength(1);
       expect(chunks[0]).toBe('Response from provider2: Hello');
@@ -250,14 +250,14 @@ describe('ProviderRegistry', () => {
       const chunks: string[] = [];
       await registry.streamCompletionWithFallback('Hello', (chunk) => {
         chunks.push(chunk);
-      }, { preferredProvider: 'provider1' });
+      }, { preferredProvider: "provider1" });
       
       expect(chunks).toHaveLength(1);
-      expect(chunks[0]).not.toContain('provider1');
+      expect(chunks[0]).not.toContain("provider1");
     });
   });
 
-  describe('checkHealth', () => {
+  describe("checkHealth", () => {
     it('should check health of all providers', async () => {
       await registry.checkHealth();
       
@@ -290,20 +290,20 @@ describe('ProviderRegistry', () => {
   describe('provider management', () => {
     it('should list providers', () => {
       const providers = registry.listProviders();
-      expect(providers).toEqual(['provider1', 'provider2', 'provider3']);
+      expect(providers).toEqual(["provider1", "provider2", "provider3"]);
     });
 
     it('should remove provider', () => {
-      registry.removeProvider('provider2');
+      registry.removeProvider("provider2");
       const providers = registry.listProviders();
-      expect(providers).toEqual(['provider1', 'provider3']);
+      expect(providers).toEqual(["provider1", "provider3"]);
     });
 
     it('should get provider status', () => {
       const status = registry.getProviderStatus();
-      expect(status).toHaveProperty('provider1');
-      expect(status).toHaveProperty('provider2');
-      expect(status).toHaveProperty('provider3');
+      expect(status).toHaveProperty("provider1");
+      expect(status).toHaveProperty("provider2");
+      expect(status).toHaveProperty("provider3");
       
       expect(status.provider1.healthy).toBe(true);
       expect(status.provider1.latency).toBeGreaterThanOrEqual(0);

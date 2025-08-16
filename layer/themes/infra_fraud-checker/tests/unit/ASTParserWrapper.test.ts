@@ -7,7 +7,7 @@ import * as t from '@babel/types';
 jest.mock('@babel/parser');
 jest.mock('@babel/traverse');
 
-describe('ASTParserWrapper', () => {
+describe("ASTParserWrapper", () => {
   let astWrapper: ASTParserWrapper;
   let mockParser: jest.Mocked<typeof parser>;
   let mockTraverse: jest.MockedFunction<typeof traverse>;
@@ -20,7 +20,7 @@ describe('ASTParserWrapper', () => {
     astWrapper = new ASTParserWrapper();
   });
 
-  describe('parseTestFile', () => {
+  describe("parseTestFile", () => {
     it('should parse TypeScript file successfully', async () => {
       const code = 'const test = () => {};';
       const filename = 'test.ts';
@@ -34,11 +34,11 @@ describe('ASTParserWrapper', () => {
       expect(mockParser.parse).toHaveBeenCalledWith(code, {
         sourceType: 'module',
         plugins: [
-          'typescript',
+          "typescript",
           'jsx',
           'decorators-legacy',
-          'classProperties',
-          'asyncGenerators'
+          "classProperties",
+          "asyncGenerators"
         ]
       });
 
@@ -106,7 +106,7 @@ describe('ASTParserWrapper', () => {
     });
   });
 
-  describe('findTestPatterns', () => {
+  describe("findTestPatterns", () => {
     let mockAst: t.File;
 
     beforeEach(() => {
@@ -121,11 +121,11 @@ describe('ASTParserWrapper', () => {
         if (visitors.CallExpression) {
           const mockPath = {
             node: {
-              type: 'CallExpression',
+              type: "CallExpression",
               callee: {
-                type: 'MemberExpression',
-                object: { type: 'Identifier', name: 'it' },
-                property: { type: 'Identifier', name: 'skip' }
+                type: "MemberExpression",
+                object: { type: "Identifier", name: 'it' },
+                property: { type: "Identifier", name: 'skip' }
               },
               loc: { start: { line: 10, column: 5 } }
             } as t.CallExpression
@@ -151,11 +151,11 @@ describe('ASTParserWrapper', () => {
         if (visitors.CallExpression) {
           const mockPath = {
             node: {
-              type: 'CallExpression',
+              type: "CallExpression",
               callee: {
-                type: 'MemberExpression',
-                object: { type: 'Identifier', name: 'test' },
-                property: { type: 'Identifier', name: 'only' }
+                type: "MemberExpression",
+                object: { type: "Identifier", name: 'test' },
+                property: { type: "Identifier", name: 'only' }
               },
               loc: { start: { line: 15, column: 8 } }
             } as t.CallExpression
@@ -181,11 +181,11 @@ describe('ASTParserWrapper', () => {
         if (visitors.CallExpression) {
           const mockPath = {
             node: {
-              type: 'CallExpression',
+              type: "CallExpression",
               callee: {
-                type: 'MemberExpression',
-                object: { type: 'Identifier', name: 'describe' },
-                property: { type: 'Identifier', name: 'skip' }
+                type: "MemberExpression",
+                object: { type: "Identifier", name: "describe" },
+                property: { type: "Identifier", name: 'skip' }
               },
               loc: { start: { line: 5, column: 2 } }
             } as t.CallExpression
@@ -211,14 +211,14 @@ describe('ASTParserWrapper', () => {
         if (visitors.CallExpression) {
           const mockPath = {
             node: {
-              type: 'CallExpression',
-              callee: { type: 'Identifier', name: 'it' },
+              type: "CallExpression",
+              callee: { type: "Identifier", name: 'it' },
               arguments: [
-                { type: 'StringLiteral', value: 'test name' },
+                { type: "StringLiteral", value: 'test name' },
                 {
-                  type: 'ArrowFunctionExpression',
+                  type: "ArrowFunctionExpression",
                   body: {
-                    type: 'BlockStatement',
+                    type: "BlockStatement",
                     body: [] // Empty body
                   }
                 }
@@ -248,19 +248,19 @@ describe('ASTParserWrapper', () => {
           // First call to visitor - expect(true)
           const expectPath = {
             node: {
-              type: 'CallExpression',
-              callee: { type: 'Identifier', name: 'expect' },
-              arguments: [{ type: 'BooleanLiteral', value: true }],
+              type: "CallExpression",
+              callee: { type: "Identifier", name: 'expect' },
+              arguments: [{ type: "BooleanLiteral", value: true }],
               loc: { start: { line: 25, column: 4 } }
             } as t.CallExpression,
             parent: {
-              type: 'MemberExpression',
-              property: { type: 'Identifier', name: 'toBe' }
+              type: "MemberExpression",
+              property: { type: "Identifier", name: 'toBe' }
             } as t.MemberExpression,
             parentPath: {
               parent: {
-                type: 'CallExpression',
-                arguments: [{ type: 'BooleanLiteral', value: true }]
+                type: "CallExpression",
+                arguments: [{ type: "BooleanLiteral", value: true }]
               } as t.CallExpression
             }
           } as any;
@@ -286,11 +286,11 @@ describe('ASTParserWrapper', () => {
         if (visitors.CallExpression) {
           const mockPath = {
             node: {
-              type: 'CallExpression',
+              type: "CallExpression",
               callee: {
-                type: 'MemberExpression',
-                object: { type: 'Identifier', name: 'it' },
-                property: { type: 'Identifier', name: 'skip' }
+                type: "MemberExpression",
+                object: { type: "Identifier", name: 'it' },
+                property: { type: "Identifier", name: 'skip' }
               },
               loc: null // No location info
             } as t.CallExpression
@@ -347,7 +347,7 @@ describe('ASTParserWrapper', () => {
     });
   });
 
-  describe('hasAssertions', () => {
+  describe("hasAssertions", () => {
     let mockAst: t.File;
 
     beforeEach(() => {
@@ -359,8 +359,8 @@ describe('ASTParserWrapper', () => {
         if (visitors.CallExpression) {
           const mockPath = {
             node: {
-              type: 'CallExpression',
-              callee: { type: 'Identifier', name: 'expect' }
+              type: "CallExpression",
+              callee: { type: "Identifier", name: 'expect' }
             } as t.CallExpression,
             stop: jest.fn()
           } as any;
@@ -378,8 +378,8 @@ describe('ASTParserWrapper', () => {
         if (visitors.CallExpression) {
           const mockPath = {
             node: {
-              type: 'CallExpression',
-              callee: { type: 'Identifier', name: 'assert' }
+              type: "CallExpression",
+              callee: { type: "Identifier", name: 'assert' }
             } as t.CallExpression,
             stop: jest.fn()
           } as any;
@@ -397,8 +397,8 @@ describe('ASTParserWrapper', () => {
         if (visitors.CallExpression) {
           const mockPath = {
             node: {
-              type: 'CallExpression',
-              callee: { type: 'Identifier', name: 'console' }
+              type: "CallExpression",
+              callee: { type: "Identifier", name: 'console' }
             } as t.CallExpression
           } as any;
           visitors.CallExpression(mockPath);
@@ -417,8 +417,8 @@ describe('ASTParserWrapper', () => {
         if (visitors.CallExpression) {
           const mockPath = {
             node: {
-              type: 'CallExpression',
-              callee: { type: 'Identifier', name: 'expect' }
+              type: "CallExpression",
+              callee: { type: "Identifier", name: 'expect' }
             } as t.CallExpression,
             stop: stopMock
           } as any;
@@ -550,17 +550,17 @@ describe('ASTParserWrapper', () => {
           const patterns = [
             {
               callee: {
-                type: 'MemberExpression',
-                object: { type: 'Identifier', name: 'it' },
-                property: { type: 'Identifier', name: 'skip' }
+                type: "MemberExpression",
+                object: { type: "Identifier", name: 'it' },
+                property: { type: "Identifier", name: 'skip' }
               },
               loc: { start: { line: 1, column: 0 } }
             },
             {
               callee: {
-                type: 'MemberExpression',
-                object: { type: 'Identifier', name: 'test' },
-                property: { type: 'Identifier', name: 'only' }
+                type: "MemberExpression",
+                object: { type: "Identifier", name: 'test' },
+                property: { type: "Identifier", name: 'only' }
               },
               loc: { start: { line: 2, column: 0 } }
             }
@@ -568,7 +568,7 @@ describe('ASTParserWrapper', () => {
           
           patterns.forEach(pattern => {
             const mockPath = {
-              node: { type: 'CallExpression', ...pattern } as t.CallExpression
+              node: { type: "CallExpression", ...pattern } as t.CallExpression
             } as any;
             visitors.CallExpression(mockPath);
           });
@@ -589,14 +589,14 @@ describe('ASTParserWrapper', () => {
         if (visitors.CallExpression) {
           const mockPath = {
             node: {
-              type: 'CallExpression',
-              callee: { type: 'Identifier', name: 'it' },
+              type: "CallExpression",
+              callee: { type: "Identifier", name: 'it' },
               arguments: [
-                { type: 'StringLiteral', value: 'test' },
+                { type: "StringLiteral", value: 'test' },
                 {
-                  type: 'FunctionExpression',
+                  type: "FunctionExpression",
                   body: {
-                    type: 'BlockStatement',
+                    type: "BlockStatement",
                     body: []
                   }
                 }

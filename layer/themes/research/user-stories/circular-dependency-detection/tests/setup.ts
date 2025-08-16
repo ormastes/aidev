@@ -3,7 +3,7 @@
  */
 
 import * as fs from 'fs-extra';
-import { path } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 
 // Global test timeout
 jest.setTimeout(30000);

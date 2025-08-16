@@ -42,7 +42,7 @@ export class CppCoverageSetup {
       '*/build/*'
     ],
     reportFormats: ['html', 'json', 'lcov'],
-    reportDirectory: 'coverage'
+    reportDirectory: "coverage"
   };
 
   async setup(projectPath: string, config?: Partial<CppCoverageConfig>): Promise<void> {
@@ -169,7 +169,7 @@ coverage.json
 `;
     
     try {
-      const existing = await fs.readFile(gitignorePath, 'utf-8');
+      const existing = await fileAPI.readFile(gitignorePath, 'utf-8');
       if (!existing.includes('# Coverage files')) {
         await fileAPI.writeFile(gitignorePath, coverageIgnores);
       }
@@ -203,13 +203,13 @@ coverage.json
 export class CppCoverageChecker {
   async checkCoverage(projectPath: string): Promise<boolean> {
     const configPath = path.join(projectPath, { type: FileType.TEMPORARY });
-    const config: CppCoverageConfig = JSON.parse(await fs.readFile(configPath, 'utf-8'));
+    const config: CppCoverageConfig = JSON.parse(await fileAPI.readFile(configPath, 'utf-8'));
     
     // Check if coverage report exists
     const coverageJsonPath = path.join(projectPath, 'build', 'coverage.json');
     
     try {
-      const coverageData = JSON.parse(await fs.readFile(coverageJsonPath, 'utf-8'));
+      const coverageData = JSON.parse(await fileAPI.readFile(coverageJsonPath, 'utf-8'));
       return this.validateThresholds(coverageData, config.thresholds);
     } catch (error) {
       console.error('❌ Coverage report not found. Run "make coverage" first.');
@@ -217,7 +217,7 @@ export class CppCoverageChecker {
     }
   }
 
-  private async validateThresholds(coverageData: any, thresholds: CppCoverageConfig['thresholds']): boolean {
+  private async validateThresholds(coverageData: any, thresholds: CppCoverageConfig["thresholds"]): boolean {
     let passed = true;
     const results: string[] = [];
     

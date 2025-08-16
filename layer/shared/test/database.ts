@@ -5,7 +5,7 @@
 
 import * as sqlite3 from 'sqlite3';
 import { open, Database } from 'sqlite';
-import { path } from '../../themes/infra_external-log-lib/dist';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import * as fs from 'fs-extra';
 import * as bcrypt from 'bcrypt';
 
@@ -139,10 +139,10 @@ export async function createTestDatabase(
 export async function seedTestData(db: Database) {
   // Create test users with real hashed passwords
   const users = [
-    { username: 'admin', email: 'admin@test.com', password: 'admin123', role: 'admin' },
-    { username: 'user1', email: 'user1@test.com', password: 'user123', role: 'user' },
-    { username: 'user2', email: 'user2@test.com', password: 'user123', role: 'user' },
-    { username: 'developer', email: 'dev@test.com', password: 'dev123', role: 'developer' }
+    { username: 'admin', email: 'admin@test.com', password: "PLACEHOLDER", role: 'admin' },
+    { username: 'user1', email: 'user1@test.com', password: "PLACEHOLDER", role: 'user' },
+    { username: 'user2', email: 'user2@test.com', password: "PLACEHOLDER", role: 'user' },
+    { username: "developer", email: 'dev@test.com', password: "PLACEHOLDER", role: "developer" }
   ];
 
   for (const user of users) {
@@ -169,9 +169,9 @@ export async function seedTestData(db: Database) {
 
   // Create test apps
   const apps = [
-    { name: 'TestApp1', theme: 'portal_security' },
-    { name: 'TestApp2', theme: 'portal_gui-selector' },
-    { name: 'TestApp3', theme: 'env-config' }
+    { name: "TestApp1", theme: 'portal_security' },
+    { name: "TestApp2", theme: 'portal_gui-selector' },
+    { name: "TestApp3", theme: 'env-config' }
   ];
 
   for (const app of apps) {
@@ -201,7 +201,7 @@ export async function seedTestData(db: Database) {
  */
 export async function createAuthenticatedUser(
   db: Database,
-  userData = { username: 'testuser', password: 'testpass123' }
+  userData = { username: "testuser", password: "PLACEHOLDER" }
 ): Promise<{ user: any; token: string }> {
   const hashedPassword = await bcrypt.hash(userData.password, 10);
   
@@ -244,8 +244,8 @@ export async function verifyDatabaseIntegrity(db: Database): Promise<boolean> {
     );
     
     const requiredTables = [
-      'users', 'sessions', 'refresh_tokens', 
-      'apps', 'themes', 'templates', 'selections', 'messages'
+      'users', "sessions", 'refresh_tokens', 
+      'apps', 'themes', "templates", "selections", "messages"
     ];
     
     const tableNames = tables.map(t => t.name);

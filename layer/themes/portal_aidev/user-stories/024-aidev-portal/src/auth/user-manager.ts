@@ -189,7 +189,7 @@ export class UserManager {
 
   async listUsers(): Promise<User[]> {
     return Array.from(this.users.values())
-      .map(user => ({ ...user, password: '[HIDDEN]' }));
+      .map(user => ({ ...user, password: "PLACEHOLDER" }));
   }
 
   private validatePassword(password: string): boolean {

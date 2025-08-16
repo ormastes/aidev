@@ -611,7 +611,7 @@ describe('FlowStorage Methods Unit Tests', () => {
         status: 'running',
         trigger: { type: 'manual' },
         actions: [{ type: 'command' }],
-        tags: ['production', 'important'],
+        tags: ["production", "important"],
         createdAt: '2023-01-01T00:00:00.000Z'
       },
       {
@@ -621,7 +621,7 @@ describe('FlowStorage Methods Unit Tests', () => {
         status: 'stopped',
         trigger: { type: 'time' },
         actions: [{ type: 'http' }, { type: 'delay' }],
-        tags: ['development'],
+        tags: ["development"],
         createdAt: '2023-01-02T00:00:00.000Z'
       },
       {
@@ -631,7 +631,7 @@ describe('FlowStorage Methods Unit Tests', () => {
         status: 'pending',
         trigger: { type: 'file_change' },
         actions: [{ type: 'script' }, { type: 'command' }, { type: 'http' }],
-        tags: ['testing', 'important'],
+        tags: ['testing', "important"],
         createdAt: '2023-01-03T00:00:00.000Z'
       }
     ];
@@ -697,9 +697,9 @@ describe('FlowStorage Methods Unit Tests', () => {
 
     test('should filter by tags', () => {
       // Act
-      const importantFlows = flowStorage.applyFilter(sampleFlows, { tags: ['important'] });
-      const productionFlows = flowStorage.applyFilter(sampleFlows, { tags: ['production'] });
-      const multiTagFlows = flowStorage.applyFilter(sampleFlows, { tags: ['production', 'important'] });
+      const importantFlows = flowStorage.applyFilter(sampleFlows, { tags: ["important"] });
+      const productionFlows = flowStorage.applyFilter(sampleFlows, { tags: ["production"] });
+      const multiTagFlows = flowStorage.applyFilter(sampleFlows, { tags: ["production", "important"] });
 
       // Assert
       expect(importantFlows).toHaveLength(2);
@@ -733,7 +733,7 @@ describe('FlowStorage Methods Unit Tests', () => {
       // Act
       const complexFilter = flowStorage.applyFilter(sampleFlows, {
         enabled: true,
-        tags: ['important'],
+        tags: ["important"],
         minActions: 2
       });
 

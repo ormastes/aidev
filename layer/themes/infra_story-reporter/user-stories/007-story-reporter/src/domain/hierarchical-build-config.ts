@@ -54,10 +54,10 @@ export interface HierarchicalBuildConfig extends TestConfiguration {
     aggregateLogs?: boolean;
     
     /** Aggregation strategy */
-    strategy?: 'merge' | 'append' | 'hierarchical';
+    strategy?: 'merge' | 'append' | "hierarchical";
     
     /** Failure handling */
-    failureHandling?: 'fail-fast' | 'continue' | 'ignore-children';
+    failureHandling?: 'fail-fast' | "continue" | 'ignore-children';
   };
   
   /** Build execution order */
@@ -155,7 +155,7 @@ export interface HierarchicalBuildResult {
   error?: {
     message: string;
     stack?: string;
-    phase?: 'setup' | 'build' | 'test' | 'teardown';
+    phase?: 'setup' | 'build' | 'test' | "teardown";
   };
 }
 
@@ -186,8 +186,8 @@ export function createHierarchicalBuildConfig(
       aggregateTests: true,
       aggregateCoverage: true,
       aggregateLogs: true,
-      strategy: 'hierarchical',
-      failureHandling: 'continue'
+      strategy: "hierarchical",
+      failureHandling: "continue"
     },
     executionOrder: {
       priority: 0,
@@ -256,11 +256,11 @@ export function validateHierarchicalBuildConfig(config: any): void {
   if (config.aggregation) {
     const { strategy, failureHandling } = config.aggregation;
     
-    if (strategy && !['merge', 'append', 'hierarchical'].includes(strategy)) {
+    if (strategy && !['merge', 'append', "hierarchical"].includes(strategy)) {
       throw new Error(`Invalid aggregation strategy: ${strategy}`);
     }
     
-    if (failureHandling && !['fail-fast', 'continue', 'ignore-children'].includes(failureHandling)) {
+    if (failureHandling && !['fail-fast', "continue", 'ignore-children'].includes(failureHandling)) {
       throw new Error(`Invalid failure handling: ${failureHandling}`);
     }
   }

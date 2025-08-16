@@ -56,7 +56,7 @@ interface ApiError {
 const state: AppState = {
     user: null,
     token: null,
-    currentView: 'projects',
+    currentView: "projects",
     projects: [],
     features: [],
     tasks: []
@@ -78,7 +78,7 @@ async function apiCall<T>(endpoint: string, options: RequestInit = {}): Promise<
         ...options,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': state.token ? `Bearer ${state.token}` : '',
+            "Authorization": state.token ? `Bearer ${state.token}` : '',
             ...options.headers
         }
     });
@@ -104,8 +104,8 @@ function getElementById<T extends HTMLElement>(id: string): T {
 getElementById<HTMLFormElement>('login-form').addEventListener('submit', async (e: Event) => {
     e.preventDefault();
     
-    const username = getElementById<HTMLInputElement>('username').value;
-    const password = getElementById<HTMLInputElement>('password').value;
+    const username = getElementById<HTMLInputElement>("username").value;
+    const password = getElementById<HTMLInputElement>("password").value;
     
     try {
         const response = await apiCall<{ token: string; user: User }>('/login', {
@@ -181,8 +181,8 @@ const SERVICE_URLS = {
 function setupNavigation(): void {
     // Main navigation links
     const navLinks = [
-        { id: 'projects-link', view: 'projects', handler: loadProjects },
-        { id: 'features-link', view: 'features', handler: loadFeatures },
+        { id: 'projects-link', view: "projects", handler: loadProjects },
+        { id: 'features-link', view: "features", handler: loadFeatures },
         { id: 'feature-progress-link', view: 'feature-progress', handler: loadFeatureProgress },
         { id: 'tasks-link', view: 'tasks', handler: loadTasks },
         { id: 'gui-selector-link', view: 'gui-selector', handler: loadGuiSelector },
@@ -264,7 +264,7 @@ async function selectProject(project: Project): Promise<void> {
     state.selectedProject = project;
     const features = await apiCall<Feature[]>(`/projects/${project.id}/features`);
     state.features = features;
-    showView('features');
+    showView("features");
     renderFeatures();
 }
 
@@ -439,7 +439,7 @@ async function loadFeatureProgress(): Promise<void> {
             f.data.status === 'In Progress' || f.data.status === 'in_development'
         ).length;
         const completedFeatures = features.filter((f: FeatureData) => 
-            f.data.status === 'completed'
+            f.data.status === "completed"
         ).length;
         const pendingTasks = taskData.metadata?.pendingTasks || 0;
 
@@ -495,7 +495,7 @@ function renderFeatureProgress(features: FeatureData[], taskData: TaskQueueData)
 function countRelatedTasks(featureId: string, taskData: TaskQueueData): number {
     // Count tasks that might be related to this feature
     let count = 0;
-    const allQueues = ['critical', 'high', 'medium', 'low'] as const;
+    const allQueues = ["critical", 'high', 'medium', 'low'] as const;
     
     allQueues.forEach(priority => {
         const tasks = taskData.taskQueues[priority] || [];
@@ -510,7 +510,7 @@ function countRelatedTasks(featureId: string, taskData: TaskQueueData): number {
 
 function calculateProgress(status: string): number {
     const statusProgress: { [key: string]: number } = {
-        'completed': 100,
+        "completed": 100,
         'In Progress': 60,
         'in_development': 40,
         'pending': 10,

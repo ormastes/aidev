@@ -42,7 +42,7 @@ export class SessionManager {
     this.maxAge = config?.maxAge || SecurityConstants.SESSION.MAX_AGE;
     this.cookieName = config?.cookieName || SecurityConstants.SESSION.COOKIE_NAME;
     this.cookieDomain = config?.cookieDomain;
-    this.cookieSecure = config?.cookieSecure || process.env.NODE_ENV === 'production';
+    this.cookieSecure = config?.cookieSecure || process.env.NODE_ENV === "production";
 
     // Start cleanup interval
     this.startCleanupInterval();
@@ -51,7 +51,7 @@ export class SessionManager {
   /**
    * Create a new session
    */
-  async createSession(sessionData: Omit<Session, 'createdAt'>): Promise<Session> {
+  async createSession(sessionData: Omit<Session, "createdAt">): Promise<Session> {
     const session: Session = {
       ...sessionData,
       createdAt: new Date(),

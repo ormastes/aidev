@@ -110,7 +110,7 @@ class MockCLIInterface implements CLIInterface {
         message: 'Workspace context', 
         data: { 
           workspace: '/home/user/dev/aidev',
-          themes: ['pocketflow', 'chat-space'],
+          themes: ["pocketflow", 'chat-space'],
           currentRoom: this.currentRoom
         } 
       };
@@ -374,7 +374,7 @@ describe('CLI Interface Command Processing External Test', () => {
     expect(joinResult.data?.currentRoom).toBe('general');
 
     // Test join non-existent room
-    const joinInvalidCommand = { name: 'join', args: ['nonexistent'], options: {} };
+    const joinInvalidCommand = { name: 'join', args: ["nonexistent"], options: {} };
     const joinInvalidResult = await cli.executeCommand(joinInvalidCommand);
     
     expect(joinInvalidResult.success).toBe(false);
@@ -423,7 +423,7 @@ describe('CLI Interface Command Processing External Test', () => {
     expect(result.success).toBe(true);
     expect(result.message).toBe('Workspace context');
     expect(result.data?.workspace).toBe('/home/user/dev/aidev');
-    expect(result.data?.themes).toEqual(['pocketflow', 'chat-space']);
+    expect(result.data?.themes).toEqual(["pocketflow", 'chat-space']);
     expect(result.data?.currentRoom).toBeNull();
   });
 

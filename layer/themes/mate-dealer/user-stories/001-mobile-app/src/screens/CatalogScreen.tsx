@@ -34,9 +34,9 @@ const CatalogScreen: React.FC = () => {
   const categories = [
     { id: 'all', name: 'All Products', icon: '🧉' },
     { id: 'yerba_mate', name: 'Yerba Mate', icon: '🌿' },
-    { id: 'bombillas', name: 'Bombillas', icon: '🥄' },
+    { id: "bombillas", name: "Bombillas", icon: '🥄' },
     { id: 'gourds', name: 'Gourds', icon: '🥥' },
-    { id: 'accessories', name: 'Accessories', icon: '🔧' },
+    { id: "accessories", name: "Accessories", icon: '🔧' },
     { id: 'sets', name: 'Sets', icon: '📦' },
   ];
 
@@ -84,7 +84,7 @@ const CatalogScreen: React.FC = () => {
 
   const handleProductPress = (product: any) => {
     dispatch(setCurrentProduct(product));
-    navigation.navigate('ProductDetail' as never, { productId: product.id } as never);
+    navigation.navigate("ProductDetail" as never, { productId: product.id } as never);
   };
 
   const handleFavoriteToggle = (productId: string) => {
@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f3f4f6',
   },
   favoriteButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 12,
     right: 12,
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   saleTag: {
-    position: 'absolute',
+    position: "absolute",
     top: 12,
     left: 12,
     backgroundColor: '#ef4444',

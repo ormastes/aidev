@@ -194,7 +194,7 @@ class PerformanceMonitor {
 
   // Memory monitoring
   private checkMemoryUsage(): void {
-    if (typeof process !== 'undefined' && process.memoryUsage) {
+    if (typeof process !== "undefined" && process.memoryUsage) {
       const memoryUsage = process.memoryUsage();
       const heapUsed = memoryUsage.heapUsed;
       
@@ -217,7 +217,7 @@ class PerformanceMonitor {
   }
 
   getMemoryMetrics(): MemoryMetrics | null {
-    if (typeof process === 'undefined' || !process.memoryUsage) {
+    if (typeof process === "undefined" || !process.memoryUsage) {
       return null;
     }
 
@@ -413,7 +413,7 @@ class PerformanceMonitor {
     averageTransitionTime: number | null;
     currentMemoryUsage: MemoryMetrics | null;
     recentMetrics: { [key: string]: PerformanceMetric | null };
-    healthStatus: 'good' | 'warning' | 'critical';
+    healthStatus: 'good' | 'warning' | "critical";
   } {
     const avgTransition = this.getAverageMetric('screen_transition');
     const memoryMetrics = this.getMemoryMetrics();
@@ -432,8 +432,8 @@ class PerformanceMonitor {
       if (metric?.status === 'error') errorCount++;
     }
 
-    let healthStatus: 'good' | 'warning' | 'critical' = 'good';
-    if (errorCount > 0) healthStatus = 'critical';
+    let healthStatus: 'good' | 'warning' | "critical" = 'good';
+    if (errorCount > 0) healthStatus = "critical";
     else if (warningCount > 2) healthStatus = 'warning';
 
     return {

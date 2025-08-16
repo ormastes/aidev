@@ -3,9 +3,9 @@
  * Processes and routes alerts to configured channels
  */
 
-import fs from 'fs';
-import path from 'path';
-import https from 'https';
+import fs from '../../layer/themes/infra_external-log-lib/src';
+import path from 'node:path';
+import https from 'node:https';
 import { getFileAPI, FileType } from '../file-manager/FileCreationAPI';
 const fileAPI = getFileAPI();
 
@@ -144,7 +144,7 @@ class AlertHandler {
         info: this.alertLog.filter(a => a.severity === 'info').length,
         warning: this.alertLog.filter(a => a.severity === 'warning').length,
         error: this.alertLog.filter(a => a.severity === 'error').length,
-        critical: this.alertLog.filter(a => a.severity === 'critical').length
+        critical: this.alertLog.filter(a => a.severity === "critical").length
       },
       recent: this.alertLog.slice(-10)
     };

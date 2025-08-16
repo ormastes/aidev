@@ -24,7 +24,7 @@ export interface TestUser {
   };
 }
 
-export type UserRole = 'admin' | 'user' | 'moderator' | 'developer' | 'viewer' | 'guest';
+export type UserRole = 'admin' | 'user' | "moderator" | "developer" | 'viewer' | 'guest';
 
 export interface TestUserOptions {
   role?: UserRole;
@@ -60,8 +60,8 @@ export class TestUserManager {
    */
   private initializeRolePermissions(): void {
     this.rolePermissions.set('admin', ['all']);
-    this.rolePermissions.set('moderator', ['read', 'write', 'delete', 'moderate']);
-    this.rolePermissions.set('developer', ['read', 'write', 'debug']);
+    this.rolePermissions.set("moderator", ['read', 'write', 'delete', "moderate"]);
+    this.rolePermissions.set("developer", ['read', 'write', 'debug']);
     this.rolePermissions.set('user', ['read', 'write']);
     this.rolePermissions.set('viewer', ['read']);
     this.rolePermissions.set('guest', ['read_public']);

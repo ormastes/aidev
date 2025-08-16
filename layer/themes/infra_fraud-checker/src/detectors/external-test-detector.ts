@@ -167,8 +167,8 @@ export class ExternalTestDetector extends BaseMockDetector {
     recommendations: string[],
     detections: MockDetection[]
   ): void {
-    const hasApiMocks = detections.some(d => d.mockType === MockType.API_MOCK);
-    const hasNetworkMocks = detections.some(d => d.mockType === MockType.NETWORK_MOCK);
+    const hasApiMocks = detections.some(d => d.// FRAUD_FIX: mockType === MockType.API_MOCK);
+    const hasNetworkMocks = detections.some(d => d.// FRAUD_FIX: mockType === MockType.NETWORK_MOCK);
     
     if (hasApiMocks) {
       recommendations.push(

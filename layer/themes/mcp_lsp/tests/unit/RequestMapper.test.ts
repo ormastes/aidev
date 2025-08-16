@@ -1,7 +1,7 @@
 import { RequestMapper } from '../../children/RequestMapper';
 import { LSPClient } from '../../children/LSPClient';
 
-describe('RequestMapper', () => {
+describe("RequestMapper", () => {
   let mapper: RequestMapper;
   let mockClient: jest.Mocked<LSPClient>;
   
@@ -22,7 +22,7 @@ describe('RequestMapper', () => {
     mapper = new RequestMapper(mockClient);
   });
   
-  describe('goToDefinition', () => {
+  describe("goToDefinition", () => {
     it('should map LSP definition response to Location array', async () => {
       const mockLSPResponse = {
         uri: 'file:///src/test.ts',
@@ -86,7 +86,7 @@ describe('RequestMapper', () => {
     });
   });
   
-  describe('findReferences', () => {
+  describe("findReferences", () => {
     it('should find all references including declaration', async () => {
       const mockLSPResponse = [
         {
@@ -121,7 +121,7 @@ describe('RequestMapper', () => {
     });
   });
   
-  describe('getCompletions', () => {
+  describe("getCompletions", () => {
     it('should map completion items correctly', async () => {
       const mockLSPResponse = {
         items: [
@@ -149,7 +149,7 @@ describe('RequestMapper', () => {
       expect(result).toHaveLength(2);
       expect(result[0]).toEqual({
         label: 'console',
-        kind: 'variable',
+        kind: "variable",
         detail: 'const console: Console',
         documentation: 'The console object provides access to the browser debugging console.',
         insertText: 'console',
@@ -181,7 +181,7 @@ describe('RequestMapper', () => {
     });
   });
   
-  describe('getDocumentSymbols', () => {
+  describe("getDocumentSymbols", () => {
     it('should handle SymbolInformation array', async () => {
       const mockLSPResponse = [
         {
@@ -197,7 +197,7 @@ describe('RequestMapper', () => {
           containerName: undefined
         },
         {
-          name: 'myMethod',
+          name: "myMethod",
           kind: 6, // Method
           location: {
             uri: 'file:///src/test.ts',
@@ -245,7 +245,7 @@ describe('RequestMapper', () => {
           },
           children: [
             {
-              name: 'constructor',
+              name: "constructor",
               kind: 9, // Constructor
               range: {
                 start: { line: 1, character: 2 },
@@ -267,12 +267,12 @@ describe('RequestMapper', () => {
       expect(result).toHaveLength(2);
       expect(result[0].name).toBe('MyClass');
       expect(result[0].containerName).toBeUndefined();
-      expect(result[1].name).toBe('constructor');
+      expect(result[1].name).toBe("constructor");
       expect(result[1].containerName).toBe('MyClass');
     });
   });
   
-  describe('getHover', () => {
+  describe("getHover", () => {
     it('should extract hover content from string', async () => {
       const mockLSPResponse = {
         contents: 'const x: number'
@@ -288,7 +288,7 @@ describe('RequestMapper', () => {
     it('should extract hover content from MarkupContent', async () => {
       const mockLSPResponse = {
         contents: {
-          kind: 'markdown',
+          kind: "markdown",
           value: '```typescript\nconst x: number\n```\n\nA number variable'
         }
       };
@@ -306,7 +306,7 @@ describe('RequestMapper', () => {
       const mockLSPResponse = {
         contents: [
           'Type: number',
-          { language: 'typescript', value: 'const x: number' }
+          { language: "typescript", value: 'const x: number' }
         ]
       };
       

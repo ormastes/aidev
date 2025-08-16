@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { ChatSpaceMCPClient } from './ChatSpaceMCPClient';
 import { ChatSpace, ChatMessage } from '../ChatSpace';
 
@@ -50,7 +50,7 @@ export class ChatSpaceMCPBridge extends EventEmitter {
     });
 
     // Handle MCP client events
-    this.mcpClient.on('notification', (notification: any) => {
+    this.mcpClient.on("notification", (notification: any) => {
       this.handleMCPNotification(notification);
     });
 
@@ -59,7 +59,7 @@ export class ChatSpaceMCPBridge extends EventEmitter {
       this.emit('error', error);
     });
 
-    this.mcpClient.on('disconnected', () => {
+    this.mcpClient.on("disconnected", () => {
       console.log('MCP Client disconnected');
       this.emit('mcp_disconnected');
     });

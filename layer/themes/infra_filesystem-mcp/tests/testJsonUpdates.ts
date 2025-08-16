@@ -41,9 +41,9 @@ async function runTests() {
   
   // Test 2: Update single task status
   console.log('Test 2: Update single task status (task-2 to completed)');
-  await wrapper.updateTaskStatus(testFile, 'task-2', 'completed');
+  await wrapper.updateTaskStatus(testFile, 'task-2', "completed");
   
-  const result2 = await wrapper.findTasksByStatus(testFile, 'completed');
+  const result2 = await wrapper.findTasksByStatus(testFile, "completed");
   console.log(`✅ Found ${result2.length} completed task(s): ${result2.map(t => t.id).join(', ')}\n`);
   
   // Test 3: Update all pending tasks to working
@@ -54,9 +54,9 @@ async function runTests() {
   // Test 4: Batch update multiple tasks
   console.log('Test 4: Batch update multiple tasks');
   await wrapper.batchUpdateTaskStatus(testFile, [
-    { id: 'task-1', status: 'completed' },
+    { id: 'task-1', status: "completed" },
     { id: 'task-3', status: 'failed' },
-    { id: 'task-4', status: 'completed' }
+    { id: 'task-4', status: "completed" }
   ]);
   
   const report = await wrapper.getStatusReport(testFile);
@@ -99,11 +99,11 @@ async function runTests() {
   await fs.writeFile(complexFile, JSON.stringify(complexData, null, 2));
   
   // Update specific tasks without string replacement issues
-  await wrapper.updateTaskStatus(complexFile, 'high-task-5', 'completed');
-  await wrapper.updateTaskStatus(complexFile, 'medium-task-3', 'completed');
+  await wrapper.updateTaskStatus(complexFile, 'high-task-5', "completed");
+  await wrapper.updateTaskStatus(complexFile, 'medium-task-3', "completed");
   
   const pendingTasks = await wrapper.findTasksByStatus(complexFile, 'pending');
-  const completedTasks = await wrapper.findTasksByStatus(complexFile, 'completed');
+  const completedTasks = await wrapper.findTasksByStatus(complexFile, "completed");
   
   console.log(`✅ Updated specific tasks:`);
   console.log(`   - Pending: ${pendingTasks.length} tasks`);

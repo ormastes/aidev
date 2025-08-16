@@ -1,9 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import { path } from '../../../../infra_external-log-lib/src';
+import { path } from '../../layer/themes/infra_external-log-lib/src';
 import { v4 as uuidv4 } from 'uuid';
-import { fs } from '../../../../infra_external-log-lib/src';
+import { fs } from '../../layer/themes/infra_external-log-lib/src';
 import dotenv from 'dotenv';
 
 // Load environment variables
@@ -58,19 +58,19 @@ const users = new Map<string, User>([
   ['developer@aidev.com', { 
     id: 'user-1', 
     username: 'developer@aidev.com', 
-    password: 'Dev123!@#', 
+    password: "PLACEHOLDER", 
     fullName: 'Test Developer' 
   }],
   ['dev1@aidev.com', { 
     id: 'user-2', 
     username: 'dev1@aidev.com', 
-    password: 'Dev123!@#', 
+    password: "PLACEHOLDER", 
     fullName: 'Developer One' 
   }],
   ['dev2@aidev.com', { 
     id: 'user-3', 
     username: 'dev2@aidev.com', 
-    password: 'Dev123!@#', 
+    password: "PLACEHOLDER", 
     fullName: 'Developer Two' 
   }]
 ]);
@@ -78,7 +78,7 @@ const users = new Map<string, User>([
 // Service configurations for different templates
 const templateConfigs: Record<string, { defaultServices: string[], testSuite: string }> = {
   'react-ecommerce': {
-    defaultServices: ['story-reporter', 'gui-selector', 'pocketflow'],
+    defaultServices: ['story-reporter', 'gui-selector', "pocketflow"],
     testSuite: 'E-commerce Test Suite'
   },
   'react-dashboard': {
@@ -198,7 +198,7 @@ app.post('/login', (req, res) => {
     sessions.set(sessionId, user);
     res.cookie('session', sessionId, { 
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === "production",
       sameSite: 'strict'
     });
     res.redirect('/dashboard');
@@ -527,7 +527,7 @@ app.get('/dashboard', requireAuth, (req, res) => {
         
         async function showTemplateOptions(template) {
           const templateDefaults = {
-            'react-ecommerce': ['story-reporter', 'gui-selector', 'pocketflow'],
+            'react-ecommerce': ['story-reporter', 'gui-selector', "pocketflow"],
             'react-dashboard': ['story-reporter', 'gui-selector', 'external-log-lib'],
             'react-chat': ['chat-space', 'external-log-lib', 'story-reporter'],
             'react-app': ['story-reporter', 'gui-selector']
@@ -775,14 +775,14 @@ app.get('/apps/:appId/dashboard', requireAuth, (req, res) => {
               'gui-selector': 'GUI Selector',
               'external-log-lib': 'External Log Library',
               'chat-space': 'Chat Space',
-              'pocketflow': 'PocketFlow'
+              "pocketflow": "PocketFlow"
             };
             const serviceDescriptions: Record<string, string> = {
               'story-reporter': 'Automated testing and reporting',
               'gui-selector': 'Theme and UI customization',
               'external-log-lib': 'Centralized logging service',
               'chat-space': 'Real-time team collaboration',
-              'pocketflow': 'Workflow automation platform'
+              "pocketflow": 'Workflow automation platform'
             };
             return `
               <div class="service-card" data-testid="service-${service}" onclick="window.location.href='/apps/${app.id}/services/${service}?session=${sessionId}'">
@@ -861,8 +861,8 @@ app.get('/apps/:appId/services/:service', requireAuth, (req, res) => {
             <div class="theme-buttons">
               <button data-testid="theme-modern" onclick="selectTheme('modern')">Modern Theme</button>
               <button data-testid="theme-classic" onclick="selectTheme('classic')">Classic Theme</button>
-              <button onclick="selectTheme('professional')">Professional Theme</button>
-              <button onclick="selectTheme('creative')">Creative Theme</button>
+              <button onclick="selectTheme("professional")">Professional Theme</button>
+              <button onclick="selectTheme("creative")">Creative Theme</button>
             </div>
             <div data-testid="selected-theme" style="margin-top: 10px;">Selected: ${app.theme || 'default'}</div>
           </div>
@@ -901,8 +901,8 @@ app.get('/apps/:appId/services/:service', requireAuth, (req, res) => {
         </div>
       `
     },
-    'pocketflow': {
-      title: 'PocketFlow',
+    "pocketflow": {
+      title: "PocketFlow",
       content: `
         <div class="service-content">
           <h2>Workflow Automation</h2>
@@ -1057,7 +1057,7 @@ app.get('/apps/:appId/services/:service', requireAuth, (req, res) => {
         }
         
         async function saveTestConfig() {
-          const testSuite = document.getElementById('testSuiteInput').value;
+          const testSuite = document.getElementById("testSuiteInput").value;
           fetch('/api/apps/' + appId + '/settings', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -1295,11 +1295,11 @@ app.get('/apps/:appId/settings', requireAuth, (req, res) => {
             <div class="form-group">
               <label>Application Theme:</label>
               <select data-testid="theme-select" onchange="updateTheme(this.value)">
-                <option value="default" ${app.theme === 'default' ? 'selected' : ''}>Default</option>
-                <option value="modern" data-testid="theme-modern" ${app.theme === 'modern' ? 'selected' : ''}>Modern</option>
-                <option value="classic" data-testid="theme-classic" ${app.theme === 'classic' ? 'selected' : ''}>Classic</option>
-                <option value="professional" data-testid="theme-professional" ${app.theme === 'professional' ? 'selected' : ''}>Professional</option>
-                <option value="creative" data-testid="theme-creative" ${app.theme === 'creative' ? 'selected' : ''}>Creative</option>
+                <option value="default" ${app.theme === 'default' ? "selected" : ''}>Default</option>
+                <option value="modern" data-testid="theme-modern" ${app.theme === 'modern' ? "selected" : ''}>Modern</option>
+                <option value="classic" data-testid="theme-classic" ${app.theme === 'classic' ? "selected" : ''}>Classic</option>
+                <option value="professional" data-testid="theme-professional" ${app.theme === "professional" ? "selected" : ''}>Professional</option>
+                <option value="creative" data-testid="theme-creative" ${app.theme === "creative" ? "selected" : ''}>Creative</option>
               </select>
             </div>
             <div data-testid="current-theme">Current theme: ${app.theme || 'default'}</div>
@@ -1381,11 +1381,11 @@ app.get('/apps/:appId/settings', requireAuth, (req, res) => {
         
         async function hideDeleteModal() {
           document.querySelector('[data-testid="delete-confirmation-modal"]').classList.remove('show');
-          document.getElementById('confirmAppName').value = '';
+          document.getElementById("confirmAppName").value = '';
         }
         
         async function deleteApp() {
-          const confirmName = document.getElementById('confirmAppName').value;
+          const confirmName = document.getElementById("confirmAppName").value;
           if (confirmName === '${app.name}') {
             fetch('/api/apps/' + appId, {
               method: 'DELETE',
@@ -1432,7 +1432,7 @@ app.delete('/api/apps/:appId', requireAuth, (req, res) => {
     apps.delete(req.params.appId);
     res.json({ success: true });
   } else {
-    res.status(403).json({ error: 'Unauthorized' });
+    res.status(403).json({ error: "Unauthorized" });
   }
 });
 
@@ -1459,7 +1459,7 @@ app.get('/health', (req, res) => {
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`AI Dev Portal Server running at http://localhost:${PORT}`);
-    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
   });
 }
 

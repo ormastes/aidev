@@ -20,7 +20,7 @@ export class TokenServiceImpl implements TokenService {
   async generateToken(options: TokenOptions): Promise<GeneratedToken> {
     const requirements = this.getTokenRequirements(options.type);
     const length = options.length || requirements.recommendedLength;
-    const format = options.format || 'base64url';
+    const format = options.format || "base64url";
     
     let value: string;
     
@@ -30,7 +30,7 @@ export class TokenServiceImpl implements TokenService {
         // Generate UUID v4
         value = crypto.randomUUID();
       } else {
-        value = this.generateSecureRandom(length, format as 'hex' | 'base64' | 'base64url');
+        value = this.generateSecureRandom(length, format as 'hex' | 'base64' | "base64url");
       }
       
       // Add prefix if specified
@@ -109,7 +109,7 @@ export class TokenServiceImpl implements TokenService {
       errors.push('Token must be in hexadecimal format.');
     } else if (requirements.format === 'base64' && !/^[A-Za-z0-9+/]+=*$/.test(tokenValue)) {
       errors.push('Token must be in base64 format.');
-    } else if (requirements.format === 'base64url' && !/^[A-Za-z0-9_-]+$/.test(tokenValue)) {
+    } else if (requirements.format === "base64url" && !/^[A-Za-z0-9_-]+$/.test(tokenValue)) {
       errors.push('Token must be in base64url format.');
     }
     
@@ -170,25 +170,25 @@ export class TokenServiceImpl implements TokenService {
       'jwt-secret': {
         minLength: 32,
         recommendedLength: 64,
-        format: 'base64url',
+        format: "base64url",
         description: 'Secret key for signing JWT tokens'
       },
       'api-key': {
         minLength: 24,
         recommendedLength: 32,
-        format: 'base64url',
+        format: "base64url",
         description: 'API authentication key'
       },
       'session-secret': {
         minLength: 32,
         recommendedLength: 48,
-        format: 'base64url',
+        format: "base64url",
         description: 'Secret for encrypting session data'
       },
       'refresh-token': {
         minLength: 32,
         recommendedLength: 48,
-        format: 'base64url',
+        format: "base64url",
         description: 'Token for refreshing authentication'
       },
       'encryption-key': {
@@ -200,13 +200,13 @@ export class TokenServiceImpl implements TokenService {
       'webhook-secret': {
         minLength: 24,
         recommendedLength: 32,
-        format: 'base64url',
+        format: "base64url",
         description: 'Secret for validating webhook signatures'
       },
       'oauth-client-secret': {
         minLength: 32,
         recommendedLength: 48,
-        format: 'base64url',
+        format: "base64url",
         description: 'OAuth client secret'
       }
     };
@@ -214,7 +214,7 @@ export class TokenServiceImpl implements TokenService {
     return requirements[type];
   }
   
-  generateSecureRandom(length: number, format: 'hex' | 'base64' | 'base64url'): string {
+  generateSecureRandom(length: number, format: 'hex' | 'base64' | "base64url"): string {
     // Calculate bytes needed based on format
     let bytesNeeded: number;
     
@@ -223,7 +223,7 @@ export class TokenServiceImpl implements TokenService {
         bytesNeeded = Math.ceil(length / 2);
         break;
       case 'base64':
-      case 'base64url':
+      case "base64url":
         // Base64 encoding produces 4 characters for every 3 bytes
         // So we need length * 3/4 bytes, but we round up to ensure we have enough
         bytesNeeded = Math.ceil(length * 0.75);
@@ -239,15 +239,15 @@ export class TokenServiceImpl implements TokenService {
         return buffer.toString('hex').slice(0, length);
       case 'base64':
         return buffer.toString('base64').slice(0, length);
-      case 'base64url':
+      case "base64url":
         // Ensure we generate enough characters
-        let result = buffer.toString('base64url');
+        let result = buffer.toString("base64url");
         while (result.length < length) {
-          result += crypto.randomBytes(3).toString('base64url');
+          result += crypto.randomBytes(3).toString("base64url");
         }
         return result.slice(0, length);
       default:
-        return buffer.toString('base64url').slice(0, length);
+        return buffer.toString("base64url").slice(0, length);
     }
   }
 }

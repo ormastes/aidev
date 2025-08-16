@@ -21,7 +21,7 @@ describe('ServiceRegistry - Unit Tests', () => {
     jest.clearAllMocks();
     
     mockAuthManager = new AuthenticationManager({
-      jwtSecret: 'test',
+      jwtsecret: process.env.SECRET || "PLACEHOLDER",
       tokenExpiry: '1h'
     }) as jest.Mocked<AuthenticationManager>;
     
@@ -32,7 +32,7 @@ describe('ServiceRegistry - Unit Tests', () => {
     });
   });
 
-  describe('listServices', () => {
+  describe("listServices", () => {
     it('should return empty array initially', async () => {
       const services = await registry.listServices();
       expect(services).toEqual([]);
@@ -40,27 +40,27 @@ describe('ServiceRegistry - Unit Tests', () => {
 
     it('should return all registered services', async () => {
       // Add services directly to internal map
-      (registry as any).services.set('service1', {
+      (registry as any).services.set("service1", {
         ...validService,
-        id: 'service1',
+        id: "service1",
         status: 'healthy'
       });
       
-      (registry as any).services.set('service2', {
+      (registry as any).services.set("service2", {
         ...validService,
-        id: 'service2',
+        id: "service2",
         status: 'unknown'
       });
       
       const services = await registry.listServices();
       
       expect(services).toHaveLength(2);
-      expect(services.map(s => s.id)).toContain('service1');
-      expect(services.map(s => s.id)).toContain('service2');
+      expect(services.map(s => s.id)).toContain("service1");
+      expect(services.map(s => s.id)).toContain("service2");
     });
   });
 
-  describe('getService', () => {
+  describe("getService", () => {
     it('should return service by id', () => {
       const serviceData = {
         ...validService,
@@ -80,7 +80,7 @@ describe('ServiceRegistry - Unit Tests', () => {
     });
   });
 
-  describe('updateServiceHealth', () => {
+  describe("updateServiceHealth", () => {
     it('should update service health status', async () => {
       const service = {
         ...validService,
@@ -160,7 +160,7 @@ describe('ServiceRegistry - Unit Tests', () => {
     });
   });
 
-  describe('Configuration', () => {
+  describe("Configuration", () => {
     it('should store configuration', () => {
       const config = (registry as any).config;
       expect(config.port).toBe(5555);

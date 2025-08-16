@@ -18,9 +18,9 @@ async function main() {
   const flow = new PocketFlow();
 
   // Define nodes
-  flow.addNode(new InputNode('userInput'));
+  flow.addNode(new InputNode("userInput"));
   
-  flow.addNode(new TransformNode('preparePrompt', (text: string) => ({
+  flow.addNode(new TransformNode("preparePrompt", (text: string) => ({
     prompt: `Please analyze the following text: "${text}"`,
     maxTokens: 100,
     temperature: 0.7
@@ -39,7 +39,7 @@ async function main() {
     };
   }));
 
-  flow.addNode(new TransformNode('extractResponse', (llmOutput: any) => ({
+  flow.addNode(new TransformNode("extractResponse", (llmOutput: any) => ({
     text: llmOutput.response,
     metadata: {
       tokens: llmOutput.usage.tokens,
@@ -47,18 +47,18 @@ async function main() {
     }
   })));
 
-  flow.addNode(new FilterNode('validateResponse', (output: any) => 
+  flow.addNode(new FilterNode("validateResponse", (output: any) => 
     output.text && output.text.length > 0
   ));
 
   flow.addNode(new OutputNode('result'));
 
   // Connect nodes with edges
-  flow.addEdge({ from: 'userInput', to: 'preparePrompt' });
-  flow.addEdge({ from: 'preparePrompt', to: 'mockLLM' });
-  flow.addEdge({ from: 'mockLLM', to: 'extractResponse' });
-  flow.addEdge({ from: 'extractResponse', to: 'validateResponse' });
-  flow.addEdge({ from: 'validateResponse', to: 'result' });
+  flow.addEdge({ from: "userInput", to: "preparePrompt" });
+  flow.addEdge({ from: "preparePrompt", to: 'mockLLM' });
+  flow.addEdge({ from: 'mockLLM', to: "extractResponse" });
+  flow.addEdge({ from: "extractResponse", to: "validateResponse" });
+  flow.addEdge({ from: "validateResponse", to: 'result' });
 
   // Execute workflow
   console.log('🔄 Executing workflow...\n');
@@ -84,18 +84,18 @@ async function main() {
   parallelFlow.addNode(new InputNode('input'));
   
   // Three parallel analysis branches
-  parallelFlow.addNode(new TransformNode('sentiment', (text: string) => ({
-    type: 'sentiment',
-    result: text.includes('!') ? 'positive' : 'neutral'
+  parallelFlow.addNode(new TransformNode("sentiment", (text: string) => ({
+    type: "sentiment",
+    result: text.includes('!') ? "positive" : 'neutral'
   })));
   
-  parallelFlow.addNode(new TransformNode('wordCount', (text: string) => ({
-    type: 'wordCount',
+  parallelFlow.addNode(new TransformNode("wordCount", (text: string) => ({
+    type: "wordCount",
     result: text.split(' ').length
   })));
   
-  parallelFlow.addNode(new TransformNode('language', (text: string) => ({
-    type: 'language',
+  parallelFlow.addNode(new TransformNode("language", (text: string) => ({
+    type: "language",
     result: 'en'
   })));
   
@@ -108,24 +108,24 @@ async function main() {
     return merged;
   }));
   
-  parallelFlow.addNode(new OutputNode('analysis'));
+  parallelFlow.addNode(new OutputNode("analysis"));
   
   // Connect parallel branches
-  parallelFlow.addEdge({ from: 'input', to: 'sentiment' });
-  parallelFlow.addEdge({ from: 'input', to: 'wordCount' });
-  parallelFlow.addEdge({ from: 'input', to: 'language' });
+  parallelFlow.addEdge({ from: 'input', to: "sentiment" });
+  parallelFlow.addEdge({ from: 'input', to: "wordCount" });
+  parallelFlow.addEdge({ from: 'input', to: "language" });
   
-  parallelFlow.addEdge({ from: 'sentiment', to: 'merge' });
-  parallelFlow.addEdge({ from: 'wordCount', to: 'merge' });
-  parallelFlow.addEdge({ from: 'language', to: 'merge' });
+  parallelFlow.addEdge({ from: "sentiment", to: 'merge' });
+  parallelFlow.addEdge({ from: "wordCount", to: 'merge' });
+  parallelFlow.addEdge({ from: "language", to: 'merge' });
   
-  parallelFlow.addEdge({ from: 'merge', to: 'analysis' });
+  parallelFlow.addEdge({ from: 'merge', to: "analysis" });
   
   const parallelResult = await parallelFlow.execute('Hello PocketFlow! This is amazing!');
   
   console.log('🔄 Parallel workflow completed!');
   console.log('\n📦 Analysis:');
-  console.log(JSON.stringify(parallelResult.outputs.get('analysis'), null, 2));
+  console.log(JSON.stringify(parallelResult.outputs.get("analysis"), null, 2));
 }
 
 // Run the example

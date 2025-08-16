@@ -37,20 +37,20 @@ describe('Flow Validator', () => {
             id: 'start',
             name: 'Start',
             type: 'action',
-            action: 'initialize',
+            action: "initialize",
             next: 'process'
           },
           {
             id: 'process',
             name: 'Process Data',
-            type: 'transform',
+            type: "transform",
             next: 'end'
           },
           {
             id: 'end',
             name: 'End',
             type: 'action',
-            action: 'finalize'
+            action: "finalize"
           }
         ]
       };
@@ -89,7 +89,7 @@ describe('Flow Validator', () => {
             id: 'start',
             name: 'Start',
             type: 'action',
-            action: 'initialize',
+            action: "initialize",
             next: 'middle'
           },
           {
@@ -102,7 +102,7 @@ describe('Flow Validator', () => {
             id: 'orphan',
             name: 'Orphan Step',
             type: 'action',
-            action: 'orphaned'
+            action: "orphaned"
           }
         ]
       };
@@ -184,7 +184,7 @@ describe('Flow Validator', () => {
           {
             id: 'check',
             name: 'Check Condition',
-            type: 'decision',
+            type: "decision",
             condition: 'value > 10',
             next: ['true-branch', 'false-branch']
           },
@@ -192,13 +192,13 @@ describe('Flow Validator', () => {
             id: 'true-branch',
             name: 'True Branch',
             type: 'action',
-            action: 'handleTrue'
+            action: "handleTrue"
           },
           {
             id: 'false-branch',
             name: 'False Branch',
             type: 'action',
-            action: 'handleFalse'
+            action: "handleFalse"
           }
         ]
       };
@@ -217,35 +217,35 @@ describe('Flow Validator', () => {
           {
             id: 'fork',
             name: 'Fork',
-            type: 'parallel',
+            type: "parallel",
             next: ['task1', 'task2', 'task3']
           },
           {
             id: 'task1',
             name: 'Task 1',
             type: 'action',
-            action: 'executeTask1',
+            action: "executeTask1",
             next: 'join'
           },
           {
             id: 'task2',
             name: 'Task 2',
             type: 'action',
-            action: 'executeTask2',
+            action: "executeTask2",
             next: 'join'
           },
           {
             id: 'task3',
             name: 'Task 3',
             type: 'action',
-            action: 'executeTask3',
+            action: "executeTask3",
             next: 'join'
           },
           {
             id: 'join',
             name: 'Join',
             type: 'action',
-            action: 'mergeResults'
+            action: "mergeResults"
           }
         ]
       };
@@ -272,7 +272,7 @@ describe('Flow Validator', () => {
             id: 'process',
             name: 'Process Item',
             type: 'action',
-            action: 'processItem',
+            action: "processItem",
             next: 'loop'
           }
         ]
@@ -291,9 +291,9 @@ describe('Flow Validator', () => {
         version: '1.0.0',
         steps: [
           {
-            id: 'decision',
+            id: "decision",
             name: 'Make Decision',
-            type: 'decision',
+            type: "decision",
             condition: 'true',
             next: 'single' // Should have multiple branches
           },
@@ -319,10 +319,10 @@ describe('Flow Validator', () => {
         version: '1.0.0',
         steps: [
           {
-            id: 'critical',
+            id: "critical",
             name: 'Critical Operation',
             type: 'action',
-            action: 'criticalAction'
+            action: "criticalAction"
             // Missing error handler
           }
         ]
@@ -342,12 +342,12 @@ describe('Flow Validator', () => {
         steps: [
           {
             id: 'auth',
-            name: 'Authenticate',
+            name: "Authenticate",
             type: 'action',
-            action: 'authenticate',
+            action: "authenticate",
             inputs: {
               username: 'user',
-              password: 'secretPassword123' // Sensitive data
+              password: "PLACEHOLDER" // Sensitive data
             }
           }
         ]
@@ -394,13 +394,13 @@ describe('Flow Validator', () => {
             name: 'Start',
             type: 'action',
             action: 'init',
-            next: 'decision1'
+            next: "decision1"
           },
           {
-            id: 'decision1',
+            id: "decision1",
             name: 'Decision 1',
-            type: 'decision',
-            condition: 'condition1',
+            type: "decision",
+            condition: "condition1",
             next: ['branch1', 'branch2']
           },
           {
@@ -408,20 +408,20 @@ describe('Flow Validator', () => {
             name: 'Branch 1',
             type: 'action',
             action: 'action1',
-            next: 'decision2'
+            next: "decision2"
           },
           {
             id: 'branch2',
             name: 'Branch 2',
             type: 'action',
             action: 'action2',
-            next: 'decision2'
+            next: "decision2"
           },
           {
-            id: 'decision2',
+            id: "decision2",
             name: 'Decision 2',
-            type: 'decision',
-            condition: 'condition2',
+            type: "decision",
+            condition: "condition2",
             next: ['end1', 'end2']
           },
           {
@@ -457,7 +457,7 @@ describe('Flow Validator', () => {
             id: 'slow',
             name: 'Slow Operation',
             type: 'action',
-            action: 'slowAction',
+            action: "slowAction",
             timeout: 15000 // 15 seconds
           },
           {
@@ -492,21 +492,21 @@ describe('Flow Validator', () => {
           {
             id: 'fork',
             name: 'Fork',
-            type: 'parallel',
+            type: "parallel",
             next: ['task1', 'task2']
           },
           {
             id: 'task1',
             name: 'Task 1',
             type: 'action',
-            action: 'execute1',
+            action: "execute1",
             next: 'join'
           },
           {
             id: 'task2',
             name: 'Task 2',
             type: 'action',
-            action: 'execute2',
+            action: "execute2",
             next: 'join'
           },
           {
@@ -534,21 +534,21 @@ describe('Flow Validator', () => {
             id: 'fetch1',
             name: 'Fetch Data 1',
             type: 'action',
-            action: 'fetchData1',
+            action: "fetchData1",
             next: 'fetch2'
           },
           {
             id: 'fetch2',
             name: 'Fetch Data 2',
             type: 'action',
-            action: 'fetchData2',
+            action: "fetchData2",
             next: 'process'
           },
           {
             id: 'process',
             name: 'Process',
             type: 'action',
-            action: 'processData'
+            action: "processData"
           }
         ],
         variables: {
@@ -578,7 +578,7 @@ describe('Flow Validator', () => {
             id: 's1',  // Poor naming
             name: 'S',  // Poor naming
             type: 'action',
-            action: 'doSomething',
+            action: "doSomething",
             errorHandler: {
               type: 'retry',
               message: 'Retry on failure'
@@ -609,7 +609,7 @@ describe('Flow Validator', () => {
         return [];
       });
 
-      validator.registerValidator('maxSteps', customValidator);
+      validator.registerValidator("maxSteps", customValidator);
 
       const flow: FlowDefinition = {
         id: 'large-flow',
@@ -709,15 +709,15 @@ describe('Flow Validator', () => {
           },
           {
             id: 'step1', // Duplicate ID
-            name: 'Duplicate',
+            name: "Duplicate",
             type: 'action',
             action: 'action2'
           },
           {
-            id: 'unreachable',
-            name: 'Unreachable',
+            id: "unreachable",
+            name: "Unreachable",
             type: 'action',
-            action: 'unreachable'
+            action: "unreachable"
           }
         ]
       };

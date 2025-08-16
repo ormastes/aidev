@@ -35,7 +35,7 @@ class TaskQueueManager {
   }
 
   private async loadQueue(): TaskQueue {
-    const content = fs.readFileSync(this.queuePath, 'utf-8');
+    const content = fileAPI.readFileSync(this.queuePath, 'utf-8');
     return JSON.parse(content);
   }
 

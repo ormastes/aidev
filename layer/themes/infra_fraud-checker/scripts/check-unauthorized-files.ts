@@ -206,7 +206,7 @@ Integration with filesystem-mcp:
 }
 
 // Handle errors
-process.on('unhandledRejection', (error) => {
+process.on("unhandledRejection", (error) => {
   console.error('Error:', error);
   process.exit(1);
 });

@@ -5,7 +5,7 @@
 import { MarkdownFormatter, HTMLFormatter, JSONFormatter } from '../../src/domain/document-formatter';
 import { TestDocument } from '../../src/domain/types';
 
-describe('DocumentFormatters', () => {
+describe("DocumentFormatters", () => {
   const createSampleDocument = (): TestDocument => ({
     title: 'Test Documentation',
     created: new Date('2024-01-01'),
@@ -17,7 +17,7 @@ describe('DocumentFormatters', () => {
           {
             id: 'TC-001',
             title: 'User Login',
-            category: 'Authentication',
+            category: "Authentication",
             priority: 'high',
             steps: [
               {
@@ -41,7 +41,7 @@ describe('DocumentFormatters', () => {
     }
   });
 
-  describe('MarkdownFormatter', () => {
+  describe("MarkdownFormatter", () => {
     let formatter: MarkdownFormatter;
 
     beforeEach(() => {
@@ -139,7 +139,7 @@ describe('DocumentFormatters', () => {
     });
   });
 
-  describe('HTMLFormatter', () => {
+  describe("HTMLFormatter", () => {
     let formatter: HTMLFormatter;
 
     beforeEach(() => {
@@ -187,7 +187,7 @@ describe('DocumentFormatters', () => {
     });
   });
 
-  describe('JSONFormatter', () => {
+  describe("JSONFormatter", () => {
     let formatter: JSONFormatter;
 
     beforeEach(() => {

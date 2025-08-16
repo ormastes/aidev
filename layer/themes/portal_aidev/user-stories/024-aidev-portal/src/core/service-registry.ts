@@ -2,9 +2,9 @@
  * Service Registry - Core component for service registration and discovery
  */
 
-import { EventEmitter } from '../../../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import express, { Application, Request, Response, NextFunction } from 'express';
-import { Server } from 'http';
+import { Server } from '../utils/http-wrapper';
 import { AuthenticationManager } from '../auth/authentication-manager';
 
 export interface ServiceInfo {
@@ -14,13 +14,13 @@ export interface ServiceInfo {
   healthEndpoint: string;
   version: string;
   tags: string[];
-  status: 'healthy' | 'unhealthy' | 'unknown';
+  status: 'healthy' | "unhealthy" | 'unknown';
   metadata?: Record<string, any>;
   lastHealthCheck?: Date;
 }
 
 export interface ServiceHealth {
-  status: 'healthy' | 'unhealthy' | 'unknown';
+  status: 'healthy' | "unhealthy" | 'unknown';
   uptime?: number;
   version?: string;
   lastCheck?: string;

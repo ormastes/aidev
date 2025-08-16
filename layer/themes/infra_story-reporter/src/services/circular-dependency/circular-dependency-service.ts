@@ -6,8 +6,8 @@
 import { TypeScriptAnalyzer } from './typescript-analyzer';
 import { DependencyGraph } from './dependency-graph';
 import { AnalysisResult, AnalysisOptions, CircularDependency } from './types';
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from '../../layer/themes/infra_external-log-lib/src';
+import * as path from 'node:path';
 
 export interface CircularDependencyReport {
   projectPath: string;
@@ -58,7 +58,7 @@ export class CircularDependencyService {
             id: nodeId,
             path: nodeId,
             type: 'file',
-            language: 'typescript'
+            language: "typescript"
           });
         }
         for (let i = 0; i < dep.cycle.length; i++) {

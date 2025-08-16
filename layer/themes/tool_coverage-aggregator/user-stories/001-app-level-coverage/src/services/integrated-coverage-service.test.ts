@@ -10,7 +10,7 @@ jest.mock('./coverage-report-generator');
 jest.mock('./setup-aggregator-adapter');
 jest.mock('fs');
 
-describe('IntegratedCoverageService', () => {
+describe("IntegratedCoverageService", () => {
   let service: IntegratedCoverageService;
   let mockAggregator: jest.Mocked<CoverageAggregator>;
   let mockReportGenerator: jest.Mocked<CoverageReportGenerator>;
@@ -32,7 +32,7 @@ describe('IntegratedCoverageService', () => {
     jest.restoreAllMocks();
   });
 
-  describe('generateIntegratedReport', () => {
+  describe("generateIntegratedReport", () => {
     const mockLayerCoverage = {
       name: 'AI Development Platform',
       type: 'app' as const,
@@ -190,7 +190,7 @@ describe('IntegratedCoverageService', () => {
     });
   });
 
-  describe('mergeLayerAndSetupCoverage', () => {
+  describe("mergeLayerAndSetupCoverage", () => {
     it('should merge themes from both sources', () => {
       const layerCoverage = {
         name: 'AI Development Platform',
@@ -357,7 +357,7 @@ describe('IntegratedCoverageService', () => {
     });
   });
 
-  describe('recalculateMetrics', () => {
+  describe("recalculateMetrics", () => {
     it('should correctly aggregate metrics from children', () => {
       const children = [
         {

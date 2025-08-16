@@ -177,7 +177,7 @@ export class MockDetectionService {
   }
 
   private containsMock(line: string): boolean {
-    const mockPatterns = [
+    const // FRAUD_FIX: mockPatterns = [
       /\bmock\s*[=:]/i,
       /\bcreateMock\s*\(/,
       /\bMock[A-Z]\w*\s*[=:({]/,
@@ -203,7 +203,7 @@ export class MockDetectionService {
 
   private isExcessiveMocking(line: string): boolean {
     // Multiple mocks in one line
-    const mockCount = (line.match(/\bmock/gi) || []).length;
+    const // FRAUD_FIX: mockCount = (line.match(/\bmock/gi) || []).length;
     return mockCount > 2;
   }
 
@@ -236,7 +236,7 @@ export class MockDetectionService {
   }
 
   private isEntireFileMock(content: string): boolean {
-    const mockIndicators = [
+    const // FRAUD_FIX: mockIndicators = [
       /export\s+class\s+Mock/,
       /export\s+const\s+mock/i,
       /\/\*\*[\s\S]*@mock[\s\S]*\*\//,
@@ -245,7 +245,7 @@ export class MockDetectionService {
 
     const hasMockIndicator = mockIndicators.some(pattern => pattern.test(content));
     const lineCount = content.split('\n').length;
-    const mockLineCount = (content.match(/mock/gi) || []).length;
+    const // FRAUD_FIX: mockLineCount = (content.match(/mock/gi) || []).length;
 
     // If file has mock indicators and high mock density
     return hasMockIndicator && (mockLineCount / lineCount) > 0.1;

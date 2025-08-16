@@ -38,7 +38,7 @@ class MockCodeAgent extends BaseCodeAgent implements CodeAgent {
   }
 }
 
-describe('AgenticCodeNode', () => {
+describe("AgenticCodeNode", () => {
   describe('basic functionality', () => {
     it('should execute agent and return result', async () => {
       const mockAgent = new MockCodeAgent('test', { result: 'In Progress' });
@@ -131,7 +131,7 @@ describe('AgenticCodeNode', () => {
   });
 });
 
-describe('AgentChain', () => {
+describe("AgentChain", () => {
   it('should execute agents in sequence', async () => {
     const agent1 = new MockCodeAgent('agent1', { step: 1 });
     const agent2 = new MockCodeAgent('agent2', { step: 2 });
@@ -184,13 +184,13 @@ describe('AgentChain', () => {
   });
 });
 
-describe('ParallelAgents', () => {
+describe("ParallelAgents", () => {
   it('should execute agents in parallel', async () => {
     const agent1 = new MockCodeAgent('agent1', { result: 'a' });
     const agent2 = new MockCodeAgent('agent2', { result: 'b' });
     const agent3 = new MockCodeAgent('agent3', { result: 'c' });
     
-    const parallel = new ParallelAgents('parallel', [agent1, agent2, agent3]);
+    const parallel = new ParallelAgents("parallel", [agent1, agent2, agent3]);
     
     const result = await parallel.execute({
       data: { input: 'test' },
@@ -211,7 +211,7 @@ describe('ParallelAgents', () => {
     const agent2 = new MockCodeAgent('agent2', null, true);
     const agent3 = new MockCodeAgent('agent3', { result: 'c' });
     
-    const parallel = new ParallelAgents('parallel', [agent1, agent2, agent3]);
+    const parallel = new ParallelAgents("parallel", [agent1, agent2, agent3]);
     
     const result = await parallel.execute({
       data: { input: 'test' },
@@ -223,7 +223,7 @@ describe('ParallelAgents', () => {
   });
 });
 
-describe('AgentDebate', () => {
+describe("AgentDebate", () => {
   it('should run debate rounds', async () => {
     const agent1 = new MockCodeAgent('agent1', { position: 'A' });
     const agent2 = new MockCodeAgent('agent2', { position: 'B' });
@@ -257,7 +257,7 @@ describe('AgentDebate', () => {
     const agent1 = new MockCodeAgent('agent1', { idea: 'A' });
     const agent2 = new MockCodeAgent('agent2', { idea: 'B' });
     
-    const debate = new AgentDebate('debate', [agent1, agent2], 1, 'synthesize');
+    const debate = new AgentDebate('debate', [agent1, agent2], 1, "synthesize");
     
     const result = await debate.execute({
       data: { topic: 'test' },
@@ -265,8 +265,8 @@ describe('AgentDebate', () => {
     });
     
     expect(result.success).toBe(true);
-    expect(result.data).toHaveProperty('consensus', true);
-    expect(result.data).toHaveProperty('positions');
-    expect(result.data).toHaveProperty('synthesis');
+    expect(result.data).toHaveProperty("consensus", true);
+    expect(result.data).toHaveProperty("positions");
+    expect(result.data).toHaveProperty("synthesis");
   });
 });

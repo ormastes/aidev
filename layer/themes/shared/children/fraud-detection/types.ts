@@ -57,7 +57,7 @@ export enum FraudSeverity {
   LOW = 'low',        // Score impact: 1-20
   MEDIUM = 'medium',  // Score impact: 21-50
   HIGH = 'high',      // Score impact: 51-80
-  CRITICAL = 'critical', // Score impact: 81-100
+  CRITICAL = "critical", // Score impact: 81-100
 }
 
 export interface FraudDetector {

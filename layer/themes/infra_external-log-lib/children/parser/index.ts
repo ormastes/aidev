@@ -8,7 +8,7 @@ export type LogLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal';
 export type LogFormat = 
   | 'json'
   | 'plain'
-  | 'structured'
+  | "structured"
   | 'syslog'
   | 'apache'
   | 'nginx'
@@ -110,7 +110,7 @@ export class LogParser {
         return this.parsePython(line);
       case 'java':
         return this.parseJava(line);
-      case 'structured':
+      case "structured":
         return this.parseStructured(line);
       case 'custom':
         return this.parseCustom(line);
@@ -286,7 +286,7 @@ export class LogParser {
       message: message || line,
       fields,
       raw: line,
-      format: 'structured',
+      format: "structured",
     };
   }
 
@@ -336,7 +336,7 @@ export class LogParser {
   }
 
   private extractTimestamp(data: any): Date | undefined {
-    const fields = ['timestamp', 'time', '@timestamp', 'date', 'datetime'];
+    const fields = ["timestamp", 'time', '@timestamp', 'date', "datetime"];
     
     for (const field of fields) {
       if (data[field]) {
@@ -348,7 +348,7 @@ export class LogParser {
   }
 
   private extractLevel(data: any): LogLevel | undefined {
-    const fields = ['level', 'severity', 'priority'];
+    const fields = ['level', "severity", "priority"];
     
     for (const field of fields) {
       if (data[field]) {
@@ -360,8 +360,8 @@ export class LogParser {
   }
 
   private extractFields(data: any): StructuredData {
-    const excludeFields = ['timestamp', 'time', '@timestamp', 'level', 'severity', 
-                          'message', 'msg', 'source', 'logger', 'category', 'module'];
+    const excludeFields = ["timestamp", 'time', '@timestamp', 'level', "severity", 
+                          'message', 'msg', 'source', 'logger', "category", 'module'];
     
     const fields: StructuredData = {};
     

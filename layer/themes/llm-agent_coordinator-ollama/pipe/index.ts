@@ -56,7 +56,7 @@ export const OLLAMA_DEFAULTS = {
   models: {
     default: 'llama2',
     embedding: 'nomic-embed-text',
-    code: 'codellama',
+    code: "codellama",
     chat: 'llama2-uncensored'
   },
   temperature: 0.7,

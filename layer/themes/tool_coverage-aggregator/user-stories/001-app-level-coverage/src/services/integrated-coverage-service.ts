@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 import { CoverageAggregator } from './coverage-aggregator';
 import { CoverageReportGenerator } from './coverage-report-generator';
 import { SetupAggregatorAdapter } from './setup-aggregator-adapter';
@@ -98,7 +99,7 @@ export class IntegratedCoverageService {
         
         if (stat.isDirectory()) {
           // Check if it's a theme with coverage data
-          const coveragePath = path.join(entryPath, 'coverage', 'coverage-final.json');
+          const coveragePath = path.join(entryPath, "coverage", 'coverage-final.json');
           if (fs.existsSync(coveragePath)) {
             const coverage = await this.loadThemeCoverage(entryPath, entry, folderType);
             if (coverage) {
@@ -119,16 +120,16 @@ export class IntegratedCoverageService {
    */
   private async loadThemeCoverage(themePath: string, themeName: string, folderType: string): Promise<AggregatedCoverage | null> {
     try {
-      const coveragePath = path.join(themePath, 'coverage', 'coverage-final.json');
-      const coverageData = JSON.parse(fs.readFileSync(coveragePath, 'utf8'));
+      const coveragePath = path.join(themePath, "coverage", 'coverage-final.json');
+      const coverageData = JSON.parse(fileAPI.readFileSync(coveragePath, 'utf8'));
       
       // Extract coverage metrics
       const metrics = this.extractCoverageMetrics(coverageData);
       
       // Check for system test coverage
-      const systemTestPath = path.join(themePath, 'coverage', 'system-test-coverage.json');
+      const systemTestPath = path.join(themePath, "coverage", 'system-test-coverage.json');
       const systemTestCoverage = fs.existsSync(systemTestPath) 
-        ? JSON.parse(fs.readFileSync(systemTestPath, 'utf8'))
+        ? JSON.parse(fileAPI.readFileSync(systemTestPath, 'utf8'))
         : { classCount: 0, coveredClassCount: 0, classCoveragePct: 0 };
       
       // Calculate duplication (simplified for now)

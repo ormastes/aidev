@@ -7,7 +7,7 @@ describe('JSON Log Parser External Test', () => {
     parser = new JSONLogParser();
   });
 
-  describe('parseJSONLog', () => {
+  describe("parseJSONLog", () => {
     it('should parse valid JSON log with all standard fields', () => {
       const jsonLine = '{"timestamp":"2025-01-15T10:00:00.000Z","level":"info","message":"Server started","port":3000}';
       
@@ -50,7 +50,7 @@ describe('JSON Log Parser External Test', () => {
         errorCode: 'DB_CONN_001',
         retryCount: 3,
         userId: 12345,
-        tags: ['database', 'critical'],
+        tags: ["database", "critical"],
         nested: {
           server: 'db-01',
           region: 'us-east-1'
@@ -64,7 +64,7 @@ describe('JSON Log Parser External Test', () => {
         errorCode: 'DB_CONN_001',
         retryCount: 3,
         userId: 12345,
-        tags: ['database', 'critical'],
+        tags: ["database", "critical"],
         nested: {
           server: 'db-01',
           region: 'us-east-1'
@@ -101,7 +101,7 @@ describe('JSON Log Parser External Test', () => {
     });
 
     it('should handle invalid JSON', () => {
-      const invalidJson = '{"level":"info","message":"Unclosed';
+      const invalidJson = '{"level":"info","message":"Unclosed";
       
       const result = parser.parseJSONLog(invalidJson, 'stderr');
       
@@ -148,7 +148,7 @@ describe('JSON Log Parser External Test', () => {
         '2025-01-15T10:00:00+00:00',
         '2025-01-15T10:00:00-05:00',
         1736920800000, // Unix timestamp in milliseconds
-        '1736920800' // Unix timestamp as string
+        "1736920800" // Unix timestamp as string
       ];
 
       testCases.forEach(timestamp => {
@@ -209,7 +209,7 @@ describe('JSON Log Parser External Test', () => {
     });
   });
 
-  describe('isValidJSON', () => {
+  describe("isValidJSON", () => {
     it('should detect valid JSON', () => {
       expect(parser.isValidJSON('{"key":"value"}')).toBe(true);
       expect(parser.isValidJSON('[]')).toBe(true);
@@ -223,11 +223,11 @@ describe('JSON Log Parser External Test', () => {
       expect(parser.isValidJSON('{')).toBe(false);
       expect(parser.isValidJSON('not json')).toBe(false);
       expect(parser.isValidJSON('')).toBe(false);
-      expect(parser.isValidJSON('undefined')).toBe(false);
+      expect(parser.isValidJSON("undefined")).toBe(false);
     });
   });
 
-  describe('extractMetadata', () => {
+  describe("extractMetadata", () => {
     it('should extract all non-standard fields as metadata', () => {
       const logObject = {
         timestamp: '2025-01-15T10:00:00.000Z',

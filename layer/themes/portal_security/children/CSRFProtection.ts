@@ -4,7 +4,7 @@
  */
 
 import { Request, Response, NextFunction } from 'express';
-import crypto from 'crypto';
+import crypto from 'node:crypto';
 
 interface CsrfOptions {
   cookie?: CookieOptions;
@@ -47,14 +47,14 @@ export class CsrfProtection {
         name: options.cookie?.name ?? '_csrf',
         httpOnly: options.cookie?.httpOnly ?? true,
         sameSite: options.cookie?.sameSite ?? 'strict',
-        secure: options.cookie?.secure ?? process.env.NODE_ENV === 'production',
+        secure: options.cookie?.secure ?? process.env.NODE_ENV === "production",
         maxAge: options.cookie?.maxAge ?? 86400000, // 24 hours
         path: options.cookie?.path ?? '/',
         ...options.cookie
       },
       ignoreMethods: options.ignoreMethods ?? ['GET', 'HEAD', 'OPTIONS'],
       ignoreRoutes: options.ignoreRoutes ?? [],
-      sessionKey: options.sessionKey ?? 'csrfSecret',
+      sessionKey: options.sessionKey ?? "csrfSecret",
       tokenLength: options.tokenLength ?? 32,
       tokenHeader: options.tokenHeader ?? 'x-csrf-token',
       tokenField: options.tokenField ?? '_csrf',
@@ -300,7 +300,7 @@ export class DoubleSubmitCsrf {
     res.cookie(this.cookieName, token, {
       httpOnly: false, // Must be accessible by JavaScript
       sameSite: 'strict',
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === "production",
       maxAge: 86400000 // 24 hours
     });
     

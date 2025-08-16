@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { createServer } from 'http';
+import { createServer } from '../utils/http-wrapper';
 import { Server } from 'socket.io';
 import { 
   setupWebSecurity,
@@ -47,7 +47,7 @@ const { authService, sessionManager, appRegistry } = setupWebSecurity(app, {
     publicPaths: ['/', '/health', '/api/auth/*']
   },
   sessionConfig: {
-    cookieDomain: 'localhost',
+    cookieDomain: "localhost",
     cookieName: SecurityConstants.SESSION.COOKIE_NAME
   }
 });
@@ -100,7 +100,7 @@ app.get('/api/rooms', async (req: AuthRequest, res: Response) => {
   res.json({
     rooms: [
       { id: 'general', name: 'General', description: 'General discussion' },
-      { id: 'dev', name: 'Development', description: 'Development topics' },
+      { id: 'dev', name: "Development", description: 'Development topics' },
       { id: 'design', name: 'Design', description: 'Design discussions' },
       { id: 'support', name: 'Support', description: 'Get help here' }
     ]
@@ -132,7 +132,7 @@ io.use(async (socket, next) => {
 });
 
 // WebSocket connection handling
-io.on('connection', (socket) => {
+io.on("connection", (socket) => {
   console.log(`User ${socket.data.username} connected`);
   
   // Join user to their personal room
@@ -183,7 +183,7 @@ io.on('connection', (socket) => {
   });
   
   // Handle disconnect
-  socket.on('disconnect', () => {
+  socket.on("disconnect", () => {
     console.log(`User ${socket.data.username} disconnected`);
     
     // Notify all rooms the user was in
@@ -350,7 +350,7 @@ app.get('/', async (req: Request, res: Response) => {
         const data = await response.json();
         
         if (response.status === 401) {
-          document.getElementById('authRequired').style.display = 'block';
+          document.getElementById("authRequired").style.display = 'block';
           return;
         }
         
@@ -359,7 +359,7 @@ app.get('/', async (req: Request, res: Response) => {
         
         // Decode token to get user info (simple base64 decode)
         const payload = JSON.parse(atob(authToken.split('.')[1]));
-        document.getElementById('userInfo').textContent = \`Logged in as \${payload.username}\`;
+        document.getElementById("userInfo").textContent = \`Logged in as \${payload.username}\`;
         
         // Initialize socket connection
         connectSocket();
@@ -368,7 +368,7 @@ app.get('/', async (req: Request, res: Response) => {
         loadRooms();
       } catch (error) {
         console.error('Initialization error:', error);
-        document.getElementById('authRequired').style.display = 'block';
+        document.getElementById("authRequired").style.display = 'block';
       }
     }
     
@@ -405,7 +405,7 @@ app.get('/', async (req: Request, res: Response) => {
       const response = await fetch('/api/rooms');
       const data = await response.json();
       
-      const roomList = document.getElementById('roomList');
+      const roomList = document.getElementById("roomList");
       roomList.innerHTML = data.rooms.map(room => \`
         <div class="room \${room.id === currentRoom ? 'active' : ''}" 
              onclick="switchRoom('\${room.id}')">
@@ -422,12 +422,12 @@ app.get('/', async (req: Request, res: Response) => {
       currentRoom = roomId;
       socket.emit('join-room', currentRoom);
       
-      document.getElementById('messages').innerHTML = '';
+      document.getElementById("messages").innerHTML = '';
       loadRooms();
     }
     
     function sendMessage() {
-      const input = document.getElementById('messageInput');
+      const input = document.getElementById("messageInput");
       const message = input.value.trim();
       
       if (message) {
@@ -440,7 +440,7 @@ app.get('/', async (req: Request, res: Response) => {
     }
     
     function displayMessage(data) {
-      const messages = document.getElementById('messages');
+      const messages = document.getElementById("messages");
       const time = new Date(data.timestamp).toLocaleTimeString();
       
       messages.innerHTML += \`
@@ -455,7 +455,7 @@ app.get('/', async (req: Request, res: Response) => {
     }
     
     function displaySystemMessage(text) {
-      const messages = document.getElementById('messages');
+      const messages = document.getElementById("messages");
       messages.innerHTML += \`
         <div class="message" style="background: #95a5a6; color: white;">
           <em>\${text}</em>
@@ -465,8 +465,8 @@ app.get('/', async (req: Request, res: Response) => {
     }
     
     // Handle enter key
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('messageInput').addEventListener('keypress', (e) => {
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("messageInput").addEventListener("keypress", (e) => {
         if (e.key === 'Enter') {
           sendMessage();
         }

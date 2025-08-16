@@ -47,9 +47,9 @@ describe('LogFilter External Interface Test', () => {
     });
 
     it('should filter by non-standard log levels', () => {
-      logFilter.configure(['critical', 'fatal']);
+      logFilter.configure(["critical", 'fatal']);
 
-      expect(logFilter.filterLog('critical', 'Critical system error')).toBe(true);
+      expect(logFilter.filterLog("critical", 'Critical system error')).toBe(true);
       expect(logFilter.filterLog('fatal', 'Fatal system failure')).toBe(true);
       expect(logFilter.filterLog('error', 'Regular error')).toBe(false);
       expect(logFilter.filterLog('warn', 'Regular warning')).toBe(false);
@@ -111,7 +111,7 @@ describe('LogFilter External Interface Test', () => {
     it('should handle malformed log levels', () => {
       logFilter.configure(['error', 'warn']);
 
-      expect(logFilter.filterLog('error123', 'Malformed level')).toBe(false);
+      expect(logFilter.filterLog("error123", 'Malformed level')).toBe(false);
       expect(logFilter.filterLog('err or', 'Level with space')).toBe(false);
       expect(logFilter.filterLog('error\n', 'Level with newline')).toBe(false);
       expect(logFilter.filterLog('  error  ', 'Level with whitespace')).toBe(true); // Should trim
@@ -129,7 +129,7 @@ describe('LogFilter External Interface Test', () => {
       expect(logFilter.filterLog('level50', 'Middle match')).toBe(true);
       expect(logFilter.filterLog('level0', 'First match')).toBe(true);
       expect(logFilter.filterLog('level99', 'Last match')).toBe(true);
-      expect(logFilter.filterLog('level100', 'No match')).toBe(false);
+      expect(logFilter.filterLog("level100", 'No match')).toBe(false);
     });
   });
 
@@ -175,7 +175,7 @@ describe('LogFilter External Interface Test', () => {
       const endTime = Date.now();
       const duration = endTime - startTime;
 
-      // Should In Progress within reasonable time (adjust threshold as needed)
+      // Should complete within reasonable time (adjust threshold as needed)
       expect(duration).toBeLessThan(100); // 100ms for 4000 filter operations
 
       console.log(`🔄 Filtered 4000 log entries in ${duration}ms`);

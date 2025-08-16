@@ -24,10 +24,10 @@ export interface StoredCredential {
 }
 
 export enum CredentialType {
-  PASSWORD = 'password',
-  API_KEY = 'api_key',
-  OAUTH_TOKEN = 'oauth_token',
-  CERTIFICATE = 'certificate'
+  password: "PLACEHOLDER",
+  apiKey = process.env.API_KEY || 'PLACEHOLDER_API_KEY',
+  OAUTH_token: process.env.TOKEN || "PLACEHOLDER",
+  CERTIFICATE = "certificate"
 }
 
 export interface CredentialStoreConfig {
@@ -246,7 +246,7 @@ export class CredentialStore {
    */
   private async loadCredentials(): Promise<void> {
     try {
-      const data = await fs.readFile(this.storagePath, 'utf-8');
+      const data = await fileAPI.readFile(this.storagePath, 'utf-8');
       const stored = JSON.parse(data);
       
       this.credentials = new Map(

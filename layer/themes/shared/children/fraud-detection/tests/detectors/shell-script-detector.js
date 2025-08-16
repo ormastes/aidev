@@ -12,7 +12,7 @@ exports.shellScriptDetector = exports.ShellScriptDetector = void 0;
 const types_1 = require("../types");
 class ShellScriptDetector {
     constructor() {
-        this.name = 'ShellScriptDetector';
+        this.name = "ShellScriptDetector";
         this.MAX_ALLOWED_LINES = 10;
         this.SHELL_EXTENSIONS = ['.sh', '.bat', '.ps1', '.bash', '.zsh', '.fish', '.cmd'];
     }
@@ -120,7 +120,7 @@ class ShellScriptDetector {
         // Patterns that indicate complex logic
         const patterns = {
             'nested loops': /for.*\n.*for|while.*\n.*while/gi,
-            'functions': /function\s+\w+\s*\(|^\w+\s*\(\)\s*{/gm,
+            "functions": /function\s+\w+\s*\(|^\w+\s*\(\)\s*{/gm,
             'case statements': /case\s+.*\s+in/gi,
             'array operations': /\${.*\[@\]}/g,
             'complex conditionals': /if.*&&.*\|\|.*then/gi,

@@ -8,7 +8,7 @@ jest.mock('uuid', () => ({
   v4: jest.fn(() => 'test-session-id')
 }));
 
-describe('SessionManager', () => {
+describe("SessionManager", () => {
   let sessionManager: SessionManager;
   let mockServerManager: jest.Mocked<MCPServerManager>;
   let mockAgent: jest.Mocked<Agent>;
@@ -51,7 +51,7 @@ describe('SessionManager', () => {
     jest.useRealTimers();
   });
 
-  describe('constructor', () => {
+  describe("constructor", () => {
     it('should initialize with default config', () => {
       const manager = new SessionManager(mockServerManager);
       expect(manager).toBeDefined();
@@ -65,14 +65,14 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('registerAgent', () => {
+  describe("registerAgent", () => {
     it('should register agent successfully', () => {
       sessionManager.registerAgent(mockAgent);
       expect(sessionManager['agents'].has('test-agent-1')).toBe(true);
     });
   });
 
-  describe('unregisterAgent', () => {
+  describe("unregisterAgent", () => {
     it('should unregister agent and end its sessions', () => {
       sessionManager.registerAgent(mockAgent);
       const session = sessionManager.createSession('test-agent-1');
@@ -88,7 +88,7 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('createSession', () => {
+  describe("createSession", () => {
     beforeEach(() => {
       sessionManager.registerAgent(mockAgent);
     });
@@ -99,7 +99,7 @@ describe('SessionManager', () => {
       expect(session).toBeDefined();
       expect(session.getId()).toBe('test-session-id');
       expect(session.getAgentId()).toBe('test-agent-1');
-      expect(sessionManager['sessions'].has('test-session-id')).toBe(true);
+      expect(sessionManager["sessions"].has('test-session-id')).toBe(true);
     });
 
     it('should create session with context', () => {
@@ -111,7 +111,7 @@ describe('SessionManager', () => {
 
     it('should emit sessionCreated event', () => {
       const listener = jest.fn();
-      sessionManager.on('sessionCreated', listener);
+      sessionManager.on("sessionCreated", listener);
       
       const session = sessionManager.createSession('test-agent-1');
       
@@ -120,7 +120,7 @@ describe('SessionManager', () => {
 
     it('should set idle timer', () => {
       sessionManager.createSession('test-agent-1');
-      expect(sessionManager['idleTimers'].has('test-session-id')).toBe(true);
+      expect(sessionManager["idleTimers"].has('test-session-id')).toBe(true);
     });
 
     it('should throw error if agent not found', () => {
@@ -136,7 +136,7 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('startSession', () => {
+  describe("startSession", () => {
     let session: Session;
 
     beforeEach(() => {
@@ -154,7 +154,7 @@ describe('SessionManager', () => {
 
     it('should emit sessionStarted event', async () => {
       const listener = jest.fn();
-      sessionManager.on('sessionStarted', listener);
+      sessionManager.on("sessionStarted", listener);
       
       await sessionManager.startSession('test-session-id');
       
@@ -184,7 +184,7 @@ describe('SessionManager', () => {
 
     it('should handle session start errors', async () => {
       const errorListener = jest.fn();
-      sessionManager.on('sessionError', errorListener);
+      sessionManager.on("sessionError", errorListener);
       
       // Mock session.start to throw
       jest.spyOn(session, 'start').mockImplementation(() => {
@@ -199,7 +199,7 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('processMessage', () => {
+  describe("processMessage", () => {
     let session: Session;
 
     beforeEach(async () => {
@@ -214,18 +214,18 @@ describe('SessionManager', () => {
 
     it('should process message successfully', async () => {
       const messageListener = jest.fn();
-      sessionManager.on('messageAdded', messageListener);
+      sessionManager.on("messageAdded", messageListener);
       
       const response = await sessionManager.processMessage('test-session-id', 'Hello');
       
-      expect(response.role).toBe('assistant');
+      expect(response.role).toBe("assistant");
       expect(response.content[0].text).toContain('Processing your request');
       expect(messageListener).toHaveBeenCalledTimes(2); // user + assistant
       expect(session.getMessages()).toHaveLength(3); // system + user + assistant
     });
 
     it('should reset idle timer on message', async () => {
-      const resetSpy = jest.spyOn(sessionManager as any, 'resetIdleTimer');
+      const resetSpy = jest.spyOn(sessionManager as any, "resetIdleTimer");
       
       await sessionManager.processMessage('test-session-id', 'Hello');
       
@@ -246,7 +246,7 @@ describe('SessionManager', () => {
 
     it('should auto-save when enabled', async () => {
       sessionManager['config'].autoSave = true;
-      const saveSpy = jest.spyOn(sessionManager, 'saveSession').mockResolvedValue();
+      const saveSpy = jest.spyOn(sessionManager, "saveSession").mockResolvedValue();
       
       await sessionManager.processMessage('test-session-id', 'Hello');
       
@@ -274,7 +274,7 @@ describe('SessionManager', () => {
 
     it('should handle processing errors', async () => {
       const errorListener = jest.fn();
-      sessionManager.on('sessionError', errorListener);
+      sessionManager.on("sessionError", errorListener);
       
       mockServerManager.getAllTools.mockRejectedValue(new Error('Server error'));
       
@@ -285,7 +285,7 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('endSession', () => {
+  describe("endSession", () => {
     let session: Session;
 
     beforeEach(() => {
@@ -295,13 +295,13 @@ describe('SessionManager', () => {
 
     it('should end session successfully', () => {
       const listener = jest.fn();
-      sessionManager.on('sessioncompleted', listener);
+      sessionManager.on("sessioncompleted", listener);
       
       sessionManager.endSession('test-session-id', 'User requested');
       
       expect(session.getStatus()).toBe(SessionStatus.success);
-      expect(session.getMetadata('endReason')).toBe('User requested');
-      expect(sessionManager['idleTimers'].has('test-session-id')).toBe(false);
+      expect(session.getMetadata("endReason")).toBe('User requested');
+      expect(sessionManager["idleTimers"].has('test-session-id')).toBe(false);
       expect(listener).toHaveBeenCalledWith('test-session-id');
     });
 
@@ -310,7 +310,7 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('getSession', () => {
+  describe("getSession", () => {
     it('should return session if exists', () => {
       sessionManager.registerAgent(mockAgent);
       const session = sessionManager.createSession('test-agent-1');
@@ -323,7 +323,7 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('getActiveSessions', () => {
+  describe("getActiveSessions", () => {
     it('should return only active sessions', async () => {
       sessionManager.registerAgent(mockAgent);
       const session1 = sessionManager.createSession('test-agent-1');
@@ -338,7 +338,7 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('getAgentSessions', () => {
+  describe("getAgentSessions", () => {
     it('should return sessions for specific agent', () => {
       const mockAgent2 = { ...mockAgent, getId: () => 'test-agent-2' };
       
@@ -362,7 +362,7 @@ describe('SessionManager', () => {
       jest.advanceTimersByTime(6000); // Exceed 5 second timeout
       
       expect(session.getStatus()).toBe(SessionStatus.success);
-      expect(session.getMetadata('endReason')).toBe('Idle timeout');
+      expect(session.getMetadata("endReason")).toBe('Idle timeout');
     });
 
     it('should reset idle timer on activity', async () => {
@@ -390,7 +390,7 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('saveSession', () => {
+  describe("saveSession", () => {
     it('should log save attempt when path configured', async () => {
       sessionManager['config'].savePath = '/tmp/sessions';
       const logSpy = jest.spyOn(console, 'log').mockImplementation();
@@ -421,7 +421,7 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('loadSession', () => {
+  describe("loadSession", () => {
     it('should log load attempt when path configured', async () => {
       sessionManager['config'].savePath = '/tmp/sessions';
       const logSpy = jest.spyOn(console, 'log').mockImplementation();
@@ -442,7 +442,7 @@ describe('SessionManager', () => {
     });
   });
 
-  describe('getStatistics', () => {
+  describe("getStatistics", () => {
     it('should return correct statistics', async () => {
       sessionManager.registerAgent(mockAgent);
       
@@ -487,11 +487,11 @@ describe('SessionManager', () => {
       
       expect(session1.getStatus()).toBe(SessionStatus.success);
       expect(session2.getStatus()).toBe(SessionStatus.success);
-      expect(sessionManager['idleTimers'].size).toBe(0);
+      expect(sessionManager["idleTimers"].size).toBe(0);
     });
 
     it('should remove all event listeners', () => {
-      const removeAllListenersSpy = jest.spyOn(sessionManager, 'removeAllListeners');
+      const removeAllListenersSpy = jest.spyOn(sessionManager, "removeAllListeners");
       
       sessionManager.cleanup();
       
@@ -503,8 +503,8 @@ describe('SessionManager', () => {
     it('should have typed event methods', () => {
       const listener = jest.fn();
       
-      sessionManager.on('sessionCreated', listener);
-      sessionManager.emit('sessionCreated', {} as Session);
+      sessionManager.on("sessionCreated", listener);
+      sessionManager.emit("sessionCreated", {} as Session);
       
       expect(listener).toHaveBeenCalled();
     });

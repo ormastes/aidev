@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import cors from 'cors';
 import session from 'express-session';
 import { path } from '../../../infra_external-log-lib/src';
@@ -90,7 +90,7 @@ async function connectDb(): Promise<void> {
 
 // Authentication middleware
 const authenticateToken = (req: AuthRequest, res: Response, next: NextFunction): void => {
-  const authHeader = req.headers['authorization'];
+  const authHeader = req.headers["authorization"];
   const token = authHeader?.split(' ')[1] || req.session.token;
   
   if (!token) {

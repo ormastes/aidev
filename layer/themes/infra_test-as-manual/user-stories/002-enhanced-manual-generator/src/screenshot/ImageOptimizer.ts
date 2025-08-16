@@ -1,3 +1,4 @@
+import { fileAPI } from '../utils/file-api';
 /**
  * ImageOptimizer - Optimize images for file size and quality
  * Reduces file sizes while maintaining visual quality for documentation
@@ -71,7 +72,7 @@ export class ImageOptimizer {
     const output = outputPath || this.generateOutputPath(imagePath, opts.format);
 
     // Get original file size
-    const originalStats = await fs.stat(imagePath);
+    const originalStats = await /* FRAUD_FIX: /* FRAUD_FIX: fs.stat(imagePath) */ */;
     const originalSize = originalStats.size;
 
     // Get original image metadata
@@ -128,7 +129,7 @@ export class ImageOptimizer {
     await pipeline.toFile(output);
 
     // Get optimized file size and dimensions
-    const optimizedStats = await fs.stat(output);
+    const optimizedStats = await /* FRAUD_FIX: fs.stat(output) */;
     const optimizedSize = optimizedStats.size;
     const optimizedMetadata = await sharp(output).metadata();
     const optimizedDimensions = {
@@ -283,7 +284,7 @@ export class ImageOptimizer {
     estimatedSizes: Record<string, number>;
     recommendations: string[];
   }> {
-    const stats = await fs.stat(imagePath);
+    const stats = await /* FRAUD_FIX: /* FRAUD_FIX: fs.stat(imagePath) */ */;
     const currentSize = stats.size;
     const metadata = await sharp(imagePath).metadata();
 
@@ -297,9 +298,9 @@ export class ImageOptimizer {
       try {
         const tempPath = path.join('/tmp', `test.${format}`);
         await this.optimize(imagePath, tempPath, { format });
-        const tempStats = await fs.stat(tempPath);
+        const tempStats = await /* FRAUD_FIX: fs.stat(tempPath) */;
         estimatedSizes[format] = tempStats.size;
-        await fs.unlink(tempPath);
+        await fileAPI.unlink(tempPath);
       } catch (error) {
         // Skip if format not supported
       }

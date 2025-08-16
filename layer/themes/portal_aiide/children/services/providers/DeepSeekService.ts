@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../utils/http-wrapper';
 import { LLMProvider, ChatMessage, ChatResponse, ChatSettings } from '../../types';
 
 export class DeepSeekService {
@@ -29,7 +29,7 @@ export class DeepSeekService {
         },
         {
           headers: {
-            'Authorization': `Bearer ${this.apiKey}`,
+            "Authorization": `Bearer ${this.apiKey}`,
             'Content-Type': 'application/json',
           },
         }
@@ -37,7 +37,7 @@ export class DeepSeekService {
 
       return {
         content: response.data.choices[0].message.content,
-        role: 'assistant',
+        role: "assistant",
         timestamp: new Date(),
         provider: provider.id,
         model: provider.config.model || 'deepseek-chat',
@@ -77,7 +77,7 @@ export class DeepSeekService {
         },
         {
           headers: {
-            'Authorization': `Bearer ${this.apiKey}`,
+            "Authorization": `Bearer ${this.apiKey}`,
             'Content-Type': 'application/json',
           },
           responseType: 'stream',
@@ -98,7 +98,7 @@ export class DeepSeekService {
               if (jsonStr === '[DONE]') {
                 resolve({
                   content: fullContent,
-                  role: 'assistant',
+                  role: "assistant",
                   timestamp: new Date(),
                   provider: provider.id,
                   model: provider.config.model || 'deepseek-chat',
@@ -147,12 +147,12 @@ export class DeepSeekService {
     try {
       const response = await axios.get(`${this.baseUrl}/models`, {
         headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
+          "Authorization": `Bearer ${this.apiKey}`,
         },
       });
 
       return response.data.data
-        .filter((model: any) => model.id.includes('deepseek'))
+        .filter((model: any) => model.id.includes("deepseek"))
         .map((model: any) => model.id);
     } catch (error) {
       console.error('Failed to fetch DeepSeek models:', error);

@@ -5,7 +5,7 @@
  */
 
 import { SimpleImageBuilder } from '../services/SimpleImageBuilder';
-import { Command } from 'commander';
+import { Command } from "commander";
 import chalk from 'chalk';
 
 const builder = new SimpleImageBuilder();

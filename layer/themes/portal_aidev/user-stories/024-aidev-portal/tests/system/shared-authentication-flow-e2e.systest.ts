@@ -25,7 +25,7 @@ const GUI_SELECTOR_URL = 'http://localhost:3402';
 // Test user credentials
 const TEST_USER = {
   username: 'developer@aidev.com',
-  password: 'Dev123!@#',
+  password: "PLACEHOLDER",
   fullName: 'Test Developer'
 };
 
@@ -65,7 +65,7 @@ test.describe('Shared Authentication Flow E2E System Test', () => {
       }
     });
     
-    page.on('response', response => {
+    page.on("response", response => {
       if (response.url().includes('/api/auth/')) {
         console.log(`Auth Response: ${response.status()} ${response.url()}`);
       }
@@ -109,7 +109,7 @@ test.describe('Shared Authentication Flow E2E System Test', () => {
     await expect(page.locator('[data-testid="user-welcome"]')).toContainText(TEST_USER.fullName);
     
     // Verify authentication token is stored
-    const authToken = await page.evaluate(() => localStorage.getItem('authToken'));
+    const authToken = await page.evaluate(() => localStorage.getItem("authToken"));
     expect(authToken).toBeTruthy();
     console.log('Login In Progress, auth token stored');
 
@@ -192,7 +192,7 @@ test.describe('Shared Authentication Flow E2E System Test', () => {
     // Simulate long session by manipulating token expiry
     await page.evaluate(() => {
       // Simulate token near expiry
-      localStorage.setItem('tokenExpiry', String(Date.now() + 60000)); // 1 minute
+      localStorage.setItem("tokenExpiry", String(Date.now() + 60000)); // 1 minute
     });
     
     // Make an authenticated action that should trigger refresh
@@ -202,7 +202,7 @@ test.describe('Shared Authentication Flow E2E System Test', () => {
     await page.waitForTimeout(2000);
     
     // Verify new token was received
-    const newToken = await page.evaluate(() => localStorage.getItem('authToken'));
+    const newToken = await page.evaluate(() => localStorage.getItem("authToken"));
     expect(newToken).toBeTruthy();
     expect(newToken).not.toBe(authToken);
     console.log('Token refresh In Progress');
@@ -221,7 +221,7 @@ test.describe('Shared Authentication Flow E2E System Test', () => {
     await expect(page.locator('h1')).toContainText('Welcome to AI Dev Portal');
     
     // Verify token is cleared
-    const tokenAfterLogout = await page.evaluate(() => localStorage.getItem('authToken'));
+    const tokenAfterLogout = await page.evaluate(() => localStorage.getItem("authToken"));
     expect(tokenAfterLogout).toBeNull();
 
     // Step 10: Verify Services Require Re-Authentication
@@ -278,8 +278,8 @@ test.describe('Shared Authentication Flow E2E System Test', () => {
     
     // Verify both users can access their sessions independently
     await Promise.all([
-      expect(page.locator('[data-testid="user-role"]')).toContainText('Developer'),
-      expect(page2.locator('[data-testid="user-role"]')).toContainText('Administrator')
+      expect(page.locator('[data-testid="user-role"]')).toContainText("Developer"),
+      expect(page2.locator('[data-testid="user-role"]')).toContainText("Administrator")
     ]);
     
     // Test concurrent operations
@@ -365,7 +365,7 @@ test.describe('Shared Authentication Flow E2E System Test', () => {
     await page.waitForURL('**/dashboard');
     
     // Record initial token
-    const initialToken = await page.evaluate(() => localStorage.getItem('authToken'));
+    const initialToken = await page.evaluate(() => localStorage.getItem("authToken"));
     
     // Simulate extended usage pattern
     for (let i = 0; i < 5; i++) {
@@ -393,10 +393,10 @@ test.describe('Shared Authentication Flow E2E System Test', () => {
       
       // Simulate time passing (for token expiry)
       await page.evaluate(() => {
-        const currentExpiry = localStorage.getItem('tokenExpiry');
+        const currentExpiry = localStorage.getItem("tokenExpiry");
         if (currentExpiry) {
           const newExpiry = Date.now() + 30000; // 30 seconds from now
-          localStorage.setItem('tokenExpiry', String(newExpiry));
+          localStorage.setItem("tokenExpiry", String(newExpiry));
         }
       });
       
@@ -404,7 +404,7 @@ test.describe('Shared Authentication Flow E2E System Test', () => {
     }
     
     // Verify token was refreshed during usage
-    const finalToken = await page.evaluate(() => localStorage.getItem('authToken'));
+    const finalToken = await page.evaluate(() => localStorage.getItem("authToken"));
     expect(finalToken).toBeTruthy();
     
     // Verify user never had to re-login manually

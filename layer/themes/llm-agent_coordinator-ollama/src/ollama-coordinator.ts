@@ -3,7 +3,7 @@
  * Integrates all Ollama components and provides high-level API
  */
 
-import { EventEmitter } from '../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { OllamaClient, OllamaConfig } from '../children/client';
 import { ModelManager, ModelStatus, ModelTemplate } from '../children/models';
 import { StreamHandler, StreamSession, StreamOptions } from '../children/stream';
@@ -21,7 +21,7 @@ export interface OllamaCoordinatorConfig {
 
 export interface TaskQueue {
   id: string;
-  type: 'generate' | 'chat' | 'embed' | 'stream';
+  type: "generate" | 'chat' | 'embed' | 'stream';
   priority: number;
   data: any;
   resolve: (value: any) => void;
@@ -207,7 +207,7 @@ export class OllamaCoordinator extends EventEmitter {
     let result: any;
     
     switch (task.type) {
-      case 'generate':
+      case "generate":
         result = await this.client.generate(task.data);
         break;
       case 'chat':
@@ -290,7 +290,7 @@ export class OllamaCoordinator extends EventEmitter {
       await this.ensureDefaultModels();
     }
 
-    this.emit('initialized', { models: models.length });
+    this.emit("initialized", { models: models.length });
   }
 
   private async ensureDefaultModels(): Promise<void> {
@@ -315,7 +315,7 @@ export class OllamaCoordinator extends EventEmitter {
     maxTokens?: number;
     priority?: number;
   }): Promise<string> {
-    const result = await this.queueTask('generate', {
+    const result = await this.queueTask("generate", {
       model: options?.model || this.config.defaultModel,
       prompt,
       options: {
@@ -454,7 +454,7 @@ export class OllamaCoordinator extends EventEmitter {
   }
 
   async healthCheck(): Promise<{
-    status: 'healthy' | 'degraded' | 'unhealthy';
+    status: 'healthy' | "degraded" | "unhealthy";
     services: Record<string, boolean>;
     metrics: CoordinatorMetrics;
   }> {
@@ -468,7 +468,7 @@ export class OllamaCoordinator extends EventEmitter {
     const allHealthy = Object.values(services).every(s => s);
     const someHealthy = Object.values(services).some(s => s);
 
-    const status = allHealthy ? 'healthy' : someHealthy ? 'degraded' : 'unhealthy';
+    const status = allHealthy ? 'healthy' : someHealthy ? "degraded" : "unhealthy";
 
     return {
       status,
@@ -490,7 +490,7 @@ export class OllamaCoordinator extends EventEmitter {
     this.embeddingsManager.clearCache();
     this.modelManager.clearCache();
     
-    this.emit('shutdown');
+    this.emit("shutdown");
     this.removeAllListeners();
   }
 }

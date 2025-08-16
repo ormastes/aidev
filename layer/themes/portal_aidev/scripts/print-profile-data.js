@@ -33,7 +33,7 @@ async function printProfileDetailViewData() {
         console.log('-'.repeat(80));
         
         const guiResponse = await makeRequest({
-            hostname: 'localhost',
+            hostname: "localhost",
             port: 3456,
             path: '/api/gui-requirements?appId=mate-dealer',
             method: 'GET'
@@ -72,7 +72,7 @@ async function printProfileDetailViewData() {
         
         try {
             const dbExport = await makeRequest({
-                hostname: 'localhost',
+                hostname: "localhost",
                 port: 3456,
                 path: '/api/debug/database/export',
                 method: 'POST',
@@ -126,7 +126,7 @@ async function printProfileDetailViewData() {
         
         try {
             const statsResponse = await makeRequest({
-                hostname: 'localhost',
+                hostname: "localhost",
                 port: 3456,
                 path: '/api/stats',
                 method: 'GET'

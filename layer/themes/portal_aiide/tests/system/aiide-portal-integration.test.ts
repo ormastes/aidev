@@ -118,7 +118,7 @@ test.describe('AIIDE Portal Integration', () => {
       await page.click('[data-testid="export-chat"]');
       
       // Verify download started
-      const download = await page.waitForEvent('download');
+      const download = await page.waitForEvent("download");
       expect(download.suggestedFilename()).toContain('.json');
       
       // Save and re-import
@@ -333,7 +333,7 @@ test.describe('AIIDE Portal Integration', () => {
       // Verify AI response references the function
       await page.waitForSelector('.message-assistant');
       const response = await page.locator('.message-assistant').last();
-      await expect(response).toContainText('testFunction');
+      await expect(response).toContainText("testFunction");
     });
 
     test('should apply AI suggestions to code', async ({ page }) => {
@@ -417,7 +417,7 @@ test.describe('AIIDE Portal Integration', () => {
       
       // Verify content was saved
       const newEditor = await newPage.locator('.monaco-editor textarea');
-      await expect(newEditor).toContainText('autoSaveTest');
+      await expect(newEditor).toContainText("autoSaveTest");
     });
   });
 });

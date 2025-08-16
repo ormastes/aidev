@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../../infra_external-log-lib/src';
+import { EventEmitter } from 'node:events';
 import { ContextSegment } from './ContextAnalyzer';
 import { OptimizationResult } from './ContextOptimizer';
 
