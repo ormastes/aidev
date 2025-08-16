@@ -3,7 +3,7 @@
     "virtual": {
       "enabled": true,
       "provider": "docker",
-      "image": "node:18-alpine",
+      "image": "oven/bun:latest",
       "fallback": "subprocess",
       "dangerousPatterns": [
         "sudo",

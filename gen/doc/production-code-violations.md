@@ -1057,7 +1057,7 @@ Files: 4 | Violations: 7
 ### root
 Files: 9 | Violations: 17
 
-#### layer/shared/test-infrastructure/fixtures.ts
+#### layer/shared/test/fixtures.ts
 - Line 22: `fs.writeFile`
 - Line 410: `fs.writeFile`
 - Line 445: `fs.writeFile`

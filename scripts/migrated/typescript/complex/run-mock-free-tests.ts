@@ -100,7 +100,7 @@ async function main() {
   // 1. Test Infrastructure
   await $`run_component_tests \`;
   await $`"Test Infrastructure" \`;
-  await $`"$BASE_DIR/layer/shared/test-infrastructure" \`;
+  await $`"$BASE_DIR/layer/shared/test" \`;
   await $`"*.test.ts"`;
   // 2. Portal GUI Selector E2E
   await $`run_component_tests \`;

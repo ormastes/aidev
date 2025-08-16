@@ -48,58 +48,7 @@
 TASK_QUEUE_REGISTRY.vf.json‡ÈŠ‹3íå
 bun.lockÃÍÁ„‹3ùã
 bunfig.toml
-È²ûïŠ3ıA
-3common/features/branch-coverage-enhancement.feature
-øˆßˆ‹3¶UD
-5common/features/comprehensive-branch-coverage.feature‰ßˆ‹3ß;
--common/features/config-manager-system.feature
-óˆßˆ‹3´c>
-0common/features/coverage-analyzer-system.feature
-õˆßˆ‹3¹jA
-3common/features/duplication-detector-system.feature
-úˆßˆ‹3¯eE
-7common/features/enhanced-branch-coverage-system.feature
-ÿˆßˆ‹3Úf>
-0common/features/error-edge-case-coverage.feature
-„‰ßˆ‹3¬|=
-/common/features/report-generator-system.feature
-‚‰ßˆ‹3ãg=
-/common/features/runnable-comment-system.feature
-şˆßˆ‹3Ş%9
-+common/features/setup-folder-system.feature
-÷ˆßˆ‹3õE=
-/common/features/test-environment-system.feature
-öˆßˆ‹3‹JH
-:common/features/theme-manager-fraud-checker-system.feature
-ûˆßˆ‹3éwJ
-<common/step_definitions/branch-coverage-enhancement.steps.ts
-øˆßˆ‹3ÙQL
->common/step_definitions/comprehensive-branch-coverage.steps.ts
-‰ßˆ‹3ƒiD
-6common/step_definitions/config-manager-system.steps.ts
-óˆßˆ‹3ÿIG
-9common/step_definitions/coverage-analyzer-system.steps.ts
-õˆßˆ‹3Š<J
-<common/step_definitions/duplication-detector-system.steps.ts
-úˆßˆ‹3Õ"N
-@common/step_definitions/enhanced-branch-coverage-system.steps.ts
-ÿˆßˆ‹3Ù8G
-9common/step_definitions/error-edge-case-coverage.steps.ts
-„‰ßˆ‹3à+F
-8common/step_definitions/report-generator-system.steps.ts
-ƒ‰ßˆ‹3ıHF
-8common/step_definitions/runnable-comment-system.steps.ts
-şˆßˆ‹3ÕB
-4common/step_definitions/setup-folder-system.steps.ts
-÷ˆßˆ‹3ÔF
-8common/step_definitions/test-environment-system.steps.ts
-öˆßˆ‹3ãQ
-Ccommon/step_definitions/theme-manager-fraud-checker-system.steps.ts
-ıˆßˆ‹3…N;
--common/templates/llm_rules/CLAUDE.md.template
-¡ï¼ıƒ3•F#
-common/xlib/README.md
-Ïİ½…‚3—-
+È²ûïŠ3ı-
 config/.claude-code-config.json
 ÊƒÜº‚3·'
 config/claude_config.json
@@ -113,7 +62,7 @@ Ccommon/step_definitions/theme-manager-fraud-checker-system.steps.ts
 config/python/uv.toml
 ì»ÜÆ‰3¤,
 config/test-runner.config.json
-ü¶ÙŒ‹3š-
+ËëäŒ‹3›-
 config/typescript/tsconfig.json
 ÏµìÀ‰3İ.
  demo/test-creator/CMakeLists.txt
@@ -958,7 +907,9 @@ $gen/doc/PACKAGE_MANAGER_MIGRATION.md
 !gen/doc/binary-removal-summary.md
 ´»ğÅŠ3ñ<
 .gen/doc/circular-dependency-detection-guide.md
-ß¹„‹3Õ\A
+ß¹„‹3Õ\8
+*gen/doc/common-directory-removal-report.md
+µüğŒ‹3† A
 2gen/doc/consolidated/consolidated_1755176596215.md…æµÅŠ3¥§@
 2gen/doc/consolidated/consolidated_1755176596230.md
 ‡æµÅŠ3å?
@@ -1052,7 +1003,7 @@ $gen/doc/PACKAGE_MANAGER_MIGRATION.md
 ü¬¢ÈŠ3¿;
 -gen/doc/ollama-role-enablement-test-report.md
 ÓÏôìŠ3Î!4
-%gen/doc/production-code-violations.md©ëƒİŠ3úÿS
+%gen/doc/production-code-violations.mdîèãŒ‹3ëÿS
 Dgen/doc/research/qemu-development/QEMU_LINUX_DEVELOPMENT_RESEARCH.md¼ÄŠŒŠ3œ†+
 gen/doc/restoration-report.md
 Ÿ¿ÁÛŠ3ÑO
@@ -1071,9 +1022,13 @@ Agen/doc/retrospect/envgenerator-tokenservice-integration-tests.md
 *gen/doc/task-queue-push-pop-explanation.md
 ığşäŠ3â$4
 &gen/doc/test-reorganization-summary.md
-•òºŒ‹3´3/
+•òºŒ‹3´3>
+0gen/doc/test-reports/test-run-20250816_063532.md
+®âÜŒ‹3ë/
 !gen/doc/theme-migration-report.md
-‘¶İŠ3°M
+‘¶İŠ3°*
+gen/doc/theme-test-runner.md
+œøğŒ‹3é+M
 ?gen/history/retrospect/setup-folder-container-implementation.md
 ¹£–Š3İ=H
 :gen/history/retrospect/story-reporter-update-retrospect.md
@@ -1691,38 +1646,38 @@ $layer/epics/tool/pipe/index.d.ts.map
 layer/epics/tool/pipe/index.ts
 §ÏöíŠ3ˆ,
 layer/epics/tool/tsconfig.json
-ñ‘îï†3’@
-2layer/shared/test-infrastructure/database.d.ts.map
-ÑœİÀ‰3×>
-0layer/shared/test-infrastructure/database.js.map
-ÎœİÀ‰3©(:
-,layer/shared/test-infrastructure/database.ts
-êÍˆ‚‹3÷@@
-2layer/shared/test-infrastructure/fixtures.d.ts.map
-ÙœİÀ‰3ø>
-0layer/shared/test-infrastructure/fixtures.js.map
-ÕœİÀ‰3½/:
-,layer/shared/test-infrastructure/fixtures.ts
-ëÍˆ‚‹3ÛR=
-/layer/shared/test-infrastructure/index.d.ts.map
-îœİÀ‰3Á;
--layer/shared/test-infrastructure/index.js.map
-íœİÀ‰3­7
-)layer/shared/test-infrastructure/index.ts
-æ “îŠ3Ô;
--layer/shared/test-infrastructure/package.json
-£çéˆ‹3ßJ
-<layer/shared/test-infrastructure/playwright-helpers.d.ts.map
-ìœİÀ‰3ÇH
-:layer/shared/test-infrastructure/playwright-helpers.js.map
-éœİÀ‰3ƒ0D
-6layer/shared/test-infrastructure/playwright-helpers.ts
-ì “îŠ3Ş7>
-0layer/shared/test-infrastructure/server.d.ts.map
-ãœİÀ‰3°<
-.layer/shared/test-infrastructure/server.js.map
-áœİÀ‰3¼N8
-*layer/shared/test-infrastructure/server.ts
+ñ‘îï†3’1
+#layer/shared/test/database.d.ts.map
+ÑœİÀ‰3×/
+!layer/shared/test/database.js.map
+ÎœİÀ‰3©(+
+layer/shared/test/database.ts
+êÍˆ‚‹3÷@1
+#layer/shared/test/fixtures.d.ts.map
+ÙœİÀ‰3ø/
+!layer/shared/test/fixtures.js.map
+ÕœİÀ‰3½/+
+layer/shared/test/fixtures.ts
+ëÍˆ‚‹3ÛR.
+ layer/shared/test/index.d.ts.map
+îœİÀ‰3Á,
+layer/shared/test/index.js.map
+íœİÀ‰3­(
+layer/shared/test/index.ts
+æ “îŠ3Ô,
+layer/shared/test/package.json
+×¿àŒ‹3Ğ;
+-layer/shared/test/playwright-helpers.d.ts.map
+ìœİÀ‰3Ç9
++layer/shared/test/playwright-helpers.js.map
+éœİÀ‰3ƒ05
+'layer/shared/test/playwright-helpers.ts
+ì “îŠ3Ş7/
+!layer/shared/test/server.d.ts.map
+ãœİÀ‰3°-
+layer/shared/test/server.js.map
+áœİÀ‰3¼N)
+layer/shared/test/server.ts
 êÍˆ‚‹3ÉK(
 layer/themes/.editorconfig
 ‚Èûæ3Ï9
@@ -5824,7 +5779,7 @@ Blayer/themes/init_setup-folder/scripts/infra/run-theme-coverage.shÑ•ÀŠ‹3É
 5layer/themes/init_setup-folder/scripts/python/lint.sh’¿ÀŠ‹3ôF
 6layer/themes/init_setup-folder/scripts/python/setup.sh’¿ÀŠ‹3µE
 5layer/themes/init_setup-folder/scripts/python/test.sh’¿ÀŠ‹3ñM
-=layer/themes/init_setup-folder/scripts/run-mock-free-tests.shÄïÀŠ‹3Ö6F
+=layer/themes/init_setup-folder/scripts/run-mock-free-tests.sh¶ëâŒ‹3Ç6F
 6layer/themes/init_setup-folder/scripts/safe-cleanup.shÄïÀŠ‹3şJ
 <layer/themes/init_setup-folder/scripts/setup-cpp-coverage.sh
 ÆÏîŠ3¿)M
@@ -7951,7 +7906,7 @@ mlayer/themes/llm-agent_pocketflow/user-stories/022-workflow-composition/example
 2layer/themes/mate-dealer/tests/unit/sample.test.ts
 Ä¨Ø‹‹3î?
 1layer/themes/mate-dealer/tests/unit/utils.test.ts
-Ä¨Ø‹‹3´4
+ ÀìŒ‹3¶4
 &layer/themes/mate-dealer/tsconfig.json
 Ä¨Ø‹‹3®K
 =layer/themes/mate-dealer/user-stories/001-mobile-app/app.json
@@ -9429,7 +9384,7 @@ Klayer/themes/portal_gui-selector/tests/e2e/gui-selection-real.test.d.ts.map
 ÈÔİÀ‰3‘W
 Ilayer/themes/portal_gui-selector/tests/e2e/gui-selection-real.test.js.map
 ÇÔİÀ‰3‘qT
-Elayer/themes/portal_gui-selector/tests/e2e/gui-selection-real.test.ts£Ê‹3ø†W
+Elayer/themes/portal_gui-selector/tests/e2e/gui-selection-real.test.ts’³âŒ‹3Ú†W
 Jlayer/themes/portal_gui-selector/tests/performance/benchmark.test.d.ts.map	ÑÔİÀ‰3V
 Hlayer/themes/portal_gui-selector/tests/performance/benchmark.test.js.map
 ĞÔİÀ‰3‚eR
@@ -10318,7 +10273,7 @@ Jlayer/themes/portal_security/scripts/setup/demo/test-demo-app/setup-mcp.shıÌ
 Alayer/themes/portal_security/tests/integration/auth-flow.itest.ts
 æ–¼Œ‹3µlO
 Alayer/themes/portal_security/tests/integration/auth-real.itest.ts
-ì–¼Œ‹3¤Va
+ÒàáŒ‹3†Va
 Rlayer/themes/portal_security/tests/integration/configmanager-envgenerator.itest.tsâ–¼Œ‹3ëc
 Ulayer/themes/portal_security/tests/integration/envgenerator-servicediscovery.itest.ts
 ß–¼Œ‹3ÿo_
@@ -29932,7 +29887,7 @@ Inode_modules/yup/node_modules/type-fest/source/union-to-intersection.d.ts
  
 package-lock.jsonéÂ‡òŠ3´±
 package.json
-ìÚØŒ‹3·#
+™ªïŒ‹3÷"
 pyproject.toml
 œ™Å¶‰3Ù.
  scripts/FRAUD_CHECK_MIGRATION.md
@@ -30140,7 +30095,7 @@ $scripts/convert-stest-to-cucumber.tsÛû‹‹3Âd1
 5scripts/migrated/python/complex/run-embedded-tests.py
 ­Ëõ‰‹3¿9D
 6scripts/migrated/python/complex/run-mock-free-tests.py
-®Ëõ‰‹3ğMA
+´•ãŒ‹3áMA
 3scripts/migrated/python/complex/run-system-tests.py
 ËËõ‰‹3”3:
 ,scripts/migrated/python/complex/run-tests.py
@@ -30501,7 +30456,7 @@ Ascripts/migrated/typescript/complex/pre-commit-test-validation.ts
 9scripts/migrated/typescript/complex/run-embedded-tests.ts
 ¬Ëõ‰‹3Ø5H
 :scripts/migrated/typescript/complex/run-mock-free-tests.ts
-­Ëõ‰‹3BE
+ªÀãŒ‹3BE
 7scripts/migrated/typescript/complex/run-system-tests.ts
 ÊËõ‰‹3ä->
 0scripts/migrated/typescript/complex/run-tests.ts
@@ -30733,8 +30688,9 @@ Ascripts/migrated/typescript/complex/test-hello-add-integration.ts
 %scripts/pre-commit-test-validation.shä¹„‹3ë5
 $scripts/restore-and-refactor-docs.jsÁƒ¿ŞŠ3ö‚,
 scripts/rollback-violations.js
-ğçÆãŠ3ÆY.
-scripts/run-all-theme-tests.sh  ×Œ‹3öd2
+ğçÆãŠ3ÆYA
+1scripts/run-all-tests-with-virtual-environment.sh¬îŒ‹3å(
+scripts/run-all-tests.sh´¹ãŒ‹3„e2
 #scripts/run-compliance-dashboard.jsÖû‹‹3³„(
 scripts/run-fraud-check.js
 Õû‹‹3î8(
@@ -30773,8 +30729,9 @@ $scripts/restore-and-refactor-docs.jsÁƒ¿ŞŠ3ö‚,
 scripts/test-scripts/simple.ts	ìÈãˆ‹3u5
 %scripts/update-task-queue-registry.jsÑû‹‹3øP3
 #scripts/validate-subagent-config.sh™ÔîŠ3š!6
-&scripts/validate-test-effectiveness.jsĞû‹‹3Y
+&scripts/validate-test-effectiveness.jsĞû‹‹3Y4
+&templates/llm_rules/CLAUDE.md.template
+¡ï¼ıƒ3•F
 tsconfig.json
-åšŠ†‹3ô
- *ASíÇô:
-?y´ºãeÔMŞ9Ï0
+£‹îŒ‹3¦
+ *¡d™aÒ£3gã”Ã2Â“c"Š[0

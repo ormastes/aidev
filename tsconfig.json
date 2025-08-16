@@ -34,7 +34,6 @@
       "@layer/*": ["layer/*"],
       "@themes/*": ["layer/themes/*"],
       "@epics/*": ["layer/epics/*"],
-      "@common/*": ["common/*"],
       "@scripts/*": ["scripts/*"],
       "@gen/*": ["gen/*"],
       "@llm_rules/*": ["llm_rules/*"]
@@ -60,8 +59,6 @@
     "src/**/*.tsx",
     "layer/**/*.ts",
     "layer/**/*.tsx",
-    "common/**/*.ts",
-    "common/**/*.tsx",
     "scripts/**/*.ts",
     "llm_rules/**/*.ts",
     "gen/**/*.ts",

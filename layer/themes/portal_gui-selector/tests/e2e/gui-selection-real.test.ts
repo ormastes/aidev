@@ -5,8 +5,8 @@
  */
 
 import { test, expect, Browser, Page, BrowserContext } from '@playwright/test';
-import { createTestDatabase, seedTestData, TestDatabase } from '../../../shared/test-infrastructure/database';
-import { createTestServer, TestServer } from '../../../shared/test-infrastructure/server';
+import { createTestDatabase, seedTestData, TestDatabase } from '../../../shared/test/database';
+import { createTestServer, TestServer } from '../../../shared/test/server';
 import { path } from '../../../infra_external-log-lib/src';
 import * as fs from 'fs-extra';
 import { os } from '../../../infra_external-log-lib/src';

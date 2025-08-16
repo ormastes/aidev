@@ -1,4 +1,4 @@
-import { MateDealer, DealDetails } from '../../common/utils';
+import { MateDealer, DealDetails } from '../../children/utils';
 
 describe('MateDealer Utilities', () => {
   let mateDealer: MateDealer;

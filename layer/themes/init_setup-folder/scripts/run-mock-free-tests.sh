@@ -110,7 +110,7 @@ echo ""
 # 1. Test Infrastructure
 run_component_tests \
     "Test Infrastructure" \
-    "$BASE_DIR/layer/shared/test-infrastructure" \
+    "$BASE_DIR/layer/shared/test" \
     "*.test.ts"
 
 # 2. Portal GUI Selector E2E

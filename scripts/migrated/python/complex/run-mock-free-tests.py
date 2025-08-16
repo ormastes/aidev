@@ -98,7 +98,7 @@ def main():
     # 1. Test Infrastructure
     subprocess.run("run_component_tests \", shell=True)
     subprocess.run(""Test Infrastructure" \", shell=True)
-    subprocess.run(""$BASE_DIR/layer/shared/test-infrastructure" \", shell=True)
+    subprocess.run(""$BASE_DIR/layer/shared/test" \", shell=True)
     subprocess.run(""*.test.ts"", shell=True)
     # 2. Portal GUI Selector E2E
     subprocess.run("run_component_tests \", shell=True)
