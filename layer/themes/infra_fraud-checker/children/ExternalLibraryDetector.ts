@@ -193,7 +193,7 @@ export class ExternalLibraryDetector {
     report += '\nHow to fix:\n';
     report += '1. Replace direct imports with wrapped versions from @aidev/external-log-lib\n';
     report += '2. The wrapped versions maintain the same API but add logging\n';
-    report += '3. Example: Replace `import { fs } from '../../infra_external-log-lib/dist';` with `import { fs } from "@aidev/external-log-lib"`\n';
+    report += '3. Example: Replace `import { fs } from "../../infra_external-log-lib/dist";` with `import { fs } from "@aidev/external-log-lib"`\n';
 
     return report;
   }

@@ -401,7 +401,7 @@ async function main() {
   await $`'start': 'npm run build && node dist/server.js',`;
   await $`'test': 'jest'`;
   await $`};`;
-  await $`fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));`;
+  await $`await fileAPI.createFile('package.json', JSON.stringify(pkg, { type: FileType.TEMPORARY }));`;
   await $`"`;
   // Step 15: Create a simple backend server
   console.log("Step 15: Creating backend server...");

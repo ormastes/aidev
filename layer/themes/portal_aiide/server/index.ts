@@ -91,7 +91,7 @@ app.put('/api/files', async (req: Request, res: Response, next: NextFunction) =>
     }
 
     const fullPath = path.join(BASE_PATH, filePath);
-    await fs.writeFile(fullPath, content, 'utf-8');
+    await await fileAPI.createFile(fullPath, content, { type: FileType.TEMPORARY });
     
     // Emit file change event
     io.emit('file:changed', filePath);
@@ -121,10 +121,10 @@ app.post('/api/files', async (req: Request, res: Response, next: NextFunction) =
     const fullPath = path.join(BASE_PATH, filePath);
     
     if (type === 'file') {
-      await fs.writeFile(fullPath, content, 'utf-8');
+      await await fileAPI.createFile(fullPath, content, { type: FileType.TEMPORARY });
       io.emit('file:created', filePath);
     } else if (type === 'directory') {
-      await fs.mkdir(fullPath, { recursive: true });
+      await await fileAPI.createDirectory(fullPath);
       io.emit('file:created', filePath);
     } else {
       return res.status(400).json({

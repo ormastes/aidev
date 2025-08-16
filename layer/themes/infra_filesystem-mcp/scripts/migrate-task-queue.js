@@ -30,7 +30,7 @@ var typeToQueueMap = {
 /**
  * Convert priority-based format to test-driven format
  */
-function convertToTestDriven(priorityQueue) {
+async function convertToTestDriven(priorityQueue) {
     var testDrivenQueue = {
         metadata: {
             version: "1.0.0",
@@ -106,7 +106,7 @@ function convertToTestDriven(priorityQueue) {
 /**
  * Convert test-driven format to priority-based format
  */
-function convertToPriorityBased(testDrivenQueue) {
+async function convertToPriorityBased(testDrivenQueue) {
     var _a;
     var priorityQueue = {
         taskQueues: {
@@ -147,7 +147,7 @@ function convertToPriorityBased(testDrivenQueue) {
 /**
  * Determine queue type from task
  */
-function determineQueueType(task) {
+async function determineQueueType(task) {
     // Check task type
     if (task.type && typeToQueueMap[task.type]) {
         return typeToQueueMap[task.type];
@@ -177,7 +177,7 @@ function determineQueueType(task) {
 /**
  * Format task content for test-driven format
  */
-function formatTaskContent(task) {
+async function formatTaskContent(task) {
     var _a, _b;
     if (typeof task.content === 'string') {
         return task.content;
@@ -193,7 +193,7 @@ function formatTaskContent(task) {
 /**
  * Determine priority based on queue type
  */
-function determinePriority(queueName) {
+async function determinePriority(queueName) {
     var highPriorityQueues = ['adhoc_temp_user_request', 'environment_tests', 'external_tests'];
     var mediumPriorityQueues = ['system_tests_implement', 'integration_tests_implement', 'unit_tests'];
     if (highPriorityQueues.includes(queueName))
@@ -205,7 +205,7 @@ function determinePriority(queueName) {
 /**
  * Map queue type to task type
  */
-function mapQueueTypeToTaskType(queueName) {
+async function mapQueueTypeToTaskType(queueName) {
     var reverseMap = {
         'system_tests_implement': 'test_implementation',
         'integration_tests_implement': 'integration_testing',
@@ -222,7 +222,7 @@ function mapQueueTypeToTaskType(queueName) {
 /**
  * Extract title from content
  */
-function extractTitle(content) {
+async function extractTitle(content) {
     // Try to extract first line or first 60 characters
     var lines = content.split('\n');
     if (lines[0]) {
@@ -233,7 +233,7 @@ function extractTitle(content) {
 /**
  * Main migration function
  */
-function migrate(inputFile, outputFile, direction) {
+async function migrate(inputFile, outputFile, direction) {
     var _a, _b, _c, _d;
     if (direction === void 0) { direction = 'toTestDriven'; }
     try {
@@ -262,7 +262,7 @@ function migrate(inputFile, outputFile, direction) {
             }
         }
         // Write output file
-        fs.writeFileSync(outputFile, JSON.stringify(outputData, null, 2));
+        await fileAPI.createFile(outputFile, JSON.stringify(outputData, { type: FileType.TEMPORARY }));
         console.log("\u2713 Output written to: ".concat(outputFile));
         // Summary
         if (direction === 'toTestDriven') {

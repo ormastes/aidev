@@ -110,7 +110,7 @@ class TaskQueueHierarchyManager {
    */
   private saveRegistry(): void {
     this.registry.metadata.updated_at = new Date().toISOString();
-    fs.writeFileSync(this.registryPath, JSON.stringify(this.registry, null, 2));
+    await fileAPI.createFile(this.registryPath, JSON.stringify(this.registry, { type: FileType.TEMPORARY }));
     console.log(`✓ Registry saved to: ${this.registryPath}`);
   }
 
@@ -217,7 +217,7 @@ class TaskQueueHierarchyManager {
       }
       
       // Save updated file
-      fs.writeFileSync(fullPath, JSON.stringify(content, null, 2));
+      await fileAPI.createFile(fullPath, JSON.stringify(content, { type: FileType.TEMPORARY }));
       console.log(`✓ Updated parent for: ${queuePath}`);
     } catch (error) {
       console.error(`✗ Failed to update: ${queuePath}`, error);
@@ -417,8 +417,8 @@ class TaskQueueHierarchyManager {
       };
       
       // Ensure directory exists
-      fs.mkdirSync(path.dirname(fullPath), { recursive: true });
-      fs.writeFileSync(fullPath, JSON.stringify(template, null, 2));
+      await fileAPI.createDirectory(path.dirname(fullPath), { recursive: true });
+      await fileAPI.createFile(fullPath, JSON.stringify(template, { type: FileType.TEMPORARY }));
       console.log(`✓ Created new queue: ${queuePath}`);
     }
     

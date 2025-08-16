@@ -4,13 +4,13 @@ import * as fs from 'fs/promises';
 import { path } from '../../../layer/themes/infra_external-log-lib/dist';
 import * as os from 'os';
 
-async describe('TestReportGenerator System Tests', () => {
+describe('TestReportGenerator System Tests', () => {
   let tempDir: string;
   let originalCwd: string;
   let reportGenerator: TestReportGenerator;
   let testSchema: any;
 
-  async beforeAll(async () => {
+  beforeAll(async () => {
     originalCwd = process.cwd();
     tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'report-generator-system-'));
     
@@ -50,18 +50,18 @@ async describe('TestReportGenerator System Tests', () => {
     };
   });
 
-  async afterAll(async () => {
+  afterAll(async () => {
     process.chdir(originalCwd);
     await fs.rm(tempDir, { recursive: true, force: true });
   });
 
-  async beforeEach(async () => {
+  beforeEach(async () => {
     process.chdir(tempDir);
     reportGenerator = new TestReportGenerator(testSchema);
   });
 
-  async describe('Report Generation and Validation', () => {
-    async test('should generate valid report with complete data', async () => {
+  describe('Report Generation and Validation', () => {
+    test('should generate valid report with complete data', async () => {
       const validReportData: TestReport = {
         theme: 'test-theme',
         timestamp: new Date().toISOString(),
@@ -102,7 +102,7 @@ async describe('TestReportGenerator System Tests', () => {
       expect(result).toEqual(validReportData);
     });
 
-    async test('should reject invalid report data with missing required fields', async () => {
+    test('should reject invalid report data with missing required fields', async () => {
       const invalidReportData = {
         theme: 'test-theme'
         // Missing required fields: timestamp, environment, status, metrics
@@ -112,7 +112,7 @@ async describe('TestReportGenerator System Tests', () => {
         .rejects.toThrow('Invalid report data');
     });
 
-    async test('should reject report data with incorrect field types', async () => {
+    test('should reject report data with incorrect field types', async () => {
       const invalidReportData = {
         theme: 123, // Should be string
         timestamp: new Date().toISOString(),
@@ -135,7 +135,7 @@ async describe('TestReportGenerator System Tests', () => {
         .rejects.toThrow('Invalid report data');
     });
 
-    async test('should handle edge cases in environment field validation', async () => {
+    test('should handle edge cases in environment field validation', async () => {
       const edgeCaseData = {
         theme: 'edge-case-theme',
         timestamp: new Date().toISOString(),
@@ -159,8 +159,8 @@ async describe('TestReportGenerator System Tests', () => {
     });
   });
 
-  async describe('File System Operations', () => {
-    async test('should save JSON and HTML reports with timestamp', async () => {
+  describe('File System Operations', () => {
+    test('should save JSON and HTML reports with timestamp', async () => {
       const reportData: TestReport = {
         theme: 'save-test-theme',
         timestamp: new Date().toISOString(),
@@ -229,7 +229,7 @@ async describe('TestReportGenerator System Tests', () => {
       expect(htmlContent).toContain('<!DOCTYPE html>');
     });
 
-    async test('should handle file system errors during save operations', async () => {
+    test('should handle file system errors during save operations', async () => {
       const reportData: TestReport = {
         theme: 'error-test',
         timestamp: new Date().toISOString(),
@@ -240,7 +240,7 @@ async describe('TestReportGenerator System Tests', () => {
 
       // Try to save to a path that will cause permission error
       const readOnlyDir = path.join(tempDir, 'readonly');
-      await await fileAPI.createDirectory(readOnlyDir);
+      await fileAPI.createDirectory(readOnlyDir);
 
       try {
         await expect(reportGenerator.save(reportData, readOnlyDir))
@@ -251,7 +251,7 @@ async describe('TestReportGenerator System Tests', () => {
       }
     });
 
-    async test('should create nested output directories recursively', async () => {
+    test('should create nested output directories recursively', async () => {
       const reportData: TestReport = {
         theme: 'nested-test',
         timestamp: new Date().toISOString(),
@@ -272,7 +272,7 @@ async describe('TestReportGenerator System Tests', () => {
       expect(files.length).toBeGreaterThan(0);
     });
 
-    async test('should handle concurrent save operations', async () => {
+    test('should handle concurrent save operations', async () => {
       const baseReportData = {
         timestamp: new Date().toISOString(),
         environment: { type: 'concurrent', version: '1.0.0' },
@@ -305,8 +305,8 @@ async describe('TestReportGenerator System Tests', () => {
     });
   });
 
-  async describe('HTML Report Generation', () => {
-    async test('should generate complete HTML report with all sections', async () => {
+  describe('HTML Report Generation', () => {
+    test('should generate complete HTML report with all sections', async () => {
       const reportData: TestReport = {
         theme: 'html-test-theme',
         timestamp: new Date().toISOString(),
@@ -408,7 +408,7 @@ async describe('TestReportGenerator System Tests', () => {
       expect(htmlContent).toContain('.violation {');
     });
 
-    async test('should generate HTML report without violations section when no violations exist', async () => {
+    test('should generate HTML report without violations section when no violations exist', async () => {
       const cleanReportData: TestReport = {
         theme: 'clean-theme',
         timestamp: new Date().toISOString(),
@@ -458,7 +458,7 @@ async describe('TestReportGenerator System Tests', () => {
       expect(htmlContent).toContain('100'); // Perfect fraud score
     });
 
-    async test('should handle special characters and encoding in HTML output', async () => {
+    test('should handle special characters and encoding in HTML output', async () => {
       const specialCharData: TestReport = {
         theme: 'special-chars-<>&"\'',
         timestamp: new Date().toISOString(),
@@ -504,8 +504,8 @@ async describe('TestReportGenerator System Tests', () => {
     });
   });
 
-  async describe('Error Handling and Edge Cases', () => {
-    async test('should handle extremely large report data', async () => {
+  describe('Error Handling and Edge Cases', () => {
+    test('should handle extremely large report data', async () => {
       const largeReportData: TestReport = {
         theme: 'large-data-theme',
         timestamp: new Date().toISOString(),
@@ -559,7 +559,7 @@ async describe('TestReportGenerator System Tests', () => {
       expect(htmlContent).toContain('500 violations found'); // Large violation count
     });
 
-    async test('should validate schema with custom validation rules', async () => {
+    test('should validate schema with custom validation rules', async () => {
       const strictSchema = {
         type: 'object',
         required: ['theme', 'timestamp'],
@@ -609,7 +609,7 @@ async describe('TestReportGenerator System Tests', () => {
       await expect(strictGenerator.generate(invalidTimestampData)).rejects.toThrow();
     });
 
-    async test('should handle malformed schema gracefully', async () => {
+    test('should handle malformed schema gracefully', async () => {
       const malformedSchema = {
         type: 'not-a-valid-type',
         properties: null,
@@ -627,8 +627,8 @@ async describe('TestReportGenerator System Tests', () => {
     });
   });
 
-  async describe('Performance and Memory Usage', () => {
-    async test('should handle report generation within reasonable time limits', async () => {
+  describe('Performance and Memory Usage', () => {
+    test('should handle report generation within reasonable time limits', async () => {
       const performanceReportData: TestReport = {
         theme: 'performance-test',
         timestamp: new Date().toISOString(),
@@ -678,7 +678,7 @@ async describe('TestReportGenerator System Tests', () => {
       expect(files.length).toBeGreaterThan(0);
     });
 
-    async test('should not cause memory leaks with multiple report generations', async () => {
+    test('should not cause memory leaks with multiple report generations', async () => {
       const baseReportData = {
         theme: 'memory-test',
         timestamp: new Date().toISOString(),

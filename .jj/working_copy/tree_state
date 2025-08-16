@@ -102,58 +102,58 @@ Ecommon/tests-system/system/branch-coverage-enhancement.stest.d.ts.map
 “™İÀ‰3™Q
 Ccommon/tests-system/system/branch-coverage-enhancement.stest.js.map
 ’™İÀ‰3£zN
-?common/tests-system/system/branch-coverage-enhancement.stest.tsíÒˆ‚‹3Ë„U
+?common/tests-system/system/branch-coverage-enhancement.stest.ts÷Áğ‹‹3ëƒU
 Gcommon/tests-system/system/comprehensive-branch-coverage.stest.d.ts.map
 ¹™İÀ‰3T
 Ecommon/tests-system/system/comprehensive-branch-coverage.stest.js.map¸™İÀ‰3üìP
-Acommon/tests-system/system/comprehensive-branch-coverage.stest.tsëÒˆ‚‹3ÿ‘M
+Acommon/tests-system/system/comprehensive-branch-coverage.stest.tsŠÂğ‹‹3»M
 ?common/tests-system/system/config-manager-system.stest.d.ts.map
 Ç™İÀ‰3K
 =common/tests-system/system/config-manager-system.stest.js.map
 Å™İÀ‰3­fG
 9common/tests-system/system/config-manager-system.stest.ts
-³êõ…‹3nP
+šÂğ‹‹3ûlP
 Bcommon/tests-system/system/coverage-analyzer-system.stest.d.ts.map
 Ú™İÀ‰3“N
 @common/tests-system/system/coverage-analyzer-system.stest.js.map
 Ô™İÀ‰3ÙyJ
 <common/tests-system/system/coverage-analyzer-system.stest.ts
-îÒˆ‚‹3ó~S
+¬Âğ‹‹3Ë}S
 Ecommon/tests-system/system/duplication-detector-system.stest.d.ts.map
 ì™İÀ‰3™R
 Ccommon/tests-system/system/duplication-detector-system.stest.js.mapë™İÀ‰3¦‡N
-?common/tests-system/system/duplication-detector-system.stest.tsíÒˆ‚‹3†½W
+?common/tests-system/system/duplication-detector-system.stest.tsÁÂğ‹‹3¹W
 Icommon/tests-system/system/enhanced-branch-coverage-system.stest.d.ts.map
 ÿ™İÀ‰3¡V
 Gcommon/tests-system/system/enhanced-branch-coverage-system.stest.js.mapş™İÀ‰3è§R
-Ccommon/tests-system/system/enhanced-branch-coverage-system.stest.tsìÒˆ‚‹3àÕP
+Ccommon/tests-system/system/enhanced-branch-coverage-system.stest.tsÒÂğ‹‹3ÒP
 Bcommon/tests-system/system/error-edge-case-coverage.stest.d.ts.map
 ›šİÀ‰3“O
 @common/tests-system/system/error-edge-case-coverage.stest.js.map™šİÀ‰3üàK
-<common/tests-system/system/error-edge-case-coverage.stest.tsëÒˆ‚‹3»çO
+<common/tests-system/system/error-edge-case-coverage.stest.tsãÂğ‹‹3µäO
 Acommon/tests-system/system/report-generator-system.stest.d.ts.map
 ­šİÀ‰3‘N
 ?common/tests-system/system/report-generator-system.stest.js.map¬šİÀ‰3¶J
-;common/tests-system/system/report-generator-system.stest.tsëÒˆ‚‹3ŸÉO
+;common/tests-system/system/report-generator-system.stest.tsñÂğ‹‹3ƒÈO
 Acommon/tests-system/system/runnable-comment-system.stest.d.ts.map
 ´šİÀ‰3‘M
 ?common/tests-system/system/runnable-comment-system.stest.js.map
 ³šİÀ‰3Ø9I
 ;common/tests-system/system/runnable-comment-system.stest.ts
-ìÒˆ‚‹3ƒ@K
+Ãğ‹‹3ß?K
 =common/tests-system/system/setup-folder-system.stest.d.ts.map
 ÌšİÀ‰3‰J
 ;common/tests-system/system/setup-folder-system.stest.js.mapËšİÀ‰3›±F
-7common/tests-system/system/setup-folder-system.stest.tsíÒˆ‚‹3€³O
+7common/tests-system/system/setup-folder-system.stest.ts•Ãğ‹‹3€³O
 Acommon/tests-system/system/test-environment-system.stest.d.ts.map
 ×šİÀ‰3‘M
 ?common/tests-system/system/test-environment-system.stest.js.map
 ÖšİÀ‰3ÖjJ
-;common/tests-system/system/test-environment-system.stest.tsîÒˆ‚‹3ß„Z
+;common/tests-system/system/test-environment-system.stest.tsªÃğ‹‹3ÉƒZ
 Lcommon/tests-system/system/theme-manager-fraud-checker-system.stest.d.ts.map
 èšİÀ‰3§Y
 Jcommon/tests-system/system/theme-manager-fraud-checker-system.stest.js.mapçšİÀ‰3é©U
-Fcommon/tests-system/system/theme-manager-fraud-checker-system.stest.tsìÒˆ‚‹3ø¼#
+Fcommon/tests-system/system/theme-manager-fraud-checker-system.stest.ts½Ãğ‹‹3ª¹#
 common/xlib/README.md
 Ïİ½…‚3—-
 config/.claude-code-config.json
@@ -925,7 +925,10 @@ Edoc/research/explorer/tests/templates/api-validation.spec.ts.template
 íËØ‹3ö>
 .doc/research/explorer/tests/verify-security.pyÙôá‹3‰h7
 )doc/research/subagent-delegation-guide.md
-ÚØÂìŠ3Ä7G
+ÚØÂìŠ3Ä7'
+fix-all-async-issues.sh“–ğ‹‹3…
+"
+fix-async-tests.shÓÉî‹‹3ÎG
 9gen/coverage-analysis/story-reporter-coverage-analysis.md
 Ë‚Üº‚3ç4O
 Agen/coverage-test-results/test-2025-07-18T00-46-22-046Z-json.json
@@ -1059,7 +1062,9 @@ $gen/doc/PACKAGE_MANAGER_MIGRATION.md
 ÚéâİŠ3şA8
 *gen/doc/file-creation-api-documentation.md
 ëßšÜŠ3àS5
-&gen/doc/file-structure-validation.jsonÔê‰—Š3Í•A
+&gen/doc/file-structure-validation.jsonÔê‰—Š3Í•4
+&gen/doc/fraud-check-report-20250816.md
+õòù‹‹3¦+A
 3gen/doc/fraud-checker-quality-improvement-report.md
 ¾„ÉíŠ3ó;@
 1gen/doc/fraud-reports/all-themes-fraud-check.jsonšú·ì†3µŞ>
@@ -1866,7 +1871,7 @@ clayer/themes/check_hea-architecture/user-stories/006-hea-implementation/scripts
 alayer/themes/check_hea-architecture/user-stories/006-hea-implementation/scripts/scaffold.d.ts.map	üİÀ‰3gm
 _layer/themes/check_hea-architecture/user-stories/006-hea-implementation/scripts/scaffold.js.map
 üİÀ‰3Ô4k
-[layer/themes/check_hea-architecture/user-stories/006-hea-implementation/scripts/scaffold.ts›ìª‹3†Fn
+[layer/themes/check_hea-architecture/user-stories/006-hea-implementation/scripts/scaffold.tsÂÃğ‹‹3€Fn
 alayer/themes/check_hea-architecture/user-stories/006-hea-implementation/scripts/validate.d.ts.map	İÀ‰3gm
 _layer/themes/check_hea-architecture/user-stories/006-hea-implementation/scripts/validate.js.map
 İÀ‰3ÈCk
@@ -2051,7 +2056,8 @@ Blayer/themes/infra_deployment/k8s/overlays/prod/kustomization.yaml
 ¶Ãù—Š3µ@
 3layer/themes/infra_external-log-lib/NAME_ID.vf.json	ÖŠÕ–Š3oD
 6layer/themes/infra_external-log-lib/TASK_QUEUE.vf.json
-“­æŠ3è!N
+“­æŠ3è!;
+,layer/themes/infra_external-log-lib/bun.lock‹Ûè‹‹3¾¯N
 @layer/themes/infra_external-log-lib/children/aggregator/index.ts
 ñ¥“îŠ3–ZN
 @layer/themes/infra_external-log-lib/children/audited-fs/index.ts
@@ -2153,7 +2159,7 @@ Player/themes/infra_external-log-lib/src/file-manager/MCPIntegratedFileManager.t
 åëìŠ‹3¼va
 Rlayer/themes/infra_external-log-lib/src/fraud-detector/FileCreationFraudChecker.ts¡¦“îŠ3‡‚>
 0layer/themes/infra_external-log-lib/src/index.ts
-ıÒà‹3“V
+÷ÿï‹‹3‚ V
 Hlayer/themes/infra_external-log-lib/src/interceptors/base-interceptor.ts
 Íëø€‹3Ñ9_
 Qlayer/themes/infra_external-log-lib/src/interceptors/child-process-interceptor.ts
@@ -2735,17 +2741,7 @@ tlayer/themes/infra_external-log-lib/user-stories/004-real-time-streaming/tests/
 Ä¤İÀ‰3‡
 ylayer/themes/infra_external-log-lib/user-stories/004-real-time-streaming/tests/system/process-crash-recovery.stest.js.map
 Ä¤İÀ‰3œs„
-ulayer/themes/infra_external-log-lib/user-stories/004-real-time-streaming/tests/system/process-crash-recovery.stest.ts»¤“îŠ3¹¡}
-olayer/themes/infra_external-log-lib/user-stories/004-real-time-streaming/tests/system/test-delayed-crash-app.js
-½¤“îŠ3~
-player/themes/infra_external-log-lib/user-stories/004-real-time-streaming/tests/system/test-immediate-exit-app.js
-±¤“îŠ3á{
-mlayer/themes/infra_external-log-lib/user-stories/004-real-time-streaming/tests/system/test-memory-leak-app.js
-¸¤“îŠ3Ûƒ
-ulayer/themes/infra_external-log-lib/user-stories/004-real-time-streaming/tests/system/test-resource-exhaustion-app.js
-µ¤“îŠ3àx
-jlayer/themes/infra_external-log-lib/user-stories/004-real-time-streaming/tests/system/test-segfault-app.js
-·¤“îŠ3†	„
+ulayer/themes/infra_external-log-lib/user-stories/004-real-time-streaming/tests/system/process-crash-recovery.stest.ts»¤“îŠ3¹¡„
 vlayer/themes/infra_external-log-lib/user-stories/004-real-time-streaming/tests/unit/log-monitor-coverage.test.d.ts.map
 Ê¤İÀ‰3‰‚
 tlayer/themes/infra_external-log-lib/user-stories/004-real-time-streaming/tests/unit/log-monitor-coverage.test.js.map
@@ -3066,7 +3062,7 @@ Blayer/themes/infra_filesystem-mcp/children/VFTaskQueueWrapperV2.ts
 Dlayer/themes/infra_filesystem-mcp/children/VFValidatedFileWrapper.ts
 äÈ‹3«N
 @layer/themes/infra_filesystem-mcp/children/setup/SetupManager.ts
-„¤Š…‹3¥S
+Óû‹‹3¡S
 Elayer/themes/infra_filesystem-mcp/children/setup/config/defaults.json
 â£Š…‹3˜S
 Clayer/themes/infra_filesystem-mcp/children/setup/integrate-setup.shˆ¤Š…‹3¿K
@@ -3259,7 +3255,7 @@ Jlayer/themes/infra_filesystem-mcp/examples/task-queue-wrapper-example.json
 Hlayer/themes/infra_filesystem-mcp/features/filesystem-mcp-system.feature
 ûı„‹3Ïa
 Slayer/themes/infra_filesystem-mcp/features/step_definitions/filesystem-mcp-steps.ts
-Ü¬ÿ„‹3âJ
+Íû‹‹3³J
 ?layer/themes/infra_filesystem-mcp/file_structure_vf_schema.json¾…£„3K
 <layer/themes/infra_filesystem-mcp/gen/doc/enhanced-manual.mdÆ¹Ç•Š3–£R
 Clayer/themes/infra_filesystem-mcp/gen/doc/manual-test-procedures.mdâã†•Š3”ÜW
@@ -3358,12 +3354,12 @@ Clayer/themes/infra_filesystem-mcp/scripts/install-playwright-mcp.sh
 ş£Š…‹3í9D
 4layer/themes/infra_filesystem-mcp/scripts/install.sh®ã¹„‹3¿4N
 >layer/themes/infra_filesystem-mcp/scripts/install_cpp_tools.shş£Š…‹3áW
-Hlayer/themes/infra_filesystem-mcp/scripts/manage-task-queue-hierarchy.js°Í‹3¹œW
-Hlayer/themes/infra_filesystem-mcp/scripts/manage-task-queue-hierarchy.tsÛÈ‹3Ù†Q
+Hlayer/themes/infra_filesystem-mcp/scripts/manage-task-queue-hierarchy.jsÌû‹‹3¿W
+Hlayer/themes/infra_filesystem-mcp/scripts/manage-task-queue-hierarchy.tsËû‹‹3Á‡Q
 Alayer/themes/infra_filesystem-mcp/scripts/merge-setup-features.sh±õ‰…‹3Ğ-M
 ?layer/themes/infra_filesystem-mcp/scripts/migrate-task-queue.js
-ËŸıåŠ3YO
-?layer/themes/infra_filesystem-mcp/scripts/migrate-task-queue.tsÚÈ‹3ÜTI
+Êû‹‹3ÚYO
+?layer/themes/infra_filesystem-mcp/scripts/migrate-task-queue.tsÉû‹‹3©UI
 ;layer/themes/infra_filesystem-mcp/scripts/migrate-to-bun.sh
 ş£Š…‹3İJ
 :layer/themes/infra_filesystem-mcp/scripts/migrate-to-vf.sháĞîŠ3Ú0M
@@ -3383,7 +3379,7 @@ Blayer/themes/infra_filesystem-mcp/scripts/validate-root-item-id.js±Í‹3ã0
 ?layer/themes/infra_filesystem-mcp/scripts/verify_hello_world.shÿ£Š…‹3ëeI
 9layer/themes/infra_filesystem-mcp/setup-filesystem-mcp.shÁ±Æƒ‹3›=@
 2layer/themes/infra_filesystem-mcp/src/MCPServer.ts
-îÿÚ‚‹3ù^I
+Èû‹‹3ù^I
 ;layer/themes/infra_filesystem-mcp/src/ProtectedMCPServer.ts
 ËĞˆ‚‹3ƒoD
 6layer/themes/infra_filesystem-mcp/src/VFFileWrapper.ts
@@ -3583,7 +3579,7 @@ Klayer/themes/infra_filesystem-mcp/vf_definitions/file-management.vf.md_jsonğ
 Alayer/themes/infra_fraud-checker/children/EnvironmentValidator.ts
 ÃåĞŠ‹3Ø R
 Dlayer/themes/infra_fraud-checker/children/ExternalLibraryDetector.ts
-ØÎˆ‚‹33G
+…‹í‹‹33G
 9layer/themes/infra_fraud-checker/children/FraudChecker.ts
 ò˜¬‹3¹5O
 Alayer/themes/infra_fraud-checker/children/FraudPatternDetector.ts
@@ -3600,15 +3596,17 @@ Blayer/themes/infra_fraud-checker/children/TestComplianceChecker.ts
 /layer/themes/infra_fraud-checker/docs/README.md
 ¶˜Å·ƒ3¬/V
 Hlayer/themes/infra_fraud-checker/examples/circular-dependency-example.ts
-ÑÖŒ‹‹3B
+Äû‹‹3ªB
 4layer/themes/infra_fraud-checker/examples/example.ts
 Œ™¬‹3—0K
 =layer/themes/infra_fraud-checker/external/ASTParserWrapper.ts
 »—¬‹3ë5L
 >layer/themes/infra_fraud-checker/external/FileSystemWrapper.ts
-³—¬‹3Û X
+”ì‹‹3‹!X
 Jlayer/themes/infra_fraud-checker/features/enhanced-fraud-detection.feature
-Ùù‚…‹3æ6T
+Ùù‚…‹3æ6F
+8layer/themes/infra_fraud-checker/fraud-fixes-report.json
+ªÆô‹‹3»T
 Flayer/themes/infra_fraud-checker/fraud-reports/final-e2e-fix-report.md
 ¸ŠûÁ‡3ÇS
 Elayer/themes/infra_fraud-checker/fraud-reports/portal-aidev-scan.json
@@ -3665,7 +3663,7 @@ Dlayer/themes/infra_fraud-checker/scripts/test-circular-dependency.shî²‹‹3Ç
 ”›¬‹3ìI
 :layer/themes/infra_fraud-checker/src/cli/fraud-analyzer.tsÊš¬‹3‚Q
 Clayer/themes/infra_fraud-checker/src/cli/project-quality-scanner.ts
-­¼Æ…‹3´}K
+Âû‹‹3¥~K
 =layer/themes/infra_fraud-checker/src/comprehensive-checker.ts
 êš¬‹3šFM
 ?layer/themes/infra_fraud-checker/src/detectors/base-detector.ts
@@ -3673,7 +3671,7 @@ Clayer/themes/infra_fraud-checker/src/cli/project-quality-scanner.ts
 Nlayer/themes/infra_fraud-checker/src/detectors/circular-dependency-detector.ts
 Éì‹‹3²4_
 Qlayer/themes/infra_fraud-checker/src/detectors/direct-external-import-detector.ts
-¥š¬‹3Á5X
+Áû‹‹3ç5X
 Ilayer/themes/infra_fraud-checker/src/detectors/enhanced-fraud-detector.tsÎİˆ‹3Ã‚Y
 Klayer/themes/infra_fraud-checker/src/detectors/environment-test-detector.ts
 ù™¬‹3’PV
@@ -3694,7 +3692,7 @@ Hlayer/themes/infra_fraud-checker/src/reporters/fraud-report-generator.ts
 Dlayer/themes/infra_fraud-checker/src/services/code-smell-detector.ts
 Ç™¬‹3å$[
 Mlayer/themes/infra_fraud-checker/src/services/comprehensive-fraud-analyzer.ts
-ó³‡‹‹3¶\X
+¼û‹‹3Ï\X
 Jlayer/themes/infra_fraud-checker/src/services/dependency-fraud-detector.ts
 §™¬‹3âU
 Glayer/themes/infra_fraud-checker/src/services/fraud-analyzer-service.ts
@@ -3729,7 +3727,7 @@ Elayer/themes/infra_fraud-checker/tests/unit/FileSystemWrapper.test.ts
 Ô—¬‹3jO
 @layer/themes/infra_fraud-checker/tests/unit/FraudChecker.test.tsÂ—¬‹3‚_
 Qlayer/themes/infra_fraud-checker/tests/unit/FraudPatternDetector-coverage.test.ts
-Œ˜¬‹3‡@W
+¨Ãô‹‹3”@W
 Hlayer/themes/infra_fraud-checker/tests/unit/FraudReportGenerator.test.tsÊ—¬‹3êªN
 @layer/themes/infra_fraud-checker/tests/unit/TestAnalyzer.test.ts
 ğ—¬‹3}Z
@@ -3940,7 +3938,7 @@ Elayer/themes/infra_story-reporter/src/cli/rule-suggestion-analyzer.ts
 Jlayer/themes/infra_story-reporter/src/services/branch-coverage-analyzer.ts
 §Ÿ¬‹3ü$o
 alayer/themes/infra_story-reporter/src/services/circular-dependency/circular-dependency-service.ts
-ÉúüŠ‹3÷;d
+¸û‹‹3<d
 Vlayer/themes/infra_story-reporter/src/services/circular-dependency/dependency-graph.ts
 ÔÕöŠ‹3æPY
 Klayer/themes/infra_story-reporter/src/services/circular-dependency/index.ts
@@ -5165,7 +5163,7 @@ alayer/themes/infra_test-as-manual/user-stories/001-mftod-converter/tests/unit/t
 Player/themes/infra_test-as-manual/user-stories/001-mftod-converter/tsconfig.json
 ãµ²×3¯k
 ]layer/themes/infra_test-as-manual/user-stories/002-enhanced-manual-generator/examples/demo.ts
-´¡¬‹3ÕDl
+¿Ãğ‹‹3±Dl
 ^layer/themes/infra_test-as-manual/user-stories/002-enhanced-manual-generator/examples/demo2.ts
 ±¡¬‹3Ñ-v
 hlayer/themes/infra_test-as-manual/user-stories/002-enhanced-manual-generator/examples/output/manual.json
@@ -5367,7 +5365,7 @@ Clayer/themes/init_docker/children/ReleaseEnvironmentOrchestrator.ts¦êª‹3¯”
 /layer/themes/init_env-config/TASK_QUEUE.vf.json
 ¢“­æŠ3²J
 <layer/themes/init_env-config/children/LegacyConfigManager.ts
-•ô…‹3Å$:
+§û‹‹3â$:
 -layer/themes/init_env-config/common/README.md	û§Š„3	7
 )layer/themes/init_env-config/package.json
 ¼ˆë‰‹3Û8
@@ -9449,7 +9447,7 @@ $layer/themes/portal_aiide/index.html
 1layer/themes/portal_aiide/scripts/launch-aiide.sh´ÎîŠ3¿?
 /layer/themes/portal_aiide/scripts/test-setup.sh³ÎîŠ3!7
 )layer/themes/portal_aiide/server/index.ts
-‡ª¬‹3¯H:
+‡û‹‹3ñH:
 ,layer/themes/portal_aiide/server/terminal.ts
 ‹ª¬‹3è%V
 Glayer/themes/portal_aiide/tests/system/aiide-portal-integration.test.ts‰©¬‹3™ƒP
@@ -10007,7 +10005,7 @@ Xlayer/themes/portal_gui-selector/user-stories/023-gui-selector-server/tsconfig.
 4layer/themes/portal_security/children/AppRegistry.ts
 Ëçª‹3œ&B
 4layer/themes/portal_security/children/AuditLogger.ts
-ğ©š…‹3‚yB
+ÿû‹‹3„yB
 4layer/themes/portal_security/children/AuthService.ts
 ıçª‹3â=E
 7layer/themes/portal_security/children/CSRFProtection.ts
@@ -10798,7 +10796,7 @@ rlayer/themes/tool_gui-generator/user-stories/008-gui-generation/tests/integrati
 -layer/themes/tool_web-scraper/NAME_ID.vf.json	İŠÕ–Š3o>
 0layer/themes/tool_web-scraper/TASK_QUEUE.vf.json
 ©“­æŠ3³G
-8layer/themes/tool_web-scraper/children/exporter/index.ts±ï¸‹3çÖH
+8layer/themes/tool_web-scraper/children/exporter/index.tsòû‹‹3‰×H
 9layer/themes/tool_web-scraper/children/extractor/index.tsİâª‹3’›E
 7layer/themes/tool_web-scraper/children/fetcher/index.ts
 Ëâª‹3‘sJ
@@ -30043,7 +30041,7 @@ Inode_modules/yup/node_modules/type-fest/source/union-to-intersection.d.ts
 •ÔîŠ3Í4
 $scripts/convert-all-to-test-based.sh‰ÔîŠ3ø!+
 scripts/convert-js-to-ts.sh®©¢†‹3…4
-$scripts/convert-stest-to-cucumber.ts²ìİˆ‹3©d1
+$scripts/convert-stest-to-cucumber.tsÛû‹‹3Âd1
 !scripts/deploy-secure-platform.sh®Ÿ‰„‹3ù3)
 scripts/enforce-file-api.ts
 òÒˆ‚‹3K.
@@ -30052,16 +30050,16 @@ $scripts/convert-stest-to-cucumber.ts²ìİˆ‹3©d1
 scripts/file-api.js
 ¡ùãÜŠ3‡E1
 #scripts/final-compliance-cleanup.js
-¬°ÆãŠ3÷?+
+Ûû‹‹3@+
 scripts/fix-async-syntax.shº¾îŠ3…-
 scripts/fix-documentation.jsÂƒ¿ŞŠ3ğÆ-
 scripts/fix-final-violations.js
-˜Õ÷ãŠ3§J7
+Úû‹‹3ÍJ7
 'scripts/fix-remaining-direct-imports.shõã¹„‹3‰*0
  scripts/fix-remaining-imports.shã±ª‹3­1
 #scripts/fix-remaining-violations.js
 ëÁÚİŠ3ßX7
-&scripts/generate-test-health-report.jsœä¹„‹3§¡&
+&scripts/generate-test-health-report.jsÙû‹‹3æ¡&
 scripts/init-file-api.js
 «ã»ÜŠ3«,
 scripts/install-git-hooks.shŒÔîŠ3õ
@@ -30077,7 +30075,7 @@ $scripts/convert-stest-to-cucumber.ts²ìİˆ‹3©d1
 scripts/migrate-npx-to-bunx.sh„ä¹„‹3”,
 scripts/migrate-pip-to-uv.sh–’—îŠ3Ğ2
 "scripts/migrate-tests-to-themes.shëÉŠ…‹3é&6
-&scripts/migrate-to-external-modules.tsïÒˆ‚‹3¹=,
+&scripts/migrate-to-external-modules.tsØû‹‹3ñ=,
 scripts/migrate-to-facade.sh“ä¹„‹3£,
 scripts/migrate-to-file-api.ts
 ïÒˆ‚‹3ÃM8
@@ -30539,7 +30537,7 @@ Cscripts/migrated/typescript/complex/fix-remaining-direct-imports.ts
 >scripts/migrated/typescript/complex/merge-security-to-theme.ts
 ½Ëõ‰‹3€9I
 ;scripts/migrated/typescript/complex/merge-setup-features.ts
-§Ëõ‰‹3ò<H
+ëû‹‹3î<H
 :scripts/migrated/typescript/complex/migrate-npx-to-bunx.ts
 ëËõ‰‹3 L
 >scripts/migrated/typescript/complex/migrate-tests-to-themes.ts
@@ -30551,7 +30549,7 @@ Cscripts/migrated/typescript/complex/fix-remaining-direct-imports.ts
 4scripts/migrated/typescript/complex/migrate-to-vf.ts
 œËõ‰‹3„<H
 :scripts/migrated/typescript/complex/pre-commit-file-api.ts
-âËõ‰‹3çO
+êû‹‹3O
 Ascripts/migrated/typescript/complex/pre-commit-test-validation.ts
 İËõ‰‹3Ù!E
 6scripts/migrated/typescript/complex/qemu-vm-manager.tsŞÊõ‰‹3¦’A
@@ -30597,15 +30595,15 @@ Ascripts/migrated/typescript/complex/pre-commit-test-validation.ts
 ·Ëõ‰‹3Ÿ3G
 9scripts/migrated/typescript/complex/scan-all-hardcoded.ts
 ÒËõ‰‹3à.K
-<scripts/migrated/typescript/complex/setup-calculator-demo.tsäÊõ‰‹3øˆK
+<scripts/migrated/typescript/complex/setup-calculator-demo.tsèû‹‹3•‰K
 =scripts/migrated/typescript/complex/setup-calculator-tests.ts
-ıÊõ‰‹3Ì`G
+çû‹‹3î`G
 9scripts/migrated/typescript/complex/setup-cpp-coverage.ts
 ÄËõ‰‹3ö3J
 <scripts/migrated/typescript/complex/setup-cpp-duplication.ts
 ÆËõ‰‹3…,C
 5scripts/migrated/typescript/complex/setup-demo-mcp.ts
-‘Ëõ‰‹3Q@
+æû‹‹3şN@
 1scripts/migrated/typescript/complex/setup-demo.tsÖÊõ‰‹3ËI
 ;scripts/migrated/typescript/complex/setup-filesystem-mcp.ts
 ’Ëõ‰‹3­MK
@@ -30613,7 +30611,7 @@ Ascripts/migrated/typescript/complex/pre-commit-test-validation.ts
 ˆËõ‰‹3…[G
 9scripts/migrated/typescript/complex/setup-remote-debug.ts
  Ëõ‰‹3°8O
-@scripts/migrated/typescript/complex/setup-story-reporter-demo.tsÑÊõ‰‹3ÔÏO
+@scripts/migrated/typescript/complex/setup-story-reporter-demo.tsäû‹‹3ĞÏO
 Ascripts/migrated/typescript/complex/setup-task-queue-hierarchy.ts
 ôÊõ‰‹3Åb=
 /scripts/migrated/typescript/complex/setup-uv.ts
@@ -30815,11 +30813,11 @@ Ascripts/migrated/typescript/complex/test-hello-add-integration.ts
 $scripts/restore-and-refactor-docs.jsÁƒ¿ŞŠ3ö‚,
 scripts/rollback-violations.js
 ğçÆãŠ3ÆY2
-#scripts/run-compliance-dashboard.jsñ½âßŠ3éƒ(
+#scripts/run-compliance-dashboard.jsÖû‹‹3³„(
 scripts/run-fraud-check.js
-üÁÕãŠ3­8(
+Õû‹‹3î8(
 scripts/run-fraud-check.ts
-ğÒˆ‚‹3ä+0
+ï—ü‹‹3ä+0
 "scripts/scan-direct-file-access.js
 ¹íûÜŠ3ŠH-
 scripts/scan-production-code.js
@@ -30831,7 +30829,7 @@ $scripts/restore-and-refactor-docs.jsÁƒ¿ŞŠ3ö‚,
 %scripts/setup/setup_ollama_manager.sh€ÔîŠ3ê
 0
 "scripts/setup-compliance-alerts.js
-ÍöõßŠ3•\1
+Ôû‹‹3®]1
 #scripts/shell-to-python-migrator.py
 »¯†‹3»~5
 'scripts/shell-to-typescript-migrator.ts
@@ -30839,7 +30837,7 @@ $scripts/restore-and-refactor-docs.jsÁƒ¿ŞŠ3ö‚,
 scripts/smart-final-fix.js
 ÂÅüãŠ3ÿ]+
 scripts/task-queue-manager.js
-ÎìöäŠ3ıb&
+Óû‹‹3Ñc&
 scripts/test-file-api.js
 ©îÜŠ3ò:
 ,scripts/test-fraud-checker-implementation.ts
@@ -30849,9 +30847,9 @@ $scripts/restore-and-refactor-docs.jsÁƒ¿ŞŠ3ö‚,
 scripts/test-scripts/simple.py	ìÈãˆ‹3[+
 scripts/test-scripts/simple.sh	ìÈãˆ‹3G+
 scripts/test-scripts/simple.ts	ìÈãˆ‹3u5
-%scripts/update-task-queue-registry.js÷ê«æŠ3¬P3
+%scripts/update-task-queue-registry.jsÑû‹‹3øP3
 #scripts/validate-subagent-config.sh™ÔîŠ3š!6
-&scripts/validate-test-effectiveness.jsıã¹„‹3ÍX
+&scripts/validate-test-effectiveness.jsĞû‹‹3Y
 tsconfig.json
 åšŠ†‹3ô
- *ÑrV<¤yêR½[®MŞQrîù0
+ *7<5ÏÓ ğ	AÉT¹1³M™'0

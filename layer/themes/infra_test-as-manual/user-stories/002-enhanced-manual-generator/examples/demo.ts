@@ -181,8 +181,8 @@ async function createSampleTests() {
  * @tag unit
  * @tag calculator
  */
-async describe('Calculator', () => {
-  async describe('Addition', () => {
+describe('Calculator', () => {
+  describe('Addition', () => {
     async it('should add two positive numbers', () => {
       expect(add(2, 3)).toBe(5);
     });
@@ -192,7 +192,7 @@ async describe('Calculator', () => {
     });
   });
 
-  async describe('Subtraction', () => {
+  describe('Subtraction', () => {
     async it('should subtract two numbers', () => {
       expect(subtract(5, 3)).toBe(2);
     });
@@ -226,8 +226,8 @@ Feature: User Authentication
  * @tag integration
  * @priority high
  */
-async describe('API Endpoints', () => {
-  async describe('GET /users', () => {
+describe('API Endpoints', () => {
+  describe('GET /users', () => {
     async it('should return list of users', async () => {
       const response = await fetch('/api/users');
       expect(response.status).toBe(200);
@@ -236,7 +236,7 @@ async describe('API Endpoints', () => {
     });
   });
 
-  async describe('POST /users', () => {
+  describe('POST /users', () => {
     async it('should create a new user', async () => {
       const newUser = { name: 'Jane Doe', email: 'jane@example.com' };
       const response = await fetch('/api/users', {

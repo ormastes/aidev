@@ -6,11 +6,11 @@
  * Auto-discovers task queues and maintains registry
  */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    async function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        async function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        async function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        async function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -67,7 +67,7 @@ class TaskQueueHierarchyManager {
      */
     saveRegistry() {
         this.registry.metadata.updated_at = new Date().toISOString();
-        fs.writeFileSync(this.registryPath, JSON.stringify(this.registry, null, 2));
+        await fileAPI.createFile(this.registryPath, JSON.stringify(this.registry, { type: FileType.TEMPORARY }));
         console.log(`✓ Registry saved to: ${this.registryPath}`);
     }
     /**
@@ -158,7 +158,7 @@ class TaskQueueHierarchyManager {
                 content.theme = theme;
             }
             // Save updated file
-            fs.writeFileSync(fullPath, JSON.stringify(content, null, 2));
+            await fileAPI.createFile(fullPath, JSON.stringify(content, { type: FileType.TEMPORARY }));
             console.log(`✓ Updated parent for: ${queuePath}`);
         }
         catch (error) {
@@ -344,8 +344,8 @@ class TaskQueueHierarchyManager {
                     ]
                 };
                 // Ensure directory exists
-                fs.mkdirSync(path.dirname(fullPath), { recursive: true });
-                fs.writeFileSync(fullPath, JSON.stringify(template, null, 2));
+                await fileAPI.createDirectory(path.dirname(fullPath), { recursive: true });
+                await fileAPI.createFile(fullPath, JSON.stringify(template, { type: FileType.TEMPORARY }));
                 console.log(`✓ Created new queue: ${queuePath}`);
             }
             // Update parent if specified
@@ -440,7 +440,7 @@ class TaskQueueHierarchyManager {
     }
 }
 // CLI Interface
-function main() {
+async function main() {
     return __awaiter(this, void 0, void 0, function* () {
         const args = process.argv.slice(2);
         const projectRoot = process.cwd();

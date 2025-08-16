@@ -33,10 +33,10 @@ class TaskQueueManager {
   saveQueue() {
     try {
       // Create backup first
-      fs.writeFileSync(this.backupPath, JSON.stringify(this.queue, null, 2));
+      await fileAPI.createFile(this.backupPath, JSON.stringify(this.queue, { type: FileType.TEMPORARY }));
       
       // Save updated queue
-      fs.writeFileSync(this.queuePath, JSON.stringify(this.queue, null, 2));
+      await fileAPI.createFile(this.queuePath, JSON.stringify(this.queue, { type: FileType.TEMPORARY }));
       console.log('✅ Queue saved successfully');
     } catch (error) {
       console.error('❌ Failed to save queue:', error.message);
@@ -65,12 +65,12 @@ class TaskQueueManager {
     // Ensure logs directory exists
     const logsDir = path.dirname(this.logPath);
     if (!fs.existsSync(logsDir)) {
-      fs.mkdirSync(logsDir, { recursive: true });
+      await fileAPI.createDirectory(logsDir);
     }
 
     // Append to log
     const logLine = JSON.stringify(logEntry) + '\n';
-    fs.appendFileSync(this.logPath, logLine);
+    await fileAPI.writeFile(this.logPath, logLine, { append: true });
     
     // Also log to console
     console.log(`\n📝 [${operation}] ${task?.content?.title || task?.title || 'Task'}`);
@@ -351,7 +351,7 @@ class TaskQueueManager {
 }
 
 // CLI Interface
-function main() {
+async function main() {
   const manager = new TaskQueueManager();
   const args = process.argv.slice(2);
   const command = args[0];

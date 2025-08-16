@@ -68,7 +68,7 @@ async function main() {
   // Save report to file
   const reportPath = path.join(process.cwd(), 'circular-dependency-report.md');
   const fs = await import('fs');
-  fs.writeFileSync(reportPath, report, 'utf-8');
+  await fileAPI.createFile(reportPath, report, { type: FileType.TEMPORARY });
   console.log(`   Report saved to: ${reportPath}\n`);
 
   // Comprehensive fraud analysis

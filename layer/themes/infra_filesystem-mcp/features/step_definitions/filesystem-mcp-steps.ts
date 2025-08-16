@@ -10,7 +10,7 @@ let lastError: Error | null = null;
 
 Given('I have a test directory at {string}', async function (dir: string) {
   testDirectory = dir;
-  await fs.mkdir(testDirectory, { recursive: true });
+  await await fileAPI.createDirectory(testDirectory);
 });
 
 Given('the portal is running at {string}', function (url: string) {
@@ -26,14 +26,14 @@ Given('I navigate to the portal', async function () {
 When('I create a new .vf.json file with content:', async function (content: string) {
   currentFile = path.join(testDirectory, 'test.vf.json');
   try {
-    await fs.writeFile(currentFile, content);
+    await await fileAPI.createFile(currentFile, content);
     lastError = null;
   } catch (error) {
     lastError = error as Error;
   }
 });
 
-Then('the file should be created successfully', async function () {
+Then('the file should be created successfully', { type: FileType.TEMPORARY }) {
   expect(lastError).toBeNull();
   const exists = await fs.access(currentFile).then(() => true).catch(() => false);
   expect(exists).toBe(true);
@@ -57,14 +57,14 @@ Given('I have an existing .vf.json file', async function () {
 
 When('I update the file content to:', async function (content: string) {
   try {
-    await fs.writeFile(currentFile, content);
+    await await fileAPI.createFile(currentFile, content);
     lastError = null;
   } catch (error) {
     lastError = error as Error;
   }
 });
 
-Then('the file should be updated successfully', async function () {
+Then('the file should be updated successfully', { type: FileType.TEMPORARY }) {
   expect(lastError).toBeNull();
 });
 
@@ -100,9 +100,9 @@ Then('attempting to read it should return an error', async function () {
 When('I try to create a .vf.json file with invalid JSON', async function () {
   currentFile = path.join(testDirectory, 'invalid.vf.json');
   try {
-    await fs.writeFile(currentFile, '{ invalid json }');
+    await await fileAPI.createFile(currentFile, '{ invalid json }');
     // Try to parse it to trigger validation
-    const content = await fs.readFile(currentFile, 'utf-8');
+    const content = await fs.readFile(currentFile, { type: FileType.TEMPORARY });
     JSON.parse(content);
     lastError = null;
   } catch (error) {

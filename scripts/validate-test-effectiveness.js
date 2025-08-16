@@ -233,7 +233,7 @@ class TestValidator {
           return new Promise((resolve) => {
             const timeout = setTimeout(() => resolve(false), 100);
             // Simulate timeout detection
-            setTimeout(() => {
+            async setTimeout(() => {
               clearTimeout(timeout);
               resolve(true);
             }, 50);
@@ -341,8 +341,8 @@ class TestValidator {
 
     // Save report
     const reportPath = path.join(__dirname, '..', 'gen', 'test-effectiveness-report.json');
-    fs.mkdirSync(path.dirname(reportPath), { recursive: true });
-    fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
+    await fileAPI.createDirectory(path.dirname(reportPath), { recursive: true });
+    await fileAPI.createFile(reportPath, JSON.stringify(report, { type: FileType.TEMPORARY }));
     console.log(`\n📄 Report saved to: ${reportPath}`);
 
     return report.effectiveness.isHealthy;

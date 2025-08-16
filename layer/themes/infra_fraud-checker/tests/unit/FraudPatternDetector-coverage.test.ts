@@ -37,7 +37,7 @@ describe('FraudPatternDetector - Coverage Enhancement', () => {
     it('should detect disabled tests', () => {
       const content = `
         // it('should test something', () => {
-        //   expect(true).toBe(true);
+        // Test completed - implementation pending
         // });
       `;
       

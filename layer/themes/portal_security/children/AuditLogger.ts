@@ -129,7 +129,7 @@ export class AuditLogger extends EventEmitter {
   private initialize(): void {
     // Create log directory if it doesn't exist
     if (!fs.existsSync(this.options.logDir)) {
-      fs.mkdirSync(this.options.logDir, { recursive: true });
+      await fileAPI.createDirectory(this.options.logDir);
     }
     
     // Set up current log file
@@ -139,7 +139,7 @@ export class AuditLogger extends EventEmitter {
     this.flushInterval = setInterval(() => this.flush(), 5000); // Flush every 5 seconds
     
     // Set up retention cleanup
-    setInterval(() => this.cleanupOldLogs(), 86400000); // Daily cleanup
+    async setInterval(() => this.cleanupOldLogs(), 86400000); // Daily cleanup
   }
 
   /**

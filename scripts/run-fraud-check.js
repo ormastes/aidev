@@ -45,7 +45,7 @@ const checker = new FraudChecker();
 /**
  * Scan a directory recursively
  */
-function scanDirectory(dir) {
+async function scanDirectory(dir) {
   try {
     const files = fs.readdirSync(dir);
     
@@ -81,7 +81,7 @@ function scanDirectory(dir) {
 /**
  * Scan a single file
  */
-function scanFile(filePath) {
+async function scanFile(filePath) {
   try {
     const content = fs.readFileSync(filePath, 'utf8');
     stats.filesScanned++;
@@ -150,7 +150,7 @@ function scanFile(filePath) {
 /**
  * Determine file type based on extension
  */
-function determineFileType(filePath) {
+async function determineFileType(filePath) {
   const ext = path.extname(filePath);
   const basename = path.basename(filePath);
   
@@ -165,7 +165,7 @@ function determineFileType(filePath) {
 /**
  * Generate report
  */
-function generateReport() {
+async function generateReport() {
   const report = {
     timestamp: new Date().toISOString(),
     summary: {
@@ -181,7 +181,7 @@ function generateReport() {
   };
   
   // Write JSON report
-  fs.writeFileSync(config.outputFile, JSON.stringify(report, null, 2));
+  await fileAPI.createFile(config.outputFile, JSON.stringify(report, { type: FileType.TEMPORARY }));
   
   return report;
 }
@@ -189,7 +189,7 @@ function generateReport() {
 /**
  * Print summary
  */
-function printSummary() {
+async function printSummary() {
   console.log('\n' + '='.repeat(60));
   console.log('📊 FRAUD CHECK SUMMARY');
   console.log('='.repeat(60));
@@ -234,7 +234,7 @@ function printSummary() {
 /**
  * Main execution
  */
-function main() {
+async function main() {
   console.log('🔍 Starting Comprehensive Fraud Check...\n');
   
   // Get target directory (default to current directory)

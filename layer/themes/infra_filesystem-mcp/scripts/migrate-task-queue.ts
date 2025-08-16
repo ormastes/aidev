@@ -76,7 +76,7 @@ const typeToQueueMap: Record<string, string> = {
 /**
  * Convert priority-based format to test-driven format
  */
-function convertToTestDriven(priorityQueue: PriorityBasedQueue): TestDrivenQueue {
+async function convertToTestDriven(priorityQueue: PriorityBasedQueue): TestDrivenQueue {
   const testDrivenQueue: TestDrivenQueue = {
     metadata: {
       version: "1.0.0",
@@ -157,7 +157,7 @@ function convertToTestDriven(priorityQueue: PriorityBasedQueue): TestDrivenQueue
 /**
  * Convert test-driven format to priority-based format
  */
-function convertToPriorityBased(testDrivenQueue: TestDrivenQueue): PriorityBasedQueue {
+async function convertToPriorityBased(testDrivenQueue: TestDrivenQueue): PriorityBasedQueue {
   const priorityQueue: PriorityBasedQueue = {
     taskQueues: {
       critical: [],
@@ -200,7 +200,7 @@ function convertToPriorityBased(testDrivenQueue: TestDrivenQueue): PriorityBased
 /**
  * Determine queue type from task
  */
-function determineQueueType(task: PriorityTaskItem): string {
+async function determineQueueType(task: PriorityTaskItem): string {
   // Check task type
   if (task.type && typeToQueueMap[task.type]) {
     return typeToQueueMap[task.type];
@@ -229,7 +229,7 @@ function determineQueueType(task: PriorityTaskItem): string {
 /**
  * Format task content for test-driven format
  */
-function formatTaskContent(task: PriorityTaskItem): string {
+async function formatTaskContent(task: PriorityTaskItem): string {
   if (typeof task.content === 'string') {
     return task.content;
   } else if (task.content?.title) {
@@ -243,7 +243,7 @@ function formatTaskContent(task: PriorityTaskItem): string {
 /**
  * Determine priority based on queue type
  */
-function determinePriority(queueName: string): string {
+async function determinePriority(queueName: string): string {
   const highPriorityQueues = ['adhoc_temp_user_request', 'environment_tests', 'external_tests'];
   const mediumPriorityQueues = ['system_tests_implement', 'integration_tests_implement', 'unit_tests'];
   
@@ -255,7 +255,7 @@ function determinePriority(queueName: string): string {
 /**
  * Map queue type to task type
  */
-function mapQueueTypeToTaskType(queueName: string): string {
+async function mapQueueTypeToTaskType(queueName: string): string {
   const reverseMap: Record<string, string> = {
     'system_tests_implement': 'test_implementation',
     'integration_tests_implement': 'integration_testing',
@@ -273,7 +273,7 @@ function mapQueueTypeToTaskType(queueName: string): string {
 /**
  * Extract title from content
  */
-function extractTitle(content: string): string {
+async function extractTitle(content: string): string {
   // Try to extract first line or first 60 characters
   const lines = content.split('\n');
   if (lines[0]) {
@@ -285,7 +285,7 @@ function extractTitle(content: string): string {
 /**
  * Main migration function
  */
-function migrate(inputFile: string, outputFile: string, direction: 'toTestDriven' | 'toPriority' = 'toTestDriven') {
+async function migrate(inputFile: string, outputFile: string, direction: 'toTestDriven' | 'toPriority' = 'toTestDriven') {
   try {
     // Read input file
     const inputData = JSON.parse(fs.readFileSync(inputFile, 'utf-8'));
@@ -312,7 +312,7 @@ function migrate(inputFile: string, outputFile: string, direction: 'toTestDriven
     }
     
     // Write output file
-    fs.writeFileSync(outputFile, JSON.stringify(outputData, null, 2));
+    await fileAPI.createFile(outputFile, JSON.stringify(outputData, { type: FileType.TEMPORARY }));
     console.log(`✓ Output written to: ${outputFile}`);
     
     // Summary

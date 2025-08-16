@@ -115,11 +115,11 @@ export class CircularDependencyService {
     // Ensure directory exists
     const dir = path.dirname(outputPath);
     if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
+      await fileAPI.createDirectory(dir);
     }
     
     // Write report
-    fs.writeFileSync(outputPath, reportContent, 'utf-8');
+    await fileAPI.createFile(outputPath, reportContent, { type: FileType.TEMPORARY });
   }
 
   /**

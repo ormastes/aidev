@@ -4,30 +4,30 @@ import * as fs from 'fs/promises';
 import { path } from '../../../layer/themes/infra_external-log-lib/dist';
 import * as os from 'os';
 
-async describe('ThemeManager and FraudChecker System Tests', () => {
+describe('ThemeManager and FraudChecker System Tests', () => {
   let tempDir: string;
   let originalCwd: string;
 
-  async beforeAll(() => {
+  beforeAll(async () => {
     originalCwd = process.cwd();
     tempDir = fs.mkdtemp(path.join(os.tmpdir(), 'theme-fraud-test-'));
   });
 
-  async afterAll(async () => {
+  afterAll(async () => {
     process.chdir(originalCwd);
     await fs.rm(await tempDir, { recursive: true, force: true });
   });
 
-  async beforeEach(async () => {
+  beforeEach(async () => {
     process.chdir(await tempDir);
     
     // Create setup/themes directory structure
     const themesDir = path.join(await tempDir, 'setup', 'themes');
-    await await fileAPI.createDirectory(themesDir);
+    await fileAPI.createDirectory(themesDir);
   });
 
-  async describe('ThemeManager System Tests', () => {
-    async test('should load theme configuration from file system', async () => {
+  describe('ThemeManager System Tests', () => {
+    test('should load theme configuration from file system', async () => {
       const themesDir = path.join(await tempDir, 'setup', 'themes');
       
       // Create a test theme configuration
@@ -83,7 +83,7 @@ async describe('ThemeManager and FraudChecker System Tests', () => {
       expect(demoCriteria.fraudCheck.minScore).toBe(75);
     });
 
-    async test('should return default criteria when theme config not found', async () => {
+    test('should return default criteria when theme config not found', async () => {
       const themeManager = new ThemeManager({});
       
       // Test production defaults
@@ -108,7 +108,7 @@ async describe('ThemeManager and FraudChecker System Tests', () => {
       expect(demoCriteria.fraudCheck.minScore).toBe(70);
     });
 
-    async test('should return default criteria when testCriteria missing from config', async () => {
+    test('should return default criteria when testCriteria missing from config', async () => {
       const themesDir = path.join(await tempDir, 'setup', 'themes');
       
       const incompleteThemeConfig = {
@@ -131,7 +131,7 @@ async describe('ThemeManager and FraudChecker System Tests', () => {
       expect(criteria.fraudCheck.minScore).toBe(90);
     });
 
-    async test('should get epic information from theme config', async () => {
+    test('should get epic information from theme config', async () => {
       const themesDir = path.join(await tempDir, 'setup', 'themes');
       
       const epicThemeConfig = {
@@ -195,14 +195,14 @@ async describe('ThemeManager and FraudChecker System Tests', () => {
       expect(epicInfo.epics[1].userStories[0].id).toBe('story-3');
     });
 
-    async test('should return undefined for epic info when not available', async () => {
+    test('should return undefined for epic info when not available', async () => {
       const themeManager = new ThemeManager({});
       
       const epicInfo = await themeManager.getEpicInfo('non-existent-theme');
       expect(epicInfo).toBeUndefined();
     });
 
-    async test('should list available themes', async () => {
+    test('should list available themes', async () => {
       const themesDir = path.join(await tempDir, 'setup', 'themes');
       
       // Create multiple theme files
@@ -220,8 +220,8 @@ async describe('ThemeManager and FraudChecker System Tests', () => {
       );
       
       // Create a non-theme file that should be ignored
-      await await fileAPI.createFile(path.join(themesDir, 'not-a-theme.json'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(themesDir, 'README.md'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(themesDir, 'not-a-theme.json'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(themesDir, 'README.md'), { type: FileType.TEMPORARY });
 
       const themeManager = new ThemeManager({});
       const themes = await themeManager.listThemes();
@@ -234,7 +234,7 @@ async describe('ThemeManager and FraudChecker System Tests', () => {
       expect(themes).not.toContain('README');
     });
 
-    async test('should return empty array when themes directory does not exist', async () => {
+    test('should return empty array when themes directory does not exist', async () => {
       // Move to a directory without setup/themes
       const emptyDir = await fs.mkdtemp(path.join(os.tmpdir(), 'empty-themes-'));
       process.chdir(emptyDir);
@@ -248,7 +248,7 @@ async describe('ThemeManager and FraudChecker System Tests', () => {
       await fs.rm(emptyDir, { recursive: true, force: true });
     });
 
-    async test('should cache theme configurations', async () => {
+    test('should cache theme configurations', async () => {
       const themesDir = path.join(await tempDir, 'setup', 'themes');
       
       const cacheTestConfig = {
@@ -289,24 +289,24 @@ async describe('ThemeManager and FraudChecker System Tests', () => {
     });
   });
 
-  async describe('FraudChecker System Tests', () => {
-    async test('should detect empty tests', async () => {
+  describe('FraudChecker System Tests', () => {
+    test('should detect empty tests', async () => {
       // Create test files with various fraudulent patterns
       const testDir = path.join(await tempDir, 'tests');
-      await await fileAPI.createDirectory(testDir);
+      await fileAPI.createDirectory(testDir);
       
       const emptyTestContent = `
-async describe('Empty Test Suite', () => {
-  async it('should do something', () => {});
-  async it('should do something else', () => {
+describe('Empty Test Suite', () => {
+  it('should do something', () => {});
+  it('should do something else', () => {
     // Empty test body
   });
   
-  async test('another empty test', () => {});
+  test('another empty test', () => {});
 });
 `;
 
-      await await fileAPI.createFile(path.join(testDir, 'empty.test.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(testDir, 'empty.test.ts'), { type: FileType.TEMPORARY });
 
       const fraudChecker = new FraudChecker();
       const result = await fraudChecker.check({});
@@ -320,12 +320,12 @@ async describe('Empty Test Suite', () => {
       expect(emptyTestViolations[0].severity).toBe('high');
     });
 
-    async test('should detect skipped and only tests', async () => {
+    test('should detect skipped and only tests', async () => {
       const testDir = path.join(await tempDir, 'tests');
-      await await fileAPI.createDirectory(testDir);
+      await fileAPI.createDirectory(testDir);
       
       const skipOnlyTestContent = `
-async describe('Skip and Only Tests', () => {
+describe('Skip and Only Tests', () => {
   it.skip('skipped test', () => {
     expect(true).toBe(true);
   });
@@ -335,7 +335,7 @@ async describe('Skip and Only Tests', () => {
   });
   
   describe.skip('skipped suite', () => {
-    async it('test in skipped suite', () => {});
+    it('test in skipped suite', () => {});
   });
   
   it.only('only this test runs', () => {
@@ -348,7 +348,7 @@ async describe('Skip and Only Tests', () => {
 });
 `;
 
-      await await fileAPI.createFile(path.join(testDir, 'skip-only.test.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(testDir, 'skip-only.test.ts'), { type: FileType.TEMPORARY });
 
       const fraudChecker = new FraudChecker();
       const result = await fraudChecker.check({});
@@ -364,28 +364,28 @@ async describe('Skip and Only Tests', () => {
       expect(onlyViolations[0].severity).toBe('high');
     });
 
-    async test('should detect always-true assertions', async () => {
+    test('should detect always-true assertions', async () => {
       const testDir = path.join(await tempDir, 'tests');
-      await await fileAPI.createDirectory(testDir);
+      await fileAPI.createDirectory(testDir);
       
       const alwaysTrueContent = `
-async describe('Always True Tests', () => {
-  async it('always passes', () => {
+describe('Always True Tests', () => {
+  it('always passes', () => {
     expect(true).toBe(true);
   });
   
-  async it('another always true', () => {
+  it('another always true', () => {
     assert.isTrue(true);
   });
   
-  async it('legitimate test', () => {
+  it('legitimate test', () => {
     const result = 2 + 2;
     expect(result).toBe(4);
   });
 });
 `;
 
-      await await fileAPI.createFile(path.join(testDir, 'always-true.test.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(testDir, 'always-true.test.ts'), { type: FileType.TEMPORARY });
 
       const fraudChecker = new FraudChecker();
       const result = await fraudChecker.check({});
@@ -397,25 +397,25 @@ async describe('Always True Tests', () => {
       expect(alwaysTrueViolations[0].severity).toBe('critical');
     });
 
-    async test('should detect coverage manipulation', async () => {
+    test('should detect coverage manipulation', async () => {
       const testDir = path.join(await tempDir, 'tests');
-      await await fileAPI.createDirectory(testDir);
+      await fileAPI.createDirectory(testDir);
       
       const coverageManipulationContent = `
-async describe('Coverage Manipulation', () => {
-  async it('manipulated coverage', () => {
+describe('Coverage Manipulation', () => {
+  it('manipulated coverage', () => {
     global.__coverage__ = { fake: 'coverage' };
     expect(true).toBe(true);
   });
   
-  async it('another manipulation', () => {
+  it('another manipulation', () => {
     const coverage = __coverage__;
     coverage['fake-file.js'] = { lines: 100 };
   });
 });
 `;
 
-      await await fileAPI.createFile(path.join(testDir, 'coverage-manipulation.test.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(testDir, 'coverage-manipulation.test.ts'), { type: FileType.TEMPORARY });
 
       const fraudChecker = new FraudChecker();
       const result = await fraudChecker.check({});
@@ -426,12 +426,12 @@ async describe('Coverage Manipulation', () => {
       expect(coverageViolations[0].severity).toBe('critical');
     });
 
-    async test('should detect commented out tests', async () => {
+    test('should detect commented out tests', async () => {
       const testDir = path.join(await tempDir, 'tests');
-      await await fileAPI.createDirectory(testDir);
+      await fileAPI.createDirectory(testDir);
       
       const commentedTestsContent = `
-async describe('Commented Tests', () => {
+describe('Commented Tests', () => {
   // it('commented out test', () => {
   //   expect(true).toBe(true);
   // });
@@ -446,7 +446,7 @@ async describe('Commented Tests', () => {
 });
 `;
 
-      await await fileAPI.createFile(path.join(testDir, 'commented.test.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(testDir, 'commented.test.ts'), { type: FileType.TEMPORARY });
 
       const fraudChecker = new FraudChecker();
       const result = await fraudChecker.check({});
@@ -458,13 +458,13 @@ async describe('Commented Tests', () => {
       expect(commentedViolations[0].severity).toBe('low');
     });
 
-    async test('should detect coverage ignore comments', async () => {
+    test('should detect coverage ignore comments', async () => {
       const testDir = path.join(await tempDir, 'tests');
-      await await fileAPI.createDirectory(testDir);
+      await fileAPI.createDirectory(testDir);
       
       const coverageIgnoreContent = `
-async describe('Coverage Ignore Tests', () => {
-  async it('test with istanbul ignore', () => {
+describe('Coverage Ignore Tests', () => {
+  it('test with istanbul ignore', () => {
     /* istanbul ignore next */
     if (false) {
       console.log('never executed');
@@ -472,9 +472,9 @@ async describe('Coverage Ignore Tests', () => {
     expect(true).toBe(true);
   });
   
-  async it('test with c8 ignore', () => {
+  it('test with c8 ignore', () => {
     /* c8 ignore start */
-    async function unusedFunction() {
+    function unusedFunction() {
       return 'unused';
     }
     /* c8 ignore stop */
@@ -483,7 +483,7 @@ async describe('Coverage Ignore Tests', () => {
 });
 `;
 
-      await await fileAPI.createFile(path.join(testDir, 'coverage-ignore.test.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(testDir, 'coverage-ignore.test.ts'), { type: FileType.TEMPORARY });
 
       const fraudChecker = new FraudChecker();
       const result = await fraudChecker.check({});
@@ -495,13 +495,13 @@ async describe('Coverage Ignore Tests', () => {
       expect(ignoreViolations[0].severity).toBe('medium');
     });
 
-    async test('should calculate fraud score correctly', async () => {
+    test('should calculate fraud score correctly', async () => {
       const testDir = path.join(await tempDir, 'tests');
-      await await fileAPI.createDirectory(testDir);
+      await fileAPI.createDirectory(testDir);
       
       // Create test with multiple violations of different severities
       const mixedViolationsContent = `
-async describe('Mixed Violations', () => {
+describe('Mixed Violations', () => {
   it.only('critical and high violations', () => {
     expect(true).toBe(true); // critical: always-true
   }); // high: .only
@@ -517,7 +517,7 @@ async describe('Mixed Violations', () => {
 });
 `;
 
-      await await fileAPI.createFile(path.join(testDir, 'mixed.test.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(testDir, 'mixed.test.ts'), { type: FileType.TEMPORARY });
 
       const fraudChecker = new FraudChecker();
       const result = await fraudChecker.check({});
@@ -538,23 +538,23 @@ async describe('Mixed Violations', () => {
       expect(lowViolations.length).toBeGreaterThan(0);
     });
 
-    async test('should return perfect score for clean tests', async () => {
+    test('should return perfect score for clean tests', async () => {
       const testDir = path.join(await tempDir, 'tests');
-      await await fileAPI.createDirectory(testDir);
+      await fileAPI.createDirectory(testDir);
       
       const cleanTestContent = `
-async describe('Clean Test Suite', () => {
-  async it('should add numbers correctly', () => {
+describe('Clean Test Suite', () => {
+  it('should add numbers correctly', () => {
     const result = 2 + 3;
     expect(result).toBe(5);
   });
   
-  async it('should handle string concatenation', () => {
+  it('should handle string concatenation', () => {
     const result = 'hello' + ' world';
     expect(result).toBe('hello world');
   });
   
-  async it('should work with arrays', () => {
+  it('should work with arrays', () => {
     const arr = [1, 2, 3];
     expect(arr.length).toBe(3);
     expect(arr[0]).toBe(1);
@@ -562,7 +562,7 @@ async describe('Clean Test Suite', () => {
 });
 `;
 
-      await await fileAPI.createFile(path.join(testDir, 'clean.test.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(testDir, 'clean.test.ts'), { type: FileType.TEMPORARY });
 
       const fraudChecker = new FraudChecker();
       const result = await fraudChecker.check({});
@@ -572,20 +572,20 @@ async describe('Clean Test Suite', () => {
       expect(result.violations).toHaveLength(0);
     });
 
-    async test('should handle various test file extensions and locations', async () => {
+    test('should handle various test file extensions and locations', async () => {
       // Create test files in different locations with different extensions
-      await await fileAPI.createDirectory(path.join(await tempDir), { recursive: true });
-      await await fileAPI.createDirectory(path.join(await tempDir), { recursive: true });
+      await fileAPI.createDirectory(path.join(await tempDir), { recursive: true });
+      await fileAPI.createDirectory(path.join(await tempDir), { recursive: true });
       await fs.mkdir(path.join(await tempDir, 'src', 'components', 'test'), { recursive: true });
 
       const testContent = `
-async describe('Test', () => {
-  async it('empty test', () => {});
+describe('Test', () => {
+  it('empty test', () => {});
 });
 `;
 
-      await await fileAPI.createFile(path.join(await tempDir, '__tests__', { type: FileType.TEMPORARY }), testContent);
-      await await fileAPI.createFile(path.join(await tempDir, 'spec', { type: FileType.TEMPORARY }), testContent);
+      await fileAPI.createFile(path.join(await tempDir, '__tests__', { type: FileType.TEMPORARY }), testContent);
+      await fileAPI.createFile(path.join(await tempDir, 'spec', { type: FileType.TEMPORARY }), testContent);
       await fs.writeFile(path.join(await tempDir, 'src', 'components', 'test', 'util.test.ts'), testContent);
 
       const fraudChecker = new FraudChecker();
@@ -600,7 +600,7 @@ async describe('Test', () => {
       expect(locations.some(loc => loc.includes('src/components/test'))).toBe(true);
     });
 
-    async test('should handle non-existent test directories gracefully', async () => {
+    test('should handle non-existent test directories gracefully', async () => {
       // Use empty temp directory with no test files
       const emptyDir = await fs.mkdtemp(path.join(os.tmpdir(), 'no-tests-'));
       process.chdir(emptyDir);
@@ -617,8 +617,8 @@ async describe('Test', () => {
     });
   });
 
-  async describe('Integration Tests', () => {
-    async test('should integrate ThemeManager with FraudChecker criteria', async () => {
+  describe('Integration Tests', () => {
+    test('should integrate ThemeManager with FraudChecker criteria', async () => {
       const themesDir = path.join(await tempDir, 'setup', 'themes');
       
       // Create theme with strict fraud checking criteria
@@ -643,17 +643,17 @@ async describe('Test', () => {
 
       // Create test with fraud
       const testDir = path.join(await tempDir, 'tests');
-      await await fileAPI.createDirectory(testDir);
+      await fileAPI.createDirectory(testDir);
       
       const fraudulentTestContent = `
-async describe('Fraudulent Test', () => {
-  async it('always true assertion', () => {
+describe('Fraudulent Test', () => {
+  it('always true assertion', () => {
     expect(true).toBe(true);
   });
 });
 `;
 
-      await await fileAPI.createFile(path.join(testDir, 'fraud.test.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(testDir, 'fraud.test.ts'), { type: FileType.TEMPORARY });
 
       const themeManager = new ThemeManager({});
       const fraudChecker = new FraudChecker();

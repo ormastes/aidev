@@ -342,7 +342,7 @@ export class ProjectQualityScanner {
         }
       };
       
-      fs.writeFileSync('.eslintrc.json', JSON.stringify(eslintConfig, null, 2));
+      await fileAPI.createFile('.eslintrc.json', JSON.stringify(eslintConfig, { type: FileType.TEMPORARY }));
       this.improvements.push('✅ Added ESLint configuration');
     }
 
@@ -363,7 +363,7 @@ JWT_EXPIRES_IN=7d
 # API Keys
 API_KEY=your-api-key`;
       
-      fs.writeFileSync('.env.example', envExample);
+      await fileAPI.createFile('.env.example', envExample, { type: FileType.TEMPORARY });
       this.improvements.push('✅ Added .env.example template');
     }
   }
@@ -495,8 +495,8 @@ API_KEY=your-api-key`;
     };
     
     const reportPath = path.join('gen', 'doc', 'project-quality-scan-report.json');
-    fs.mkdirSync(path.dirname(reportPath), { recursive: true });
-    fs.writeFileSync(reportPath, JSON.stringify(detailedReport, null, 2));
+    await fileAPI.createDirectory(path.dirname(reportPath), { recursive: true });
+    await fileAPI.createFile(reportPath, JSON.stringify(detailedReport, { type: FileType.TEMPORARY }));
     
     console.log(`📄 Detailed report saved to: ${reportPath}`);
     console.log('\n✅ Project quality scan completed!');

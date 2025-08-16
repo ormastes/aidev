@@ -3,29 +3,29 @@ import { fs } from '../../../layer/themes/infra_external-log-lib/dist';
 import { path } from '../../../layer/themes/infra_external-log-lib/dist';
 import * as os from 'os';
 
-async describe('CoverageAnalyzer System Tests', () => {
+describe('CoverageAnalyzer System Tests', () => {
   let coverageAnalyzer: CoverageAnalyzer;
   let tempDir: string;
   let coverageDir: string;
 
-  async beforeAll(() => {
+  beforeAll(async () => {
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'coverage-test-'));
     coverageDir = path.join(tempDir, 'coverage');
     await fileAPI.createDirectory(coverageDir);
     coverageAnalyzer = new CoverageAnalyzer();
   });
 
-  async afterAll(() => {
+  afterAll(async () => {
     fs.rmSync(tempDir, { recursive: true, force: true });
   });
 
-  async beforeEach(() => {
+  beforeEach(async () => {
     // Change working directory to temp dir for tests
     process.chdir(tempDir);
   });
 
-  async describe('Coverage Data Loading', () => {
-    async test('should load coverage data from file system', async () => {
+  describe('Coverage Data Loading', () => {
+    test('should load coverage data from file system', async () => {
       const mockCoverageData = {
         '/path/to/file1.ts': {
           l: { '1': 1, '2': 0, '3': 1, '4': 2 },
@@ -63,7 +63,7 @@ async describe('CoverageAnalyzer System Tests', () => {
       expect(metrics.method).toBeDefined();
     });
 
-    async test('should handle missing coverage file gracefully', async () => {
+    test('should handle missing coverage file gracefully', async () => {
       // Remove coverage file if it exists
       const coverageFile = path.join(coverageDir, 'coverage-final.json');
       if (fs.existsSync(coverageFile)) {
@@ -85,7 +85,7 @@ async describe('CoverageAnalyzer System Tests', () => {
       expect(metrics.line.total).toBeGreaterThan(0);
     });
 
-    async test('should use coverageMap from test results when available', async () => {
+    test('should use coverageMap from test results when available', async () => {
       const testResults = {
         coverageMap: {
           '/test/file.ts': {
@@ -104,8 +104,8 @@ async describe('CoverageAnalyzer System Tests', () => {
     });
   });
 
-  async describe('Class Coverage Analysis', () => {
-    async test('should accurately calculate class coverage', async () => {
+  describe('Class Coverage Analysis', () => {
+    test('should accurately calculate class coverage', async () => {
       const testResults = {
         '/test/classes.ts': {
           l: { '1': 1, '2': 1, '3': 0, '4': 0 },
@@ -140,7 +140,7 @@ async describe('CoverageAnalyzer System Tests', () => {
       expect(metrics.class.percentage).toBeCloseTo(33.33, 1);
     });
 
-    async test('should handle files with no classes', async () => {
+    test('should handle files with no classes', async () => {
       const testResults = {
         '/test/utils.ts': {
           l: { '1': 1, '2': 1 },
@@ -151,8 +151,8 @@ async describe('CoverageAnalyzer System Tests', () => {
             'helperFunction': { name: 'helperFunction' }
           },
           code: `
-            async function utilFunction() { return 'util'; }
-            async function helperFunction() { return 'helper'; }
+            function utilFunction() { return 'util'; }
+            function helperFunction() { return 'helper'; }
           `
         }
       };
@@ -164,8 +164,8 @@ async describe('CoverageAnalyzer System Tests', () => {
     });
   });
 
-  async describe('Branch Coverage Analysis', () => {
-    async test('should accurately calculate branch coverage', async () => {
+  describe('Branch Coverage Analysis', () => {
+    test('should accurately calculate branch coverage', async () => {
       const testResults = {
         '/test/branches.ts': {
           l: { '1': 1, '2': 1, '3': 1 },
@@ -178,7 +178,7 @@ async describe('CoverageAnalyzer System Tests', () => {
           f: { 'testFunction': 1 },
           fnMap: { 'testFunction': { name: 'testFunction' } },
           code: `
-            async function testFunction(x, y) {
+            function testFunction(x, y) {
               if (x > 0) return 'positive';
               else return 'non-positive';
               
@@ -207,7 +207,7 @@ async describe('CoverageAnalyzer System Tests', () => {
       expect(metrics.branch.percentage).toBeCloseTo(55.56, 1);
     });
 
-    async test('should handle files with no branches', async () => {
+    test('should handle files with no branches', async () => {
       const testResults = {
         '/test/simple.ts': {
           l: { '1': 1, '2': 1 },
@@ -215,7 +215,7 @@ async describe('CoverageAnalyzer System Tests', () => {
           f: { 'simpleFunction': 1 },
           fnMap: { 'simpleFunction': { name: 'simpleFunction' } },
           code: `
-            async function simpleFunction() {
+            function simpleFunction() {
               return 'no branches here';
             }
           `
@@ -229,8 +229,8 @@ async describe('CoverageAnalyzer System Tests', () => {
     });
   });
 
-  async describe('Line Coverage Analysis', () => {
-    async test('should accurately calculate line coverage', async () => {
+  describe('Line Coverage Analysis', () => {
+    test('should accurately calculate line coverage', async () => {
       const testResults = {
         '/test/lines.ts': {
           l: {
@@ -254,7 +254,7 @@ async describe('CoverageAnalyzer System Tests', () => {
       expect(metrics.line.percentage).toBe(60);
     });
 
-    async test('should handle empty line coverage data', async () => {
+    test('should handle empty line coverage data', async () => {
       const testResults = {
         '/test/empty.ts': {
           l: {},
@@ -272,8 +272,8 @@ async describe('CoverageAnalyzer System Tests', () => {
     });
   });
 
-  async describe('Method Coverage Analysis', () => {
-    async test('should accurately calculate method coverage', async () => {
+  describe('Method Coverage Analysis', () => {
+    test('should accurately calculate method coverage', async () => {
       const testResults = {
         '/test/methods.ts': {
           l: { '1': 1, '2': 1, '3': 0 },
@@ -303,7 +303,7 @@ async describe('CoverageAnalyzer System Tests', () => {
       expect(metrics.method.percentage).toBe(60);
     });
 
-    async test('should handle files with no methods', async () => {
+    test('should handle files with no methods', async () => {
       const testResults = {
         '/test/constants.ts': {
           l: { '1': 1, '2': 1 },
@@ -324,8 +324,8 @@ async describe('CoverageAnalyzer System Tests', () => {
     });
   });
 
-  async describe('Comprehensive Coverage Analysis', () => {
-    async test('should analyze multiple files with complex coverage scenarios', async () => {
+  describe('Comprehensive Coverage Analysis', () => {
+    test('should analyze multiple files with complex coverage scenarios', async () => {
       const testResults = {
         '/src/core/ConfigManager.ts': {
           l: { '1': 1, '2': 1, '3': 0, '4': 1, '5': 0, '6': 1 },
@@ -381,7 +381,7 @@ async describe('CoverageAnalyzer System Tests', () => {
       expect(metrics.method.percentage).toBe(50);
     });
 
-    async test('should handle edge case with perfect coverage', async () => {
+    test('should handle edge case with perfect coverage', async () => {
       const testResults = {
         '/test/perfect.ts': {
           l: { '1': 1, '2': 2, '3': 1 },
@@ -403,7 +403,7 @@ async describe('CoverageAnalyzer System Tests', () => {
       expect(metrics.method.percentage).toBe(100);
     });
 
-    async test('should handle edge case with zero coverage', async () => {
+    test('should handle edge case with zero coverage', async () => {
       const testResults = {
         '/test/uncovered.ts': {
           l: { '1': 0, '2': 0, '3': 0 },
@@ -426,8 +426,8 @@ async describe('CoverageAnalyzer System Tests', () => {
     });
   });
 
-  async describe('Error Handling and Resilience', () => {
-    async test('should handle malformed coverage data gracefully', async () => {
+  describe('Error Handling and Resilience', () => {
+    test('should handle malformed coverage data gracefully', async () => {
       const testResults = {
         '/test/malformed.ts': {
           l: null,
@@ -448,7 +448,7 @@ async describe('CoverageAnalyzer System Tests', () => {
       expect(typeof metrics.method.percentage).toBe('number');
     });
 
-    async test('should handle empty test results', async () => {
+    test('should handle empty test results', async () => {
       const testResults = {};
       const metrics = await coverageAnalyzer.analyze(testResults);
       

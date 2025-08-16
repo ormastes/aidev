@@ -7,31 +7,31 @@ import * as fs from 'fs/promises';
 import { path } from '../../../layer/themes/infra_external-log-lib/dist';
 import * as os from 'os';
 
-async describe('Comprehensive Branch Coverage System Tests', () => {
+describe('Comprehensive Branch Coverage System Tests', () => {
   let tempDir: string;
   let originalCwd: string;
 
-  async beforeAll(async () => {
+  beforeAll(async () => {
     originalCwd = process.cwd();
     tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'branch-coverage-'));
   });
 
-  async afterAll(async () => {
+  afterAll(async () => {
     process.chdir(originalCwd);
     await fs.rm(tempDir, { recursive: true, force: true });
   });
 
-  async beforeEach(async () => {
+  beforeEach(async () => {
     process.chdir(tempDir);
     
     // Set up basic directory structure
-    await await fileAPI.createDirectory(path.join(tempDir), { recursive: true });
+    await fileAPI.createDirectory(path.join(tempDir), { recursive: true });
     await fs.mkdir(path.join(tempDir, 'setup', 'themes'), { recursive: true });
-    await await fileAPI.createDirectory(path.join(tempDir), { recursive: true });
+    await fileAPI.createDirectory(path.join(tempDir), { recursive: true });
   });
 
-  async describe('ConfigManager Branch Coverage Enhancement', () => {
-    async test('should cover all branches in port range validation', async () => {
+  describe('ConfigManager Branch Coverage Enhancement', () => {
+    test('should cover all branches in port range validation', async () => {
       // Create comprehensive config for testing
       const configPath = path.join(tempDir, 'config', 'environments.json');
       const testConfig = {
@@ -75,7 +75,7 @@ async describe('Comprehensive Branch Coverage System Tests', () => {
       expect(configManager.isPortAvailable(3011)).toBe(false); // Just after theme range
     });
 
-    async test('should cover all branches in getNextAvailablePort with exhaustion scenarios', async () => {
+    test('should cover all branches in getNextAvailablePort with exhaustion scenarios', async () => {
       // Create config with very limited port ranges to test exhaustion
       const configPath = path.join(tempDir, 'config', 'environments.json');
       const limitedConfig = {
@@ -141,7 +141,7 @@ async describe('Comprehensive Branch Coverage System Tests', () => {
       expect(testPort).toBe(4000);
     });
 
-    async test('should cover all database configuration branches', async () => {
+    test('should cover all database configuration branches', async () => {
       const configPath = path.join(tempDir, 'config', 'environments.json');
       const dbTestConfig = {
         environments: {
@@ -181,7 +181,7 @@ async describe('Comprehensive Branch Coverage System Tests', () => {
       });
     });
 
-    async test('should cover all branches in generateEnvFile', async () => {
+    test('should cover all branches in generateEnvFile', async () => {
       const configPath = path.join(tempDir, 'config', 'environments.json');
       const envConfig = {
         environments: {
@@ -236,7 +236,7 @@ async describe('Comprehensive Branch Coverage System Tests', () => {
       expect(combinedEnv).toContain('SERVICE_NAME=auth_service');
     });
 
-    async test('should cover all branches in getThemeConnections', async () => {
+    test('should cover all branches in getThemeConnections', async () => {
       const configPath = path.join(tempDir, 'config', 'environments.json');
       const connectionConfig = {
         environments: {
@@ -279,8 +279,8 @@ async describe('Comprehensive Branch Coverage System Tests', () => {
     });
   });
 
-  async describe('CoverageAnalyzer Branch Coverage Enhancement', () => {
-    async test('should cover all branches in coverage data loading', async () => {
+  describe('CoverageAnalyzer Branch Coverage Enhancement', () => {
+    test('should cover all branches in coverage data loading', async () => {
       const coverageAnalyzer = new CoverageAnalyzer();
 
       // Branch 1: Test results has coverageMap
@@ -336,7 +336,7 @@ async describe('Comprehensive Branch Coverage System Tests', () => {
       expect(metrics3.line.covered).toBe(0);
     });
 
-    async test('should cover all branches in branch coverage calculation', async () => {
+    test('should cover all branches in branch coverage calculation', async () => {
       const coverageAnalyzer = new CoverageAnalyzer();
 
       // Test different branch data structures
@@ -367,7 +367,7 @@ async describe('Comprehensive Branch Coverage System Tests', () => {
       expect(metrics.branch.percentage).toBeCloseTo(63.64, 1);
     });
 
-    async test('should cover all branches in class detection', async () => {
+    test('should cover all branches in class detection', async () => {
       const coverageAnalyzer = new CoverageAnalyzer();
 
       // Test different class scenarios
@@ -406,7 +406,7 @@ async describe('Comprehensive Branch Coverage System Tests', () => {
               testedMethod() { return 'tested'; }
               untestedMethod() { return 'not tested'; }
             }
-            async function globalFunction() { return 'global'; }
+            function globalFunction() { return 'global'; }
           `
         }
       };
@@ -419,7 +419,7 @@ async describe('Comprehensive Branch Coverage System Tests', () => {
       expect(metrics.class.percentage).toBeCloseTo(66.67, 1);
     });
 
-    async test('should handle edge cases in coverage calculation', async () => {
+    test('should handle edge cases in coverage calculation', async () => {
       const coverageAnalyzer = new CoverageAnalyzer();
 
       // Test with null/undefined values
@@ -449,8 +449,8 @@ async describe('Comprehensive Branch Coverage System Tests', () => {
     });
   });
 
-  async describe('ThemeManager Branch Coverage Enhancement', () => {
-    async test('should cover all branches in getCriteria', async () => {
+  describe('ThemeManager Branch Coverage Enhancement', () => {
+    test('should cover all branches in getCriteria', async () => {
       const themesDir = path.join(tempDir, 'setup', 'themes');
       
       // Create themes with different configurations
@@ -510,7 +510,7 @@ async describe('Comprehensive Branch Coverage System Tests', () => {
       expect(nonExistentProd.coverage.class.minimum).toBe(95); // Default production value
     });
 
-    async test('should cover all branches in getEpicInfo', async () => {
+    test('should cover all branches in getEpicInfo', async () => {
       const themesDir = path.join(tempDir, 'setup', 'themes');
       
       const epicTheme = {
@@ -551,7 +551,7 @@ async describe('Comprehensive Branch Coverage System Tests', () => {
       expect(nonExistentInfo).toBeUndefined();
     });
 
-    async test('should cover caching branches', async () => {
+    test('should cover caching branches', async () => {
       const themesDir = path.join(tempDir, 'setup', 'themes');
       
       const cacheTheme = {
@@ -581,17 +581,17 @@ async describe('Comprehensive Branch Coverage System Tests', () => {
     });
   });
 
-  async describe('FraudChecker Branch Coverage Enhancement', () => {
-    async test('should cover all pattern detection branches', async () => {
+  describe('FraudChecker Branch Coverage Enhancement', () => {
+    test('should cover all pattern detection branches', async () => {
       const testDir = path.join(tempDir, 'tests');
-      await await fileAPI.createDirectory(testDir);
+      await fileAPI.createDirectory(testDir);
 
       // Create comprehensive test file with all fraud patterns
       const allPatternsContent = `
-async describe('All Patterns Test', () => {
+describe('All Patterns Test', () => {
   // Empty tests
-  async it('empty test 1', () => {});
-  async test('empty test 2', () => {
+  it('empty test 1', () => {});
+  test('empty test 2', () => {
     // Just comment
   });
   
@@ -599,7 +599,7 @@ async describe('All Patterns Test', () => {
   it.skip('skipped test', () => { expect(true).toBe(true); });
   test.skip('skipped test 2', () => { expect(1).toBe(1); });
   describe.skip('skipped suite', () => {
-    async it('test in skipped suite', () => {});
+    it('test in skipped suite', () => {});
   });
   
   // Only patterns
@@ -607,20 +607,20 @@ async describe('All Patterns Test', () => {
   test.only('only test 2', () => { expect(1).toBe(1); });
   
   // Always true assertions
-  async it('always true 1', () => {
+  it('always true 1', () => {
     expect(true).toBe(true);
   });
   
-  async it('always true 2', () => {
+  it('always true 2', () => {
     assert.isTrue(true);
   });
   
   // Coverage manipulation
-  async it('coverage hack 1', () => {
+  it('coverage hack 1', () => {
     global.__coverage__ = {};
   });
   
-  async it('coverage hack 2', () => {
+  it('coverage hack 2', () => {
     __coverage__['fake'] = 100;
   });
   
@@ -634,26 +634,26 @@ async describe('All Patterns Test', () => {
   test.todo('todo test 2');
   
   // Coverage ignores
-  async it('ignore test 1', () => {
+  it('ignore test 1', () => {
     /* istanbul ignore next */
     if (false) console.log('ignored');
   });
   
-  async it('ignore test 2', () => {
+  it('ignore test 2', () => {
     /* c8 ignore start */
-    async function ignored() {}
+    function ignored() {}
     /* c8 ignore stop */
   });
   
   // Fake delays
-  async it('fake delay', () => {
+  it('fake delay', () => {
     async setTimeout(() => {}, 0);
     expect(true).toBe(true);
   });
 });
 `;
 
-      await await fileAPI.createFile(path.join(testDir, 'all-patterns.test.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(testDir, 'all-patterns.test.ts'), { type: FileType.TEMPORARY });
 
       const fraudChecker = new FraudChecker();
       const result = await fraudChecker.check({});
@@ -676,7 +676,7 @@ async describe('All Patterns Test', () => {
       expect(severities).toContain('low');
     });
 
-    async test('should cover all file collection branches', async () => {
+    test('should cover all file collection branches', async () => {
       // Create test files in various locations and with various extensions
       const locations = [
         'tests',
@@ -690,24 +690,24 @@ async describe('All Patterns Test', () => {
       const extensions = ['.test.ts', '.test.js', '.spec.ts', '.spec.js'];
 
       for (const location of locations) {
-        await await fileAPI.createDirectory(path.join(tempDir), { recursive: true });
+        await fileAPI.createDirectory(path.join(tempDir), { recursive: true });
         
         for (const ext of extensions) {
           const filename = `sample${ext}`;
           const content = `
-async describe('Test', () => {
-  async it('test', () => {
+describe('Test', () => {
+  it('test', () => {
     expect(1).toBe(1);
   });
 });
 `;
-          await await fileAPI.createFile(path.join(tempDir, location, { type: FileType.TEMPORARY }), content);
+          await fileAPI.createFile(path.join(tempDir, location, { type: FileType.TEMPORARY }), content);
         }
       }
 
       // Also create non-test files that should be ignored
-      await await fileAPI.createFile(path.join(tempDir, 'tests', { type: FileType.TEMPORARY }), 'export const helper = () => {};');
-      await await fileAPI.createFile(path.join(tempDir, 'tests', { type: FileType.TEMPORARY }), '{}');
+      await fileAPI.createFile(path.join(tempDir, 'tests', { type: FileType.TEMPORARY }), 'export const helper = () => {};');
+      await fileAPI.createFile(path.join(tempDir, 'tests', { type: FileType.TEMPORARY }), '{}');
 
       const fraudChecker = new FraudChecker();
       const result = await fraudChecker.check({});
@@ -716,7 +716,7 @@ async describe('Test', () => {
       expect(result.violations.length).toBe(0); // Clean test files
     });
 
-    async test('should cover score calculation branches', async () => {
+    test('should cover score calculation branches', async () => {
       const fraudChecker = new FraudChecker();
 
       // Test with no violations (should return 100)
@@ -724,7 +724,7 @@ async describe('Test', () => {
       
       // Create clean test
       const testDir = path.join(tempDir, 'clean-tests');
-      await await fileAPI.createDirectory(testDir);
+      await fileAPI.createDirectory(testDir);
       await fs.writeFile(
         path.join(testDir, 'clean.test.ts'),
         'describe("Clean", () => { it("works", () => { expect(1).toBe(1); }); });'
@@ -737,8 +737,8 @@ async describe('Test', () => {
       await fs.writeFile(
         path.join(testDir, 'violations.test.ts'),
         `
-        async describe('Violations', () => {
-          async it('critical', () => { expect(true).toBe(true); }); // 25 points
+        describe('Violations', () => {
+          it('critical', () => { expect(true).toBe(true); }); // 25 points
           it.only('high', () => { expect(1).toBe(1); }); // 15 points  
           it.skip('medium', () => { expect(2).toBe(2); }); // 10 points
           // it('low', () => {}); // 5 points
@@ -755,8 +755,8 @@ async describe('Test', () => {
     });
   });
 
-  async describe('Error Handling Branch Coverage', () => {
-    async test('should handle file system errors gracefully', async () => {
+  describe('Error Handling Branch Coverage', () => {
+    test('should handle file system errors gracefully', async () => {
       // Test ConfigManager with invalid config
       async expect(() => {
         new ConfigManager('/non/existent/path');
@@ -764,7 +764,7 @@ async describe('Test', () => {
 
       // Test ThemeManager with inaccessible themes directory
       const restrictedDir = path.join(tempDir, 'restricted');
-      await await fileAPI.createDirectory(restrictedDir); // No permissions
+      await fileAPI.createDirectory(restrictedDir); // No permissions
 
       const themeManager = new ThemeManager({});
       
@@ -776,11 +776,11 @@ async describe('Test', () => {
       await fs.chmod(restrictedDir, 0o755);
     });
 
-    async test('should handle malformed JSON gracefully', async () => {
+    test('should handle malformed JSON gracefully', async () => {
       const themesDir = path.join(tempDir, 'setup', 'themes');
       
       // Create malformed JSON file
-      await await fileAPI.createFile(path.join(themesDir, 'malformed.theme.json'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(themesDir, 'malformed.theme.json'), { type: FileType.TEMPORARY });
 
       const themeManager = new ThemeManager({});
       

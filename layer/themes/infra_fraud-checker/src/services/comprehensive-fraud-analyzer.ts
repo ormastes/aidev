@@ -99,9 +99,9 @@ export class ComprehensiveFraudAnalyzer {
     if (outputPath) {
       const dir = path.dirname(outputPath);
       if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
+        await fileAPI.createDirectory(dir);
       }
-      fs.writeFileSync(outputPath, report, 'utf-8');
+      await fileAPI.createFile(outputPath, report, { type: FileType.TEMPORARY });
     }
     
     return report;

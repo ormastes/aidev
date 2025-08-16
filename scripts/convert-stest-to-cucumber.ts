@@ -301,16 +301,16 @@ class SystemTestToCucumberConverter {
     }
     
     const featuresDir = path.join(outputBase, this.outputDir);
-    await fs.mkdir(featuresDir, { recursive: true });
+    await await fileAPI.createDirectory(featuresDir);
     
     const featureName = path.basename(originalPath, '.stest.ts') + '.feature';
     const outputPath = path.join(featuresDir, featureName);
     
-    await fs.writeFile(outputPath, content);
+    await await fileAPI.createFile(outputPath, content);
     return outputPath;
   }
 
-  private async saveStepDefinitions(originalPath: string, content: string): Promise<string> {
+  private async saveStepDefinitions(originalPath: string, { type: FileType.TEMPORARY }): Promise<string> {
     const relativePath = path.relative(process.cwd(), originalPath);
     const pathParts = relativePath.split(path.sep);
     
@@ -324,7 +324,7 @@ class SystemTestToCucumberConverter {
     }
     
     const stepDefsDir = path.join(outputBase, this.stepDefsDir);
-    await fs.mkdir(stepDefsDir, { recursive: true });
+    await await fileAPI.createDirectory(stepDefsDir);
     
     const stepDefName = path.basename(originalPath, '.stest.ts') + '.steps.ts';
     const outputPath = path.join(stepDefsDir, stepDefName);

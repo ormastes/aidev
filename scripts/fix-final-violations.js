@@ -160,7 +160,7 @@ class FinalViolationFixer {
       
       // Write the fixed file
       if (changes > 0) {
-        fs.writeFileSync(fullPath, content);
+        await fileAPI.createFile(fullPath, content, { type: FileType.TEMPORARY });
         console.log(`✅ Fixed ${filePath}: ${changes} changes`);
         this.fixCount += changes;
         return true;

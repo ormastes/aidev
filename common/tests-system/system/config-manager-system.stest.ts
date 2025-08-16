@@ -3,12 +3,12 @@ import { fs } from '../../../layer/themes/infra_external-log-lib/dist';
 import { path } from '../../../layer/themes/infra_external-log-lib/dist';
 import * as os from 'os';
 
-async describe('ConfigManager System Tests', () => {
+describe('ConfigManager System Tests', () => {
   let configManager: ConfigManager;
   let tempDir: string;
   let mockConfigPath: string;
 
-  async beforeAll(() => {
+  beforeAll(async () => {
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'config-test-'));
     const configDir = path.join(tempDir, 'config');
     await fileAPI.createDirectory(configDir);
@@ -91,19 +91,19 @@ async describe('ConfigManager System Tests', () => {
     configManager = new ConfigManager(tempDir);
   });
 
-  async afterAll(() => {
+  afterAll(async () => {
     fs.rmSync(tempDir, { recursive: true, force: true });
   });
 
-  async describe('Configuration Loading', () => {
-    async test('should load configuration from file system', () => {
+  describe('Configuration Loading', () => {
+    test('should load configuration from file system', () => {
       expect(configManager).toBeDefined();
       expect(configManager.getThemes()).toContain('aidev-portal');
       expect(configManager.getThemes()).toContain('chat-space');
       expect(configManager.getThemes()).toContain('cli-framework');
     });
 
-    async test('should handle all environment types', () => {
+    test('should handle all environment types', () => {
       const environments = ['theme', 'epic', 'demo', 'release'] as const;
       
       environments.forEach(env => {
@@ -116,8 +116,8 @@ async describe('ConfigManager System Tests', () => {
     });
   });
 
-  async describe('Port Management System Tests', () => {
-    async test('should manage port allocation across all environments', () => {
+  describe('Port Management System Tests', () => {
+    test('should manage port allocation across all environments', () => {
       const themePort = configManager.getServicePort('theme', 'portal');
       const epicPort = configManager.getServicePort('epic', 'portal');
       const demoPort = configManager.getServicePort('demo', 'portal');
@@ -134,13 +134,13 @@ async describe('ConfigManager System Tests', () => {
       expect(uniquePorts.size).toBe(allPorts.length);
     });
 
-    async test('should correctly identify port availability', () => {
+    test('should correctly identify port availability', () => {
       expect(configManager.isPortAvailable(3001)).toBe(false); // theme portal
       expect(configManager.isPortAvailable(3050)).toBe(true);  // within theme range but unallocated
       expect(configManager.isPortAvailable(2000)).toBe(false); // outside all ranges
     });
 
-    async test('should find next available ports in each environment', () => {
+    test('should find next available ports in each environment', () => {
       const themePort = configManager.getNextAvailablePort('theme');
       const epicPort = configManager.getNextAvailablePort('epic');
       
@@ -151,8 +151,8 @@ async describe('ConfigManager System Tests', () => {
     });
   });
 
-  async describe('Database Configuration System Tests', () => {
-    async test('should generate postgres config for release environment', () => {
+  describe('Database Configuration System Tests', () => {
+    test('should generate postgres config for release environment', () => {
       const config = configManager.getDatabaseConfig('release', 'postgres');
       
       expect(config.host).toBe('localhost');
@@ -163,7 +163,7 @@ async describe('ConfigManager System Tests', () => {
       expect(config.ssl).toBe(false);
     });
 
-    async test('should generate sqlite config for development environments', () => {
+    test('should generate sqlite config for development environments', () => {
       const themeConfig = configManager.getDatabaseConfig('theme', 'sqlite');
       const demoConfig = configManager.getDatabaseConfig('demo', 'sqlite');
       
@@ -174,7 +174,7 @@ async describe('ConfigManager System Tests', () => {
       expect(themeConfig.path).not.toBe(demoConfig.path);
     });
 
-    async test('should handle all database type and environment combinations', () => {
+    test('should handle all database type and environment combinations', () => {
       const environments = ['theme', 'epic', 'demo', 'release'] as const;
       const dbTypes = ['postgres', 'sqlite'] as const;
       
@@ -195,8 +195,8 @@ async describe('ConfigManager System Tests', () => {
     });
   });
 
-  async describe('Environment File Generation System Tests', () => {
-    async test('should generate complete .env files for all services', () => {
+  describe('Environment File Generation System Tests', () => {
+    test('should generate complete .env files for all services', () => {
       const services = ['portal', 'story_reporter', 'gui_selector', 'auth_service', 'db_service'];
       const environments = ['theme', 'epic', 'demo', 'release'] as const;
       
@@ -226,7 +226,7 @@ async describe('ConfigManager System Tests', () => {
       });
     });
 
-    async test('should handle custom port and database type options', () => {
+    test('should handle custom port and database type options', () => {
       const envContent = configManager.generateEnvFile('theme', 'portal', {
         customPort: 3999,
         dbType: 'postgres'
@@ -237,7 +237,7 @@ async describe('ConfigManager System Tests', () => {
       expect(envContent).toContain('DB_HOST=localhost');
     });
 
-    async test('should save environment files to filesystem', () => {
+    test('should save environment files to filesystem', () => {
       const envFilePath = path.join(tempDir, 'test-service.env');
       
       configManager.saveEnvFile('theme', 'portal', envFilePath);
@@ -252,8 +252,8 @@ async describe('ConfigManager System Tests', () => {
     });
   });
 
-  async describe('Theme Connection System Tests', () => {
-    async test('should manage inter-theme dependencies', () => {
+  describe('Theme Connection System Tests', () => {
+    test('should manage inter-theme dependencies', () => {
       const portalConnections = configManager.getThemeConnections('aidev-portal');
       const chatConnections = configManager.getThemeConnections('chat-space');
       const cliConnections = configManager.getThemeConnections('cli-framework');
@@ -264,20 +264,20 @@ async describe('ConfigManager System Tests', () => {
       expect(cliConnections).toContain('external-log-lib');
     });
 
-    async test('should handle themes without connections', () => {
+    test('should handle themes without connections', () => {
       const nonExistentConnections = configManager.getThemeConnections('non-existent-theme');
       expect(nonExistentConnections).toEqual([]);
     });
 
-    async test('should provide complete theme list', () => {
+    test('should provide complete theme list', () => {
       const themes = configManager.getThemes();
       expect(themes).toHaveLength(3);
       expect(themes).toEqual(['aidev-portal', 'chat-space', 'cli-framework']);
     });
   });
 
-  async describe('Path Resolution System Tests', () => {
-    async test('should resolve base paths for all environments', () => {
+  describe('Path Resolution System Tests', () => {
+    test('should resolve base paths for all environments', () => {
       const themePath = configManager.getBasePath('theme');
       const epicPath = configManager.getBasePath('epic');
       const demoPath = configManager.getBasePath('demo');
@@ -296,8 +296,8 @@ async describe('ConfigManager System Tests', () => {
     });
   });
 
-  async describe('Error Handling and Edge Cases', () => {
-    async test('should handle missing configuration gracefully', () => {
+  describe('Error Handling and Edge Cases', () => {
+    test('should handle missing configuration gracefully', () => {
       const invalidConfigPath = path.join(tempDir, 'invalid');
       await fileAPI.createDirectory(invalidConfigPath);
       
@@ -306,7 +306,7 @@ async describe('ConfigManager System Tests', () => {
       }).toThrow();
     });
 
-    async test('should handle port range exhaustion', () => {
+    test('should handle port range exhaustion', () => {
       // Create a config with very limited port range
       const limitedConfig = path.join(tempDir, 'config', 'limited.json');
       const limited = {
@@ -342,8 +342,8 @@ async describe('ConfigManager System Tests', () => {
     });
   });
 
-  async describe('Integration with File System', () => {
-    async test('should work with actual project structure', () => {
+  describe('Integration with File System', () => {
+    test('should work with actual project structure', () => {
       // Test that config manager can work with the actual project
       const projectRoot = path.resolve(__dirname, '../..');
       const realConfigPath = path.join(projectRoot, 'config', 'environments.json');

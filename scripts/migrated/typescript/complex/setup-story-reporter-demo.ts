@@ -237,7 +237,7 @@ async function main() {
   await $`try {`;
   // Ensure log directory
   await $`if (!fs.existsSync(this.logDir)) {`;
-  await $`fs.mkdirSync(this.logDir, { recursive: true });`;
+  await $`await fileAPI.createDirectory(this.logDir);`;
   await $`}`;
   // Start server
   await $`await this.startServer();`;

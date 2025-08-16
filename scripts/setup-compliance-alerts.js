@@ -107,7 +107,7 @@ class ComplianceAlertSystem {
       }
     };
     
-    fs.writeFileSync(this.configPath, JSON.stringify(config, null, 2));
+    await fileAPI.createFile(this.configPath, JSON.stringify(config, { type: FileType.TEMPORARY }));
     console.log('✅ Alert configuration created at:', this.configPath);
   }
 
@@ -171,7 +171,7 @@ check_compliance
 `;
     
     const cronScriptPath = path.join(process.cwd(), 'scripts/compliance-monitor.sh');
-    fs.writeFileSync(cronScriptPath, cronScript);
+    await fileAPI.createFile(cronScriptPath, cronScript, { type: FileType.TEMPORARY });
     fs.chmodSync(cronScriptPath, '755');
     
     console.log('✅ Cron script created at:', cronScriptPath);
@@ -268,7 +268,7 @@ class AlertHandler {
     };
     
     const logLine = JSON.stringify(logEntry) + '\\n';
-    fs.appendFileSync(this.config.channels.file.path, logLine);
+    await fileAPI.writeFile(this.config.channels.file.path, logLine, { append: true });
   }
 
   async sendWebhook(alert) {
@@ -342,7 +342,7 @@ module.exports = { AlertHandler };
 `;
     
     const handlerPath = path.join(process.cwd(), 'layer/themes/infra_external-log-lib/src/monitoring/alert-handler.js');
-    fs.writeFileSync(handlerPath, alertHandler);
+    await fileAPI.createFile(handlerPath, alertHandler, { type: FileType.TEMPORARY });
     
     console.log('✅ Alert handler created at:', handlerPath);
   }
@@ -371,7 +371,7 @@ module.exports = { AlertHandler };
     const logEntry = `[${timestamp}] [TEST] [${alert.severity.toUpperCase()}] ${alert.message}\n`;
     
     // Log to file
-    fs.appendFileSync(this.alertLogPath, logEntry);
+    await fileAPI.writeFile(this.alertLogPath, logEntry, { append: true });
     
     // Log to console with color
     const colors = {

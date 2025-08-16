@@ -3,41 +3,41 @@ import * as fs from 'fs/promises';
 import { path } from '../../../layer/themes/infra_external-log-lib/dist';
 import * as os from 'os';
 
-async describe('DuplicationDetector System Tests', () => {
+describe('DuplicationDetector System Tests', () => {
   let tempDir: string;
   let originalCwd: string;
   let duplicationDetector: DuplicationDetector;
 
-  async beforeAll(async () => {
+  beforeAll(async () => {
     originalCwd = process.cwd();
     tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'duplication-detector-system-'));
   });
 
-  async afterAll(async () => {
+  afterAll(async () => {
     process.chdir(originalCwd);
     await fs.rm(tempDir, { recursive: true, force: true });
   });
 
-  async beforeEach(async () => {
+  beforeEach(async () => {
     process.chdir(tempDir);
     duplicationDetector = new DuplicationDetector();
   });
 
-  async describe('Source File Collection', () => {
-    async test('should collect TypeScript and JavaScript files from src directory', async () => {
+  describe('Source File Collection', () => {
+    test('should collect TypeScript and JavaScript files from src directory', async () => {
       // Create test source structure
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
       
       const subDir = path.join(srcDir, 'utils');
-      await await fileAPI.createDirectory(subDir);
+      await fileAPI.createDirectory(subDir);
 
       // Create various file types
-      await await fileAPI.createFile(path.join(srcDir, 'main.ts'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'helper.js'), { type: FileType.TEMPORARY }) {}');
-      await await fileAPI.createFile(path.join(subDir, 'utils.ts'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'config.json'), { type: FileType.TEMPORARY }); // Should be ignored
-      await await fileAPI.createFile(path.join(srcDir, 'README.md'), { type: FileType.TEMPORARY }); // Should be ignored
+      await fileAPI.createFile(path.join(srcDir, 'main.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'helper.js'), { type: FileType.TEMPORARY }) {}');
+      await fileAPI.createFile(path.join(subDir, 'utils.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'config.json'), { type: FileType.TEMPORARY }); // Should be ignored
+      await fileAPI.createFile(path.join(srcDir, 'README.md'), { type: FileType.TEMPORARY }); // Should be ignored
 
       const metrics = await duplicationDetector.detect();
 
@@ -48,16 +48,16 @@ async describe('DuplicationDetector System Tests', () => {
       expect(Array.isArray(metrics.duplicatedBlocks)).toBe(true);
     });
 
-    async test('should handle nested directory structures', async () => {
+    test('should handle nested directory structures', async () => {
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       // Create deeply nested structure
       const deepPath = path.join(srcDir, 'level1', 'level2', 'level3');
-      await await fileAPI.createDirectory(deepPath);
+      await fileAPI.createDirectory(deepPath);
 
-      await await fileAPI.createFile(path.join(deepPath, 'deep.ts'), { type: FileType.TEMPORARY }) { return true; } }');
-      await await fileAPI.createFile(path.join(srcDir, 'root.ts'), { type: FileType.TEMPORARY }) { return true; } }');
+      await fileAPI.createFile(path.join(deepPath, 'deep.ts'), { type: FileType.TEMPORARY }) { return true; } }');
+      await fileAPI.createFile(path.join(srcDir, 'root.ts'), { type: FileType.TEMPORARY }) { return true; } }');
 
       const metrics = await duplicationDetector.detect();
 
@@ -65,9 +65,9 @@ async describe('DuplicationDetector System Tests', () => {
       expect(metrics.duplicatedLines).toBe(0); // Not enough lines to be considered duplicated
     });
 
-    async test('should handle empty src directory', async () => {
+    test('should handle empty src directory', async () => {
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       const metrics = await duplicationDetector.detect();
 
@@ -77,16 +77,16 @@ async describe('DuplicationDetector System Tests', () => {
       expect(metrics.duplicatedBlocks).toEqual([]);
     });
 
-    async test('should handle missing src directory', async () => {
+    test('should handle missing src directory', async () => {
       // No src directory created
       await expect(duplicationDetector.detect()).rejects.toThrow();
     });
   });
 
-  async describe('Code Block Extraction and Tokenization', () => {
-    async test('should extract code blocks with minimum token and line requirements', async () => {
+  describe('Code Block Extraction and Tokenization', () => {
+    test('should extract code blocks with minimum token and line requirements', async () => {
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       // Create file with code blocks that meet minimum requirements
       const longCode = `
@@ -124,7 +124,7 @@ export class Calculator {
   }
 }`;
 
-      await await fileAPI.createFile(path.join(srcDir, 'calculator.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'calculator.ts'), { type: FileType.TEMPORARY });
 
       const metrics = await duplicationDetector.detect();
 
@@ -133,9 +133,9 @@ export class Calculator {
       expect(metrics.percentage).toBe(0);
     });
 
-    async test('should detect exact code duplication between files', async () => {
+    test('should detect exact code duplication between files', async () => {
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       const duplicatedCode = `
 export class DataProcessor {
@@ -165,8 +165,8 @@ export class DataProcessor {
 }`;
 
       // Create two files with identical code
-      await await fileAPI.createFile(path.join(srcDir, 'processor1.ts'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'processor2.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'processor1.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'processor2.ts'), { type: FileType.TEMPORARY });
 
       const metrics = await duplicationDetector.detect();
 
@@ -182,9 +182,9 @@ export class DataProcessor {
       expect(firstBlock.files).toContain(path.join(srcDir, 'processor2.ts'));
     });
 
-    async test('should handle code with comments and strings correctly', async () => {
+    test('should handle code with comments and strings correctly', async () => {
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       const codeWithComments = `
 export class CommentedClass {
@@ -224,8 +224,8 @@ export class CommentedClass {
   }
 }`;
 
-      await await fileAPI.createFile(path.join(srcDir, 'commented1.ts'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'commented2.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'commented1.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'commented2.ts'), { type: FileType.TEMPORARY });
 
       const metrics = await duplicationDetector.detect();
 
@@ -234,9 +234,9 @@ export class CommentedClass {
       expect(metrics.duplicatedBlocks.length).toBeGreaterThan(0);
     });
 
-    async test('should normalize strings and numbers during tokenization', async () => {
+    test('should normalize strings and numbers during tokenization', async () => {
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       const codeWithLiterals1 = `
 export class LiteralProcessor {
@@ -282,8 +282,8 @@ export class LiteralProcessor {
   }
 }`;
 
-      await await fileAPI.createFile(path.join(srcDir, 'literals1.ts'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'literals2.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'literals1.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'literals2.ts'), { type: FileType.TEMPORARY });
 
       const metrics = await duplicationDetector.detect();
 
@@ -293,10 +293,10 @@ export class LiteralProcessor {
     });
   });
 
-  async describe('Duplication Detection Algorithm', () => {
-    async test('should detect partial duplication between multiple files', async () => {
+  describe('Duplication Detection Algorithm', () => {
+    test('should detect partial duplication between multiple files', async () => {
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       const baseCode = `
 export class BaseService {
@@ -355,9 +355,9 @@ export class AnotherService {
   }
 }`;
 
-      await await fileAPI.createFile(path.join(srcDir, 'base-service.ts'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'extended-service.ts'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'another-service.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'base-service.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'extended-service.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'another-service.ts'), { type: FileType.TEMPORARY });
 
       const metrics = await duplicationDetector.detect();
 
@@ -370,13 +370,13 @@ export class AnotherService {
       expect(hasMultiFileBlocks).toBe(true);
     });
 
-    async test('should calculate accurate duplication metrics', async () => {
+    test('should calculate accurate duplication metrics', async () => {
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       // Create known duplication scenario
       const duplicatedFunction = `
-async function complexCalculation(x: number, y: number): number {
+function complexCalculation(x: number, y: number): number {
   const step1 = Math.pow(x, 2);
   const step2 = Math.pow(y, 2);
   const step3 = Math.sqrt(step1 + step2);
@@ -386,23 +386,23 @@ async function complexCalculation(x: number, y: number): number {
 }`;
 
       const uniqueFunction = `
-async function simpleCalculation(a: number): number {
+function simpleCalculation(a: number): number {
   return a * 2;
 }`;
 
       const file1Content = duplicatedFunction + uniqueFunction;
       const file2Content = duplicatedFunction + `
-async function anotherUniqueFunction(b: number): number {
+function anotherUniqueFunction(b: number): number {
   return b + 1;
 }`;
       const file3Content = `
-async function completelyDifferentFunction(): void {
+function completelyDifferentFunction(): void {
   console.log('This is different');
 }`;
 
-      await await fileAPI.createFile(path.join(srcDir, 'file1.ts'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'file2.ts'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'file3.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'file1.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'file2.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'file3.ts'), { type: FileType.TEMPORARY });
 
       const metrics = await duplicationDetector.detect();
 
@@ -419,9 +419,9 @@ async function completelyDifferentFunction(): void {
       expect(duplicatedBlock.tokens).toBeGreaterThan(0);
     });
 
-    async test('should handle edge cases with minimum thresholds', async () => {
+    test('should handle edge cases with minimum thresholds', async () => {
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       // Create code blocks that are just below the minimum threshold
       const shortCode1 = `
@@ -438,8 +438,8 @@ class Short {
   }
 }`;
 
-      await await fileAPI.createFile(path.join(srcDir, 'short1.ts'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'short2.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'short1.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'short2.ts'), { type: FileType.TEMPORARY });
 
       const metrics = await duplicationDetector.detect();
 
@@ -450,24 +450,24 @@ class Short {
     });
   });
 
-  async describe('Error Handling and Edge Cases', () => {
-    async test('should handle files with syntax errors gracefully', async () => {
+  describe('Error Handling and Edge Cases', () => {
+    test('should handle files with syntax errors gracefully', async () => {
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       // Create files with syntax errors
-      await await fileAPI.createFile(path.join(srcDir, 'syntax-error1.ts'), { type: FileType.TEMPORARY }) {
+      await fileAPI.createFile(path.join(srcDir, 'syntax-error1.ts'), { type: FileType.TEMPORARY }) {
     // Missing closing brace
     return "hello";
   // Missing closing brace for method and class
 `);
 
-      await await fileAPI.createFile(path.join(srcDir, 'syntax-error2.js'), { type: FileType.TEMPORARY }) {
+      await fileAPI.createFile(path.join(srcDir, 'syntax-error2.js'), { type: FileType.TEMPORARY }) {
   const x = ;
   return x;
 }`);
 
-      await await fileAPI.createFile(path.join(srcDir, 'valid.ts'), { type: FileType.TEMPORARY }): string {
+      await fileAPI.createFile(path.join(srcDir, 'valid.ts'), { type: FileType.TEMPORARY }): string {
     return "valid";
   }
 }`);
@@ -479,16 +479,16 @@ class Short {
       expect(typeof metrics.percentage).toBe('number');
     });
 
-    async test('should handle binary files in src directory', async () => {
+    test('should handle binary files in src directory', async () => {
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       // Create a binary file (should be ignored)
       const binaryContent = Buffer.from([0x00, 0x01, 0x02, 0x03, 0xFF, 0xFE, 0xFD]);
-      await await fileAPI.createFile(path.join(srcDir, 'binary.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'binary.ts'), { type: FileType.TEMPORARY });
 
       // Create a valid text file
-      await await fileAPI.createFile(path.join(srcDir, 'text.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'text.ts'), { type: FileType.TEMPORARY });
 
       const metrics = await duplicationDetector.detect();
 
@@ -496,9 +496,9 @@ class Short {
       expect(metrics.totalLines).toBeGreaterThan(0);
     });
 
-    async test('should handle files with extremely long lines', async () => {
+    test('should handle files with extremely long lines', async () => {
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       const longLine = 'const longString = "' + 'a'.repeat(10000) + '";';
       const longLineContent = `
@@ -509,7 +509,7 @@ export class LongLineClass {
   }
 }`;
 
-      await await fileAPI.createFile(path.join(srcDir, 'long-line.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'long-line.ts'), { type: FileType.TEMPORARY });
 
       const metrics = await duplicationDetector.detect();
 
@@ -517,9 +517,9 @@ export class LongLineClass {
       expect(typeof metrics.percentage).toBe('number');
     });
 
-    async test('should handle concurrent file access', async () => {
+    test('should handle concurrent file access', async () => {
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       // Create multiple files for concurrent access
       const filePromises = [];
@@ -553,16 +553,16 @@ export class ConcurrentClass${i} {
       });
     });
 
-    async test('should handle permission errors on files', async () => {
+    test('should handle permission errors on files', async () => {
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       // Create a normal file
-      await await fileAPI.createFile(path.join(srcDir, 'normal.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'normal.ts'), { type: FileType.TEMPORARY });
       
       // Create a file and remove read permissions
       const restrictedFile = path.join(srcDir, 'restricted.ts');
-      await await fileAPI.createFile(restrictedFile, 'export const restricted = true;');
+      await fileAPI.createFile(restrictedFile, 'export const restricted = true;');
       await fs.chmod(restrictedFile, { type: FileType.TEMPORARY });
 
       try {
@@ -577,10 +577,10 @@ export class ConcurrentClass${i} {
     });
   });
 
-  async describe('Performance and Memory Usage', () => {
-    async test('should handle large codebases efficiently', async () => {
+  describe('Performance and Memory Usage', () => {
+    test('should handle large codebases efficiently', async () => {
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       // Create a large number of files with substantial content
       const baseClass = `
@@ -660,9 +660,9 @@ export class GeneratedClass{ID} {
       expect(metrics.duplicatedBlocks.length).toBeGreaterThan(0);
     });
 
-    async test('should manage memory usage with large files', async () => {
+    test('should manage memory usage with large files', async () => {
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       // Create files with substantial content
       let largeContent = `export class LargeFile {\n`;
@@ -687,7 +687,7 @@ export class GeneratedClass{ID} {
       
       largeContent += `}`;
 
-      await await fileAPI.createFile(path.join(srcDir, 'large-file.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'large-file.ts'), { type: FileType.TEMPORARY });
 
       const initialMemory = process.memoryUsage().heapUsed;
       const metrics = await duplicationDetector.detect();
@@ -702,9 +702,9 @@ export class GeneratedClass{ID} {
       expect(typeof metrics.percentage).toBe('number');
     });
 
-    async test('should handle timeout scenarios gracefully', async () => {
+    test('should handle timeout scenarios gracefully', async () => {
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       // Create moderate amount of content for timeout testing
       for (let i = 0; i < 5; i++) {
@@ -715,7 +715,7 @@ export class TimeoutTest${i} {
     return "method${j} result";
   }`).join('')}
 }`;
-        await await fileAPI.createFile(path.join(srcDir, `timeout-test-${i}.ts`), { type: FileType.TEMPORARY });
+        await fileAPI.createFile(path.join(srcDir, `timeout-test-${i}.ts`), { type: FileType.TEMPORARY });
       }
 
       // Set up timeout promise

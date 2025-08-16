@@ -142,7 +142,7 @@ interface MigrationResult {
   patterns: string[];
 }
 
-function calculateRelativePath(fromFile: string): string {
+async function calculateRelativePath(fromFile: string): string {
   // Calculate relative path from the file to external-log-lib
   const fromDir = path.dirname(fromFile);
   const toDir = path.join(THEMES_DIR, EXTERNAL_LOG_LIB, 'src');
@@ -159,7 +159,7 @@ function calculateRelativePath(fromFile: string): string {
   return relativePath;
 }
 
-function migrateFile(filePath: string): MigrationResult {
+async function migrateFile(filePath: string): MigrationResult {
   const result: MigrationResult = {
     file: filePath,
     replaced: false,
@@ -192,14 +192,14 @@ function migrateFile(filePath: string): MigrationResult {
   }
   
   if (content !== originalContent) {
-    fs.writeFileSync(filePath, content);
+    await fileAPI.createFile(filePath, content, { type: FileType.TEMPORARY });
     result.replaced = true;
   }
   
   return result;
 }
 
-function findFilesToMigrate(): string[] {
+async function findFilesToMigrate(): string[] {
   const patterns = [
     path.join(THEMES_DIR, '**/*.ts'),
     path.join(THEMES_DIR, '**/*.tsx'),

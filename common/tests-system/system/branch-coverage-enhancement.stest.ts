@@ -4,11 +4,11 @@ import { fs } from '../../../layer/themes/infra_external-log-lib/dist';
 import { path } from '../../../layer/themes/infra_external-log-lib/dist';
 import * as os from 'os';
 
-async describe('Branch Coverage Enhancement System Tests', () => {
+describe('Branch Coverage Enhancement System Tests', () => {
   let tempDir: string;
   let configManager: ConfigManager;
 
-  async beforeAll(() => {
+  beforeAll(async () => {
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'branch-coverage-'));
     const configDir = path.join(tempDir, 'config');
     await fileAPI.createDirectory(configDir);
@@ -61,12 +61,12 @@ async describe('Branch Coverage Enhancement System Tests', () => {
     configManager = new ConfigManager(tempDir);
   });
 
-  async afterAll(() => {
+  afterAll(async () => {
     fs.rmSync(tempDir, { recursive: true, force: true });
   });
 
-  async describe('ConfigManager Branch Coverage Tests', () => {
-    async test('should cover all branches in isPortAvailable method', () => {
+  describe('ConfigManager Branch Coverage Tests', () => {
+    test('should cover all branches in isPortAvailable method', () => {
       // Test port within range but allocated - should return false
       expect(configManager.isPortAvailable(3001)).toBe(false);
       
@@ -82,7 +82,7 @@ async describe('Branch Coverage Enhancement System Tests', () => {
       expect(configManager.isPortAvailable(3099)).toBe(true);  // End of theme range
     });
 
-    async test('should cover all branches in getNextAvailablePort method', () => {
+    test('should cover all branches in getNextAvailablePort method', () => {
       // Test normal case - should find available port
       const themePort = configManager.getNextAvailablePort('theme');
       expect(themePort).not.toBeNull();
@@ -100,7 +100,7 @@ async describe('Branch Coverage Enhancement System Tests', () => {
       expect(releasePort).not.toBeNull();
     });
 
-    async test('should cover all branches in getDatabaseConfig method', () => {
+    test('should cover all branches in getDatabaseConfig method', () => {
       // Test postgres branch for all environments
       const themePostgres = configManager.getDatabaseConfig('theme', 'postgres');
       expect(themePostgres.host).toBe('localhost');
@@ -129,7 +129,7 @@ async describe('Branch Coverage Enhancement System Tests', () => {
       expect(releaseSqlite.path).toContain('prod_ai_dev_portal.db');
     });
 
-    async test('should cover all branches in generateEnvFile method', () => {
+    test('should cover all branches in generateEnvFile method', () => {
       // Test default behavior (release -> postgres, others -> sqlite)
       const releaseEnv = configManager.generateEnvFile('release', 'portal');
       expect(releaseEnv).toContain('DB_TYPE=postgres');
@@ -162,7 +162,7 @@ async describe('Branch Coverage Enhancement System Tests', () => {
       expect(combinedEnv).toContain('DB_TYPE=postgres');
     });
 
-    async test('should cover all branches in getThemeConnections method', () => {
+    test('should cover all branches in getThemeConnections method', () => {
       // Test themes with connections
       const theme1Connections = configManager.getThemeConnections('theme1');
       expect(theme1Connections).toEqual(['theme2']);
@@ -180,8 +180,8 @@ async describe('Branch Coverage Enhancement System Tests', () => {
     });
   });
 
-  async describe('CoverageAnalyzer Branch Coverage Tests', () => {
-    async test('should cover all branches in coverage calculation methods', async () => {
+  describe('CoverageAnalyzer Branch Coverage Tests', () => {
+    test('should cover all branches in coverage calculation methods', async () => {
       const coverageAnalyzer = new CoverageAnalyzer();
       
       // Test with complete coverage data
@@ -239,7 +239,7 @@ async describe('Branch Coverage Enhancement System Tests', () => {
       expect(metrics3.method.percentage).toBe(100);
     });
 
-    async test('should handle edge cases in branch coverage analysis', async () => {
+    test('should handle edge cases in branch coverage analysis', async () => {
       const coverageAnalyzer = new CoverageAnalyzer();
       
       // Test with non-array branch data
@@ -280,8 +280,8 @@ async describe('Branch Coverage Enhancement System Tests', () => {
     });
   });
 
-  async describe('Error Condition Branch Coverage', () => {
-    async test('should cover error handling branches', () => {
+  describe('Error Condition Branch Coverage', () => {
+    test('should cover error handling branches', () => {
       // Test ConfigManager with invalid path
       async expect(() => {
         new ConfigManager('/non/existent/path');
@@ -315,7 +315,7 @@ async describe('Branch Coverage Enhancement System Tests', () => {
       expect(noAvailablePort).toBeNull();
     });
 
-    async test('should cover null/undefined handling branches', async () => {
+    test('should cover null/undefined handling branches', async () => {
       const coverageAnalyzer = new CoverageAnalyzer();
       
       // Test with null/undefined values
@@ -338,8 +338,8 @@ async describe('Branch Coverage Enhancement System Tests', () => {
     });
   });
 
-  async describe('Integration Branch Coverage Tests', () => {
-    async test('should cover all integration scenarios', () => {
+  describe('Integration Branch Coverage Tests', () => {
+    test('should cover all integration scenarios', () => {
       // Test all environment types
       const environments = ['theme', 'epic', 'demo', 'release'] as const;
       const services = ['portal', 'story_reporter', 'gui_selector', 'auth_service', 'db_service'] as const;
@@ -363,7 +363,7 @@ async describe('Branch Coverage Enhancement System Tests', () => {
       });
     });
 
-    async test('should exercise all conditional paths in environment file generation', () => {
+    test('should exercise all conditional paths in environment file generation', () => {
       const testCases = [
         { env: 'theme' as const, service: 'portal', options: undefined },
         { env: 'theme' as const, service: 'portal', options: { dbType: 'postgres' as const } },

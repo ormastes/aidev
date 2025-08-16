@@ -4,6 +4,16 @@
  * Uses Export Facade Pattern for ESM compatibility
  */
 
+// Export type interfaces
+export interface CallRecord {
+  method: string;
+  args: any[];
+  timestamp: Date;
+  result?: any;
+  error?: any;
+  duration: number;
+}
+
 // Import original modules
 import * as originalUrl from 'url';
 import * as originalUtil from 'util';
@@ -109,7 +119,11 @@ export const cluster = originalCluster;
 export const Buffer = originalBuffer.Buffer;
 
 // Utility function to get all call histories
-export function getAllCallHistories() {
+export function getAllCallHistories(): {
+  fs: CallRecord[];
+  path: CallRecord[];
+  childProcess: CallRecord[];
+} {
   return {
     fs: getFsCallHistory(),
     path: getPathCallHistory(),

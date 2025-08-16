@@ -56,7 +56,8 @@ export class FileSystemWrapper {
     try {
       this.log('info', `Writing file: ${absolutePath}`);
       await fileAPI.createDirectory(path.dirname(absolutePath));
-      await fileAPI.createFile(absolutePath, content, { type: FileType.TEMPORARY })} bytes to ${absolutePath}`);
+      await fileAPI.createFile(absolutePath, content, { type: FileType.TEMPORARY });
+      this.log('info', `Wrote ${content.length} bytes to ${absolutePath}`);
     } catch (error) {
       this.metrics.errors.push(error as Error);
       this.log('error', `Failed to write file ${absolutePath}: ${error.message}`);

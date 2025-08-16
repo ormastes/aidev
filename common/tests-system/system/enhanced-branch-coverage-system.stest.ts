@@ -8,26 +8,26 @@ import * as fs from 'fs/promises';
 import { path } from '../../../layer/themes/infra_external-log-lib/dist';
 import * as os from 'os';
 
-async describe('Enhanced Branch Coverage System Tests', () => {
+describe('Enhanced Branch Coverage System Tests', () => {
   let tempDir: string;
   let originalCwd: string;
 
-  async beforeAll(async () => {
+  beforeAll(async () => {
     originalCwd = process.cwd();
     tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'enhanced-branch-coverage-'));
   });
 
-  async afterAll(async () => {
+  afterAll(async () => {
     process.chdir(originalCwd);
     await fs.rm(tempDir, { recursive: true, force: true });
   });
 
-  async beforeEach(async () => {
+  beforeEach(async () => {
     process.chdir(tempDir);
   });
 
-  async describe('TestReportGenerator Branch Coverage', () => {
-    async test('should cover all validation branches in generate method', async () => {
+  describe('TestReportGenerator Branch Coverage', () => {
+    test('should cover all validation branches in generate method', async () => {
       const strictSchema = {
         type: 'object',
         required: ['theme', 'metrics'],
@@ -57,7 +57,7 @@ async describe('Enhanced Branch Coverage System Tests', () => {
       await expect(generator.generate(invalidData3 as any)).rejects.toThrow('Invalid report data');
     });
 
-    async test('should cover all file creation branches in save method', async () => {
+    test('should cover all file creation branches in save method', async () => {
       const schema = {
         type: 'object',
         required: ['theme'],
@@ -88,7 +88,7 @@ async describe('Enhanced Branch Coverage System Tests', () => {
       expect(nestedDirStats.isDirectory()).toBe(true);
     });
 
-    async test('should cover HTML generation branches with different violation scenarios', async () => {
+    test('should cover HTML generation branches with different violation scenarios', async () => {
       const schema = { type: 'object', properties: { theme: { type: 'string' } } };
       const generator = new TestReportGenerator(schema);
 
@@ -155,7 +155,7 @@ async describe('Enhanced Branch Coverage System Tests', () => {
       expect(htmlContent2).toContain('fake-assertions');
     });
 
-    async test('should cover progress bar color branches based on criteria', async () => {
+    test('should cover progress bar color branches based on criteria', async () => {
       const schema = { type: 'object', properties: { theme: { type: 'string' } } };
       const generator = new TestReportGenerator(schema);
 
@@ -199,32 +199,32 @@ async describe('Enhanced Branch Coverage System Tests', () => {
     });
   });
 
-  async describe('DuplicationDetector Branch Coverage', () => {
-    async test('should cover all file collection branches', async () => {
+  describe('DuplicationDetector Branch Coverage', () => {
+    test('should cover all file collection branches', async () => {
       const detector = new DuplicationDetector();
       
       // Setup src directory with various file types and structures
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       // Branch 1: Directory traversal - file entry
-      await await fileAPI.createFile(path.join(srcDir, 'file.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'file.ts'), { type: FileType.TEMPORARY });
       
       // Branch 2: Directory traversal - directory entry (recursive call)
       const subDir = path.join(srcDir, 'subdir');
-      await await fileAPI.createDirectory(subDir);
-      await await fileAPI.createFile(path.join(subDir), { type: FileType.TEMPORARY });
+      await fileAPI.createDirectory(subDir);
+      await fileAPI.createFile(path.join(subDir), { type: FileType.TEMPORARY });
       
       // Branch 3: File extension filtering - .ts file (included)
-      await await fileAPI.createFile(path.join(srcDir, 'typescript.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'typescript.ts'), { type: FileType.TEMPORARY });
       
       // Branch 4: File extension filtering - .js file (included)  
-      await await fileAPI.createFile(path.join(srcDir, 'javascript.js'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'javascript.js'), { type: FileType.TEMPORARY });
       
       // Branch 5: File extension filtering - other extensions (excluded)
-      await await fileAPI.createFile(path.join(srcDir, 'config.json'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'readme.md'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'style.css'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'config.json'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'readme.md'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'style.css'), { type: FileType.TEMPORARY });
 
       const metrics = await detector.detect();
       
@@ -232,10 +232,10 @@ async describe('Enhanced Branch Coverage System Tests', () => {
       expect(metrics.totalLines).toBe(4); // 4 lines from .ts and .js files
     });
 
-    async test('should cover tokenization branches with different code patterns', async () => {
+    test('should cover tokenization branches with different code patterns', async () => {
       const detector = new DuplicationDetector();
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       // Code with various tokenization scenarios
       const complexCode = `
@@ -259,7 +259,7 @@ export class TokenizationTest {
   }
 }`;
 
-      await await fileAPI.createFile(path.join(srcDir, 'tokenization.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'tokenization.ts'), { type: FileType.TEMPORARY });
 
       const metrics = await detector.detect();
       
@@ -268,10 +268,10 @@ export class TokenizationTest {
       expect(metrics.percentage).toBe(0); // Single file, no duplicates
     });
 
-    async test('should cover duplicate detection branches', async () => {
+    test('should cover duplicate detection branches', async () => {
       const detector = new DuplicationDetector();
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       // Create scenario with blocks that meet minimum requirements
       const longCodeBlock = `
@@ -302,11 +302,11 @@ export class DuplicateDetectionTest {
 }`;
 
       // Branch 1: Blocks with same hash (duplicates found)
-      await await fileAPI.createFile(path.join(srcDir, 'duplicate1.ts'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'duplicate2.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'duplicate1.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'duplicate2.ts'), { type: FileType.TEMPORARY });
       
       // Branch 2: Blocks with unique hash (no duplicates)
-      await await fileAPI.createFile(path.join(srcDir, 'unique.ts'), { type: FileType.TEMPORARY }): string {
+      await fileAPI.createFile(path.join(srcDir, 'unique.ts'), { type: FileType.TEMPORARY }): string {
     return this.data;
   }
 }`);
@@ -322,19 +322,19 @@ export class DuplicateDetectionTest {
       expect(hasDuplicates).toBe(true);
     });
 
-    async test('should cover metric calculation branches with processed lines tracking', async () => {
+    test('should cover metric calculation branches with processed lines tracking', async () => {
       const detector = new DuplicationDetector();
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       // Create overlapping duplicate blocks to test line processing logic
       const baseCode = `
-async function sharedFunction() {
+function sharedFunction() {
   console.log('This is shared');
   return true;
 }
 
-async function anotherFunction() {
+function anotherFunction() {
   console.log('Another function');
   const result = sharedFunction();
   return result;
@@ -342,13 +342,13 @@ async function anotherFunction() {
 
       const extendedCode = baseCode + `
 
-async function extraFunction() {
+function extraFunction() {
   console.log('Extra functionality');
 }`;
 
-      await await fileAPI.createFile(path.join(srcDir, 'base.ts'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'extended.ts'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'another.ts'), { type: FileType.TEMPORARY }); // Same as base
+      await fileAPI.createFile(path.join(srcDir, 'base.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'extended.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'another.ts'), { type: FileType.TEMPORARY }); // Same as base
 
       const metrics = await detector.detect();
       
@@ -360,10 +360,10 @@ async function extraFunction() {
       expect(metrics.duplicatedLines).toBeLessThanOrEqual(metrics.totalLines);
     });
 
-    async test('should cover edge cases in minimum threshold branches', async () => {
+    test('should cover edge cases in minimum threshold branches', async () => {
       const detector = new DuplicationDetector();
       const srcDir = path.join(tempDir, 'src');
-      await await fileAPI.createDirectory(srcDir);
+      await fileAPI.createDirectory(srcDir);
 
       // Branch 1: Code blocks below minimum line threshold (5 lines)
       const shortCode = `
@@ -400,12 +400,12 @@ class ValidForDuplication {
   }
 }`;
 
-      await await fileAPI.createFile(path.join(srcDir, 'short1.ts'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'short2.ts'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'few-tokens1.ts'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'few-tokens2.ts'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'valid1.ts'), { type: FileType.TEMPORARY });
-      await await fileAPI.createFile(path.join(srcDir, 'valid2.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'short1.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'short2.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'few-tokens1.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'few-tokens2.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'valid1.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(srcDir, 'valid2.ts'), { type: FileType.TEMPORARY });
 
       const metrics = await detector.detect();
       
@@ -420,10 +420,10 @@ class ValidForDuplication {
     });
   });
 
-  async describe('Cross-Class Integration Branch Coverage', () => {
-    async test('should cover ConfigManager environment type branches in system context', async () => {
+  describe('Cross-Class Integration Branch Coverage', () => {
+    test('should cover ConfigManager environment type branches in system context', async () => {
       const configDir = path.join(tempDir, 'config');
-      await await fileAPI.createDirectory(configDir);
+      await fileAPI.createDirectory(configDir);
 
       const config = {
         environments: {
@@ -462,7 +462,7 @@ class ValidForDuplication {
       expect(sqliteConfig.data_dir).toBe('data');
     });
 
-    async test('should cover CoverageAnalyzer data source branches in integration', async () => {
+    test('should cover CoverageAnalyzer data source branches in integration', async () => {
       const analyzer = new CoverageAnalyzer();
 
       // Branch 1: testResults.coverageMap exists
@@ -483,7 +483,7 @@ class ValidForDuplication {
 
       // Branch 2: coverageMap doesn't exist, tries to load from file
       const coverageDir = path.join(tempDir, 'coverage');
-      await await fileAPI.createDirectory(coverageDir);
+      await fileAPI.createDirectory(coverageDir);
       
       const coverageData = {
         '/test/file2.ts': {
@@ -521,11 +521,11 @@ class ValidForDuplication {
       expect(metrics3.line.total).toBe(1);
     });
 
-    async test('should cover ThemeManager configuration loading branches', async () => {
+    test('should cover ThemeManager configuration loading branches', async () => {
       const themeManager = new ThemeManager({});
       
       const themesDir = path.join(tempDir, 'setup', 'themes');
-      await await fileAPI.createDirectory(themesDir);
+      await fileAPI.createDirectory(themesDir);
 
       // Branch 1: Theme config exists and is valid
       const validThemeConfig = {
@@ -573,28 +573,28 @@ class ValidForDuplication {
       expect(fallbackCriteria.coverage.class.minimum).toBe(95); // Falls back to default
     });
 
-    async test('should cover FraudChecker file analysis branches', async () => {
+    test('should cover FraudChecker file analysis branches', async () => {
       const fraudChecker = new FraudChecker();
       
       const testsDir = path.join(tempDir, 'tests');
-      await await fileAPI.createDirectory(testsDir);
+      await fileAPI.createDirectory(testsDir);
 
       // Branch 1: Test file with empty tests
       const emptyTestContent = `
-async describe('Empty Test Suite', () => {
-  async it('empty test', () => {
+describe('Empty Test Suite', () => {
+  it('empty test', () => {
     // This test is empty
   });
   
-  async it('another empty test', () => {
+  it('another empty test', () => {
   });
 });`;
 
-      await await fileAPI.createFile(path.join(testsDir, 'empty.test.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(testsDir, 'empty.test.ts'), { type: FileType.TEMPORARY });
 
       // Branch 2: Test file with skip/only patterns
       const skipOnlyTestContent = `
-async describe('Skip Only Test Suite', () => {
+describe('Skip Only Test Suite', () => {
   it.skip('skipped test', () => {
     expect(true).toBe(true);
   });
@@ -604,43 +604,43 @@ async describe('Skip Only Test Suite', () => {
   });
   
   describe.skip('skipped describe', () => {
-    async it('test in skipped describe', () => {
+    it('test in skipped describe', () => {
       expect(1).toBe(1);
     });
   });
 });`;
 
-      await await fileAPI.createFile(path.join(testsDir, 'skip-only.test.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(testsDir, 'skip-only.test.ts'), { type: FileType.TEMPORARY });
 
       // Branch 3: Test file with fake assertions
       const fakeAssertionContent = `
-async describe('Fake Assertion Suite', () => {
-  async it('always true assertion', () => {
+describe('Fake Assertion Suite', () => {
+  it('always true assertion', () => {
     expect(true).toBe(true);
   });
   
-  async it('always false assertion', () => {
+  it('always false assertion', () => {
     expect(false).toBe(false);
   });
   
-  async it('valid assertion', () => {
+  it('valid assertion', () => {
     const result = 2 + 2;
     expect(result).toBe(4);
   });
 });`;
 
-      await await fileAPI.createFile(path.join(testsDir, 'fake-assertions.test.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(testsDir, 'fake-assertions.test.ts'), { type: FileType.TEMPORARY });
 
       // Branch 4: Test file with coverage manipulation
       const coverageManipulationContent = `
-async describe('Coverage Manipulation Suite', () => {
-  async it('test with istanbul ignore', () => {
+describe('Coverage Manipulation Suite', () => {
+  it('test with istanbul ignore', () => {
     /* istanbul ignore next */
     const uncovered = () => { return false; };
     expect(true).toBe(true);
   });
   
-  async it('test with c8 ignore', () => {
+  it('test with c8 ignore', () => {
     /* c8 ignore start */
     const alsoUncovered = () => { return false; };
     /* c8 ignore stop */
@@ -648,7 +648,7 @@ async describe('Coverage Manipulation Suite', () => {
   });
 });`;
 
-      await await fileAPI.createFile(path.join(testsDir, 'coverage-manipulation.test.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(testsDir, 'coverage-manipulation.test.ts'), { type: FileType.TEMPORARY });
 
       const result = await fraudChecker.check({});
 
@@ -664,14 +664,14 @@ async describe('Coverage Manipulation Suite', () => {
     });
   });
 
-  async describe('Error Path Branch Coverage', () => {
-    async test('should cover error handling branches across all classes', async () => {
+  describe('Error Path Branch Coverage', () => {
+    test('should cover error handling branches across all classes', async () => {
       // Test error scenarios that trigger different error handling branches
       
       // 1. ConfigManager with invalid config
       const invalidConfigDir = path.join(tempDir, 'invalid-config');
-      await await fileAPI.createDirectory(invalidConfigDir);
-      await await fileAPI.createFile(path.join(invalidConfigDir, 'config', { type: FileType.TEMPORARY }),
+      await fileAPI.createDirectory(invalidConfigDir);
+      await fileAPI.createFile(path.join(invalidConfigDir, 'config', { type: FileType.TEMPORARY }),
         '{ invalid json }'
       );
 
@@ -696,8 +696,8 @@ async describe('Coverage Manipulation Suite', () => {
       // 4. CoverageAnalyzer with corrupted coverage file
       process.chdir(tempDir);
       const corruptedCoverageDir = path.join(tempDir, 'coverage');
-      await await fileAPI.createDirectory(corruptedCoverageDir);
-      await await fileAPI.createFile(path.join(corruptedCoverageDir, 'coverage-final.json'), { type: FileType.TEMPORARY });
+      await fileAPI.createDirectory(corruptedCoverageDir);
+      await fileAPI.createFile(path.join(corruptedCoverageDir, 'coverage-final.json'), { type: FileType.TEMPORARY });
 
       const analyzer = new CoverageAnalyzer();
       const metrics = await analyzer.analyze({}); // Should fallback gracefully

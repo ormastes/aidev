@@ -18,7 +18,7 @@ const colors = {
   NC: '\x1b[0m'
 };
 
-function print(message, color = 'NC') {
+async function print(message, color = 'NC') {
   console.log(`${colors[color]}${message}${colors.NC}`);
 }
 
@@ -73,14 +73,14 @@ class TaskQueueRegistry {
 
   saveRegistry() {
     this.registry.metadata.updated_at = new Date().toISOString();
-    fs.writeFileSync(this.registryPath, JSON.stringify(this.registry, null, 2));
+    await fileAPI.createFile(this.registryPath, JSON.stringify(this.registry, { type: FileType.TEMPORARY }));
     print(`✓ Registry saved to: ${this.registryPath}`, 'GREEN');
   }
 
   findTaskQueues() {
     const queues = [];
     
-    function searchDir(dir, depth = 0) {
+    async function searchDir(dir, depth = 0) {
       // Skip excluded directories
       const dirName = path.basename(dir);
       if (['node_modules', 'release', 'demo', '.git', '.jj'].includes(dirName)) {
@@ -174,7 +174,7 @@ class TaskQueueRegistry {
       }
       
       if (updated) {
-        fs.writeFileSync(queuePath, JSON.stringify(content, null, 2));
+        await fileAPI.createFile(queuePath, JSON.stringify(content, { type: FileType.TEMPORARY }));
         print(`  ✓ Updated: ${path.relative(this.projectRoot, queuePath)}`, 'GREEN');
       }
       
@@ -339,7 +339,7 @@ class TaskQueueRegistry {
 }
 
 // Main execution
-function main() {
+async function main() {
   const projectRoot = process.cwd();
   
   print('🔄 Task Queue Registry Updater', 'BLUE');

@@ -8,34 +8,34 @@ import * as fs from 'fs/promises';
 import { path } from '../../../layer/themes/infra_external-log-lib/dist';
 import * as os from 'os';
 
-async describe('Error Handling and Edge Case Coverage Tests', () => {
+describe('Error Handling and Edge Case Coverage Tests', () => {
   let tempDir: string;
   let originalCwd: string;
 
-  async beforeAll(async () => {
+  beforeAll(async () => {
     originalCwd = process.cwd();
     tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'error-edge-test-'));
   });
 
-  async afterAll(async () => {
+  afterAll(async () => {
     process.chdir(originalCwd);
     await fs.rm(tempDir, { recursive: true, force: true });
   });
 
-  async beforeEach(async () => {
+  beforeEach(async () => {
     process.chdir(tempDir);
   });
 
-  async describe('ConfigManager Error Handling', () => {
-    async test('should handle missing configuration file', () => {
+  describe('ConfigManager Error Handling', () => {
+    test('should handle missing configuration file', () => {
       async expect(() => {
         new ConfigManager('/completely/non/existent/path');
       }).toThrow();
     });
 
-    async test('should handle malformed JSON configuration', async () => {
+    test('should handle malformed JSON configuration', async () => {
       const configDir = path.join(tempDir, 'config');
-      await await fileAPI.createDirectory(configDir);
+      await fileAPI.createDirectory(configDir);
       
       // Create malformed JSON
       await fs.writeFile(
@@ -48,9 +48,9 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
       }).toThrow();
     });
 
-    async test('should handle configuration with missing required fields', async () => {
+    test('should handle configuration with missing required fields', async () => {
       const configDir = path.join(tempDir, 'config');
-      await await fileAPI.createDirectory(configDir);
+      await fileAPI.createDirectory(configDir);
       
       // Create config missing environments
       const incompleteConfig = {
@@ -69,9 +69,9 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
       }).toThrow();
     });
 
-    async test('should handle configuration with invalid environment names', async () => {
+    test('should handle configuration with invalid environment names', async () => {
       const configDir = path.join(tempDir, 'config');
-      await await fileAPI.createDirectory(configDir);
+      await fileAPI.createDirectory(configDir);
       
       const validConfig = {
         environments: {
@@ -105,9 +105,9 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
       }).toThrow();
     });
 
-    async test('should handle configuration with invalid service names', async () => {
+    test('should handle configuration with invalid service names', async () => {
       const configDir = path.join(tempDir, 'config');
-      await await fileAPI.createDirectory(configDir);
+      await fileAPI.createDirectory(configDir);
       
       const validConfig = {
         environments: {
@@ -133,9 +133,9 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
       }).toThrow();
     });
 
-    async test('should handle file system errors during env file creation', async () => {
+    test('should handle file system errors during env file creation', async () => {
       const configDir = path.join(tempDir, 'config');
-      await await fileAPI.createDirectory(configDir);
+      await fileAPI.createDirectory(configDir);
       
       const validConfig = {
         environments: {
@@ -158,7 +158,7 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
 
       // Try to save to read-only directory
       const readOnlyDir = path.join(tempDir, 'readonly');
-      await await fileAPI.createDirectory(readOnlyDir);
+      await fileAPI.createDirectory(readOnlyDir);
       
       const readOnlyPath = path.join(readOnlyDir, 'test.env');
       
@@ -170,9 +170,9 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
       await fs.chmod(readOnlyDir, 0o755);
     });
 
-    async test('should handle extreme port range configurations', async () => {
+    test('should handle extreme port range configurations', async () => {
       const configDir = path.join(tempDir, 'config');
-      await await fileAPI.createDirectory(configDir);
+      await fileAPI.createDirectory(configDir);
       
       // Config with inverted port range (max < min)
       const invertedConfig = {
@@ -206,13 +206,13 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
     });
   });
 
-  async describe('CoverageAnalyzer Error Handling', () => {
-    async test('should handle corrupted coverage files', async () => {
+  describe('CoverageAnalyzer Error Handling', () => {
+    test('should handle corrupted coverage files', async () => {
       const coverageDir = path.join(tempDir, 'coverage');
-      await await fileAPI.createDirectory(coverageDir);
+      await fileAPI.createDirectory(coverageDir);
       
       // Create corrupted coverage file
-      await await fileAPI.createFile(path.join(coverageDir, 'coverage-final.json'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(coverageDir, 'coverage-final.json'), { type: FileType.TEMPORARY });
 
       const analyzer = new CoverageAnalyzer();
       
@@ -231,7 +231,7 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
       expect(metrics.line.covered).toBe(1);
     });
 
-    async test('should handle extremely large coverage data', async () => {
+    test('should handle extremely large coverage data', async () => {
       const analyzer = new CoverageAnalyzer();
       
       // Create artificially large coverage data
@@ -258,7 +258,7 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
       expect(metrics.method.total).toBeGreaterThan(0);
     });
 
-    async test('should handle malformed coverage data structures', async () => {
+    test('should handle malformed coverage data structures', async () => {
       const analyzer = new CoverageAnalyzer();
       
       const malformedData = {
@@ -294,7 +294,7 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
       expect(typeof metrics.method.percentage).toBe('number');
     });
 
-    async test('should handle coverage data with special characters in filenames', async () => {
+    test('should handle coverage data with special characters in filenames', async () => {
       const analyzer = new CoverageAnalyzer();
       
       const specialCharData = {
@@ -328,8 +328,8 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
     });
   });
 
-  async describe('ThemeManager Error Handling', () => {
-    async test('should handle inaccessible themes directory', async () => {
+  describe('ThemeManager Error Handling', () => {
+    test('should handle inaccessible themes directory', async () => {
       // Create directory without read permissions
       const restrictedDir = path.join(tempDir, 'setup', 'themes');
       await fs.mkdir(restrictedDir, { recursive: true, mode: 0o000 });
@@ -348,9 +348,9 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
       await fs.chmod(restrictedDir, 0o755);
     });
 
-    async test('should handle extremely large theme configuration files', async () => {
+    test('should handle extremely large theme configuration files', async () => {
       const themesDir = path.join(tempDir, 'setup', 'themes');
-      await await fileAPI.createDirectory(themesDir);
+      await fileAPI.createDirectory(themesDir);
       
       // Create very large theme config
       const largeTheme = {
@@ -388,9 +388,9 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
       expect(epicInfo.epics).toHaveLength(1000);
     });
 
-    async test('should handle theme files with invalid JSON structure', async () => {
+    test('should handle theme files with invalid JSON structure', async () => {
       const themesDir = path.join(tempDir, 'setup', 'themes');
-      await await fileAPI.createDirectory(themesDir);
+      await fileAPI.createDirectory(themesDir);
       
       const invalidStructures = [
         '{"theme": "not an object"}',
@@ -408,7 +408,7 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
 
       for (let i = 0; i < invalidStructures.length; i++) {
         const filename = `invalid-${i}.theme.json`;
-        await await fileAPI.createFile(path.join(themesDir, filename), { type: FileType.TEMPORARY });
+        await fileAPI.createFile(path.join(themesDir, filename), { type: FileType.TEMPORARY });
         
         // Should return defaults for invalid structures
         const criteria = await themeManager.getCriteria(`invalid-${i}`, 'production');
@@ -419,9 +419,9 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
       }
     });
 
-    async test('should handle concurrent access to theme configurations', async () => {
+    test('should handle concurrent access to theme configurations', async () => {
       const themesDir = path.join(tempDir, 'setup', 'themes');
-      await await fileAPI.createDirectory(themesDir);
+      await fileAPI.createDirectory(themesDir);
       
       const concurrentTheme = {
         theme: {
@@ -453,8 +453,8 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
     });
   });
 
-  async describe('FraudChecker Error Handling', () => {
-    async test('should handle inaccessible test directories', async () => {
+  describe('FraudChecker Error Handling', () => {
+    test('should handle inaccessible test directories', async () => {
       // Create test directory without read permissions
       const testDir = path.join(tempDir, 'tests');
       await fs.mkdir(testDir, { recursive: true, mode: 0o000 });
@@ -471,9 +471,9 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
       await fs.chmod(testDir, 0o755);
     });
 
-    async test('should handle extremely large test files', async () => {
+    test('should handle extremely large test files', async () => {
       const testDir = path.join(tempDir, 'tests');
-      await await fileAPI.createDirectory(testDir);
+      await fileAPI.createDirectory(testDir);
       
       // Create very large test file
       let largeTestContent = 'describe("Large Test Suite", () => {\n';
@@ -485,7 +485,7 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
       
       largeTestContent += '});';
 
-      await await fileAPI.createFile(path.join(testDir, 'large.test.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(testDir, 'large.test.ts'), { type: FileType.TEMPORARY });
 
       const fraudChecker = new FraudChecker();
       
@@ -499,13 +499,13 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
       expect(result.violations).toHaveLength(0);
     });
 
-    async test('should handle test files with binary content', async () => {
+    test('should handle test files with binary content', async () => {
       const testDir = path.join(tempDir, 'tests');
-      await await fileAPI.createDirectory(testDir);
+      await fileAPI.createDirectory(testDir);
       
       // Create file with binary content
       const binaryContent = Buffer.from([0x00, 0x01, 0x02, 0x03, 0xFF, 0xFE, 0xFD]);
-      await await fileAPI.createFile(path.join(testDir, 'binary.test.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(testDir, 'binary.test.ts'), { type: FileType.TEMPORARY });
 
       const fraudChecker = new FraudChecker();
       
@@ -515,22 +515,22 @@ async describe('Error Handling and Edge Case Coverage Tests', () => {
       expect(typeof result.score).toBe('number');
     });
 
-    async test('should handle test files with extremely long lines', async () => {
+    test('should handle test files with extremely long lines', async () => {
       const testDir = path.join(tempDir, 'tests');
-      await await fileAPI.createDirectory(testDir);
+      await fileAPI.createDirectory(testDir);
       
       // Create test with very long line
       const longLine = 'a'.repeat(1000000); // 1MB line
       const longLineContent = `
-async describe('Long Line Test', () => {
-  async it('test with long line', () => {
+describe('Long Line Test', () => {
+  it('test with long line', () => {
     const longString = '${longLine}';
     expect(longString.length).toBe(1000000);
   });
 });
 `;
 
-      await await fileAPI.createFile(path.join(testDir, 'long-line.test.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(testDir, 'long-line.test.ts'), { type: FileType.TEMPORARY });
 
       const fraudChecker = new FraudChecker();
       
@@ -540,15 +540,15 @@ async describe('Long Line Test', () => {
       expect(result.violations).toHaveLength(0);
     });
 
-    async test('should handle regex pattern edge cases', async () => {
+    test('should handle regex pattern edge cases', async () => {
       const testDir = path.join(tempDir, 'tests');
-      await await fileAPI.createDirectory(testDir);
+      await fileAPI.createDirectory(testDir);
       
       // Create test file with edge cases that might break regex patterns
       const edgeCaseContent = `
-async describe('Edge Case Test', () => {
+describe('Edge Case Test', () => {
   // Test with nested quotes and special characters
-  async it('test with "nested" and 'mixed' quotes', () => {
+  it('test with "nested" and 'mixed' quotes', () => {
     expect(true).toBe(true); // This should be detected
   });
   
@@ -559,23 +559,23 @@ async describe('Edge Case Test', () => {
   });
   
   // Test with very similar but not exact patterns
-  async it('almost empty but not quite', () => {
+  it('almost empty but not quite', () => {
     // This comment prevents it from being truly empty
   });
   
   // Test with unicode characters
-  async it('unicode test 🎉', () => {
+  it('unicode test 🎉', () => {
     expect('🚀').toBe('🚀');
   });
   
   // Test with escape sequences
-  async it('escape \\t\\n\\r test', () => {
+  it('escape \\t\\n\\r test', () => {
     expect('\\t').toBe('\\t');
   });
 });
 `;
 
-      await await fileAPI.createFile(path.join(testDir, 'edge-case.test.ts'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(testDir, 'edge-case.test.ts'), { type: FileType.TEMPORARY });
 
       const fraudChecker = new FraudChecker();
       const result = await fraudChecker.check({});
@@ -589,8 +589,8 @@ async describe('Edge Case Test', () => {
     });
   });
 
-  async describe('Integration Error Handling', () => {
-    async test('should handle system-wide errors gracefully', async () => {
+  describe('Integration Error Handling', () => {
+    test('should handle system-wide errors gracefully', async () => {
       // Create a scenario with multiple failing components
       const errorPaths = {
         config: path.join(tempDir, 'config'),
@@ -601,17 +601,17 @@ async describe('Edge Case Test', () => {
 
       // Create directories
       for (const dir of Object.values(errorPaths)) {
-        await await fileAPI.createDirectory(dir);
+        await fileAPI.createDirectory(dir);
       }
 
       // Create invalid config
-      await await fileAPI.createFile(path.join(errorPaths.config, 'environments.json'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(errorPaths.config, 'environments.json'), { type: FileType.TEMPORARY });
 
       // Create inaccessible themes directory
       await fs.chmod(errorPaths.themes, 0o000);
 
       // Create corrupted coverage file
-      await await fileAPI.createFile(path.join(errorPaths.coverage, 'coverage-final.json'), { type: FileType.TEMPORARY });
+      await fileAPI.createFile(path.join(errorPaths.coverage, 'coverage-final.json'), { type: FileType.TEMPORARY });
 
       // Create test file with fraud
       await fs.writeFile(
@@ -638,7 +638,7 @@ async describe('Edge Case Test', () => {
       await fs.chmod(errorPaths.themes, 0o755);
     });
 
-    async test('should handle resource exhaustion scenarios', async () => {
+    test('should handle resource exhaustion scenarios', async () => {
       // Test with many concurrent operations
       const operations = [];
       
@@ -670,8 +670,8 @@ async describe('Edge Case Test', () => {
     });
   });
 
-  async describe('Memory and Performance Edge Cases', () => {
-    async test('should handle memory-intensive operations', async () => {
+  describe('Memory and Performance Edge Cases', () => {
+    test('should handle memory-intensive operations', async () => {
       // Monitor memory usage during operations
       const initialMemory = process.memoryUsage();
       
@@ -700,7 +700,7 @@ async describe('Edge Case Test', () => {
       expect(memoryIncrease).toBeLessThan(500 * 1024 * 1024);
     });
 
-    async test('should handle timeout scenarios', async () => {
+    test('should handle timeout scenarios', async () => {
       // Create operations that might timeout
       const timeoutTests = [];
       

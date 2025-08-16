@@ -232,7 +232,7 @@ export class FilesystemMCPServer {
 
       // Create directory if it doesn't exist
       const dir = path.dirname(fullPath);
-      await fs.mkdir(dir, { recursive: true });
+      await await fileAPI.createDirectory(dir);
 
       // Write file
       await fs.writeFile(fullPath, JSON.stringify(content, null, 2));

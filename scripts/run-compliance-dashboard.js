@@ -42,7 +42,7 @@ class ComplianceDashboardRunner {
     console.log('📊 Checking current compliance...\n');
     
     return new Promise((resolve) => {
-      exec('node scripts/scan-production-code.js', (error, stdout, stderr) => {
+      async exec('node scripts/scan-production-code.js', (error, stdout, stderr) => {
         if (error) {
           console.error('Error running scan:', error);
           return resolve(this.getDefaultMetrics());
@@ -420,22 +420,22 @@ class ComplianceDashboardRunner {
     </div>
     
     <script>
-        function runScan() {
+        async function runScan() {
             alert('Run: npm run file-api:scan:prod');
         }
         
-        function runFix() {
+        async function runFix() {
             alert('Run: npm run file-api:fix');
         }
         
         // Auto-refresh every 5 minutes
-        setTimeout(() => location.reload(), 300000);
+        async setTimeout(() => location.reload(), 300000);
     </script>
 </body>
 </html>`;
     
     const dashboardPath = path.join(this.basePath, 'gen/doc/compliance-dashboard.html');
-    fs.writeFileSync(dashboardPath, html);
+    await fileAPI.createFile(dashboardPath, html, { type: FileType.TEMPORARY });
     
     console.log(`✅ Dashboard generated: ${dashboardPath}\n`);
     return dashboardPath;
@@ -463,7 +463,7 @@ class ComplianceDashboardRunner {
     console.log('🔍 Starting continuous monitoring...\n');
     
     // Check compliance every 5 minutes
-    setInterval(async () => {
+    async setInterval(async () => {
       console.log(`[${new Date().toLocaleTimeString()}] Running compliance check...`);
       const metrics = await this.checkCompliance();
       await this.generateDashboard(metrics);
@@ -487,7 +487,7 @@ class ComplianceDashboardRunner {
                    platform === 'win32' ? 'start' :
                    'xdg-open';
     
-    exec(`${command} "${url}"`, (error) => {
+    async exec(`${command} "${url}"`, (error) => {
       if (error) {
         console.log('Could not open browser automatically.');
         console.log(`Please open: ${url}`);

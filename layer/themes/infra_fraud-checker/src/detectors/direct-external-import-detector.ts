@@ -191,7 +191,7 @@ export class DirectExternalImportDetector extends BaseDetector {
         );
         
         lines[line - 1] = fixedSuggestion;
-        fs.writeFileSync(file, lines.join('\n'));
+        await fileAPI.createFile(file, lines.join('\n', { type: FileType.TEMPORARY }));
         return true;
       }
     } catch (error) {

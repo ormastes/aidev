@@ -9,11 +9,11 @@ import { FraudChecker } from '../../setup/test-env/fraud-checker';
 import { ReportGenerator } from '../../setup/test-env/report-generator';
 import { ThemeManager } from '../../setup/test-env/theme-manager';
 
-async describe('Test Environment System Integration Tests', () => {
+describe('Test Environment System Integration Tests', () => {
   let tempDir: string;
   let testProjectDir: string;
 
-  async beforeAll(() => {
+  beforeAll(async () => {
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'test-env-system-'));
     testProjectDir = path.join(tempDir, 'test-project');
     await fileAPI.createDirectory(testProjectDir);
@@ -22,7 +22,7 @@ async describe('Test Environment System Integration Tests', () => {
     setupMockProject();
   });
 
-  async afterAll(() => {
+  afterAll(async () => {
     fs.rmSync(tempDir, { recursive: true, force: true });
   });
 
@@ -118,14 +118,14 @@ export class UserService {
     await fileAPI.createFile(path.join(testDir, 'ConfigManager.test.ts', { type: FileType.TEMPORARY }), `
 import { ConfigManager } from '../src/ConfigManager';
 
-async describe('ConfigManager', () => {
-  async test('should load config', () => {
+describe('ConfigManager', () => {
+  test('should load config', () => {
     const manager = new ConfigManager();
     const config = manager.loadConfig();
     expect(config).toBeDefined();
   });
 
-  async test('should load settings', () => {
+  test('should load settings', () => {
     const manager = new ConfigManager();
     const settings = manager.loadSettings();
     expect(settings).toBeDefined();
@@ -136,8 +136,8 @@ async describe('ConfigManager', () => {
     await fileAPI.createFile(path.join(testDir, 'UserService.test.ts', { type: FileType.TEMPORARY }), `
 import { UserService } from '../src/UserService';
 
-async describe('UserService', () => {
-  async test('should create user', async () => {
+describe('UserService', () => {
+  test('should create user', async () => {
     const mockDb = { query: jest.fn() };
     const service = new UserService(mockDb);
     
@@ -146,7 +146,7 @@ async describe('UserService', () => {
     expect(result.name).toBe('John');
   });
 
-  async test('should delete user', async () => {
+  test('should delete user', async () => {
     const mockDb = { query: jest.fn() };
     const service = new UserService(mockDb);
     
@@ -190,8 +190,8 @@ async describe('UserService', () => {
     );
   };
 
-  async describe('Coverage Analysis Integration', () => {
-    async test('should analyze project coverage comprehensively', async () => {
+  describe('Coverage Analysis Integration', () => {
+    test('should analyze project coverage comprehensively', async () => {
       process.chdir(testProjectDir);
       
       const coverageAnalyzer = new CoverageAnalyzer();
@@ -215,8 +215,8 @@ async describe('UserService', () => {
     });
   });
 
-  async describe('Duplication Detection Integration', () => {
-    async test('should detect code duplication in project', async () => {
+  describe('Duplication Detection Integration', () => {
+    test('should detect code duplication in project', async () => {
       const duplicationDetector = new DuplicationDetector();
       const duplications = await duplicationDetector.analyze(testProjectDir);
 
@@ -235,8 +235,8 @@ async describe('UserService', () => {
     });
   });
 
-  async describe('Fraud Detection Integration', () => {
-    async test('should detect mock usage and fraudulent patterns', async () => {
+  describe('Fraud Detection Integration', () => {
+    test('should detect mock usage and fraudulent patterns', async () => {
       const fraudChecker = new FraudChecker();
       const fraudResults = await fraudChecker.analyze(testProjectDir);
 
@@ -258,7 +258,7 @@ async describe('UserService', () => {
       expect(suspiciousPatternFound).toBe(true);
     });
 
-    async test('should identify test fraud patterns', async () => {
+    test('should identify test fraud patterns', async () => {
       const fraudChecker = new FraudChecker();
       const testResults = await fraudChecker.analyzeTests(path.join(testProjectDir, 'tests'));
 
@@ -276,8 +276,8 @@ async describe('UserService', () => {
     });
   });
 
-  async describe('Theme Management Integration', () => {
-    async test('should manage project themes and dependencies', async () => {
+  describe('Theme Management Integration', () => {
+    test('should manage project themes and dependencies', async () => {
       // Create theme structure
       const themeDir = path.join(testProjectDir, 'themes');
       await fileAPI.createDirectory(themeDir);
@@ -312,8 +312,8 @@ async describe('UserService', () => {
     });
   });
 
-  async describe('Report Generation Integration', () => {
-    async test('should generate comprehensive test environment report', async () => {
+  describe('Report Generation Integration', () => {
+    test('should generate comprehensive test environment report', async () => {
       process.chdir(testProjectDir);
       
       const reportGenerator = new ReportGenerator();
@@ -352,7 +352,7 @@ async describe('UserService', () => {
       expect(report.coverage.method.percentage).toBeDefined();
     });
 
-    async test('should save report to file system', async () => {
+    test('should save report to file system', async () => {
       const reportGenerator = new ReportGenerator();
       const mockReport = {
         summary: { overallScore: 75, timestamp: new Date().toISOString() },
@@ -372,8 +372,8 @@ async describe('UserService', () => {
     });
   });
 
-  async describe('End-to-End Test Environment Workflow', () => {
-    async test('should execute complete test environment analysis workflow', async () => {
+  describe('End-to-End Test Environment Workflow', () => {
+    test('should execute complete test environment analysis workflow', async () => {
       process.chdir(testProjectDir);
       
       // Step 1: Analyze coverage
@@ -424,8 +424,8 @@ async describe('UserService', () => {
     });
   });
 
-  async describe('Error Handling and Edge Cases', () => {
-    async test('should handle missing coverage data gracefully', async () => {
+  describe('Error Handling and Edge Cases', () => {
+    test('should handle missing coverage data gracefully', async () => {
       const emptyCoverageDir = path.join(tempDir, 'empty-project');
       await fileAPI.createDirectory(emptyCoverageDir);
       process.chdir(emptyCoverageDir);
@@ -439,7 +439,7 @@ async describe('UserService', () => {
       expect(metrics.method.percentage).toBe(0);
     });
 
-    async test('should handle projects with no source files', async () => {
+    test('should handle projects with no source files', async () => {
       const emptyProject = path.join(tempDir, 'empty-src');
       await fileAPI.createDirectory(emptyProject);
 
@@ -450,7 +450,7 @@ async describe('UserService', () => {
       expect(duplications).toHaveLength(0);
     });
 
-    async test('should handle malformed project structures', async () => {
+    test('should handle malformed project structures', async () => {
       const malformedProject = path.join(tempDir, 'malformed');
       await fileAPI.createDirectory(malformedProject);
       

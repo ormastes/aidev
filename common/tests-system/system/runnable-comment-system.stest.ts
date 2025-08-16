@@ -2,20 +2,20 @@ import { fs } from '../../../layer/themes/infra_external-log-lib/dist';
 import { path } from '../../../layer/themes/infra_external-log-lib/dist';
 const ScriptMatcher = require('../../llm_rules/steps/script-matcher');
 
-async describe('Runnable Comment System Test', () => {
+describe('Runnable Comment System Test', () => {
   const tempDir = path.join(__dirname, '../../temp');
   const demoQueuePath = path.join(tempDir, 'demo_queue.vf.json');
   const popFilePath = path.join(tempDir, 'pop.txt');
   const insertFilePath = path.join(tempDir, 'insert.txt');
   
-  async beforeAll(() => {
+  beforeAll(async () => {
     // Ensure temp directory exists
     if (!fs.existsSync(tempDir)) {
       await fileAPI.createDirectory(tempDir);
     }
   });
   
-  async afterEach(() => {
+  afterEach(async () => {
     // Clean up test files
     [demoQueuePath, popFilePath, insertFilePath].forEach(file => {
       if (fs.existsSync(file)) {
@@ -24,7 +24,7 @@ async describe('Runnable Comment System Test', () => {
     });
   });
   
-  async test('should create demo_queue.vf.json with runnable comments and validate schema', () => {
+  test('should create demo_queue.vf.json with runnable comments and validate schema', () => {
     // Create demo_queue.vf.json with runnable comments structure
     const demoQueue = {
       metadata: {
@@ -98,7 +98,7 @@ async describe('Runnable Comment System Test', () => {
     expect(content.queues.user_story.insert_comment.parameters).toEqual(['temp/insert.txt']);
   });
   
-  async test('should match runnable comment to script filename', () => {
+  test('should match runnable comment to script filename', () => {
     const matcher = new ScriptMatcher();
     
     // Test various comment texts
@@ -115,7 +115,7 @@ async describe('Runnable Comment System Test', () => {
     });
   });
   
-  async test('should execute runnable comments and create files', async () => {
+  test('should execute runnable comments and create files', async () => {
     const matcher = new ScriptMatcher();
     
     // Execute pop comment
@@ -135,7 +135,7 @@ async describe('Runnable Comment System Test', () => {
     expect(insertContent).toContain('Insert operation executed at');
   });
   
-  async test('should handle missing scripts gracefully', async () => {
+  test('should handle missing scripts gracefully', async () => {
     const matcher = new ScriptMatcher();
     
     const result = await matcher.execute('non existent script', ['some-param']);
@@ -143,7 +143,7 @@ async describe('Runnable Comment System Test', () => {
     expect(result.error).toContain('No script found for');
   });
   
-  async test('should process queue with runnable comments integration', async () => {
+  test('should process queue with runnable comments integration', async () => {
     // Create a more complete demo queue
     const demoQueue = {
       metadata: {

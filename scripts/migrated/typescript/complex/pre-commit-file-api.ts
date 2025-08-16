@@ -70,10 +70,10 @@ async function main() {
   console.log("  const fileAPI = getFileAPI();");
   console.log("");
   console.log("Examples:");
-  console.log("  - Replace: fs.writeFileSync(path, data)");
+  console.log("  - Replace: await fileAPI.createFile(path, data, { type: FileType.TEMPORARY })");
   console.log("    With:    await fileAPI.createFile(path, data, { type: FileType.TEMPORARY })");
   console.log("");
-  console.log("  - Replace: fs.mkdirSync(path)");
+  console.log("  - Replace: await fileAPI.createDirectory(path)");
   console.log("    With:    await fileAPI.createDirectory(path)");
   console.log("");
   console.log("To bypass (not recommended):");

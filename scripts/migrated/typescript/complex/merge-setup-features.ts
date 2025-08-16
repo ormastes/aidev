@@ -99,7 +99,7 @@ async function main() {
   await $`private async applyTemplate(template: any, config: SetupConfig): Promise<void> {`;
   // Create project directories
   await $`for (const dir of template.directories || []) {`;
-  await $`fs.mkdirSync(dir, { recursive: true });`;
+  await $`await fileAPI.createDirectory(dir);`;
   await $`}`;
   // Copy template files
   await $`for (const file of template.files || []) {`;

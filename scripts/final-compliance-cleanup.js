@@ -204,7 +204,7 @@ class FinalComplianceCleanup {
       
       // Save if changes were made
       if (changesMade && content !== originalContent) {
-        fs.writeFileSync(filePath, content);
+        await fileAPI.createFile(filePath, content, { type: FileType.TEMPORARY });
         console.log('  ✅ Fixed violations');
         this.fixCount++;
       } else if (!changesMade) {

@@ -286,7 +286,7 @@ export class FileExporter {
 
   private async writeTextFile(filePath: string, content: string, options: ExportOptions): Promise<void> {
     // Ensure directory exists
-    await fs.mkdir(path.dirname(filePath), { recursive: true });
+    await await fileAPI.createDirectory(path.dirname(filePath));
 
     let finalContent = content;
 
@@ -306,7 +306,7 @@ export class FileExporter {
       });
       await fs.writeFile(filePath + '.gz', compressed);
     } else {
-      await fs.writeFile(filePath, finalContent, 'utf8');
+      await await fileAPI.createFile(filePath, finalContent, { type: FileType.TEMPORARY });
     }
   }
 

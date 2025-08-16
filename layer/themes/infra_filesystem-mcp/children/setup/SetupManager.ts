@@ -66,7 +66,7 @@ export class SetupManager {
   private async applyTemplate(template: any, config: SetupConfig): Promise<void> {
     // Create project directories
     for (const dir of template.directories || []) {
-      fs.mkdirSync(dir, { recursive: true });
+      await fileAPI.createDirectory(dir);
     }
     
     // Copy template files

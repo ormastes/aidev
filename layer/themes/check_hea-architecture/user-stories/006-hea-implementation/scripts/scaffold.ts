@@ -212,7 +212,7 @@ export type ${toPascalCase(config.name)}Result<T = unknown> =
       'tests/pipe.test.ts',
       `import { create${toPascalCase(config.name)}Pipe } from '../src/pipe';
 
-async describe('${toPascalCase(config.name)}Pipe', () => {
+describe('${toPascalCase(config.name)}Pipe', () => {
   async it('should create pipe instance', () => {
     const pipe = create${toPascalCase(config.name)}Pipe();
     async expect(pipe).toBeDefined();

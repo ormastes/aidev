@@ -270,11 +270,11 @@ async function main() {
   // Save story report
   await $`const reportDir = path.join(process.cwd(), 'logs', 'test-reports');`;
   await $`if (!fs.existsSync(reportDir)) {`;
-  await $`fs.mkdirSync(reportDir, { recursive: true });`;
+  await $`await fileAPI.createDirectory(reportDir);`;
   await $`}`;
   await $`const filename = `story-test-report-${Date.now()}.json`;`;
-  await $`fs.writeFileSync(`;
-  await $`path.join(reportDir, filename),`;
+  await $`await fileAPI.createFile(`;
+  await $`path.join(reportDir, filename, { type: FileType.TEMPORARY }),`;
   await $`JSON.stringify(storyReport, null, 2)`;
   await $`);`;
   await $`console.log(chalk.green(`✅ Story test report saved: ${filename}`));`;

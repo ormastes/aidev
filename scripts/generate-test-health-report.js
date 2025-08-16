@@ -672,16 +672,16 @@ class TestHealthReporter {
    */
   saveReports() {
     const reportDir = path.join(process.cwd(), 'gen', 'test-health');
-    fs.mkdirSync(reportDir, { recursive: true });
+    await fileAPI.createDirectory(reportDir);
 
     // Save JSON report
     const jsonPath = path.join(reportDir, 'report.json');
-    fs.writeFileSync(jsonPath, JSON.stringify(this.report, null, 2));
+    await fileAPI.createFile(jsonPath, JSON.stringify(this.report, { type: FileType.TEMPORARY }));
     console.log(`\n📄 JSON report saved to: ${jsonPath}`);
 
     // Save HTML report
     const htmlPath = path.join(reportDir, 'report.html');
-    fs.writeFileSync(htmlPath, this.generateHTMLReport());
+    await fileAPI.createFile(htmlPath, this.generateHTMLReport(, { type: FileType.TEMPORARY }));
     console.log(`📄 HTML report saved to: ${htmlPath}`);
 
     // Save summary to console

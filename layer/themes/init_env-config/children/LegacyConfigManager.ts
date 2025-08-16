@@ -174,7 +174,7 @@ export class ConfigManager {
 
   saveConfig(config: EnvironmentsConfig): void {
     const configPath = path.join(this.projectRoot, 'config', 'environments.json');
-    fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+    await fileAPI.createFile(configPath, JSON.stringify(config, { type: FileType.TEMPORARY }));
     this.config = config;
   }
 }

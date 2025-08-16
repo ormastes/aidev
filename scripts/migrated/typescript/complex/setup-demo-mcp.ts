@@ -39,7 +39,7 @@ async function main() {
   await $`'temp'`;
   await $`];`;
   await $`for (const dir of dirs) {`;
-  await $`await fs.mkdir(path.join(demoDir, dir), { recursive: true });`;
+  await $`await await fileAPI.createDirectory(path.join(demoDir), { recursive: true });`;
   await $`}`;
   // Create required JSON files
   await $`const taskQueue = {`;
@@ -80,17 +80,8 @@ async function main() {
   await $`JSON.stringify(artifacts, null, 2)`;
   await $`);`;
   // Create CLAUDE.md
-  await $`await fs.writeFile(`;
-  await $`path.join(demoDir, 'CLAUDE.md'),`;
-  await $``# Demo Environment`;
-  await $`This is a test environment for the Enhanced MCP Server with artifact validation.`;
-  // # Features
-  await $`- Artifact requirement checking`;
-  await $`- Task dependency validation`;
-  await $`- Feature-task linking`;
-  await $`- Lifecycle state management`;
-  await $```;
-  await $`);`;
+  await $`await await fileAPI.createFile(`;
+  await $`path.join(demoDir, 'CLAUDE.md'), { type: FileType.TEMPORARY });`;
   await $`console.log('✅ Demo environment initialized');`;
   await $`}`;
   await $`initDemo().catch(console.error);`;
