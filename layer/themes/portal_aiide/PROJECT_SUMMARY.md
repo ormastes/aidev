@@ -117,7 +117,7 @@ The application is configured through environment variables:
 
 ## 🚢 Deployment Options
 
-1. **Local Development**: npm start
+1. **Local Development**: bun start
 2. **Docker**: Containerized deployment
 3. **Cloud Platforms**: AWS, Heroku, Vercel, DigitalOcean
 4. **Traditional**: PM2 + Nginx

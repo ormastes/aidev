@@ -19,14 +19,24 @@
     "init": "ts-node src/cli/setup-env.ts init",
     "init:project": "node gen/dist/init.js project",
     "init:config": "node gen/dist/init.js config",
-    "init:env": "node gen/dist/init.js env"
+    "init:env": "node gen/dist/init.js env",
+    "start": "bun run index.ts",
+    "start:hot": "bun --hot run index.ts",
+    "start:dev": "NODE_ENV=development bun --hot run index.ts",
+    "start:elysia": "bun run scripts/start-elysia-server.ts"
   },
   "dependencies": {
     "chalk": "^4.1.2",
     "commander": "^11.1.0",
     "dotenv": "^16.3.1",
     "fs-extra": "^11.2.0",
-    "inquirer": "^9.2.12"
+    "inquirer": "^9.2.12",
+    "elysia": "latest",
+    "@elysiajs/cors": "latest",
+    "@elysiajs/html": "latest",
+    "@elysiajs/static": "latest",
+    "@elysiajs/cookie": "latest",
+    "jose": "^5.0.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",

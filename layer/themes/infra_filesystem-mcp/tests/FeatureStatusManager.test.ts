@@ -141,7 +141,7 @@ describe("FeatureStatusManager", () => {
       
       expect(validation.isValid).toBe(false);
       expect(validation.errors).toContain(
-        "Invalid status transition from 'planned' to "completed""
+        "Invalid status transition from 'planned' to \"completed\""
       );
     });
 

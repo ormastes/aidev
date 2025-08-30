@@ -6,11 +6,18 @@ module.exports = {
   testMatch: [
     '**/tests/unit/**/*.test.ts',
     '**/tests/integration/**/*.itest.ts',
-    '**/tests/system/**/*.stest.ts',
-    '**/tests/external/**/*.etest.ts',
+    '**/tests/external/**/*.etest.ts', 
     '**/tests/env/**/*.envtest.ts',
     '**/*.test.ts',
-    '**/*.test.js'
+    '**/*.test.js',
+    '!**/*.stest.ts',
+    '!**/tests/system/**'
+  ],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '/tests/system/',
+    '\\.stest\\.ts$',
+    'playwright\\.config'
   ],
   transform: {
     '^.+\\.tsx?$': ['ts-jest', {

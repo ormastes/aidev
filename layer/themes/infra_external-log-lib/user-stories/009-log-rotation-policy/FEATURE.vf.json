@@ -1,0 +1,220 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "path": "/layer/themes/infra_external-log-lib/user-stories/009-log-rotation-policy/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-27T22:45:00.000Z",
+    "updated_at": "2025-08-27T22:45:00.000Z"
+  },
+  "features": {
+    "log_rotation_policy": [
+      {
+        "id": "log-rotation-policy-001",
+        "name": "Comprehensive Log Rotation System",
+        "data": {
+          "title": "Comprehensive Log Rotation Policy Implementation",
+          "description": "A complete log rotation system that integrates with the centralized log aggregation service, implementing size-based, time-based, count-based, and age-based rotation policies with compression support",
+          "level": "user_story",
+          "status": "in_progress",
+          "priority": "high",
+          "tags": [
+            "logging",
+            "rotation",
+            "policy",
+            "compression",
+            "archival",
+            "integration",
+            "gzip"
+          ],
+          "requirements": [
+            "Integrate with centralized log service from user-stories/008-centralized-log-service",
+            "Implement size-based rotation (configurable MB threshold)",
+            "Implement time-based rotation (daily, weekly, monthly)",
+            "Implement count-based rotation (keep last N files)",
+            "Implement age-based cleanup (delete logs older than X days)",
+            "Support gzip compression of rotated logs",
+            "Maintain searchable index of rotated files",
+            "Follow HEA pattern with pipe-based communication",
+            "Use Mock Free TDD with 90% test coverage",
+            "Provide configuration options for all policies",
+            "Support atomic rotation operations",
+            "Implement rotation monitoring and health checks"
+          ],
+          "implementation": {
+            "layers": [
+              {
+                "name": "domain",
+                "description": "Core rotation policy logic and rotation orchestration",
+                "components": [
+                  "LogRotationService - Main rotation orchestrator",
+                  "RotationPolicy - Base policy interface",
+                  "SizeBasedPolicy - File size threshold rotation",
+                  "TimeBasedPolicy - Schedule-based rotation",
+                  "CountBasedPolicy - File count management",
+                  "AgeBasedPolicy - Age-based cleanup",
+                  "RotationIndex - Metadata tracking for rotated files"
+                ]
+              },
+              {
+                "name": "application",
+                "description": "Rotation scheduling and configuration management",
+                "components": [
+                  "RotationScheduler - Manages rotation schedules",
+                  "RotationConfigManager - Policy configuration",
+                  "RotationHealthMonitor - Health checks and metrics"
+                ]
+              },
+              {
+                "name": "external",
+                "description": "File system operations and compression integration",
+                "components": [
+                  "FileSystemRotator - Atomic file operations",
+                  "CompressionManager - Gzip compression handling",
+                  "StorageMetrics - Disk usage monitoring"
+                ]
+              },
+              {
+                "name": "pipe",
+                "description": "HEA gateway for rotation services integration",
+                "components": [
+                  "Public API exports and integration with centralized log service"
+                ]
+              }
+            ],
+            "integrations": [
+              {
+                "component": "CentralizedLogService",
+                "source": "../008-centralized-log-service/src/pipe/index",
+                "purpose": "Main log service integration"
+              },
+              {
+                "component": "LogConfig",
+                "source": "../../src/config/log-config",
+                "purpose": "Configuration management"
+              }
+            ]
+          },
+          "rotation_policies": [
+            {
+              "type": "size_based",
+              "description": "Rotate logs when file size exceeds threshold",
+              "default_config": {
+                "max_size_mb": 100,
+                "enable_compression": true
+              }
+            },
+            {
+              "type": "time_based",
+              "description": "Rotate logs on schedule",
+              "default_config": {
+                "rotation_schedule": "daily",
+                "rotation_time": "00:00",
+                "enable_compression": true
+              }
+            },
+            {
+              "type": "count_based",
+              "description": "Keep only N most recent files",
+              "default_config": {
+                "max_files": 10,
+                "cleanup_on_rotation": true
+              }
+            },
+            {
+              "type": "age_based",
+              "description": "Delete files older than threshold",
+              "default_config": {
+                "max_age_days": 30,
+                "cleanup_schedule": "daily"
+              }
+            }
+          ]
+        },
+        "createdAt": "2025-08-27T22:45:00.000Z",
+        "updatedAt": "2025-08-27T22:45:00.000Z"
+      },
+      {
+        "id": "log-rotation-compression-002",
+        "name": "Log Compression System",
+        "data": {
+          "title": "Gzip Compression for Rotated Logs",
+          "description": "Automatic compression system for rotated log files to save storage space while maintaining queryability",
+          "level": "feature",
+          "status": "in_progress",
+          "priority": "high",
+          "tags": [
+            "compression",
+            "gzip",
+            "storage-optimization",
+            "archival"
+          ],
+          "requirements": [
+            "Automatic gzip compression after rotation",
+            "Configurable compression levels (1-9)",
+            "Streaming compression for large files",
+            "Integrity verification after compression",
+            "Decompression support for queries",
+            "Metadata preservation during compression"
+          ]
+        },
+        "createdAt": "2025-08-27T22:45:00.000Z",
+        "updatedAt": "2025-08-27T22:45:00.000Z"
+      },
+      {
+        "id": "log-rotation-index-003",
+        "name": "Rotated Log Index System",
+        "data": {
+          "title": "Searchable Index for Rotated Files",
+          "description": "Maintains a searchable index of all rotated log files with metadata for efficient querying and retrieval",
+          "level": "feature",
+          "status": "in_progress",
+          "priority": "medium",
+          "tags": [
+            "indexing",
+            "metadata",
+            "search",
+            "query-optimization"
+          ],
+          "requirements": [
+            "Index creation during rotation",
+            "Metadata storage (filename, date range, size, compression)",
+            "Fast query capabilities",
+            "Index cleanup for deleted files",
+            "JSON-based index format",
+            "Atomic index updates"
+          ]
+        },
+        "createdAt": "2025-08-27T22:45:00.000Z",
+        "updatedAt": "2025-08-27T22:45:00.000Z"
+      },
+      {
+        "id": "log-rotation-integration-004",
+        "name": "Centralized Log Service Integration",
+        "data": {
+          "title": "Integration with Centralized Log Service",
+          "description": "Seamless integration with the existing centralized log service for automatic rotation policy application",
+          "level": "feature",
+          "status": "in_progress",
+          "priority": "high",
+          "tags": [
+            "integration",
+            "centralized-service",
+            "automation",
+            "policy-enforcement"
+          ],
+          "requirements": [
+            "Automatic registration with centralized log service",
+            "Policy application to all managed logs",
+            "Real-time rotation monitoring",
+            "Configuration synchronization",
+            "Health status reporting",
+            "Graceful error handling"
+          ]
+        },
+        "createdAt": "2025-08-27T22:45:00.000Z",
+        "updatedAt": "2025-08-27T22:45:00.000Z"
+      }
+    ]
+  },
+  "children": []
+}

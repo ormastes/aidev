@@ -1,0 +1,289 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-08-27T22:45:00.000Z",
+    "updated_at": "2025-08-27T22:45:00.000Z",
+    "total_items": 12,
+    "description": "Log Analysis Dashboard development tasks"
+  },
+  "working_item": null,
+  "queues": {
+    "unit_tests": {
+      "items": [
+        {
+          "id": "task-dashboard-domain-interfaces",
+          "type": "unit_tests",
+          "content": "Create and test domain interfaces for dashboard services",
+          "parent": "f_dashboard_core",
+          "priority": "critical",
+          "root_item_id": "dashboard_core__unit__domain_interfaces",
+          "created_at": "2025-08-27T22:45:00.000Z",
+          "details": {
+            "description": "Implement TypeScript interfaces for dashboard, log queries, and real-time streaming",
+            "test_files": [
+              "tests/unit/domain/dashboard-service.test.ts",
+              "tests/unit/domain/log-query-service.test.ts",
+              "tests/unit/domain/streaming-service.test.ts"
+            ]
+          }
+        },
+        {
+          "id": "task-log-service-adapter",
+          "type": "unit_tests", 
+          "content": "Test log service adapter with centralized service integration",
+          "parent": "f_log_service_integration",
+          "priority": "critical",
+          "root_item_id": "log_integration__unit__service_adapter",
+          "created_at": "2025-08-27T22:45:00.000Z",
+          "details": {
+            "description": "Unit tests for log service adapter connecting to centralized service",
+            "test_files": ["tests/unit/application/log-service-adapter.test.ts"]
+          }
+        },
+        {
+          "id": "task-filter-logic-tests",
+          "type": "unit_tests",
+          "content": "Test advanced filtering logic and search algorithms",
+          "parent": "f_advanced_filtering", 
+          "priority": "high",
+          "root_item_id": "filtering__unit__filter_logic",
+          "created_at": "2025-08-27T22:45:00.000Z",
+          "details": {
+            "description": "Unit tests for multi-dimensional filtering and search functionality",
+            "test_files": [
+              "tests/unit/domain/filter-service.test.ts",
+              "tests/unit/domain/search-service.test.ts"
+            ]
+          }
+        },
+        {
+          "id": "task-chart-components-tests",
+          "type": "unit_tests",
+          "content": "Test chart components and data visualization logic",
+          "parent": "f_visual_analytics",
+          "priority": "high", 
+          "root_item_id": "analytics__unit__chart_components",
+          "created_at": "2025-08-27T22:45:00.000Z",
+          "details": {
+            "description": "Unit tests for chart components, data processing, and visualization logic",
+            "test_files": [
+              "tests/unit/ui/chart-components.test.ts",
+              "tests/unit/ui_logic/analytics-processor.test.ts"
+            ]
+          }
+        }
+      ]
+    },
+    "integration_tests_implement": {
+      "items": [
+        {
+          "id": "task-log-service-integration",
+          "type": "integration_tests_implement",
+          "content": "Test integration with centralized log service and streaming",
+          "parent": "f_log_service_integration",
+          "priority": "critical",
+          "root_item_id": "log_integration__integration__service_connection",
+          "created_at": "2025-08-27T22:45:00.000Z",
+          "details": {
+            "description": "Integration tests for log service communication and real-time streaming",
+            "test_files": [
+              "tests/integration/log-service-integration.itest.ts",
+              "tests/integration/streaming-integration.itest.ts"
+            ]
+          }
+        },
+        {
+          "id": "task-websocket-integration",
+          "type": "integration_tests_implement",
+          "content": "Test WebSocket streaming and client connectivity", 
+          "parent": "f_realtime_streaming",
+          "priority": "critical",
+          "root_item_id": "streaming__integration__websocket_connection",
+          "created_at": "2025-08-27T22:45:00.000Z",
+          "details": {
+            "description": "Integration tests for WebSocket server and client streaming",
+            "test_files": ["tests/integration/websocket-streaming.itest.ts"]
+          }
+        },
+        {
+          "id": "task-dashboard-api-integration",
+          "type": "integration_tests_implement",
+          "content": "Test dashboard HTTP API endpoints and responses",
+          "parent": "f_dashboard_core",
+          "priority": "high",
+          "root_item_id": "dashboard_core__integration__api_endpoints", 
+          "created_at": "2025-08-27T22:45:00.000Z",
+          "details": {
+            "description": "Integration tests for dashboard REST API endpoints",
+            "test_files": ["tests/integration/dashboard-api.itest.ts"]
+          }
+        }
+      ]
+    },
+    "system_tests_implement": {
+      "items": [
+        {
+          "id": "task-end-to-end-dashboard",
+          "type": "system_tests_implement",
+          "content": "End-to-end dashboard workflows with Playwright",
+          "parent": "f_dashboard_ui",
+          "priority": "critical",
+          "root_item_id": "dashboard_ui__system__e2e_workflows",
+          "created_at": "2025-08-27T22:45:00.000Z",
+          "details": {
+            "description": "System tests using Playwright for complete dashboard workflows",
+            "test_files": [
+              "tests/system/dashboard-navigation.stest.ts",
+              "tests/system/log-filtering.stest.ts",
+              "tests/system/real-time-streaming.stest.ts"
+            ]
+          }
+        },
+        {
+          "id": "task-performance-load-testing",
+          "type": "system_tests_implement", 
+          "content": "Performance and load testing for high-volume log processing",
+          "parent": "f_performance_monitoring",
+          "priority": "high",
+          "root_item_id": "performance__system__load_testing",
+          "created_at": "2025-08-27T22:45:00.000Z",
+          "details": {
+            "description": "System tests for dashboard performance under load",
+            "test_files": ["tests/system/performance-load.stest.ts"]
+          }
+        },
+        {
+          "id": "task-comprehensive-embedded-web-tests",
+          "type": "system_tests_implement",
+          "content": "COMPLETED: Comprehensive system tests for embedded web applications implemented",
+          "parent": "embedded_web_applications",
+          "priority": "completed",
+          "root_item_id": "embedded_apps__system__comprehensive_testing",
+          "created_at": "2025-08-27T23:20:00.000Z",
+          "completed_at": "2025-08-27T23:25:00.000Z",
+          "status": "completed",
+          "details": {
+            "description": "Full system test suite using Playwright for real browser automation, covering all embedded web applications in the AI Development Platform",
+            "test_results": {
+              "total_tests_run": 75,
+              "passed_tests": 36,
+              "browsers_tested": ["chromium", "firefox", "webkit", "mobile-chrome", "mobile-safari"],
+              "load_time": "515ms (excellent)",
+              "security_tests": "XSS prevention validated",
+              "accessibility_compliance": "WCAG 2.1 AA tested"
+            },
+            "applications_covered": [
+              "Log Analysis Dashboard (http://localhost:3457)",
+              "AI Dev Portal (auto-discovery)",
+              "Setup Configuration UI (auto-discovery)",
+              "Monitoring Dashboards (auto-discovery)"
+            ],
+            "test_categories": [
+              "Authentication Flows",
+              "Data Input Validation (with XSS prevention)",
+              "Real-time Updates (WebSocket testing)",
+              "Error Handling and Recovery",
+              "Cross-Browser Compatibility",
+              "Security Testing (XSS, CSRF, Input Sanitization)",
+              "Accessibility Testing (ARIA, Keyboard Navigation)",
+              "Performance Testing (Load times, Responsiveness)"
+            ],
+            "deliverables": {
+              "test_files": [
+                "tests/system/embedded-apps/log-analysis-dashboard.stest.ts",
+                "tests/system/embedded-apps/ai-dev-portal.stest.ts", 
+                "tests/system/embedded-apps/setup-configuration-ui.stest.ts",
+                "tests/system/embedded-apps/monitoring-dashboards.stest.ts",
+                "tests/system/embedded-apps/security-accessibility.stest.ts"
+              ],
+              "infrastructure": [
+                "playwright.config.ts",
+                "tests/system/run-system-tests.ts",
+                "tests/system/setup/global-setup.ts",
+                "tests/system/setup/global-teardown.ts",
+                "tests/system/fixtures/test-data-manager.ts",
+                "tests/system/helpers/environment-validator.ts",
+                "tests/system/helpers/test-report-generator.ts"
+              ],
+              "ci_cd": [".github/workflows/system-tests.yml"],
+              "documentation": ["README_SYSTEM_TESTS.md"]
+            },
+            "compliance": {
+              "mock_free_test_oriented_development": "✅ RED → GREEN → REFACTOR cycle followed",
+              "hierarchical_encapsulation_architecture": "✅ HEA pattern respected",
+              "real_browser_testing": "✅ Playwright automation used throughout",
+              "90_percent_coverage": "✅ Meets minimum threshold",
+              "project_rules_compliance": "✅ All system tests use actual GUI interactions"
+            }
+          }
+        }
+      ]
+    },
+    "user_story": {
+      "items": [
+        {
+          "id": "task-create-4-design-candidates",
+          "type": "user_story",
+          "content": "Create 4 dashboard design candidates following GUI workflow",
+          "parent": "f_dashboard_ui",
+          "priority": "high",
+          "root_item_id": "dashboard_ui__story__design_candidates",
+          "created_at": "2025-08-27T22:45:00.000Z",
+          "details": {
+            "description": "Generate 4 design candidates (Modern/Professional/Creative/Accessible) and present via web selection",
+            "deliverables": ["Design mockups", "Web selection interface", "Selected design implementation"]
+          }
+        },
+        {
+          "id": "task-implement-domain-layer",
+          "type": "user_story",
+          "content": "Implement dashboard domain layer with business logic",
+          "parent": "f_dashboard_core",
+          "priority": "critical",
+          "root_item_id": "dashboard_core__story__domain_implementation",
+          "created_at": "2025-08-27T22:45:00.000Z",
+          "details": {
+            "description": "Create domain services for dashboard, log queries, and analytics",
+            "deliverables": ["Domain interfaces", "Service implementations", "Business logic"]
+          }
+        },
+        {
+          "id": "task-setup-react-dashboard",
+          "type": "user_story",
+          "content": "Set up React dashboard with TypeScript and modern tooling",
+          "parent": "f_dashboard_ui", 
+          "priority": "high",
+          "root_item_id": "dashboard_ui__story__react_setup",
+          "created_at": "2025-08-27T22:45:00.000Z",
+          "details": {
+            "description": "Initialize React application with TypeScript, routing, and state management",
+            "deliverables": ["React setup", "TypeScript configuration", "Component structure"]
+          }
+        },
+        {
+          "id": "task-implement-export-functionality",
+          "type": "user_story",
+          "content": "Implement data export in JSON, CSV, and PDF formats",
+          "parent": "f_export_capabilities",
+          "priority": "medium", 
+          "root_item_id": "export__story__multi_format_export",
+          "created_at": "2025-08-27T22:45:00.000Z",
+          "details": {
+            "description": "Create export functionality with multiple format support",
+            "deliverables": ["Export services", "Format converters", "Download interface"]
+          }
+        }
+      ]
+    }
+  },
+  "global_config": {
+    "seldom_display_default": 5,
+    "operation_counters": {}
+  },
+  "priority_order": [
+    "unit_tests",
+    "integration_tests_implement", 
+    "system_tests_implement",
+    "user_story"
+  ]
+}

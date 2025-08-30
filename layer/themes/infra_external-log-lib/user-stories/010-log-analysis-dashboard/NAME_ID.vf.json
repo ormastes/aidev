@@ -1,0 +1,283 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-08-27T22:45:00.000Z", 
+    "updated_at": "2025-08-27T22:45:00.000Z",
+    "scope": "user_story",
+    "theme": "infra_external-log-lib",
+    "user_story": "010-log-analysis-dashboard"
+  },
+  "entities": {
+    "services": {
+      "dashboard_service": {
+        "id": "dashboard_service",
+        "name": "DashboardService", 
+        "type": "service",
+        "layer": "domain",
+        "description": "Core dashboard orchestration service",
+        "file_path": "src/domain/dashboard-service.ts",
+        "dependencies": ["log_query_service", "streaming_service"],
+        "interfaces": ["IDashboardService"]
+      },
+      "log_query_service": {
+        "id": "log_query_service", 
+        "name": "LogQueryService",
+        "type": "service",
+        "layer": "domain", 
+        "description": "Service for querying and filtering logs",
+        "file_path": "src/domain/log-query-service.ts",
+        "dependencies": ["centralized_log_service"],
+        "interfaces": ["ILogQueryService"]
+      },
+      "streaming_service": {
+        "id": "streaming_service",
+        "name": "StreamingService", 
+        "type": "service",
+        "layer": "domain",
+        "description": "Real-time log streaming service",
+        "file_path": "src/domain/streaming-service.ts", 
+        "dependencies": ["websocket_manager"],
+        "interfaces": ["IStreamingService"]
+      },
+      "analytics_service": {
+        "id": "analytics_service",
+        "name": "AnalyticsService",
+        "type": "service", 
+        "layer": "domain",
+        "description": "Log analytics and visualization data service",
+        "file_path": "src/domain/analytics-service.ts",
+        "dependencies": ["log_query_service"],
+        "interfaces": ["IAnalyticsService"]
+      }
+    },
+    "interfaces": {
+      "dashboard_service_interface": {
+        "id": "dashboard_service_interface",
+        "name": "IDashboardService",
+        "type": "interface", 
+        "layer": "domain",
+        "description": "Dashboard service interface",
+        "file_path": "src/domain/interfaces.ts",
+        "methods": ["initialize", "getHealth", "shutdown"]
+      },
+      "log_query_service_interface": {
+        "id": "log_query_service_interface", 
+        "name": "ILogQueryService",
+        "type": "interface",
+        "layer": "domain",
+        "description": "Log query service interface", 
+        "file_path": "src/domain/interfaces.ts",
+        "methods": ["queryLogs", "searchLogs", "filterLogs", "getLogSummary"]
+      },
+      "streaming_service_interface": {
+        "id": "streaming_service_interface",
+        "name": "IStreamingService", 
+        "type": "interface",
+        "layer": "domain",
+        "description": "Streaming service interface",
+        "file_path": "src/domain/interfaces.ts",
+        "methods": ["subscribe", "unsubscribe", "broadcast", "getActiveSubscriptions"]
+      },
+      "analytics_service_interface": {
+        "id": "analytics_service_interface",
+        "name": "IAnalyticsService",
+        "type": "interface",
+        "layer": "domain", 
+        "description": "Analytics service interface",
+        "file_path": "src/domain/interfaces.ts",
+        "methods": ["getErrorRates", "getLogVolume", "getSeverityDistribution", "getPerformanceMetrics"]
+      }
+    },
+    "models": {
+      "dashboard_config": {
+        "id": "dashboard_config",
+        "name": "DashboardConfig", 
+        "type": "model",
+        "layer": "pipe",
+        "description": "Dashboard configuration model",
+        "file_path": "src/pipe/models.ts",
+        "properties": ["port", "enableStreaming", "refreshInterval", "theme"]
+      },
+      "log_query_request": {
+        "id": "log_query_request",
+        "name": "LogQueryRequest",
+        "type": "model",
+        "layer": "pipe", 
+        "description": "Log query request model",
+        "file_path": "src/pipe/models.ts",
+        "properties": ["filters", "pagination", "sorting", "format"]
+      },
+      "log_entry": {
+        "id": "log_entry", 
+        "name": "LogEntry",
+        "type": "model",
+        "layer": "pipe",
+        "description": "Log entry data model",
+        "file_path": "src/pipe/models.ts",
+        "properties": ["id", "timestamp", "level", "message", "source", "theme", "metadata"]
+      },
+      "analytics_data": {
+        "id": "analytics_data",
+        "name": "AnalyticsData",
+        "type": "model",
+        "layer": "pipe",
+        "description": "Analytics visualization data model", 
+        "file_path": "src/pipe/models.ts",
+        "properties": ["errorRates", "logVolume", "severityDistribution", "performanceMetrics"]
+      }
+    },
+    "controllers": {
+      "dashboard_controller": {
+        "id": "dashboard_controller", 
+        "name": "DashboardController",
+        "type": "controller",
+        "layer": "pipe",
+        "description": "Dashboard HTTP API controller",
+        "file_path": "src/pipe/controllers.ts", 
+        "dependencies": ["dashboard_service"],
+        "endpoints": ["/api/dashboard/health", "/api/dashboard/config"]
+      },
+      "logs_controller": {
+        "id": "logs_controller",
+        "name": "LogsController",
+        "type": "controller",
+        "layer": "pipe",
+        "description": "Logs query and streaming controller", 
+        "file_path": "src/pipe/controllers.ts",
+        "dependencies": ["log_query_service", "streaming_service"],
+        "endpoints": ["/api/logs/query", "/api/logs/search", "/api/logs/stream"]
+      },
+      "analytics_controller": {
+        "id": "analytics_controller",
+        "name": "AnalyticsController",
+        "type": "controller", 
+        "layer": "pipe",
+        "description": "Analytics and visualization data controller",
+        "file_path": "src/pipe/controllers.ts",
+        "dependencies": ["analytics_service"],
+        "endpoints": ["/api/analytics/error-rates", "/api/analytics/log-volume", "/api/analytics/performance"]
+      }
+    },
+    "components": {
+      "dashboard_layout": {
+        "id": "dashboard_layout",
+        "name": "DashboardLayout",
+        "type": "component", 
+        "layer": "ui",
+        "description": "Main dashboard layout component",
+        "file_path": "src/ui/components/DashboardLayout.tsx",
+        "dependencies": ["header_component", "sidebar_component", "main_content"]
+      },
+      "log_stream": {
+        "id": "log_stream", 
+        "name": "LogStream",
+        "type": "component",
+        "layer": "ui",
+        "description": "Real-time log streaming component",
+        "file_path": "src/ui/components/LogStream.tsx",
+        "dependencies": ["websocket_hook", "filter_controls"]
+      },
+      "analytics_charts": {
+        "id": "analytics_charts",
+        "name": "AnalyticsCharts", 
+        "type": "component",
+        "layer": "ui",
+        "description": "Analytics visualization charts component",
+        "file_path": "src/ui/components/AnalyticsCharts.tsx",
+        "dependencies": ["chart_library", "analytics_hooks"]
+      },
+      "filter_controls": {
+        "id": "filter_controls",
+        "name": "FilterControls",
+        "type": "component",
+        "layer": "ui",
+        "description": "Log filtering and search controls", 
+        "file_path": "src/ui/components/FilterControls.tsx",
+        "dependencies": ["filter_hooks", "search_input"]
+      }
+    },
+    "hooks": {
+      "websocket_hook": {
+        "id": "websocket_hook",
+        "name": "useWebSocket", 
+        "type": "hook",
+        "layer": "ui_logic",
+        "description": "WebSocket connection and streaming hook",
+        "file_path": "src/ui_logic/hooks/useWebSocket.ts",
+        "dependencies": ["streaming_service"]
+      },
+      "log_query_hook": {
+        "id": "log_query_hook",
+        "name": "useLogQuery",
+        "type": "hook",
+        "layer": "ui_logic", 
+        "description": "Log querying and filtering hook",
+        "file_path": "src/ui_logic/hooks/useLogQuery.ts",
+        "dependencies": ["log_query_service"]
+      },
+      "analytics_hook": {
+        "id": "analytics_hook", 
+        "name": "useAnalytics",
+        "type": "hook",
+        "layer": "ui_logic",
+        "description": "Analytics data and visualization hook",
+        "file_path": "src/ui_logic/hooks/useAnalytics.ts",
+        "dependencies": ["analytics_service"]
+      }
+    },
+    "external_integrations": {
+      "centralized_log_adapter": {
+        "id": "centralized_log_adapter",
+        "name": "CentralizedLogAdapter", 
+        "type": "adapter",
+        "layer": "external",
+        "description": "Adapter for centralized log service integration",
+        "file_path": "src/external/centralized-log-adapter.ts",
+        "dependencies": ["centralized_log_service"],
+        "external_service": "user-stories/008-centralized-log-service"
+      },
+      "rotation_policy_adapter": {
+        "id": "rotation_policy_adapter",
+        "name": "RotationPolicyAdapter",
+        "type": "adapter", 
+        "layer": "external",
+        "description": "Adapter for log rotation policy integration",
+        "file_path": "src/external/rotation-policy-adapter.ts",
+        "dependencies": ["rotation_policy_service"],
+        "external_service": "user-stories/009-log-rotation-policy"
+      },
+      "websocket_manager": {
+        "id": "websocket_manager",
+        "name": "WebSocketManager",
+        "type": "manager",
+        "layer": "external", 
+        "description": "WebSocket server and connection management",
+        "file_path": "src/external/websocket-manager.ts",
+        "dependencies": ["socket_io"],
+        "external_library": "socket.io"
+      }
+    }
+  },
+  "relationships": {
+    "service_dependencies": [
+      {"from": "dashboard_service", "to": "log_query_service", "type": "uses"},
+      {"from": "dashboard_service", "to": "streaming_service", "type": "uses"},
+      {"from": "dashboard_service", "to": "analytics_service", "type": "uses"},
+      {"from": "log_query_service", "to": "centralized_log_adapter", "type": "uses"},
+      {"from": "streaming_service", "to": "websocket_manager", "type": "uses"},
+      {"from": "analytics_service", "to": "log_query_service", "type": "uses"}
+    ],
+    "ui_dependencies": [
+      {"from": "dashboard_layout", "to": "log_stream", "type": "contains"},
+      {"from": "dashboard_layout", "to": "analytics_charts", "type": "contains"},
+      {"from": "dashboard_layout", "to": "filter_controls", "type": "contains"},
+      {"from": "log_stream", "to": "websocket_hook", "type": "uses"},
+      {"from": "analytics_charts", "to": "analytics_hook", "type": "uses"},
+      {"from": "filter_controls", "to": "log_query_hook", "type": "uses"}
+    ],
+    "external_integrations": [
+      {"from": "centralized_log_adapter", "to": "008-centralized-log-service", "type": "integrates"},
+      {"from": "rotation_policy_adapter", "to": "009-log-rotation-policy", "type": "integrates"}
+    ]
+  }
+}

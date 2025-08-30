@@ -68,7 +68,7 @@ The Tester ensures comprehensive test coverage following Mock Free Test Oriented
 
 - **Coverage tools** - nyc, c8
 
-- **Test runners** - npm test scripts
+- **Test runners** - bun test scripts
 
 ## Best Practices
 

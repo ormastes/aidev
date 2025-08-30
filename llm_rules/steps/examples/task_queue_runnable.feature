@@ -40,7 +40,7 @@ Feature: Task Queue Runnable Execution
   Scenario: Validate task registration before adding runnable
     Given the working item queue is empty
     When I validate the task "TASK-001" is registered
-    And I add a runnable task "Registered task" with command "npm test"
+    And I add a runnable task "Registered task" with command "bun test"
     Then the task should be added successfully
 
   Scenario: Handle failed runnable task

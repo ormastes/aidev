@@ -1,0 +1,351 @@
+# Test Coverage Status Report
+
+Generated: 2025-08-28T01:11:40.251Z
+
+## Summary
+
+| Theme | Total Files | Tested | Untested | Coverage | Status |
+|-------|-------------|---------|----------|----------|--------|
+| infra_story-reporter | 68 | 5 | 63 | 7.4% | ❌ Needs Work |
+| infra_external-log-lib | 179 | 1 | 178 | 0.6% | ❌ Needs Work |
+| infra_filesystem-mcp | 77 | 2 | 75 | 2.6% | ❌ Needs Work |
+
+## Files Requiring Test Coverage
+
+### infra_story-reporter
+
+Missing tests for 63 files:
+
+- [ ] children/playwright.config.ts
+- [ ] src/services/system-test-class-coverage-analyzer.ts
+- [ ] src/services/rule-suggestion-analyzer.ts
+- [ ] src/services/duplication-checker.ts
+- [ ] src/cli/rule-suggestion-analyzer.ts
+- [ ] user-stories/007-story-reporter/src/server.ts
+- [ ] user-stories/007-story-reporter/examples/story-report-example.ts
+- [ ] user-stories/007-story-reporter/examples/hierarchical-build-example.ts
+- [ ] src/services/circular-dependency/typescript-analyzer.ts
+- [ ] src/services/circular-dependency/types.ts
+- [ ] src/services/circular-dependency/index.ts
+- [ ] src/services/circular-dependency/dependency-graph.ts
+- [ ] src/services/circular-dependency/circular-dependency-service.ts
+- [ ] user-stories/007-story-reporter/tests/integration/workflow-manager-mock-free-test-runner.itest.ts
+- [ ] user-stories/007-story-reporter/tests/integration/workflow-manager-logger.itest.ts
+- [ ] user-stories/007-story-reporter/tests/integration/test-suite-manager-log-integration.itest.ts
+- [ ] user-stories/007-story-reporter/tests/integration/test-result-aggregation.itest.ts
+- [ ] user-stories/007-story-reporter/tests/integration/report-generator-logger.itest.ts
+- [ ] user-stories/007-story-reporter/tests/integration/monitor-resource-tracking.itest.ts
+- [ ] user-stories/007-story-reporter/tests/integration/mock-free-test-runner-logger.itest.ts
+- [ ] user-stories/007-story-reporter/tests/integration/file-system-operations.itest.ts
+- [ ] user-stories/007-story-reporter/tests/integration/external-log-library-report-generation.itest.ts
+- [ ] user-stories/007-story-reporter/tests/integration/error-handling-components.itest.ts
+- [ ] user-stories/007-story-reporter/tests/integration/configuration-validation.itest.ts
+- [ ] user-stories/007-story-reporter/tests/helpers/test-process-simulator.ts
+- [ ] user-stories/007-story-reporter/tests/helpers/test-file-system.ts
+- [ ] user-stories/007-story-reporter/tests/helpers/spawn-simulator.ts
+- [ ] user-stories/007-story-reporter/tests/external/workflow-manager.etest.ts
+- [ ] user-stories/007-story-reporter/tests/external/test-suite-manager.etest.ts
+- [ ] user-stories/007-story-reporter/tests/external/statistics-analyzer-external-interface.etest.ts
+- [ ] user-stories/007-story-reporter/tests/external/report-generator.etest.ts
+- [ ] user-stories/007-story-reporter/tests/external/mock-free-test-runner.etest.ts
+- [ ] user-stories/007-story-reporter/tests/external/external-log-library-interface-validation.etest.ts
+- [ ] user-stories/007-story-reporter/tests/external/event-bus.etest.ts
+- [ ] user-stories/007-story-reporter/src/utils/validation-utils.ts
+- [ ] user-stories/007-story-reporter/src/utils/error-handler.ts
+- [ ] user-stories/007-story-reporter/src/types/test-types.ts
+- [ ] user-stories/007-story-reporter/src/services/unified-report-generator.ts
+- [ ] user-stories/007-story-reporter/src/services/test-result-aggregator.ts
+- [ ] user-stories/007-story-reporter/src/services/story-service.ts
+- [ ] user-stories/007-story-reporter/src/services/setup-aggregator.ts
+- [ ] user-stories/007-story-reporter/src/services/requirements-interviewer.ts
+- [ ] user-stories/007-story-reporter/src/services/pass-criteria-validator.ts
+- [ ] user-stories/007-story-reporter/src/services/hierarchical-story-reporter.ts
+- [ ] user-stories/007-story-reporter/src/services/distributed-build-executor.ts
+- [ ] user-stories/007-story-reporter/src/services/coverage-checker.ts
+- [ ] user-stories/007-story-reporter/src/services/build-artifact-collector.ts
+- [ ] user-stories/007-story-reporter/src/pipe/views.ts
+- [ ] user-stories/007-story-reporter/src/pipe/models.ts
+- [ ] user-stories/007-story-reporter/src/pipe/index.ts
+- [ ] user-stories/007-story-reporter/src/pipe/controllers.ts
+- [ ] user-stories/007-story-reporter/src/internal/statistics-analyzer.ts
+- [ ] user-stories/007-story-reporter/src/internal/mock-external-logger.ts
+- [ ] user-stories/007-story-reporter/src/external/test-suite-manager.ts
+- [ ] user-stories/007-story-reporter/src/external/story-report-generator.ts
+- [ ] user-stories/007-story-reporter/src/external/report-generator.ts
+- [ ] user-stories/007-story-reporter/src/external/mock-free-test-runner.ts
+- [ ] user-stories/007-story-reporter/src/domain/test-result.ts
+- [ ] user-stories/007-story-reporter/src/domain/test-configuration.ts
+- [ ] user-stories/007-story-reporter/src/domain/story.ts
+- [ ] user-stories/007-story-reporter/src/domain/report-config.ts
+- [ ] user-stories/007-story-reporter/src/domain/hierarchical-build-config.ts
+- [ ] user-stories/007-story-reporter/src/api/story-api.ts
+
+### infra_external-log-lib
+
+Missing tests for 178 files:
+
+- [ ] tests/test-facade.ts
+- [ ] tests/setup.ts
+- [ ] utils/http-wrapper.ts
+- [ ] utils/index.ts
+- [ ] src/index.ts
+- [ ] src/config.ts
+- [ ] children/sqlite3-wrapper.ts
+- [ ] children/http-wrapper.ts
+- [ ] children/fs-wrapper.ts
+- [ ] user-stories/010-log-analysis-dashboard/playwright.config.ts
+- [ ] examples/violation-prevention-demo.ts
+- [ ] examples/logging-demo.ts
+- [ ] examples/file-api-demo.ts
+- [ ] examples/file-access-demo.ts
+- [ ] examples/brief-vs-detail-demo.ts
+- [ ] tests/utils/test-helpers.ts
+- [ ] tests/utils/process-simulator.ts
+- [ ] tests/system/setup.ts
+- [ ] src/validators/FileViolationPreventer.ts
+- [ ] src/loggers/VfJsonWatcher.ts
+- [ ] src/loggers/RejectionTracker.ts
+- [ ] src/loggers/EventLogger.ts
+- [ ] src/loggers/ComprehensiveLogger.ts
+- [ ] src/interceptors/stream-interceptor.ts
+- [ ] src/interceptors/path-interceptor.ts
+- [ ] src/interceptors/os-interceptor.ts
+- [ ] src/interceptors/net-interceptor.ts
+- [ ] src/interceptors/https-interceptor.ts
+- [ ] src/interceptors/http-interceptor.ts
+- [ ] src/interceptors/fs-interceptor.ts
+- [ ] src/interceptors/external-modules-list.ts
+- [ ] src/interceptors/crypto-interceptor.ts
+- [ ] src/interceptors/child-process-interceptor.ts
+- [ ] src/interceptors/base-interceptor.ts
+- [ ] src/config/strict-mode.config.ts
+- [ ] src/config/log-config.ts
+- [ ] src/config/enforcement.config.ts
+- [ ] src/config/enforcement-config.ts
+- [ ] src/monitoring/compliance-dashboard.ts
+- [ ] src/monitoring/alert-handler.ts
+- [ ] src/facades/fs-facade.ts
+- [ ] src/facades/path-facade.ts
+- [ ] src/facades/child-process-facade.ts
+- [ ] src/fraud-detector/FileCreationFraudChecker.ts
+- [ ] src/file-manager/MCPIntegratedFileManager.ts
+- [ ] src/file-manager/FileCreationAPI.ts
+- [ ] src/utils/safe-file-operations.ts
+- [ ] src/utils/essential-info-extractor.ts
+- [ ] children/streamer/index.ts
+- [ ] children/reporter/index.ts
+- [ ] children/file-access-auditor/index.ts
+- [ ] children/filter/index.ts
+- [ ] children/capture/index.ts
+- [ ] children/parser/index.ts
+- [ ] children/aggregator/index.ts
+- [ ] children/audited-fs/index.ts
+- [ ] children/src/interfaces/database.ts
+- [ ] children/src/external/database-wrapper.ts
+- [ ] user-stories/010-log-analysis-dashboard/tests/system/run-system-tests.ts
+- [ ] user-stories/010-log-analysis-dashboard/src/server/index.ts
+- [ ] user-stories/010-log-analysis-dashboard/src/pipe/index.ts
+- [ ] user-stories/010-log-analysis-dashboard/src/pipe/models.ts
+- [ ] user-stories/010-log-analysis-dashboard/src/external/design-selection-server.ts
+- [ ] user-stories/010-log-analysis-dashboard/src/domain/interfaces.ts
+- [ ] user-stories/010-log-analysis-dashboard/src/domain/dashboard-service.ts
+- [ ] user-stories/008-centralized-log-service/tests/system/centralized-log-service.stest.ts
+- [ ] user-stories/008-centralized-log-service/tests/integration/service-integration.itest.ts
+- [ ] user-stories/008-centralized-log-service/src/utils/service-factory.ts
+- [ ] user-stories/008-centralized-log-service/src/pipe/index.ts
+- [ ] user-stories/008-centralized-log-service/src/external/http-adapter.ts
+- [ ] user-stories/008-centralized-log-service/src/external/interfaces.ts
+- [ ] user-stories/008-centralized-log-service/src/application/log-service-api.ts
+- [ ] user-stories/008-centralized-log-service/src/application/interfaces.ts
+- [ ] user-stories/008-centralized-log-service/src/domain/centralized-log-service.ts
+- [ ] user-stories/008-centralized-log-service/src/domain/interfaces.ts
+- [ ] user-stories/009-log-rotation-policy/tests/system/complete-rotation-workflow.stest.ts
+- [ ] user-stories/009-log-rotation-policy/tests/integration/rotation-integration.itest.ts
+- [ ] user-stories/009-log-rotation-policy/src/pipe/index.ts
+- [ ] user-stories/009-log-rotation-policy/src/external/storage-metrics.ts
+- [ ] user-stories/009-log-rotation-policy/src/external/compression-manager.ts
+- [ ] user-stories/009-log-rotation-policy/src/application/interfaces.ts
+- [ ] user-stories/009-log-rotation-policy/src/application/rotation-integration.ts
+- [ ] user-stories/009-log-rotation-policy/src/domain/age-based-policy.ts
+- [ ] user-stories/009-log-rotation-policy/src/domain/count-based-policy.ts
+- [ ] user-stories/009-log-rotation-policy/src/domain/time-based-policy.ts
+- [ ] user-stories/009-log-rotation-policy/src/domain/size-based-policy.ts
+- [ ] user-stories/009-log-rotation-policy/src/domain/rotation-index.ts
+- [ ] user-stories/009-log-rotation-policy/src/domain/log-rotation-service.ts
+- [ ] user-stories/009-log-rotation-policy/src/domain/interfaces.ts
+- [ ] user-stories/006-multi-process-aggregation/tests/integration/process-completion-tracking.itest.ts
+- [ ] user-stories/006-multi-process-aggregation/tests/integration/log-monitor-process-manager-coordination.itest.ts
+- [ ] user-stories/006-multi-process-aggregation/tests/integration/log-monitor-coordination.itest.ts
+- [ ] user-stories/006-multi-process-aggregation/tests/integration/log-aggregator-collection.itest.ts
+- [ ] user-stories/006-multi-process-aggregation/tests/integration/log-aggregator-collection-refactored.itest.ts
+- [ ] user-stories/006-multi-process-aggregation/tests/helpers/test-setup.ts
+- [ ] user-stories/006-multi-process-aggregation/tests/external/log-monitor-multi-process.etest.ts
+- [ ] user-stories/006-multi-process-aggregation/tests/external/log-aggregation-query.etest.ts
+- [ ] user-stories/006-multi-process-aggregation/tests/external/individual-process-query.etest.ts
+- [ ] user-stories/006-multi-process-aggregation/src/pipe/views.ts
+- [ ] user-stories/006-multi-process-aggregation/src/pipe/models.ts
+- [ ] user-stories/006-multi-process-aggregation/src/pipe/index.ts
+- [ ] user-stories/006-multi-process-aggregation/src/pipe/controllers.ts
+- [ ] user-stories/006-multi-process-aggregation/src/internal/log-aggregator.ts
+- [ ] user-stories/005-error-log-filtering/tests/integration/log-monitor-log-stream-coordination.itest.ts
+- [ ] user-stories/005-error-log-filtering/tests/integration/filter-state-lifecycle.itest.ts
+- [ ] user-stories/005-error-log-filtering/tests/integration/dynamic-filter-updates-active-streams.itest.ts
+- [ ] user-stories/005-error-log-filtering/tests/external/log-stream-filtering.etest.ts
+- [ ] user-stories/005-error-log-filtering/tests/external/log-monitor-filtering.etest.ts
+- [ ] user-stories/005-error-log-filtering/tests/external/dynamic-filter-updates.etest.ts
+- [ ] user-stories/005-advanced-log-filtering/tests/integration/log-monitor-filter-coordination.itest.ts
+- [ ] user-stories/005-advanced-log-filtering/tests/external/log-stream-filtering-integration.etest.ts
+- [ ] user-stories/005-advanced-log-filtering/tests/external/log-filter-interface.etest.ts
+- [ ] user-stories/005-advanced-log-filtering/src/internal/enhanced-log-stream.ts
+- [ ] user-stories/005-advanced-log-filtering/src/pipe/views.ts
+- [ ] user-stories/005-advanced-log-filtering/src/pipe/models.ts
+- [ ] user-stories/005-advanced-log-filtering/src/pipe/index.ts
+- [ ] user-stories/005-advanced-log-filtering/src/pipe/controllers.ts
+- [ ] user-stories/005-advanced-log-filtering/src/external/log-filter.ts
+- [ ] user-stories/004-real-time-streaming/tests/integration/log-stream-log-parser.itest.ts
+- [ ] user-stories/004-real-time-streaming/tests/integration/log-monitor-process-manager.itest.ts
+- [ ] user-stories/004-real-time-streaming/tests/integration/event-emitter-filtering.itest.ts
+- [ ] user-stories/004-real-time-streaming/tests/external/process-manager.etest.ts
+- [ ] user-stories/004-real-time-streaming/tests/external/log-stream.etest.ts
+- [ ] user-stories/004-real-time-streaming/tests/external/log-monitor.etest.ts
+- [ ] user-stories/004-real-time-streaming/tests/external/event-emitter.etest.ts
+- [ ] user-stories/004-real-time-streaming/src/pipe/views.ts
+- [ ] user-stories/004-real-time-streaming/src/pipe/models.ts
+- [ ] user-stories/004-real-time-streaming/src/pipe/index.ts
+- [ ] user-stories/004-real-time-streaming/src/pipe/controllers.ts
+- [ ] user-stories/004-real-time-streaming/src/external/process-manager.ts
+- [ ] user-stories/004-real-time-streaming/src/external/log-stream.ts
+- [ ] user-stories/004-real-time-streaming/src/external/log-monitor.ts
+- [ ] user-stories/004-real-time-streaming/src/domain/log-entry.ts
+- [ ] user-stories/003-structured-log-parsing/tests/integration/parser-integration.itest.ts
+- [ ] user-stories/003-structured-log-parsing/tests/integration/metadata-extraction.itest.ts
+- [ ] user-stories/003-structured-log-parsing/tests/external/schema-validator.etest.ts
+- [ ] user-stories/003-structured-log-parsing/tests/external/keyvalue-parser.etest.ts
+- [ ] user-stories/003-structured-log-parsing/tests/external/json-parser.etest.ts
+- [ ] user-stories/003-structured-log-parsing/tests/external/coverage-completion.etest.ts
+- [ ] user-stories/003-structured-log-parsing/src/pipe/views.ts
+- [ ] user-stories/003-structured-log-parsing/src/pipe/models.ts
+- [ ] user-stories/003-structured-log-parsing/src/pipe/index.ts
+- [ ] user-stories/003-structured-log-parsing/src/pipe/controllers.ts
+- [ ] user-stories/003-structured-log-parsing/src/external/structured-log-parser.ts
+- [ ] user-stories/003-structured-log-parsing/src/external/schema-validator.ts
+- [ ] user-stories/003-structured-log-parsing/src/external/keyvalue-log-parser.ts
+- [ ] user-stories/003-structured-log-parsing/src/external/json-log-parser.ts
+- [ ] user-stories/002-python-process-logging/tests/integration/python-traceback-integration.itest.ts
+- [ ] user-stories/002-python-process-logging/tests/integration/python-log-parser-integration.itest.ts
+- [ ] user-stories/002-python-process-logging/tests/external/python-log-parser.etest.ts
+- [ ] user-stories/002-python-process-logging/src/pipe/views.ts
+- [ ] user-stories/002-python-process-logging/src/pipe/models.ts
+- [ ] user-stories/002-python-process-logging/src/pipe/index.ts
+- [ ] user-stories/002-python-process-logging/src/pipe/controllers.ts
+- [ ] user-stories/002-python-process-logging/src/external/python-log-parser.ts
+- [ ] user-stories/002-python-process-logging/src/external/python-external-log-lib.ts
+- [ ] user-stories/002-python-process-logging/src/application/python-log-platform.ts
+- [ ] user-stories/001-basic-log-capture/tests/integration/process-management-integration.itest.ts
+- [ ] user-stories/001-basic-log-capture/tests/integration/log-capture-integration.itest.ts
+- [ ] user-stories/001-basic-log-capture/tests/integration/file-save-integration.itest.ts
+- [ ] user-stories/001-basic-log-capture/tests/external/external-log-lib-real.etest.ts
+- [ ] user-stories/001-basic-log-capture/tests/external/external-log-lib-api.etest.ts
+- [ ] user-stories/001-basic-log-capture/src/utils/logger.ts
+- [ ] user-stories/001-basic-log-capture/src/pipe/views.ts
+- [ ] user-stories/001-basic-log-capture/src/pipe/models.ts
+- [ ] user-stories/001-basic-log-capture/src/pipe/index.ts
+- [ ] user-stories/001-basic-log-capture/src/pipe/controllers.ts
+- [ ] user-stories/001-basic-log-capture/src/interfaces/index.ts
+- [ ] user-stories/001-basic-log-capture/src/external/external-log-lib.ts
+- [ ] user-stories/001-basic-log-capture/src/domain/process-manager.ts
+- [ ] user-stories/001-basic-log-capture/src/domain/file-manager.ts
+- [ ] user-stories/001-basic-log-capture/src/application/aidev-platform.ts
+- [ ] user-stories/010-log-analysis-dashboard/tests/system/helpers/test-report-generator.ts
+- [ ] user-stories/010-log-analysis-dashboard/tests/system/helpers/environment-validator.ts
+- [ ] user-stories/010-log-analysis-dashboard/tests/system/fixtures/test-data-manager.ts
+- [ ] user-stories/010-log-analysis-dashboard/tests/system/setup/global-teardown.ts
+- [ ] user-stories/010-log-analysis-dashboard/tests/system/setup/global-setup.ts
+- [ ] user-stories/010-log-analysis-dashboard/src/ui/hooks/useWebSocket.ts
+
+### infra_filesystem-mcp
+
+Missing tests for 75 files:
+
+- [ ] vitest.config.ts
+- [ ] example.ts
+- [ ] cli.ts
+- [ ] src/test.ts
+- [ ] src/server.ts
+- [ ] src/schema.ts
+- [ ] src/mcp-main.ts
+- [ ] src/mcp-bun.ts
+- [ ] src/index.ts
+- [ ] src/VFTaskQueueWrapper.ts
+- [ ] src/VFNameIdWrapper.ts
+- [ ] src/VFForwarder.ts
+- [ ] src/VFFileWrapper.ts
+- [ ] src/ProtectedMCPServer.ts
+- [ ] src/MCPServer.ts
+- [ ] scripts/migrate-task-queue.ts
+- [ ] scripts/manage-task-queue-hierarchy.ts
+- [ ] scripts/fix-all-tests.ts
+- [ ] pipe/index.ts
+- [ ] tests/testJsonUpdates.ts
+- [ ] cli-ui/index.ts
+- [ ] utils/migrateToV2.ts
+- [ ] utils/JsonDocumentHandler.ts
+- [ ] schemas/taskQueueSchema.ts
+- [ ] children/ArtifactManager.ts
+- [ ] children/VFValidatedFileWrapper.ts
+- [ ] children/VFTaskQueueWrapperV2.ts
+- [ ] children/VFTaskQueueWrapper.ts
+- [ ] children/VFTaskQueueVWrapper.ts
+- [ ] children/VFSearchWrapper.ts
+- [ ] children/VFScenarioEntityManager.ts
+- [ ] children/VFProtectedFileWrapper.ts
+- [ ] children/VFNameIdWrapper.ts
+- [ ] children/VFIdNameWrapper.ts
+- [ ] children/VFFileWrapper.ts
+- [ ] children/VFFileStructureWrapper.ts
+- [ ] children/VFFilePurposeTracker.ts
+- [ ] children/VFDistributedFeatureWrapper.ts
+- [ ] children/TaskQueueValidator.ts
+- [ ] children/TaskQueueRunnableExtension.ts
+- [ ] children/StoryReportValidator.ts
+- [ ] children/StepFileExecutor.ts
+- [ ] children/RunnableCommentProcessor.ts
+- [ ] children/RunnableCommentExecutor.ts
+- [ ] children/FeatureTaskManager.ts
+- [ ] children/FeatureStatusManager.ts
+- [ ] children/EnhancedTaskQueueWrapper.ts
+- [ ] children/DefaultTaskExecutor.ts
+- [ ] children/CommentTaskExecutor.ts
+- [ ] src/utils/task-queue-processor.ts
+- [ ] src/utils/content-converter.ts
+- [ ] src/scripts/insert-task-with-children.ts
+- [ ] src/types/task-queue-input.ts
+- [ ] tests/external/mcp-protocol-interactions.etest.ts
+- [ ] tests/integration/real-world-freeze.itest.ts
+- [ ] tests/environment/mcp-server-environment.envtest.ts
+- [ ] tests/system/mcp-integration-full.systest.ts
+- [ ] tests/system/test-scenario-entity-manager.ts
+- [ ] tests/system/step-file-integration.systest.ts
+- [ ] tests/system/runnable-comment-step-file.systest.ts
+- [ ] tests/system/runnable-comment-simple.systest.ts
+- [ ] tests/system/register-item.systest.ts
+- [ ] tests/system/mcp-protection-comprehensive.systest.ts
+- [ ] tests/system/mcp-freeze-validation.systest.ts
+- [ ] tests/system/freeze-validation.systest.ts
+- [ ] tests/system/filesystem-mcp-protection.systest.ts
+- [ ] tests/system/complete-queue-workflow.systest.ts
+- [ ] tests/system/artifact-validation-demo.systest.ts
+- [ ] tests/system/artifact-pattern-detection.systest.ts
+- [ ] features/step_definitions/filesystem-mcp-steps.ts
+- [ ] children/setup/SetupManager.ts
+- [ ] tests/system/e2e/filesystem-mcp-integration.systest.ts
+- [ ] tests/system/scenarios/task-queue-scenarios.systest.ts
+- [ ] tests/system/scenarios/name-id-scenarios.systest.ts
+- [ ] tests/system/scenarios/file-structure-scenarios.systest.ts
+
+## Recommendations
+
+1. **Priority**: Focus on themes with coverage below 80%
+2. **Critical Files**: Add tests for core functionality first
+3. **Integration Tests**: Ensure cross-module interactions are tested
+4. **CI/CD**: Run coverage checks in continuous integration

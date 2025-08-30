@@ -14,7 +14,7 @@ bunx ts-node scripts/migrate-to-strict.ts /path/to/project --dry-run --verbose
 bunx ts-node scripts/migrate-to-strict.ts /path/to/project --verbose
 
 # Check for errors
-npm run typecheck
+bun run typecheck
 ```
 
 ## Migration Strategy
@@ -175,7 +175,7 @@ class Service {
 cp tsconfig.json tsconfig.json.backup
 
 # Install dependencies
-npm install --save-dev \
+bun install --save-dev \
   @typescript-eslint/parser \
   @typescript-eslint/eslint-plugin \
   eslint \
@@ -196,17 +196,17 @@ bunx ts-node scripts/migrate-to-strict.ts . --verbose
 
 1. **Fix implicit any errors first**
    ```bash
-   npm run typecheck 2>&1 | grep "implicit 'any'"
+   bun run typecheck 2>&1 | grep "implicit 'any'"
    ```
 
 2. **Fix null/undefined errors**
    ```bash
-   npm run typecheck 2>&1 | grep "possibly 'null'"
+   bun run typecheck 2>&1 | grep "possibly 'null'"
    ```
 
 3. **Fix unused variables**
    ```bash
-   npm run typecheck 2>&1 | grep "never used"
+   bun run typecheck 2>&1 | grep "never used"
    ```
 
 ### Step 4: Enable Additional Checks
@@ -319,7 +319,7 @@ rm -rf dist
 rm tsconfig.tsbuildinfo
 
 # Reinstall dependencies
-npm ci
+bun install --frozen-lockfile
 ```
 
 ### Error: Type instantiation is excessively deep
@@ -366,9 +366,9 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-      - run: npm ci
-      - run: npm run typecheck
-      - run: npm run lint
+      - run: bun install --frozen-lockfile
+      - run: bun run typecheck
+      - run: bun run lint
 ```
 
 ### Pre-commit Hook
@@ -377,8 +377,8 @@ jobs:
 #!/bin/sh
 # .husky/pre-commit
 
-npm run typecheck || exit 1
-npm run lint || exit 1
+bun run typecheck || exit 1
+bun run lint || exit 1
 ```
 
 ## Gradual Adoption
@@ -418,11 +418,11 @@ Track your progress:
 
 ```bash
 # Count remaining errors
-npm run typecheck 2>&1 | wc -l
+bun run typecheck 2>&1 | wc -l
 
 # Track by category
-npm run typecheck 2>&1 | grep -c "implicit 'any'"
-npm run typecheck 2>&1 | grep -c "possibly 'null'"
+bun run typecheck 2>&1 | grep -c "implicit 'any'"
+bun run typecheck 2>&1 | grep -c "possibly 'null'"
 
 # Generate report
 bunx ts-node scripts/migrate-to-strict.ts . --dry-run > migration-progress.txt

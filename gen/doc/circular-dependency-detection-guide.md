@@ -31,7 +31,7 @@ cd layer/themes/research/user-stories/circular-dependency-detection
 ./scripts/install-tools.sh
 
 # Or install individually
-npm install -g madge dependency-cruiser circular-dependency-scanner
+bun install -g madge dependency-cruiser circular-dependency-scanner
 pip install pylint pycycle circular-imports
 # C++ tools require compilation or package manager installation
 ```
@@ -219,7 +219,7 @@ jobs:
       
       - name: Install Dependencies
         run: |
-          npm install -g madge dependency-cruiser
+          bun install -g madge dependency-cruiser
           pip install pylint pycycle
       
       - name: Check TypeScript Dependencies

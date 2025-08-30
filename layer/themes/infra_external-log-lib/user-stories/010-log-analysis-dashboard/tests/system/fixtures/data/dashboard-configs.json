@@ -1,0 +1,41 @@
+[
+  {
+    "id": "test-config-1",
+    "name": "Test Production Dashboard",
+    "filters": {
+      "levels": [
+        "error",
+        "warn"
+      ],
+      "sources": [
+        "api-server",
+        "database"
+      ],
+      "timeRange": {
+        "start": "2025-08-26T23:32:44.043Z",
+        "end": "2025-08-27T23:32:44.043Z"
+      }
+    },
+    "refreshInterval": 5000,
+    "maxEntries": 1000
+  },
+  {
+    "id": "test-config-2",
+    "name": "Test Debug Dashboard",
+    "filters": {
+      "levels": [
+        "debug",
+        "info"
+      ],
+      "sources": [
+        "ui-components"
+      ],
+      "timeRange": {
+        "start": "2025-08-27T22:32:44.043Z",
+        "end": "2025-08-27T23:32:44.043Z"
+      }
+    },
+    "refreshInterval": 2000,
+    "maxEntries": 500
+  }
+]

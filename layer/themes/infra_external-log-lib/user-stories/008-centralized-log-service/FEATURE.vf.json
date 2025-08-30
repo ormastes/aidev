@@ -1,0 +1,306 @@
+{
+  "metadata": {
+    "level": "user_story",
+    "path": "/layer/themes/infra_external-log-lib/user-stories/008-centralized-log-service/FEATURE.vf.json",
+    "version": "1.0.0",
+    "created_at": "2025-08-27T22:30:00.000Z",
+    "updated_at": "2025-08-27T22:30:00.000Z"
+  },
+  "features": {
+    "centralized_log_service": [
+      {
+        "id": "centralized-log-service-001",
+        "name": "Unified Log Aggregation Service",
+        "data": {
+          "title": "Centralized Log Aggregation Service",
+          "description": "A comprehensive service that unifies all existing logging infrastructure into a single, centralized API for log collection, processing, querying, and real-time streaming",
+          "level": "user_story",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "logging",
+            "aggregation",
+            "centralized-service",
+            "real-time-streaming",
+            "api",
+            "infrastructure"
+          ],
+          "requirements": [
+            "Integrate with existing LogAggregator from user-stories/006-multi-process-aggregation",
+            "Use ComprehensiveLogger and EventLogger from src/loggers/",
+            "Provide unified interface for log addition, querying, and streaming",
+            "Support real-time log streaming with configurable filters",
+            "Implement REST API for external integration",
+            "Follow HEA pattern with pipe-based communication",
+            "Use Mock Free TDD approach with 90% test coverage",
+            "Support multi-theme log collection and filtering",
+            "Provide export functionality in multiple formats",
+            "Include comprehensive health monitoring"
+          ],
+          "implementation": {
+            "layers": [
+              {
+                "name": "domain",
+                "description": "Core business logic and service orchestration",
+                "components": [
+                  "CentralizedLogService - Main service class",
+                  "Interfaces - Domain types and contracts"
+                ]
+              },
+              {
+                "name": "application", 
+                "description": "Service API layer with validation and formatting",
+                "components": [
+                  "LogServiceAPI - Application service wrapper",
+                  "Request/Response interfaces and validation"
+                ]
+              },
+              {
+                "name": "external",
+                "description": "HTTP adapter and external integrations",
+                "components": [
+                  "LogServiceHTTPAdapter - REST API implementation",
+                  "WebSocket and SSE streaming support"
+                ]
+              },
+              {
+                "name": "pipe",
+                "description": "HEA gateway for cross-layer communication",
+                "components": [
+                  "Public API exports and type definitions"
+                ]
+              }
+            ],
+            "integrations": [
+              {
+                "component": "LogAggregator",
+                "source": "../006-multi-process-aggregation/src/internal/log-aggregator",
+                "purpose": "Multi-process log aggregation"
+              },
+              {
+                "component": "ComprehensiveLogger",
+                "source": "../../../src/loggers/ComprehensiveLogger",
+                "purpose": "System event logging"
+              },
+              {
+                "component": "EventLogger",
+                "source": "../../../src/loggers/EventLogger", 
+                "purpose": "Application event tracking"
+              }
+            ]
+          },
+          "api_endpoints": [
+            {
+              "method": "POST",
+              "path": "/api/v1/logs",
+              "description": "Add single or batch logs"
+            },
+            {
+              "method": "GET", 
+              "path": "/api/v1/logs",
+              "description": "Query logs with filters"
+            },
+            {
+              "method": "GET",
+              "path": "/api/v1/logs/stats",
+              "description": "Get aggregation statistics"
+            },
+            {
+              "method": "GET",
+              "path": "/api/v1/health",
+              "description": "Service health check"
+            },
+            {
+              "method": "POST",
+              "path": "/api/v1/logs/export",
+              "description": "Export logs in various formats"
+            },
+            {
+              "method": "POST",
+              "path": "/api/v1/logs/stream/start",
+              "description": "Start real-time streaming"
+            },
+            {
+              "method": "DELETE",
+              "path": "/api/v1/logs/stream/:id",
+              "description": "Stop streaming subscription"
+            }
+          ]
+        },
+        "createdAt": "2025-08-27T22:30:00.000Z",
+        "updatedAt": "2025-08-27T22:30:00.000Z"
+      },
+      {
+        "id": "log-service-real-time-streaming-002", 
+        "name": "Real-Time Log Streaming",
+        "data": {
+          "title": "Real-Time Log Streaming with Subscriptions",
+          "description": "Provides real-time log streaming capabilities with WebSocket and Server-Sent Events support, allowing multiple subscribers with different filter criteria",
+          "level": "feature",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "real-time",
+            "streaming",
+            "websocket",
+            "sse",
+            "subscriptions",
+            "filtering"
+          ],
+          "requirements": [
+            "WebSocket streaming endpoint at /api/v1/logs/ws",
+            "Server-Sent Events endpoint at /api/v1/logs/events",
+            "Multiple concurrent subscribers support",
+            "Per-subscriber filtering capabilities",
+            "Automatic subscription cleanup on disconnect",
+            "Configurable buffer size and flush intervals",
+            "Error handling for failed subscriptions"
+          ]
+        },
+        "createdAt": "2025-08-27T22:30:00.000Z",
+        "updatedAt": "2025-08-27T22:30:00.000Z"
+      },
+      {
+        "id": "log-service-multi-format-export-003",
+        "name": "Multi-Format Log Export",
+        "data": {
+          "title": "Log Export in Multiple Formats", 
+          "description": "Comprehensive log export functionality supporting JSON, CSV, XML formats with optional compression and custom filtering",
+          "level": "feature",
+          "status": "implemented",
+          "priority": "medium",
+          "tags": [
+            "export",
+            "formats",
+            "json",
+            "csv", 
+            "xml",
+            "compression",
+            "filtering"
+          ],
+          "requirements": [
+            "JSON export with pretty printing",
+            "CSV export with configurable headers",
+            "XML export with proper escaping",
+            "Optional gzip/zip compression",
+            "Custom filtering for export data",
+            "Proper Content-Disposition headers",
+            "Large dataset handling with streaming"
+          ]
+        },
+        "createdAt": "2025-08-27T22:30:00.000Z",
+        "updatedAt": "2025-08-27T22:30:00.000Z"
+      },
+      {
+        "id": "log-service-cross-theme-integration-004",
+        "name": "Cross-Theme Log Integration",
+        "data": {
+          "title": "Cross-Theme Log Collection and Filtering",
+          "description": "Enables log collection from multiple themes across the platform with theme-aware filtering and metadata tracking",
+          "level": "feature", 
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "cross-theme",
+            "integration",
+            "metadata",
+            "filtering",
+            "platform-wide"
+          ],
+          "requirements": [
+            "Accept logs from any theme in the platform",
+            "Track theme and user story metadata",
+            "Filter logs by theme and user story",
+            "Maintain process-based organization",
+            "Support theme-specific log formats",
+            "Provide theme-level aggregation statistics"
+          ]
+        },
+        "createdAt": "2025-08-27T22:30:00.000Z",
+        "updatedAt": "2025-08-27T22:30:00.000Z"
+      },
+      {
+        "id": "log-service-performance-optimization-005",
+        "name": "High-Performance Log Processing",
+        "data": {
+          "title": "Optimized High-Volume Log Processing",
+          "description": "Performance-optimized log processing capable of handling 1000+ logs efficiently with concurrent operations and memory optimization",
+          "level": "feature",
+          "status": "implemented", 
+          "priority": "high",
+          "tags": [
+            "performance",
+            "high-volume",
+            "concurrency",
+            "optimization",
+            "scalability"
+          ],
+          "requirements": [
+            "Handle 1000+ logs per batch efficiently",
+            "Support concurrent log addition operations", 
+            "Optimize memory usage for large datasets",
+            "Fast query performance with complex filters",
+            "Efficient pagination for large result sets",
+            "Background processing for non-critical operations"
+          ],
+          "performance_targets": {
+            "batch_processing": "1000 logs in under 5 seconds",
+            "query_response": "Complex queries in under 1 second",
+            "concurrent_operations": "50+ simultaneous operations", 
+            "memory_efficiency": "~1KB per cached log entry"
+          }
+        },
+        "createdAt": "2025-08-27T22:30:00.000Z",
+        "updatedAt": "2025-08-27T22:30:00.000Z"
+      },
+      {
+        "id": "log-service-comprehensive-testing-006",
+        "name": "Comprehensive Test Suite",
+        "data": {
+          "title": "Mock Free TDD Test Implementation", 
+          "description": "Complete test suite following Mock Free Test Oriented Development with unit, integration, and system tests achieving 90%+ coverage",
+          "level": "feature",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "testing",
+            "mock-free-tdd", 
+            "coverage",
+            "unit-tests",
+            "integration-tests",
+            "system-tests"
+          ],
+          "requirements": [
+            "Unit tests for all domain components",
+            "Integration tests with real dependencies",
+            "System tests for end-to-end workflows",
+            "Performance tests for scalability validation",
+            "Error handling and edge case testing",
+            "90%+ test coverage requirement",
+            "Mock Free approach with real components"
+          ],
+          "test_categories": [
+            {
+              "type": "unit",
+              "coverage": "Individual components with mocked dependencies",
+              "files": ["centralized-log-service.test.ts"]
+            },
+            {
+              "type": "integration", 
+              "coverage": "Cross-component integration with real dependencies",
+              "files": ["service-integration.itest.ts"]
+            },
+            {
+              "type": "system",
+              "coverage": "End-to-end workflows and API testing", 
+              "files": ["centralized-log-service.stest.ts"]
+            }
+          ]
+        },
+        "createdAt": "2025-08-27T22:30:00.000Z", 
+        "updatedAt": "2025-08-27T22:30:00.000Z"
+      }
+    ]
+  },
+  "children": []
+}

@@ -70,7 +70,7 @@ JWT_ACCESS_SECRET="secure-key" bun src/server.ts
 ### With Node.js (Fallback)
 ```bash
 cd release/gui-selector-portal
-JWT_ACCESS_SECRET="secure-key" npm start
+JWT_ACCESS_SECRET="secure-key" bun start
 ```
 
 ## API Endpoints

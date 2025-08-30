@@ -94,9 +94,9 @@ Successfully implemented a comprehensive circular dependency detection system fo
 
 ### Quick Start
 ```bash
-npm install circular-dependency-detection
-npm run install-tools  # Install external dependencies
-npm run build
+bun install circular-dependency-detection
+bun run install-tools  # Install external dependencies
+bun run build
 ```
 
 ### Basic Usage

@@ -19,7 +19,7 @@ Successfully implemented comprehensive security fixes for all 15 identified vuln
 - **Files Modified**:
   - `src/server.ts` - Removed default admin creation
   - `scripts/setup-admin.ts` - Created secure admin setup script
-  - `package.json` - Added `npm run setup:admin` command
+  - `package.json` - Added `bun run setup:admin` command
 
 ### 3-5. ✅ Security Headers (High)
 - **Issues**: Missing X-Content-Type-Options, X-Frame-Options, CSP
@@ -126,13 +126,13 @@ Successfully implemented comprehensive security fixes for all 15 identified vuln
 ### 1. Setup Admin User
 ```bash
 cd release/gui-selector-portal
-npm run setup:admin
+bun run setup:admin
 ```
 
 ### 2. Start Server with Security
 ```bash
-npm run build
-npm start
+bun run build
+bun start
 ```
 
 ### 3. Verify Security Headers

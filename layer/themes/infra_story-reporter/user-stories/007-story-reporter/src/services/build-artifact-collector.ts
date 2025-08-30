@@ -1,5 +1,5 @@
 import { EventEmitter } from 'node:events';
-import { fsPromises as fs } from 'fs/promises';
+import { promises as fs } from 'fs';
 import { join, dirname, basename, extname } from 'node:path';
 import { createReadStream, createWriteStream } from '../../layer/themes/infra_external-log-lib/src';
 import { pipeline } from 'stream/promises';
@@ -242,7 +242,7 @@ export class BuildArtifactCollector extends EventEmitter {
       const compressedPath = `${logPath}.gz`;
       await this.compressFile(Buffer.from(logContent), compressedPath);
       
-      const stats = await /* FRAUD_FIX: /* FRAUD_FIX: fs.stat(compressedPath) */ */;
+      const stats = await fs.stat(compressedPath);
       return {
         name: `${logFileName}.gz`,
         path: compressedPath,
@@ -280,7 +280,7 @@ export class BuildArtifactCollector extends EventEmitter {
         const compressedPath = `${destPath}.gz`;
         await this.compressFileFromPath(sourcePath, compressedPath);
         
-        const stats = await /* FRAUD_FIX: /* FRAUD_FIX: fs.stat(compressedPath) */ */;
+        const stats = await fs.stat(compressedPath);
         return {
           name: `${fileName}.gz`,
           path: compressedPath,

@@ -1,12 +1,11 @@
-import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from '@jest/globals';
 import { spawn, ChildProcess } from 'child_process';
 import { chromium, Browser, Page, BrowserContext } from "playwright";
-import { path } from '../../../../../infra_external-log-lib/src';
+import * as path from 'path';
 import * as fs from 'fs/promises';
-import { EventEmitter } from 'node:events';
+import { test, expect } from '@playwright/test';
 
 // Integration system tests using Playwright browser automation
-describe('Coordinator Integration System Tests', () => {
+test.describe('Coordinator Integration System Tests', () => {
   let testDir: string;
   let browser: Browser;
   let context: BrowserContext;
@@ -14,7 +13,7 @@ describe('Coordinator Integration System Tests', () => {
   let webServerProcess: ChildProcess | null = null;
   let baseUrl: string;
 
-  beforeAll(async () => {
+  test.beforeAll(async () => {
     // Create test directory structure
     testDir = path.join(process.cwd(), '.integration-test-' + Date.now());
     await fs.mkdir(testDir, { recursive: true });
@@ -58,8 +57,8 @@ describe('Coordinator Integration System Tests', () => {
         .workflow-step { background: #e9ecef; padding: 8px; margin: 5px 0; border-radius: 3px; }
         .message-bubble { background: #007cba; color: white; padding: 10px; border-radius: 15px; margin: 5px 0; max-width: 70%; }
         .message-bubble.received { background: #e9ecef; color: #333; }
-        .progress-indicator { width: Improving; height: 6px; background: #e9ecef; border-radius: 3px; margin: 10px 0; }
-        .progress-fill { height: Improving; background: #007cba; border-radius: 3px; transition: width 0.3s; }
+        .progress-indicator { width: 100%; height: 6px; background: #e9ecef; border-radius: 3px; margin: 10px 0; }
+        .progress-fill { height: 100%; background: #007cba; border-radius: 3px; transition: width 0.3s; }
     </style>
 </head>
 <body>
@@ -121,8 +120,8 @@ describe('Coordinator Integration System Tests', () => {
         <div id="coordination-flow">
             <h3>Coordination Flow</h3>
             <div id="coordination-steps"></div>
-            <button id="simulate-chat-to-workflow" class="button In Progress">Simulate: Chat → Task → Workflow</button>
-            <button id="simulate-agent-collaboration" class="button In Progress">Simulate: Multi-Agent Collaboration</button>
+            <button id="simulate-chat-to-workflow" class="button success">Simulate: Chat → Task → Workflow</button>
+            <button id="simulate-agent-collaboration" class="button success">Simulate: Multi-Agent Collaboration</button>
         </div>
     </div>
     
@@ -130,7 +129,7 @@ describe('Coordinator Integration System Tests', () => {
         <h2>Error Handling & Recovery</h2>
         <div id="error-log" class="log"></div>
         <button id="simulate-connection-failure" class="button danger">Simulate Connection Failure</button>
-        <button id="simulate-recovery" class="button In Progress">Simulate Recovery</button>
+        <button id="simulate-recovery" class="button success">Simulate Recovery</button>
         <button id="test-graceful-degradation" class="button secondary">Test Graceful Degradation</button>
         <div id="recovery-status"></div>
     </div>
@@ -337,7 +336,7 @@ describe('Coordinator Integration System Tests', () => {
                 if (progress >= 100) {
                     clearInterval(progressInterval);
                     log('workflow-status', 'Workflow success: ' + workflowId);
-                    addCoordinationStep('4. Workflow ' + workflowId + ' In Progress In Progress');
+                    addCoordinationStep('4. Workflow ' + workflowId + ' completed successfully');
                 }
             }, 300);
         });
@@ -412,7 +411,7 @@ describe('Coordinator Integration System Tests', () => {
             addChatMessage('Deployment workflow triggered for v1.5.0', "coordinator");
             addCoordinationStep('4. Status update sent back to chat room');
             
-            addCoordinationStep('=== SIMULATION In Progress ===');
+            addCoordinationStep('=== SIMULATION COMPLETE ===');
         });
         
         document.getElementById('simulate-agent-collaboration').addEventListener('click', async () => {
@@ -435,10 +434,10 @@ describe('Coordinator Integration System Tests', () => {
             await new Promise(resolve => setTimeout(resolve, 500));
             
             addCoordinationStep('4. Coordinator aggregates and responds');
-            addChatMessage('Current status: 2 workflows running, 1 In Progress today', "coordinator");
+            addChatMessage('Current status: 2 workflows running, 1 completed today', "coordinator");
             await new Promise(resolve => setTimeout(resolve, 500));
             
-            addCoordinationStep('=== SIMULATION In Progress ===');
+            addCoordinationStep('=== SIMULATION COMPLETE ===');
         });
         
         // Error Handling & Recovery
@@ -468,7 +467,7 @@ describe('Coordinator Integration System Tests', () => {
                 updateStatus("chatSpace", true);
                 log('error-log', 'RECOVERY: Chat-Space connection restored');
                 document.getElementById('recovery-status').innerHTML = 
-                    '<div class="status connected">All systems recovered In Progress</div>';
+                    '<div class="status connected">All systems recovered successfully</div>';
             }, 2000);
         });
         
@@ -482,7 +481,7 @@ describe('Coordinator Integration System Tests', () => {
             
             // Test core functionality
             addChatMessage('System status: Operating with limited workflow capability', "coordinator");
-            log('error-log', 'Graceful degradation test: In Progress');
+            log('error-log', 'Graceful degradation test: Passed');
         });
         
         // Performance Testing
@@ -511,7 +510,7 @@ describe('Coordinator Integration System Tests', () => {
             const endTime = Date.now();
             const totalTime = endTime - startTime;
             
-            log('performance-metrics', 'Performance test In Progress in ' + totalTime + 'ms');
+            log('performance-metrics', 'Performance test completed in ' + totalTime + 'ms');
             document.getElementById('performance-summary').innerHTML = 
                 '<div class="status connected">Performance: All systems operating within normal parameters</div>';
         });
@@ -529,9 +528,9 @@ describe('Coordinator Integration System Tests', () => {
             
             // Test recovery
             setTimeout(() => {
-                log('performance-metrics', 'Stress test In Progress - System UPDATING');
+                log('performance-metrics', 'Stress test completed - System stable');
                 document.getElementById('performance-summary').innerHTML = 
-                    '<div class="status connected">Stress Test: In Progress - System handles high load gracefully</div>';
+                    '<div class="status connected">Stress Test: Passed - System handles high load gracefully</div>';
             }, 1500);
         });
         
@@ -695,7 +694,7 @@ describe('Coordinator Integration System Tests', () => {
       
       webServerProcess?.stdout?.on('data', (data) => {
         if (data.toString().includes('started on port 3003')) {
-          setTimeout(Working on, 1000);
+          setTimeout(resolve, 1000);
         }
       });
       
@@ -709,11 +708,11 @@ describe('Coordinator Integration System Tests', () => {
         }
       });
       
-      setTimeout(callback, 5000);
+      setTimeout(resolve, 5000);
     });
   }
 
-  afterAll(async () => {
+  test.afterAll(async () => {
     // Stop processes
     if (webServerProcess) {
       webServerProcess.kill('SIGINT');
@@ -732,7 +731,7 @@ describe('Coordinator Integration System Tests', () => {
     }
   });
 
-  beforeEach(async () => {
+  test.beforeEach(async () => {
     // Navigate to test interface
     await page.goto(baseUrl);
     
@@ -740,7 +739,7 @@ describe('Coordinator Integration System Tests', () => {
     await page.waitForSelector('#connect-all');
   });
 
-  afterEach(async () => {
+  test.afterEach(async () => {
     // Reset state for next test
     try {
       await page.click('#disconnect-all');
@@ -750,8 +749,8 @@ describe('Coordinator Integration System Tests', () => {
     }
   });
 
-  describe('Chat-Space Integration through UI', () => {
-    it('should connect to chat-space and join rooms', async () => {
+  test.describe('Chat-Space Integration through UI', () => {
+    test('should connect to chat-space and join rooms', async () => {
       // Given: The system is in a valid state
       // When: connect to chat-space and join rooms
       // Then: The expected behavior occurs
@@ -773,7 +772,7 @@ describe('Coordinator Integration System Tests', () => {
       await expect(chatMessages).toContainText('Joined integration-room');
     });
 
-    it('should broadcast coordinator status to chat-space', async () => {
+    test('should broadcast coordinator status to chat-space', async () => {
       // Given: The system is in a valid state
       // When: broadcast coordinator status to chat-space
       // Then: The expected behavior occurs
@@ -792,7 +791,7 @@ describe('Coordinator Integration System Tests', () => {
       await expect(chatMessages).toContainText('Workflows: 2');
     });
 
-    it('should coordinate tasks through chat messages', async () => {
+    test('should coordinate tasks through chat messages', async () => {
       // Given: The system is in a valid state
       // When: coordinate tasks through chat messages
       // Then: The expected behavior occurs
@@ -817,8 +816,8 @@ describe('Coordinator Integration System Tests', () => {
     });
   });
 
-  describe('PocketFlow Integration through UI', () => {
-    it('should connect to pocketflow and register actions', async () => {
+  test.describe('PocketFlow Integration through UI', () => {
+    test('should connect to pocketflow and register actions', async () => {
       // Given: The system is in a valid state
       // When: connect to pocketflow and register actions
       // Then: The expected behavior occurs
@@ -839,7 +838,7 @@ describe('Coordinator Integration System Tests', () => {
       await expect(workflowStatus).toContainText('Custom action registered');
     });
 
-    it('should trigger workflows based on task events', async () => {
+    test('should trigger workflows based on task events', async () => {
       // Given: The system is in a valid state
       // When: trigger workflows based on task events
       // Then: The expected behavior occurs
@@ -867,7 +866,7 @@ describe('Coordinator Integration System Tests', () => {
       await expect(page.locator('#workflow-status')).toContainText('Workflow In Progress');
     });
 
-    it('should handle workflow results and update tasks', async () => {
+    test('should handle workflow results and update tasks', async () => {
       // Given: The system is in a valid state
       // When: handle workflow results and update tasks
       // Then: The expected behavior occurs
@@ -890,8 +889,8 @@ describe('Coordinator Integration System Tests', () => {
     });
   });
 
-  describe('Cross-Theme Communication through UI', () => {
-    it('should coordinate between chat-space and pocketflow', async () => {
+  test.describe('Cross-Theme Communication through UI', () => {
+    test('should coordinate between chat-space and pocketflow', async () => {
       // Given: The system is in a valid state
       // When: coordinate between chat-space and pocketflow
       // Then: The expected behavior occurs
@@ -921,7 +920,7 @@ describe('Coordinator Integration System Tests', () => {
       await expect(coordinationSteps).toContainText('Status update sent back to chat room');
     });
 
-    it('should handle agent collaboration across themes', async () => {
+    test('should handle agent collaboration across themes', async () => {
       // Given: The system is in a valid state
       // When: handle agent collaboration across themes
       // Then: The expected behavior occurs
@@ -951,8 +950,8 @@ describe('Coordinator Integration System Tests', () => {
     });
   });
 
-  describe('Error Handling and Recovery through UI', () => {
-    it('should handle theme connection failures gracefully', async () => {
+  test.describe('Error Handling and Recovery through UI', () => {
+    test('should handle theme connection failures gracefully', async () => {
       // Given: The system is in a valid state
       // When: handle theme connection failures gracefully
       // Then: The expected behavior occurs
@@ -978,7 +977,7 @@ describe('Coordinator Integration System Tests', () => {
       await expect(coordinatorStatus).toHaveClass(/connected/);
     });
 
-    it('should recover from temporary theme disconnections', async () => {
+    test('should recover from temporary theme disconnections', async () => {
       // Given: The system is in a valid state
       // When: recover from temporary theme disconnections
       // Then: The expected behavior occurs
@@ -996,10 +995,10 @@ describe('Coordinator Integration System Tests', () => {
       await expect(errorLog).toContainText('Chat-Space connection restored');
       
       const recoveryStatus = await page.locator('#recovery-status');
-      await expect(recoveryStatus).toContainText('All systems recovered In Progress');
+      await expect(recoveryStatus).toContainText('All systems recovered successfully');
     });
 
-    it('should test graceful degradation', async () => {
+    test('should test graceful degradation', async () => {
       // Given: The system is in a valid state
       // When: test graceful degradation
       // Then: The expected behavior occurs
@@ -1015,12 +1014,12 @@ describe('Coordinator Integration System Tests', () => {
       const errorLog = await page.locator('#error-log');
       await expect(errorLog).toContainText('PocketFlow offline - Workflow features disabled');
       await expect(errorLog).toContainText('Chat and core coordination still functional');
-      await expect(errorLog).toContainText('Graceful degradation test: In Progress');
+      await expect(errorLog).toContainText('Graceful degradation test: Passed');
     });
   });
 
-  describe('Performance with Multiple Integrations through UI', () => {
-    it('should maintain performance with all integrations active', async () => {
+  test.describe('Performance with Multiple Integrations through UI', () => {
+    test('should maintain performance with all integrations active', async () => {
       // Given: The system is in a valid state
       // When: maintain performance with all integrations active
       // Then: The expected behavior occurs
@@ -1036,14 +1035,14 @@ describe('Coordinator Integration System Tests', () => {
       const performanceMetrics = await page.locator('#performance-metrics');
       await expect(performanceMetrics).toContainText('Chat-Space latency');
       await expect(performanceMetrics).toContainText('PocketFlow latency');
-      await expect(performanceMetrics).toContainText('Performance test In Progress');
+      await expect(performanceMetrics).toContainText('Performance test completed');
       
       // Verify performance summary
       const performanceSummary = await page.locator('#performance-summary');
       await expect(performanceSummary).toContainText('All systems operating within normal parameters');
     });
 
-    it('should handle stress testing of integrations', async () => {
+    test('should handle stress testing of integrations', async () => {
       // Given: The system is in a valid state
       // When: handle stress testing of integrations
       // Then: The expected behavior occurs
@@ -1057,19 +1056,19 @@ describe('Coordinator Integration System Tests', () => {
       
       // Verify stress test results
       const performanceMetrics = await page.locator('#performance-metrics');
-      await expect(performanceMetrics).toContainText('Stress test In Progress');
+      await expect(performanceMetrics).toContainText('Stress test completed');
       await expect(performanceMetrics).toContainText('System UPDATING');
       
       const performanceSummary = await page.locator('#performance-summary');
-      await expect(performanceSummary).toContainText('Stress Test: In Progress');
+      await expect(performanceSummary).toContainText('Stress Test: Passed');
       await expect(performanceSummary).toContainText('System handles high load gracefully');
     });
   });
 
-  describe('🚨 Story: Integration Workflow Tests', () => {
-    it('should handle In Progress integration workflow', async () => {
+  test.describe('🚨 Story: Integration Workflow Tests', () => {
+    test('should handle complete integration workflow', async () => {
       // Given: The system is in a valid state
-      // When: handle In Progress integration workflow
+      // When: handle complete integration workflow
       // Then: The expected behavior occurs
       // Connect all systems
       await page.click('#connect-all');
@@ -1088,7 +1087,7 @@ describe('Coordinator Integration System Tests', () => {
       await expect(performanceMetrics).toContainText('ALL SYSTEMS OPERATIONAL');
       
       // Send chat message
-      await page.fill('#chat-input', 'Integration test In Progress');
+      await page.fill('#chat-input', 'Integration test message');
       await page.click('#send-chat');
       
       // Trigger workflow
@@ -1100,9 +1099,9 @@ describe('Coordinator Integration System Tests', () => {
       
       // Verify integration In Progress
       const chatMessages = await page.locator('#chat-messages');
-      await expect(chatMessages).toContainText('Integration test In Progress');
+      await expect(chatMessages).toContainText('Integration test message');
       
-      await expect(page.locator('#workflow-status')).toContainText("completed");
+      await expect(page.locator('#workflow-status')).toContainText('completed');
     });
   });
 });

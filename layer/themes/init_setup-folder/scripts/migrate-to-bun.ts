@@ -153,7 +153,7 @@ class BunMigrator {
 
 [install]
 # Use the local node_modules folder
-globalDir = "~/.bun/install/global"
+globalDir = "${process.env.HOME}/.bun/install/global"
 # Install peer dependencies automatically
 peer = true
 # Production mode - skip devDependencies in production
@@ -167,7 +167,7 @@ print = "yarn"
 
 [install.cache]
 # Use a shared global cache
-dir = "~/.bun/install/cache"
+dir = "${process.env.HOME}/.bun/install/cache"
 # Disable cache for CI
 disable = false
 

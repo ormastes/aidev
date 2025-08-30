@@ -117,7 +117,7 @@ python3 research/explorer/scripts/explore-aidev-platform.py
 ```bash
 # Start the component first
 cd release/gui-selector-portal
-npm start
+bun start
 
 # Then run Explorer
 python3 research/explorer/scripts/explore-aidev-platform.py
@@ -173,10 +173,10 @@ Added to `TASK_QUEUE.vf.json`:
 1. **Start Web Components**:
    ```bash
    # GUI Selector
-   cd release/gui-selector-portal && npm start
+   cd release/gui-selector-portal && bun start
    
    # Monitoring Dashboard
-   cd monitoring && npm start
+   cd monitoring && bun start
    ```
 
 2. **Run Full Scan**:

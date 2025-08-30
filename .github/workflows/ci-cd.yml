@@ -34,35 +34,33 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v1
       with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
-        cache-dependency-path: layer/themes/${{ matrix.service }}/package-lock.json
+        bun-version: latest
 
     - name: Cache dependencies
       uses: actions/cache@v3
       with:
         path: |
-          ~/.npm
+          ~/.bun
           layer/themes/${{ matrix.service }}/node_modules
-        key: ${{ runner.os }}-node-${{ matrix.service }}-${{ hashFiles('layer/themes/${{ matrix.service }}/package-lock.json') }}
+        key: ${{ runner.os }}-bun-${{ matrix.service }}-${{ hashFiles('layer/themes/${{ matrix.service }}/bun.lockb') }}
         restore-keys: |
-          ${{ runner.os }}-node-${{ matrix.service }}-
+          ${{ runner.os }}-bun-${{ matrix.service }}-
 
     - name: Install dependencies
       working-directory: layer/themes/${{ matrix.service }}
-      run: npm ci
+      run: bun install --frozen-lockfile
 
     - name: Run linter
       working-directory: layer/themes/${{ matrix.service }}
-      run: npm run lint || true
+      run: bun run lint || true
       continue-on-error: true
 
     - name: Run tests
       working-directory: layer/themes/${{ matrix.service }}
-      run: npm test -- --coverage --passWithNoTests
+      run: bun test --coverage --passWithNoTests
       env:
         CI: true
 
@@ -76,7 +74,7 @@ jobs:
 
     - name: TypeScript check
       working-directory: layer/themes/${{ matrix.service }}
-      run: npx tsc --noEmit || true
+      run: bunx tsc --noEmit || true
       continue-on-error: true
 
   # Security Scanning
@@ -251,7 +249,7 @@ jobs:
 
     - name: Run integration tests
       run: |
-        npm run test:integration
+        bun run test:integration
       env:
         API_URL: https://staging-api.aidev-platform.com
         PORTAL_URL: https://staging-portal.aidev-platform.com

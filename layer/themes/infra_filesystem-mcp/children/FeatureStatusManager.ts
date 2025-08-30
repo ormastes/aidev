@@ -2,8 +2,8 @@ import { fileAPI } from '../utils/file-api';
 import { VFDistributedFeatureWrapper, DistributedFeature, DistributedFeatureFile } from './VFDistributedFeatureWrapper';
 import { StoryReportValidator, ValidationResult } from './StoryReportValidator';
 import { VFProtectedFileWrapper } from './VFProtectedFileWrapper';
-import { fsPromises as fs } from 'fs/promises';
-import { path } from '../../infra_external-log-lib/src';
+import { promises as fs } from 'fs';
+import * as path from 'path';
 
 export interface StatusChangeValidation {
   isValid: boolean;
@@ -347,7 +347,7 @@ export class FeatureStatusManager {
       for (const file of report.connectedFiles || []) {
         const filePath = path.join(this.basePath, file);
         try {
-          const stats = await /* FRAUD_FIX: /* FRAUD_FIX: fs.stat(filePath) */ */;
+          const stats = await fs.stat(filePath);
           if (stats.size === 0) {
             emptyFiles.push(file);
           }

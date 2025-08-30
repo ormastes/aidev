@@ -1,0 +1,84 @@
+{
+  "name": "@aidev/log-rotation-policy",
+  "version": "1.0.0",
+  "description": "Comprehensive log rotation policy implementation for AI Development Platform",
+  "main": "src/pipe/index.ts",
+  "scripts": {
+    "test": "jest",
+    "test:unit": "jest tests/unit",
+    "test:integration": "jest tests/integration",
+    "test:system": "jest tests/system",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:basic": "node test-basic.js",
+    "test:full-integration": "node test-integration.js",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "lint": "eslint src/**/*.ts tests/**/*.ts --ext .ts",
+    "clean": "rm -rf gen/dist coverage"
+  },
+  "keywords": [
+    "logging",
+    "rotation",
+    "policy",
+    "compression",
+    "archival",
+    "ai-development-platform",
+    "hea-architecture"
+  ],
+  "author": "AI Development Platform",
+  "license": "MIT",
+  "dependencies": {
+    "node:fs": "*",
+    "node:path": "*",
+    "node:os": "*",
+    "node:zlib": "*",
+    "node:crypto": "*",
+    "node:stream": "*"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.0.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "roots": ["<rootDir>/tests"],
+    "testMatch": [
+      "**/__tests__/**/*.ts",
+      "**/?(*.)+(spec|test).ts",
+      "**/?(*.)+(itest|stest).ts"
+    ],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!src/**/*.d.ts",
+      "!src/**/*.test.ts"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": ["text", "lcov", "html"],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    },
+    "testTimeout": 30000
+  },
+  "files": [
+    "src/",
+    "gen/dist/",
+    "README.md",
+    "FEATURE.vf.json"
+  ]
+}

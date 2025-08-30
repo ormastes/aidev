@@ -67,10 +67,10 @@ case $choice in
         # Check if n is installed
         if ! command -v n &> /dev/null; then
             echo -e "${YELLOW}n not found. Installing n first...${NC}"
-            if command -v npm &> /dev/null; then
-                npm install -g n
+            if command -v bun &> /dev/null; then
+                bun install -g n
             else
-                echo -e "${RED}npm not found. Please install npm first.${NC}"
+                echo -e "${RED}bun not found. Please install bun first.${NC}"
                 exit 1
             fi
         fi
@@ -199,7 +199,7 @@ if [[ "$NEW_VERSION" =~ ^v20\. ]]; then
     # Test Cucumber compatibility
     echo ""
     echo -e "${BLUE}Testing Cucumber compatibility...${NC}"
-    if npx cucumber-js --version &> /dev/null; then
+    if bunx cucumber-js --version &> /dev/null; then
         echo -e "${GREEN}✅ Cucumber is now compatible with Node.js $NEW_VERSION${NC}"
     else
         echo -e "${YELLOW}⚠️  Please run 'bun install' to reinstall dependencies${NC}"

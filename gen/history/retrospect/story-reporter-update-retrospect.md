@@ -78,19 +78,19 @@ To test the updated story reporter with the new features:
 
 ```bash
 # Generate reports in all formats (JSON, MD, HTML)
-npm run test:story-reporter -- --formats json,md,html
+bun run test:story-reporter -- --formats json,md,html
 
 # Test setup aggregator functionality
-npm run test:setup-aggregator
+bun run test:setup-aggregator
 
 # Validate pass criteria
-npm run test:pass-criteria
+bun run test:pass-criteria
 
 # Generate markdown report with coverage aggregation
-npm run story-report -- --format md --aggregate-coverage
+bun run story-report -- --format md --aggregate-coverage
 
 # Generate JSON report with setup folder metrics
-npm run story-report -- --format json --include-setup-metrics
+bun run story-report -- --format json --include-setup-metrics
 ```
 
 ## Technical Decisions

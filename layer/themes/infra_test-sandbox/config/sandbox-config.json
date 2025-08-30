@@ -1,0 +1,119 @@
+{
+  "defaultSandbox": "docker",
+  "autoDetect": true,
+  "dangerPatterns": {
+    "critical": [
+      "rm -rf /",
+      "sudo rm",
+      "chmod 777 /",
+      "dd if=.*of=/dev",
+      "mkfs",
+      "> /dev/sda"
+    ],
+    "high": [
+      "kill -9",
+      "pkill",
+      "exec(",
+      "system(",
+      "eval(",
+      "spawn(",
+      "fork("
+    ],
+    "medium": [
+      "process.exit",
+      "fs.unlink",
+      "fs.rmdir",
+      "child_process"
+    ],
+    "low": [
+      "fs.writeFile",
+      "fs.mkdir",
+      "process.env"
+    ]
+  },
+  "sandboxProfiles": {
+    "minimal": {
+      "type": "docker",
+      "image": "alpine:latest",
+      "limits": {
+        "memory": "128m",
+        "cpus": "0.25",
+        "timeout": 30000
+      },
+      "network": "none"
+    },
+    "standard": {
+      "type": "docker",
+      "image": "node:18-alpine",
+      "limits": {
+        "memory": "512m",
+        "cpus": "1",
+        "timeout": 120000
+      },
+      "network": "bridge"
+    },
+    "isolated": {
+      "type": "qemu",
+      "image": "alpine-qemu.qcow2",
+      "limits": {
+        "memory": "256m",
+        "cpus": "1",
+        "timeout": 180000
+      },
+      "network": "none"
+    },
+    "development": {
+      "type": "podman",
+      "image": "node:18",
+      "limits": {
+        "memory": "2g",
+        "cpus": "4",
+        "timeout": 300000
+      },
+      "network": "host"
+    }
+  },
+  "userStoryOverrides": {
+    "infra_external-log-lib/001-basic-log-capture": {
+      "profile": "standard",
+      "forcesSandbox": true
+    },
+    "infra_external-log-lib/004-real-time-streaming": {
+      "profile": "standard",
+      "forcesSandbox": true
+    },
+    "llm-agent_pocketflow/002-quick-automation-flows": {
+      "profile": "isolated",
+      "forcesSandbox": true
+    },
+    "llm-agent_coordinator-vllm/027-vllm-coordinator": {
+      "profile": "isolated",
+      "forcesSandbox": true
+    },
+    "infra_story-reporter/007-story-reporter": {
+      "profile": "standard",
+      "forcesSandbox": true
+    },
+    "portal_gui-selector/023-gui-selector-server": {
+      "profile": "development",
+      "forcesSandbox": false
+    }
+  },
+  "environments": {
+    "ci": {
+      "defaultProfile": "minimal",
+      "forceSandbox": true,
+      "parallel": 4
+    },
+    "local": {
+      "defaultProfile": "standard",
+      "forceSandbox": false,
+      "parallel": 1
+    },
+    "production": {
+      "defaultProfile": "isolated",
+      "forceSandbox": true,
+      "parallel": 2
+    }
+  }
+}

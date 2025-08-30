@@ -54,7 +54,7 @@ if [ -f "$BASIC_CHECKER" ]; then
     if command -v bun &> /dev/null; then
         bun "$BASIC_CHECKER" "$PROJECT_ROOT"
     elif command -v node &> /dev/null; then
-        npx ts-node "$BASIC_CHECKER" "$PROJECT_ROOT"
+        bunx ts-node "$BASIC_CHECKER" "$PROJECT_ROOT"
     else
         echo "❌ Error: Neither bun nor node is available"
         exit 1

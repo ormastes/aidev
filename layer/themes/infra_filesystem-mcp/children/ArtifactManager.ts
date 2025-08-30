@@ -228,7 +228,8 @@ export class ArtifactManager {
     // Generate artifact metadata
     const artifactId = this.generateArtifactId();
     const metadata: ArtifactMetadata = {
-      id: artifactId, { type: FileType.TEMPORARY }).toISOString(),
+      id: artifactId,
+      created_at: new Date().toISOString(),
       created_by: request.metadata?.created_by || 'system',
       purpose: request.metadata?.purpose || request.adhoc_reason || 'No purpose specified',
       state: 'draft',
@@ -418,7 +419,8 @@ describe('${baseName}', () => {
   /**
    * Create documentation stub files
    */
-  private async createDocStubs(artifactPath: string, { type: FileType.TEMPORARY }));
+  private async createDocStubs(artifactPath: string, docTypes: string[]) {
+    const baseName = path.basename(artifactPath);
     const artifactDir = path.dirname(artifactPath);
     
     for (const docType of docTypes) {
@@ -470,7 +472,16 @@ TODO: Add API documentation
    * Update artifact state
    */
   async updateArtifactState(
-    artifactId: string, { type: FileType.TEMPORARY });
+    artifactId: string, 
+    newState: 'draft' | 'reviewed' | 'approved' | 'deployed'
+  ): Promise<boolean> {
+    const artifact = this.artifactManifest.get(artifactId);
+    if (!artifact) {
+      return false;
+    }
+    
+    artifact.state = newState;
+    artifact.updated_at = new Date().toISOString();
     await this.saveArtifactManifest();
     
     return true;

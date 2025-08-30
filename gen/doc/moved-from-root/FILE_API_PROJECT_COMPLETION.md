@@ -196,12 +196,12 @@ TOTAL VALUE:     Immeasurable
 ### Your Cheat Sheet
 ```bash
 # Daily Commands
-npm run file-api:scan:prod    # Check compliance
-npm run file-api:fix          # Fix violations
+bun run file-api:scan:prod    # Check compliance
+bun run file-api:fix          # Fix violations
 open gen/doc/compliance-dashboard.html  # View dashboard
 
 # If Problems Arise
-npm run file-api:enforce      # Enforce strictly
+bun run file-api:enforce      # Enforce strictly
 node scripts/rollback-violations.js  # Rollback issues
 node scripts/file-api-health-check.js  # System health
 

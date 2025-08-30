@@ -208,7 +208,7 @@ export class MCPConnection extends EventEmitter {
     const request = MCPProtocol.createRequest(method, params);
     
     return new Promise((resolve, reject) => {
-      this.requestMap.set(request.id, { Working on, reject });
+      this.requestMap.set(request.id, { resolve, reject });
       
       const message = JSON.stringify(request) + '\n';
       

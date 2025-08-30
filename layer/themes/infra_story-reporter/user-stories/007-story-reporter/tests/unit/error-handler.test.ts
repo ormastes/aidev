@@ -1,5 +1,5 @@
 import { EventEmitter } from 'node:events';
-import { ErrorHandler } from '../../s../utils/error-handler';
+import { ErrorHandler } from '../../src/utils/error-handler';
 import { TestConfiguration } from '../../src/domain/test-configuration';
 
 describe("ErrorHandler", () => {

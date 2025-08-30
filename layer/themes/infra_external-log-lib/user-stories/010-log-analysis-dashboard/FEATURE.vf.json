@@ -1,0 +1,311 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-08-27T22:45:00.000Z",
+    "updated_at": "2025-08-27T22:45:00.000Z",
+    "feature_level": "user_story",
+    "epic": "infra",
+    "theme": "infra_external-log-lib",
+    "user_story": "010-log-analysis-dashboard"
+  },
+  "features": {
+    "f_dashboard_core": {
+      "id": "f_dashboard_core",
+      "name": "Core Dashboard Infrastructure",
+      "description": "Base dashboard infrastructure with HEA architecture and service integration",
+      "type": "infrastructure",
+      "status": "planned",
+      "priority": "critical",
+      "complexity": 8,
+      "business_value": 9,
+      "technical_risk": "medium",
+      "dependencies": ["f_log_service_integration"],
+      "acceptance_criteria": [
+        "HEA-compliant directory structure implemented",
+        "TypeScript configuration with strict typing",
+        "Integration with centralized log service established",
+        "Health monitoring endpoints functional",
+        "Basic REST API endpoints operational"
+      ],
+      "tasks": [
+        "Create domain interfaces and types",
+        "Implement dashboard service layer",
+        "Set up HTTP server with Express",
+        "Configure TypeScript compilation",
+        "Add health check endpoints"
+      ],
+      "testing_requirements": {
+        "unit_tests": ["Domain interfaces", "Service layer logic"],
+        "integration_tests": ["Log service integration", "HTTP endpoint validation"],
+        "system_tests": ["End-to-end dashboard initialization"]
+      }
+    },
+    "f_log_service_integration": {
+      "id": "f_log_service_integration",
+      "name": "Log Service Integration",
+      "description": "Integration with centralized log service and rotation policy",
+      "type": "integration",
+      "status": "planned",
+      "priority": "critical",
+      "complexity": 6,
+      "business_value": 10,
+      "technical_risk": "low",
+      "dependencies": [],
+      "acceptance_criteria": [
+        "Connection to centralized log service established",
+        "Log rotation policy integration functional",
+        "Real-time log streaming operational",
+        "Historical log querying working",
+        "Cross-theme log aggregation supported"
+      ],
+      "tasks": [
+        "Import and configure centralized log service",
+        "Implement log query service adapter",
+        "Create rotation policy integration",
+        "Set up real-time streaming connection",
+        "Add cross-theme log collection"
+      ],
+      "testing_requirements": {
+        "unit_tests": ["Service adapter logic", "Query formatting"],
+        "integration_tests": ["Log service communication", "Real-time streaming"],
+        "system_tests": ["End-to-end log retrieval", "Cross-service communication"]
+      }
+    },
+    "f_realtime_streaming": {
+      "id": "f_realtime_streaming",
+      "name": "Real-time Log Streaming",
+      "description": "WebSocket-based real-time log streaming with filtering and pagination",
+      "type": "feature",
+      "status": "planned",
+      "priority": "high",
+      "complexity": 7,
+      "business_value": 9,
+      "technical_risk": "medium",
+      "dependencies": ["f_log_service_integration"],
+      "acceptance_criteria": [
+        "WebSocket server configured and operational",
+        "Real-time log streaming with <100ms latency",
+        "Client-side streaming with auto-reconnection",
+        "Stream filtering and subscription management",
+        "Handles 1000+ logs per minute without performance degradation"
+      ],
+      "tasks": [
+        "Implement WebSocket server with Socket.IO",
+        "Create streaming subscription management",
+        "Add real-time filtering capabilities",
+        "Implement client-side reconnection logic",
+        "Add stream performance monitoring"
+      ],
+      "testing_requirements": {
+        "unit_tests": ["Subscription management", "Filter logic"],
+        "integration_tests": ["WebSocket communication", "Stream performance"],
+        "system_tests": ["Multi-client streaming", "High-volume log processing"]
+      }
+    },
+    "f_advanced_filtering": {
+      "id": "f_advanced_filtering",
+      "name": "Advanced Log Filtering",
+      "description": "Multi-dimensional filtering by level, source, theme, date range, and text search",
+      "type": "feature",
+      "status": "planned",
+      "priority": "high",
+      "complexity": 6,
+      "business_value": 8,
+      "technical_risk": "low",
+      "dependencies": ["f_log_service_integration"],
+      "acceptance_criteria": [
+        "Log level filtering (ERROR, WARN, INFO, DEBUG)",
+        "Source-based filtering with autocomplete",
+        "Theme filtering across all platform themes",
+        "Date range filtering with calendar picker",
+        "Full-text search with regex support",
+        "Combined filter queries with AND/OR logic"
+      ],
+      "tasks": [
+        "Implement log level filter component",
+        "Create source autocomplete functionality",
+        "Add theme-based filtering",
+        "Implement date range picker",
+        "Create full-text search with regex",
+        "Add compound filter logic"
+      ],
+      "testing_requirements": {
+        "unit_tests": ["Filter logic", "Search algorithms"],
+        "integration_tests": ["Filter combination", "Performance with large datasets"],
+        "system_tests": ["User filter workflows", "Filter persistence"]
+      }
+    },
+    "f_visual_analytics": {
+      "id": "f_visual_analytics",
+      "name": "Visual Analytics Dashboard",
+      "description": "Interactive charts and visualizations for log analytics and performance metrics",
+      "type": "feature",
+      "status": "planned",
+      "priority": "high",
+      "complexity": 8,
+      "business_value": 8,
+      "technical_risk": "medium",
+      "dependencies": ["f_log_service_integration"],
+      "acceptance_criteria": [
+        "Error rate charts with time-based visualization",
+        "Log volume charts with drill-down capability",
+        "Log severity distribution pie charts",
+        "Performance metrics dashboard",
+        "Interactive charts with zoom and pan",
+        "Export charts to PNG/SVG formats"
+      ],
+      "tasks": [
+        "Integrate Chart.js or D3.js for visualizations",
+        "Create error rate time-series chart",
+        "Implement log volume histogram",
+        "Add severity distribution pie chart",
+        "Create performance metrics display",
+        "Add chart export functionality"
+      ],
+      "testing_requirements": {
+        "unit_tests": ["Chart data processing", "Visualization logic"],
+        "integration_tests": ["Chart rendering", "Data update performance"],
+        "system_tests": ["Interactive chart workflows", "Export functionality"]
+      }
+    },
+    "f_dashboard_ui": {
+      "id": "f_dashboard_ui",
+      "name": "React Dashboard UI",
+      "description": "Responsive React-based dashboard with modern UI/UX design",
+      "type": "frontend",
+      "status": "planned",
+      "priority": "high",
+      "complexity": 9,
+      "business_value": 9,
+      "technical_risk": "medium",
+      "dependencies": ["f_realtime_streaming", "f_advanced_filtering", "f_visual_analytics"],
+      "acceptance_criteria": [
+        "Responsive design for desktop and tablet",
+        "4 design candidates implemented",
+        "Accessible UI with WCAG 2.1 AA compliance",
+        "Dark/light theme toggle",
+        "Keyboard navigation support",
+        "Loading states and error handling"
+      ],
+      "tasks": [
+        "Set up React with TypeScript",
+        "Create 4 dashboard design candidates",
+        "Implement responsive grid layout",
+        "Add theme switching functionality",
+        "Implement accessibility features",
+        "Add loading and error states"
+      ],
+      "testing_requirements": {
+        "unit_tests": ["Component logic", "State management"],
+        "integration_tests": ["Component interaction", "Theme switching"],
+        "system_tests": ["End-to-end UI workflows", "Accessibility validation"]
+      }
+    },
+    "f_export_capabilities": {
+      "id": "f_export_capabilities",
+      "name": "Data Export and Reporting",
+      "description": "Export logs and analytics in multiple formats (JSON, CSV, PDF)",
+      "type": "feature",
+      "status": "planned",
+      "priority": "medium",
+      "complexity": 5,
+      "business_value": 6,
+      "technical_risk": "low",
+      "dependencies": ["f_advanced_filtering"],
+      "acceptance_criteria": [
+        "Export filtered logs to JSON format",
+        "Export log analytics to CSV format",
+        "Generate PDF reports with charts",
+        "Scheduled export functionality",
+        "Export progress indicators",
+        "Email delivery for large exports"
+      ],
+      "tasks": [
+        "Implement JSON log export",
+        "Create CSV analytics export",
+        "Add PDF report generation",
+        "Create export scheduling system",
+        "Add export progress tracking",
+        "Implement email delivery system"
+      ],
+      "testing_requirements": {
+        "unit_tests": ["Export formatting", "Report generation"],
+        "integration_tests": ["Export performance", "Email delivery"],
+        "system_tests": ["End-to-end export workflows", "Large dataset exports"]
+      }
+    },
+    "f_performance_monitoring": {
+      "id": "f_performance_monitoring",
+      "name": "Dashboard Performance Monitoring",
+      "description": "Monitor and optimize dashboard performance with metrics and alerts",
+      "type": "monitoring",
+      "status": "planned",
+      "priority": "medium",
+      "complexity": 6,
+      "business_value": 7,
+      "technical_risk": "low",
+      "dependencies": ["f_dashboard_core"],
+      "acceptance_criteria": [
+        "Dashboard load time under 2 seconds",
+        "Real-time update latency under 100ms",
+        "Memory usage monitoring and optimization",
+        "Performance metrics API endpoints",
+        "Automated performance testing",
+        "Performance alert system"
+      ],
+      "tasks": [
+        "Add performance monitoring middleware",
+        "Implement memory usage tracking",
+        "Create performance metrics API",
+        "Set up automated performance tests",
+        "Add performance alert system",
+        "Optimize critical rendering paths"
+      ],
+      "testing_requirements": {
+        "unit_tests": ["Performance metrics collection"],
+        "integration_tests": ["Performance monitoring integration"],
+        "system_tests": ["Load testing", "Performance regression testing"]
+      }
+    }
+  },
+  "project_metadata": {
+    "total_features": 8,
+    "estimated_story_points": 54,
+    "estimated_completion_days": 12,
+    "risk_assessment": "medium",
+    "architecture_compliance": "HEA",
+    "testing_approach": "Mock Free TDD",
+    "integration_dependencies": [
+      "user-stories/008-centralized-log-service",
+      "user-stories/009-log-rotation-policy"
+    ],
+    "external_dependencies": [
+      "React 18+",
+      "Socket.IO for WebSocket",
+      "Chart.js for visualizations",
+      "Express for HTTP server"
+    ]
+  },
+  "development_phases": {
+    "phase_1_foundation": {
+      "features": ["f_dashboard_core", "f_log_service_integration"],
+      "estimated_days": 3,
+      "deliverables": ["Basic service integration", "Health endpoints", "TypeScript setup"]
+    },
+    "phase_2_backend": {
+      "features": ["f_realtime_streaming", "f_advanced_filtering"],
+      "estimated_days": 4,
+      "deliverables": ["WebSocket streaming", "Advanced filtering API", "Query performance"]
+    },
+    "phase_3_frontend": {
+      "features": ["f_dashboard_ui", "f_visual_analytics"],
+      "estimated_days": 4,
+      "deliverables": ["React dashboard", "Interactive charts", "4 design candidates"]
+    },
+    "phase_4_advanced": {
+      "features": ["f_export_capabilities", "f_performance_monitoring"],
+      "estimated_days": 2,
+      "deliverables": ["Export functionality", "Performance monitoring", "Optimization"]
+    }
+  }
+}

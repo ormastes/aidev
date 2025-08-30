@@ -345,7 +345,7 @@ class MockTemplateEngine implements TemplateEngineInterface {
         match.replace(/[{}]/g, '').trim().split('.')[0]
       ));
       
-      uniqueVars.forEach(varName => {
+      Array.from(uniqueVars).forEach(varName => {
         if (varName && !varName.includes('this') && !varName.includes('each')) {
           variables.push({
             name: varName,
@@ -371,7 +371,7 @@ class MockTemplateEngine implements TemplateEngineInterface {
     
     // Handle each loops
     const eachPattern = /{{#each\s+(\w+)}}([\s\S]*?){{\/each}}/g;
-    result = result.replace(eachPattern, (match, arrayName, content) => {
+    result = result.replace(eachPattern, (_match, arrayName, content) => {
       const arrayData = variables[arrayName];
       if (Array.isArray(arrayData)) {
         return arrayData.map(item => {
@@ -388,7 +388,7 @@ class MockTemplateEngine implements TemplateEngineInterface {
     
     // Handle if conditions
     const ifPattern = /{{#if\s+(\w+)}}([\s\S]*?){{\/if}}/g;
-    result = result.replace(ifPattern, (match, conditionName, content) => {
+    result = result.replace(ifPattern, (_match, conditionName, content) => {
       const conditionValue = variables[conditionName];
       return conditionValue ? content : '';
     });
@@ -435,7 +435,7 @@ class MockTemplateEngine implements TemplateEngineInterface {
       });
     }
     
-    return [...new Set(assets)]; // Remove duplicates
+    return Array.from(new Set(assets)); // Remove duplicates
   }
 
   async optimizeAssets(assets: string[]): Promise<string[]> {
@@ -466,7 +466,7 @@ class MockTemplateEngine implements TemplateEngineInterface {
     if (pattern) {
       let count = 0;
       const regex = new RegExp(pattern);
-      for (const [key] of this.templateCache) {
+      for (const key of Array.from(this.templateCache.keys())) {
         if (regex.test(key)) {
           this.templateCache.delete(key);
           count++;
@@ -575,7 +575,7 @@ describe('TemplateEngine External Interface Test', () => {
   });
   
   describe('Template Compilation', () => {
-    test('should compile template In Progress', async () => {
+    test('should compile template successfully', async () => {
       const template = await templateEngine.compileTemplate('/templates/dashboard.html');
       
       expect(template).toBeTruthy();

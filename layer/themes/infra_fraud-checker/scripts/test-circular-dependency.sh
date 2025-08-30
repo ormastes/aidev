@@ -15,7 +15,7 @@ echo ""
 
 # Run the circular dependency example
 echo "Running circular dependency detection..."
-npx ts-node ../examples/circular-dependency-example.ts "$PROJECT_ROOT"
+bunx ts-node ../examples/circular-dependency-example.ts "$PROJECT_ROOT"
 
 echo ""
 echo "✅ Test complete!"

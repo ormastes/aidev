@@ -22,5 +22,5 @@ Generated: 2025-08-15T02:55:24.702Z
 
 ## Next Steps
 1. Test the migrated code
-2. Run fraud checker to verify: `npm run file-api:scan`
+2. Run fraud checker to verify: `bun run file-api:scan`
 3. Enable enforcement: `export ENFORCE_FILE_API=true`

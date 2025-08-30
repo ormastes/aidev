@@ -1,0 +1,186 @@
+# Test Manual: complete-queue-workflow.systest.ts
+
+**Quality Level**: 🟢 High (100%)
+**Readability**: 80%
+
+## Metadata
+
+- **File**: `complete-queue-workflow.systest.ts`
+- **Path**: `/home/ormastes/dev/pub/aidev/layer/themes/infra_filesystem-mcp/tests/system/complete-queue-workflow.systest.ts`
+- **Type**: Unit Test
+- **BDD Format**: ✅ Yes
+- **Async Tests**: ✅ Yes
+- **Test Count**: 4
+
+## Test Overview
+
+### Test Suites
+
+- 🚨 Story: System Test: Complete Queue Workflow with Runnable Comments
+
+## Test Cases
+
+### 1. should enforce adhoc queue validation with runnable comment
+
+#### Purpose
+This test verifies: should enforce adhoc queue validation with runnable comment
+
+#### Prerequisites
+- Test environment is initialized (beforeEach hook)
+- Required test data is available
+- Dependencies are properly mocked/configured
+
+#### Test Steps
+1. **Setup**: Initialize test context
+2. **Arrange**: Prepare test data and conditions
+3. **Act**: Execute the operation being tested
+4. **Assert**: Verify the expected outcome
+5. **Cleanup**: Reset state (afterEach hook)
+
+#### Expected Results
+- The operation completes successfully
+- All assertions pass
+- No unexpected side effects occur
+
+#### Manual Execution
+When running manually:
+- [ ] Verify prerequisites are met
+- [ ] Execute test steps in order
+- [ ] Validate expected results
+- [ ] Document any deviations
+
+### 2. should successfully register items with queue workflows
+
+#### Purpose
+This test verifies: should successfully register items with queue workflows
+
+#### Prerequisites
+- Test environment is initialized (beforeEach hook)
+- Required test data is available
+- Dependencies are properly mocked/configured
+
+#### Test Steps
+1. **Setup**: Initialize test context
+2. **Arrange**: Prepare test data and conditions
+3. **Act**: Execute the operation being tested
+4. **Assert**: Verify the expected outcome
+5. **Cleanup**: Reset state (afterEach hook)
+
+#### Expected Results
+- The operation completes successfully
+- All assertions pass
+- No unexpected side effects occur
+
+#### Manual Execution
+When running manually:
+- [ ] Verify prerequisites are met
+- [ ] Execute test steps in order
+- [ ] Validate expected results
+- [ ] Document any deviations
+
+### 3. should handle system test validation workflow
+
+#### Purpose
+This test verifies: should handle system test validation workflow
+
+#### Prerequisites
+- Test environment is initialized (beforeEach hook)
+- Required test data is available
+- Dependencies are properly mocked/configured
+
+#### Test Steps
+1. **Setup**: Initialize test context
+2. **Arrange**: Prepare test data and conditions
+3. **Act**: Execute the operation being tested
+4. **Assert**: Verify the expected outcome
+5. **Cleanup**: Reset state (afterEach hook)
+
+#### Expected Results
+- The operation completes successfully
+- All assertions pass
+- No unexpected side effects occur
+
+#### Manual Execution
+When running manually:
+- [ ] Verify prerequisites are met
+- [ ] Execute test steps in order
+- [ ] Validate expected results
+- [ ] Document any deviations
+
+### 4. should display after_pop_steps messages
+
+#### Purpose
+This test verifies: should display after_pop_steps messages
+
+#### Prerequisites
+- Test environment is initialized (beforeEach hook)
+- Required test data is available
+- Dependencies are properly mocked/configured
+
+#### Test Steps
+1. **Setup**: Initialize test context
+2. **Arrange**: Prepare test data and conditions
+3. **Act**: Execute the operation being tested
+4. **Assert**: Verify the expected outcome
+5. **Cleanup**: Reset state (afterEach hook)
+
+#### Expected Results
+- The operation completes successfully
+- All assertions pass
+- No unexpected side effects occur
+
+#### Manual Execution
+When running manually:
+- [ ] Verify prerequisites are met
+- [ ] Execute test steps in order
+- [ ] Validate expected results
+- [ ] Document any deviations
+
+## Environment Setup
+
+### Dependencies
+```bash
+npm install  # Install all dependencies
+npm run build  # Build the project
+```
+
+### Configuration
+- Ensure test configuration is properly set
+- Environment variables are configured
+- Test database/storage is initialized
+
+## Execution Instructions
+
+### Automated Execution
+```bash
+# Run this specific test file
+npm test -- complete-queue-workflow.systest.ts
+
+# Run with coverage
+npm run test:coverage -- complete-queue-workflow.systest.ts
+
+# Run in watch mode
+npm test -- --watch complete-queue-workflow.systest.ts
+```
+
+## Troubleshooting
+
+### Common Issues
+
+| Issue | Possible Cause | Solution |
+|-------|---------------|----------|
+| Test timeout | Slow async operations | Increase timeout value |
+| Module not found | Missing dependencies | Run npm install |
+| Connection refused | Service not running | Start required services |
+| Assertion failed | Logic error or data issue | Debug test implementation |
+
+## Suggested Improvements
+
+Based on quality analysis, consider:
+
+- Consider adding timeout configurations for long-running tests
+
+---
+*Generated by Enhanced Test-as-Manual System*
+*Quality Score: 100%*
+*Generated at: 2025-08-28T01:16:20.233Z*

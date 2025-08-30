@@ -97,6 +97,7 @@
     "/layer/themes/external-log-lib/user-stories/005-advanced-log-filtering/FEATURE.vf.json",
     "/layer/themes/external-log-lib/user-stories/005-error-log-filtering/FEATURE.vf.json",
     "/layer/themes/external-log-lib/user-stories/006-multi-process-aggregation/FEATURE.vf.json",
-    "/layer/themes/external-log-lib/user-stories/007-story-reporter/FEATURE.vf.json"
+    "/layer/themes/external-log-lib/user-stories/007-story-reporter/FEATURE.vf.json",
+    "/layer/themes/external-log-lib/user-stories/008-centralized-log-service/FEATURE.vf.json"
   ]
 }

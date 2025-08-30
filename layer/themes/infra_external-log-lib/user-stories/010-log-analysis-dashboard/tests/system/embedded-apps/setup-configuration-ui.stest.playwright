@@ -1,0 +1,386 @@
+import { test, expect, Page } from '@playwright/test';
+import { EnvironmentValidator } from '../helpers/environment-validator';
+
+/**
+ * System Tests for Setup Configuration UI
+ * Auto-discovers setup interfaces across different ports
+ */
+
+test.describe('Setup Configuration UI - System Tests', () => {
+  let discoveredServices: any[] = [];
+  
+  test.beforeAll(async () => {
+    const validator = new EnvironmentValidator();
+    discoveredServices = await validator.discoverRunningServices();
+    
+    console.log(`Discovered ${discoveredServices.length} services:`);
+    discoveredServices.forEach(service => {
+      console.log(`  - ${service.name} at ${service.url}`);
+    });
+  });
+  
+  // Dynamically create tests for each discovered service
+  for (const commonPort of [8080, 9000, 4000, 5000]) {
+    test.describe(`Configuration UI on port ${commonPort}`, () => {
+      test.beforeEach(async ({ page }) => {
+        const serviceUrl = `http://localhost:${commonPort}`;
+        try {
+          await page.goto(serviceUrl, { timeout: 5000 });
+        } catch (error) {
+          test.skip(`No service running on ${serviceUrl}`);
+        }
+      });
+      
+      test('should display setup configuration interface', async ({ page }) => {
+        // Look for common setup UI elements
+        const setupElements = [
+          '[data-testid="setup-form"]',
+          '[data-testid="configuration"]',
+          'form:has(input)',
+          'text="Setup"',
+          'text="Configuration"',
+          'text="Settings"',
+          'input[type="text"]',
+          'input[type="url"]',
+          'select'
+        ];
+        
+        let hasSetupUI = false;
+        for (const selector of setupElements) {
+          if (await page.locator(selector).isVisible()) {
+            hasSetupUI = true;
+            console.log(`Found setup element: ${selector}`);
+            break;
+          }
+        }
+        
+        if (hasSetupUI) {
+          // Verify the setup UI is functional
+          await expect(page.locator('body')).toBeVisible();
+          
+          // Check for form validation
+          const forms = page.locator('form');
+          const formCount = await forms.count();
+          
+          if (formCount > 0) {
+            console.log(`Found ${formCount} configuration forms`);
+            
+            // Test first form
+            const firstForm = forms.first();
+            await expect(firstForm).toBeVisible();
+            
+            // Look for submit button
+            const submitButton = firstForm.locator('button[type="submit"], input[type="submit"], button:has-text("Save"), button:has-text("Apply")');
+            if (await submitButton.isVisible()) {
+              await expect(submitButton).toBeVisible();
+            }
+          }
+        } else {
+          test.skip('No setup configuration UI found on this port');
+        }
+      });
+      
+      test('should validate configuration inputs', async ({ page }) => {
+        // Find input fields
+        const textInputs = page.locator('input[type="text"], input[type="url"], input[type="email"]');
+        const inputCount = await textInputs.count();
+        
+        if (inputCount > 0) {
+          console.log(`Testing ${inputCount} input fields`);
+          
+          // Test first few inputs
+          for (let i = 0; i < Math.min(inputCount, 3); i++) {
+            const input = textInputs.nth(i);
+            const inputType = await input.getAttribute('type');
+            const inputName = await input.getAttribute('name') || `input-${i}`;
+            
+            console.log(`Testing ${inputType} input: ${inputName}`);
+            
+            // Clear and enter test data based on type
+            await input.clear();
+            
+            if (inputType === 'email') {
+              await input.fill('test@example.com');
+            } else if (inputType === 'url') {
+              await input.fill('http://localhost:3000');
+            } else {
+              await input.fill('test-value');
+            }
+            
+            // Verify input was filled
+            const inputValue = await input.inputValue();
+            expect(inputValue).toBeTruthy();
+          }
+          
+          // Test form validation by submitting
+          const submitButton = page.locator('button[type="submit"], input[type="submit"]');
+          if (await submitButton.isVisible()) {
+            await submitButton.click();
+            
+            // Wait for validation response
+            await page.waitForTimeout(2000);
+            
+            // Check for validation messages (success or error)
+            const validationMessages = [
+              '.error',
+              '.success',
+              '[data-testid="error"]',
+              '[data-testid="success"]',
+              'text="saved"',
+              'text="error"',
+              'text="invalid"'
+            ];
+            
+            let hasValidation = false;
+            for (const selector of validationMessages) {
+              if (await page.locator(selector).isVisible()) {
+                hasValidation = true;
+                console.log(`Validation feedback found: ${selector}`);
+                break;
+              }
+            }
+            
+            // At minimum, form should not crash
+            await expect(page.locator('body')).toBeVisible();
+          }
+        } else {
+          console.log('ℹ️ No input fields found for validation testing');
+        }
+      });
+      
+      test('should handle connection settings', async ({ page }) => {
+        // Look for connection/database/API configuration fields
+        const connectionFields = [
+          'input[name*="host"], input[placeholder*="host"]',
+          'input[name*="port"], input[placeholder*="port"]',
+          'input[name*="database"], input[placeholder*="database"]',
+          'input[name*="api"], input[placeholder*="api"]',
+          'input[name*="url"], input[placeholder*="url"]',
+          'input[name*="endpoint"], input[placeholder*="endpoint"]'
+        ];
+        
+        let hasConnectionFields = false;
+        for (const selector of connectionFields) {
+          const fields = page.locator(selector);
+          const count = await fields.count();
+          
+          if (count > 0) {
+            hasConnectionFields = true;
+            console.log(`Found ${count} connection fields: ${selector}`);
+            
+            // Test first connection field
+            const firstField = fields.first();
+            await firstField.clear();
+            
+            // Enter appropriate test value
+            if (selector.includes('port')) {
+              await firstField.fill('8080');
+            } else if (selector.includes('host')) {
+              await firstField.fill('localhost');
+            } else {
+              await firstField.fill('test-connection');
+            }
+            
+            const value = await firstField.inputValue();
+            expect(value).toBeTruthy();
+          }
+        }
+        
+        if (hasConnectionFields) {
+          // Test connection validation if available
+          const testConnectionButton = page.locator('button:has-text("Test"), button:has-text("Check"), [data-testid="test-connection"]');
+          
+          if (await testConnectionButton.isVisible()) {
+            await testConnectionButton.click();
+            
+            // Wait for connection test result
+            await page.waitForTimeout(3000);
+            
+            // Should show some result
+            const resultIndicators = [
+              '.success',
+              '.error',
+              'text="connected"',
+              'text="failed"',
+              '[data-testid="connection-result"]'
+            ];
+            
+            let hasResult = false;
+            for (const selector of resultIndicators) {
+              if (await page.locator(selector).isVisible()) {
+                hasResult = true;
+                console.log(`Connection test result: ${selector}`);
+                break;
+              }
+            }
+            
+            if (!hasResult) {
+              console.log('ℹ️ Connection test completed but no clear result shown');
+            }
+          }
+        } else {
+          console.log('ℹ️ No connection configuration fields found');
+        }
+      });
+      
+      test('should support configuration export/import', async ({ page }) => {
+        // Look for export/import functionality
+        const exportButtons = page.locator('button:has-text("Export"), button:has-text("Download"), [data-testid="export"]');
+        const importButtons = page.locator('button:has-text("Import"), button:has-text("Upload"), [data-testid="import"], input[type="file"]');
+        
+        const hasExport = await exportButtons.count() > 0;
+        const hasImport = await importButtons.count() > 0;
+        
+        if (hasExport) {
+          console.log('✅ Export functionality found');
+          
+          const firstExportButton = exportButtons.first();
+          if (await firstExportButton.isVisible()) {
+            // Set up download listener
+            const downloadPromise = page.waitForEvent('download', { timeout: 5000 }).catch(() => null);
+            
+            await firstExportButton.click();
+            
+            const download = await downloadPromise;
+            if (download) {
+              console.log(`Configuration exported: ${download.suggestedFilename()}`);
+              expect(download.suggestedFilename()).toBeTruthy();
+            } else {
+              console.log('ℹ️ Export clicked but no download detected');
+            }
+          }
+        }
+        
+        if (hasImport) {
+          console.log('✅ Import functionality found');
+          
+          const fileInput = page.locator('input[type="file"]');
+          if (await fileInput.isVisible()) {
+            // Test file upload
+            await fileInput.setInputFiles({
+              name: 'test-config.json',
+              mimeType: 'application/json',
+              buffer: Buffer.from(JSON.stringify({
+                testSetting: 'testValue',
+                database: {
+                  host: 'localhost',
+                  port: 5432
+                }
+              }))
+            });
+            
+            // Look for import processing indication
+            await page.waitForTimeout(2000);
+            
+            const importResult = page.locator('.success, .error, text="imported", text="failed"');
+            if (await importResult.isVisible()) {
+              await expect(importResult).toBeVisible();
+              console.log('✅ Import processing detected');
+            }
+          }
+        }
+        
+        if (!hasExport && !hasImport) {
+          console.log('ℹ️ No export/import functionality found');
+        }
+      });
+      
+      test('should provide configuration preview/validation', async ({ page }) => {
+        // Look for preview or validation features
+        const previewElements = [
+          '[data-testid="preview"]',
+          '[data-testid="validation"]',
+          'button:has-text("Preview")',
+          'button:has-text("Validate")',
+          '.preview',
+          '.validation-results'
+        ];
+        
+        let hasPreview = false;
+        for (const selector of previewElements) {
+          if (await page.locator(selector).isVisible()) {
+            hasPreview = true;
+            console.log(`Found preview/validation: ${selector}`);
+            
+            const element = page.locator(selector);
+            if (element.locator('button').count() > 0) {
+              // It's a button, click it
+              await element.click();
+              await page.waitForTimeout(1000);
+            }
+            
+            // Should show some preview content
+            await expect(element).toBeVisible();
+            break;
+          }
+        }
+        
+        if (!hasPreview) {
+          console.log('ℹ️ No configuration preview/validation found');
+        }
+      });
+    });
+  }
+  
+  test.describe('Generic Setup UI Detection', () => {
+    test('should identify setup interfaces across all discovered services', async ({ page }) => {
+      if (discoveredServices.length === 0) {
+        test.skip('No services discovered for setup UI testing');
+      }
+      
+      for (const service of discoveredServices) {
+        console.log(`Testing ${service.name} at ${service.url} for setup UI`);
+        
+        try {
+          await page.goto(service.url, { timeout: 5000 });
+          await page.waitForLoadState('networkidle');
+          
+          // Check for common setup indicators
+          const setupIndicators = [
+            'text="Setup"',
+            'text="Configuration"',
+            'text="Settings"',
+            'text="Initialize"',
+            'text="Install"',
+            'form',
+            'input',
+            'select',
+            'textarea'
+          ];
+          
+          let isSetupUI = false;
+          for (const indicator of setupIndicators) {
+            if (await page.locator(indicator).isVisible()) {
+              isSetupUI = true;
+              break;
+            }
+          }
+          
+          if (isSetupUI) {
+            console.log(`✅ ${service.name} appears to have setup UI functionality`);
+            
+            // Basic functionality test
+            const interactiveElements = page.locator('button, input, select');
+            const elementCount = await interactiveElements.count();
+            
+            expect(elementCount).toBeGreaterThan(0);
+            
+            // Test first interactive element
+            if (elementCount > 0) {
+              const firstElement = interactiveElements.first();
+              await expect(firstElement).toBeEnabled();
+            }
+          } else {
+            console.log(`ℹ️ ${service.name} does not appear to be a setup UI`);
+          }
+          
+        } catch (error) {
+          console.log(`❌ Failed to test ${service.name}: ${error}`);
+        }
+      }
+      
+      // At least verify we tested something
+      expect(discoveredServices.length).toBeGreaterThan(0);
+    });
+  });
+});

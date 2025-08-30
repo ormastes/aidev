@@ -1,0 +1,180 @@
+# Test Manual: service-health-monitoring-e2e.systest.ts
+
+**Quality Level**: 🟢 High (100%)
+**Readability**: 40%
+
+## Metadata
+
+- **File**: `service-health-monitoring-e2e.systest.ts`
+- **Path**: `/home/ormastes/dev/pub/aidev/layer/themes/portal_aidev/user-stories/024-aidev-portal/tests/system/service-health-monitoring-e2e.systest.ts`
+- **Type**: Unit Test
+- **BDD Format**: ✅ Yes
+- **Async Tests**: ✅ Yes
+- **Test Count**: 4
+
+## Test Overview
+
+### Test Suites
+
+- Service Health Monitoring E2E System Test
+
+## Test Cases
+
+### 1. In Progress Health Monitoring Flow: Login → Dashboard → Monitor → Refresh → Alerts
+
+#### Purpose
+This test verifies: In Progress Health Monitoring Flow: Login → Dashboard → Monitor → Refresh → Alerts
+
+#### Prerequisites
+- Test environment is initialized (beforeEach hook)
+- Required test data is available
+- Dependencies are properly mocked/configured
+
+#### Test Steps
+1. **Setup**: Initialize test context
+2. **Arrange**: Prepare test data and conditions
+3. **Act**: Execute the operation being tested
+4. **Assert**: Verify the expected outcome
+5. **Cleanup**: Reset state (afterEach hook)
+
+#### Expected Results
+- The operation completes successfully
+- All assertions pass
+- No unexpected side effects occur
+
+#### Manual Execution
+When running manually:
+- [ ] Verify prerequisites are met
+- [ ] Execute test steps in order
+- [ ] Validate expected results
+- [ ] Document any deviations
+
+### 2. Health History and Analytics: View Trends and Metrics
+
+#### Purpose
+This test verifies: Health History and Analytics: View Trends and Metrics
+
+#### Prerequisites
+- Test environment is initialized (beforeEach hook)
+- Required test data is available
+- Dependencies are properly mocked/configured
+
+#### Test Steps
+1. **Setup**: Initialize test context
+2. **Arrange**: Prepare test data and conditions
+3. **Act**: Execute the operation being tested
+4. **Assert**: Verify the expected outcome
+5. **Cleanup**: Reset state (afterEach hook)
+
+#### Expected Results
+- The operation completes successfully
+- All assertions pass
+- No unexpected side effects occur
+
+#### Manual Execution
+When running manually:
+- [ ] Verify prerequisites are met
+- [ ] Execute test steps in order
+- [ ] Validate expected results
+- [ ] Document any deviations
+
+### 3. Multiple Admin Users: Concurrent Health Monitoring
+
+#### Purpose
+This test verifies: Multiple Admin Users: Concurrent Health Monitoring
+
+#### Prerequisites
+- Test environment is initialized (beforeEach hook)
+- Required test data is available
+- Dependencies are properly mocked/configured
+
+#### Test Steps
+1. **Setup**: Initialize test context
+2. **Arrange**: Prepare test data and conditions
+3. **Act**: Execute the operation being tested
+4. **Assert**: Verify the expected outcome
+5. **Cleanup**: Reset state (afterEach hook)
+
+#### Expected Results
+- The operation completes successfully
+- All assertions pass
+- No unexpected side effects occur
+
+#### Manual Execution
+When running manually:
+- [ ] Verify prerequisites are met
+- [ ] Execute test steps in order
+- [ ] Validate expected results
+- [ ] Document any deviations
+
+### 4. Real-time Health Updates: WebSocket Monitoring
+
+#### Purpose
+This test verifies: Real-time Health Updates: WebSocket Monitoring
+
+#### Prerequisites
+- Test environment is initialized (beforeEach hook)
+- Required test data is available
+- Dependencies are properly mocked/configured
+
+#### Test Steps
+1. **Setup**: Initialize test context
+2. **Arrange**: Prepare test data and conditions
+3. **Act**: Execute the operation being tested
+4. **Assert**: Verify the expected outcome
+5. **Cleanup**: Reset state (afterEach hook)
+
+#### Expected Results
+- The operation completes successfully
+- All assertions pass
+- No unexpected side effects occur
+
+#### Manual Execution
+When running manually:
+- [ ] Verify prerequisites are met
+- [ ] Execute test steps in order
+- [ ] Validate expected results
+- [ ] Document any deviations
+
+## Environment Setup
+
+### Dependencies
+```bash
+npm install  # Install all dependencies
+npm run build  # Build the project
+```
+
+### Configuration
+- Ensure test configuration is properly set
+- Environment variables are configured
+- Test database/storage is initialized
+
+## Execution Instructions
+
+### Automated Execution
+```bash
+# Run this specific test file
+npm test -- service-health-monitoring-e2e.systest.ts
+
+# Run with coverage
+npm run test:coverage -- service-health-monitoring-e2e.systest.ts
+
+# Run in watch mode
+npm test -- --watch service-health-monitoring-e2e.systest.ts
+```
+
+## Troubleshooting
+
+### Common Issues
+
+| Issue | Possible Cause | Solution |
+|-------|---------------|----------|
+| Test timeout | Slow async operations | Increase timeout value |
+| Module not found | Missing dependencies | Run npm install |
+| Connection refused | Service not running | Start required services |
+| Assertion failed | Logic error or data issue | Debug test implementation |
+
+---
+*Generated by Enhanced Test-as-Manual System*
+*Quality Score: 100%*
+*Generated at: 2025-08-28T01:16:20.403Z*

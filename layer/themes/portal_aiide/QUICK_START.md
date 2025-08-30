@@ -5,7 +5,7 @@
 ### Step 1: Install Dependencies
 ```bash
 cd layer/themes/portal_aiide
-npm install
+bun install
 ```
 
 ### Step 2: Configure API Keys
@@ -19,7 +19,7 @@ cp .env.example .env
 
 ### Step 3: Launch AIIDE
 ```bash
-npm start
+bun start
 ```
 
 That's it! AIIDE is now running at http://localhost:5173

@@ -357,7 +357,7 @@ test('async operation', async () => {
 
 ```bash
 # Run validation tests
-npm test test/validation/
+bun test test/validation/
 
 # Run test effectiveness check
 node scripts/validate-test-effectiveness.js

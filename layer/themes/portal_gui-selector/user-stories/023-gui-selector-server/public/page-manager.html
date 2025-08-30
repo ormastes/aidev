@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Manager - GUI Selector</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb span {
+            color: #999;
+        }
+
+        .template-info {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr 350px;
+            gap: 20px;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .panel-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .page-list {
+            list-style: none;
+        }
+
+        .page-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .page-item:hover {
+            background: #e0e0e0;
+            transform: translateX(5px);
+        }
+
+        .page-item.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .page-item-name {
+            font-weight: 500;
+        }
+
+        .page-item-type {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .page-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .page-action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+            transition: background 0.3s;
+        }
+
+        .page-action-btn:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .add-page-btn {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: background 0.3s;
+        }
+
+        .add-page-btn:hover {
+            background: #5a67d8;
+        }
+
+        .preview-frame {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+        }
+
+        .customization-section {
+            margin-bottom: 20px;
+        }
+
+        .customization-section h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .color-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .color-input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .color-input-group label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .color-input {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .layout-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .layout-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .layout-option select {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .global-settings {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .global-settings h4 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .theme-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .theme-btn {
+            flex: 1;
+            padding: 8px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .theme-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .apply-btn {
+            width: 100%;
+            padding: 12px;
+            background: #48bb78;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .apply-btn:hover {
+            background: #38a169;
+        }
+
+        .page-template-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .page-template-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .template-card {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .template-card:hover {
+            border-color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .template-card.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .template-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .template-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .modal-btn.cancel {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .modal-btn.cancel:hover {
+            background: #d0d0d0;
+        }
+
+        .modal-btn.confirm {
+            background: #667eea;
+            color: white;
+        }
+
+        .modal-btn.confirm:hover {
+            background: #5a67d8;
+        }
+
+        .custom-page-name {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .drag-handle {
+            cursor: grab;
+            color: #999;
+            margin-right: 10px;
+        }
+
+        .dragging {
+            opacity: 0.5;
+        }
+
+        .drag-over {
+            background: #e8f0fe;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="/dashboard">Dashboard</a>
+                <span>→</span>
+                <a href="/themes">Themes</a>
+                <span>→</span>
+                <a href="/templates" id="templatesLink">Templates</a>
+                <span>→</span>
+                <span>Page Manager</span>
+            </div>
+            <h1>Page Manager</h1>
+            <div class="template-info">
+                <strong>Theme:</strong> <span id="themeName">Loading...</span> • 
+                <strong>Template:</strong> <span id="templateName">Loading...</span> • 
+                <span id="pageCount">0 pages</span> • 
+                <span id="maxPages">Max 10 pages</span>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="panel">
+                <h2 class="panel-title">Pages</h2>
+                <button class="add-page-btn" onclick="showPageTemplateModal()">+ Add Page</button>
+                
+                <ul class="page-list" id="pageList">
+                    <!-- Pages will be loaded dynamically -->
+                </ul>
+            </div>
+
+            <div class="panel">
+                <h2 class="panel-title">Preview</h2>
+                <iframe class="preview-frame" id="previewFrame" src="about:blank"></iframe>
+            </div>
+
+            <div class="panel">
+                <h2 class="panel-title">Customization</h2>
+                
+                <div class="global-settings">
+                    <h4>Global Settings</h4>
+                    <div class="theme-toggle">
+                        <button class="theme-btn active" data-theme="light">Light</button>
+                        <button class="theme-btn" data-theme="dark">Dark</button>
+                        <button class="theme-btn" data-theme="auto">Auto</button>
+                    </div>
+                    <div class="layout-option">
+                        <label>Spacing:</label>
+                        <select id="globalSpacing">
+                            <option value="compact">Compact</option>
+                            <option value="normal" selected>Normal</option>
+                            <option value="relaxed">Relaxed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="customization-section">
+                    <h3>Page Colors</h3>
+                    <div class="color-inputs">
+                        <div class="color-input-group">
+                            <label>Primary:</label>
+                            <input type="color" class="color-input" id="colorPrimary" value="#667eea">
+                        </div>
+                        <div class="color-input-group">
+                            <label>Secondary:</label>
+                            <input type="color" class="color-input" id="colorSecondary" value="#764ba2">
+                        </div>
+                        <div class="color-input-group">
+                            <label>Background:</label>
+                            <input type="color" class="color-input" id="colorBackground" value="#ffffff">
+                        </div>
+                        <div class="color-input-group">
+                            <label>Text:</label>
+                            <input type="color" class="color-input" id="colorText" value="#333333">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="customization-section">
+                    <h3>Page Layout</h3>
+                    <div class="layout-options">
+                        <div class="layout-option">
+                            <label>Sidebar:</label>
+                            <select id="layoutSidebar">
+                                <option value="left">Left</option>
+                                <option value="right">Right</option>
+                                <option value="none">None</option>
+                            </select>
+                        </div>
+                        <div class="layout-option">
+                            <label>Header:</label>
+                            <select id="layoutHeader">
+                                <option value="fixed">Fixed</option>
+                                <option value="static">Static</option>
+                                <option value="hidden">Hidden</option>
+                            </select>
+                        </div>
+                        <div class="layout-option">
+                            <label>Footer:</label>
+                            <select id="layoutFooter">
+                                <option value="yes">Show</option>
+                                <option value="no">Hide</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="apply-btn" onclick="applyCustomization()">Apply Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-template-modal" id="pageTemplateModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Page</h2>
+                <p>Select a page template or create a custom page</p>
+            </div>
+            
+            <input type="text" class="custom-page-name" id="customPageName" placeholder="Enter page name...">
+            
+            <div class="template-grid">
+                <div class="template-card" data-template="home">
+                    <div class="template-icon">🏠</div>
+                    <div class="template-name">Home</div>
+                </div>
+                <div class="template-card" data-template="dashboard">
+                    <div class="template-icon">📊</div>
+                    <div class="template-name">Dashboard</div>
+                </div>
+                <div class="template-card" data-template="form">
+                    <div class="template-icon">📝</div>
+                    <div class="template-name">Form</div>
+                </div>
+                <div class="template-card" data-template="list">
+                    <div class="template-icon">📋</div>
+                    <div class="template-name">List</div>
+                </div>
+                <div class="template-card" data-template="detail">
+                    <div class="template-icon">📄</div>
+                    <div class="template-name">Detail</div>
+                </div>
+                <div class="template-card" data-template="settings">
+                    <div class="template-icon">⚙️</div>
+                    <div class="template-name">Settings</div>
+                </div>
+                <div class="template-card" data-template="profile">
+                    <div class="template-icon">👤</div>
+                    <div class="template-name">Profile</div>
+                </div>
+                <div class="template-card" data-template="login">
+                    <div class="template-icon">🔐</div>
+                    <div class="template-name">Login</div>
+                </div>
+                <div class="template-card" data-template="custom">
+                    <div class="template-icon">✨</div>
+                    <div class="template-name">Custom</div>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="modal-btn cancel" onclick="hidePageTemplateModal()">Cancel</button>
+                <button class="modal-btn confirm" onclick="addPage()">Add Page</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedTemplate = null;
+        let selectedTheme = null;
+        let currentPageId = null;
+        let templateId = null;
+        let pages = [];
+
+        function showPageTemplateModal() {
+            document.getElementById('pageTemplateModal').classList.add('active');
+        }
+
+        function hidePageTemplateModal() {
+            document.getElementById('pageTemplateModal').classList.remove('active');
+            selectedTemplate = null;
+            document.querySelectorAll('.template-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.getElementById('customPageName').value = '';
+        }
+
+        document.querySelectorAll('.template-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.template-card').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedTemplate = this.dataset.template;
+            });
+        });
+
+        async function addPage() {
+            if (!selectedTemplate) {
+                alert('Please select a page template');
+                return;
+            }
+
+            const pageName = document.getElementById('customPageName').value || selectedTemplate;
+            
+            try {
+                const response = await fetch(`/api/templates/${templateId}/pages/from-template`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        pageTemplateId: `${selectedTemplate}-default`,
+                        customName: pageName
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    addPageToList(data.page);
+                    hidePageTemplateModal();
+                    updatePageCount();
+                }
+            } catch (error) {
+                console.error('Error adding page:', error);
+            }
+        }
+
+        function addPageToList(page) {
+            const pageList = document.getElementById('pageList');
+            
+            // Remove the "no pages" message if it exists
+            if (pageList.querySelector('li[style*="text-align: center"]')) {
+                pageList.innerHTML = '';
+            }
+            
+            const pageItem = document.createElement('li');
+            pageItem.className = 'page-item';
+            pageItem.dataset.pageId = page.id;
+            pageItem.innerHTML = `
+                <span class="drag-handle">☰</span>
+                <div>
+                    <div class="page-item-name">${page.name}</div>
+                    <div class="page-item-type">${page.type}</div>
+                </div>
+                <div class="page-actions">
+                    <button class="page-action-btn" onclick="duplicatePage('${page.id}')">📋</button>
+                    <button class="page-action-btn" onclick="deletePage('${page.id}')">🗑️</button>
+                </div>
+            `;
+            
+            pageItem.addEventListener('click', function(e) {
+                // Don't trigger on button clicks
+                if (!e.target.classList.contains('page-action-btn')) {
+                    selectPage(page.id);
+                }
+            });
+            
+            pageList.appendChild(pageItem);
+            
+            // Add to pages array
+            pages.push(page);
+            
+            // If this is the first page, select it and load preview
+            if (pages.length === 1) {
+                selectPage(page.id);
+            }
+            
+            initDragAndDrop();
+        }
+
+        function selectPage(pageId) {
+            currentPageId = pageId;
+            document.querySelectorAll('.page-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`[data-page-id="${pageId}"]`).classList.add('active');
+            loadPagePreview(pageId);
+        }
+
+        async function deletePage(pageId) {
+            if (confirm('Are you sure you want to delete this page?')) {
+                try {
+                    const response = await fetch(`/api/templates/${templateId}/pages/${pageId}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response.ok) {
+                        document.querySelector(`[data-page-id="${pageId}"]`).remove();
+                        updatePageCount();
+                    }
+                } catch (error) {
+                    console.error('Error deleting page:', error);
+                }
+            }
+        }
+
+        async function duplicatePage(pageId) {
+            const pageName = prompt('Enter name for duplicated page:');
+            if (!pageName) return;
+
+            try {
+                const response = await fetch(`/api/templates/${templateId}/pages/${pageId}/duplicate`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ newName: pageName })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    addPageToList(data.page);
+                    updatePageCount();
+                }
+            } catch (error) {
+                console.error('Error duplicating page:', error);
+            }
+        }
+
+        function updatePageCount() {
+            const pageCount = document.querySelectorAll('.page-item').length;
+            document.getElementById('pageCount').textContent = `${pageCount} pages`;
+        }
+
+        async function applyCustomization() {
+            const customizations = {
+                colors: {
+                    primary: document.getElementById('colorPrimary').value,
+                    secondary: document.getElementById('colorSecondary').value,
+                    background: document.getElementById('colorBackground').value,
+                    text: document.getElementById('colorText').value
+                },
+                layout: {
+                    sidebar: document.getElementById('layoutSidebar').value,
+                    header: document.getElementById('layoutHeader').value,
+                    footer: document.getElementById('layoutFooter').value === 'yes'
+                }
+            };
+
+            try {
+                const response = await fetch(`/api/templates/${templateId}/pages/${currentPageId}/customize`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ customizations })
+                });
+
+                if (response.ok) {
+                    loadPagePreview(currentPageId);
+                    alert('Customization applied successfully!');
+                }
+            } catch (error) {
+                console.error('Error applying customization:', error);
+            }
+        }
+
+        function loadPagePreview(pageId) {
+            if (!pageId || !templateId) {
+                document.getElementById('previewFrame').src = 'about:blank';
+                return;
+            }
+            
+            const iframe = document.getElementById('previewFrame');
+            iframe.src = `/api/templates/${templateId}/pages/${pageId}/preview`;
+        }
+
+        function initDragAndDrop() {
+            const pageItems = document.querySelectorAll('.page-item');
+            let draggedItem = null;
+
+            pageItems.forEach(item => {
+                item.draggable = true;
+
+                item.addEventListener('dragstart', function(e) {
+                    draggedItem = this;
+                    this.classList.add('dragging');
+                });
+
+                item.addEventListener('dragend', function(e) {
+                    this.classList.remove('dragging');
+                });
+
+                item.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    this.classList.add('drag-over');
+                });
+
+                item.addEventListener('dragleave', function(e) {
+                    this.classList.remove('drag-over');
+                });
+
+                item.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    this.classList.remove('drag-over');
+                    
+                    if (this !== draggedItem) {
+                        const allItems = [...document.querySelectorAll('.page-item')];
+                        const draggedIndex = allItems.indexOf(draggedItem);
+                        const targetIndex = allItems.indexOf(this);
+                        
+                        if (draggedIndex < targetIndex) {
+                            this.parentNode.insertBefore(draggedItem, this.nextSibling);
+                        } else {
+                            this.parentNode.insertBefore(draggedItem, this);
+                        }
+                        
+                        savePageOrder();
+                    }
+                });
+            });
+        }
+
+        async function savePageOrder() {
+            const pageIds = [...document.querySelectorAll('.page-item')].map(item => item.dataset.pageId);
+            
+            try {
+                await fetch(`/api/templates/${templateId}/pages/reorder`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ pageIds })
+                });
+            } catch (error) {
+                console.error('Error saving page order:', error);
+            }
+        }
+
+        document.querySelectorAll('.theme-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        async function loadPages() {
+            if (!templateId) return;
+            
+            try {
+                const response = await fetch(`/api/templates/${templateId}/pages`);
+                if (response.ok) {
+                    const data = await response.json();
+                    pages = data.pages || [];
+                    
+                    const pageList = document.getElementById('pageList');
+                    pageList.innerHTML = '';
+                    
+                    if (pages.length === 0) {
+                        // Show a message if no pages exist
+                        pageList.innerHTML = `
+                            <li style="text-align: center; padding: 30px; color: #999;">
+                                <p>No pages yet</p>
+                                <p style="font-size: 12px;">Click "Add Page" to get started</p>
+                            </li>
+                        `;
+                        // Clear the preview
+                        document.getElementById('previewFrame').src = 'about:blank';
+                    } else {
+                        // Render all pages
+                        pages.forEach((page, index) => {
+                            const pageItem = document.createElement('li');
+                            pageItem.className = index === 0 ? 'page-item active' : 'page-item';
+                            pageItem.dataset.pageId = page.id;
+                            pageItem.innerHTML = `
+                                <span class="drag-handle">☰</span>
+                                <div>
+                                    <div class="page-item-name">${page.name}</div>
+                                    <div class="page-item-type">${page.type}</div>
+                                </div>
+                                <div class="page-actions">
+                                    <button class="page-action-btn" onclick="duplicatePage('${page.id}')">📋</button>
+                                    <button class="page-action-btn" onclick="deletePage('${page.id}')">🗑️</button>
+                                </div>
+                            `;
+                            
+                            pageItem.addEventListener('click', function(e) {
+                                // Don't trigger on button clicks
+                                if (!e.target.classList.contains('page-action-btn')) {
+                                    selectPage(page.id);
+                                }
+                            });
+                            
+                            pageList.appendChild(pageItem);
+                        });
+                        
+                        // Select and preview the first page
+                        if (pages.length > 0) {
+                            currentPageId = pages[0].id;
+                            loadPagePreview(currentPageId);
+                        }
+                        
+                        // Initialize drag and drop for the new items
+                        initDragAndDrop();
+                    }
+                    
+                    updatePageCount();
+                }
+            } catch (error) {
+                console.error('Error loading pages:', error);
+                document.getElementById('pageList').innerHTML = `
+                    <li style="text-align: center; padding: 30px; color: #f00;">
+                        <p>Error loading pages</p>
+                    </li>
+                `;
+            }
+        }
+
+        function initializeFromParams() {
+            // Get theme and template from URL params or session
+            const urlParams = new URLSearchParams(window.location.search);
+            selectedTheme = urlParams.get('theme') || sessionStorage.getItem('selectedTheme');
+            selectedTemplate = urlParams.get('template') || sessionStorage.getItem('selectedTemplate');
+            
+            if (!selectedTheme || !selectedTemplate) {
+                // Redirect to themes if no selection
+                alert('Please select a theme and template first');
+                window.location.href = '/themes';
+                return;
+            }
+            
+            templateId = selectedTemplate;
+            
+            // Update UI with theme and template names
+            const themeName = sessionStorage.getItem('selectedThemeName') || 'Modern Theme';
+            const templateName = sessionStorage.getItem('selectedTemplateName') || 'Dashboard Template';
+            
+            document.getElementById('themeName').textContent = themeName;
+            document.getElementById('templateName').textContent = templateName;
+            
+            // Update templates link to include theme parameter
+            document.getElementById('templatesLink').href = `/templates?theme=${selectedTheme}`;
+            
+            // Load pages for this template (this will also initialize drag&drop and preview)
+            loadPages();
+        }
+
+        // Initialize the page
+        initializeFromParams();
+    </script>
+</body>
+</html>

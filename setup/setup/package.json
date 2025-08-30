@@ -1,0 +1,25 @@
+{
+  "name": "@aidev/test-setup",
+  "version": "1.0.0",
+  "description": "Unified test setup for AI Development Platform",
+  "type": "module",
+  "scripts": {
+    "test": "bun run test-runner.ts",
+    "test:ts": "bun run test-runner.ts typescript",
+    "test:python": "bun run test-runner.ts python",
+    "test:cucumber": "bun run test-runner.ts cucumber",
+    "test:external": "bun run test-runner.ts external",
+    "test:watch": "bun test --watch",
+    "test:coverage": "bun test --coverage",
+    "test:story-reporter": "bun run ../layer/themes/infra_story-reporter/pipe/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "bun-types": "latest",
+    "glob": "^10.3.10"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^10.3.1",
+    "playwright": "^1.40.1"
+  }
+}

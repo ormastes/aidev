@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Minimalist Design - Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1e293b;
+            background: #ffffff;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-areas:
+                "header header"
+                "sidebar main";
+            grid-template-columns: 280px 1fr;
+            grid-template-rows: auto 1fr;
+            min-height: 100vh;
+        }
+        
+        .header {
+            grid-area: header;
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2563eb;
+        }
+        
+        .header-controls {
+            margin-left: auto;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+        
+        .btn:hover {
+            background: #e2e8f0;
+            border-color: #cbd5e1;
+        }
+        
+        .sidebar {
+            grid-area: sidebar;
+            background: #f8fafc;
+            border-right: 1px solid #e2e8f0;
+            padding: 1.5rem;
+        }
+        
+        .filter-section {
+            margin-bottom: 2rem;
+        }
+        
+        .filter-section h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1e293b;
+        }
+        
+        .filter-group {
+            margin-bottom: 1rem;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+        
+        .checkbox-item input {
+            margin-right: 0.5rem;
+            accent-color: #2563eb;
+        }
+        
+        .checkbox-item label {
+            font-size: 0.875rem;
+            color: #475569;
+        }
+        
+        .main {
+            grid-area: main;
+            padding: 2rem;
+            background: #ffffff;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: auto 1fr;
+            gap: 2rem;
+            height: calc(100vh - 8rem);
+        }
+        
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+        
+        .card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        
+        .log-stream {
+            grid-column: 1 / -1;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+        
+        .log-entry {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: flex-start;
+            font-size: 0.875rem;
+        }
+        
+        .log-timestamp {
+            color: #64748b;
+            margin-right: 1rem;
+            min-width: 120px;
+        }
+        
+        .log-level {
+            padding: 0.125rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 0.75rem;
+            margin-right: 1rem;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        .log-level.error { background: #fef2f2; color: #dc2626; }
+        .log-level.warn { background: #fffbeb; color: #d97706; }
+        .log-level.info { background: #f0f9ff; color: #0284c7; }
+        
+        .log-message {
+            flex: 1;
+            color: #374151;
+        }
+        
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .metric {
+            text-align: center;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 6px;
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2563eb;
+        }
+        
+        .metric-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-top: 0.25rem;
+        }
+        
+        .chart-placeholder {
+            height: 200px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+        
+        .streaming-indicator {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .live-text {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #10b981;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <header class="header">
+            <h1>📊 Log Analysis Dashboard</h1>
+            <div class="header-controls">
+                <a href="#" class="btn">⚙️ Settings</a>
+                <a href="#" class="btn">🔄 Refresh</a>
+            </div>
+        </header>
+        
+        <aside class="sidebar">
+            <div class="filter-section">
+                <h3>Filters</h3>
+                
+                <div class="filter-group">
+                    <label><strong>Log Level</strong></label>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="error" checked>
+                        <label for="error">ERROR</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="warn" checked>
+                        <label for="warn">WARN</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="info" checked>
+                        <label for="info">INFO</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="debug">
+                        <label for="debug">DEBUG</label>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <label><strong>Source</strong></label>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="auth" checked>
+                        <label for="auth">auth-service</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="web" checked>
+                        <label for="web">web-server</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="db" checked>
+                        <label for="db">database</label>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <main class="main">
+            <div class="dashboard-grid">
+                <div class="card log-stream">
+                    <div class="streaming-indicator">
+                        <div class="live-dot"></div>
+                        <span class="live-text">LIVE STREAM</span>
+                    </div>
+                    <h3>Real-time Logs</h3>
+                    
+                    <div class="log-entry">
+                        <span class="log-timestamp">10:30:15</span>
+                        <span class="log-level error">ERROR</span>
+                        <span class="log-message">Authentication failed for user john.doe@example.com</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-timestamp">10:30:14</span>
+                        <span class="log-level warn">WARN</span>
+                        <span class="log-message">Database query slow (2.3s): SELECT * FROM users WHERE...</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-timestamp">10:30:13</span>
+                        <span class="log-level info">INFO</span>
+                        <span class="log-message">Log file rotated: access.log (156MB)</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-timestamp">10:30:12</span>
+                        <span class="log-level error">ERROR</span>
+                        <span class="log-message">Redis connection timeout after 5000ms</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-timestamp">10:30:11</span>
+                        <span class="log-level info">INFO</span>
+                        <span class="log-message">Health check passed for all services</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Error Rate</h3>
+                    <div class="chart-placeholder">
+                        📈 Line chart showing error trends
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Analytics</h3>
+                    <div class="analytics-grid">
+                        <div class="metric">
+                            <div class="metric-value">12</div>
+                            <div class="metric-label">Errors/Hour</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">15,847</div>
+                            <div class="metric-label">Total Logs</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">2.3%</div>
+                            <div class="metric-label">Error Rate</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">245ms</div>
+                            <div class="metric-label">Avg Response</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Log Volume</h3>
+                    <div class="chart-placeholder">
+                        📊 Bar chart showing log volume over time
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

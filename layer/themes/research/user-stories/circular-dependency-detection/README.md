@@ -23,13 +23,13 @@ A comprehensive, multi-language circular dependency detection system for TypeScr
 ### Install the Package
 
 ```bash
-npm install circular-dependency-detection
+bun install circular-dependency-detection
 ```
 
 ### Install External Tools
 
 ```bash
-npm run install-tools
+bun run install-tools
 ```
 
 This will install language-specific analysis tools:
@@ -223,11 +223,11 @@ jobs:
       
       - name: Install dependencies
         run: |
-          npm install
-          npm run install-tools
+          bun install
+          bun run install-tools
       
       - name: Check circular dependencies
-        run: npm run ci
+        run: bun run ci
 ```
 
 ### Script Integration
@@ -261,8 +261,8 @@ project/
 
 ```bash
 # Full analysis
-npm run build
-npm run demo
+bun run build
+bun run demo
 
 # Custom analysis
 circle-deps analyze src/ \
@@ -285,7 +285,7 @@ circle-deps analyze src/ \
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/amazing-feature`
 3. Make your changes and add tests
-4. Ensure all tests pass: `npm test`
+4. Ensure all tests pass: `bun test`
 5. Commit your changes: `git commit -m 'Add amazing feature'`
 6. Push to the branch: `git push origin feature/amazing-feature`
 7. Open a Pull Request
@@ -295,19 +295,19 @@ circle-deps analyze src/ \
 ### Building
 
 ```bash
-npm run build
+bun run build
 ```
 
 ### Testing
 
 ```bash
 # Run all tests
-npm test
+bun test
 
 # Run specific test suites
-npm run test:unit
-npm run test:integration
-npm run test:system
+bun run test:unit
+bun run test:integration
+bun run test:system
 ```
 
 ### Development Scripts
@@ -327,7 +327,7 @@ npm run test:system
 
 ### Common Issues
 
-1. **Tool not found errors**: Run `npm run install-tools` to install external dependencies
+1. **Tool not found errors**: Run `bun run install-tools` to install external dependencies
 2. **Permission denied**: Make sure scripts are executable: `chmod +x scripts/*.sh`
 3. **Out of memory**: Increase Node.js memory limit: `node --max-old-space-size=4096`
 4. **Clang-tidy not found**: Install LLVM/Clang development tools

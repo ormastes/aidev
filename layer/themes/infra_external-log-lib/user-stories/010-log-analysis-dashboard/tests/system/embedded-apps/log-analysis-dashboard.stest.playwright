@@ -1,0 +1,385 @@
+import { test, expect, Page, BrowserContext } from '@playwright/test';
+import { TestDataManager } from '../fixtures/test-data-manager';
+
+/**
+ * System Tests for Log Analysis Dashboard
+ * Tests real browser interactions as required by project rules
+ */
+
+test.describe('Log Analysis Dashboard - System Tests', () => {
+  let testDataManager: TestDataManager;
+  
+  test.beforeAll(async () => {
+    testDataManager = new TestDataManager();
+  });
+  
+  test.beforeEach(async ({ page }) => {
+    // Navigate to dashboard before each test
+    await page.goto('/');
+    await page.waitForLoadState('networkidle');
+  });
+  
+  test.describe('Authentication Flows', () => {
+    test('should display dashboard without authentication required', async ({ page }) => {
+      // Log analysis dashboard should be publicly accessible for monitoring
+      await expect(page).toHaveTitle(/Log Analysis Dashboard/);
+      
+      // Check for main dashboard elements
+      await expect(page.locator('h1')).toBeVisible();
+      await expect(page.locator('[data-testid="log-container"]')).toBeVisible();
+    });
+    
+    test('should handle login flow if authentication is implemented', async ({ page }) => {
+      // Check if login form exists
+      const loginForm = page.locator('[data-testid="login-form"]');
+      
+      if (await loginForm.isVisible()) {
+        // Fill login form
+        await page.fill('[data-testid="username-input"]', 'test-admin');
+        await page.fill('[data-testid="password-input"]', 'test-password-123');
+        
+        // Click login button
+        await page.click('[data-testid="login-button"]');
+        
+        // Wait for dashboard to load
+        await page.waitForLoadState('networkidle');
+        
+        // Verify successful login
+        await expect(page.locator('[data-testid="dashboard-content"]')).toBeVisible();
+        await expect(page.locator('[data-testid="user-menu"]')).toBeVisible();
+      }
+    });
+    
+    test('should handle logout functionality', async ({ page }) => {
+      const logoutButton = page.locator('[data-testid="logout-button"]');
+      
+      if (await logoutButton.isVisible()) {
+        await logoutButton.click();
+        
+        // Wait for navigation
+        await page.waitForLoadState('networkidle');
+        
+        // Should redirect to login or show logged out state
+        const isLoggedOut = await page.locator('[data-testid="login-form"]').isVisible() ||
+                           await page.locator('text="Logged out"').isVisible();
+        
+        expect(isLoggedOut).toBeTruthy();
+      }
+    });
+  });
+  
+  test.describe('Data Input Validation', () => {
+    test('should validate search input fields', async ({ page }) => {
+      const searchInput = page.locator('[data-testid="search-input"]');
+      
+      if (await searchInput.isVisible()) {
+        // Test empty search
+        await searchInput.fill('');
+        await page.keyboard.press('Enter');
+        
+        // Should not crash or show error
+        await expect(page.locator('[data-testid="log-container"]')).toBeVisible();
+        
+        // Test valid search
+        await searchInput.fill('error');
+        await page.keyboard.press('Enter');
+        
+        // Wait for search results
+        await page.waitForTimeout(1000);
+        
+        // Verify search was performed
+        const searchResults = page.locator('[data-testid="log-entry"]');
+        if (await searchResults.count() > 0) {
+          await expect(searchResults.first()).toBeVisible();
+        }
+      }
+    });
+    
+    test('should prevent XSS in search fields', async ({ page }) => {
+      const searchInput = page.locator('[data-testid="search-input"]');
+      
+      if (await searchInput.isVisible()) {
+        // Attempt XSS injection
+        const xssPayload = '<script>alert("XSS")</script>';
+        await searchInput.fill(xssPayload);
+        await page.keyboard.press('Enter');
+        
+        // Wait for processing
+        await page.waitForTimeout(1000);
+        
+        // Check that no alert was triggered (XSS prevented)
+        // Also check that the payload is properly escaped in DOM
+        const logContent = await page.textContent('body');
+        expect(logContent).not.toContain('<script>');
+        
+        // Verify application is still functional
+        await expect(page.locator('[data-testid="log-container"]')).toBeVisible();
+      }
+    });
+    
+    test('should handle file upload validation if present', async ({ page }) => {
+      const fileInput = page.locator('[data-testid="file-upload-input"]');
+      
+      if (await fileInput.isVisible()) {
+        // Test with invalid file type
+        await fileInput.setInputFiles({
+          name: 'test.exe',
+          mimeType: 'application/octet-stream',
+          buffer: Buffer.from('fake executable')
+        });
+        
+        // Should show validation error
+        await expect(page.locator('[data-testid="file-error"]')).toBeVisible();
+        
+        // Test with valid file type
+        await fileInput.setInputFiles({
+          name: 'test-logs.txt',
+          mimeType: 'text/plain',
+          buffer: Buffer.from('2025-01-01 12:00:00 INFO Test log message')
+        });
+        
+        // Should accept valid file
+        const uploadSuccess = page.locator('[data-testid="upload-success"]');
+        if (await uploadSuccess.isVisible()) {
+          await expect(uploadSuccess).toBeVisible();
+        }
+      }
+    });
+  });
+  
+  test.describe('Real-time Updates Verification', () => {
+    test('should establish WebSocket connection', async ({ page }) => {
+      // Monitor network requests
+      const wsConnections: string[] = [];
+      
+      page.on('websocket', ws => {
+        wsConnections.push(ws.url());
+      });
+      
+      // Reload page to trigger WebSocket connection
+      await page.reload();
+      await page.waitForTimeout(2000);
+      
+      // Check if WebSocket connection was established
+      const hasWebSocket = wsConnections.some(url => url.includes('ws://') || url.includes('wss://'));
+      
+      if (hasWebSocket) {
+        console.log('✅ WebSocket connection detected:', wsConnections);
+      } else {
+        console.log('ℹ️ No WebSocket connections detected - may use polling');
+      }
+    });
+    
+    test('should display real-time log updates', async ({ page }) => {
+      // Get initial log count
+      const logEntries = page.locator('[data-testid="log-entry"]');
+      const initialCount = await logEntries.count();
+      
+      // Wait for potential updates (real-time)
+      await page.waitForTimeout(5000);
+      
+      // Check if new entries appeared
+      const updatedCount = await logEntries.count();
+      
+      if (updatedCount > initialCount) {
+        console.log(`✅ Real-time updates detected: ${initialCount} → ${updatedCount}`);
+        
+        // Verify new entries are properly formatted
+        const latestEntry = logEntries.last();
+        await expect(latestEntry).toBeVisible();
+        await expect(latestEntry.locator('[data-testid="log-timestamp"]')).toBeVisible();
+        await expect(latestEntry.locator('[data-testid="log-message"]')).toBeVisible();
+      } else {
+        console.log('ℹ️ No real-time updates during test period');
+      }
+    });
+    
+    test('should handle connection recovery', async ({ page, context }) => {
+      // Simulate network interruption
+      await context.setOffline(true);
+      await page.waitForTimeout(2000);
+      
+      // Check for offline indicator
+      const offlineIndicator = page.locator('[data-testid="offline-indicator"]');
+      if (await offlineIndicator.isVisible()) {
+        await expect(offlineIndicator).toBeVisible();
+      }
+      
+      // Restore network connection
+      await context.setOffline(false);
+      await page.waitForTimeout(3000);
+      
+      // Verify connection recovery
+      await expect(page.locator('[data-testid="log-container"]')).toBeVisible();
+      
+      // Check that offline indicator is gone
+      if (await offlineIndicator.isVisible()) {
+        await expect(offlineIndicator).not.toBeVisible();
+      }
+    });
+  });
+  
+  test.describe('Error Handling and Recovery', () => {
+    test('should display user-friendly error messages', async ({ page }) => {
+      // Try to trigger an error by accessing invalid endpoint
+      await page.route('**/api/logs', route => {
+        route.fulfill({
+          status: 500,
+          contentType: 'application/json',
+          body: JSON.stringify({ error: 'Internal Server Error' })
+        });
+      });
+      
+      // Reload to trigger API call
+      await page.reload();
+      await page.waitForTimeout(2000);
+      
+      // Check for error message
+      const errorMessage = page.locator('[data-testid="error-message"]');
+      if (await errorMessage.isVisible()) {
+        await expect(errorMessage).toBeVisible();
+        
+        // Error message should be user-friendly
+        const errorText = await errorMessage.textContent();
+        expect(errorText).not.toContain('500');
+        expect(errorText).not.toContain('Internal Server Error');
+      }
+    });
+    
+    test('should handle API timeouts gracefully', async ({ page }) => {
+      // Simulate slow API response
+      await page.route('**/api/**', route => {
+        setTimeout(() => {
+          route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify({ logs: [] })
+          });
+        }, 10000); // 10 second delay
+      });
+      
+      // Try to load data
+      await page.reload();
+      
+      // Should show loading indicator
+      const loadingIndicator = page.locator('[data-testid="loading-indicator"]');
+      if (await loadingIndicator.isVisible()) {
+        await expect(loadingIndicator).toBeVisible();
+      }
+      
+      // Wait a reasonable time then check for timeout handling
+      await page.waitForTimeout(3000);
+      
+      // Should either show data or proper timeout message
+      const hasContent = await page.locator('[data-testid="log-container"]').isVisible();
+      const hasTimeout = await page.locator('[data-testid="timeout-message"]').isVisible();
+      
+      expect(hasContent || hasTimeout).toBeTruthy();
+    });
+  });
+  
+  test.describe('Cross-Browser Compatibility', () => {
+    test('should render correctly in all browsers', async ({ page, browserName }) => {
+      console.log(`Testing in ${browserName}`);
+      
+      // Check basic layout
+      await expect(page.locator('body')).toBeVisible();
+      
+      // Check CSS Grid/Flexbox support
+      const mainContainer = page.locator('[data-testid="main-container"]');
+      if (await mainContainer.isVisible()) {
+        const styles = await mainContainer.evaluate(el => {
+          const computed = window.getComputedStyle(el);
+          return {
+            display: computed.display,
+            gridTemplateColumns: computed.gridTemplateColumns,
+            flexDirection: computed.flexDirection
+          };
+        });
+        
+        // Verify layout properties are applied
+        expect(styles.display).toBeTruthy();
+      }
+      
+      // Check JavaScript functionality
+      const interactiveElements = page.locator('[data-testid*="button"], [data-testid*="input"]');
+      const elementCount = await interactiveElements.count();
+      
+      if (elementCount > 0) {
+        // Test first interactive element
+        const firstElement = interactiveElements.first();
+        await expect(firstElement).toBeEnabled();
+      }
+    });
+    
+    test('should handle mobile viewport correctly', async ({ page }) => {
+      // Set mobile viewport
+      await page.setViewportSize({ width: 375, height: 667 });
+      
+      // Check mobile-responsive design
+      await page.reload();
+      await page.waitForLoadState('networkidle');
+      
+      // Verify mobile layout
+      await expect(page.locator('body')).toBeVisible();
+      
+      // Check if mobile menu exists
+      const mobileMenu = page.locator('[data-testid="mobile-menu"]');
+      if (await mobileMenu.isVisible()) {
+        await expect(mobileMenu).toBeVisible();
+      }
+      
+      // Test touch interactions
+      const scrollableContent = page.locator('[data-testid="log-container"]');
+      if (await scrollableContent.isVisible()) {
+        await scrollableContent.scrollIntoViewIfNeeded();
+        await page.touchscreen.tap(100, 100);
+      }
+    });
+  });
+  
+  test.describe('Performance and User Experience', () => {
+    test('should load within acceptable time limits', async ({ page }) => {
+      const startTime = Date.now();
+      
+      await page.goto('/');
+      await page.waitForLoadState('networkidle');
+      
+      const loadTime = Date.now() - startTime;
+      
+      console.log(`Page load time: ${loadTime}ms`);
+      
+      // Should load within 5 seconds
+      expect(loadTime).toBeLessThan(5000);
+    });
+    
+    test('should be accessible to screen readers', async ({ page }) => {
+      // Check for proper ARIA labels
+      const ariaElements = page.locator('[aria-label], [aria-labelledby], [role]');
+      const ariaCount = await ariaElements.count();
+      
+      if (ariaCount > 0) {
+        console.log(`Found ${ariaCount} accessible elements`);
+        
+        // Check first few elements have proper labels
+        for (let i = 0; i < Math.min(ariaCount, 3); i++) {
+          const element = ariaElements.nth(i);
+          const ariaLabel = await element.getAttribute('aria-label');
+          const ariaLabelledBy = await element.getAttribute('aria-labelledby');
+          const role = await element.getAttribute('role');
+          
+          expect(ariaLabel || ariaLabelledBy || role).toBeTruthy();
+        }
+      }
+      
+      // Check heading structure
+      const headings = page.locator('h1, h2, h3, h4, h5, h6');
+      const headingCount = await headings.count();
+      
+      if (headingCount > 0) {
+        // Should have at least one h1
+        await expect(page.locator('h1')).toBeVisible();
+      }
+    });
+  });
+});

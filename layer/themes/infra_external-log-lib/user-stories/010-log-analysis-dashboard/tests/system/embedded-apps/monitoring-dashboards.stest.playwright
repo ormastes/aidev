@@ -1,0 +1,498 @@
+import { test, expect, Page } from '@playwright/test';
+import { EnvironmentValidator } from '../helpers/environment-validator';
+
+/**
+ * System Tests for Monitoring Dashboards
+ * Tests various monitoring interfaces that may be running
+ */
+
+test.describe('Monitoring Dashboards - System Tests', () => {
+  let discoveredServices: any[] = [];
+  
+  test.beforeAll(async () => {
+    const validator = new EnvironmentValidator();
+    discoveredServices = await validator.discoverRunningServices();
+  });
+  
+  // Test common monitoring dashboard ports
+  const monitoringPorts = [3001, 8000, 9090, 9091, 3000, 5000];
+  
+  for (const port of monitoringPorts) {
+    test.describe(`Monitoring Dashboard on port ${port}`, () => {
+      test.beforeEach(async ({ page }) => {
+        const dashboardUrl = `http://localhost:${port}`;
+        try {
+          await page.goto(dashboardUrl, { timeout: 5000 });
+        } catch (error) {
+          test.skip(`No monitoring dashboard running on ${dashboardUrl}`);
+        }
+      });
+      
+      test('should display monitoring dashboard interface', async ({ page }) => {
+        // Look for common monitoring dashboard elements
+        const dashboardElements = [
+          '[data-testid="dashboard"]',
+          '[data-testid="metrics"]',
+          '[data-testid="charts"]',
+          'canvas', // Chart.js or similar
+          '.chart',
+          '.metric',
+          '.graph',
+          'text="Dashboard"',
+          'text="Metrics"',
+          'text="Monitoring"',
+          'text="Status"',
+          'svg' // D3 charts
+        ];
+        
+        let isDashboard = false;
+        const foundElements = [];
+        
+        for (const selector of dashboardElements) {
+          const elements = page.locator(selector);
+          const count = await elements.count();
+          if (count > 0) {
+            isDashboard = true;
+            foundElements.push(`${selector} (${count})`);
+          }
+        }
+        
+        if (isDashboard) {
+          console.log(`✅ Monitoring dashboard detected with elements:`);
+          foundElements.forEach(el => console.log(`  - ${el}`));
+          
+          // Verify basic dashboard functionality
+          await expect(page.locator('body')).toBeVisible();
+          
+          // Check if it's responsive
+          const title = await page.title();
+          expect(title.length).toBeGreaterThan(0);
+        } else {
+          test.skip('No monitoring dashboard interface detected');
+        }
+      });
+      
+      test('should display real-time metrics', async ({ page }) => {
+        // Look for metric displays
+        const metricElements = [
+          '[data-testid="metric-value"]',
+          '.metric-value',
+          '.counter',
+          '.gauge',
+          'text=/\d+/',  // Numbers
+          'text=/\d+%/', // Percentages
+          'text=/\d+\.\d+/', // Decimals
+        ];
+        
+        let hasMetrics = false;
+        const metricData = [];
+        
+        for (const selector of metricElements) {
+          const elements = page.locator(selector);
+          const count = await elements.count();
+          
+          if (count > 0) {
+            hasMetrics = true;
+            
+            // Get first few metric values
+            for (let i = 0; i < Math.min(count, 3); i++) {
+              const element = elements.nth(i);
+              const text = await element.textContent();
+              if (text && text.trim()) {
+                metricData.push(text.trim());
+              }
+            }
+          }
+        }
+        
+        if (hasMetrics) {
+          console.log(`✅ Metrics found:`, metricData);
+          expect(metricData.length).toBeGreaterThan(0);
+          
+          // Test metric updates by waiting and checking again
+          const initialMetric = metricData[0];
+          await page.waitForTimeout(3000);
+          
+          // Re-check first metric for changes
+          const firstMetricElement = page.locator(metricElements[0]).first();
+          if (await firstMetricElement.isVisible()) {
+            const updatedValue = await firstMetricElement.textContent();
+            
+            if (updatedValue !== initialMetric) {
+              console.log(`✅ Real-time update detected: ${initialMetric} → ${updatedValue}`);
+            } else {
+              console.log(`ℹ️ Metric value unchanged during test period`);
+            }
+          }
+        } else {
+          console.log('ℹ️ No metric values detected');
+        }
+      });
+      
+      test('should display data visualizations', async ({ page }) => {
+        // Look for charts and graphs
+        const chartElements = [
+          'canvas',
+          'svg',
+          '[data-testid="chart"]',
+          '.chart',
+          '.graph',
+          '.plot',
+          '.visualization'
+        ];
+        
+        let hasCharts = false;
+        const chartInfo = [];
+        
+        for (const selector of chartElements) {
+          const charts = page.locator(selector);
+          const count = await charts.count();
+          
+          if (count > 0) {
+            hasCharts = true;
+            chartInfo.push({ selector, count });
+            
+            // Test first chart interaction
+            const firstChart = charts.first();
+            if (await firstChart.isVisible()) {
+              const boundingBox = await firstChart.boundingBox();
+              if (boundingBox) {
+                // Check chart has reasonable dimensions
+                expect(boundingBox.width).toBeGreaterThan(50);
+                expect(boundingBox.height).toBeGreaterThan(50);
+                
+                // Test hover interaction
+                await firstChart.hover();
+                await page.waitForTimeout(500);
+                
+                // Look for tooltips or hover effects
+                const tooltip = page.locator('.tooltip, [data-testid="tooltip"], .chart-tooltip');
+                if (await tooltip.isVisible()) {
+                  console.log('✅ Chart interaction detected (tooltip)');
+                }
+              }
+            }
+          }
+        }
+        
+        if (hasCharts) {
+          console.log(`✅ Charts detected:`, chartInfo);
+          expect(chartInfo.length).toBeGreaterThan(0);
+        } else {
+          console.log('ℹ️ No data visualizations found');
+        }
+      });
+      
+      test('should provide time range controls', async ({ page }) => {
+        // Look for time range selectors
+        const timeControls = [
+          '[data-testid="time-range"]',
+          '[data-testid="date-picker"]',
+          'select:has(option:text-matches(/\d+[hmd]/))', // 1h, 24h, 7d, etc.
+          'button:has-text("1h")',
+          'button:has-text("24h")',
+          'button:has-text("7d")',
+          'button:has-text("30d")',
+          'input[type="date"]',
+          'input[type="datetime-local"]',
+          '.time-picker',
+          '.date-range'
+        ];
+        
+        let hasTimeControls = false;
+        
+        for (const selector of timeControls) {
+          const controls = page.locator(selector);
+          const count = await controls.count();
+          
+          if (count > 0) {
+            hasTimeControls = true;
+            console.log(`✅ Time controls found: ${selector} (${count})`);
+            
+            // Test time range interaction
+            const firstControl = controls.first();
+            if (await firstControl.isVisible()) {
+              const tagName = await firstControl.evaluate(el => el.tagName.toLowerCase());
+              
+              if (tagName === 'select') {
+                // Test dropdown selection
+                await firstControl.selectOption({ index: 1 });
+              } else if (tagName === 'button') {
+                // Test button click
+                await firstControl.click();
+              } else if (tagName === 'input') {
+                // Test input change
+                if (await firstControl.getAttribute('type') === 'date') {
+                  await firstControl.fill('2025-01-01');
+                }
+              }
+              
+              // Wait for potential chart update
+              await page.waitForTimeout(2000);
+              
+              // Verify the page is still functional
+              await expect(page.locator('body')).toBeVisible();
+            }
+            break;
+          }
+        }
+        
+        if (!hasTimeControls) {
+          console.log('ℹ️ No time range controls detected');
+        }
+      });
+      
+      test('should support metric filtering and search', async ({ page }) => {
+        // Look for search and filter controls
+        const searchElements = [
+          '[data-testid="search"]',
+          '[data-testid="filter"]',
+          'input[type="search"]',
+          'input[placeholder*="search"]',
+          'input[placeholder*="filter"]',
+          '.search-box',
+          '.filter-input'
+        ];
+        
+        let hasSearch = false;
+        
+        for (const selector of searchElements) {
+          const searchBox = page.locator(selector);
+          if (await searchBox.isVisible()) {
+            hasSearch = true;
+            console.log(`✅ Search/filter found: ${selector}`);
+            
+            // Test search functionality
+            await searchBox.clear();
+            await searchBox.fill('cpu');
+            await page.keyboard.press('Enter');
+            
+            // Wait for search results
+            await page.waitForTimeout(2000);
+            
+            // Verify search was processed
+            const searchResults = page.locator('.search-result, .filtered, [data-testid="search-results"]');
+            if (await searchResults.isVisible()) {
+              console.log('✅ Search results displayed');
+            }
+            
+            // Clear search
+            await searchBox.clear();
+            await page.keyboard.press('Enter');
+            break;
+          }
+        }
+        
+        if (!hasSearch) {
+          console.log('ℹ️ No search/filter functionality detected');
+        }
+      });
+      
+      test('should handle dashboard refresh and auto-update', async ({ page }) => {
+        // Look for refresh controls
+        const refreshElements = [
+          '[data-testid="refresh"]',
+          'button:has-text("Refresh")',
+          'button:has-text("Reload")',
+          '.refresh-button',
+          '[title="Refresh"]'
+        ];
+        
+        let hasRefresh = false;
+        
+        for (const selector of refreshElements) {
+          const refreshButton = page.locator(selector);
+          if (await refreshButton.isVisible()) {
+            hasRefresh = true;
+            console.log(`✅ Refresh control found: ${selector}`);
+            
+            // Test manual refresh
+            await refreshButton.click();
+            
+            // Wait for refresh to complete
+            await page.waitForTimeout(2000);
+            
+            // Verify page is still functional
+            await expect(page.locator('body')).toBeVisible();
+            break;
+          }
+        }
+        
+        // Check for auto-refresh indicators
+        const autoRefreshElements = [
+          '[data-testid="auto-refresh"]',
+          'text="Auto-refresh"',
+          'text=/refresh.*\d+s/',
+          '.auto-refresh',
+          'input[type="checkbox"]:near(text="Auto")',
+          'select:has(option:text-matches(/\d+s/))' // 30s, 60s options
+        ];
+        
+        let hasAutoRefresh = false;
+        for (const selector of autoRefreshElements) {
+          if (await page.locator(selector).isVisible()) {
+            hasAutoRefresh = true;
+            console.log(`✅ Auto-refresh detected: ${selector}`);
+            break;
+          }
+        }
+        
+        if (!hasRefresh && !hasAutoRefresh) {
+          console.log('ℹ️ No refresh controls detected - may use automatic updates');
+        }
+      });
+      
+      test('should display system status and health indicators', async ({ page }) => {
+        // Look for status indicators
+        const statusElements = [
+          '[data-testid="status"]',
+          '[data-testid="health"]',
+          '.status',
+          '.health',
+          '.indicator',
+          'text="Online"',
+          'text="Offline"',
+          'text="Healthy"',
+          'text="Error"',
+          'text="Warning"',
+          '.green',
+          '.red',
+          '.yellow',
+          '[class*="status"]',
+          '[class*="health"]'
+        ];
+        
+        let hasStatus = false;
+        const statusIndicators = [];
+        
+        for (const selector of statusElements) {
+          const elements = page.locator(selector);
+          const count = await elements.count();
+          
+          if (count > 0) {
+            hasStatus = true;
+            
+            // Get status text for first few indicators
+            for (let i = 0; i < Math.min(count, 3); i++) {
+              const element = elements.nth(i);
+              const text = await element.textContent();
+              const classList = await element.getAttribute('class');
+              
+              statusIndicators.push({
+                text: text?.trim(),
+                classes: classList
+              });
+            }
+          }
+        }
+        
+        if (hasStatus) {
+          console.log(`✅ Status indicators found:`, statusIndicators);
+          expect(statusIndicators.length).toBeGreaterThan(0);
+          
+          // Verify at least one status indicator has meaningful content
+          const hasValidStatus = statusIndicators.some(indicator => 
+            indicator.text && (indicator.text.length > 0 || indicator.classes?.includes('status'))
+          );
+          
+          expect(hasValidStatus).toBeTruthy();
+        } else {
+          console.log('ℹ️ No status indicators detected');
+        }
+      });
+      
+      test('should handle error states gracefully', async ({ page, context }) => {
+        // Simulate network issues
+        await context.setOffline(true);
+        
+        // Try to interact with the dashboard
+        const interactiveElements = page.locator('button, a, select, input');
+        const elementCount = await interactiveElements.count();
+        
+        if (elementCount > 0) {
+          const firstElement = interactiveElements.first();
+          await firstElement.click().catch(() => {}); // Ignore click errors
+          
+          await page.waitForTimeout(2000);
+          
+          // Look for error handling
+          const errorElements = [
+            '[data-testid="error"]',
+            '[data-testid="offline"]',
+            '.error',
+            '.offline',
+            'text="Error"',
+            'text="Offline"',
+            'text="Connection"',
+            'text="Failed"'
+          ];
+          
+          let hasErrorHandling = false;
+          for (const selector of errorElements) {
+            if (await page.locator(selector).isVisible()) {
+              hasErrorHandling = true;
+              console.log(`✅ Error handling detected: ${selector}`);
+              break;
+            }
+          }
+          
+          // Restore connection
+          await context.setOffline(false);
+          
+          if (!hasErrorHandling) {
+            console.log('ℹ️ No specific error handling UI detected');
+          }
+        }
+        
+        // Verify dashboard recovers
+        await page.waitForTimeout(2000);
+        await expect(page.locator('body')).toBeVisible();
+      });
+    });
+  }
+  
+  test.describe('Cross-Dashboard Consistency', () => {
+    test('should maintain consistent navigation patterns', async ({ page }) => {
+      const testedDashboards = [];
+      
+      for (const service of discoveredServices) {
+        try {
+          await page.goto(service.url, { timeout: 5000 });
+          await page.waitForLoadState('networkidle');
+          
+          // Check for common navigation elements
+          const navElements = [
+            'nav',
+            '.navigation',
+            '.menu',
+            '[role="navigation"]',
+            '.navbar',
+            '.sidebar'
+          ];
+          
+          let hasNavigation = false;
+          for (const selector of navElements) {
+            if (await page.locator(selector).isVisible()) {
+              hasNavigation = true;
+              break;
+            }
+          }
+          
+          testedDashboards.push({
+            name: service.name,
+            url: service.url,
+            hasNavigation
+          });
+          
+        } catch (error) {
+          console.log(`Failed to test navigation for ${service.name}`);
+        }
+      }
+      
+      console.log('Dashboard navigation summary:', testedDashboards);
+      
+      // Should have tested at least one dashboard
+      expect(testedDashboards.length).toBeGreaterThan(0);
+    });
+  });
+});

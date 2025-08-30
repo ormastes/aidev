@@ -152,6 +152,41 @@ export {
   startComprehensiveLogging
 } from '../src/loggers/ComprehensiveLogger';
 
+// Centralized Log Service (NEW - User Story 008)
+export {
+  CentralizedLogService,
+  LogServiceAPI,
+  LogServiceHTTPAdapter,
+  createCentralizedLogService,
+  createLogServiceAPI,
+  createLogServiceStack,
+  validateLogEntry,
+  normalizeFilters,
+  formatLogOutput
+} from '../user-stories/008-centralized-log-service/src/pipe';
+
+export type {
+  ICentralizedLogService,
+  CentralizedLogEntry,
+  LogQueryFilters,
+  LogQueryResult,
+  AggregationStatistics,
+  CentralizedLogServiceConfig,
+  HealthStatus,
+  CleanupOptions,
+  LogStreamSubscription,
+  StreamingConfig,
+  RetentionPolicy,
+  LogServiceAPIConfig,
+  APIResponse,
+  LogQueryRequest,
+  LogAddRequest,
+  HealthCheckResponse,
+  HTTPAdapterConfig,
+  HTTPResponse,
+  HTTPError
+} from '../user-stories/008-centralized-log-service/src/pipe';
+
 // Essential Info Extraction (NEW)
 export {
   EssentialInfo,

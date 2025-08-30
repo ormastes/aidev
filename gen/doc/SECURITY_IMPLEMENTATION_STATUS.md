@@ -68,7 +68,7 @@ We have successfully implemented comprehensive security fixes addressing all 15 
 ### 1. Authentication & Authorization
 - JWT secrets from environment variables
 - No default admin user creation
-- Secure admin setup script (`npm run setup:admin`)
+- Secure admin setup script (`bun run setup:admin`)
 - Password strength validation (min 8 chars, no common passwords)
 - Session management with SQLite store
 
@@ -145,19 +145,19 @@ export NODE_ENV="production"
 ```bash
 # 1. Install dependencies
 cd release/gui-selector-portal
-npm install
+bun install
 
 # 2. Rebuild native modules
-npm rebuild bcrypt sqlite3
+bun install --force
 
 # 3. Create admin user
-npm run setup:admin
+bun run setup:admin
 
 # 4. Build TypeScript (if possible)
-npm run build
+bun run build
 
 # 5. Start server
-npm start
+bun start
 # OR use tsx for development
 bunx tsx src/server.ts
 ```

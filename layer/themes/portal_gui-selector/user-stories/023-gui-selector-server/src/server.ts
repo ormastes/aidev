@@ -12,6 +12,7 @@ import { healthRouter } from './routes/health';
 import reportsRouter from './routes/reports';
 import { themesRouter } from './routes/themes';
 import { messagesRouter } from './routes/messages';
+import pagesRouter from './routes/pages';
 import { logger } from './utils/logger';
 import { sessionConfig } from './config/session';
 import { DatabaseService } from './services/DatabaseService';
@@ -110,6 +111,8 @@ app.use('/api/auth', authRouter);  // Session-based auth
 app.use('/api/v2/auth', authJWTRouter);  // JWT-based auth
 
 // Protected API routes - require authentication
+// IMPORTANT: Pages router must be before templates router because it handles /api/templates/:id/pages routes
+app.use('/api', requireAuth, pagesRouter);  // Page management (handles /templates/:id/pages routes)
 app.use('/api/templates', requireAuth, templateRouter);
 app.use('/api/selections', requireAuth, selectionsRouter);
 app.use('/api/requirements', requireAuth, requirementsRouter);
@@ -161,6 +164,13 @@ app.get('/mobile-preview', (req, res) => {
     return res.redirect('/');
   }
   res.sendFile(path.join(__dirname, '../../public/mobile-preview.html'));
+});
+
+app.get('/page-manager', (req, res) => {
+  if (!req.session || !req.session.userId) {
+    return res.redirect('/');
+  }
+  res.sendFile(path.join(__dirname, '../../public/page-manager.html'));
 });
 
 // Static files - serve the client application (excluding html files)

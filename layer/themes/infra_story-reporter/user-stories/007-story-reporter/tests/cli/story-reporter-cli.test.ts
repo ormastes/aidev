@@ -17,7 +17,7 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
   
   describe('Dashboard Command', () => {
     it('should display dashboard with statistics', () => {
-      const output = execSync(`bunx ts-node ${CLI_PATH} dashboard`, { encoding: 'utf-8' });
+      const output = execSync(`bun run ${CLI_PATH} dashboard`, { encoding: 'utf-8' });
       
       expect(output).toContain('Story Reporter Dashboard');
       expect(output).toContain('Total Stories');
@@ -26,7 +26,7 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
     });
     
     it('should support auto-refresh option', (done) => {
-      const child = execSync(`bunx ts-node ${CLI_PATH} dashboard --refresh 1`, {
+      const child = execSync(`bun run ${CLI_PATH} dashboard --refresh 1`, {
         encoding: 'utf-8',
         timeout: 2500
       });
@@ -39,20 +39,20 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
   
   describe('Browse Command', () => {
     it('should list stories with filters', () => {
-      const output = execSync(`bunx ts-node ${CLI_PATH} browse --status draft`, { encoding: 'utf-8' });
+      const output = execSync(`bun run ${CLI_PATH} browse --status draft`, { encoding: 'utf-8' });
       
       expect(output).toContain('Stories');
       expect(output).toMatch(/\d+ results/);
     });
     
     it('should support search functionality', () => {
-      const output = execSync(`bunx ts-node ${CLI_PATH} browse --search "test"`, { encoding: 'utf-8' });
+      const output = execSync(`bun run ${CLI_PATH} browse --search "test"`, { encoding: 'utf-8' });
       
       expect(output).toBeTruthy();
     });
     
     it('should export to different formats', () => {
-      execSync(`bunx ts-node ${CLI_PATH} browse --export json`, { encoding: 'utf-8' });
+      execSync(`bun run ${CLI_PATH} browse --export json`, { encoding: 'utf-8' });
       
       const files = fs.readdirSync('.');
       const exportFile = files.find(f => f.startsWith('stories-export') && f.endsWith('.json'));
@@ -63,13 +63,13 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
     });
     
     it('should support sorting options', () => {
-      const output = execSync(`bunx ts-node ${CLI_PATH} browse --sort coverage --reverse`, { encoding: 'utf-8' });
+      const output = execSync(`bun run ${CLI_PATH} browse --sort coverage --reverse`, { encoding: 'utf-8' });
       
       expect(output).toContain('Stories');
     });
     
     it('should show summary statistics', () => {
-      const output = execSync(`bunx ts-node ${CLI_PATH} browse`, { encoding: 'utf-8' });
+      const output = execSync(`bun run ${CLI_PATH} browse`, { encoding: 'utf-8' });
       
       expect(output).toContain('Summary:');
       expect(output).toContain('Average Coverage:');
@@ -78,7 +78,7 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
   
   describe('Settings Command', () => {
     it('should display current settings', () => {
-      const output = execSync(`bunx ts-node ${CLI_PATH} settings --list`, { encoding: 'utf-8' });
+      const output = execSync(`bun run ${CLI_PATH} settings --list`, { encoding: 'utf-8' });
       
       expect(output).toContain('Current Settings');
       expect(output).toContain('theme');
@@ -87,17 +87,17 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
     });
     
     it('should set and get configuration values', () => {
-      execSync(`bunx ts-node ${CLI_PATH} settings --set theme=dark`, { encoding: 'utf-8' });
+      execSync(`bun run ${CLI_PATH} settings --set theme=dark`, { encoding: 'utf-8' });
       
-      const output = execSync(`bunx ts-node ${CLI_PATH} settings --get theme`, { encoding: 'utf-8' });
+      const output = execSync(`bun run ${CLI_PATH} settings --get theme`, { encoding: 'utf-8' });
       expect(output).toContain('theme = dark');
       
       // Reset
-      execSync(`bunx ts-node ${CLI_PATH} settings --reset`, { encoding: 'utf-8' });
+      execSync(`bun run ${CLI_PATH} settings --reset`, { encoding: 'utf-8' });
     });
     
     it('should show server information', () => {
-      const output = execSync(`bunx ts-node ${CLI_PATH} settings`, { encoding: 'utf-8' });
+      const output = execSync(`bun run ${CLI_PATH} settings`, { encoding: 'utf-8' });
       
       expect(output).toContain('Server Information');
       expect(output).toContain('API Endpoint');
@@ -111,7 +111,7 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
       const testStoryId = 'test-story-001';
       
       try {
-        execSync(`bunx ts-node ${CLI_PATH} export ${testStoryId} --format json`, { encoding: 'utf-8' });
+        execSync(`bun run ${CLI_PATH} export ${testStoryId} --format json`, { encoding: 'utf-8' });
         
         const files = fs.readdirSync('./reports');
         const jsonFile = files.find(f => f.includes(testStoryId) && f.endsWith('.json'));
@@ -126,7 +126,7 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
       const testStoryId = 'test-story-001';
       
       try {
-        execSync(`bunx ts-node ${CLI_PATH} export ${testStoryId} --format markdown`, { encoding: 'utf-8' });
+        execSync(`bun run ${CLI_PATH} export ${testStoryId} --format markdown`, { encoding: 'utf-8' });
         
         const files = fs.readdirSync('./reports');
         const mdFile = files.find(f => f.includes(testStoryId) && f.endsWith('.md'));
@@ -141,7 +141,7 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
       const testStoryId = 'test-story-001';
       
       try {
-        execSync(`bunx ts-node ${CLI_PATH} export ${testStoryId} --format json --include-comments --include-metadata`, { encoding: 'utf-8' });
+        execSync(`bun run ${CLI_PATH} export ${testStoryId} --format json --include-comments --include-metadata`, { encoding: 'utf-8' });
         
         // Verify the exported file contains the expected fields
         const files = fs.readdirSync('./reports');
@@ -161,14 +161,14 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
   
   describe('Batch Command', () => {
     it('should perform batch operations with dry-run', () => {
-      const output = execSync(`bunx ts-node ${CLI_PATH} batch --status draft --action export --dry-run`, { encoding: 'utf-8' });
+      const output = execSync(`bun run ${CLI_PATH} batch --status draft --action export --dry-run`, { encoding: 'utf-8' });
       
       expect(output).toContain('DRY RUN MODE');
       expect(output).toContain('No changes will be made');
     });
     
     it('should filter stories for batch operations', () => {
-      const output = execSync(`bunx ts-node ${CLI_PATH} batch --project test --action verify --dry-run`, { encoding: 'utf-8' });
+      const output = execSync(`bun run ${CLI_PATH} batch --project test --action verify --dry-run`, { encoding: 'utf-8' });
       
       expect(output).toMatch(/Found \d+ stories for batch operation/);
     });
@@ -179,7 +179,7 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
       const testStoryId = 'test-story-001';
       
       try {
-        const output = execSync(`bunx ts-node ${CLI_PATH} view ${testStoryId}`, { encoding: 'utf-8' });
+        const output = execSync(`bun run ${CLI_PATH} view ${testStoryId}`, { encoding: 'utf-8' });
         
         expect(output).toContain('Story Details');
         expect(output).toContain("Statistics");
@@ -195,7 +195,7 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
       const testStoryId = 'test-story-001';
       
       try {
-        const output = execSync(`bunx ts-node ${CLI_PATH} view ${testStoryId} --json`, { encoding: 'utf-8' });
+        const output = execSync(`bun run ${CLI_PATH} view ${testStoryId} --json`, { encoding: 'utf-8' });
         
         const json = JSON.parse(output);
         expect(json).toHaveProperty('id');
@@ -211,7 +211,7 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
       const testStoryId = 'test-story-001';
       
       try {
-        const output = execSync(`bunx ts-node ${CLI_PATH} view ${testStoryId} --full`, { encoding: 'utf-8' });
+        const output = execSync(`bun run ${CLI_PATH} view ${testStoryId} --full`, { encoding: 'utf-8' });
         
         expect(output).toContain('Unit Tests');
         expect(output).toContain("Integration");
@@ -227,7 +227,7 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
     it('should have interactive mode available', () => {
       // Can't easily test interactive mode in unit tests
       // Just verify the command exists
-      const helpOutput = execSync(`bunx ts-node ${CLI_PATH} --help`, { encoding: 'utf-8' });
+      const helpOutput = execSync(`bun run ${CLI_PATH} --help`, { encoding: 'utf-8' });
       
       expect(helpOutput).toContain("interactive");
       expect(helpOutput).toContain('Start interactive mode');
@@ -236,20 +236,20 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
   
   describe('Global Options', () => {
     it('should support quiet mode', () => {
-      const output = execSync(`bunx ts-node ${CLI_PATH} --quiet list`, { encoding: 'utf-8' });
+      const output = execSync(`bun run ${CLI_PATH} --quiet list`, { encoding: 'utf-8' });
       
       // In quiet mode, should have minimal output
       expect(output.split('\n').length).toBeLessThan(10);
     });
     
     it('should support verbose mode', () => {
-      const output = execSync(`bunx ts-node ${CLI_PATH} --verbose list`, { encoding: 'utf-8' });
+      const output = execSync(`bun run ${CLI_PATH} --verbose list`, { encoding: 'utf-8' });
       
       expect(output).toContain('Story Reporter initialized');
     });
     
     it('should support no-color option', () => {
-      const output = execSync(`bunx ts-node ${CLI_PATH} --no-color list`, { encoding: 'utf-8' });
+      const output = execSync(`bun run ${CLI_PATH} --no-color list`, { encoding: 'utf-8' });
       
       // Should not contain ANSI color codes
       expect(output).not.toMatch(/\x1b\[\d+m/);
@@ -258,7 +258,7 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
   
   describe('Help Documentation', () => {
     it('should show comprehensive help', () => {
-      const output = execSync(`bunx ts-node ${CLI_PATH} --help`, { encoding: 'utf-8' });
+      const output = execSync(`bun run ${CLI_PATH} --help`, { encoding: 'utf-8' });
       
       // Verify all new commands are documented
       expect(output).toContain("dashboard");
@@ -270,7 +270,7 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
     });
     
     it('should show command-specific help', () => {
-      const output = execSync(`bunx ts-node ${CLI_PATH} browse --help`, { encoding: 'utf-8' });
+      const output = execSync(`bun run ${CLI_PATH} browse --help`, { encoding: 'utf-8' });
       
       expect(output).toContain('--status');
       expect(output).toContain('--search');
@@ -282,7 +282,7 @@ describe('Story Reporter CLI - Feature Parity Tests', () => {
 
 describe('CLI Feature Parity with Web GUI', () => {
   it('should have all major web GUI features', () => {
-    const helpOutput = execSync(`bunx ts-node ${CLI_PATH} --help`, { encoding: 'utf-8' });
+    const helpOutput = execSync(`bun run ${CLI_PATH} --help`, { encoding: 'utf-8' });
     
     // Dashboard features
     expect(helpOutput).toContain("dashboard");

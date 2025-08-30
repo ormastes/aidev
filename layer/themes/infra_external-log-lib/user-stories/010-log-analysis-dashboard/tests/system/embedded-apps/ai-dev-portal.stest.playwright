@@ -1,0 +1,387 @@
+import { test, expect, Page } from '@playwright/test';
+
+/**
+ * System Tests for AI Dev Portal
+ * Tests E2E user workflows with real browser interactions
+ */
+
+test.describe('AI Dev Portal - System Tests', () => {
+  const PORTAL_URL = 'http://localhost:3000';
+  
+  test.beforeEach(async ({ page }) => {
+    // Check if AI Dev Portal is running
+    try {
+      await page.goto(PORTAL_URL, { timeout: 5000 });
+    } catch (error) {
+      test.skip('AI Dev Portal is not running at ' + PORTAL_URL);
+    }
+  });
+  
+  test.describe('User Authentication Flow', () => {
+    test('should complete full login workflow from landing page', async ({ page }) => {
+      // Start from landing/login page as required by project rules
+      await page.goto(PORTAL_URL);
+      
+      // Look for login form or login button
+      const loginForm = page.locator('[data-testid="login-form"], form:has(input[type="email"]), form:has(input[type="username"])');
+      const loginButton = page.locator('[data-testid="login-button"], button:has-text("Login"), button:has-text("Sign In")');
+      
+      if (await loginForm.isVisible()) {
+        // Fill login form
+        await page.fill('input[type="email"], input[name="username"], input[name="email"]', 'test@aidev.com');
+        await page.fill('input[type="password"], input[name="password"]', 'testPassword123');
+        
+        // Click login
+        await loginButton.click();
+        
+        // Wait for navigation or dashboard to load
+        await page.waitForLoadState('networkidle');
+        
+        // Verify successful login - look for dashboard elements
+        const dashboardElements = [
+          '[data-testid="dashboard"]',
+          '[data-testid="user-menu"]',
+          'nav',
+          '.dashboard',
+          'text="Dashboard"',
+          'text="Welcome"'
+        ];
+        
+        let loginSuccessful = false;
+        for (const selector of dashboardElements) {
+          if (await page.locator(selector).isVisible()) {
+            loginSuccessful = true;
+            break;
+          }
+        }
+        
+        expect(loginSuccessful).toBeTruthy();
+      } else {
+        console.log('ℹ️ No login form found - portal may not require authentication');
+        
+        // Verify portal content is accessible
+        await expect(page.locator('body')).toBeVisible();
+        await expect(page).toHaveTitle(/.+/);
+      }
+    });
+    
+    test('should handle invalid credentials properly', async ({ page }) => {
+      await page.goto(PORTAL_URL);
+      
+      const loginForm = page.locator('[data-testid="login-form"], form:has(input[type="email"])');
+      
+      if (await loginForm.isVisible()) {
+        // Enter invalid credentials
+        await page.fill('input[type="email"], input[name="username"]', 'invalid@test.com');
+        await page.fill('input[type="password"]', 'wrongpassword');
+        
+        await page.click('[data-testid="login-button"], button:has-text("Login")');
+        
+        // Should show error message
+        const errorMessage = page.locator('[data-testid="error-message"], .error, .alert-error');
+        await expect(errorMessage).toBeVisible({ timeout: 5000 });
+        
+        // Should not redirect to dashboard
+        await expect(page).toHaveURL(new RegExp(PORTAL_URL));
+      }
+    });
+    
+    test('should support logout functionality', async ({ page }) => {
+      await page.goto(PORTAL_URL);
+      
+      // Look for logout button (may be in user menu)
+      const logoutSelectors = [
+        '[data-testid="logout-button"]',
+        'button:has-text("Logout")',
+        'button:has-text("Sign Out")',
+        '[data-testid="user-menu"] >> text="Logout"'
+      ];
+      
+      let logoutButton = null;
+      for (const selector of logoutSelectors) {
+        const element = page.locator(selector);
+        if (await element.isVisible()) {
+          logoutButton = element;
+          break;
+        }
+      }
+      
+      if (logoutButton) {
+        await logoutButton.click();
+        
+        // Should redirect to login page or show logged out state
+        await page.waitForLoadState('networkidle');
+        
+        const isLoggedOut = await page.locator('[data-testid="login-form"], text="Login", text="Logged out"').isVisible();
+        expect(isLoggedOut).toBeTruthy();
+      } else {
+        console.log('ℹ️ No logout functionality found');
+      }
+    });
+  });
+  
+  test.describe('Core Portal Functionality', () => {
+    test('should navigate between main sections', async ({ page }) => {
+      await page.goto(PORTAL_URL);
+      await page.waitForLoadState('networkidle');
+      
+      // Look for navigation elements
+      const navLinks = page.locator('nav a, [role="navigation"] a, .nav-link');
+      const navCount = await navLinks.count();
+      
+      if (navCount > 0) {
+        // Test navigation to each section
+        for (let i = 0; i < Math.min(navCount, 5); i++) {
+          const link = navLinks.nth(i);
+          const linkText = await link.textContent();
+          
+          if (linkText && linkText.trim()) {
+            console.log(`Testing navigation to: ${linkText}`);
+            
+            await link.click();
+            await page.waitForLoadState('networkidle');
+            
+            // Verify page changed
+            await expect(page.locator('body')).toBeVisible();
+            
+            // Go back to main page for next test
+            await page.goto(PORTAL_URL);
+            await page.waitForLoadState('networkidle');
+          }
+        }
+      } else {
+        console.log('ℹ️ No navigation links found');
+      }
+    });
+    
+    test('should handle project management features', async ({ page }) => {
+      await page.goto(PORTAL_URL);
+      
+      // Look for project-related elements
+      const projectElements = [
+        '[data-testid="project-list"]',
+        '[data-testid="create-project"]',
+        'text="Projects"',
+        'text="New Project"',
+        '.project-card'
+      ];
+      
+      let hasProjectFeatures = false;
+      for (const selector of projectElements) {
+        if (await page.locator(selector).isVisible()) {
+          hasProjectFeatures = true;
+          break;
+        }
+      }
+      
+      if (hasProjectFeatures) {
+        // Test project creation if available
+        const createButton = page.locator('[data-testid="create-project"], button:has-text("New Project")');
+        if (await createButton.isVisible()) {
+          await createButton.click();
+          
+          // Look for project form
+          const projectForm = page.locator('form, [data-testid="project-form"]');
+          await expect(projectForm).toBeVisible({ timeout: 5000 });
+        }
+        
+        // Test project list if available
+        const projectList = page.locator('[data-testid="project-list"], .project-card');
+        if (await projectList.isVisible()) {
+          await expect(projectList).toBeVisible();
+        }
+      } else {
+        console.log('ℹ️ No project management features found');
+      }
+    });
+  });
+  
+  test.describe('Integration with AI Development Tools', () => {
+    test('should connect to development services', async ({ page }) => {
+      await page.goto(PORTAL_URL);
+      
+      // Look for development tool integrations
+      const devTools = [
+        '[data-testid="code-editor"]',
+        '[data-testid="terminal"]',
+        '[data-testid="file-explorer"]',
+        'text="VS Code"',
+        'text="Terminal"',
+        'text="Editor"'
+      ];
+      
+      let hasDevTools = false;
+      for (const selector of devTools) {
+        if (await page.locator(selector).isVisible()) {
+          hasDevTools = true;
+          console.log(`Found development tool: ${selector}`);
+        }
+      }
+      
+      if (hasDevTools) {
+        // Test interaction with development tools
+        const codeEditor = page.locator('[data-testid="code-editor"], .monaco-editor, .CodeMirror');
+        if (await codeEditor.isVisible()) {
+          // Test code editor interaction
+          await codeEditor.click();
+          await page.keyboard.type('console.log("Hello World");');
+          
+          // Verify text was entered
+          const editorContent = await codeEditor.textContent();
+          expect(editorContent).toContain('Hello World');
+        }
+      } else {
+        console.log('ℹ️ No development tool integrations found');
+      }
+    });
+    
+    test('should support file operations', async ({ page }) => {
+      await page.goto(PORTAL_URL);
+      
+      // Look for file management features
+      const fileElements = [
+        '[data-testid="file-upload"]',
+        '[data-testid="file-browser"]',
+        'input[type="file"]',
+        'text="Upload"',
+        'text="Browse Files"'
+      ];
+      
+      let hasFileFeatures = false;
+      for (const selector of fileElements) {
+        if (await page.locator(selector).isVisible()) {
+          hasFileFeatures = true;
+          break;
+        }
+      }
+      
+      if (hasFileFeatures) {
+        // Test file upload if available
+        const fileInput = page.locator('input[type="file"]');
+        if (await fileInput.isVisible()) {
+          await fileInput.setInputFiles({
+            name: 'test-file.txt',
+            mimeType: 'text/plain',
+            buffer: Buffer.from('Test file content for AI Dev Portal')
+          });
+          
+          // Wait for upload to process
+          await page.waitForTimeout(2000);
+          
+          // Look for success indication
+          const uploadSuccess = page.locator('[data-testid="upload-success"], .success, text="uploaded"');
+          if (await uploadSuccess.isVisible()) {
+            await expect(uploadSuccess).toBeVisible();
+          }
+        }
+      } else {
+        console.log('ℹ️ No file management features found');
+      }
+    });
+  });
+  
+  test.describe('Real-time Collaboration Features', () => {
+    test('should support real-time updates', async ({ page }) => {
+      await page.goto(PORTAL_URL);
+      
+      // Monitor for WebSocket connections
+      const wsConnections: string[] = [];
+      page.on('websocket', ws => {
+        wsConnections.push(ws.url());
+        console.log(`WebSocket connection: ${ws.url()}`);
+      });
+      
+      // Wait for potential WebSocket connections
+      await page.waitForTimeout(3000);
+      
+      if (wsConnections.length > 0) {
+        console.log(`✅ Found ${wsConnections.length} WebSocket connections`);
+        
+        // Test real-time functionality if available
+        const realtimeElements = [
+          '[data-testid="live-updates"]',
+          '[data-testid="collaboration"]',
+          'text="Live"',
+          'text="Real-time"'
+        ];
+        
+        for (const selector of realtimeElements) {
+          if (await page.locator(selector).isVisible()) {
+            await expect(page.locator(selector)).toBeVisible();
+          }
+        }
+      } else {
+        console.log('ℹ️ No real-time features detected');
+      }
+    });
+  });
+  
+  test.describe('Error Handling and Performance', () => {
+    test('should handle network errors gracefully', async ({ page, context }) => {
+      await page.goto(PORTAL_URL);
+      
+      // Simulate network failure
+      await context.setOffline(true);
+      
+      // Try to perform an action that requires network
+      const interactiveElements = page.locator('button, a, input[type="submit"]');
+      const elementCount = await interactiveElements.count();
+      
+      if (elementCount > 0) {
+        await interactiveElements.first().click();
+        await page.waitForTimeout(2000);
+        
+        // Should show appropriate error message or offline indicator
+        const offlineIndicators = [
+          '[data-testid="offline"]',
+          '[data-testid="error"]',
+          'text="offline"',
+          'text="connection"',
+          '.error'
+        ];
+        
+        let hasOfflineHandling = false;
+        for (const selector of offlineIndicators) {
+          if (await page.locator(selector).isVisible()) {
+            hasOfflineHandling = true;
+            break;
+          }
+        }
+        
+        // Restore connection
+        await context.setOffline(false);
+        
+        if (hasOfflineHandling) {
+          console.log('✅ Offline error handling detected');
+        } else {
+          console.log('ℹ️ No specific offline error handling found');
+        }
+      }
+    });
+    
+    test('should maintain performance under load', async ({ page }) => {
+      const startTime = Date.now();
+      
+      await page.goto(PORTAL_URL);
+      await page.waitForLoadState('networkidle');
+      
+      const loadTime = Date.now() - startTime;
+      console.log(`Portal load time: ${loadTime}ms`);
+      
+      // Should load within reasonable time
+      expect(loadTime).toBeLessThan(10000); // 10 seconds max
+      
+      // Test responsiveness
+      const startClick = Date.now();
+      const firstButton = page.locator('button, a').first();
+      
+      if (await firstButton.isVisible()) {
+        await firstButton.click();
+        const clickTime = Date.now() - startClick;
+        
+        console.log(`Click response time: ${clickTime}ms`);
+        expect(clickTime).toBeLessThan(1000); // 1 second max
+      }
+    });
+  });
+});

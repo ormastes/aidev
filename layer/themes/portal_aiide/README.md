@@ -15,7 +15,7 @@ A web-based AI-powered development environment with multi-provider chat support,
 ## Installation
 
 ```bash
-npm install
+bun install
 ```
 
 ## Configuration
@@ -37,39 +37,39 @@ cp .env.example .env
 
 Start both frontend and backend:
 ```bash
-npm start
+bun start
 ```
 
 Or run them separately:
 
 Frontend (Vite dev server):
 ```bash
-npm run dev
+bun run dev
 ```
 
 Backend (Express server):
 ```bash
-npm run server
+bun run server
 ```
 
 ### Production Mode
 
 Build the application:
 ```bash
-npm run build
+bun run build
 ```
 
 Run in production:
 ```bash
-npm run start:prod
+bun run start:prod
 ```
 
 ### Docker
 
 Build and run with Docker:
 ```bash
-npm run docker:build
-npm run docker:run
+bun run docker:build
+bun run docker:run
 ```
 
 ## Accessing the Application
@@ -82,15 +82,15 @@ npm run docker:run
 
 Run all tests:
 ```bash
-npm test
+bun test
 ```
 
 Run specific test suites:
 ```bash
-npm run test:unit       # Unit tests
-npm run test:integration # Integration tests
-npm run test:system     # System tests (Playwright)
-npm run test:coverage   # With coverage report
+bun run test:unit       # Unit tests
+bun run test:integration # Integration tests
+bun run test:system     # System tests (Playwright)
+bun run test:coverage   # With coverage report
 ```
 
 ## Project Structure

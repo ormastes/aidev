@@ -1,0 +1,35 @@
+{
+  "validUsers": [
+    {
+      "username": "test-admin",
+      "password": "test-password-123",
+      "role": "admin"
+    },
+    {
+      "username": "test-user",
+      "password": "test-password-456",
+      "role": "user"
+    },
+    {
+      "username": "test-viewer",
+      "password": "test-password-789",
+      "role": "viewer"
+    }
+  ],
+  "sessions": [],
+  "apiKeys": [
+    {
+      "key": "test-api-key-123",
+      "permissions": [
+        "read",
+        "write"
+      ]
+    },
+    {
+      "key": "test-api-key-456",
+      "permissions": [
+        "read"
+      ]
+    }
+  ]
+}

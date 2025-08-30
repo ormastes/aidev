@@ -101,6 +101,38 @@
         },
         "createdAt": "2025-08-03T12:00:00.000Z",
         "updatedAt": "2025-08-12T16:00:00.000Z"
+      },
+      {
+        "id": "portal_gui-selector-epic-006",
+        "name": "Multi-Page Template Management",
+        "data": {
+          "title": "Multi-Page Template Management System",
+          "description": "Enhanced GUI selector with page creation, listing, customization per page and overall project customization. Supports adding pages after template selection, individual page customization, and global theme settings",
+          "level": "epic",
+          "status": "implemented",
+          "priority": "high",
+          "tags": [
+            "multi-page",
+            "template-management",
+            "customization",
+            "page-builder"
+          ],
+          "virtual_path": "/layer/themes/portal_gui-selector/FEATURE.vf.json",
+          "deliverables": [
+            "PageManagementService for page operations",
+            "Enhanced template types supporting multi-page structure",
+            "Page creation and listing functionality",
+            "Individual page customization (colors, layout, components)",
+            "Overall project customization (theme, spacing, fonts)",
+            "Drag-and-drop page reordering",
+            "Page duplication and deletion",
+            "Import/export page configurations",
+            "Visual page manager UI",
+            "RESTful API for all page operations"
+          ]
+        },
+        "createdAt": "2025-08-29T12:00:00.000Z",
+        "updatedAt": "2025-08-29T12:00:00.000Z"
       }
     ]
   },

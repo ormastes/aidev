@@ -117,7 +117,7 @@ find . -type d -name "temp" -not -path "./gen/temp" -not -path "./_aidev/*" | wc
 ## Next Steps
 
 1. **Commit these changes** to version control
-2. **Run `npm install`** in themes that need dependencies
+2. **Run `bun install`** in themes that need dependencies
 3. **Document** the directory structure in README.md
 4. **Set up pre-commit hooks** to prevent future violations
 5. **Regular maintenance** schedule for cleanup

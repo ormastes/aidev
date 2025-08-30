@@ -1,0 +1,25 @@
+{
+  "name": "@aidev/test-setup",
+  "version": "1.0.0",
+  "description": "Unified test setup for AI Development Platform",
+  "type": "module",
+  "scripts": {
+    "test": "bun run run-tests.ts",
+    "test:all": "bun run run-tests.ts",
+    "test:unit": "cd .. && bun test **/*.test.ts",
+    "test:spec": "cd .. && bun test **/*.spec.ts",
+    "test:external": "cd .. && bun test **/*.etest.ts",
+    "test:story-reporter": "cd ../layer/themes/infra_story-reporter && bun test",
+    "test:coverage": "cd .. && bun test --coverage",
+    "test:watch": "cd .. && bun test --watch"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "bun-types": "latest",
+    "glob": "^10.3.10"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^10.3.1",
+    "playwright": "^1.40.1"
+  }
+}

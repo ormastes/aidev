@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - Node.js 18+ 
-- npm or yarn
+- bun
 - Git
 - Docker (optional, for containerized deployment)
 
@@ -13,7 +13,7 @@
 ```bash
 git clone <repository>
 cd layer/themes/portal_aiide
-npm install
+bun install
 ```
 
 2. **Configure Environment**
@@ -24,10 +24,10 @@ cp .env.example .env
 
 3. **Start Development**
 ```bash
-npm start
+bun start
 # Or run separately:
-# npm run dev     # Frontend on http://localhost:5173
-# npm run server  # Backend on http://localhost:3457
+# bun run dev     # Frontend on http://localhost:5173
+# bun run server  # Backend on http://localhost:3457
 ```
 
 ## Production Deployment
@@ -36,7 +36,7 @@ npm start
 
 1. **Build Application**
 ```bash
-npm run build
+bun run build
 ```
 
 2. **Configure Production Environment**
@@ -48,7 +48,7 @@ export CLIENT_URL=https://your-domain.com
 
 3. **Start Production Server**
 ```bash
-npm run start:prod
+bun run start:prod
 ```
 
 ### Option 2: Docker Deployment
@@ -113,15 +113,15 @@ sudo apt-get install -y nodejs
 # Clone and setup
 git clone <repository>
 cd layer/themes/portal_aiide
-npm install
-npm run build
+bun install
+bun run build
 ```
 
 3. **Use PM2 for Process Management**
 ```bash
-npm install -g pm2
-pm2 start npm --name "aiide-backend" -- run server
-pm2 start npm --name "aiide-frontend" -- run preview
+bun install -g pm2
+pm2 start bun --name "aiide-backend" -- run server
+pm2 start bun --name "aiide-frontend" -- run preview
 pm2 save
 pm2 startup
 ```
@@ -154,7 +154,7 @@ git push heroku main
 
 1. **Install Vercel CLI**
 ```bash
-npm i -g vercel
+bun install -g vercel
 ```
 
 2. **Deploy**
@@ -172,8 +172,8 @@ Update `VITE_API_URL` in Vercel environment variables
    - Select Node.js environment
 
 2. **Configure**
-   - Build Command: `npm run build`
-   - Run Command: `npm run start:prod`
+   - Build Command: `bun run build`
+   - Run Command: `bun run start:prod`
    - HTTP Port: 3457
 
 3. **Environment Variables**
@@ -301,7 +301,7 @@ export ENABLE_CACHE=true
 
 2. **Optimize Build**
 ```bash
-npm run build -- --mode production
+bun run build -- --mode production
 ```
 
 3. **Use CDN for Static Assets**
@@ -321,14 +321,14 @@ kill -9 <PID>
 ### Module Not Found
 ```bash
 rm -rf node_modules package-lock.json
-npm install
+bun install
 ```
 
 ### Build Errors
 ```bash
-npm run clean
-npm install
-npm run build
+bun run clean
+bun install
+bun run build
 ```
 
 ### API Connection Issues

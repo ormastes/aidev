@@ -112,12 +112,12 @@ create_bun_config() {
     log_info "Creating bun configuration..."
     
     if [[ ! -f "bunfig.toml" ]]; then
-        cat > bunfig.toml << 'EOF'
+        cat > bunfig.toml << EOF
 # Bun configuration for AI Development Platform
 
 [install]
 # Use the local node_modules folder
-globalDir = "~/.bun/install/global"
+globalDir = "$HOME/.bun/install/global"
 # Install peer dependencies automatically
 peer = true
 # Production mode - skip devDependencies in production
@@ -131,7 +131,7 @@ print = "yarn"
 
 [install.cache]
 # Use a shared global cache
-dir = "~/.bun/install/cache"
+dir = "$HOME/.bun/install/cache"
 # Disable cache for CI
 disable = false
 

@@ -184,10 +184,10 @@ All enforcement mechanisms are active and the system is self-maintaining through
 
 ```bash
 # Check your code compliance
-npm run file-api:scan:prod
+bun run file-api:scan:prod
 
 # Fix any violations
-npm run file-api:fix
+bun run file-api:fix
 
 # View the dashboard
 open gen/doc/compliance-dashboard.html

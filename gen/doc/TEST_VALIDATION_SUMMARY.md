@@ -106,7 +106,7 @@ test('my assertion works', () => {
 ## 🎯 Next Steps
 
 ### Immediate Actions
-1. Run `npm test` to verify all tests pass
+1. Run `bun test` to verify all tests pass
 2. Install pre-commit hook for ongoing validation
 3. Review failing tests in CI/CD pipeline
 

@@ -1,4 +1,4 @@
-import { TemplateInfo, PreviewData } from '../types/template';
+import { TemplateInfo, PreviewData, PageTemplate } from '../types/template';
 
 export class TemplateService {
   private templates: TemplateInfo[] = [
@@ -10,11 +10,14 @@ export class TemplateService {
       previewUrl: '/templates/modern-01/preview',
       thumbnailUrl: '/templates/modern-01/thumbnail.jpg',
       features: ["responsive", 'dark-mode', "animations", 'mobile-first'],
+      defaultPages: ['home', 'dashboard', 'profile'],
+      maxPages: 10,
       metadata: {
         author: 'Design Team',
         version: '1.2.0',
         lastUpdated: '2024-01-15',
-        tags: ["dashboard", 'clean', "minimalist", 'modern']
+        tags: ["dashboard", 'clean', "minimalist", 'modern'],
+        supportsMultiPage: true
       }
     },
     {
@@ -25,11 +28,14 @@ export class TemplateService {
       previewUrl: '/templates/professional-01/preview',
       thumbnailUrl: '/templates/professional-01/thumbnail.jpg',
       features: ["corporate", 'formal', "structured", 'data-tables'],
+      defaultPages: ['home', 'dashboard', 'reports', 'teams'],
+      maxPages: 15,
       metadata: {
         author: 'Business Team',
         version: '2.1.0',
         lastUpdated: '2024-01-10',
-        tags: ["business", "corporate", 'formal', "enterprise"]
+        tags: ["business", "corporate", 'formal', "enterprise"],
+        supportsMultiPage: true
       }
     },
     {
@@ -40,11 +46,14 @@ export class TemplateService {
       previewUrl: '/templates/creative-01/preview',
       thumbnailUrl: '/templates/creative-01/thumbnail.jpg',
       features: ["artistic", 'bold-colors', "animations", "parallax"],
+      defaultPages: ['home', 'portfolio', 'about'],
+      maxPages: 8,
       metadata: {
         author: 'Creative Team',
         version: '1.0.0',
         lastUpdated: '2024-01-20',
-        tags: ["creative", "portfolio", "artistic", 'bold']
+        tags: ["creative", "portfolio", "artistic", 'bold'],
+        supportsMultiPage: true
       }
     },
     {
@@ -55,11 +64,14 @@ export class TemplateService {
       previewUrl: '/templates/accessible-01/preview',
       thumbnailUrl: '/templates/accessible-01/thumbnail.jpg',
       features: ['wcag-compliant', 'high-contrast', 'keyboard-navigation', 'screen-reader'],
+      defaultPages: ['home', 'services', 'contact'],
+      maxPages: 12,
       metadata: {
         author: 'Accessibility Team',
         version: '1.1.0',
         lastUpdated: '2024-01-12',
-        tags: ["accessibility", 'wcag', "inclusive", 'a11y']
+        tags: ["accessibility", 'wcag', "inclusive", 'a11y'],
+        supportsMultiPage: true
       }
     }
   ];
@@ -436,6 +448,46 @@ export class TemplateService {
   async getTemplatesByCategory(category: string): Promise<TemplateInfo[]> {
     await this.simulateDelay();
     return this.templates.filter(t => t.category === category);
+  }
+
+  async getTemplatePages(templateId: string): Promise<PageTemplate[]> {
+    await this.simulateDelay();
+    const template = this.templates.find(t => t.id === templateId);
+    if (!template || !template.metadata.supportsMultiPage) {
+      return [];
+    }
+
+    const defaultPageTypes = template.defaultPages || ['home'];
+    const pages: PageTemplate[] = defaultPageTypes.map((pageType, index) => ({
+      id: `${templateId}-page-${pageType}`,
+      name: pageType.charAt(0).toUpperCase() + pageType.slice(1),
+      type: pageType as any,
+      html: this.getDefaultPageHtml(pageType),
+      customizable: {
+        colors: true,
+        layout: true,
+        components: true,
+        content: true
+      }
+    }));
+
+    return pages;
+  }
+
+  private getDefaultPageHtml(pageType: string): string {
+    const pageHtmlMap: { [key: string]: string } = {
+      home: '<div class="page-home"><h1>Welcome</h1><p>Home page content</p></div>',
+      dashboard: '<div class="page-dashboard"><h2>Dashboard</h2><div class="widgets"></div></div>',
+      profile: '<div class="page-profile"><h2>User Profile</h2><div class="profile-info"></div></div>',
+      reports: '<div class="page-reports"><h2>Reports</h2><div class="report-list"></div></div>',
+      teams: '<div class="page-teams"><h2>Teams</h2><div class="team-list"></div></div>',
+      portfolio: '<div class="page-portfolio"><h2>Portfolio</h2><div class="portfolio-grid"></div></div>',
+      about: '<div class="page-about"><h2>About</h2><p>About page content</p></div>',
+      services: '<div class="page-services"><h2>Services</h2><ul class="service-list"></ul></div>',
+      contact: '<div class="page-contact"><h2>Contact</h2><form class="contact-form"></form></div>'
+    };
+
+    return pageHtmlMap[pageType] || '<div class="page"><h2>Page Content</h2></div>';
   }
 
   private async simulateDelay(): Promise<void> {

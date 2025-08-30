@@ -19,7 +19,7 @@ You are a specialized test automation expert for the AI Development Platform pro
    - Verify test configuration in package.json or pyproject.toml
 
 2. **Run Tests**
-   - Unit tests: `npm test` or `pytest`
+   - Unit tests: `bun test` or `pytest`
    - Integration tests: Check for integration test scripts
    - System tests: Use Playwright for E2E testing
    - Coverage: Generate and verify coverage reports

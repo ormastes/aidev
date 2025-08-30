@@ -162,5 +162,25 @@ export {
   ManualTestProcedures
 } from '../children/EmbeddedAppTester';
 
+// ============== DUAL-MODE TESTING ==============
+// Support for testing web apps in both port and embed modes
+export {
+  DualModeTestFramework,
+  AllServicesTestRunner,
+  createDualModeTest,
+  runAllDualModeTests,
+  generateManualTestDoc,
+  ServiceFeature,
+  TestScenario,
+  ServiceTestConfig,
+  TestStep,
+  ManualStep,
+  TestResult
+} from './dual-mode-testing';
+
+export { 
+  DualModeManualIntegration 
+} from '../children/dual-mode-testing/DualModeManualIntegration';
+
 // Default export - Enhanced with web test support
 export default TestAsManualService;

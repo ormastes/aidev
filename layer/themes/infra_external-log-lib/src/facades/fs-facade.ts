@@ -3,8 +3,8 @@
  * Provides wrapped fs module with logging and security features
  */
 
-import * as fsOriginal from '../../layer/themes/infra_external-log-lib/src';
-import * as fsPromisesOriginal from 'fs/promises';
+import * as fsOriginal from 'node:fs';
+import * as fsPromisesOriginal from 'node:fs/promises';
 import { globalConfig } from '../config';
 
 interface CallRecord {

@@ -1,0 +1,201 @@
+# Test Manual: coordinator-e2e.test.ts
+
+**Quality Level**: 🟢 High (80%)
+**Readability**: 100%
+
+## Metadata
+
+- **File**: `coordinator-e2e.test.ts`
+- **Path**: `/home/ormastes/dev/pub/aidev/layer/themes/llm-agent_coordinator-claude/user-stories/010-coordinator-agent/tests/system/coordinator-e2e.test.ts`
+- **Type**: Unit Test
+- **BDD Format**: ✅ Yes
+- **Async Tests**: ✅ Yes
+- **Test Count**: 5
+
+## Test Overview
+
+### Test Suites
+
+- Coordinator Agent E2E Tests
+- Coordinator Web Interface
+- Performance Tests
+
+## Test Cases
+
+### 1. should start coordinator via CLI
+
+#### Purpose
+This test verifies: should start coordinator via CLI
+
+#### Prerequisites
+- Required test data is available
+- Dependencies are properly mocked/configured
+
+#### Test Steps
+1. **Setup**: Initialize test context
+2. **Arrange**: Prepare test data and conditions
+3. **Act**: Execute the operation being tested
+4. **Assert**: Verify the expected outcome
+
+#### Expected Results
+- The operation completes successfully
+- All assertions pass
+- No unexpected side effects occur
+
+#### Manual Execution
+When running manually:
+- [ ] Verify prerequisites are met
+- [ ] Execute test steps in order
+- [ ] Validate expected results
+- [ ] Document any deviations
+
+### 2. should handle interactive commands in terminal
+
+#### Purpose
+This test verifies: should handle interactive commands in terminal
+
+#### Prerequisites
+- Required test data is available
+- Dependencies are properly mocked/configured
+
+#### Test Steps
+1. **Setup**: Initialize test context
+2. **Arrange**: Prepare test data and conditions
+3. **Act**: Execute the operation being tested
+4. **Assert**: Verify the expected outcome
+
+#### Expected Results
+- The operation completes successfully
+- All assertions pass
+- No unexpected side effects occur
+
+#### Manual Execution
+When running manually:
+- [ ] Verify prerequisites are met
+- [ ] Execute test steps in order
+- [ ] Validate expected results
+- [ ] Document any deviations
+
+### 3. should resume interrupted session
+
+#### Purpose
+This test verifies: should resume interrupted session
+
+#### Prerequisites
+- Required test data is available
+- Dependencies are properly mocked/configured
+
+#### Test Steps
+1. **Setup**: Initialize test context
+2. **Arrange**: Prepare test data and conditions
+3. **Act**: Execute the operation being tested
+4. **Assert**: Verify the expected outcome
+
+#### Expected Results
+- The operation completes successfully
+- All assertions pass
+- No unexpected side effects occur
+
+#### Manual Execution
+When running manually:
+- [ ] Verify prerequisites are met
+- [ ] Execute test steps in order
+- [ ] Validate expected results
+- [ ] Document any deviations
+
+### 4. should export session data
+
+#### Purpose
+This test verifies: should export session data
+
+#### Prerequisites
+- Required test data is available
+- Dependencies are properly mocked/configured
+
+#### Test Steps
+1. **Setup**: Initialize test context
+2. **Arrange**: Prepare test data and conditions
+3. **Act**: Execute the operation being tested
+4. **Assert**: Verify the expected outcome
+
+#### Expected Results
+- The operation completes successfully
+- All assertions pass
+- No unexpected side effects occur
+
+#### Manual Execution
+When running manually:
+- [ ] Verify prerequisites are met
+- [ ] Execute test steps in order
+- [ ] Validate expected results
+- [ ] Document any deviations
+
+### 5. should integrate with chat-space theme
+
+#### Purpose
+This test verifies: should integrate with chat-space theme
+
+#### Prerequisites
+- Required test data is available
+- Dependencies are properly mocked/configured
+
+#### Test Steps
+1. **Setup**: Initialize test context
+2. **Arrange**: Prepare test data and conditions
+3. **Act**: Execute the operation being tested
+4. **Assert**: Verify the expected outcome
+
+#### Expected Results
+- The operation completes successfully
+- All assertions pass
+- No unexpected side effects occur
+
+#### Manual Execution
+When running manually:
+- [ ] Verify prerequisites are met
+- [ ] Execute test steps in order
+- [ ] Validate expected results
+- [ ] Document any deviations
+
+## Environment Setup
+
+### Dependencies
+```bash
+npm install  # Install all dependencies
+npm run build  # Build the project
+```
+
+### Configuration
+- Ensure test configuration is properly set
+- Environment variables are configured
+- Test database/storage is initialized
+
+## Execution Instructions
+
+### Automated Execution
+```bash
+# Run this specific test file
+npm test -- coordinator-e2e.test.ts
+
+# Run with coverage
+npm run test:coverage -- coordinator-e2e.test.ts
+
+# Run in watch mode
+npm test -- --watch coordinator-e2e.test.ts
+```
+
+## Troubleshooting
+
+### Common Issues
+
+| Issue | Possible Cause | Solution |
+|-------|---------------|----------|
+| Test timeout | Slow async operations | Increase timeout value |
+| Module not found | Missing dependencies | Run npm install |
+| Connection refused | Service not running | Start required services |
+| Assertion failed | Logic error or data issue | Debug test implementation |
+
+---
+*Generated by Enhanced Test-as-Manual System*
+*Quality Score: 80%*
+*Generated at: 2025-08-28T01:16:20.338Z*
