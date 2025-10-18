@@ -6,7 +6,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Repository
+.jj
+
 # Build outputs
+gen/
 dist/
 **/dist/
 build/
@@ -24,6 +28,17 @@ target/
 *.dylib
 *.dll
 *.exe
+
+# TypeScript generated files in source directories
+# These should only be in gen/dist, not in source folders
+layer/**/children/*.js
+layer/**/children/*.d.ts
+layer/**/children/*.js.map
+layer/**/children/*.d.ts.map
+layer/**/pipe/*.js
+layer/**/pipe/*.d.ts
+layer/**/pipe/*.js.map
+layer/**/pipe/*.d.ts.map
 
 # IDE and tools
 .vscode/
