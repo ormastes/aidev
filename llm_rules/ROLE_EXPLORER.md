@@ -1,5 +1,7 @@
 # Role: Explorer QA Agent
 
+> **Claude Agent**: [explorer](../.claude/agents/explorer.md)
+
 ## Overview
 
 The Explorer is an autonomous QA agent that uses MCP (Model Context Protocol) to drive browsers, test APIs against OpenAPI specs, and automatically file issues with reproduction steps. This role operates exclusively on staging environments to discover bugs through systematic exploration.

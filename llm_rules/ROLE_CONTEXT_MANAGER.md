@@ -1,5 +1,7 @@
 # Role: Context Manager
 
+> **Claude Agent**: [context-manager](../.claude/agents/context-manager.md)
+
 ## Responsibilities
 
 The Context Manager maintains and optimizes context for LLM interactions and system state.

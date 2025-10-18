@@ -19,6 +19,10 @@ export { SecurityMiddleware } from './SecurityMiddleware';
 export { PortManager } from './PortManager';
 export { EnhancedPortManager } from './EnhancedPortManager';
 export { CredentialStore } from './CredentialStore';
+export { User } from './User';
+
+// Framework-specific wrappers
+export { ElysiaSecurityWrapper, setupElysiaSecurity } from './ElysiaSecurityWrapper';
 
 // Unified security suite
 export class UnifiedSecuritySuite {

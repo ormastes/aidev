@@ -82,30 +82,35 @@ export class ServiceProxy {
         'x-user-permissions': JSON.stringify(userPayload.permissions)
       };
 
-      // Mock success response for testing
-      // In real implementation, this would make actual HTTP requests to services
-      const mockResponse: ProxyResponse = {
-        success: true,
-        statusCode: 200,
-        headers: {
-          'x-forwarded-auth': authToken,
-          'x-user-id': userPayload.userId,
-          'x-user-role': userPayload.role,
-          'content-type': 'application/json'
-        },
-        body: {
-          service: serviceName,
-          endpoint: request.url,
-          method: request.method,
-          user: {
-            id: userPayload.userId,
-            role: userPayload.role
-          },
-          authenticated: true
-        }
-      };
+      // Make actual HTTP request to the service
+      const fullUrl = `${serviceUrl}${request.url}`;
 
-      return mockResponse;
+      const response = await fetch(fullUrl, {
+        method: request.method,
+        headers: forwardedHeaders,
+        body: request.body ? JSON.stringify(request.body) : undefined,
+        signal: AbortSignal.timeout(this.timeout)
+      });
+
+      const responseHeaders: Record<string, string> = {};
+      response.headers.forEach((value, key) => {
+        responseHeaders[key] = value;
+      });
+
+      let responseBody;
+      const contentType = response.headers.get('content-type');
+      if (contentType?.includes('application/json')) {
+        responseBody = await response.json();
+      } else {
+        responseBody = await response.text();
+      }
+
+      return {
+        success: response.ok,
+        statusCode: response.status,
+        headers: responseHeaders,
+        body: responseBody
+      };
 
     } catch (error: any) {
       return {
@@ -120,13 +125,19 @@ export class ServiceProxy {
   async checkServiceHealth(serviceName: string): Promise<boolean> {
     try {
       const serviceUrl = this.services[serviceName];
-      
+
       if (!serviceUrl) {
         return false;
       }
 
-      // Mock health check - in real implementation would call service health endpoint
-      return true;
+      // Call service health endpoint
+      const healthUrl = `${serviceUrl}/health`;
+      const response = await fetch(healthUrl, {
+        method: 'GET',
+        signal: AbortSignal.timeout(this.timeout)
+      });
+
+      return response.ok;
     } catch (error) {
       return false;
     }

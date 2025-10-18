@@ -1,23 +1,23 @@
 /**
- * AI Dev Portal - Task Queue Focused Portal
- * Primary landing page showing TASK_QUEUE.vf.json as per CLAUDE.md rules
+ * AI Dev Portal - Secured Task Queue Portal
+ * Uses portal_security theme for authentication
  */
 
-import { Elysia } from 'elysia'
-import { html } from '@elysiajs/html'
-import { staticPlugin } from '@elysiajs/static'
-import * as fs from 'fs'
-import * as path from 'path'
+import { Elysia } from 'elysia';
+import { html } from '@elysiajs/html';
+import * as fs from 'fs';
+import * as path from 'path';
+import { setupElysiaSecurity, User } from '../portal_security/pipe';
 
 // Read task queue data
 function getTaskQueue() {
   try {
-    const taskQueuePath = path.join(process.cwd(), '../../..', 'TASK_QUEUE.vf.json')
-    const data = fs.readFileSync(taskQueuePath, 'utf-8')
-    return JSON.parse(data)
+    const taskQueuePath = path.join(process.cwd(), 'TASK_QUEUE.vf.json');
+    const data = fs.readFileSync(taskQueuePath, 'utf-8');
+    return JSON.parse(data);
   } catch (error) {
-    console.error('Error reading TASK_QUEUE.vf.json:', error)
-    return null
+    console.error('Error reading TASK_QUEUE.vf.json:', error);
+    return null;
   }
 }
 
@@ -27,13 +27,13 @@ function formatTask(task: any): string {
     ? '<span class="badge completed">Completed</span>'
     : task.status === 'in_progress'
     ? '<span class="badge in-progress">In Progress</span>'
-    : '<span class="badge pending">Pending</span>'
+    : '<span class="badge pending">Pending</span>';
 
   const priority = task.priority === 'critical' ? '🔴'
     : task.priority === 'high' ? '🟠'
     : task.priority === 'medium' ? '🟡'
     : task.priority === 'low' ? '🟢'
-    : ''
+    : '';
 
   return `
     <div class="task-card">
@@ -45,40 +45,180 @@ function formatTask(task: any): string {
       ${task.details?.description ? `<p class="task-desc">${task.details.description}</p>` : ''}
       ${task.created_at ? `<div class="task-meta">Created: ${new Date(task.created_at).toLocaleDateString()}</div>` : ''}
     </div>
-  `
+  `;
 }
 
-// Create the portal app
+// Generate login page HTML
+function getLoginPage(): string {
+  return `<!DOCTYPE html>
+  <html>
+  <head>
+    <title>AI Dev Portal - Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .login-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        width: 100%;
+        max-width: 400px;
+      }
+      h1 {
+        color: #667eea;
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+      .form-group {
+        margin-bottom: 1rem;
+      }
+      label {
+        display: block;
+        color: #333;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+      input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+      }
+      input:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+      button {
+        width: 100%;
+        padding: 0.75rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      button:hover {
+        transform: translateY(-2px);
+      }
+      .error {
+        color: #e74c3c;
+        margin-top: 1rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-card">
+      <h1>🔐 AI Dev Portal</h1>
+      <form method="POST" action="/api/auth/login">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+      </form>
+      <div id="error" class="error"></div>
+    </div>
+  </body>
+  </html>`;
+}
+
+// Create the secured portal app
 export const app = new Elysia()
-  .use(html())
+  .use(html());
 
-  // Main dashboard - Task Queue focused
-  .get('/', () => {
-    const taskQueue = getTaskQueue()
+// Setup security
+const securityWrapper = setupElysiaSecurity(app, {
+  requireAuth: true,
+  publicPaths: ['/login', '/api/auth/login', '/health'],
+  loginPath: '/login'
+});
 
-    let taskContent = ''
+app
+  // Login page
+  .get('/login', () => getLoginPage())
+
+  // Login API
+  .post('/api/auth/login', async ({ body, cookie, set }) => {
+    const { username, password } = body as any;
+
+    const result = await securityWrapper.login(username, password);
+    if (!result) {
+      set.status = 401;
+      return { success: false, error: 'Invalid credentials' };
+    }
+
+    // Set session cookie
+    cookie.sessionId.set({
+      value: result.sessionId,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 3600 // 1 hour
+    });
+
+    set.redirect = '/';
+    return { success: true, user: result.user };
+  })
+
+  // Logout API
+  .post('/api/auth/logout', ({ cookie, set }) => {
+    const sessionId = cookie.sessionId?.value;
+    if (sessionId) {
+      securityWrapper.logout(sessionId);
+    }
+    cookie.sessionId.remove();
+    set.redirect = '/login';
+    return { success: true };
+  })
+
+  // Main dashboard - Requires authentication
+  .get('/', ({ user }) => {
+    if (!user) {
+      // This shouldn't happen due to security middleware, but just in case
+      return getLoginPage();
+    }
+
+    const taskQueue = getTaskQueue();
+    let taskContent = '';
     let stats = {
       total: 0,
       completed: 0,
       in_progress: 0,
       pending: 0
-    }
+    };
 
-    if (taskQueue) {
-      // Process all queue types
+    if (taskQueue && taskQueue.queues) {
       Object.entries(taskQueue.queues).forEach(([queueType, queue]: [string, any]) => {
         if (queue.items && queue.items.length > 0) {
-          taskContent += `<h3 class="queue-title">${queueType.replace(/_/g, ' ').toUpperCase()}</h3>`
-
+          taskContent += `<h3 class="queue-title">${queueType.replace(/_/g, ' ').toUpperCase()}</h3>`;
           queue.items.forEach((task: any) => {
-            taskContent += formatTask(task)
-            stats.total++
-            if (task.status === 'completed') stats.completed++
-            else if (task.status === 'in_progress') stats.in_progress++
-            else stats.pending++
-          })
+            taskContent += formatTask(task);
+            stats.total++;
+            if (task.status === 'completed') stats.completed++;
+            else if (task.status === 'in_progress') stats.in_progress++;
+            else stats.pending++;
+          });
         }
-      })
+      });
     }
 
     return `<!DOCTYPE html>
@@ -88,6 +228,7 @@ export const app = new Elysia()
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <style>
+        /* Same styles as before */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -98,20 +239,46 @@ export const app = new Elysia()
         .header {
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           padding: 2rem;
-          box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .header .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
         }
         .header h1 {
           color: white;
           font-size: 2rem;
-          margin-bottom: 0.5rem;
         }
         .header p {
           color: rgba(255,255,255,0.9);
+          margin-top: 0.5rem;
+        }
+        .user-info {
+          color: white;
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+        }
+        .logout-btn {
+          background: rgba(255,255,255,0.2);
+          border: 1px solid white;
+          color: white;
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          cursor: pointer;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .logout-btn:hover {
+          background: rgba(255,255,255,0.3);
         }
         .container {
-          max-width: 1400px;
-          margin: 0 auto;
-          padding: 2rem;
+          max-width: 1200px;
+          margin: 2rem auto;
+          padding: 0 1rem;
         }
         .stats-grid {
           display: grid;
@@ -121,9 +288,9 @@ export const app = new Elysia()
         }
         .stat-card {
           background: #16213e;
-          border-radius: 0.75rem;
           padding: 1.5rem;
-          border: 1px solid #394867;
+          border-radius: 0.5rem;
+          text-align: center;
         }
         .stat-card h3 {
           font-size: 2rem;
@@ -131,15 +298,12 @@ export const app = new Elysia()
           margin-bottom: 0.5rem;
         }
         .stat-card p {
-          color: #888;
-          text-transform: uppercase;
-          font-size: 0.875rem;
+          color: #aaa;
         }
         .task-section {
           background: #0f1419;
-          border-radius: 1rem;
           padding: 1.5rem;
-          margin-bottom: 2rem;
+          border-radius: 0.5rem;
         }
         .section-header {
           display: flex;
@@ -147,16 +311,18 @@ export const app = new Elysia()
           align-items: center;
           margin-bottom: 1.5rem;
         }
-        .section-header h2 {
-          color: #667eea;
-          font-size: 1.5rem;
+        .refresh-btn {
+          background: #667eea;
+          color: white;
+          border: none;
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          cursor: pointer;
         }
         .queue-title {
           color: #764ba2;
           margin: 1.5rem 0 1rem;
           font-size: 1.2rem;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
         }
         .task-card {
           background: #16213e;
@@ -167,91 +333,42 @@ export const app = new Elysia()
         }
         .task-header {
           display: flex;
-          align-items: center;
           gap: 0.5rem;
           margin-bottom: 0.5rem;
-        }
-        .task-card h4 {
-          color: #fff;
-          margin-bottom: 0.5rem;
-        }
-        .task-desc {
-          color: #aaa;
-          font-size: 0.9rem;
-          line-height: 1.4;
-        }
-        .task-id {
-          color: #666;
-          font-size: 0.75rem;
-          font-family: monospace;
-        }
-        .task-meta {
-          color: #666;
-          font-size: 0.8rem;
-          margin-top: 0.5rem;
         }
         .badge {
           padding: 0.25rem 0.75rem;
           border-radius: 1rem;
           font-size: 0.75rem;
           font-weight: 600;
-          text-transform: uppercase;
         }
-        .badge.completed { background: #10b981; color: white; }
-        .badge.in-progress { background: #f59e0b; color: white; }
-        .badge.pending { background: #6b7280; color: white; }
-        .refresh-btn {
-          padding: 0.5rem 1rem;
-          background: #667eea;
-          color: white;
-          border: none;
-          border-radius: 0.5rem;
-          cursor: pointer;
-          font-weight: 600;
-        }
-        .refresh-btn:hover {
-          background: #5a67d8;
-        }
-        .empty-state {
-          text-align: center;
-          padding: 3rem;
-          color: #666;
-        }
-        .priority-legend {
-          display: flex;
-          gap: 1rem;
-          margin-bottom: 1rem;
-          font-size: 0.875rem;
-          color: #888;
-        }
+        .badge.completed { background: #27ae60; color: white; }
+        .badge.in-progress { background: #f39c12; color: white; }
+        .badge.pending { background: #95a5a6; color: white; }
       </style>
     </head>
     <body>
       <div class="header">
         <div class="container">
-          <h1>📋 AI Dev Portal - Task Queue</h1>
-          <p>Primary task management dashboard (TASK_QUEUE.vf.json)</p>
+          <div>
+            <h1>📋 AI Dev Portal - Task Queue</h1>
+            <p>Secured task management dashboard</p>
+          </div>
+          <div class="user-info">
+            <span>👤 ${(user as User).username}</span>
+            <form method="POST" action="/api/auth/logout">
+              <button class="logout-btn" type="submit">Logout</button>
+            </form>
+          </div>
         </div>
       </div>
 
       <div class="container">
         <div class="stats-grid">
-          <div class="stat-card">
-            <h3>${stats.total}</h3>
-            <p>Total Tasks</p>
-          </div>
-          <div class="stat-card">
-            <h3>${stats.pending}</h3>
-            <p>Pending</p>
-          </div>
-          <div class="stat-card">
-            <h3>${stats.in_progress}</h3>
-            <p>In Progress</p>
-          </div>
-          <div class="stat-card">
-            <h3>${stats.completed}</h3>
-            <p>Completed</p>
-          </div>
+          <div class="stat-card"><h3>${stats.total}</h3><p>Total Tasks</p></div>
+          <div class="stat-card"><h3>${stats.pending}</h3><p>Pending</p></div>
+          <div class="stat-card"><h3>${stats.in_progress}</h3><p>In Progress</p></div>
+          <div class="stat-card"><h3>${stats.completed}</h3><p>Completed</p></div>
         </div>
 
         <div class="task-section">
@@ -259,51 +376,43 @@ export const app = new Elysia()
             <h2>Task Queue</h2>
             <button class="refresh-btn" onclick="location.reload()">🔄 Refresh</button>
           </div>
-
-          <div class="priority-legend">
-            <span>Priority: </span>
-            <span>🔴 Critical</span>
-            <span>🟠 High</span>
-            <span>🟡 Medium</span>
-            <span>🟢 Low</span>
-          </div>
-
           ${taskContent || '<div class="empty-state">No tasks in queue</div>'}
         </div>
       </div>
 
       <script>
-        // Auto-refresh every 30 seconds
         setTimeout(() => location.reload(), 30000);
       </script>
     </body>
-    </html>`
+    </html>`;
   })
 
-  // API endpoint for task queue data
-  .get('/api/tasks', () => {
-    const taskQueue = getTaskQueue()
+  // API endpoint for task queue data - Requires authentication
+  .get('/api/tasks', ({ user }) => {
+    const taskQueue = getTaskQueue();
     return {
       success: true,
       data: taskQueue,
+      user: user ? (user as User).username : null,
       timestamp: new Date().toISOString()
-    }
+    };
   })
 
-  // Health check
+  // Health check - Public
   .get('/health', () => ({
     status: 'healthy',
-    service: 'aidev-portal',
-    version: '1.0.0',
+    service: 'aidev-portal-secured',
+    version: '2.0.0',
+    security: 'enabled',
     timestamp: new Date().toISOString()
-  }))
+  }));
 
 // Start the server
 if (import.meta.main) {
   app.listen(3456, () => {
-    console.log('🚀 AI Dev Portal running at http://localhost:3456')
-    console.log('📋 Task Queue focused portal - TASK_QUEUE.vf.json first!')
-  })
+    console.log('🔐 Secured AI Dev Portal running at http://localhost:3456');
+    console.log('📋 Authentication required - Default: admin/admin');
+  });
 }
 
-export default app
+export default app;

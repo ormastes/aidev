@@ -1,5 +1,7 @@
 # Role: Agent Scheduler
 
+> **Claude Agent**: [agent-scheduler](../.claude/agents/agent-scheduler.md)
+
 ## Responsibilities
 
 The Agent Scheduler manages and coordinates multiple LLM agents for efficient task execution.

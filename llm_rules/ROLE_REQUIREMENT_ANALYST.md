@@ -1,5 +1,7 @@
 # Role: Requirement Analyst
 
+> **Claude Agent**: [requirement-analyst](../.claude/agents/requirement-analyst.md)
+
 ## Responsibilities
 
 The Requirement Analyst ensures clear, complete, and testable requirements for all features.

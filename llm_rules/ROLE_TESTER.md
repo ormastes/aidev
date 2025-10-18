@@ -1,5 +1,7 @@
 # Role: Tester
 
+> **Claude Agents**: [test-runner](../.claude/agents/test-runner.md), [code-reviewer](../.claude/agents/code-reviewer.md), [ollama-tester](../.claude/agents/ollama-tester.md)
+
 ## Responsibilities
 
 The Tester ensures comprehensive test coverage following Mock Free Test Oriented Development principles.

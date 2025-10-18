@@ -1,5 +1,7 @@
 # Role: API Checker
 
+> **Claude Agent**: [api-checker](../.claude/agents/api-checker.md)
+
 ## Responsibilities
 
 The API Checker validates API contracts, compatibility, and documentation accuracy.

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Embedded App Template</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      padding: 2rem;
+      background: #f5f5f5;
+    }
+
+    .app-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .auth-status {
+      padding: 1rem;
+      background: #f0f0f0;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      font-family: monospace;
+      font-size: 0.85rem;
+    }
+
+    .auth-status.authenticated {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .auth-status.unauthenticated {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .message-log {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #1a1a2e;
+      color: #eee;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .message-entry {
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      background: #16213e;
+      border-radius: 4px;
+    }
+
+    .message-time {
+      color: #667eea;
+      margin-right: 0.5rem;
+    }
+
+    .content-section {
+      margin: 2rem 0;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      color: #667eea;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    button:hover {
+      background: #5568d3;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <h1>🚀 Embedded App Template</h1>
+
+    <div id="auth-status" class="auth-status unauthenticated">
+      Status: Not authenticated
+    </div>
+
+    <div class="content-section">
+      <h2>Your App Content Here</h2>
+      <p>This is a template for creating apps that can be embedded in the AI Dev Portal.</p>
+      <p>Replace this content with your actual application.</p>
+
+      <div style="margin-top: 1rem;">
+        <button onclick="sendMessageToPortal('TEST_MESSAGE', { test: 'data' })">
+          Send Test Message to Portal
+        </button>
+        <button onclick="requestNavigate('/dashboard')">
+          Request Navigation
+        </button>
+      </div>
+    </div>
+
+    <h2>Message Log</h2>
+    <div id="message-log" class="message-log">
+      <div class="message-entry">
+        <span class="message-time">[System]</span>
+        <span>Waiting for messages from portal...</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Portal Embedding SDK
+    // This script handles communication with the AI Dev Portal
+
+    class PortalEmbeddingSDK {
+      constructor() {
+        this.portalOrigin = null;
+        this.authenticated = false;
+        this.authData = null;
+        this.messageHandlers = new Map();
+
+        this.setupMessageListener();
+        this.notifyReady();
+      }
+
+      /**
+       * Set up message listener for portal communication
+       */
+      setupMessageListener() {
+        window.addEventListener('message', (event) => {
+          // In production, verify origin
+          const trustedOrigins = [
+            'http://localhost:3456',
+            'http://localhost:3000'
+          ];
+
+          if (!trustedOrigins.includes(event.origin)) {
+            console.warn('Message from untrusted origin:', event.origin);
+            return;
+          }
+
+          this.portalOrigin = event.origin;
+          this.handleMessage(event.data);
+        });
+      }
+
+      /**
+       * Handle incoming messages from portal
+       */
+      handleMessage(message) {
+        if (!message || typeof message.type !== 'string') {
+          return;
+        }
+
+        this.logMessage('RECEIVED', message);
+
+        switch (message.type) {
+          case 'AUTH_TOKEN':
+            this.handleAuthToken(message.data);
+            break;
+
+          case 'RELOAD':
+            window.location.reload();
+            break;
+
+          case 'NAVIGATE':
+            this.handleNavigate(message.data);
+            break;
+
+          default:
+            // Call registered handlers
+            const handlers = this.messageHandlers.get(message.type) || [];
+            handlers.forEach(handler => handler(message.data));
+
+            // Call wildcard handlers
+            const wildcardHandlers = this.messageHandlers.get('*') || [];
+            wildcardHandlers.forEach(handler => handler(message));
+        }
+      }
+
+      /**
+       * Handle authentication token from portal
+       */
+      handleAuthToken(data) {
+        this.authenticated = true;
+        this.authData = data;
+
+        // Update UI
+        const statusEl = document.getElementById('auth-status');
+        if (statusEl) {
+          statusEl.className = 'auth-status authenticated';
+          statusEl.innerHTML = `
+            Status: Authenticated<br>
+            User: ${data.username} (${data.userId})<br>
+            Session: ${data.sessionId}
+          `;
+        }
+
+        console.log('Authenticated:', data);
+      }
+
+      /**
+       * Handle navigation request
+       */
+      handleNavigate(data) {
+        if (data && data.path) {
+          // In a real app, use your router
+          console.log('Navigate to:', data.path);
+          window.location.hash = data.path;
+        }
+      }
+
+      /**
+       * Send message to portal
+       */
+      sendToPortal(type, data = {}) {
+        if (!this.portalOrigin) {
+          console.error('Portal origin not known yet');
+          return;
+        }
+
+        const message = {
+          type,
+          data,
+          timestamp: Date.now()
+        };
+
+        window.parent.postMessage(message, this.portalOrigin);
+        this.logMessage('SENT', message);
+      }
+
+      /**
+       * Notify portal that app is ready
+       */
+      notifyReady() {
+        // Send to all possible portal origins
+        const possibleOrigins = [
+          'http://localhost:3456',
+          'http://localhost:3000'
+        ];
+
+        possibleOrigins.forEach(origin => {
+          window.parent.postMessage({
+            type: 'READY',
+            data: {
+              serviceId: 'embedded-app',
+              version: '1.0.0'
+            }
+          }, origin);
+        });
+
+        this.logMessage('SENT', { type: 'READY' });
+      }
+
+      /**
+       * Register message handler
+       */
+      on(type, handler) {
+        if (!this.messageHandlers.has(type)) {
+          this.messageHandlers.set(type, []);
+        }
+        this.messageHandlers.get(type).push(handler);
+      }
+
+      /**
+       * Log message to UI
+       */
+      logMessage(direction, message) {
+        const logEl = document.getElementById('message-log');
+        if (!logEl) return;
+
+        const time = new Date().toLocaleTimeString();
+        const entry = document.createElement('div');
+        entry.className = 'message-entry';
+
+        const arrow = direction === 'SENT' ? '→' : '←';
+        const color = direction === 'SENT' ? '#667eea' : '#27ae60';
+
+        entry.innerHTML = `
+          <span class="message-time">[${time}]</span>
+          <span style="color: ${color}; font-weight: bold;">${arrow} ${direction}</span>
+          <span> ${message.type}</span>
+        `;
+
+        logEl.appendChild(entry);
+        logEl.scrollTop = logEl.scrollHeight;
+      }
+
+      /**
+       * Get authentication data
+       */
+      getAuthData() {
+        return this.authData;
+      }
+
+      /**
+       * Check if authenticated
+       */
+      isAuthenticated() {
+        return this.authenticated;
+      }
+    }
+
+    // Initialize SDK
+    const portalSDK = new PortalEmbeddingSDK();
+
+    // Expose helper functions for examples
+    function sendMessageToPortal(type, data) {
+      portalSDK.sendToPortal(type, data);
+    }
+
+    function requestNavigate(path) {
+      portalSDK.sendToPortal('REQUEST_NAVIGATE', { path });
+    }
+
+    // Example: Listen for custom messages
+    portalSDK.on('CUSTOM_EVENT', (data) => {
+      console.log('Received custom event:', data);
+    });
+
+    // Log when document is fully loaded
+    window.addEventListener('load', () => {
+      portalSDK.logMessage('SYSTEM', { type: 'APP_LOADED' });
+    });
+  </script>
+</body>
+</html>

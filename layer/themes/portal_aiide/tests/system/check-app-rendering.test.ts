@@ -53,8 +53,8 @@ test('debug: check app rendering and console errors', async ({ page }) => {
   }
   
   // Try to take a screenshot for debugging
-  await page.screenshot({ path: 'debug-screenshot.png' });
-  console.log('\nScreenshot saved as debug-screenshot.png');
+  await page.screenshot({ path: 'test-results/portal-aiide-debug-screenshot.png' });
+  console.log('\nScreenshot saved as test-results/portal-aiide-debug-screenshot.png');
   
   // This test should pass if the page loads at all
   expect(hasRoot).toBeGreaterThan(0);

@@ -1,5 +1,7 @@
 # Role: Feature Manager
 
+> **Claude Agent**: [feature-manager](../.claude/agents/feature-manager.md)
+
 ## Responsibilities
 
 The Feature Manager oversees feature development from conception to deployment, ensuring alignment with project goals.

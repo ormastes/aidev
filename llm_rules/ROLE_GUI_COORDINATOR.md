@@ -1,5 +1,7 @@
 # Role: GUI Coordinator
 
+> **Claude Agent**: [gui-coordinator](../.claude/agents/gui-coordinator.md)
+
 ## Responsibilities
 
 The GUI Coordinator manages the design and implementation of user interfaces following the established GUI design workflow.

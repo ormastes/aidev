@@ -1,5 +1,7 @@
 # Role: Authentication Manager
 
+> **Claude Agent**: [auth-manager](../.claude/agents/auth-manager.md)
+
 ## Responsibilities
 
 The Auth Manager implements and maintains secure authentication and authorization systems.
