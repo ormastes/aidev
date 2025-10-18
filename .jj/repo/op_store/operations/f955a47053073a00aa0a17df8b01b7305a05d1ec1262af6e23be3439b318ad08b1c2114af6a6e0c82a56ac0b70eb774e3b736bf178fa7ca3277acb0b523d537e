@@ -1,8 +1,0 @@
-
-@®äæÂF†ýøkoA¾Þ¬Ö:
-Ç«DÞ«Ÿ=wn¨•}cÛ§á>T±á{<l&Æ¶-«vP"À¦·ªhtùTWúb@0©åÚ	gžú»ºh/þÙöÿòó ßýíR¤Â7ßb‹G!”‰jo5ÓÌhŠýÊÚ¢E*Ï¯N|;Ÿ|–ð
-à©±‹3á©±‹3snapshot working copy"dl*ormastes2´
-args«jj log -T 'change_id ++ "à¶žjjk" ++ commit_id ++ "à¶žjjk" ++ author.name() ++ "à¶žjjk" ++ author.email() ++ "à¶žjjk" ++ author.timestamp().local().format("%F %H:%M:%S") ++ "à¶žjjk" ++ description ++ "à¶žjjk" ++ empty ++ "à¶žjjk" ++ conflict ++ "à¶žjjk" ++ diff.files().map(|entry| entry.status() ++ "@?!" ++ entry.source().path().display() ++ "@?!" ++ entry.target().path().display() ++ "@?!" ++ entry.target().conflict()).join("
-") ++ "jjkà¶ž
-"' --no-graph -r zqqptyxs --config-file /home/ormastes/.vscode-server/extensions/jjk.jjk-0.8.1/dist/config.toml8",
-·ÈÑòÔIÿ}L„÷pb)ék¨¸GLë	‡ß‘p-², cYñO·(

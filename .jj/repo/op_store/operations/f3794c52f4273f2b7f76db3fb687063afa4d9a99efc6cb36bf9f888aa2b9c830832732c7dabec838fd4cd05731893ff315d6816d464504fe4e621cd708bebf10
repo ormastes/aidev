@@ -1,19 +1,0 @@
-
-@Èl¾p/æ@›;?šû“ØZãŒ¶]ä¸Ö?:¥×´•a'¿©#
-¹MhÝv¯^G2¥íúmS¡{
-r""Ý˜b@)dÊE±ðF†mØË‚êÅËêÜ“Ó
-ÜÓ˜Ñ0„EÃ/˜ª»íXè?›è }6æ·uFÝ«i<cü‡‹Ž
-ÃÖÕ²‚3ÄÖÕ²‚3snapshot working copy"dl*ormastes2Ò
-argsÉjj log -r :: -n 50 -T '
-        if(root,
-          "root()",
-          concat(
-            self.change_id().short(),
-            " ",
-            parents.map(|p| p.change_id().short()).join(" "),
-            "
-"
-          )
-        )
-        ' --config-file /home/ormastes/.vscode-server/extensions/jjk.jjk-0.8.1/dist/config.toml8",
-oTŒ¦WŸ®fmŒ]ÕWŒ@òÒ¤m,ç±Â¹V,Ž.¸Øh9ÝC]–ì(

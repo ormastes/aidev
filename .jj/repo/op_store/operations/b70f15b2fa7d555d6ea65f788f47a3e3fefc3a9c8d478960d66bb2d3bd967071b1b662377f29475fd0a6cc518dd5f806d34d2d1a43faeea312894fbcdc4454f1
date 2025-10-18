@@ -1,29 +1,0 @@
-
-@A[®×mOà¼dKoÙgëpªÏg5ãÂÉ\ÎBð–OŽ>uÑZ%Ej”m¦.ðÁåG:ºÓ‰òÃ>Wm#†ŽÆ@ïF¶.zj¹0ß5­"©ÌWyigÀBKãÑ“²‘o¸TòÀ»F|2ä0Žð–ÎA®òýBÛRŒÏTGº[R«<û
-”£‘‹3—£‘‹3/commit 86553060474c59a3f05b9ca1919c1fd1ba613647"dl*ormastes2§
-argsžjj commit -m 'Implement comprehensive external module interception system
-
-Created complete external module interception layer in infra_external-log-lib:
-- BaseInterceptor class for all external module interception
-- Specific interceptors for fs, path, child_process, http, https, os, crypto, net, stream
-- Unified external module provider with testable interfaces
-- Configuration system for enabling/disabling interception
-- Call history tracking and validation
-- Security features (blocking dangerous operations)
-
-Migrated 430 files from direct Node.js imports to external-log-lib:
-- All fs imports now use intercepted version
-- All path, child_process, http/https imports updated
-- All os, crypto, net, stream, events imports migrated
-- Automatic path resolution for imports
-
-Benefits:
-- All external calls can be logged and monitored
-- Dangerous operations can be blocked
-- Test mode can mock external dependencies
-- Better security through validation
-- Centralized configuration
-
-The entire codebase now uses testable, intercepted external modules.'"
-¿Á•IêŠhé÷$hã;¿ax",
-ÁÆäý:mÓøF-p¿1p»–Ë—†U0`GLY£ð[œ¡‘œÑºa6G(

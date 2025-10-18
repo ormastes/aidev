@@ -1,40 +1,0 @@
-
-@§¤Ýâl-,WµÝ\$NXl,KÐ›nœô®6aènô/ IÀÐã¢«Ð¡Zð@¨ëDøeé)GwÛ@P`<þrŽcO¸5RIfÚþSòx2‘³Ï¹ð\ÑZ`¿œ…tp¢,ô.~EzÃ€•ìØß0ü	a©ëôÅ
-
-Šß±ÜŠ3ß±ÜŠ3/commit 0d63ddeaec9bebc582d5cd7209af4ec69ae336d0"dl*ormastes2ñ	
-argsè	jj commit -m 'Major refactoring: Clean project structure and restore documentation
-
-- Moved improper files from root to correct locations:
-  - Python scripts â†’ scripts/ollama/
-  - Shell scripts â†’ scripts/setup/
-  - Service files â†’ config/services/
-  - Log files â†’ gen/logs/
-
-- Removed non-compliant directories:
-  - Cleaned ~6,800 node_modules/dist/build directories
-  - Removed 20+ temp directories (preserved gen/temp)
-  - Removed duplicate and backup files
-
-- Restored and refactored LLM documentation:
-  - Restored 12 missing LLM rules files from backups
-  - Created complete STEP_0 through STEP_5 documentation
-  - Added missing ROLE files (AUTH_MANAGER, API_CHECKER, etc.)
-  - Fixed broken links and inconsistent formatting
-  - Created documentation style guide
-
-- Updated .gitignore:
-  - Added patterns for build artifacts (**/node_modules/, **/dist/)
-  - Added temp directory exclusions
-  - Added release/ directory to ignores
-
-- Fixed documentation issues:
-  - Refactored markdown files for consistent styling
-  - Created missing referenced files (PORT_POLICY.md, PLATFORM_STATUS.md)
-  - Updated CLAUDE.md with fixed links
-  - Generated comprehensive cleanup reports
-
-Space saved: ~500MB+
-Project now fully compliant with structure rules.'",
-Ñÿ/ßEšnÐ‚×êoÛ‰äSBècÝêì›ëÅ‚ÕÍr	¯NÆšã6Ð"
-y6q0»E
-AŠ¬øV¸ï/ÛœÌŽb(

@@ -1,17 +1,0 @@
-
-@ú{á2ŽxAãËíÿGÇû§ÇçÊ6÷ýôãRI×¨Êð÷[5GðS*e ìÉ êJÍæ4÷o+d+ˆì™¶X@€¸®\‘.‚u´,fëÅžn=<ú»úš÷¨Ð¹*=Ï	Uó)Üyí\‘€¯Y„O]F/ò*Ä–2ÉAö·tTîí
-Ú¡›çŠ3Ü¡›çŠ3/commit 3187ab6f1e8c38a00241ed521472a48a894783ef"dl*ormastes2™
-argsjj commit -m 'Fix typo: Rename VF1 to VF (Virtual File) throughout codebase
-
-Corrections:
-- Renamed mcp-server-vf1.js to mcp-server-vf.js
-- Renamed test-vf1-functionality.js to test-vf-functionality.js  
-- Renamed VFTaskQueueV1Wrapper.ts to VFTaskQueueVWrapper.ts
-- Updated all class names from VF1Server to VFServer
-- Changed all references from .vf1.json to .vf.json
-- Fixed comments and documentation to use VF instead of VF1
-- Updated tool names from _vf1 to _vf
-
-The \'1\' was a typo - should be VF (Virtual File) not VF1.'"
-9ð‘§ía™ö(/Ñân¹Ô®…A8",
-çcØµ:ìo~gÌîJLÿ6z1‡«oŒ8 AíRr¤Š‰Gƒï(
