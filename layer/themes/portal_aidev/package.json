@@ -9,16 +9,22 @@
     "test:watch": "jest --watch",
     "test:unit": "jest tests/unit",
     "test:integration": "jest tests/integration",
-    "test:system": "jest tests/system",
+    "test:system": "playwright test tests/system",
+    "test:e2e": "playwright test",
     "build": "tsc",
     "lint": "eslint pipe/**/*.ts children/**/*.ts tests/**/*.ts --ext .ts",
-    "start": "node gen/dist/server.js",
-    "dev": "ts-node-dev --respawn src/server.ts"
+    "start": "bun run server-aidev-enhanced.ts",
+    "start:basic": "bun run server-aidev-portal.ts",
+    "dev": "bun --watch server-aidev-enhanced.ts",
+    "start:old": "node gen/dist/server.js"
   },
   "dependencies": {
+    "@elysiajs/html": "^1.4.0",
+    "@elysiajs/static": "^1.4.0",
     "@types/jsonwebtoken": "^9.0.10",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
+    "elysia": "^1.4.6",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
     "socket.io": "^4.5.4"

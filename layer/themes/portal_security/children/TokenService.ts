@@ -201,7 +201,7 @@ export class TokenService {
         issuer: this.issuer
       }) as any;
 
-      if (decoded.type !== "operation" || decoded.operation !== expectedOperation) {
+      if ((decoded as any).type !== "operation" || (decoded as any).operation !== expectedOperation) {
         return null;
       }
 
