@@ -24,24 +24,71 @@ This is the main configuration file for Claude Code working on the AI Developmen
 - 'doc/REQUIREMENT.md' (user requirement)
 - 'gui/GUI_REQUIREMENT.md' (additional user requirement)
 
-## 📚 Documentation Structure
+## Documentation Structure
 
 Documentation is organized under the following directories:
 
 - **[Generated Documentation](gen/doc/)** - Auto-generated documentation and reports
-- **[LLM Rules](llm_rules/)** - Guidelines and role definitions for LLM agents
+- **[LLM Rules](llm_rules/)** - Guidelines and architecture for LLM agents
+- **[Subagents](.claude/agents/)** - Claude Code subagent definitions
 - **[Project Overview](README.md)** - Main project documentation
 
-## 🚀 Essential Information
+## Claude Code Subagents
 
-### For LLM
+Subagents are defined in `.claude/agents/` and automatically invoked based on task matching.
 
-1. **Start Here**: Always read [TASK\_QUEUE.vf.json](TASK_QUEUE.vf.json) first.
+### Available Subagents
+
+| Agent | Auto-Invoke Trigger | Tools |
+|-------|---------------------|-------|
+| `test-runner` | Testing, coverage, TDD | Read, Grep, Glob, Bash, Edit |
+| `code-reviewer` | After code changes | Read, Grep, Glob |
+| `feature-manager` | Feature implementation | Full toolset |
+| `explorer` | QA, bug discovery | Read, Grep, Glob, Bash, WebFetch |
+| `gui-coordinator` | UI/UX design | Read, Write, Edit, Grep, Glob, Bash |
+| `api-checker` | API validation | Read, Grep, Glob, Bash, WebFetch |
+| `auth-manager` | Security, auth | Full toolset |
+| `agent-scheduler` | Multi-agent coordination | Full toolset |
+| `context-manager` | Context optimization | Read, Write, Edit, Grep, Glob |
+| `requirement-analyst` | Requirements, user stories | Read, Write, Edit, Grep, Glob |
+| `ollama-tester` | Local LLM testing | Full toolset |
+
+### Automatic Invocation
+
+Subagents are **automatically invoked** based on task description matching:
+
+```
+User: "Run the tests and fix failures"
+→ Matches test-runner description → Auto-invokes test-runner
+
+User: "Add user authentication with JWT"
+→ Matches auth-manager description → Auto-invokes auth-manager
+
+User: "Design a new dashboard UI"
+→ Matches gui-coordinator description → Auto-invokes gui-coordinator
+```
+
+### Explicit Invocation
+
+Request specific subagents:
+```
+"Use the code-reviewer agent to check my changes"
+"Have the api-checker validate the endpoints"
+```
+
+### Subagent Behavior
+
+- **Stateless**: Each invocation is independent
+- **Single report**: Returns one final report to main session
+- **Tool-restricted**: Each agent has specific tools available
+- **Auto-matched**: Claude Code matches tasks to agent descriptions
+
+## Essential Information
 
 ### For Claude/LLM Agents
 
 1. **Start Here**: Always read [TASK\_QUEUE.vf.json](TASK_QUEUE.vf.json) first
-2. **Your Role**: Check available roles in [llm_rules/](llm_rules/)
+2. **Subagents**: Check `.claude/agents/` for specialized agents
 3. **Architecture**: Understand [Hierarchical Encapsulation Architecture](llm_rules/HIERARCHICALLY_ENCAPSULATED_ARCHITECTURE.md)
 4. **Workflow**: Follow Mock Free Test Oriented Development principles
 
@@ -52,17 +99,15 @@ Documentation is organized under the following directories:
 3. **HEA (Hierarchical Encapsulation Architecture)** – 'src/layer/module/(pipe, children)' for context reduction
 4. **Pipe-Based Communication** – Cross-layer access only through 'pipe/index.ts' gateways
 5. **GUI Design Workflow** – ASCII sketches → 4 candidates → web selection
-6. **In Progress Implementation** – Don't stop until Tests in progress
+6. **Automatic Subagent Delegation** – Let Claude Code match tasks to subagents
 7. **Development Environment Consistency** – VSCode and Claude Code always open same directory
 8. **Deployment Verification** – All apps must be tested on actual emulators/devices
 9. **Production Quality Standards** – 90/100 minimum quality score for production
 10. **Retrospective Compliance** – Every feature must have retrospective in 'gen/history/retrospect/'
 11. **Advanced Coverage Requirements** – Coverage improving with layer-specific requirements
-12. **Rule Compliance** – Follow established rules in 'llm_rules/'
-13. **Rule Understanding** – Read and understand all relevant rules before starting work
-14. **Real E2E Testing with Playwright** – System tests must use actual user interactions (clicking, typing)
+12. **Real E2E Testing with Playwright** – System tests must use actual user interactions (clicking, typing)
 
-## 🎯 Quick Reference
+## Quick Reference
 
 ### GUI Development Process
 
@@ -76,9 +121,8 @@ Documentation is organized under the following directories:
 
 - 'TASK_QUEUE.vf.json' – Current work items
 - 'FEATURE.vf.json' – Feature backlog
-- 'llm_rules/ROLE_GUI_COORDINATOR.md' – In Progress GUI design guidelines
-- 'llm_rules/ROLE_TESTER.md' – Bottom-up testing methodology
-- 'docs/' – All documentation
+- '.claude/agents/' – Subagent definitions
+- 'llm_rules/' – Architecture and process docs
 - '.vscode/settings.json' – VSCode workspace settings
 - 'aidev.code-workspace' – VSCode workspace file
 - 'CHANGELOG.md' – Version history and release notes
@@ -88,14 +132,14 @@ Documentation is organized under the following directories:
 1. **Playwright Integration** – All system tests use Playwright for real browser/VSCode automation
 2. **Real User Interactions** – Tests must click, type, and interact like actual users
 
-## 📊 Current Development State
+## Current Development State
 
 ### Development State Files
 
-- **'TASK_QUEUE.vf.json'** 🟡 ACTIVE (HIGH)
-- **'FEATURE.vf.json'** 📋 BACKLOG (MEDIUM)
-- **'README.md'** 🔄 UPDATING (MEDIUM)
-- **'CLAUDE.md'** 📋 CONFIGURATION (HIGH) – Main configuration file for Claude Code
+- **'TASK_QUEUE.vf.json'** ACTIVE (HIGH)
+- **'FEATURE.vf.json'** BACKLOG (MEDIUM)
+- **'README.md'** UPDATING (MEDIUM)
+- **'CLAUDE.md'** CONFIGURATION (HIGH) – Main configuration file for Claude Code
 
 ### Configuration Files
 
@@ -107,6 +151,7 @@ Documentation is organized under the following directories:
 
 - 'gen/doc/' – Generated documentation and reports
 - 'llm_rules/' – LLM agent guidelines and workflows
+- '.claude/agents/' – Subagent definitions
 - 'README.md' – Main project documentation
 
 ### Important URLs
@@ -114,38 +159,42 @@ Documentation is organized under the following directories:
 - GUI Selection: 'http://localhost:3457'
 - Documentation: 'README.md'
 
-## 📋 Workflow Summary
+## Workflow Summary
 
 ```text
 1. Check TASK_QUEUE.vf.json
-2. Run failing tests
-3. Implement with Mock Free Test Oriented Development
-4. Verify Tests in progress
-5. Run advanced coverage validation
-6. Generate retrospective
-7. Remove from queue
-8. Repeat
+2. Claude auto-invokes appropriate subagent
+3. Run failing tests (test-runner)
+4. Implement with Mock Free Test Oriented Development
+5. Review code (code-reviewer)
+6. Run advanced coverage validation
+7. Generate retrospective
+8. Remove from queue
+9. Repeat
 ```
 
-## 🔗 Quick Links by Task
+## Quick Links by Task
 
 | I want to...     | Go to...                                                                  |
 | ---------------- | ------------------------------------------------------------------------- |
 | See architecture | [llm\_rules/HIERARCHICALLY\_ENCAPSULATED\_ARCHITECTURE.md](llm_rules/HIERARCHICALLY_ENCAPSULATED_ARCHITECTURE.md) |
-| Write tests      | [llm\_rules/ROLE\_TESTER.md](llm_rules/ROLE_TESTER.md)                    |
-| Add a feature    | [llm\_rules/ROLE\_FEATURE\_MANAGER.md](llm_rules/ROLE_FEATURE_MANAGER.md) |
+| Write tests      | [.claude/agents/test-runner.md](.claude/agents/test-runner.md)            |
+| Add a feature    | [.claude/agents/feature-manager.md](.claude/agents/feature-manager.md)    |
 | Fix a bug        | [gen/doc/](gen/doc/)                                                      |
-| Generate GUI     | [llm\_rules/ROLE\_GUI\_COORDINATOR.md](llm_rules/ROLE_GUI_COORDINATOR.md) |
+| Generate GUI     | [.claude/agents/gui-coordinator.md](.claude/agents/gui-coordinator.md)    |
 | Manage rules     | [llm\_rules/README.md](llm_rules/README.md)                               |
+| Review code      | [.claude/agents/code-reviewer.md](.claude/agents/code-reviewer.md)        |
+| Validate APIs    | [.claude/agents/api-checker.md](.claude/agents/api-checker.md)            |
 
-## ⚡ Critical Rules
+## Critical Rules
 
-### MUST DO 🔄
+### MUST DO
 
 - Read TASK\_QUEUE.vf.json before any work
 - Follow Mock Free Test Oriented Development strictly
+- Let Claude Code auto-invoke subagents based on task
 - Generate multiple GUI candidates
-- In Progress all test levels
+- Complete all test levels
 - Generate retrospective document
 - Update documentation
 - Open IDE from project root
@@ -156,12 +205,10 @@ Documentation is organized under the following directories:
 - Test templates with ≥5 iterations
 - Create scripts for routine tasks
 - Retry failed demos with analysis
-- **Follow rules in 'llm_rules/' directory**
-- **Understand rules before implementing features**
 - **System tests MUST use Playwright for real browser interactions (click, type, navigate)**
 - **E2E tests must start from login page and use actual GUI interactions**
 
-### FORBIDDEN 🚫
+### FORBIDDEN
 
 - Direct external library imports
 - Starting new features with pending tasks
@@ -171,57 +218,58 @@ Documentation is organized under the following directories:
 - Breaking established rules without justification
 - Opening IDE from parent directories
 - Running Claude Code from wrong directory
-- Marking apps In Progress without deployment testing
+- Marking apps complete without deployment testing
 - Using React Native 0.73.x with Java 21
-- Releasing templates without Improving test IN PROGRESS
+- Releasing templates without testing
 - Performing manual tasks more than twice without scripting
 - Giving up on failed demos without retry and analysis
 - Completing features without retrospective docs
-- **Ignoring established rules and guidelines**
-- **Working without reading relevant role definitions**
 - **Adding new files to root directory (see DIRECTORY\_STRUCTURE.md)**
 - **Creating backup or .bak files (use source control instead)**
 - **Creating archive, backup, or .bak files/directories (use jj source control instead)**
 - **Writing system tests without real browser interactions (use Playwright for E2E)**
 - **System tests that only test APIs instead of actual user flows**
 - **Do not make different version file or dir but overwrite.**
-- **Manual editing of generated rule files**
 
-## 🤖 MCP Agent Delegation
+## Subagent Delegation
 
-### Available MCP Agents
+### How It Works
 
-Refer to [MCP Integration Guide](llm_rules/ROLE_FEATURE_MANAGER.md) for details.
+1. User requests a task
+2. Claude Code matches task to subagent descriptions
+3. Matching subagent is automatically invoked
+4. Subagent executes with restricted tools
+5. Subagent returns single final report
+6. Main session continues with results
 
-### Script Features
+### Invocation Examples
 
-- **Chat History Capture**: Saved to 'release/chat_history/'
-- **MCP Server**: Auto-start with agent support
-- **System Prompts**: Pre-configured per agent
-- **Release Management**: App instances in 'release/' (git ignored)
-- **Unrestricted Mode**: Full delegation enabled
+```
+# Automatic (recommended)
+User: "Run tests and fix failures"
+→ test-runner auto-invoked
+
+# Explicit
+User: "Use code-reviewer to check changes"
+→ code-reviewer explicitly invoked
+
+# Chained
+requirement-analyst → feature-manager → test-runner → code-reviewer
+```
 
 ### Change Reporting Requirements
 
 All agents MUST report changes made. See [Change Reporting Guide](llm_rules/PROCESS.md).
 
-## 📋 LLM Rules Structure
+## LLM Rules Structure
 
-- **LLM Rules**: 'llm_rules/' - Guidelines and workflows for LLM agents
+- **LLM Rules**: 'llm_rules/' - Architecture, process, and methodology
+- **Subagents**: '.claude/agents/' - Agent definitions with full instructions
 - **Process Documentation**: 'llm_rules/PROCESS.md' - Development processes
-- **Role Definitions**: Various ROLE_*.md files define specific agent responsibilities
-- **Template System**: Consider implementing template-based rule generation for consistency
-
-### Benefits of Template-Based Structure (Future Enhancement)
-- **Consistent Generation**: All rules generated from authoritative templates
-- **Version Control**: Template changes tracked and managed
-- **No Manual Editing**: Eliminates manual rule file editing errors
-- **Automatic Sync**: CLAUDE.md and rule files automatically synchronized
-- **Variable Substitution**: Dynamic content based on project configuration
 
 **Note**: For full details, see [gen/doc/](gen/doc/) and [llm_rules/](llm_rules/).
 
-## 🗂️ VF.json Schema Management
+## VF.json Schema Management
 
 The filesystem-mcp theme manages all vf.json schema files centrally:
 
